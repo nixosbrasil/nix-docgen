@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
+CWD="$(realpath .)"
+
 function fetch_nixpkgs() {
     nix-prefetch-url --print-path --unpack "https://github.com/NixOS/nixpkgs/archive/$1.zip" | tail -n 1
 }
 
 function build_docs() {
-    nix-build --no-out-link --argstr path "$(fetch_nixpkgs "$1")"
+    nix-build --argstr path "$(fetch_nixpkgs "$1")"
 }
 
 function build_branch() {
@@ -16,7 +18,16 @@ function build_branches() {
     rm -rf target
     mkdir -p target
     for branch in "$@"; do
-        OUT_LINK="$(build_branch "$branch")" && cp -rL "$OUT_LINK" "target/$branch"
+        OUT_LINK="$(build_branch "$branch")" && {
+            pushd "$OUT_LINK" > /dev/null
+                find . -type d | while read line; do
+                    mkdir -p "$CWD/target/$line"
+                done
+                find . -type l | while read line; do
+                    cp "$line" "$CWD/target/$line" --preserve=timestamps
+                done
+            popd > /dev/null
+        }
     done
 }
 
