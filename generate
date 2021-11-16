@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+function fetch_nixpkgs() {
+    nix-prefetch-url --print-path --unpack "https://github.com/NixOS/nixpkgs/archive/$1.zip" | tail -n 1
+}
+
+function build_docs() {
+    nix-build --no-out-link --argstr path "$(fetch_nixpkgs "$1")"
+}
+
+function build_branch() {
+    echo "$(build_docs "$1")/share/doc"
+}
+
+function build_branches() {
+    rm -rf target
+    mkdir -p target
+    for branch in "$@"; do
+        OUT_LINK="$(build_branch "$branch")" && cp -rL "$OUT_LINK" "target/$branch"
+    done
+}
+
+function generate_html() {
+    {
+    echo '<html>'
+        echo '<head>'
+            echo '<meta charset="utf-8">'
+            echo '<title>Available built documentation</title>'
+    echo '<style>'
+    echo ' '
+    echo '</style>'
+        echo '</head>'
+        echo '<body>'
+            echo '<h1>nixpkgs/NixOS documentation</h1>'
+            echo "<p>Generated at $(date)</p>"
+            for branch in "$@"; do
+                echo "<section id="branch-$branch">"
+                    echo "<h1><b>Branch:</b> $branch</h1>"
+                    echo '<ul>'
+                        echo "<li><a href=\"$branch/nixpkgs/manual.html\">nixpkgs manual</a></li>"
+                        echo "<li><a href=\"$branch/nixpkgs/nixpkgs-manual.epub\">nixpkgs manual (epub)</a></li>"
+                        echo "<li><a href=\"$branch/nixos/index.html\">NixOS documentation</a></li>"
+                        echo "<li><a href=\"$branch/nixos/options.html\">NixOS options</a></li>"
+                        echo "<li><a href=\"$branch/nixos/release-notes.html\">NixOS release notes</a></li>"
+                    echo '</ul>'
+                echo '</section>'
+            done
+        echo '</body>'
+    echo '</html>'
+    } > target/index.html
+}
+
+build_branches "$@"
+generate_html "$@"
