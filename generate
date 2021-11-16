@@ -3,7 +3,11 @@
 CWD="$(realpath .)"
 
 function fetch_nixpkgs() {
-    nix-prefetch-url --print-path --unpack "https://github.com/NixOS/nixpkgs/archive/$1.zip" | tail -n 1
+    URL="$1"
+    if [[ ! "$URL" =~ ^https?:\/\/ ]]; then
+        URL="https://github.com/NixOS/nixpkgs/archive/$URL.zip"
+    fi
+    nix-prefetch-url "$URL" --print-path --unpack  | tail -n 1
 }
 
 function build_docs() {
