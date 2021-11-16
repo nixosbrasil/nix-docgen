@@ -20,11 +20,12 @@ function build_branches() {
     for branch in "$@"; do
         OUT_LINK="$(build_branch "$branch")" && {
             pushd "$OUT_LINK" > /dev/null
+                mkdir "$CWD/target/$branch"
                 find . -type d | while read line; do
-                    mkdir -p "$CWD/target/$line"
+                    mkdir -p "$CWD/target/$branch/$line"
                 done
                 find . -type l | while read line; do
-                    cp "$line" "$CWD/target/$line" --preserve=timestamps
+                    cp "$line" "$CWD/target/$branch/$line" --preserve=timestamps
                 done
             popd > /dev/null
         }
