@@ -777,6 +777,14 @@ Superuser created successfully.
           The default GNAT version has been changed: The
           <code class="literal">gnat</code> attribute now points to
           <code class="literal">gnat11</code> instead of <code class="literal">gnat9</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">retroArchCores</code> has been removed. This means
+          that using <code class="literal">nixpkgs.config.retroarch</code> to
+          customize RetroArch cores is not supported anymore. Instead,
+          use package overrides, for example:
+          <code class="literal">retroarch.override { cores = with libretro; [ citra snes9x ]; };</code>.
+          Also, <code class="literal">retroarchFull</code> derivation is available
+          for those who want to have all RetroArch cores available.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The linux kernel package infrastructure was moved out of
           <code class="literal">all-packages.nix</code>, and restructured. Linux
@@ -1159,6 +1167,13 @@ Superuser created successfully.
           <code class="literal">julia-lts</code>. In practice this means it has
           been upgraded from <code class="literal">1.0.4</code> to
           <code class="literal">1.5.4</code>.
+        </p></li><li class="listitem"><p>
+          RetroArch has been upgraded from version
+          <code class="literal">1.8.5</code> to <code class="literal">1.9.13.2</code>. Since
+          the previous release was quite old, if you’re having issues
+          after the upgrade, please delete your
+          <code class="literal">$XDG_CONFIG_HOME/retroarch/retroarch.cfg</code>
+          file.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.05"></a>B.2. Release 21.05 (<span class="quote">“<span class="quote">Okapi</span>”</span>, 2021.05/31)</h2></div></div></div><p>
     Support is planned until the end of December 2021, handing over to
     21.11.
