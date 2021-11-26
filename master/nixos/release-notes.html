@@ -87,6 +87,24 @@
               These can be re-enabled, see the
               <a class="link" href="https://www.openssh.com/txt/release-8.8" target="_top">OpenSSH
               changelog</a> for details
+            </p></li></ul></div></li><li class="listitem"><p>
+          ORY Kratos was updated to version 0.8.0-alpha.3
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              This release requires you to run SQL migrations. Please,
+              as always, create a backup of your database first!
+            </p></li><li class="listitem"><p>
+              The SDKs are now generated with tag v0alpha2 to reflect
+              that some signatures have changed in a breaking fashion.
+              Please update your imports from v0alpha1 to v0alpha2.
+            </p></li><li class="listitem"><p>
+              The SMTPS scheme used in courier config URL with
+              cleartext/StartTLS/TLS SMTP connection types is now only
+              supporting implicit TLS. For StartTLS and cleartext SMTP,
+              please use the SMTP scheme instead.
+            </p></li><li class="listitem"><p>
+              for more details, see
+              <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.0-alpha.1" target="_top">Release
+              Notes</a>.
             </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://digint.ch/btrbk/index.html" target="_top">btrbk</a>,
           a backup tool for btrfs subvolumes, taking advantage of btrfs
