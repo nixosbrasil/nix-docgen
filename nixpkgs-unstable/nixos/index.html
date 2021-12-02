@@ -2949,7 +2949,7 @@ networking.localCommands =
       <code class="literal">52:54:00:12:01:01</code> using a netword link unit:
     </p><pre class="programlisting">
 systemd.network.links."10-wan" = {
-  matchConfig.MACAddress = "52:54:00:12:01:01";
+  matchConfig.PermanentMACAddress = "52:54:00:12:01:01";
   linkConfig.Name = "wan";
 };
 </pre><p>
@@ -3251,7 +3251,7 @@ switchboard-with-plugs.override {
      Does AppCenter work, or is it available?
     </span></dt><dd><p>
       AppCenter has been available since 20.03, but it is of little use. This is because there is no functioning PackageKit backend for Nix 2.0. The Flatpak backend will not work before <a class="link" href="https://github.com/elementary/appcenter/issues/1076" target="_top">flag for Flatpak-only</a> is provided. See this <a class="link" href="https://github.com/NixOS/nixpkgs/issues/70214" target="_top">issue</a>.
-     </p></dd></dl></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-gnome"></a>Chapter 17. GNOME Desktop</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-gnome-enable">17.1. Enabling GNOME</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-enable-flashback">17.2. Enabling GNOME Flashback</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-gdm">17.3. GDM</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-icons-and-gtk-themes">17.4. Icons and GTK Themes</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-shell-extensions">17.5. Shell Extensions</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-gsettings-overrides">17.6. GSettings Overrides</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-faq">17.7. Frequently Asked Questions</a></span></dt></dl></div><p>
+     </p></dd></dl></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-gnome"></a>Chapter 17. GNOME Desktop</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-gnome-enable">17.1. Enabling GNOME</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-enable-flashback">17.2. Enabling GNOME Flashback</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-icons-and-gtk-themes">17.3. Icons and GTK Themes</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-shell-extensions">17.4. Shell Extensions</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-gsettings-overrides">17.5. GSettings Overrides</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-faq">17.6. Frequently Asked Questions</a></span></dt></dl></div><p>
   GNOME provides a simple, yet full-featured desktop environment with a focus on productivity. Its Mutter compositor supports both Wayland and X server, and the GNOME Shell user interface is fully customizable by extensions.
  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-enable"></a>17.1. Enabling GNOME</h2></div></div></div><p>
    All of the core apps, optional apps, games, and core developer tools from GNOME are available.
@@ -3261,7 +3261,7 @@ switchboard-with-plugs.override {
 <a class="xref" href="options.html#opt-services.xserver.desktopManager.gnome.enable"><code class="option">services.xserver.desktopManager.gnome.enable</code></a> = true;
 <a class="xref" href="options.html#opt-services.xserver.displayManager.gdm.enable"><code class="option">services.xserver.displayManager.gdm.enable</code></a> = true;
 </pre><div class="note"><h3 class="title">Note</h3><p>
-    While it is not strictly necessary to use GDM as the display manager with GNOME, it is recommended, as some features such as screen lock <a class="link" href="index.html#sec-gnome-faq-can-i-use-lightdm-with-gnome" title="17.7.1. Can I use LightDM with GNOME?">might not work</a> without it.
+    While it is not strictly necessary to use GDM as the display manager with GNOME, it is recommended, as some features such as screen lock <a class="link" href="index.html#sec-gnome-faq-can-i-use-lightdm-with-gnome" title="17.6.1. Can I use LightDM with GNOME?">might not work</a> without it.
    </p></div><p>
    The default applications used in NixOS are very minimal, inspired by the defaults used in <a class="link" href="https://gitlab.gnome.org/GNOME/gnome-build-meta/blob/40.0/elements/core/meta-gnome-core-utilities.bst" target="_top">gnome-build-meta</a>.
   </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-without-the-apps"></a>17.1.1. GNOME without the apps</h3></div></div></div><p>
@@ -3305,13 +3305,7 @@ switchboard-with-plugs.override {
     enableGnomePanel = false;
   }
 ];
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-gdm"></a>17.3. GDM</h2></div></div></div><p>
-   If you want to use GNOME Wayland session on Nvidia hardware, you need to enable:
-  </p><pre class="programlisting">
-<a class="xref" href="options.html#opt-services.xserver.displayManager.gdm.nvidiaWayland"><code class="option">services.xserver.displayManager.gdm.nvidiaWayland</code></a> = true;
-</pre><p>
-   as the default configuration will forbid this.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-icons-and-gtk-themes"></a>17.4. Icons and GTK Themes</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-icons-and-gtk-themes"></a>17.3. Icons and GTK Themes</h2></div></div></div><p>
    Icon themes and GTK themes don’t require any special option to install in NixOS.
   </p><p>
    You can add them to <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a> and switch to them with GNOME Tweaks.
@@ -3321,7 +3315,7 @@ switchboard-with-plugs.override {
 /org/gnome/desktop/interface/icon-theme
 </pre><p>
    in <code class="literal">dconf-editor</code>
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-shell-extensions"></a>17.5. Shell Extensions</h2></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-shell-extensions"></a>17.4. Shell Extensions</h2></div></div></div><p>
    Most Shell extensions are packaged under the <code class="literal">gnomeExtensions</code> attribute.
    Some packages that include Shell extensions, like <code class="literal">gnome.gpaste</code>, don’t have their extension decoupled under this attribute.
   </p><p>
@@ -3335,8 +3329,8 @@ switchboard-with-plugs.override {
 </pre><p>
    Unfortunately, we lack a way for these to be managed in a completely declarative way.
    So you have to enable them manually with an Extensions application.
-   It is possible to use a <a class="link" href="index.html#sec-gnome-gsettings-overrides" title="17.6. GSettings Overrides">GSettings override</a> for this on <code class="literal">org.gnome.shell.enabled-extensions</code>, but that will only influence the default value.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-gsettings-overrides"></a>17.6. GSettings Overrides</h2></div></div></div><p>
+   It is possible to use a <a class="link" href="index.html#sec-gnome-gsettings-overrides" title="17.5. GSettings Overrides">GSettings override</a> for this on <code class="literal">org.gnome.shell.enabled-extensions</code>, but that will only influence the default value.
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-gsettings-overrides"></a>17.5. GSettings Overrides</h2></div></div></div><p>
    Majority of software building on the GNOME platform use GLib’s <a class="link" href="https://developer.gnome.org/gio/unstable/GSettings.html" target="_top">GSettings</a> system to manage runtime configuration. For our purposes, the system consists of XML schemas describing the individual configuration options, stored in the package, and a settings backend, where the values of the settings are stored. On NixOS, like on most Linux distributions, dconf database is used as the backend.
   </p><p>
    <a class="link" href="https://developer.gnome.org/gio/unstable/GSettings.html#id-1.4.19.2.9.25" target="_top">GSettings vendor overrides</a> can be used to adjust the default values for settings of the GNOME desktop and apps by replacing the default values specified in the XML schemas. Using overrides will allow you to pre-seed user settings before you even start the session.
@@ -3349,7 +3343,7 @@ switchboard-with-plugs.override {
    <a class="xref" href="options.html#opt-services.xserver.desktopManager.gnome.extraGSettingsOverridePackages"><code class="option">services.xserver.desktopManager.gnome.extraGSettingsOverridePackages</code></a>.
   </p><p>
    You can use <code class="literal">dconf-editor</code> tool to explore which GSettings you can set.
-  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-gsettings-overrides-example"></a>17.6.1. Example</h3></div></div></div><pre class="programlisting">
+  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-gsettings-overrides-example"></a>17.5.1. Example</h3></div></div></div><pre class="programlisting">
 services.xserver.desktopManager.gnome = {
   <a class="link" href="options.html#opt-services.xserver.desktopManager.gnome.extraGSettingsOverrides">extraGSettingsOverrides</a> = ''
     # Change default background
@@ -3366,14 +3360,14 @@ services.xserver.desktopManager.gnome = {
     pkgs.gnome.gnome-shell # for org.gnome.shell
   ];
 };
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-faq"></a>17.7. Frequently Asked Questions</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-faq-can-i-use-lightdm-with-gnome"></a>17.7.1. Can I use LightDM with GNOME?</h3></div></div></div><p>
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-gnome-faq"></a>17.6. Frequently Asked Questions</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-faq-can-i-use-lightdm-with-gnome"></a>17.6.1. Can I use LightDM with GNOME?</h3></div></div></div><p>
     Yes you can, and any other display-manager in NixOS.
    </p><p>
     However, it doesn’t work correctly for the Wayland session of GNOME Shell yet, and
     won’t be able to lock your screen.
    </p><p>
     See <a class="link" href="https://github.com/NixOS/nixpkgs/issues/56342" target="_top">this issue.</a>
-   </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-faq-nixos-rebuild-switch-kills-session"></a>17.7.2. Why does <code class="literal">nixos-rebuild switch</code> sometimes kill my session?</h3></div></div></div><p>
+   </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-faq-nixos-rebuild-switch-kills-session"></a>17.6.2. Why does <code class="literal">nixos-rebuild switch</code> sometimes kill my session?</h3></div></div></div><p>
     This is a known <a class="link" href="https://github.com/NixOS/nixpkgs/issues/44344" target="_top">issue</a> without any workarounds.
     If you are doing a fairly large upgrade, it is probably safer to use <code class="literal">nixos-rebuild boot</code>.
    </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-matomo"></a>Chapter 18. Matomo</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-matomo-database-setup">18.1. Database Setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-archive-processing">18.2. Archive Processing</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-backups">18.3. Backup</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-issues">18.4. Issues</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-other-web-servers">18.5. Using other Web Servers than nginx</a></span></dt></dl></div><p>
@@ -7001,7 +6995,7 @@ RFC2136_TSIG_SECRET='your secret key'
 EOF
 chmod 400 /var/lib/secrets/certs.secret
 </pre><p>
-   Now you're all set to generate certs! You should monitor the first invokation
+   Now you're all set to generate certs! You should monitor the first invocation
    by running <code class="literal">systemctl start acme-example.com.service &amp;
    journalctl -fu acme-example.com.service</code> and watching its log output.
   </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-regenerate"></a>49.6. Regenerating certificates</h2></div></div></div><p>
