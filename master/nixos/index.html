@@ -6270,37 +6270,48 @@ in {
 </p><pre class="programlisting">
 <a class="xref" href="options.html#opt-services.postgresql.dataDir"><code class="option">services.postgresql.dataDir</code></a> = "/data/postgresql";
 </pre><p>
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-postgres-upgrading"></a>46.2. Upgrading</h2></div></div></div><p>
-   Major PostgreSQL upgrade requires PostgreSQL downtime and a few imperative steps to be called. To simplify this process, use the following NixOS module:
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-postgres-upgrading"></a>46.2. Upgrading</h2></div></div></div><div class="note"><h3 class="title">Note</h3><p>
+    The steps below demonstrate how to upgrade from an older version to <span class="package">pkgs.postgresql_13</span>.
+    These instructions are also applicable to other versions.
+   </p></div><p>
+   Major PostgreSQL upgrades require a downtime and a few imperative steps to be called. This is the case because
+   each major version has some internal changes in the databases' state during major releases. Because of that,
+   NixOS places the state into <code class="filename">/var/lib/postgresql/&lt;version&gt;</code> where each <code class="literal">version</code>
+   can be obtained like this:
 </p><pre class="programlisting">
-  containers.temp-pg.config.services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_12;
-    ## set a custom new dataDir
-    # dataDir = "/some/data/dir";
-  };
-  environment.systemPackages =
-    let newpg = config.containers.temp-pg.config.services.postgresql;
-    in [
-      (pkgs.writeScriptBin "upgrade-pg-cluster" ''
-        set -x
-        export OLDDATA="${config.services.postgresql.dataDir}"
-        export NEWDATA="${newpg.dataDir}"
-        export OLDBIN="${config.services.postgresql.package}/bin"
-        export NEWBIN="${newpg.package}/bin"
+<code class="prompt">$ </code>nix-instantiate --eval -A postgresql_13.psqlSchema
+"13"
+</pre><p>
+   For an upgrade, a script like this can be used to simplify the process:
+</p><pre class="programlisting">
+{ config, pkgs, ... }:
+{
+  <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a> = [
+    (pkgs.writeScriptBin "upgrade-pg-cluster" ''
+      set -eux
+      # XXX it's perhaps advisable to stop all services that depend on postgresql
+      systemctl stop postgresql
 
-        install -d -m 0700 -o postgres -g postgres "$NEWDATA"
-        cd "$NEWDATA"
-        sudo -u postgres $NEWBIN/initdb -D "$NEWDATA"
+      # XXX replace `&lt;new version&gt;` with the psqlSchema here
+      export NEWDATA="/var/lib/postgresql/&lt;new version&gt;"
 
-        systemctl stop postgresql    # old one
+      # XXX specify the postgresql package you'd like to upgrade to
+      export NEWBIN="${pkgs.postgresql_13}/bin"
 
-        sudo -u postgres $NEWBIN/pg_upgrade \
-          --old-datadir "$OLDDATA" --new-datadir "$NEWDATA" \
-          --old-bindir $OLDBIN --new-bindir $NEWBIN \
-          "$@"
-      '')
-    ];
+      export OLDDATA="${config.<a class="xref" href="options.html#opt-services.postgresql.dataDir"><code class="option">services.postgresql.dataDir</code></a>}"
+      export OLDBIN="${config.<a class="xref" href="options.html#opt-services.postgresql.package"><code class="option">services.postgresql.package</code></a>}/bin"
+
+      install -d -m 0700 -o postgres -g postgres "$NEWDATA"
+      cd "$NEWDATA"
+      sudo -u postgres $NEWBIN/initdb -D "$NEWDATA"
+
+      sudo -u postgres $NEWBIN/pg_upgrade \
+        --old-datadir "$OLDDATA" --new-datadir "$NEWDATA" \
+        --old-bindir $OLDBIN --new-bindir $NEWBIN \
+        "$@"
+    '')
+  ];
+}
 </pre><p>
   </p><p>
    The upgrade process is:
@@ -6309,11 +6320,19 @@ in {
     </p></li><li class="listitem"><p>
      Login as root (<code class="literal">sudo su -</code>)
     </p></li><li class="listitem"><p>
-     Run <code class="literal">upgrade-pg-cluster</code>. It will stop old postgresql, initialize new one and migrate old one to new one. You may supply arguments like <code class="literal">--jobs 4</code> and <code class="literal">--link</code> to speedup migration process. See <a class="link" href="https://www.postgresql.org/docs/current/pgupgrade.html" target="_top">https://www.postgresql.org/docs/current/pgupgrade.html</a> for details.
+     Run <code class="literal">upgrade-pg-cluster</code>. It will stop old postgresql, initialize a new one and migrate the old one to the new one. You may supply arguments like <code class="literal">--jobs 4</code> and <code class="literal">--link</code> to speedup migration process. See <a class="link" href="https://www.postgresql.org/docs/current/pgupgrade.html" target="_top">https://www.postgresql.org/docs/current/pgupgrade.html</a> for details.
     </p></li><li class="listitem"><p>
-     Change postgresql package in NixOS configuration to the one you were upgrading to, and change <code class="literal">dataDir</code> to the one you have migrated to. Rebuild NixOS. This should start new postgres using upgraded data directory.
+     Change postgresql package in NixOS configuration to the one you were upgrading to via <a class="xref" href="options.html#opt-services.postgresql.package"><code class="option">services.postgresql.package</code></a>. Rebuild NixOS. This should start new postgres using upgraded data directory and all services you stopped during the upgrade.
     </p></li><li class="listitem"><p>
-     After upgrade you may want to <code class="literal">ANALYZE</code> new db.
+     After the upgrade it's advisable to analyze the new cluster (as <code class="literal">su -l postgres</code> in the
+     <a class="xref" href="options.html#opt-services.postgresql.dataDir"><code class="option">services.postgresql.dataDir</code></a>, in this example <code class="filename">/var/lib/postgresql/13</code>):
+</p><pre class="programlisting">
+<code class="prompt">$ </code>./analyze_new_cluster.sh
+</pre><p>
+     </p><div class="warning"><h3 class="title">Warning</h3><p>The next step removes the old state-directory!</p></div><p>
+</p><pre class="programlisting">
+<code class="prompt">$ </code>./delete_old_cluster.sh
+</pre><p>
     </p></li></ol></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-postgres-options"></a>46.3. Options</h2></div></div></div><p>
    A complete list of options for the PostgreSQL module may be found <a class="link" href="options.html#opt-services.postgresql.enable">here</a>.
   </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-postgres-plugins"></a>46.4. Plugins</h2></div></div></div><p>
