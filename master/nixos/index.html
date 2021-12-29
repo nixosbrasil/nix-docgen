@@ -5243,13 +5243,12 @@ screen -x weechat/weechat-screen
   <a class="link" href="options.html#opt-services.sourcehut.enable">services.sourcehut</a>.
  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-sourcehut-basic-usage"></a>37.1. Basic usage</h2></div></div></div><p>
    Sourcehut is a Python and Go based set of applications.
-   <code class="literal"><a class="link" href="options.html#opt-services.sourcehut.enable">services.sourcehut</a></code>
-   by default will use
+   This NixOS module also provides basic configuration integrating Sourcehut into locally running
    <code class="literal"><a class="link" href="options.html#opt-services.nginx.enable">services.nginx</a></code>,
-   <code class="literal"><a class="link" href="options.html#opt-services.nginx.enable">services.redis</a></code>,
-   <code class="literal"><a class="link" href="options.html#opt-services.nginx.enable">services.cron</a></code>,
+   <code class="literal"><a class="link" href="options.html#opt-services.redis.servers">services.redis.servers.sourcehut</a></code>,
+   <code class="literal"><a class="link" href="options.html#opt-services.postfix.enable">services.postfix</a></code>
    and
-   <code class="literal"><a class="link" href="options.html#opt-services.postgresql.enable">services.postgresql</a></code>.
+   <code class="literal"><a class="link" href="options.html#opt-services.postgresql.enable">services.postgresql</a></code> services.
   </p><p>
    A very basic configuration may look like this:
 </p><pre class="programlisting">
@@ -5269,18 +5268,23 @@ in {
 
   services.sourcehut = {
     <a class="link" href="options.html#opt-services.sourcehut.enable">enable</a> = true;
-    <a class="link" href="options.html#opt-services.sourcehut.originBase">originBase</a> = fqdn;
-    <a class="link" href="options.html#opt-services.sourcehut.services">services</a> = [ "meta" "man" "git" ];
+    <a class="link" href="options.html#opt-services.sourcehut.git.enable">git.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.man.enable">man.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.meta.enable">meta.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.nginx.enable">nginx.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.postfix.enable">postfix.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.postgresql.enable">postgresql.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.redis.enable">redis.enable</a> = true;
     <a class="link" href="options.html#opt-services.sourcehut.settings">settings</a> = {
         "sr.ht" = {
           environment = "production";
           global-domain = fqdn;
           origin = "https://${fqdn}";
           # Produce keys with srht-keygen from <span class="package">sourcehut.coresrht</span>.
-          network-key = "SECRET";
-          service-key = "SECRET";
+          network-key = "/run/keys/path/to/network-key";
+          service-key = "/run/keys/path/to/service-key";
         };
-        webhooks.private-key= "SECRET";
+        webhooks.private-key= "/run/keys/path/to/webhook-key";
     };
   };
 
