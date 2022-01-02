@@ -3942,7 +3942,7 @@ services.keycloak = {
   };
   <a class="link" href="options.html#opt-services.jitsi-videobridge.openFirewall">services.jitsi-videobridge.openFirewall</a> = true;
   <a class="link" href="options.html#opt-networking.firewall.allowedTCPPorts">networking.firewall.allowedTCPPorts</a> = [ 80 443 ];
-  <a class="link" href="options.html#opt-security.acme.email">security.acme.email</a> = "me@example.com";
+  <a class="link" href="options.html#opt-security.acme.defaults.email">security.acme.email</a> = "me@example.com";
   <a class="link" href="options.html#opt-security.acme.acceptTerms">security.acme.acceptTerms</a> = true;
 }</pre><p>
    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-jitsi-configuration"></a>24.2. Configuration</h2></div></div></div><p>
@@ -3963,7 +3963,7 @@ services.keycloak = {
   };
   <a class="link" href="options.html#opt-services.jitsi-videobridge.openFirewall">services.jitsi-videobridge.openFirewall</a> = true;
   <a class="link" href="options.html#opt-networking.firewall.allowedTCPPorts">networking.firewall.allowedTCPPorts</a> = [ 80 443 ];
-  <a class="link" href="options.html#opt-security.acme.email">security.acme.email</a> = "me@example.com";
+  <a class="link" href="options.html#opt-security.acme.defaults.email">security.acme.email</a> = "me@example.com";
   <a class="link" href="options.html#opt-security.acme.acceptTerms">security.acme.acceptTerms</a> = true;
 }</pre><p>
    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-grocy"></a>Chapter 25. Grocy</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-grocy-basic-usage">25.1. Basic usage</a></span></dt><dt><span class="section"><a href="index.html#module-services-grocy-settings">25.2. Settings</a></span></dt></dl></div><p>
@@ -4038,7 +4038,7 @@ services.discourse = {
   };
   <a class="link" href="options.html#opt-services.discourse.secretKeyBaseFile">secretKeyBaseFile</a> = "/path/to/secret_key_base_file";
 };
-<a class="link" href="options.html#opt-security.acme.email">security.acme.email</a> = "me@example.com";
+<a class="link" href="options.html#opt-security.acme.defaults.email">security.acme.email</a> = "me@example.com";
 <a class="link" href="options.html#opt-security.acme.acceptTerms">security.acme.acceptTerms</a> = true;
 </pre><p>
    </p><p>
@@ -4517,7 +4517,7 @@ services.prosody = {
    a TLS certificate for the three endponits:
     </p><pre class="programlisting">
 security.acme = {
-  <a class="link" href="options.html#opt-security.acme.email">email</a> = "root@example.org";
+  <a class="link" href="options.html#opt-security.acme.defaults.email">email</a> = "root@example.org";
   <a class="link" href="options.html#opt-security.acme.acceptTerms">acceptTerms</a> = true;
   <a class="link" href="options.html#opt-security.acme.certs">certs</a> = {
     "example.org" = {
@@ -5243,13 +5243,12 @@ screen -x weechat/weechat-screen
   <a class="link" href="options.html#opt-services.sourcehut.enable">services.sourcehut</a>.
  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-sourcehut-basic-usage"></a>37.1. Basic usage</h2></div></div></div><p>
    Sourcehut is a Python and Go based set of applications.
-   <code class="literal"><a class="link" href="options.html#opt-services.sourcehut.enable">services.sourcehut</a></code>
-   by default will use
+   This NixOS module also provides basic configuration integrating Sourcehut into locally running
    <code class="literal"><a class="link" href="options.html#opt-services.nginx.enable">services.nginx</a></code>,
-   <code class="literal"><a class="link" href="options.html#opt-services.nginx.enable">services.redis</a></code>,
-   <code class="literal"><a class="link" href="options.html#opt-services.nginx.enable">services.cron</a></code>,
+   <code class="literal"><a class="link" href="options.html#opt-services.redis.servers">services.redis.servers.sourcehut</a></code>,
+   <code class="literal"><a class="link" href="options.html#opt-services.postfix.enable">services.postfix</a></code>
    and
-   <code class="literal"><a class="link" href="options.html#opt-services.postgresql.enable">services.postgresql</a></code>.
+   <code class="literal"><a class="link" href="options.html#opt-services.postgresql.enable">services.postgresql</a></code> services.
   </p><p>
    A very basic configuration may look like this:
 </p><pre class="programlisting">
@@ -5269,18 +5268,23 @@ in {
 
   services.sourcehut = {
     <a class="link" href="options.html#opt-services.sourcehut.enable">enable</a> = true;
-    <a class="link" href="options.html#opt-services.sourcehut.originBase">originBase</a> = fqdn;
-    <a class="link" href="options.html#opt-services.sourcehut.services">services</a> = [ "meta" "man" "git" ];
+    <a class="link" href="options.html#opt-services.sourcehut.git.enable">git.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.man.enable">man.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.meta.enable">meta.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.nginx.enable">nginx.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.postfix.enable">postfix.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.postgresql.enable">postgresql.enable</a> = true;
+    <a class="link" href="options.html#opt-services.sourcehut.redis.enable">redis.enable</a> = true;
     <a class="link" href="options.html#opt-services.sourcehut.settings">settings</a> = {
         "sr.ht" = {
           environment = "production";
           global-domain = fqdn;
           origin = "https://${fqdn}";
           # Produce keys with srht-keygen from <span class="package">sourcehut.coresrht</span>.
-          network-key = "SECRET";
-          service-key = "SECRET";
+          network-key = "/run/keys/path/to/network-key";
+          service-key = "/run/keys/path/to/service-key";
         };
-        webhooks.private-key= "SECRET";
+        webhooks.private-key= "/run/keys/path/to/webhook-key";
     };
   };
 
@@ -6820,11 +6824,12 @@ sudo borg init --encryption=repokey-blake2  \
   </p><p>
     Details about using Vorta can be found under <a class="link" href="https://vorta.borgbase.com/usage" target="_top">https://vorta.borgbase.com
       </a>.
-  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-security-acme"></a>Chapter 49. SSL/TLS Certificates with ACME</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-security-acme-prerequisites">49.1. Prerequisites</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-nginx">49.2. Using ACME certificates in Nginx</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-httpd">49.3. Using ACME certificates in Apache/httpd</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-configuring">49.4. Manual configuration of HTTP-01 validation</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-config-dns">49.5. Configuring ACME for DNS validation</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-regenerate">49.6. Regenerating certificates</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-fix-jws">49.7. Fixing JWS Verification error</a></span></dt></dl></div><p>
+  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-security-acme"></a>Chapter 49. SSL/TLS Certificates with ACME</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-security-acme-prerequisites">49.1. Prerequisites</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-nginx">49.2. Using ACME certificates in Nginx</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-httpd">49.3. Using ACME certificates in Apache/httpd</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-configuring">49.4. Manual configuration of HTTP-01 validation</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-config-dns">49.5. Configuring ACME for DNS validation</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-config-dns-with-vhosts">49.6. Using DNS validation with web server virtual hosts</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-root-owned">49.7. Using ACME with services demanding root owned certificates</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-regenerate">49.8. Regenerating certificates</a></span></dt><dt><span class="section"><a href="index.html#module-security-acme-fix-jws">49.9. Fixing JWS Verification error</a></span></dt></dl></div><p>
   NixOS supports automatic domain validation &amp; certificate retrieval and
   renewal using the ACME protocol. Any provider can be used, but by default
-  NixOS uses Let's Encrypt. The alternative ACME client <code class="literal">lego</code>
-  is used under the hood.
+  NixOS uses Let's Encrypt. The alternative ACME client
+  <a class="link" href="https://go-acme.github.io/lego/" target="_top">lego</a> is used under
+  the hood.
  </p><p>
   Automatic cert validation and configuration for Apache and Nginx virtual
   hosts is included in NixOS, however if you would like to generate a wildcard
@@ -6838,14 +6843,14 @@ sudo borg init --encryption=repokey-blake2  \
   </p><p>
    You must also set an email address to be used when creating accounts with
    Let's Encrypt. You can set this for all certs with
-   <code class="literal"><a class="xref" href="options.html#opt-security.acme.email"><code class="option">security.acme.email</code></a></code>
+   <code class="literal"><a class="xref" href="options.html#opt-security.acme.defaults.email"><code class="option">security.acme.defaults.email</code></a></code>
    and/or on a per-cert basis with
    <code class="literal"><a class="xref" href="options.html#opt-security.acme.certs._name_.email"><code class="option">security.acme.certs.&lt;name&gt;.email</code></a></code>.
    This address is only used for registration and renewal reminders,
    and cannot be used to administer the certificates in any way.
   </p><p>
    Alternatively, you can use a different ACME server by changing the
-   <code class="literal"><a class="xref" href="options.html#opt-security.acme.server"><code class="option">security.acme.server</code></a></code> option
+   <code class="literal"><a class="xref" href="options.html#opt-security.acme.defaults.server"><code class="option">security.acme.defaults.server</code></a></code> option
    to a provider of your choosing, or just change the server for one cert with
    <code class="literal"><a class="xref" href="options.html#opt-security.acme.certs._name_.server"><code class="option">security.acme.certs.&lt;name&gt;.server</code></a></code>.
   </p><p>
@@ -6860,10 +6865,10 @@ sudo borg init --encryption=repokey-blake2  \
    = true;</code> in a virtualHost config. We first create self-signed
    placeholder certificates in place of the real ACME certs. The placeholder
    certs are overwritten when the ACME certs arrive. For
-   <code class="literal">foo.example.com</code> the config would look like.
+   <code class="literal">foo.example.com</code> the config would look like this:
   </p><pre class="programlisting">
 <a class="xref" href="options.html#opt-security.acme.acceptTerms"><code class="option">security.acme.acceptTerms</code></a> = true;
-<a class="xref" href="options.html#opt-security.acme.email"><code class="option">security.acme.email</code></a> = "admin+acme@example.com";
+<a class="xref" href="options.html#opt-security.acme.defaults.email"><code class="option">security.acme.defaults.email</code></a> = "admin+acme@example.com";
 services.nginx = {
   <a class="link" href="options.html#opt-services.nginx.enable">enable</a> = true;
   <a class="link" href="options.html#opt-services.nginx.virtualHosts">virtualHosts</a> = {
@@ -6900,7 +6905,7 @@ services.nginx = {
    everyone to HTTPS.
   </p><pre class="programlisting">
 <a class="xref" href="options.html#opt-security.acme.acceptTerms"><code class="option">security.acme.acceptTerms</code></a> = true;
-<a class="xref" href="options.html#opt-security.acme.email"><code class="option">security.acme.email</code></a> = "admin+acme@example.com";
+<a class="xref" href="options.html#opt-security.acme.defaults.email"><code class="option">security.acme.defaults.email</code></a> = "admin+acme@example.com";
 
 # /var/lib/acme/.challenges must be writable by the ACME user
 # and readable by the Nginx user. The easiest way to achieve
@@ -6989,7 +6994,7 @@ services.bind = {
 
 # Now we can configure ACME
 <a class="xref" href="options.html#opt-security.acme.acceptTerms"><code class="option">security.acme.acceptTerms</code></a> = true;
-<a class="xref" href="options.html#opt-security.acme.email"><code class="option">security.acme.email</code></a> = "admin+acme@example.com";
+<a class="xref" href="options.html#opt-security.acme.defaults.email"><code class="option">security.acme.defaults.email</code></a> = "admin+acme@example.com";
 <a class="xref" href="options.html#opt-security.acme.certs"><code class="option">security.acme.certs</code></a>."example.com" = {
   <a class="link" href="options.html#opt-security.acme.certs._name_.domain">domain</a> = "*.example.com";
   <a class="link" href="options.html#opt-security.acme.certs._name_.dnsProvider">dnsProvider</a> = "rfc2136";
@@ -7000,28 +7005,121 @@ services.bind = {
 </pre><p>
    The <code class="filename">dnskeys.conf</code> and <code class="filename">certs.secret</code>
    must be kept secure and thus you should not keep their contents in your
-   Nix config. Instead, generate them one time with these commands:
+   Nix config. Instead, generate them one time with a systemd service:
   </p><pre class="programlisting">
-mkdir -p /var/lib/secrets
-tsig-keygen rfc2136key.example.com &gt; /var/lib/secrets/dnskeys.conf
-chown named:root /var/lib/secrets/dnskeys.conf
-chmod 400 /var/lib/secrets/dnskeys.conf
+systemd.services.dns-rfc2136-conf = {
+  requiredBy = ["acme-example.com.service", "bind.service"];
+  before = ["acme-example.com.service", "bind.service"];
+  unitConfig = {
+    ConditionPathExists = "!/var/lib/secrets/dnskeys.conf";
+  };
+  serviceConfig = {
+    Type = "oneshot";
+    UMask = 0077;
+  };
+  path = [ pkgs.bind ];
+  script = ''
+    mkdir -p /var/lib/secrets
+    tsig-keygen rfc2136key.example.com &gt; /var/lib/secrets/dnskeys.conf
+    chown named:root /var/lib/secrets/dnskeys.conf
+    chmod 400 /var/lib/secrets/dnskeys.conf
 
-# Copy the secret value from the dnskeys.conf, and put it in
-# RFC2136_TSIG_SECRET below
+    # Copy the secret value from the dnskeys.conf, and put it in
+    # RFC2136_TSIG_SECRET below
 
-cat &gt; /var/lib/secrets/certs.secret &lt;&lt; EOF
-RFC2136_NAMESERVER='127.0.0.1:53'
-RFC2136_TSIG_ALGORITHM='hmac-sha256.'
-RFC2136_TSIG_KEY='rfc2136key.example.com'
-RFC2136_TSIG_SECRET='your secret key'
-EOF
-chmod 400 /var/lib/secrets/certs.secret
+    cat &gt; /var/lib/secrets/certs.secret &lt;&lt; EOF
+    RFC2136_NAMESERVER='127.0.0.1:53'
+    RFC2136_TSIG_ALGORITHM='hmac-sha256.'
+    RFC2136_TSIG_KEY='rfc2136key.example.com'
+    RFC2136_TSIG_SECRET='your secret key'
+    EOF
+    chmod 400 /var/lib/secrets/certs.secret
+  '';
+};
 </pre><p>
    Now you're all set to generate certs! You should monitor the first invocation
    by running <code class="literal">systemctl start acme-example.com.service &amp;
    journalctl -fu acme-example.com.service</code> and watching its log output.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-regenerate"></a>49.6. Regenerating certificates</h2></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-config-dns-with-vhosts"></a>49.6. Using DNS validation with web server virtual hosts</h2></div></div></div><p>
+   It is possible to use DNS-01 validation with all certificates,
+   including those automatically configured via the Nginx/Apache
+   <code class="literal"><a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.enableACME">enableACME</a></code>
+   option. This configuration pattern is fully
+   supported and part of the module's test suite for Nginx + Apache.
+  </p><p>
+   You must follow the guide above on configuring DNS-01 validation
+   first, however instead of setting the options for one certificate
+   (e.g. <a class="xref" href="options.html#opt-security.acme.certs._name_.dnsProvider"><code class="option">security.acme.certs.&lt;name&gt;.dnsProvider</code></a>)
+   you will set them as defaults
+   (e.g. <a class="xref" href="options.html#opt-security.acme.defaults.dnsProvider"><code class="option">security.acme.defaults.dnsProvider</code></a>).
+  </p><pre class="programlisting">
+# Configure ACME appropriately
+<a class="xref" href="options.html#opt-security.acme.acceptTerms"><code class="option">security.acme.acceptTerms</code></a> = true;
+<a class="xref" href="options.html#opt-security.acme.defaults.email"><code class="option">security.acme.defaults.email</code></a> = "admin+acme@example.com";
+<a class="xref" href="options.html#opt-security.acme.defaults"><code class="option">security.acme.defaults</code></a> = {
+  <a class="link" href="options.html#opt-security.acme.defaults.dnsProvider">dnsProvider</a> = "rfc2136";
+  <a class="link" href="options.html#opt-security.acme.defaults.credentialsFile">credentialsFile</a> = "/var/lib/secrets/certs.secret";
+  # We don't need to wait for propagation since this is a local DNS server
+  <a class="link" href="options.html#opt-security.acme.defaults.dnsPropagationCheck">dnsPropagationCheck</a> = false;
+};
+
+# For each virtual host you would like to use DNS-01 validation with,
+# set acmeRoot = null
+services.nginx = {
+  <a class="link" href="options.html#opt-services.nginx.enable">enable</a> = true;
+  <a class="link" href="options.html#opt-services.nginx.virtualHosts">virtualHosts</a> = {
+    "foo.example.com" = {
+      <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.enableACME">enableACME</a> = true;
+      <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.acmeRoot">acmeRoot</a> = null;
+    };
+  };
+}
+</pre><p>
+   And that's it! Next time your configuration is rebuilt, or when
+   you add a new virtualHost, it will be DNS-01 validated.
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-root-owned"></a>49.7. Using ACME with services demanding root owned certificates</h2></div></div></div><p>
+   Some services refuse to start if the configured certificate files
+   are not owned by root. PostgreSQL and OpenSMTPD are examples of these.
+   There is no way to change the user the ACME module uses (it will always be
+   <code class="literal">acme</code>), however you can use systemd's
+   <code class="literal">LoadCredential</code> feature to resolve this elegantly.
+   Below is an example configuration for OpenSMTPD, but this pattern
+   can be applied to any service.
+  </p><pre class="programlisting">
+# Configure ACME however you like (DNS or HTTP validation), adding
+# the following configuration for the relevant certificate.
+# Note: You cannot use `systemctl reload` here as that would mean
+# the LoadCredential configuration below would be skipped and
+# the service would continue to use old certificates.
+security.acme.certs."mail.example.com".postRun = ''
+  systemctl restart opensmtpd
+'';
+
+# Now you must augment OpenSMTPD's systemd service to load
+# the certificate files.
+<a class="link" href="options.html#opt-systemd.services._name_.requires">systemd.services.opensmtpd.requires</a> = ["acme-finished-mail.example.com.target"];
+<a class="link" href="options.html#opt-systemd.services._name_.serviceConfig">systemd.services.opensmtpd.serviceConfig.LoadCredential</a> = let
+  certDir = config.security.acme.certs."mail.example.com".directory;
+in [
+  "cert.pem:${certDir}/cert.pem"
+  "key.pem:${certDir}/key.pem"
+];
+
+# Finally, configure OpenSMTPD to use these certs.
+services.opensmtpd = let
+  credsDir = "/run/credentials/opensmtpd.service";
+in {
+  enable = true;
+  setSendmail = false;
+  serverConfiguration = ''
+    pki mail.example.com cert "${credsDir}/cert.pem"
+    pki mail.example.com key "${credsDir}/key.pem"
+    listen on localhost tls pki mail.example.com
+    action act1 relay host smtp://127.0.0.1:10027
+    match for local action act1
+  '';
+};
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-regenerate"></a>49.8. Regenerating certificates</h2></div></div></div><p>
    Should you need to regenerate a particular certificate in a hurry, such
    as when a vulnerability is found in Let's Encrypt, there is now a convenient
    mechanism for doing so. Running
@@ -7029,7 +7127,7 @@ chmod 400 /var/lib/secrets/certs.secret
    will remove all certificate files and the account data for the given domain,
    allowing you to then <code class="literal">systemctl start acme-example.com.service</code>
    to generate fresh ones.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-fix-jws"></a>49.7. Fixing JWS Verification error</h2></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-security-acme-fix-jws"></a>49.9. Fixing JWS Verification error</h2></div></div></div><p>
    It is possible that your account credentials file may become corrupt and need
    to be regenerated. In this scenario lego will produce the error <code class="literal">JWS verification error</code>.
    The solution is to simply delete the associated accounts file and
