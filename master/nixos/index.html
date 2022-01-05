@@ -9505,8 +9505,8 @@ config = mkMerge
   </p><p>
     <code class="literal">meta</code> is a top level attribute like
     <code class="literal">options</code> and <code class="literal">config</code>. Available
-    meta-attributes are <code class="literal">maintainers</code> and
-    <code class="literal">doc</code>.
+    meta-attributes are <code class="literal">maintainers</code>,
+    <code class="literal">doc</code>, and <code class="literal">buildDocsInSandbox</code>.
   </p><p>
     Each of the meta-attributes must be defined at most once per module
     file.
@@ -9524,6 +9524,7 @@ config = mkMerge
   meta = {
     maintainers = with lib.maintainers; [ ericsagnes ];
     doc = ./default.xml;
+    buildDocsInSandbox = true;
   };
 }
 </pre><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -9537,7 +9538,41 @@ config = mkMerge
         manual:
       </p><pre class="programlisting">
 $ nix-build nixos/release.nix -A manual.x86_64-linux
-</pre></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-importing-modules"></a>65.6. Importing Modules</h2></div></div></div><p>
+</pre></li><li class="listitem"><p>
+        <code class="literal">buildDocsInSandbox</code> indicates whether the
+        option documentation for the module can be built in a derivation
+        sandbox. This option is currently only honored for modules
+        shipped by nixpkgs. User modules and modules taken from
+        <code class="literal">NIXOS_EXTRA_MODULE_PATH</code> are always built
+        outside of the sandbox, as has been the case in previous
+        releases.
+      </p><p>
+        Building NixOS option documentation in a sandbox allows caching
+        of the built documentation, which greatly decreases the amount
+        of time needed to evaluate a system configuration that has NixOS
+        documentation enabled. The sandbox also restricts which
+        attributes may be referenced by documentation attributes (such
+        as option descriptions) to the <code class="literal">options</code> and
+        <code class="literal">lib</code> module arguments and the
+        <code class="literal">pkgs.formats</code> attribute of the
+        <code class="literal">pkgs</code> argument, <code class="literal">config</code> and
+        the rest of <code class="literal">pkgs</code> are disallowed and will
+        cause doc build failures when used. This restriction is
+        necessary because we cannot reproduce the full nixpkgs
+        instantiation with configuration and overlays from a system
+        configuration inside the sandbox. The <code class="literal">options</code>
+        argument only includes options of modules that are also built
+        inside the sandbox, referencing an option of a module that isn’t
+        built in the sandbox is also forbidden.
+      </p><p>
+        The default is <code class="literal">true</code> and should usually not be
+        changed; set it to <code class="literal">false</code> only if the module
+        requires access to <code class="literal">pkgs</code> in its documentation
+        (e.g. because it loads information from a linked package to
+        build an option type) or if its documentation depends on other
+        modules that also aren’t sandboxed (e.g. by using types defined
+        in the other module).
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-importing-modules"></a>65.6. Importing Modules</h2></div></div></div><p>
     Sometimes NixOS modules need to be used in configuration but exist
     outside of Nixpkgs. These modules can be imported:
   </p><pre class="programlisting">
