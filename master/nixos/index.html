@@ -10506,17 +10506,17 @@ $ firefox result/log.html
     The test itself can be run interactively. This is particularly
     useful when developing or debugging a test:
   </p><pre class="programlisting">
-$ nix-build nixos/tests/login.nix -A driverInteractive
+$ nix-build . -A nixosTests.login.driverInteractive
 $ ./result/bin/nixos-test-driver --interactive
-starting VDE switch for network 1
-&gt;
+[...]
+&gt;&gt;&gt;
 </pre><p>
     You can then take any Python statement, e.g.
   </p><pre class="programlisting">
-&gt; start_all()
-&gt; test_script()
-&gt; machine.succeed("touch /tmp/foo")
-&gt; print(machine.succeed("pwd")) # Show stdout of command
+&gt;&gt;&gt; start_all()
+&gt;&gt;&gt; test_script()
+&gt;&gt;&gt; machine.succeed("touch /tmp/foo")
+&gt;&gt;&gt; print(machine.succeed("pwd")) # Show stdout of command
 </pre><p>
     The function <code class="literal">test_script</code> executes the entire test
     script and drops you back into the test driver command line upon its
