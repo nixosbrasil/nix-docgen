@@ -10246,213 +10246,217 @@ if not "Linux" in machine.succeed("uname"):
     them in parallel:
   </p><pre class="programlisting">
 start_all()
-</pre><p>
-    The following methods are available on machine objects:
-  </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
-        <code class="literal">start</code>
-      </span></dt><dd><p>
-          Start the virtual machine. This method is asynchronous — it
-          does not wait for the machine to finish booting.
-        </p></dd><dt><span class="term">
-        <code class="literal">shutdown</code>
-      </span></dt><dd><p>
-          Shut down the machine, waiting for the VM to exit.
-        </p></dd><dt><span class="term">
-        <code class="literal">crash</code>
-      </span></dt><dd><p>
-          Simulate a sudden power failure, by telling the VM to exit
-          immediately.
-        </p></dd><dt><span class="term">
-        <code class="literal">block</code>
-      </span></dt><dd><p>
-          Simulate unplugging the Ethernet cable that connects the
-          machine to the other machines.
-        </p></dd><dt><span class="term">
-        <code class="literal">unblock</code>
-      </span></dt><dd><p>
-          Undo the effect of <code class="literal">block</code>.
-        </p></dd><dt><span class="term">
-        <code class="literal">screenshot</code>
-      </span></dt><dd><p>
-          Take a picture of the display of the virtual machine, in PNG
-          format. The screenshot is linked from the HTML log.
-        </p></dd><dt><span class="term">
-        <code class="literal">get_screen_text_variants</code>
-      </span></dt><dd><p>
-          Return a list of different interpretations of what is
-          currently visible on the machine's screen using optical
-          character recognition. The number and order of the
-          interpretations is not specified and is subject to change, but
-          if no exception is raised at least one will be returned.
-        </p><div class="note"><h3 class="title">Note</h3><p>
-            This requires passing <code class="literal">enableOCR</code> to the
-            test attribute set.
-          </p></div></dd><dt><span class="term">
-        <code class="literal">get_screen_text</code>
-      </span></dt><dd><p>
-          Return a textual representation of what is currently visible
-          on the machine's screen using optical character recognition.
-        </p><div class="note"><h3 class="title">Note</h3><p>
-            This requires passing <code class="literal">enableOCR</code> to the
-            test attribute set.
-          </p></div></dd><dt><span class="term">
-        <code class="literal">send_monitor_command</code>
-      </span></dt><dd><p>
-          Send a command to the QEMU monitor. This is rarely used, but
-          allows doing stuff such as attaching virtual USB disks to a
-          running machine.
-        </p></dd><dt><span class="term">
-        <code class="literal">send_key</code>
-      </span></dt><dd><p>
-          Simulate pressing keys on the virtual keyboard, e.g.,
-          <code class="literal">send_key("ctrl-alt-delete")</code>.
-        </p></dd><dt><span class="term">
-        <code class="literal">send_chars</code>
-      </span></dt><dd><p>
-          Simulate typing a sequence of characters on the virtual
-          keyboard, e.g.,
-          <code class="literal">send_chars("foobar\n")</code> will type
-          the string <code class="literal">foobar</code> followed by the Enter
-          key.
-        </p></dd><dt><span class="term">
-        <code class="literal">execute</code>
-      </span></dt><dd><p>
-          Execute a shell command, returning a list
-          <code class="literal">(status, stdout)</code>. If the command detaches,
-          it must close stdout, as <code class="literal">execute</code> will wait
-          for this to consume all output reliably. This can be achieved
-          by redirecting stdout to stderr <code class="literal">&gt;&amp;2</code>,
-          to <code class="literal">/dev/console</code>,
-          <code class="literal">/dev/null</code> or a file. Examples of detaching
-          commands are <code class="literal">sleep 365d &amp;</code>, where the
-          shell forks a new process that can write to stdout and
-          <code class="literal">xclip -i</code>, where the
-          <code class="literal">xclip</code> command itself forks without closing
-          stdout. Takes an optional parameter
-          <code class="literal">check_return</code> that defaults to
-          <code class="literal">True</code>. Setting this parameter to
-          <code class="literal">False</code> will not check for the return code
-          and return -1 instead. This can be used for commands that shut
-          down the VM and would therefore break the pipe that would be
-          used for retrieving the return code.
-        </p></dd><dt><span class="term">
-        <code class="literal">succeed</code>
-      </span></dt><dd><p>
-          Execute a shell command, raising an exception if the exit
-          status is not zero, otherwise returning the standard output.
-          Commands are run with <code class="literal">set -euo pipefail</code>
-          set:
-        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-              If several commands are separated by <code class="literal">;</code>
-              and one fails, the command as a whole will fail.
-            </p></li><li class="listitem"><p>
-              For pipelines, the last non-zero exit status will be
-              returned (if there is one, zero will be returned
-              otherwise).
-            </p></li><li class="listitem"><p>
-              Dereferencing unset variables fail the command.
-            </p></li><li class="listitem"><p>
-              It will wait for stdout to be closed. See
-              <code class="literal">execute</code> for the implications.
-            </p></li></ul></div></dd><dt><span class="term">
-        <code class="literal">fail</code>
-      </span></dt><dd><p>
-          Like <code class="literal">succeed</code>, but raising an exception if
-          the command returns a zero status.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_until_succeeds</code>
-      </span></dt><dd><p>
-          Repeat a shell command with 1-second intervals until it
-          succeeds.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_until_fails</code>
-      </span></dt><dd><p>
-          Repeat a shell command with 1-second intervals until it fails.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_unit</code>
-      </span></dt><dd><p>
-          Wait until the specified systemd unit has reached the
-          <span class="quote">“<span class="quote">active</span>”</span> state.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_file</code>
-      </span></dt><dd><p>
-          Wait until the specified file exists.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_open_port</code>
-      </span></dt><dd><p>
-          Wait until a process is listening on the given TCP port (on
-          <code class="literal">localhost</code>, at least).
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_closed_port</code>
-      </span></dt><dd><p>
-          Wait until nobody is listening on the given TCP port.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_x</code>
-      </span></dt><dd><p>
-          Wait until the X11 server is accepting connections.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_text</code>
-      </span></dt><dd><p>
-          Wait until the supplied regular expressions matches the
-          textual contents of the screen by using optical character
-          recognition (see <code class="literal">get_screen_text</code> and
-          <code class="literal">get_screen_text_variants</code>).
-        </p><div class="note"><h3 class="title">Note</h3><p>
-            This requires passing <code class="literal">enableOCR</code> to the
-            test attribute set.
-          </p></div></dd><dt><span class="term">
-        <code class="literal">wait_for_console_text</code>
-      </span></dt><dd><p>
-          Wait until the supplied regular expressions match a line of
-          the serial console output. This method is useful when OCR is
-          not possibile or accurate enough.
-        </p></dd><dt><span class="term">
-        <code class="literal">wait_for_window</code>
-      </span></dt><dd><p>
-          Wait until an X11 window has appeared whose name matches the
-          given regular expression, e.g.,
-          <code class="literal">wait_for_window("Terminal")</code>.
-        </p></dd><dt><span class="term">
-        <code class="literal">copy_from_host</code>
-      </span></dt><dd><p>
-          Copies a file from host to machine, e.g.,
-          <code class="literal">copy_from_host("myfile", "/etc/my/important/file")</code>.
-        </p><p>
-          The first argument is the file on the host. The file needs to
-          be accessible while building the nix derivation. The second
-          argument is the location of the file on the machine.
-        </p></dd><dt><span class="term">
-        <code class="literal">systemctl</code>
-      </span></dt><dd><p>
-          Runs <code class="literal">systemctl</code> commands with optional
-          support for <code class="literal">systemctl --user</code>
-        </p><pre class="programlisting">
+</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-machine-objects"></a>69.1.1. Machine objects</h3></div></div></div><p>
+      The following methods are available on machine objects:
+    </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          <code class="literal">start</code>
+        </span></dt><dd><p>
+            Start the virtual machine. This method is asynchronous — it
+            does not wait for the machine to finish booting.
+          </p></dd><dt><span class="term">
+          <code class="literal">shutdown</code>
+        </span></dt><dd><p>
+            Shut down the machine, waiting for the VM to exit.
+          </p></dd><dt><span class="term">
+          <code class="literal">crash</code>
+        </span></dt><dd><p>
+            Simulate a sudden power failure, by telling the VM to exit
+            immediately.
+          </p></dd><dt><span class="term">
+          <code class="literal">block</code>
+        </span></dt><dd><p>
+            Simulate unplugging the Ethernet cable that connects the
+            machine to the other machines.
+          </p></dd><dt><span class="term">
+          <code class="literal">unblock</code>
+        </span></dt><dd><p>
+            Undo the effect of <code class="literal">block</code>.
+          </p></dd><dt><span class="term">
+          <code class="literal">screenshot</code>
+        </span></dt><dd><p>
+            Take a picture of the display of the virtual machine, in PNG
+            format. The screenshot is linked from the HTML log.
+          </p></dd><dt><span class="term">
+          <code class="literal">get_screen_text_variants</code>
+        </span></dt><dd><p>
+            Return a list of different interpretations of what is
+            currently visible on the machine's screen using optical
+            character recognition. The number and order of the
+            interpretations is not specified and is subject to change,
+            but if no exception is raised at least one will be returned.
+          </p><div class="note"><h3 class="title">Note</h3><p>
+              This requires passing <code class="literal">enableOCR</code> to the
+              test attribute set.
+            </p></div></dd><dt><span class="term">
+          <code class="literal">get_screen_text</code>
+        </span></dt><dd><p>
+            Return a textual representation of what is currently visible
+            on the machine's screen using optical character recognition.
+          </p><div class="note"><h3 class="title">Note</h3><p>
+              This requires passing <code class="literal">enableOCR</code> to the
+              test attribute set.
+            </p></div></dd><dt><span class="term">
+          <code class="literal">send_monitor_command</code>
+        </span></dt><dd><p>
+            Send a command to the QEMU monitor. This is rarely used, but
+            allows doing stuff such as attaching virtual USB disks to a
+            running machine.
+          </p></dd><dt><span class="term">
+          <code class="literal">send_key</code>
+        </span></dt><dd><p>
+            Simulate pressing keys on the virtual keyboard, e.g.,
+            <code class="literal">send_key("ctrl-alt-delete")</code>.
+          </p></dd><dt><span class="term">
+          <code class="literal">send_chars</code>
+        </span></dt><dd><p>
+            Simulate typing a sequence of characters on the virtual
+            keyboard, e.g.,
+            <code class="literal">send_chars("foobar\n")</code> will
+            type the string <code class="literal">foobar</code> followed by the
+            Enter key.
+          </p></dd><dt><span class="term">
+          <code class="literal">execute</code>
+        </span></dt><dd><p>
+            Execute a shell command, returning a list
+            <code class="literal">(status, stdout)</code>. If the command
+            detaches, it must close stdout, as
+            <code class="literal">execute</code> will wait for this to consume all
+            output reliably. This can be achieved by redirecting stdout
+            to stderr <code class="literal">&gt;&amp;2</code>, to
+            <code class="literal">/dev/console</code>,
+            <code class="literal">/dev/null</code> or a file. Examples of
+            detaching commands are <code class="literal">sleep 365d &amp;</code>,
+            where the shell forks a new process that can write to stdout
+            and <code class="literal">xclip -i</code>, where the
+            <code class="literal">xclip</code> command itself forks without
+            closing stdout. Takes an optional parameter
+            <code class="literal">check_return</code> that defaults to
+            <code class="literal">True</code>. Setting this parameter to
+            <code class="literal">False</code> will not check for the return code
+            and return -1 instead. This can be used for commands that
+            shut down the VM and would therefore break the pipe that
+            would be used for retrieving the return code.
+          </p></dd><dt><span class="term">
+          <code class="literal">succeed</code>
+        </span></dt><dd><p>
+            Execute a shell command, raising an exception if the exit
+            status is not zero, otherwise returning the standard output.
+            Commands are run with <code class="literal">set -euo pipefail</code>
+            set:
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+                If several commands are separated by
+                <code class="literal">;</code> and one fails, the command as a
+                whole will fail.
+              </p></li><li class="listitem"><p>
+                For pipelines, the last non-zero exit status will be
+                returned (if there is one, zero will be returned
+                otherwise).
+              </p></li><li class="listitem"><p>
+                Dereferencing unset variables fail the command.
+              </p></li><li class="listitem"><p>
+                It will wait for stdout to be closed. See
+                <code class="literal">execute</code> for the implications.
+              </p></li></ul></div></dd><dt><span class="term">
+          <code class="literal">fail</code>
+        </span></dt><dd><p>
+            Like <code class="literal">succeed</code>, but raising an exception if
+            the command returns a zero status.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_until_succeeds</code>
+        </span></dt><dd><p>
+            Repeat a shell command with 1-second intervals until it
+            succeeds.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_until_fails</code>
+        </span></dt><dd><p>
+            Repeat a shell command with 1-second intervals until it
+            fails.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_unit</code>
+        </span></dt><dd><p>
+            Wait until the specified systemd unit has reached the
+            <span class="quote">“<span class="quote">active</span>”</span> state.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_file</code>
+        </span></dt><dd><p>
+            Wait until the specified file exists.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_open_port</code>
+        </span></dt><dd><p>
+            Wait until a process is listening on the given TCP port (on
+            <code class="literal">localhost</code>, at least).
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_closed_port</code>
+        </span></dt><dd><p>
+            Wait until nobody is listening on the given TCP port.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_x</code>
+        </span></dt><dd><p>
+            Wait until the X11 server is accepting connections.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_text</code>
+        </span></dt><dd><p>
+            Wait until the supplied regular expressions matches the
+            textual contents of the screen by using optical character
+            recognition (see <code class="literal">get_screen_text</code> and
+            <code class="literal">get_screen_text_variants</code>).
+          </p><div class="note"><h3 class="title">Note</h3><p>
+              This requires passing <code class="literal">enableOCR</code> to the
+              test attribute set.
+            </p></div></dd><dt><span class="term">
+          <code class="literal">wait_for_console_text</code>
+        </span></dt><dd><p>
+            Wait until the supplied regular expressions match a line of
+            the serial console output. This method is useful when OCR is
+            not possibile or accurate enough.
+          </p></dd><dt><span class="term">
+          <code class="literal">wait_for_window</code>
+        </span></dt><dd><p>
+            Wait until an X11 window has appeared whose name matches the
+            given regular expression, e.g.,
+            <code class="literal">wait_for_window("Terminal")</code>.
+          </p></dd><dt><span class="term">
+          <code class="literal">copy_from_host</code>
+        </span></dt><dd><p>
+            Copies a file from host to machine, e.g.,
+            <code class="literal">copy_from_host("myfile", "/etc/my/important/file")</code>.
+          </p><p>
+            The first argument is the file on the host. The file needs
+            to be accessible while building the nix derivation. The
+            second argument is the location of the file on the machine.
+          </p></dd><dt><span class="term">
+          <code class="literal">systemctl</code>
+        </span></dt><dd><p>
+            Runs <code class="literal">systemctl</code> commands with optional
+            support for <code class="literal">systemctl --user</code>
+          </p><pre class="programlisting">
 machine.systemctl("list-jobs --no-pager") # runs `systemctl list-jobs --no-pager`
 machine.systemctl("list-jobs --no-pager", "any-user") # spawns a shell for `any-user` and runs `systemctl --user list-jobs --no-pager`
 </pre></dd><dt><span class="term">
-        <code class="literal">shell_interact</code>
-      </span></dt><dd><p>
-          Allows you to directly interact with the guest shell. This
-          should only be used during test development, not in production
-          tests. Killing the interactive session with
-          <code class="literal">Ctrl-d</code> or <code class="literal">Ctrl-c</code> also
-          ends the guest session.
-        </p></dd></dl></div><p>
-    To test user units declared by
-    <code class="literal">systemd.user.services</code> the optional
-    <code class="literal">user</code> argument can be used:
-  </p><pre class="programlisting">
+          <code class="literal">shell_interact</code>
+        </span></dt><dd><p>
+            Allows you to directly interact with the guest shell. This
+            should only be used during test development, not in
+            production tests. Killing the interactive session with
+            <code class="literal">Ctrl-d</code> or <code class="literal">Ctrl-c</code> also
+            ends the guest session.
+          </p></dd></dl></div><p>
+      To test user units declared by
+      <code class="literal">systemd.user.services</code> the optional
+      <code class="literal">user</code> argument can be used:
+    </p><pre class="programlisting">
 machine.start()
 machine.wait_for_x()
 machine.wait_for_unit("xautolock.service", "x-session-user")
 </pre><p>
-    This applies to <code class="literal">systemctl</code>,
-    <code class="literal">get_unit_info</code>, <code class="literal">wait_for_unit</code>,
-    <code class="literal">start_job</code> and <code class="literal">stop_job</code>.
-  </p><p>
-    For faster dev cycles it's also possible to disable the code-linters
-    (this shouldn't be commited though):
-  </p><pre class="programlisting">
+      This applies to <code class="literal">systemctl</code>,
+      <code class="literal">get_unit_info</code>,
+      <code class="literal">wait_for_unit</code>, <code class="literal">start_job</code> and
+      <code class="literal">stop_job</code>.
+    </p><p>
+      For faster dev cycles it's also possible to disable the
+      code-linters (this shouldn't be commited though):
+    </p><pre class="programlisting">
 import ./make-test-python.nix {
   skipLint = true;
   machine =
@@ -10466,18 +10470,67 @@ import ./make-test-python.nix {
     '';
 }
 </pre><p>
-    This will produce a Nix warning at evaluation time. To fully disable
-    the linter, wrap the test script in comment directives to disable
-    the Black linter directly (again, don't commit this within the
-    Nixpkgs repository):
-  </p><pre class="programlisting">
+      This will produce a Nix warning at evaluation time. To fully
+      disable the linter, wrap the test script in comment directives to
+      disable the Black linter directly (again, don't commit this within
+      the Nixpkgs repository):
+    </p><pre class="programlisting">
   testScript =
     ''
       # fmt: off
       Python code…
       # fmt: on
     '';
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-running-nixos-tests"></a>69.2. Running Tests</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-failing-tests-early"></a>69.1.2. Failing tests early</h3></div></div></div><p>
+      To fail tests early when certain invariables are no longer met
+      (instead of waiting for the build to time out), the decorator
+      <code class="literal">polling_condition</code> is provided. For example, if
+      we are testing a program <code class="literal">foo</code> that should not
+      quit after being started, we might write the following:
+    </p><pre class="programlisting">
+@polling_condition
+def foo_running():
+    machine.succeed("pgrep -x foo")
+
+
+machine.succeed("foo --start")
+machine.wait_until_succeeds("pgrep -x foo")
+
+with foo_running:
+    ...  # Put `foo` through its paces
+</pre><p>
+      <code class="literal">polling_condition</code> takes the following
+      (optional) arguments:
+    </p><p>
+      <code class="literal">seconds_interval</code>
+    </p><p>
+      : specifies how often the condition should be polled:
+    </p><pre class="programlisting">
+```py
+@polling_condition(seconds_interval=10)
+def foo_running():
+    machine.succeed("pgrep -x foo")
+```
+</pre><p>
+      <code class="literal">description</code>
+    </p><p>
+      : is used in the log when the condition is checked. If this is not
+      provided, the description is pulled from the docstring of the
+      function. These two are therefore equivalent:
+    </p><pre class="programlisting">
+```py
+@polling_condition
+def foo_running():
+    "check that foo is running"
+    machine.succeed("pgrep -x foo")
+```
+
+```py
+@polling_condition(description="check that foo is running")
+def foo_running():
+    machine.succeed("pgrep -x foo")
+```
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-running-nixos-tests"></a>69.2. Running Tests</h2></div></div></div><p>
     You can run tests using <code class="literal">nix-build</code>. For example,
     to run the test
     <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/login.nix" target="_top"><code class="literal">login.nix</code></a>,
