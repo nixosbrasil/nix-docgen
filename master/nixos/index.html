@@ -3800,7 +3800,7 @@ services.lemmy = {
           This has been tested using a local database with a unix socket
           connection. Using different database settings will likely
           require modifications
-        </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-keycloak"></a>Chapter 23. Keycloak</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-keycloak-admin">23.1. Administration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-database">23.2. Database access</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-frontendurl">23.3. Frontend URL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-tls">23.4. Setting up TLS/SSL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-extra-config">23.5. Additional configuration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-example-config">23.6. Example configuration</a></span></dt></dl></div><p>
+        </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-keycloak"></a>Chapter 23. Keycloak</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-keycloak-admin">23.1. Administration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-database">23.2. Database access</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-frontendurl">23.3. Frontend URL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-tls">23.4. Setting up TLS/SSL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-themes">23.5. Themes</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-extra-config">23.6. Additional configuration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-example-config">23.7. Example configuration</a></span></dt></dl></div><p>
    <a class="link" href="https://www.keycloak.org/" target="_top">Keycloak</a> is an
    open source identity and access management server with support for
    <a class="link" href="https://openid.net/connect/" target="_top">OpenID
@@ -3850,7 +3850,11 @@ services.lemmy = {
        The frontend URL is used as base for all frontend requests and
        must be configured through <a class="xref" href="options.html#opt-services.keycloak.frontendUrl"><code class="option">services.keycloak.frontendUrl</code></a>.
        It should normally include a trailing <code class="literal">/auth</code>
-       (the default web context).
+       (the default web context). If you use a reverse proxy, you need
+       to set this option to <code class="literal">""</code>, so that frontend URL
+       is derived from HTTP headers. <code class="literal">X-Forwarded-*</code> headers
+       support also should be enabled, using <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/index.html#identifying-client-ip-addresses" target="_top">
+       respective guidelines</a>.
      </p><p>
        <a class="xref" href="options.html#opt-services.keycloak.forceBackendUrlToFrontendUrl"><code class="option">services.keycloak.forceBackendUrlToFrontendUrl</code></a>
        determines whether Keycloak should force all requests to go
@@ -3874,7 +3878,13 @@ services.lemmy = {
      </p><div class="warning"><h3 class="title">Warning</h3><p>
          The paths should be provided as a strings, not a Nix paths,
          since Nix paths are copied into the world readable Nix store.
-       </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-extra-config"></a>23.5. Additional configuration</h2></div></div></div><p>
+       </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-themes"></a>23.5. Themes</h2></div></div></div><p>
+        You can package custom themes and make them visible to Keycloak via
+        <a class="xref" href="options.html#opt-services.keycloak.themes"><code class="option">services.keycloak.themes</code></a>
+        option. See the <a class="link" href="https://www.keycloak.org/docs/latest/server_development/#_themes" target="_top">
+        Themes section of the Keycloak Server Development Guide</a>
+        and respective NixOS option description for more information.
+     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-extra-config"></a>23.6. Additional configuration</h2></div></div></div><p>
        Additional Keycloak configuration options, for which no
        explicit <span class="productname">NixOS</span> options are provided,
        can be set in <a class="xref" href="options.html#opt-services.keycloak.extraConfig"><code class="option">services.keycloak.extraConfig</code></a>.
@@ -3917,7 +3927,7 @@ services.keycloak.extraConfig = {
        You can discover available options by using the <a class="link" href="http://docs.wildfly.org/21/Admin_Guide.html#Command_Line_Interface" target="_top">jboss-cli.sh</a>
        program and by referring to the <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/index.html" target="_top">Keycloak
        Server Installation and Configuration Guide</a>.
-     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-example-config"></a>23.6. Example configuration</h2></div></div></div><p>
+     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-example-config"></a>23.7. Example configuration</h2></div></div></div><p>
        A basic configuration with some custom settings could look like this:
 </p><pre class="programlisting">
 services.keycloak = {
