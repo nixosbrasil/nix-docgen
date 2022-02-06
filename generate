@@ -2,16 +2,17 @@
 
 CWD="$(realpath .)"
 
-function fetch_nixpkgs() {
+function build_docs() {
+    REV="$1"
     URL="$1"
     if [[ ! "$URL" =~ ^https?:\/\/ ]]; then
-        URL="https://github.com/NixOS/nixpkgs/archive/$URL.zip"
+        URL="https://github.com/NixOS/nixpkgs/archive/$URL.tar.gz"
     fi
-    nix-prefetch-url "$URL" --print-path --unpack  | tail -n 1
-}
-
-function build_docs() {
-    nix-build --argstr path "$(fetch_nixpkgs "$1")"
+    NIXPKGS_HASH=`nix-prefetch-url "$URL" --type sha256 --unpack --name "nixpkgs-$1" | tail -n 1`
+    if [[ "$REV" != "$URL" ]]; then
+        REV="$NIXPKGS_HASH"
+    fi
+    nix-build --argstr tarball_url "$URL" --argstr tarball_sha256 "$NIXPKGS_HASH" --argstr rev "$REV"
 }
 
 function norm_branch() {
@@ -19,7 +20,7 @@ function norm_branch() {
 }
 
 function build_branch() {
-    echo "$(build_docs "$1")/share/doc"
+    echo "$(build_docs "$1")"
 }
 
 function build_branches() {
@@ -34,7 +35,7 @@ function build_branches() {
                     mkdir -p "$CWD/target/$norm_branch/$line"
                 done
                 find . -type l | while read line; do
-                    cp "$line" "$CWD/target/$norm_branch/$line" --preserve=timestamps
+                    cp -Lr "$line" "$CWD/target/$norm_branch/$line" --preserve=timestamps
                 done
             popd > /dev/null
         }
@@ -64,6 +65,7 @@ function generate_html() {
                         echo "<li><a href=\"$norm_branch/nixos/index.html\">NixOS documentation</a></li>"
                         echo "<li><a href=\"$norm_branch/nixos/options.html\">NixOS options</a></li>"
                         echo "<li><a href=\"$norm_branch/nixos/release-notes.html\">NixOS release notes</a></li>"
+                        echo "<li><a href=\"$norm_branch/nixpkgs.docset.tgz\">Zeal/Dash docset</a></li>"
                     echo '</ul>'
                 echo '</section>'
             done
