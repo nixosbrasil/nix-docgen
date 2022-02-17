@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>NixOS Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">NixOS Manual</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-nixos-manual"></a>NixOS Manual</h1></div><div><h2 class="subtitle">Version 22.05
-  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">I. Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">1. Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">2. Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">3. Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">4. Upgrading NixOS</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">II. Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">5. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">6. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">7. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">8. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">9. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">10. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">11. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">12. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">13. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">14. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">15. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">16. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">17. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">18. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">19. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">20. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">21. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">22. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">23. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">24. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">25. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">26. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">27. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">28. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">29. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">30. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">31. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">32. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">33. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">34. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">35. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-taskserver">36. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">37. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">38. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">39. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">40. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">41. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">42. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">43. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">44. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">45. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">46. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">47. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">48. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">49. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">50. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">51. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">52. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">53. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">54. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">55. Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">III. Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">56. Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">57. Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">58. User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">59. Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">60. Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">61. Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">62. Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">63. Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">IV. Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">64. Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">65. Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">66. Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">67. Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">68. Building a NixOS (Live) ISO</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">69. NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">70. Testing the Installer</a></span></dt></dl></dd><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="chapter"><a href="index.html#chap-contributing">71. Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>43.1. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="filename">emacs.nix</code>)</a></dt><dt>43.2. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>43.3. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="filename">configuration.nix</code></a></dt><dt>43.4. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="filename">~/.config/nixpkgs/config.nix</code></a></dt><dt>43.5. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>43.6. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="filename">.emacs</code></a></dt><dt>43.7. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="filename">~/.emacs.d/schemas.xml</code>)</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
+  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">I. Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">1. Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">2. Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">3. Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">4. Upgrading NixOS</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">II. Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">5. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">6. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">7. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">8. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">9. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">10. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">11. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">12. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">13. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">14. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">15. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">16. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">17. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">18. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">19. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">20. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">21. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">22. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">23. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">24. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">25. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">26. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">27. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">28. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">29. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">30. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">31. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">32. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">33. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">34. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">35. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-taskserver">36. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">37. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">38. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">39. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">40. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">41. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">42. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">43. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">44. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">45. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">46. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">47. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">48. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">49. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">50. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">51. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">52. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">53. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">54. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">55. Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">III. Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">56. Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">57. Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">58. User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">59. Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">60. Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">61. Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">62. Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">63. Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">IV. Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">64. Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">65. Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">66. Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">67. What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">68. Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">69. Building a NixOS (Live) ISO</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">70. NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">71. Testing the Installer</a></span></dt></dl></dd><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="chapter"><a href="index.html#chap-contributing">72. Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>43.1. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="filename">emacs.nix</code>)</a></dt><dt>43.2. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>43.3. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="filename">configuration.nix</code></a></dt><dt>43.4. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="filename">~/.config/nixpkgs/config.nix</code></a></dt><dt>43.5. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>43.6. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="filename">.emacs</code></a></dt><dt>43.7. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="filename">~/.emacs.d/schemas.xml</code>)</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
   This manual describes how to install, use and extend NixOS, a Linux
   distribution based on the purely functional package management system
   <a class="link" href="https://nixos.org/nix" target="_top">Nix</a>, that is composed
@@ -17,7 +17,7 @@
   the <a class="link" href="https://matrix.to/#nix:nixos.org" target="_top">Matrix room</a>,
   or on the <a class="link" href="irc://irc.libera.chat/#nixos" target="_top">
   <code class="literal">#nixos</code> channel on Libera.Chat</a>.
-  Alternatively, consider <a class="link" href="index.html#chap-contributing" title="Chapter 71. Contributing to this manual">
+  Alternatively, consider <a class="link" href="index.html#chap-contributing" title="Chapter 72. Contributing to this manual">
    contributing to this manual</a>. Bugs should be
   reported in
   <a class="link" href="https://github.com/NixOS/nixpkgs/issues" target="_top">NixOS’
@@ -3250,9 +3250,9 @@ switchboard-with-plugs.override {
      </p></dd><dt><a id="sec-pantheon-faq-appcenter"></a><span class="term">
      Does AppCenter work, or is it available?
     </span></dt><dd><p>
-      AppCenter has been available since 20.03, but it is of little use. This is because there is no functioning PackageKit backend for Nix 2.0. Starting from 21.11, the Flatpak backend should work so you can install some Flatpak applications using it. See this <a class="link" href="https://github.com/NixOS/nixpkgs/issues/70214" target="_top">issue</a>.
+      AppCenter has been available since 20.03. Starting from 21.11, the Flatpak backend should work so you can install some Flatpak applications using it. However, due to missing appstream metadata, the Packagekit backend does not function currently. See this <a class="link" href="https://github.com/NixOS/nixpkgs/issues/15932" target="_top">issue</a>.
      </p><p>
-      To use AppCenter on NixOS, add <code class="literal">pantheon.appcenter</code> to <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>, <a class="link" href="index.html#module-services-flatpak" title="Chapter 45. Flatpak">enable Flatpak support</a> and optionally add the <code class="literal">appcenter</code> Flatpak remote:
+      If you are using Pantheon, AppCenter should be installed by default if you have <a class="link" href="index.html#module-services-flatpak" title="Chapter 45. Flatpak">Flatpak support</a> enabled. If you also wish to add the <code class="literal">appcenter</code> Flatpak remote:
      </p><pre class="screen">
 <code class="prompt">$ </code>flatpak remote-add --if-not-exists appcenter https://flatpak.elementary.io/repo.flatpakrepo
 </pre></dd></dl></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-gnome"></a>Chapter 17. GNOME Desktop</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-gnome-enable">17.1. Enabling GNOME</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-enable-flashback">17.2. Enabling GNOME Flashback</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-icons-and-gtk-themes">17.3. Icons and GTK Themes</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-shell-extensions">17.4. Shell Extensions</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-gsettings-overrides">17.5. GSettings Overrides</a></span></dt><dt><span class="section"><a href="index.html#sec-gnome-faq">17.6. Frequently Asked Questions</a></span></dt></dl></div><p>
@@ -3371,9 +3371,6 @@ services.xserver.desktopManager.gnome = {
     won’t be able to lock your screen.
    </p><p>
     See <a class="link" href="https://github.com/NixOS/nixpkgs/issues/56342" target="_top">this issue.</a>
-   </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-gnome-faq-nixos-rebuild-switch-kills-session"></a>17.6.2. Why does <code class="literal">nixos-rebuild switch</code> sometimes kill my session?</h3></div></div></div><p>
-    This is a known <a class="link" href="https://github.com/NixOS/nixpkgs/issues/44344" target="_top">issue</a> without any workarounds.
-    If you are doing a fairly large upgrade, it is probably safer to use <code class="literal">nixos-rebuild boot</code>.
    </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-matomo"></a>Chapter 18. Matomo</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-matomo-database-setup">18.1. Database Setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-archive-processing">18.2. Archive Processing</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-backups">18.3. Backup</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-issues">18.4. Issues</a></span></dt><dt><span class="section"><a href="index.html#module-services-matomo-other-web-servers">18.5. Using other Web Servers than nginx</a></span></dt></dl></div><p>
   Matomo is a real-time web analytics application. This module configures
   php-fpm as backend for Matomo, optionally configuring an nginx vhost as well.
@@ -3800,7 +3797,7 @@ services.lemmy = {
           This has been tested using a local database with a unix socket
           connection. Using different database settings will likely
           require modifications
-        </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-keycloak"></a>Chapter 23. Keycloak</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-keycloak-admin">23.1. Administration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-database">23.2. Database access</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-frontendurl">23.3. Frontend URL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-tls">23.4. Setting up TLS/SSL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-extra-config">23.5. Additional configuration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-example-config">23.6. Example configuration</a></span></dt></dl></div><p>
+        </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-keycloak"></a>Chapter 23. Keycloak</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-keycloak-admin">23.1. Administration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-database">23.2. Database access</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-frontendurl">23.3. Frontend URL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-tls">23.4. Setting up TLS/SSL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-themes">23.5. Themes</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-extra-config">23.6. Additional configuration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-example-config">23.7. Example configuration</a></span></dt></dl></div><p>
    <a class="link" href="https://www.keycloak.org/" target="_top">Keycloak</a> is an
    open source identity and access management server with support for
    <a class="link" href="https://openid.net/connect/" target="_top">OpenID
@@ -3850,7 +3847,11 @@ services.lemmy = {
        The frontend URL is used as base for all frontend requests and
        must be configured through <a class="xref" href="options.html#opt-services.keycloak.frontendUrl"><code class="option">services.keycloak.frontendUrl</code></a>.
        It should normally include a trailing <code class="literal">/auth</code>
-       (the default web context).
+       (the default web context). If you use a reverse proxy, you need
+       to set this option to <code class="literal">""</code>, so that frontend URL
+       is derived from HTTP headers. <code class="literal">X-Forwarded-*</code> headers
+       support also should be enabled, using <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/index.html#identifying-client-ip-addresses" target="_top">
+       respective guidelines</a>.
      </p><p>
        <a class="xref" href="options.html#opt-services.keycloak.forceBackendUrlToFrontendUrl"><code class="option">services.keycloak.forceBackendUrlToFrontendUrl</code></a>
        determines whether Keycloak should force all requests to go
@@ -3874,7 +3875,13 @@ services.lemmy = {
      </p><div class="warning"><h3 class="title">Warning</h3><p>
          The paths should be provided as a strings, not a Nix paths,
          since Nix paths are copied into the world readable Nix store.
-       </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-extra-config"></a>23.5. Additional configuration</h2></div></div></div><p>
+       </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-themes"></a>23.5. Themes</h2></div></div></div><p>
+        You can package custom themes and make them visible to Keycloak via
+        <a class="xref" href="options.html#opt-services.keycloak.themes"><code class="option">services.keycloak.themes</code></a>
+        option. See the <a class="link" href="https://www.keycloak.org/docs/latest/server_development/#_themes" target="_top">
+        Themes section of the Keycloak Server Development Guide</a>
+        and respective NixOS option description for more information.
+     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-extra-config"></a>23.6. Additional configuration</h2></div></div></div><p>
        Additional Keycloak configuration options, for which no
        explicit <span class="productname">NixOS</span> options are provided,
        can be set in <a class="xref" href="options.html#opt-services.keycloak.extraConfig"><code class="option">services.keycloak.extraConfig</code></a>.
@@ -3917,7 +3924,7 @@ services.keycloak.extraConfig = {
        You can discover available options by using the <a class="link" href="http://docs.wildfly.org/21/Admin_Guide.html#Command_Line_Interface" target="_top">jboss-cli.sh</a>
        program and by referring to the <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/index.html" target="_top">Keycloak
        Server Installation and Configuration Guide</a>.
-     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-example-config"></a>23.6. Example configuration</h2></div></div></div><p>
+     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-example-config"></a>23.7. Example configuration</h2></div></div></div><p>
        A basic configuration with some custom settings could look like this:
 </p><pre class="programlisting">
 services.keycloak = {
@@ -4399,7 +4406,6 @@ in {
       interface eth0
       {
         AdvSendAdvert on;
-        AdvDefaultLifetime 0;
         prefix ${prefix}::/64 {
           AdvOnLink on;
           AdvAutonomous on;
@@ -8405,7 +8411,7 @@ lrwxrwxrwx 1 root root 78 Aug 12 13:54 /nix/var/nix/profiles/system-268-link -&g
 # nixos-rebuild switch --option binary-caches http://my-cache.example.org/
 </pre></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="ch-development"></a>Part IV. Development</h1></div></div></div><div class="partintro"><div></div><p>
    This chapter describes how you can modify and extend NixOS.
-  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-getting-sources">64. Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">65. Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">66. Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">67. Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">68. Building a NixOS (Live) ISO</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">69. NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">70. Testing the Installer</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-getting-sources"></a>Chapter 64. Getting the Sources</h2></div></div></div><p>
+  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-getting-sources">64. Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">65. Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">66. Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">67. What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">68. Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">69. Building a NixOS (Live) ISO</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">70. NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">71. Testing the Installer</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-getting-sources"></a>Chapter 64. Getting the Sources</h2></div></div></div><p>
     By default, NixOS’s <code class="literal">nixos-rebuild</code> command uses
     the NixOS and Nixpkgs sources provided by the
     <code class="literal">nixos</code> channel (kept in
@@ -8695,97 +8701,172 @@ options = {
       </span></dt><dd><p>
           A textual description of the option, in DocBook format, that
           will be included in the NixOS manual.
-        </p></dd></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-eot"></a>65.1.1. Extensible Option Types</h3></div></div></div><p>
-      Extensible option types is a feature that allow to extend certain
-      types declaration through multiple module files. This feature only
-      work with a restricted set of types, namely
-      <code class="literal">enum</code> and <code class="literal">submodules</code> and any
-      composed forms of them.
-    </p><p>
-      Extensible option types can be used for <code class="literal">enum</code>
-      options that affects multiple modules, or as an alternative to
-      related <code class="literal">enable</code> options.
-    </p><p>
-      As an example, we will take the case of display managers. There is
-      a central display manager module for generic display manager
-      options and a module file per display manager backend (sddm, gdm
-      ...).
-    </p><p>
-      There are two approach to this module structure:
-    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-          Managing the display managers independently by adding an
-          enable option to every display manager module backend. (NixOS)
-        </p></li><li class="listitem"><p>
-          Managing the display managers in the central module by adding
-          an option to select which display manager backend to use.
-        </p></li></ul></div><p>
-      Both approaches have problems.
-    </p><p>
-      Making backends independent can quickly become hard to manage. For
-      display managers, there can be only one enabled at a time, but the
-      type system can not enforce this restriction as there is no
-      relation between each backend <code class="literal">enable</code> option. As
-      a result, this restriction has to be done explicitely by adding
-      assertions in each display manager backend module.
-    </p><p>
-      On the other hand, managing the display managers backends in the
-      central module will require to change the central module option
-      every time a new backend is added or removed.
-    </p><p>
-      By using extensible option types, it is possible to create a
-      placeholder option in the central module
-      (<a class="link" href="index.html#ex-option-declaration-eot-service">Example:
-      Extensible type placeholder in the service module</a>), and to
-      extend it in each backend module
-      (<a class="link" href="index.html#ex-option-declaration-eot-backend-gdm">Example:
-      Extending
-      <code class="literal">services.xserver.displayManager.enable</code> in the
-      <code class="literal">gdm</code> module</a>,
-      <a class="link" href="index.html#ex-option-declaration-eot-backend-sddm">Example:
-      Extending
-      <code class="literal">services.xserver.displayManager.enable</code> in the
-      <code class="literal">sddm</code> module</a>).
-    </p><p>
-      As a result, <code class="literal">displayManager.enable</code> option
-      values can be added without changing the main service module file
-      and the type system automatically enforce that there can only be a
-      single display manager enabled.
-    </p><a id="ex-option-declaration-eot-service"></a><p>
-      <span class="strong"><strong>Example: Extensible type placeholder in
-      the service module</strong></span>
-    </p><pre class="programlisting">
+        </p></dd></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-util"></a>65.1.1. Utility functions for common option patterns</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-option-declarations-util-mkEnableOption"></a>65.1.1.1. <code class="literal">mkEnableOption</code></h4></div></div></div><p>
+        Creates an Option attribute set for a boolean value option i.e
+        an option to be toggled on or off.
+      </p><p>
+        This function takes a single string argument, the name of the
+        thing to be toggled.
+      </p><p>
+        The option’s description is <span class="quote">“<span class="quote">Whether to enable
+        &lt;name&gt;.</span>”</span>.
+      </p><p>
+        For example:
+      </p><a id="ex-options-declarations-util-mkEnableOption-magic"></a><pre class="programlisting">
+lib.mkEnableOption "magic"
+# is like
+lib.mkOption {
+  type = lib.types.bool;
+  default = false;
+  example = true;
+  description = "Whether to enable magic.";
+}
+</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-option-declarations-util-mkPackageOption"></a>65.1.1.1.1. <code class="literal">mkPackageOption</code></h5></div></div></div><p>
+          Usage:
+        </p><pre class="programlisting">
+mkPackageOption pkgs "name" { default = [ "path" "in" "pkgs" ]; example = "literal example"; }
+</pre><p>
+          Creates an Option attribute set for an option that specifies
+          the package a module should use for some purpose.
+        </p><p>
+          <span class="strong"><strong>Note</strong></span>: You shouldn’t
+          necessarily make package options for all of your modules. You
+          can always overwrite a specific package throughout nixpkgs by
+          using
+          <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#chap-overlays" target="_top">nixpkgs
+          overlays</a>.
+        </p><p>
+          The default package is specified as a list of strings
+          representing its attribute path in nixpkgs. Because of this,
+          you need to pass nixpkgs itself as the first argument.
+        </p><p>
+          The second argument is the name of the option, used in the
+          description <span class="quote">“<span class="quote">The &lt;name&gt; package to use.</span>”</span>.
+          You can also pass an example value, either a literal string or
+          a package’s attribute path.
+        </p><p>
+          You can omit the default path if the name of the option is
+          also attribute path in nixpkgs.
+        </p><a id="ex-options-declarations-util-mkPackageOption"></a><p>
+          Examples:
+        </p><a id="ex-options-declarations-util-mkPackageOption-hello"></a><pre class="programlisting">
+lib.mkPackageOption pkgs "hello" { }
+# is like
+lib.mkOption {
+  type = lib.types.package;
+  default = pkgs.hello;
+  defaultText = lib.literalExpression "pkgs.hello";
+  description = "The hello package to use.";
+}
+</pre><a id="ex-options-declarations-util-mkPackageOption-ghc"></a><pre class="programlisting">
+lib.mkPackageOption pkgs "GHC" {
+  default = [ "ghc" ];
+  example = "pkgs.haskell.package.ghc921.ghc.withPackages (hkgs: [ hkgs.primes ])";
+}
+# is like
+lib.mkOption {
+  type = lib.types.package;
+  default = pkgs.ghc;
+  defaultText = lib.literalExpression "pkgs.ghc";
+  example = lib.literalExpression "pkgs.haskell.package.ghc921.ghc.withPackages (hkgs: [ hkgs.primes ])";
+  description = "The GHC package to use.";
+}
+</pre><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="sec-option-declarations-eot"></a>65.1.1.1.1.1. Extensible Option Types</h6></div></div></div><p>
+            Extensible option types is a feature that allow to extend
+            certain types declaration through multiple module files.
+            This feature only work with a restricted set of types,
+            namely <code class="literal">enum</code> and
+            <code class="literal">submodules</code> and any composed forms of
+            them.
+          </p><p>
+            Extensible option types can be used for
+            <code class="literal">enum</code> options that affects multiple
+            modules, or as an alternative to related
+            <code class="literal">enable</code> options.
+          </p><p>
+            As an example, we will take the case of display managers.
+            There is a central display manager module for generic
+            display manager options and a module file per display
+            manager backend (sddm, gdm ...).
+          </p><p>
+            There are two approach to this module structure:
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+                Managing the display managers independently by adding an
+                enable option to every display manager module backend.
+                (NixOS)
+              </p></li><li class="listitem"><p>
+                Managing the display managers in the central module by
+                adding an option to select which display manager backend
+                to use.
+              </p></li></ul></div><p>
+            Both approaches have problems.
+          </p><p>
+            Making backends independent can quickly become hard to
+            manage. For display managers, there can be only one enabled
+            at a time, but the type system can not enforce this
+            restriction as there is no relation between each backend
+            <code class="literal">enable</code> option. As a result, this
+            restriction has to be done explicitely by adding assertions
+            in each display manager backend module.
+          </p><p>
+            On the other hand, managing the display managers backends in
+            the central module will require to change the central module
+            option every time a new backend is added or removed.
+          </p><p>
+            By using extensible option types, it is possible to create a
+            placeholder option in the central module
+            (<a class="link" href="index.html#ex-option-declaration-eot-service">Example:
+            Extensible type placeholder in the service module</a>),
+            and to extend it in each backend module
+            (<a class="link" href="index.html#ex-option-declaration-eot-backend-gdm">Example:
+            Extending
+            <code class="literal">services.xserver.displayManager.enable</code> in
+            the <code class="literal">gdm</code> module</a>,
+            <a class="link" href="index.html#ex-option-declaration-eot-backend-sddm">Example:
+            Extending
+            <code class="literal">services.xserver.displayManager.enable</code> in
+            the <code class="literal">sddm</code> module</a>).
+          </p><p>
+            As a result, <code class="literal">displayManager.enable</code> option
+            values can be added without changing the main service module
+            file and the type system automatically enforce that there
+            can only be a single display manager enabled.
+          </p><a id="ex-option-declaration-eot-service"></a><p>
+            <span class="strong"><strong>Example: Extensible type placeholder
+            in the service module</strong></span>
+          </p><pre class="programlisting">
 services.xserver.displayManager.enable = mkOption {
   description = "Display manager to use";
   type = with types; nullOr (enum [ ]);
 };
 </pre><a id="ex-option-declaration-eot-backend-gdm"></a><p>
-      <span class="strong"><strong>Example: Extending
-      <code class="literal">services.xserver.displayManager.enable</code> in the
-      <code class="literal">gdm</code> module</strong></span>
-    </p><pre class="programlisting">
+            <span class="strong"><strong>Example: Extending
+            <code class="literal">services.xserver.displayManager.enable</code> in
+            the <code class="literal">gdm</code> module</strong></span>
+          </p><pre class="programlisting">
 services.xserver.displayManager.enable = mkOption {
   type = with types; nullOr (enum [ "gdm" ]);
 };
 </pre><a id="ex-option-declaration-eot-backend-sddm"></a><p>
-      <span class="strong"><strong>Example: Extending
-      <code class="literal">services.xserver.displayManager.enable</code> in the
-      <code class="literal">sddm</code> module</strong></span>
-    </p><pre class="programlisting">
+            <span class="strong"><strong>Example: Extending
+            <code class="literal">services.xserver.displayManager.enable</code> in
+            the <code class="literal">sddm</code> module</strong></span>
+          </p><pre class="programlisting">
 services.xserver.displayManager.enable = mkOption {
   type = with types; nullOr (enum [ "sddm" ]);
 };
 </pre><p>
-      The placeholder declaration is a standard
-      <code class="literal">mkOption</code> declaration, but it is important that
-      extensible option declarations only use the
-      <code class="literal">type</code> argument.
-    </p><p>
-      Extensible option types work with any of the composed variants of
-      <code class="literal">enum</code> such as
-      <code class="literal">with types; nullOr (enum [ "foo" "bar" ])</code>
-      or
-      <code class="literal">with types; listOf (enum [ "foo" "bar" ])</code>.
-    </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-option-types"></a>65.2. Options Types</h2></div></div></div><p>
+            The placeholder declaration is a standard
+            <code class="literal">mkOption</code> declaration, but it is important
+            that extensible option declarations only use the
+            <code class="literal">type</code> argument.
+          </p><p>
+            Extensible option types work with any of the composed
+            variants of <code class="literal">enum</code> such as
+            <code class="literal">with types; nullOr (enum [ "foo" "bar" ])</code>
+            or
+            <code class="literal">with types; listOf (enum [ "foo" "bar" ])</code>.
+          </p></div></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-option-types"></a>65.2. Options Types</h2></div></div></div><p>
     Option types are a way to put constraints on the values a module
     option can take. Types are also responsible of how values are merged
     in case of multiple value definitions.
@@ -9071,6 +9152,16 @@ services.xserver.displayManager.enable = mkOption {
             Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span>
             cannot be merged. It is used to ensure option definitions
             are declared only once.
+          </p></dd><dt><span class="term">
+          <code class="literal">types.unique</code>
+          <code class="literal">{ message = m }</code>
+          <span class="emphasis"><em><code class="literal">t</code></em></span>
+        </span></dt><dd><p>
+            Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span>
+            cannot be merged. Prints the message
+            <span class="emphasis"><em><code class="literal">m</code></em></span>, after the line
+            <code class="literal">The option &lt;option path&gt; is defined multiple times.</code>
+            and before a list of definition locations.
           </p></dd><dt><span class="term">
           <code class="literal">types.either</code>
           <span class="emphasis"><em><code class="literal">t1 t2</code></em></span>
@@ -10012,12 +10103,271 @@ $ cp $(nix-build -A 'config.systemd.units."httpd.service".unit')/httpd.service \
           precedence over <code class="literal">/run/systemd/system</code>. That’s
           why the unit is installed as
           <code class="literal">tmp-httpd.service</code> here.
-        </p></dd></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-writing-documentation"></a>Chapter 67. Writing NixOS Documentation</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-writing-docs-building-the-manual">67.1. Building the Manual</a></span></dt><dt><span class="section"><a href="index.html#sec-writing-docs-editing-docbook-xml">67.2. Editing DocBook XML</a></span></dt><dt><span class="section"><a href="index.html#sec-writing-docs-creating-a-topic">67.3. Creating a Topic</a></span></dt><dt><span class="section"><a href="index.html#sec-writing-docs-adding-a-topic">67.4. Adding a Topic to the Book</a></span></dt></dl></div><p>
+        </p></dd></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-switching-systems"></a>Chapter 67. What happens during a system switch?</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-unit-handling">67.1. Unit handling</a></span></dt><dt><span class="section"><a href="index.html#sec-activation-script">67.2. Activation script</a></span></dt></dl></div><p>
+    Running <code class="literal">nixos-rebuild switch</code> is one of the more
+    common tasks under NixOS. This chapter explains some of the
+    internals of this command to make it simpler for new module
+    developers to configure their units correctly and to make it easier
+    to understand what is happening and why for curious administrators.
+  </p><p>
+    <code class="literal">nixos-rebuild</code>, like many deployment solutions,
+    calls <code class="literal">switch-to-configuration</code> which resides in a
+    NixOS system at <code class="literal">$out/bin/switch-to-configuration</code>.
+    The script is called with the action that is to be performed like
+    <code class="literal">switch</code>, <code class="literal">test</code>,
+    <code class="literal">boot</code>. There is also the
+    <code class="literal">dry-activate</code> action which does not really perform
+    the actions but rather prints what it would do if you called it with
+    <code class="literal">test</code>. This feature can be used to check what
+    service states would be changed if the configuration was switched
+    to.
+  </p><p>
+    If the action is <code class="literal">switch</code> or
+    <code class="literal">boot</code>, the bootloader is updated first so the
+    configuration will be the next one to boot. Unless
+    <code class="literal">NIXOS_NO_SYNC</code> is set to <code class="literal">1</code>,
+    <code class="literal">/nix/store</code> is synced to disk.
+  </p><p>
+    If the action is <code class="literal">switch</code> or
+    <code class="literal">test</code>, the currently running system is inspected
+    and the actions to switch to the new system are calculated. This
+    process takes two data sources into account:
+    <code class="literal">/etc/fstab</code> and the current systemd status. Mounts
+    and swaps are read from <code class="literal">/etc/fstab</code> and the
+    corresponding actions are generated. If a new mount is added, for
+    example, the proper <code class="literal">.mount</code> unit is marked to be
+    started. The current systemd state is inspected, the difference
+    between the current system and the desired configuration is
+    calculated and actions are generated to get to this state. There are
+    a lot of nuances that can be controlled by the units which are
+    explained here.
+  </p><p>
+    After calculating what should be done, the actions are carried out.
+    The order of actions is always the same:
+  </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        Stop units (<code class="literal">systemctl stop</code>)
+      </p></li><li class="listitem"><p>
+        Run activation script (<code class="literal">$out/activate</code>)
+      </p></li><li class="listitem"><p>
+        See if the activation script requested more units to restart
+      </p></li><li class="listitem"><p>
+        Restart systemd if needed
+        (<code class="literal">systemd daemon-reexec</code>)
+      </p></li><li class="listitem"><p>
+        Forget about the failed state of units
+        (<code class="literal">systemctl reset-failed</code>)
+      </p></li><li class="listitem"><p>
+        Reload systemd (<code class="literal">systemctl daemon-reload</code>)
+      </p></li><li class="listitem"><p>
+        Reload systemd user instances
+        (<code class="literal">systemctl --user daemon-reload</code>)
+      </p></li><li class="listitem"><p>
+        Set up tmpfiles (<code class="literal">systemd-tmpfiles --create</code>)
+      </p></li><li class="listitem"><p>
+        Reload units (<code class="literal">systemctl reload</code>)
+      </p></li><li class="listitem"><p>
+        Restart units (<code class="literal">systemctl restart</code>)
+      </p></li><li class="listitem"><p>
+        Start units (<code class="literal">systemctl start</code>)
+      </p></li><li class="listitem"><p>
+        Inspect what changed during these actions and print units that
+        failed and that were newly started
+      </p></li></ul></div><p>
+    Most of these actions are either self-explaining but some of them
+    have to do with our units or the activation script. For this reason,
+    these topics are explained in the next sections.
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-unit-handling"></a>67.1. Unit handling</h2></div></div></div><p>
+    To figure out what units need to be
+    started/stopped/restarted/reloaded, the script first checks the
+    current state of the system, similar to what
+    <code class="literal">systemctl list-units</code> shows. For each of the
+    units, the script goes through the following checks:
+  </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Is the unit file still in the new system? If not,
+        <span class="strong"><strong>stop</strong></span> the service unless it
+        sets <code class="literal">X-StopOnRemoval</code> in the
+        <code class="literal">[Unit]</code> section to <code class="literal">false</code>.
+      </p></li><li class="listitem"><p>
+        Is it a <code class="literal">.target</code> unit? If so,
+        <span class="strong"><strong>start</strong></span> it unless it sets
+        <code class="literal">RefuseManualStart</code> in the
+        <code class="literal">[Unit]</code> section to <code class="literal">true</code> or
+        <code class="literal">X-OnlyManualStart</code> in the
+        <code class="literal">[Unit]</code> section to <code class="literal">true</code>.
+        Also <span class="strong"><strong>stop</strong></span> the unit again
+        unless it sets <code class="literal">X-StopOnReconfiguration</code> to
+        <code class="literal">false</code>.
+      </p></li><li class="listitem"><p>
+        Are the contents of the unit files different? They are compared
+        by parsing them and comparing their contents. If they are
+        different but only <code class="literal">X-Reload-Triggers</code> in the
+        <code class="literal">[Unit]</code> section is changed,
+        <span class="strong"><strong>reload</strong></span> the unit. The NixOS
+        module system allows setting these triggers with the option
+        <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.reloadTriggers</a>.
+        If the unit files differ in any way, the following actions are
+        performed:
+      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
+            <code class="literal">.path</code> and <code class="literal">.slice</code> units
+            are ignored. There is no need to restart them since changes
+            in their values are applied by systemd when systemd is
+            reloaded.
+          </p></li><li class="listitem"><p>
+            <code class="literal">.mount</code> units are
+            <span class="strong"><strong>reload</strong></span>ed. These mostly
+            come from the <code class="literal">/etc/fstab</code> parser.
+          </p></li><li class="listitem"><p>
+            <code class="literal">.socket</code> units are currently ignored. This
+            is to be fixed at a later point.
+          </p></li><li class="listitem"><p>
+            The rest of the units (mostly <code class="literal">.service</code>
+            units) are then <span class="strong"><strong>reload</strong></span>ed
+            if <code class="literal">X-ReloadIfChanged</code> in the
+            <code class="literal">[Service]</code> section is set to
+            <code class="literal">true</code> (exposed via
+            <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.reloadIfChanged</a>).
+          </p></li><li class="listitem"><p>
+            If the reload flag is not set, some more flags decide if the
+            unit is skipped. These flags are
+            <code class="literal">X-RestartIfChanged</code> in the
+            <code class="literal">[Service]</code> section (exposed via
+            <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.restartIfChanged</a>),
+            <code class="literal">RefuseManualStop</code> in the
+            <code class="literal">[Unit]</code> section, and
+            <code class="literal">X-OnlyManualStart</code> in the
+            <code class="literal">[Unit]</code> section.
+          </p></li><li class="listitem"><p>
+            The rest of the behavior is decided whether the unit has
+            <code class="literal">X-StopIfChanged</code> in the
+            <code class="literal">[Service]</code> section set (exposed via
+            <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.stopIfChanged</a>).
+            This is set to <code class="literal">true</code> by default and must
+            be explicitly turned off if not wanted. If the flag is
+            enabled, the unit is
+            <span class="strong"><strong>stop</strong></span>ped and then
+            <span class="strong"><strong>start</strong></span>ed. If not, the unit
+            is <span class="strong"><strong>restart</strong></span>ed. The goal of
+            the flag is to make sure that the new unit never runs in the
+            old environment which is still in place before the
+            activation script is run.
+          </p></li><li class="listitem"><p>
+            The last thing that is taken into account is whether the
+            unit is a service and socket-activated. Due to a bug, this
+            is currently only done when
+            <code class="literal">X-StopIfChanged</code> is set. If the unit is
+            socket-activated, the socket is stopped and started, and the
+            service is stopped and to be started by socket activation.
+          </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-activation-script"></a>67.2. Activation script</h2></div></div></div><p>
+    The activation script is a bash script called to activate the new
+    configuration which resides in a NixOS system in
+    <code class="literal">$out/activate</code>. Since its contents depend on your
+    system configuration, the contents may differ. This chapter explains
+    how the script works in general and some common NixOS snippets.
+    Please be aware that the script is executed on every boot and system
+    switch, so tasks that can be performed in other places should be
+    performed there (for example letting a directory of a service be
+    created by systemd using mechanisms like
+    <code class="literal">StateDirectory</code>,
+    <code class="literal">CacheDirectory</code>, … or if that’s not possible using
+    <code class="literal">preStart</code> of the service).
+  </p><p>
+    Activation scripts are defined as snippets using
+    <a class="xref" href="options.html#opt-system.activationScripts"><code class="option">system.activationScripts</code></a>. They can either be
+    a simple multiline string or an attribute set that can depend on
+    other snippets. The builder for the activation script will take
+    these dependencies into account and order the snippets accordingly.
+    As a simple example:
+  </p><pre class="programlisting">
+system.activationScripts.my-activation-script = {
+  deps = [ "etc" ];
+  # supportsDryActivation = true;
+  text = ''
+    echo "Hallo i bims"
+  '';
+};
+</pre><p>
+    This example creates an activation script snippet that is run after
+    the <code class="literal">etc</code> snippet. The special variable
+    <code class="literal">supportsDryActivation</code> can be set so the snippet
+    is also run when <code class="literal">nixos-rebuild dry-activate</code> is
+    run. To differentiate between real and dry activation, the
+    <code class="literal">$NIXOS_ACTION</code> environment variable can be read
+    which is set to <code class="literal">dry-activate</code> when a dry
+    activation is done.
+  </p><p>
+    An activation script can write to special files instructing
+    <code class="literal">switch-to-configuration</code> to restart/reload units.
+    The script will take these requests into account and will
+    incorperate the unit configuration as described above. This means
+    that the activation script will <span class="quote">“<span class="quote">fake</span>”</span> a modified unit
+    file and <code class="literal">switch-to-configuration</code> will act
+    accordingly. By doing so, configuration like
+    <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.restartIfChanged</a>
+    is respected. Since the activation script is run
+    <span class="strong"><strong>after</strong></span> services are already
+    stopped,
+    <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.stopIfChanged</a>
+    cannot be taken into account anymore and the unit is always
+    restarted instead of being stopped and started afterwards.
+  </p><p>
+    The files that can be written to are
+    <code class="literal">/run/nixos/activation-restart-list</code> and
+    <code class="literal">/run/nixos/activation-reload-list</code> with their
+    respective counterparts for dry activation being
+    <code class="literal">/run/nixos/dry-activation-restart-list</code> and
+    <code class="literal">/run/nixos/dry-activation-reload-list</code>. Those
+    files can contain newline-separated lists of unit names where
+    duplicates are being ignored. These files are not create
+    automatically and activation scripts must take the possiblility into
+    account that they have to create them first.
+  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-activation-script-nixos-snippets"></a>67.2.1. NixOS snippets</h3></div></div></div><p>
+      There are some snippets NixOS enables by default because disabling
+      them would most likely break you system. This section lists a few
+      of them and what they do:
+    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">binsh</code> creates <code class="literal">/bin/sh</code>
+          which points to the runtime shell
+        </p></li><li class="listitem"><p>
+          <code class="literal">etc</code> sets up the contents of
+          <code class="literal">/etc</code>, this includes systemd units and
+          excludes <code class="literal">/etc/passwd</code>,
+          <code class="literal">/etc/group</code>, and
+          <code class="literal">/etc/shadow</code> (which are managed by the
+          <code class="literal">users</code> snippet)
+        </p></li><li class="listitem"><p>
+          <code class="literal">hostname</code> sets the system’s hostname in the
+          kernel (not in <code class="literal">/etc</code>)
+        </p></li><li class="listitem"><p>
+          <code class="literal">modprobe</code> sets the path to the
+          <code class="literal">modprobe</code> binary for module auto-loading
+        </p></li><li class="listitem"><p>
+          <code class="literal">nix</code> prepares the nix store and adds a
+          default initial channel
+        </p></li><li class="listitem"><p>
+          <code class="literal">specialfs</code> is responsible for mounting
+          filesystems like <code class="literal">/proc</code> and
+          <code class="literal">sys</code>
+        </p></li><li class="listitem"><p>
+          <code class="literal">users</code> creates and removes users and groups
+          by managing <code class="literal">/etc/passwd</code>,
+          <code class="literal">/etc/group</code> and
+          <code class="literal">/etc/shadow</code>. This also creates home
+          directories
+        </p></li><li class="listitem"><p>
+          <code class="literal">usrbinenv</code> creates
+          <code class="literal">/usr/bin/env</code>
+        </p></li><li class="listitem"><p>
+          <code class="literal">var</code> creates some directories in
+          <code class="literal">/var</code> that are not service-specific
+        </p></li><li class="listitem"><p>
+          <code class="literal">wrappers</code> creates setuid wrappers like
+          <code class="literal">ping</code> and <code class="literal">sudo</code>
+        </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-writing-documentation"></a>Chapter 68. Writing NixOS Documentation</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-writing-docs-building-the-manual">68.1. Building the Manual</a></span></dt><dt><span class="section"><a href="index.html#sec-writing-docs-editing-docbook-xml">68.2. Editing DocBook XML</a></span></dt><dt><span class="section"><a href="index.html#sec-writing-docs-creating-a-topic">68.3. Creating a Topic</a></span></dt><dt><span class="section"><a href="index.html#sec-writing-docs-adding-a-topic">68.4. Adding a Topic to the Book</a></span></dt></dl></div><p>
     As NixOS grows, so too does the need for a catalogue and explanation
     of its extensive functionality. Collecting pertinent information
     from disparate sources and presenting it in an accessible style
     would be a worthy contribution to the project.
-  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-building-the-manual"></a>67.1. Building the Manual</h2></div></div></div><p>
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-building-the-manual"></a>68.1. Building the Manual</h2></div></div></div><p>
       The DocBook sources of the <a class="xref" href="index.html" title="NixOS Manual">NixOS Manual</a>
       are in the
       <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual" target="_top"><code class="literal">nixos/doc/manual</code></a>
@@ -10039,7 +10389,7 @@ nix-build nixos/release.nix -A manual.x86_64-linux
       the manual got generated. The HTML will be accessible through the
       <code class="literal">result</code> symlink at
       <code class="literal">./result/share/doc/nixos/index.html</code>.
-    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-editing-docbook-xml"></a>67.2. Editing DocBook XML</h2></div></div></div><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-editing-docbook-xml"></a>68.2. Editing DocBook XML</h2></div></div></div><p>
       For general information on how to write in DocBook, see
       <a class="link" href="http://www.docbook.org/tdg5/en/html/docbook.html" target="_top">DocBook
       5: The Definitive Guide</a>.
@@ -10064,7 +10414,7 @@ pandoc -f markdown_github -t docbook5 docs.md -o my-section.md
       <a class="link" href="https://github.com/NixOS/nixpkgs/issues/new" target="_top">GitHub
       Issue</a> and someone will handle the conversion to XML for
       you.
-    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-creating-a-topic"></a>67.3. Creating a Topic</h2></div></div></div><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-creating-a-topic"></a>68.3. Creating a Topic</h2></div></div></div><p>
       You can use an existing topic as a basis for the new topic or
       create a topic from scratch.
     </p><p>
@@ -10095,7 +10445,7 @@ pandoc -f markdown_github -t docbook5 docs.md -o my-section.md
           Determine whether your topic is a chapter or a section. If you
           are unsure, open an existing topic file and check whether the
           main element is chapter or section.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-adding-a-topic"></a>67.4. Adding a Topic to the Book</h2></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-docs-adding-a-topic"></a>68.4. Adding a Topic to the Book</h2></div></div></div><p>
       Open the parent XML file and add an <code class="literal">xi:include</code>
       element to the list of chapters with the file name of the topic
       that you created. If you created a <code class="literal">section</code>, you
@@ -10107,7 +10457,7 @@ pandoc -f markdown_github -t docbook5 docs.md -o my-section.md
       automatically included in the manual by using the
       <code class="literal">meta.doc</code> attribute. See
       <a class="xref" href="index.html#sec-meta-attributes" title="65.5. Meta Attributes">Section 65.5, “Meta Attributes”</a> for an explanation.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-building-image"></a>Chapter 68. Building a NixOS (Live) ISO</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-building-image-instructions">68.1. Practical Instructions</a></span></dt><dt><span class="section"><a href="index.html#sec-building-image-tech-notes">68.2. Technical Notes</a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-building-image"></a>Chapter 69. Building a NixOS (Live) ISO</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-building-image-instructions">69.1. Practical Instructions</a></span></dt><dt><span class="section"><a href="index.html#sec-building-image-tech-notes">69.2. Technical Notes</a></span></dt></dl></div><p>
     Default live installer configurations are available inside
     <code class="literal">nixos/modules/installer/cd-dvd</code>. For building
     other system images,
@@ -10126,7 +10476,7 @@ pandoc -f markdown_github -t docbook5 docs.md -o my-section.md
   </p><p>
     However, if you are confident, you can opt to override those
     enforced values with <code class="literal">mkForce</code>.
-  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-building-image-instructions"></a>68.1. Practical Instructions</h2></div></div></div><pre class="programlisting">
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-building-image-instructions"></a>69.1. Practical Instructions</h2></div></div></div><pre class="programlisting">
 $ git clone https://github.com/NixOS/nixpkgs.git
 $ cd nixpkgs/nixos
 $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd-dvd/installation-cd-minimal.nix default.nix
@@ -10134,7 +10484,7 @@ $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd
       To check the content of an ISO image, mount it like so:
     </p><pre class="programlisting">
 # mount -o loop -t iso9660 ./result/iso/cd.iso /mnt/iso
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-building-image-tech-notes"></a>68.2. Technical Notes</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-building-image-tech-notes"></a>69.2. Technical Notes</h2></div></div></div><p>
       The config value enforcement is implemented via
       <code class="literal">mkImageMediaOverride = mkOverride 60;</code> and
       therefore primes over simple value assignments, but also yields to
@@ -10152,13 +10502,13 @@ $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd
       formatting the target block device(s). On the other hand, the
       netboot iso only overrides its minimum dependencies since netboot
       images are always made-to-target.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-nixos-tests"></a>Chapter 69. NixOS Tests</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-writing-nixos-tests">69.1. Writing Tests</a></span></dt><dt><span class="section"><a href="index.html#sec-running-nixos-tests">69.2. Running Tests</a></span></dt><dt><span class="section"><a href="index.html#sec-running-nixos-tests-interactively">69.3. Running Tests interactively</a></span></dt><dt><span class="section"><a href="index.html#sec-linking-nixos-tests-to-packages">69.4. Linking NixOS tests to packages</a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-nixos-tests"></a>Chapter 70. NixOS Tests</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-writing-nixos-tests">70.1. Writing Tests</a></span></dt><dt><span class="section"><a href="index.html#sec-running-nixos-tests">70.2. Running Tests</a></span></dt><dt><span class="section"><a href="index.html#sec-running-nixos-tests-interactively">70.3. Running Tests interactively</a></span></dt><dt><span class="section"><a href="index.html#sec-linking-nixos-tests-to-packages">70.4. Linking NixOS tests to packages</a></span></dt></dl></div><p>
     When you add some feature to NixOS, you should write a test for it.
     NixOS tests are kept in the directory
     <code class="literal">nixos/tests</code>, and are executed (using Nix) by a
     testing framework that automatically starts one or more virtual
     machines containing the NixOS system(s) required for the test.
-  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-nixos-tests"></a>69.1. Writing Tests</h2></div></div></div><p>
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-writing-nixos-tests"></a>70.1. Writing Tests</h2></div></div></div><p>
     A NixOS test is a Nix expression that has the following structure:
   </p><pre class="programlisting">
 import ./make-test-python.nix {
@@ -10246,7 +10596,7 @@ if not "Linux" in machine.succeed("uname"):
     them in parallel:
   </p><pre class="programlisting">
 start_all()
-</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-machine-objects"></a>69.1.1. Machine objects</h3></div></div></div><p>
+</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-machine-objects"></a>70.1.1. Machine objects</h3></div></div></div><p>
       The following methods are available on machine objects:
     </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
           <code class="literal">start</code>
@@ -10481,7 +10831,7 @@ import ./make-test-python.nix {
       Python code…
       # fmt: on
     '';
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-failing-tests-early"></a>69.1.2. Failing tests early</h3></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-failing-tests-early"></a>70.1.2. Failing tests early</h3></div></div></div><p>
       To fail tests early when certain invariables are no longer met
       (instead of waiting for the build to time out), the decorator
       <code class="literal">polling_condition</code> is provided. For example, if
@@ -10530,7 +10880,7 @@ def foo_running():
 def foo_running():
     machine.succeed("pgrep -x foo")
 ```
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-running-nixos-tests"></a>69.2. Running Tests</h2></div></div></div><p>
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-running-nixos-tests"></a>70.2. Running Tests</h2></div></div></div><p>
     You can run tests using <code class="literal">nix-build</code>. For example,
     to run the test
     <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/login.nix" target="_top"><code class="literal">login.nix</code></a>,
@@ -10555,12 +10905,12 @@ machine: QEMU running (pid 8841)
     created. Afterwards, you can view a pretty-printed log of the test:
   </p><pre class="programlisting">
 $ firefox result/log.html
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-running-nixos-tests-interactively"></a>69.3. Running Tests interactively</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-running-nixos-tests-interactively"></a>70.3. Running Tests interactively</h2></div></div></div><p>
     The test itself can be run interactively. This is particularly
     useful when developing or debugging a test:
   </p><pre class="programlisting">
 $ nix-build . -A nixosTests.login.driverInteractive
-$ ./result/bin/nixos-test-driver --interactive
+$ ./result/bin/nixos-test-driver
 [...]
 &gt;&gt;&gt;
 </pre><p>
@@ -10579,17 +10929,17 @@ $ ./result/bin/nixos-test-driver --interactive
     You can re-use the VM states coming from a previous run by setting
     the <code class="literal">--keep-vm-state</code> flag.
   </p><pre class="programlisting">
-$ ./result/bin/nixos-test-driver --interactive --keep-vm-state
+$ ./result/bin/nixos-test-driver --keep-vm-state
 </pre><p>
     The machine state is stored in the
     <code class="literal">$TMPDIR/vm-state-machinename</code> directory.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-linking-nixos-tests-to-packages"></a>69.4. Linking NixOS tests to packages</h2></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-linking-nixos-tests-to-packages"></a>70.4. Linking NixOS tests to packages</h2></div></div></div><p>
     You can link NixOS module tests to the packages that they exercised,
     so that the tests can be run automatically during code review when
     the package gets changed. This is
     <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#ssec-nixos-tests-linking" target="_top">described
     in the nixpkgs manual</a>.
-  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="ch-testing-installer"></a>Chapter 70. Testing the Installer</h2></div></div></div><p>
+  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="ch-testing-installer"></a>Chapter 71. Testing the Installer</h2></div></div></div><p>
     Building, burning, and booting from an installation CD is rather
     tedious, so here is a quick way to see if the installer works
     properly:
@@ -10604,7 +10954,7 @@ $ nix-build '&lt;nixpkgs/nixos&gt;' -A config.system.build.nixos-install
   </p><pre class="programlisting">
 $ nix-build '&lt;nixpkgs/nixos&gt;' -A config.system.build.nixos-enter
 # ./result/bin/nixos-enter
-</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="chap-contributing"></a>Chapter 71. Contributing to this manual</h1></div></div></div><p>
+</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="chap-contributing"></a>Chapter 72. Contributing to this manual</h1></div></div></div><p>
     The DocBook and CommonMark sources of NixOS’ manual are in the
     <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual" target="_top">nixos/doc/manual</a>
     subdirectory of the

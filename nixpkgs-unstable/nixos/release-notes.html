@@ -809,6 +809,12 @@ Superuser created successfully.
           <code class="literal">retroarch.override { cores = with libretro; [ citra snes9x ]; };</code>.
           Also, <code class="literal">retroarchFull</code> derivation is available
           for those who want to have all RetroArch cores available.
+        </p></li><li class="listitem"><p>
+          The Linux kernel for security reasons now restricts access to
+          BPF syscalls via <code class="literal">BPF_UNPRIV_DEFAULT_OFF=y</code>.
+          Unprivileged access can be reenabled via the
+          <code class="literal">kernel.unprivileged_bpf_disabled</code> sysctl
+          knob.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The linux kernel package infrastructure was moved out of
           <code class="literal">all-packages.nix</code>, and restructured. Linux
