@@ -531,10 +531,10 @@ $ sudo dd if=nix.iso of=/dev/rdiskN
   </p><p>
     These instructions assume that you have an existing PXE or iPXE
     infrastructure and simply want to add the NixOS installer as another
-    option. To build the necessary files from a recent version of
+    option. To build the necessary files from your current version of
     nixpkgs, you can run:
   </p><pre class="programlisting">
-nix-build -A netboot.x86_64-linux nixos/release.nix
+nix-build -A netboot.x86_64-linux '&lt;nixpkgs/nixos/release.nix&gt;'
 </pre><p>
     This will create a <code class="literal">result</code> directory containing: *
     <code class="literal">bzImage</code> – the Linux kernel *
@@ -5707,7 +5707,7 @@ services.gitlab = {
    uses across an entire homeserver.
   </p><p>
    To use the Antispam Module, add <span class="package">matrix-synapse-plugins.matrix-synapse-mjolnir-antispam</span>
-   to the Synapse plugin list and enable the <code class="literal">mjolnir.AntiSpam</code> module.
+   to the Synapse plugin list and enable the <code class="literal">mjolnir.Module</code> module.
   </p><pre class="programlisting">
 {
   services.matrix-synapse = {
@@ -5716,7 +5716,7 @@ services.gitlab = {
     ];
     extraConfig = ''
       modules:
-        - module: mjolnir.AntiSpam
+        - module: mjolnir.Module
           config:
             # Prevent servers/users in the ban lists from inviting users on this
             # server to rooms. Default true.
