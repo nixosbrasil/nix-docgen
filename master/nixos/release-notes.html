@@ -815,6 +815,14 @@ Superuser created successfully.
           Unprivileged access can be reenabled via the
           <code class="literal">kernel.unprivileged_bpf_disabled</code> sysctl
           knob.
+        </p></li><li class="listitem"><p>
+          <code class="literal">/usr</code> will always be included in the initial
+          ramdisk. See the
+          <code class="literal">fileSystems.&lt;name&gt;.neededForBoot</code>
+          option. If any files exist under <code class="literal">/usr</code>
+          (which is not typical for NixOS), they will be included in the
+          initial ramdisk, increasing its size to a possibly problematic
+          extent.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The linux kernel package infrastructure was moved out of
           <code class="literal">all-packages.nix</code>, and restructured. Linux

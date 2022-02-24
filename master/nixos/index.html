@@ -8923,6 +8923,19 @@ services.xserver.displayManager.enable = mkOption {
   fun.fun = x: x + 2;
 }
 </pre></dd><dt><span class="term">
+          <code class="literal">types.raw</code>
+        </span></dt><dd><p>
+            A type which doesn’t do any checking, merging or nested
+            evaluation. It accepts a single arbitrary value that is not
+            recursed into, making it useful for values coming from
+            outside the module system, such as package sets or arbitrary
+            data. Options of this type are still evaluated according to
+            priorities and conditionals, so <code class="literal">mkForce</code>,
+            <code class="literal">mkIf</code> and co. still work on the option
+            value itself, but not for any value nested within it. This
+            type should only be used when checking, merging and nested
+            evaluation are not desirable.
+          </p></dd><dt><span class="term">
           <code class="literal">types.attrs</code>
         </span></dt><dd><p>
             A free-form attribute set.
