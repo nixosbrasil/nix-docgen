@@ -1,11 +1,703 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix B. Release Notes</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="up" href="index.html" title="NixOS Manual" /><link rel="prev" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix B. Release Notes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a id="ch-release-notes"></a>Appendix B. Release Notes</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="release-notes.html#sec-release-21.11">B.1. Release 21.11 (“Porcupine”, 2021/11/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-21.05">B.2. Release 21.05 (<span class="quote">“<span class="quote">Okapi</span>”</span>, 2021.05/31)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-20.09">B.3. Release 20.09 (<span class="quote">“<span class="quote">Nightingale</span>”</span>, 2020.10/27)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-20.03">B.4. Release 20.03 (<span class="quote">“<span class="quote">Markhor</span>”</span>, 2020.04/20)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-19.09">B.5. Release 19.09 (<span class="quote">“<span class="quote">Loris</span>”</span>, 2019/10/09)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-19.03">B.6. Release 19.03 (<span class="quote">“<span class="quote">Koi</span>”</span>, 2019/04/11)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-18.09">B.7. Release 18.09 (<span class="quote">“<span class="quote">Jellyfish</span>”</span>, 2018/10/05)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-18.03">B.8. Release 18.03 (<span class="quote">“<span class="quote">Impala</span>”</span>, 2018/04/04)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-17.09">B.9. Release 17.09 (<span class="quote">“<span class="quote">Hummingbird</span>”</span>, 2017/09/??)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-17.03">B.10. Release 17.03 (<span class="quote">“<span class="quote">Gorilla</span>”</span>, 2017/03/31)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-16.09">B.11. Release 16.09 (<span class="quote">“<span class="quote">Flounder</span>”</span>, 2016/09/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-16.03">B.12. Release 16.03 (<span class="quote">“<span class="quote">Emu</span>”</span>, 2016/03/31)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-15.09">B.13. Release 15.09 (<span class="quote">“<span class="quote">Dingo</span>”</span>, 2015/09/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-14.12">B.14. Release 14.12 (<span class="quote">“<span class="quote">Caterpillar</span>”</span>, 2014/12/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-14.04">B.15. Release 14.04 (<span class="quote">“<span class="quote">Baboon</span>”</span>, 2014/04/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-13.10">B.16. Release 13.10 (<span class="quote">“<span class="quote">Aardvark</span>”</span>, 2013/10/31)</a></span></dt></dl></div><p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Appendix B. Release Notes</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="up" href="index.html" title="NixOS Manual" /><link rel="prev" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Appendix B. Release Notes</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> </td></tr></table><hr /></div><div class="appendix"><div class="titlepage"><div><div><h1 class="title"><a id="ch-release-notes"></a>Appendix B. Release Notes</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="release-notes.html#sec-release-22.05">B.1. Release 22.05 (“Quokka”, 2022.05/??)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-21.11">B.2. Release 21.11 (“Porcupine”, 2021/11/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-21.05">B.3. Release 21.05 (<span class="quote">“<span class="quote">Okapi</span>”</span>, 2021.05/31)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-20.09">B.4. Release 20.09 (<span class="quote">“<span class="quote">Nightingale</span>”</span>, 2020.10/27)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-20.03">B.5. Release 20.03 (<span class="quote">“<span class="quote">Markhor</span>”</span>, 2020.04/20)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-19.09">B.6. Release 19.09 (<span class="quote">“<span class="quote">Loris</span>”</span>, 2019/10/09)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-19.03">B.7. Release 19.03 (<span class="quote">“<span class="quote">Koi</span>”</span>, 2019/04/11)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-18.09">B.8. Release 18.09 (<span class="quote">“<span class="quote">Jellyfish</span>”</span>, 2018/10/05)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-18.03">B.9. Release 18.03 (<span class="quote">“<span class="quote">Impala</span>”</span>, 2018/04/04)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-17.09">B.10. Release 17.09 (<span class="quote">“<span class="quote">Hummingbird</span>”</span>, 2017/09/??)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-17.03">B.11. Release 17.03 (<span class="quote">“<span class="quote">Gorilla</span>”</span>, 2017/03/31)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-16.09">B.12. Release 16.09 (<span class="quote">“<span class="quote">Flounder</span>”</span>, 2016/09/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-16.03">B.13. Release 16.03 (<span class="quote">“<span class="quote">Emu</span>”</span>, 2016/03/31)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-15.09">B.14. Release 15.09 (<span class="quote">“<span class="quote">Dingo</span>”</span>, 2015/09/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-14.12">B.15. Release 14.12 (<span class="quote">“<span class="quote">Caterpillar</span>”</span>, 2014/12/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-14.04">B.16. Release 14.04 (<span class="quote">“<span class="quote">Baboon</span>”</span>, 2014/04/30)</a></span></dt><dt><span class="section"><a href="release-notes.html#sec-release-13.10">B.17. Release 13.10 (<span class="quote">“<span class="quote">Aardvark</span>”</span>, 2013/10/31)</a></span></dt></dl></div><p>
   This section lists the release notes for each stable version of NixOS and
   current unstable revision.
- </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.1. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+ </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.1. Release 22.05 (“Quokka”, 2022.05/??)</h2></div></div></div><p>
+    In addition to numerous new and upgraded packages, this release has
+    the following highlights:
+  </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        Support is planned until the end of December 2022, handing over
+        to 22.11.
+      </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-highlights"></a>B.1.1. Highlights</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">security.acme.defaults</code> has been added to
+          simplify configuring settings for many certificates at once.
+          This also opens up the the option to use DNS-01 validation
+          when using <code class="literal">enableACME</code> on web server virtual
+          hosts (e.g.
+          <code class="literal">services.nginx.virtualHosts.*.enableACME</code>).
+        </p></li><li class="listitem"><p>
+          PHP 8.1 is now available
+        </p></li><li class="listitem"><p>
+          Mattermost has been updated to extended support release 6.3,
+          as the previously packaged extended support release 5.37 is
+          <a class="link" href="https://docs.mattermost.com/upgrade/extended-support-release.html" target="_top">reaching
+          its end of life</a>. Migrations may take a while, see the
+          <a class="link" href="https://docs.mattermost.com/install/self-managed-changelog.html#release-v6-3-extended-support-release" target="_top">changelog</a>
+          and
+          <a class="link" href="https://docs.mattermost.com/upgrade/important-upgrade-notes.html" target="_top">important
+          upgrade notes</a>.
+        </p></li><li class="listitem"><p>
+          systemd services can now set
+          <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.reloadTriggers</a>
+          instead of <code class="literal">reloadIfChanged</code> for a more
+          granular distinction between reloads and restarts.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          <a class="link" href="https://github.com/intel/linux-sgx#install-the-intelr-sgx-psw" target="_top">aesmd</a>,
+          the Intel SGX Architectural Enclave Service Manager. Available
+          as
+          <a class="link" href="options.html#opt-services.aesmd.enable">services.aesmd</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://docs.docker.com/engine/security/rootless/" target="_top">rootless
+          Docker</a>, a <code class="literal">systemd --user</code> Docker
+          service which runs without root permissions. Available as
+          <a class="link" href="options.html#opt-virtualisation.docker.rootless.enable" target="_top">virtualisation.docker.rootless.enable</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://conduit.rs/" target="_top">matrix-conduit</a>,
+          a simple, fast and reliable chat server powered by matrix.
+          Available as
+          <a class="link" href="option.html#opt-services.matrix-conduit.enable" target="_top">services.matrix-conduit</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-overview.html" target="_top">filebeat</a>,
+          a lightweight shipper for forwarding and centralizing log
+          data. Available as
+          <a class="link" href="options.html#opt-services.filebeat.enable">services.filebeat</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/linux-apfs/linux-apfs-rw" target="_top">apfs</a>,
+          a kernel module for mounting the Apple File System (APFS).
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://frrouting.org/" target="_top">FRRouting</a>, a
+          popular suite of Internet routing protocol daemons (BGP, BFD,
+          OSPF, IS-IS, VVRP and others). Available as
+          <a class="link" href="options.html#opt-services.frr.babel.enable">services.frr</a>
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/hifi/heisenbridge" target="_top">heisenbridge</a>,
+          a bouncer-style Matrix IRC bridge. Available as
+          <a class="link" href="options.html#opt-services.heisenbridge.enable" target="_top">services.heisenbridge</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://ergo.chat" target="_top">ergochat</a>, a modern
+          IRC with IRCv3 features. Available as
+          <a class="link" href="options.html#opt-services.ergochat.enable" target="_top">services.ergochat</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/ngoduykhanh/PowerDNS-Admin" target="_top">PowerDNS-Admin</a>,
+          a web interface for the PowerDNS server. Available at
+          <a class="link" href="options.html#opt-services.powerdns-admin.enable" target="_top">services.powerdns-admin</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/sezanzeb/input-remapper" target="_top">input-remapper</a>,
+          an easy to use tool to change the mapping of your input device
+          buttons. Available at
+          <a class="link" href="options.html#opt-services.input-remapper.enable" target="_top">services.input-remapper</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://invoiceplane.com" target="_top">InvoicePlane</a>,
+          web application for managing and creating invoices. Available
+          at
+          <a class="link" href="options.html#opt-services.invoiceplane.enable" target="_top">services.invoiceplane</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://maddy.email" target="_top">maddy</a>, a
+          composable all-in-one mail server. Available as
+          <a class="link" href="options.html#opt-services.maddy.enable" target="_top">services.maddy</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.scorchworks.com/K40whisperer/k40whisperer.html" target="_top">K40-Whisperer</a>,
+          a program to control cheap Chinese laser cutters. Available as
+          <a class="link" href="options.html#opt-programs.k4-whisperer.enable" target="_top">programs.k40-whisperer.enable</a>.
+          Users must add themselves to the <code class="literal">k40</code> group
+          to be able to access the device.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/mgumz/mtr-exporter" target="_top">mtr-exporter</a>,
+          a Prometheus exporter for mtr metrics. Available as
+          <a class="link" href="options.html#opt-services.mtr-exporter.enable" target="_top">services.mtr-exporter</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://tetrd.app" target="_top">tetrd</a>, share your
+          internet connection from your device to your PC and vice versa
+          through a USB cable. Available at
+          <a class="link" href="options.html#opt-services.tetrd.enable">services.tetrd</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/mbrubeck/agate" target="_top">agate</a>,
+          a very simple server for the Gemini hypertext protocol.
+          Available as
+          <a class="link" href="options.html#opt-services.agate.enable" target="_top">services.agate</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/JustArchiNET/ArchiSteamFarm" target="_top">ArchiSteamFarm</a>,
+          a C# application with primary purpose of idling Steam cards
+          from multiple accounts simultaneously. Available as
+          <a class="link" href="options.html#opt-services.archisteamfarm.enable" target="_top">services.archisteamfarm</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://goteleport.com" target="_top">teleport</a>,
+          allows engineers and security professionals to unify access
+          for SSH servers, Kubernetes clusters, web applications, and
+          databases across all environments. Available at
+          <a class="link" href="options.html#opt-services.teleport.enable">services.teleport</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://loic-sharma.github.io/BaGet/" target="_top">BaGet</a>,
+          a lightweight NuGet and symbol server. Available at
+          <a class="link" href="options.html#opt-services.baget.enable">services.baget</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://moosefs.com" target="_top">moosefs</a>, fault
+          tolerant petabyte distributed file system. Available as
+          <a class="link" href="options.html#opt-services.moosefs.client.enable">moosefs</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/ThomasLeister/prosody-filer" target="_top">prosody-filer</a>,
+          a server for handling XMPP HTTP Upload requests. Available at
+          <a class="link" href="options.html#opt-services.prosody-filer.enable">services.prosody-filer</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/audreyt/ethercalc" target="_top">ethercalc</a>,
+          an online collaborative spreadsheet. Available as
+          <a class="link" href="options.html#opt-services.ethercalc.enable" target="_top">services.ethercalc</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://timetagger.app" target="_top">timetagger</a>,
+          an open source time-tracker with an intuitive user experience
+          and powerful reporting.
+          <a class="link" href="options.html#opt-services.timetagger.enable" target="_top">services.timetagger</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.rstudio.com/products/rstudio/#rstudio-server" target="_top">rstudio-server</a>,
+          a browser-based version of the RStudio IDE for the R
+          programming language. Available as
+          <a class="link" href="options.html#opt-services.rstudio-server.enable" target="_top">services.rstudio-server</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/juanfont/headscale" target="_top">headscale</a>,
+          an Open Source implementation of the
+          <a class="link" href="https://tailscale.io" target="_top">Tailscale</a>
+          Control Server. Available as
+          <a class="link" href="options.html#opt-services.headscale.enable" target="_top">services.headscale</a>
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://0xerr0r.github.io/blocky/" target="_top">blocky</a>,
+          fast and lightweight DNS proxy as ad-blocker for local network
+          with many features.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">pkgs.ghc</code> now refers to
+          <code class="literal">pkgs.targetPackages.haskellPackages.ghc</code>.
+          This <span class="emphasis"><em>only</em></span> makes a difference if you are
+          cross-compiling and will ensure that
+          <code class="literal">pkgs.ghc</code> always runs on the host platform
+          and compiles for the target platform (similar to
+          <code class="literal">pkgs.gcc</code> for example).
+          <code class="literal">haskellPackages.ghc</code> still behaves as
+          before, running on the build platform and compiling for the
+          host platform (similar to <code class="literal">stdenv.cc</code>). This
+          means you don’t have to adjust your derivations if you use
+          <code class="literal">haskellPackages.callPackage</code>, but when using
+          <code class="literal">pkgs.callPackage</code> and taking
+          <code class="literal">ghc</code> as an input, you should now use
+          <code class="literal">buildPackages.ghc</code> instead to ensure cross
+          compilation keeps working (or switch to
+          <code class="literal">haskellPackages.callPackage</code>).
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.ghc.withPackages</code> as well as
+          <code class="literal">haskellPackages.ghcWithPackages</code> etc. now
+          needs be overridden directly, as opposed to overriding the
+          result of calling it. Additionally, the
+          <code class="literal">withLLVM</code> parameter has been renamed to
+          <code class="literal">useLLVM</code>. So instead of
+          <code class="literal">(ghc.withPackages (p: [])).override { withLLVM = true; }</code>,
+          one needs to use
+          <code class="literal">(ghc.withPackages.override { useLLVM = true; }) (p: [])</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">home-assistant</code> module now requires
+          users that don’t want their configuration to be managed
+          declaratively to set
+          <code class="literal">services.home-assistant.config = null;</code>.
+          This is required due to the way default settings are handled
+          with the new settings style.
+        </p><p>
+          Additionally the default list of
+          <code class="literal">extraComponents</code> now includes the minimal
+          dependencies to successfully complete the
+          <a class="link" href="https://www.home-assistant.io/getting-started/onboarding/" target="_top">onboarding</a>
+          procedure.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.emacsPackages.orgPackages</code> is removed
+          because org elpa is deprecated. The packages in the top level
+          of <code class="literal">pkgs.emacsPackages</code>, such as org and
+          org-contrib, refer to the ones in
+          <code class="literal">pkgs.emacsPackages.elpaPackages</code> and
+          <code class="literal">pkgs.emacsPackages.nongnuPackages</code> where the
+          new versions will release.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.kubernetes.addons.dashboard</code> was
+          removed due to it being an outdated version.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.kubernetes.scheduler.{port,address}</code>
+          now set <code class="literal">--secure-port</code> and
+          <code class="literal">--bind-address</code> instead of
+          <code class="literal">--port</code> and <code class="literal">--address</code>,
+          since the former have been deprecated and are no longer
+          functional in kubernetes&gt;=1.23. Ensure that you are not
+          relying on the insecure behaviour before upgrading.
+        </p></li><li class="listitem"><p>
+          The DHCP server (<code class="literal">services.dhcpd4</code>,
+          <code class="literal">services.dhcpd6</code>) has been hardened. The
+          service is now using the systemd’s
+          <code class="literal">DynamicUser</code> mechanism to run as an
+          unprivileged dynamically-allocated user with limited
+          capabilities. The dhcpd state files are now always stored in
+          <code class="literal">/var/lib/dhcpd{4,6}</code> and the
+          <code class="literal">services.dhcpd4.stateDir</code> and
+          <code class="literal">service.dhcpd6.stateDir</code> options have been
+          removed. If you were depending on root privileges or
+          set{uid,gid,cap} binaries in dhcpd shell hooks, you may give
+          dhcpd more capabilities with e.g.
+          <code class="literal">systemd.services.dhcpd6.serviceConfig.AmbientCapabilities</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">mailpile</code> email webclient
+          (<code class="literal">services.mailpile</code>) has been removed due to
+          its reliance on python2.
+        </p></li><li class="listitem"><p>
+          The MoinMoin wiki engine
+          (<code class="literal">services.moinmoin</code>) has been removed,
+          because Python 2 is being retired from nixpkgs.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">wafHook</code> hook now honors
+          <code class="literal">NIX_BUILD_CORES</code> when
+          <code class="literal">enableParallelBuilding</code> is not set
+          explicitly. Packages can restore the old behaviour by setting
+          <code class="literal">enableParallelBuilding=false</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.claws-mail-gtk2</code>, representing Claws
+          Mail’s older release version three, was removed in order to
+          get rid of Python 2. Please switch to
+          <code class="literal">claws-mail</code>, which is Claws Mail’s latest
+          release based on GTK+3 and Python 3.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">writers.writePython2</code> and corresponding
+          <code class="literal">writers.writePython2Bin</code> convenience
+          functions to create executable Python 2 scripts in the store
+          were removed in preparation of removal of the Python 2
+          interpreter. Scripts have to be converted to Python 3 for use
+          with <code class="literal">writers.writePython3</code> or
+          <code class="literal">writers.writePyPy2</code> needs to be used.
+        </p></li><li class="listitem"><p>
+          <code class="literal">buildGoModule</code> was updated to use
+          <code class="literal">go_1_17</code>, third party derivations that
+          specify &gt;= go 1.17 in the main <code class="literal">go.mod</code>
+          will need to regenerate their <code class="literal">vendorSha256</code>
+          hash.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">gnome-passwordsafe</code> package updated to
+          <a class="link" href="https://gitlab.gnome.org/World/secrets/-/tags/6.0" target="_top">version
+          6.x</a> and renamed to <code class="literal">gnome-secrets</code>.
+        </p></li><li class="listitem"><p>
+          If you previously used
+          <code class="literal">/etc/docker/daemon.json</code>, you need to
+          incorporate the changes into the new option
+          <code class="literal">virtualisation.docker.daemon.settings</code>.
+        </p></li><li class="listitem"><p>
+          Ntopng (<code class="literal">services.ntopng</code>) is updated to
+          5.2.1 and uses a separate Redis instance if
+          <code class="literal">system.stateVersion</code> is at least
+          <code class="literal">22.05</code>. Existing setups shouldn’t be
+          affected.
+        </p></li><li class="listitem"><p>
+          The backward compatibility in
+          <code class="literal">services.wordpress</code> to configure sites with
+          the old interface has been removed. Please use
+          <code class="literal">services.wordpress.sites</code> instead.
+        </p></li><li class="listitem"><p>
+          The backward compatibility in
+          <code class="literal">services.dokuwiki</code> to configure sites with
+          the old interface has been removed. Please use
+          <code class="literal">services.dokuwiki.sites</code> instead.
+        </p></li><li class="listitem"><p>
+          opensmtpd-extras is no longer build with python2 scripting
+          support due to python2 deprecation in nixpkgs
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.miniflux.adminCredentialFiles</code> is
+          now required, instead of defaulting to
+          <code class="literal">admin</code> and <code class="literal">password</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">autorestic</code> package has been upgraded
+          from 1.3.0 to 1.5.0 which introduces breaking changes in
+          config file, check
+          <a class="link" href="https://autorestic.vercel.app/migration/1.4_1.5" target="_top">their
+          migration guide</a> for more details.
+        </p></li><li class="listitem"><p>
+          For <code class="literal">pkgs.python3.pkgs.ipython</code>, its direct
+          dependency
+          <code class="literal">pkgs.python3.pkgs.matplotlib-inline</code> (which
+          is really an adapter to integrate matplotlib in ipython if it
+          is installed) does not depend on
+          <code class="literal">pkgs.python3.pkgs.matplotlib</code> anymore. This
+          is closer to a non-Nix install of ipython. This has the added
+          benefit to reduce the closure size of
+          <code class="literal">ipython</code> from ~400MB to ~160MB (including
+          ~100MB for python itself).
+        </p></li><li class="listitem"><p>
+          <code class="literal">documentation.man</code> has been refactored to
+          support choosing a man implementation other than GNU’s
+          <code class="literal">man-db</code>. For this,
+          <code class="literal">documentation.man.manualPages</code> has been
+          renamed to
+          <code class="literal">documentation.man.man-db.manualPages</code>. If
+          you want to use the new alternative man implementation
+          <code class="literal">mandoc</code>, add
+          <code class="literal">documentation.man = { enable = true; man-db.enable = false; mandoc.enable = true; }</code>
+          to your configuration.
+        </p></li><li class="listitem"><p>
+          Normal users (with <code class="literal">isNormalUser = true</code>)
+          which have non-empty <code class="literal">subUidRanges</code> or
+          <code class="literal">subGidRanges</code> set no longer have additional
+          implicit ranges allocated. To enable automatic allocation back
+          set <code class="literal">autoSubUidGidRange = true</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">idris2</code> now requires
+          <code class="literal">--package</code> when using packages
+          <code class="literal">contrib</code> and <code class="literal">network</code>,
+          while previously these idris2 packages were automatically
+          loaded.
+        </p></li><li class="listitem"><p>
+          The iputils package, which is installed by default, no longer
+          provides the legacy tools <code class="literal">tftpd</code> and
+          <code class="literal">traceroute6</code>. More tools
+          (<code class="literal">ninfod</code>, <code class="literal">rarpd</code>, and
+          <code class="literal">rdisc</code>) are going to be removed in the next
+          release. See
+          <a class="link" href="https://github.com/iputils/iputils/releases/tag/20211215" target="_top">upstream’s
+          release notes</a> for more details and available
+          replacements.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.thelounge.private</code> was removed in
+          favor of <code class="literal">services.thelounge.public</code>, to
+          follow with upstream changes.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.docbookrx</code> was removed since it’s
+          unmaintained
+        </p></li><li class="listitem"><p>
+          <code class="literal">tilp2</code> was removed together with its module
+        </p></li><li class="listitem"><p>
+          The options
+          <code class="literal">networking.interfaces.&lt;name&gt;.ipv4.routes</code>
+          and
+          <code class="literal">networking.interfaces.&lt;name&gt;.ipv6.routes</code>
+          are no longer ignored when using networkd instead of the
+          default scripted network backend by setting
+          <code class="literal">networking.useNetworkd</code> to
+          <code class="literal">true</code>.
+        </p></li><li class="listitem"><p>
+          MultiMC has been replaced with the fork PolyMC due to upstream
+          developers being hostile to 3rd party package maintainers.
+          PolyMC removes all MultiMC branding and is aimed at providing
+          proper 3rd party packages like the one contained in Nixpkgs.
+          This change affects the data folder where game instances and
+          other save and configuration files are stored. Users with
+          existing installations should rename
+          <code class="literal">~/.local/share/multimc</code> to
+          <code class="literal">~/.local/share/polymc</code>. The main config
+          file’s path has also moved from
+          <code class="literal">~/.local/share/multimc/multimc.cfg</code> to
+          <code class="literal">~/.local/share/polymc/polymc.cfg</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">systemd-nspawn@.service</code> settings have been
+          reverted to the default systemd behaviour. User namespaces are
+          now activated by default. If you want to keep running nspawn
+          containers without user namespaces you need to set
+          <code class="literal">systemd.nspawn.&lt;name&gt;.execConfig.PrivateUsers = false</code>
+        </p></li><li class="listitem"><p>
+          The terraform 0.12 compatibility has been removed and the
+          <code class="literal">terraform.withPlugins</code> and
+          <code class="literal">terraform-providers.mkProvider</code>
+          implementations simplified. Providers now need to be stored
+          under
+          <code class="literal">$out/libexec/terraform-providers/&lt;registry&gt;/&lt;owner&gt;/&lt;name&gt;/&lt;version&gt;/&lt;os&gt;_&lt;arch&gt;/terraform-provider-&lt;name&gt;_v&lt;version&gt;</code>
+          (which mkProvider does).
+        </p><p>
+          This breaks back-compat so it’s not possible to mix-and-match
+          with previous versions of nixpkgs. In exchange, it now becomes
+          possible to use the providers from
+          <a class="link" href="https://github.com/numtide/nixpkgs-terraform-providers-bin" target="_top">nixpkgs-terraform-providers-bin</a>
+          directly.
+        </p></li><li class="listitem"><p>
+          The existing <code class="literal">pkgs.opentelemetry-collector</code>
+          has been moved to
+          <code class="literal">pkgs.opentelemetry-collector-contrib</code> to
+          match the actual source being the <span class="quote">“<span class="quote">contrib</span>”</span>
+          edition. <code class="literal">pkgs.opentelemetry-collector</code> is
+          now the actual core release of opentelemetry-collector. If you
+          use the community contributions you should change the package
+          you refer to. If you don’t need them update your commands from
+          <code class="literal">otelcontribcol</code> to
+          <code class="literal">otelcorecol</code> and enjoy a 7x smaller binary.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.noto-fonts-cjk</code> is now deprecated in
+          favor of <code class="literal">pkgs.noto-fonts-cjk-sans</code> and
+          <code class="literal">pkgs.noto-fonts-cjk-serif</code> because they each
+          have different release schedules. To maintain compatibility
+          with prior releases of Nixpkgs,
+          <code class="literal">pkgs.noto-fonts-cjk</code> is currently an alias
+          of <code class="literal">pkgs.noto-fonts-cjk-sans</code> and doesn’t
+          include serif fonts.
+        </p></li><li class="listitem"><p>
+          <code class="literal">switch-to-configuration</code> (the script that is
+          run when running <code class="literal">nixos-rebuild switch</code> for
+          example) has been reworked
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              The interface that allows activation scripts to restart
+              units has been streamlined. Restarting and reloading is
+              now done by a single file
+              <code class="literal">/run/nixos/activation-restart-list</code> that
+              honors <code class="literal">restartIfChanged</code> and
+              <code class="literal">reloadIfChanged</code> of the units.
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  Preferring to reload instead of restarting can still
+                  be achieved using
+                  <code class="literal">/run/nixos/activation-reload-list</code>.
+                </p></li></ul></div></li><li class="listitem"><p>
+              The script now uses a proper ini-file parser to parse
+              systemd units. Some values are now only searched in one
+              section instead of in the entire unit. This is only
+              relevant for units that don’t use the NixOS systemd moule.
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <code class="literal">RefuseManualStop</code>,
+                  <code class="literal">X-OnlyManualStart</code>,
+                  <code class="literal">X-StopOnRemoval</code>,
+                  <code class="literal">X-StopOnReconfiguration</code> are only
+                  searched in the <code class="literal">[Unit]</code> section
+                </p></li><li class="listitem"><p>
+                  <code class="literal">X-ReloadIfChanged</code>,
+                  <code class="literal">X-RestartIfChanged</code>,
+                  <code class="literal">X-StopIfChanged</code> are only searched
+                  in the <code class="literal">[Service]</code> section
+                </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
+          The <code class="literal">services.bookstack.cacheDir</code> option has
+          been removed, since the cache directory is now handled by
+          systemd.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">services.bookstack.extraConfig</code> option
+          has been replaced by
+          <code class="literal">services.bookstack.config</code> which implements
+          a
+          <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">settings-style</a>
+          configuration.
+        </p></li><li class="listitem"><p>
+          <code class="literal">lib.assertMsg</code> and
+          <code class="literal">lib.assertOneOf</code> no longer return
+          <code class="literal">false</code> if the passed condition is
+          <code class="literal">false</code>, <code class="literal">throw</code>ing the
+          given error message instead (which makes the resulting error
+          message less cluttered). This will not impact the behaviour of
+          code using these functions as intended, namely as top-level
+          wrapper for <code class="literal">assert</code> conditions.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">vpnc</code> package has been changed to use
+          GnuTLS instead of OpenSSL by default for licensing reasons.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.vimPlugins.onedark-nvim</code> now refers to
+          <a class="link" href="https://github.com/navarasu/onedark.nvim" target="_top">navarasu/onedark.nvim</a>
+          (formerly refers to
+          <a class="link" href="https://github.com/olimorris/onedarkpro.nvim" target="_top">olimorris/onedarkpro.nvim</a>).
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.pipewire.enable</code> will default to
+          enabling the WirePlumber session manager instead of
+          pipewire-media-session. pipewire-media-session is deprecated
+          by upstream and not recommended, but can still be manually
+          enabled by setting
+          <code class="literal">services.pipewire.media-session.enable</code> to
+          <code class="literal">true</code> and
+          <code class="literal">services.pipewire.wireplumber.enable</code> to
+          <code class="literal">false</code>.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          The option
+          <a class="link" href="options.html#opt-services.redis.servers">services.redis.servers</a>
+          was added to support per-application
+          <code class="literal">redis-server</code> which is more secure since
+          Redis databases are only mere key prefixes without any
+          configuration or ACL of their own. Backward-compatibility is
+          preserved by mapping old
+          <code class="literal">services.redis.settings</code> to
+          <code class="literal">services.redis.servers."".settings</code>,
+          but you are strongly encouraged to name each
+          <code class="literal">redis-server</code> instance after the application
+          using it, instead of keeping that nameless one. Except for the
+          nameless
+          <code class="literal">services.redis.servers.""</code> still
+          accessible at <code class="literal">127.0.0.1:6379</code>, and to the
+          members of the Unix group <code class="literal">redis</code> through the
+          Unix socket <code class="literal">/run/redis/redis.sock</code>, all
+          other <code class="literal">services.redis.servers.${serverName}</code>
+          are only accessible by default to the members of the Unix
+          group <code class="literal">redis-${serverName}</code> through the Unix
+          socket <code class="literal">/run/redis-${serverName}/redis.sock</code>.
+        </p></li><li class="listitem"><p>
+          The option
+          <a class="link" href="options.html#opt-virtualisation.vmVariant">virtualisation.vmVariant</a>
+          was added to allow users to make changes to the
+          <code class="literal">nixos-rebuild build-vm</code> configuration that
+          do not apply to their normal system.
+        </p><p>
+          The <code class="literal">config.system.build.vm</code> attribute now
+          always exists and defaults to the value from
+          <code class="literal">vmVariant</code>. Configurations that import the
+          <code class="literal">virtualisation/qemu-vm.nix</code> module
+          themselves will override this value, such that
+          <code class="literal">vmVariant</code> is not used.
+        </p><p>
+          Similarly
+          <a class="link" href="options.html#opt-virtualisation.vmVariantWithBootLoader">virtualisation.vmVariantWithBootloader</a>
+          was added.
+        </p></li><li class="listitem"><p>
+          The configuration portion of the <code class="literal">nix-daemon</code>
+          module has been reworked and exposed as
+          <a class="link" href="options.html#opt-nix-settings" target="_top">nix.settings</a>:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              Legacy options have been mapped to the corresponding
+              options under under
+              <a class="link" href="options.html#opt-nix.settings" target="_top">nix.settings</a>
+              but may be deprecated in the future.
+            </p></li><li class="listitem"><p>
+              <a class="link" href="options.html#opt-nix.buildMachines.publicHostKey" target="_top">nix.buildMachines.publicHostKey</a>
+              has been added.
+            </p></li></ul></div></li><li class="listitem"><p>
+          The
+          <code class="literal">writers.writePyPy2</code>/<code class="literal">writers.writePyPy3</code>
+          and corresponding
+          <code class="literal">writers.writePyPy2Bin</code>/<code class="literal">writers.writePyPy3Bin</code>
+          convenience functions to create executable Python 2/3 scripts
+          using the PyPy interpreter were added.
+        </p></li><li class="listitem"><p>
+          If you are using Wayland you can choose to use the Ozone
+          Wayland support in Chrome and several Electron apps by setting
+          the environment variable <code class="literal">NIXOS_OZONE_WL=1</code>
+          (for example via
+          <code class="literal">environment.sessionVariables.NIXOS_OZONE_WL = "1"</code>).
+          This is not enabled by default because Ozone Wayland is still
+          under heavy development and behavior is not always flawless.
+          Furthermore, not all Electron apps use the latest Electron
+          versions.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">influxdb2</code> package was split into
+          <code class="literal">influxdb2-server</code> and
+          <code class="literal">influxdb2-cli</code>, matching the split that took
+          place upstream. A combined <code class="literal">influxdb2</code>
+          package is still provided in this release for backwards
+          compatibilty, but will be removed at a later date.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">services.unifi.openPorts</code> option default
+          value of <code class="literal">true</code> is now deprecated and will be
+          changed to <code class="literal">false</code> in 22.11. Configurations
+          using this default will print a warning when rebuilt.
+        </p></li><li class="listitem"><p>
+          <code class="literal">security.acme</code> certificates will now
+          correctly check for CA revokation before reaching their
+          minimum age.
+        </p></li><li class="listitem"><p>
+          Removing domains from
+          <code class="literal">security.acme.certs._name_.extraDomainNames</code>
+          will now correctly remove those domains during rebuild/renew.
+        </p></li><li class="listitem"><p>
+          MariaDB is now offered in several versions, not just the
+          newest one. So if you have a need for running MariaDB 10.4 for
+          example, you can now just set
+          <code class="literal">services.mysql.package = pkgs.mariadb_104;</code>.
+          In general, it is recommended to run the newest version, to
+          get the newest features, while sticking with an LTS version
+          will most likely provide a more stable experience. Sometimes
+          software is also incompatible with the newest version of
+          MariaDB.
+        </p></li><li class="listitem"><p>
+          The option
+          <a class="link" href="options.html#opt-programs.ssh.enableAskPassword">programs.ssh.enableAskPassword</a>
+          was added, decoupling the setting of
+          <code class="literal">SSH_ASKPASS</code> from
+          <code class="literal">services.xserver.enable</code>. This allows easy
+          usage in non-X11 environments, e.g. Wayland.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="options.html#opt-programs.ssh.knownHosts">programs.ssh.knownHosts</a>
+          has gained an <code class="literal">extraHostNames</code> option to
+          replace <code class="literal">hostNames</code>.
+          <code class="literal">hostNames</code> is deprecated, but still
+          available for now.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">services.stubby</code> module was converted to
+          a
+          <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">settings-style</a>
+          configuration.
+        </p></li><li class="listitem"><p>
+          The option <code class="literal">services.duplicati.dataDir</code> has
+          been added to allow changing the location of duplicati’s
+          files.
+        </p></li><li class="listitem"><p>
+          A new option
+          <code class="literal">boot.initrd.extraModprobeConfig</code> has been
+          added which can be used to configure kernel modules that are
+          loaded in the initrd.
+        </p></li><li class="listitem"><p>
+          <code class="literal">nixos-generate-config</code> now puts the dhcp
+          configuration in <code class="literal">hardware-configuration.nix</code>
+          instead of <code class="literal">configuration.nix</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">fetchFromSourcehut</code> now allows fetching
+          repositories recursively using <code class="literal">fetchgit</code> or
+          <code class="literal">fetchhg</code> if the argument
+          <code class="literal">fetchSubmodules</code> is set to
+          <code class="literal">true</code>.
+        </p></li><li class="listitem"><p>
+          The option <code class="literal">services.thelounge.plugins</code> has
+          been added to allow installing plugins for The Lounge. Plugins
+          can be found in
+          <code class="literal">pkgs.theLoungePlugins.plugins</code> and
+          <code class="literal">pkgs.theLoungePlugins.themes</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">firmwareLinuxNonfree</code> package has been
+          renamed to <code class="literal">linux-firmware</code>.
+        </p></li><li class="listitem"><p>
+          It is now possible to specify wordlists to include as handy to
+          access environment variables using the
+          <code class="literal">config.environment.wordlist</code> configuration
+          options.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">services.mbpfan</code> module was converted to
+          a
+          <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">RFC
+          0042</a> configuration.
+        </p></li><li class="listitem"><p>
+          The default value for
+          <code class="literal">programs.spacefm.settings.graphical_su</code> got
+          unset. It previously pointed to <code class="literal">gksu</code> which
+          has been removed.
+        </p></li><li class="listitem"><p>
+          A new module was added for the
+          <a class="link" href="https://starship.rs/" target="_top">Starship</a> shell
+          prompt, providing the options
+          <code class="literal">programs.starship.enable</code> and
+          <code class="literal">programs.starship.settings</code>.
+        </p></li><li class="listitem"><p>
+          The <a class="link" href="https://dino.im" target="_top">Dino</a> XMPP client
+          was updated to 0.3, adding support for audio and video calls.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.mattermost.plugins</code> has been added
+          to allow the declarative installation of Mattermost plugins.
+          Plugins are automatically repackaged using autoPatchelf.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.logrotate.enable</code> now defaults to
+          true if any rotate path has been defined, and some paths have
+          been added by default.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">zrepl</code> package has been updated from
+          0.4.0 to 0.5:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              The RPC protocol version was bumped; all zrepl daemons in
+              a setup must be updated and restarted before replication
+              can resume.
+            </p></li><li class="listitem"><p>
+              A bug involving encrypt-on-receive has been fixed. Read
+              the
+              <a class="link" href="https://zrepl.github.io/configuration/sendrecvoptions.html#job-recv-options-placeholder" target="_top">zrepl
+              documentation</a> and check the output of
+              <code class="literal">zfs get -r encryption,zrepl:placeholder PATH_TO_ROOTFS</code>
+              on the receiver.
+            </p></li></ul></div></li><li class="listitem"><p>
+          Renamed option
+          <code class="literal">services.openssh.challengeResponseAuthentication</code>
+          to
+          <code class="literal">services.openssh.kbdInteractiveAuthentication</code>.
+          Reason is that the old name has been deprecated upstream.
+          Using the old option name will still work, but produce a
+          warning.
+        </p></li><li class="listitem"><p>
+          The option
+          <a class="link" href="options.html#opt-networking.networkmanager.enableFccUnlock">services.networking.networkmanager.enableFccUnlock</a>
+          was added to support FCC unlock procedures. Since release
+          1.18.4, the ModemManager daemon no longer automatically
+          performs the FCC unlock procedure by default. See
+          <a class="link" href="https://modemmanager.org/docs/modemmanager/fcc-unlock/" target="_top">the
+          docs</a> for more details.
+        </p></li><li class="listitem"><p>
+          <code class="literal">programs.tmux</code> has a new option
+          <code class="literal">plugins</code> that accepts a list of packages
+          from the <code class="literal">tmuxPlugins</code> group. The specified
+          packages are added to the system and loaded by
+          <code class="literal">tmux</code>.
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of June 2022, handing over to
         22.05.
-      </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-highlights"></a>B.1.1. Highlights</h3></div></div></div><p>
+      </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-highlights"></a>B.2.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -15,8 +707,23 @@
           previous version of Nix, 2.3.16, remains available for the
           time being in the <code class="literal">nix_2_3</code> package.
         </p></li><li class="listitem"><p>
-          <code class="literal">iptables</code> now uses
-          <code class="literal">nf_tables</code> backend.
+          <code class="literal">iptables</code> is now using
+          <code class="literal">nf_tables</code> under the hood, by using
+          <code class="literal">iptables-nft</code>, similar to
+          <a class="link" href="https://wiki.debian.org/nftables#Current_status" target="_top">Debian</a>
+          and
+          <a class="link" href="https://fedoraproject.org/wiki/Changes/iptables-nft-default" target="_top">Fedora</a>.
+          This means, <code class="literal">ip[6]tables</code>,
+          <code class="literal">arptables</code> and <code class="literal">ebtables</code>
+          commands will actually show rules from some specific tables in
+          the <code class="literal">nf_tables</code> kernel subsystem.
+        </p></li><li class="listitem"><p>
+          systemd got an <code class="literal">nftables</code> backend, and
+          configures (networkd) rules in their own
+          <code class="literal">io.systemd.*</code> tables. Check
+          <code class="literal">nft list ruleset</code> to see these rules, not
+          <code class="literal">iptables-save</code> (which only shows
+          <code class="literal">iptables</code>-created rules.
         </p></li><li class="listitem"><p>
           PHP now defaults to PHP 8.0, updated from 7.4.
         </p></li><li class="listitem"><p>
@@ -105,7 +812,7 @@
               for more details, see
               <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.0-alpha.1" target="_top">Release
               Notes</a>.
-            </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+            </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-new-services"></a>B.2.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://digint.ch/btrbk/index.html" target="_top">btrbk</a>,
           a backup tool for btrfs subvolumes, taking advantage of btrfs
           specific capabilities to create atomic snapshots and transfer
@@ -300,7 +1007,7 @@
           <a class="link" href="https://en.wikipedia.org/wiki/S.M.A.R.T." target="_top">S.M.A.R.T.</a>
           data. Available as
           <a class="link" href="options.html#opt-services.prometheus.exporters.smartctl.enable" target="_top">services.prometheus.exporters.smartctl</a>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-incompatibilities"></a>B.2.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The NixOS VM test framework,
           <code class="literal">pkgs.nixosTest</code>/<code class="literal">make-test-python.nix</code>,
           now requires detaching commands such as
@@ -815,7 +1522,15 @@ Superuser created successfully.
           Unprivileged access can be reenabled via the
           <code class="literal">kernel.unprivileged_bpf_disabled</code> sysctl
           knob.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li><li class="listitem"><p>
+          <code class="literal">/usr</code> will always be included in the initial
+          ramdisk. See the
+          <code class="literal">fileSystems.&lt;name&gt;.neededForBoot</code>
+          option. If any files exist under <code class="literal">/usr</code>
+          (which is not typical for NixOS), they will be included in the
+          initial ramdisk, increasing its size to a possibly problematic
+          extent.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-notable-changes"></a>B.2.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The linux kernel package infrastructure was moved out of
           <code class="literal">all-packages.nix</code>, and restructured. Linux
           related functions and attributes now live under the
@@ -1208,10 +1923,10 @@ Superuser created successfully.
         </p></li><li class="listitem"><p>
           More jdk and jre versions are now exposed via
           <code class="literal">java-packages.compiler</code>.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.05"></a>B.2. Release 21.05 (<span class="quote">“<span class="quote">Okapi</span>”</span>, 2021.05/31)</h2></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.05"></a>B.3. Release 21.05 (<span class="quote">“<span class="quote">Okapi</span>”</span>, 2021.05/31)</h2></div></div></div><p>
     Support is planned until the end of December 2021, handing over to
     21.11.
-  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-highlights"></a>B.2.1. Highlights</h3></div></div></div><p>
+  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-highlights"></a>B.3.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -1248,7 +1963,7 @@ Superuser created successfully.
           currently is not officially supported for use with the zfs
           filesystem. If you use zfs, you should use a different kernel
           version (either the LTS kernel, or track a specific one).
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-new-services"></a>B.2.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-new-services"></a>B.3.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://www.gnuradio.org/" target="_top">GNURadio</a>
@@ -1290,7 +2005,7 @@ Superuser created successfully.
           <a class="link" href="options.html#opt-services.nebula.networks" target="_top">services.nebula.networks</a>
           <a class="link" href="https://github.com/slackhq/nebula" target="_top">Nebula
           VPN</a>
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-incompatibilities"></a>B.2.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-incompatibilities"></a>B.3.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -1877,7 +2592,7 @@ self: super:
           keep this parameter, you can add it back using
           <code class="literal">extraLegoRenewFlags</code> as an option for the
           appropriate certificate.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-notable-changes"></a>B.2.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.05-notable-changes"></a>B.3.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">stdenv.lib</code> has been deprecated and will
           break eval in 21.11. Please use <code class="literal">pkgs.lib</code>
           instead. See
@@ -2308,12 +3023,12 @@ self: super:
           to build a package. We also dropped <code class="literal">lfe_1_2</code>
           as it could not build with R21+. Moving forward, we expect to
           only support 3 yearly releases of OTP.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-20.09"></a>B.3. Release 20.09 (<span class="quote">“<span class="quote">Nightingale</span>”</span>, 2020.10/27)</h2></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-20.09"></a>B.4. Release 20.09 (<span class="quote">“<span class="quote">Nightingale</span>”</span>, 2020.10/27)</h2></div></div></div><p>
     Support is planned until the end of June 2021, handing over to
     21.05. (Plans
     <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0080-nixos-release-schedule.md#core-changes" target="_top">
     have shifted</a> by two months since release of 20.09.)
-  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-highlights"></a>B.3.1. Highlights</h3></div></div></div><p>
+  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-highlights"></a>B.4.1. Highlights</h3></div></div></div><p>
       In addition to 7349 new, 14442 updated, and 8181 removed packages,
       this release has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -2365,12 +3080,12 @@ self: super:
         </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
               MariaDB has been updated to 10.4, MariaDB Galera to 26.4.
               Please read the related upgrade instructions under
-              <a class="link" href="release-notes.html#sec-release-20.09-incompatibilities" title="B.3.3. Backward Incompatibilities">backwards
+              <a class="link" href="release-notes.html#sec-release-20.09-incompatibilities" title="B.4.3. Backward Incompatibilities">backwards
               incompatibilities</a> before upgrading.
             </p></li><li class="listitem"><p>
               Zabbix now defaults to 5.0, updated from 4.4. Please read
               related sections under
-              <a class="link" href="release-notes.html#sec-release-20.09-incompatibilities" title="B.3.3. Backward Incompatibilities">backwards
+              <a class="link" href="release-notes.html#sec-release-20.09-incompatibilities" title="B.4.3. Backward Incompatibilities">backwards
               compatibilities</a> before upgrading.
             </p></li></ul></div></li><li class="listitem"><p>
           Major module changes:
@@ -2466,7 +3181,7 @@ self: super:
           nixpkgs-channels repository</a>. These branches are now in
           <a class="link" href="https://github.com/nixos/nixpkgs" target="_top">the main
           nixpkgs repository</a>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-new-services"></a>B.3.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-new-services"></a>B.4.2. New Services</h3></div></div></div><p>
       In addition to 1119 new, 118 updated, and 476 removed options; 61
       new modules were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -2664,7 +3379,7 @@ self: super:
             </p></li><li class="listitem"><p>
               <a class="link" href="options.html#opt-services.zigbee2mqtt.enable" target="_top">services.zigbee2mqtt.enable</a>
               Zigbee to MQTT bridge
-            </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-incompatibilities"></a>B.3.3. Backward Incompatibilities</h3></div></div></div><p>
+            </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-incompatibilities"></a>B.4.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -3385,7 +4100,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           is being used or <code class="literal">true</code>. Using any of those
           options will cause wpa_supplicant to be started with a NixOS
           generated configuration file instead of your own.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-notable-changes"></a>B.3.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-notable-changes"></a>B.4.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           SD images are now compressed by default using
           <code class="literal">zstd</code>. The compression for ISO images has
           also been changed to <code class="literal">zstd</code>, but ISO images
@@ -3681,7 +4396,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           Similarly, still for AMD GPUs, the ROCm OpenCL stack can now
           be used by adding <code class="literal">rocm-opencl-icd</code> to
           <code class="literal">hardware.opengl.extraPackages</code>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-contributions"></a>B.3.5. Contributions</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.09-contributions"></a>B.4.5. Contributions</h3></div></div></div><p>
       I, Jonathan Ringer, would like to thank the following individuals
       for their work on nixpkgs. This release could not be done without
       the hard work of the NixOS community. There were 31282
@@ -3733,7 +4448,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
       immensely with stabilizing Qt, KDE, and Plasma5; I would also like
       to thank Robert Scott for his numerous fixes and pull request
       reviews.
-    </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-20.03"></a>B.4. Release 20.03 (<span class="quote">“<span class="quote">Markhor</span>”</span>, 2020.04/20)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-highlights"></a>B.4.1. Highlights</h3></div></div></div><p>
+    </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-20.03"></a>B.5. Release 20.03 (<span class="quote">“<span class="quote">Markhor</span>”</span>, 2020.04/20)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-highlights"></a>B.5.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -3853,7 +4568,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
 </pre><p>
           API compatibility is planned to be kept for at least the next
           release with the perl driver.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-new-services"></a>B.4.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-new-services"></a>B.5.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The kubernetes kube-proxy now supports a new hostname
@@ -3965,7 +4680,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           <code class="literal">./services/x11/imwheel.nix</code>
         </p></li><li class="listitem"><p>
           <code class="literal">./virtualisation/cri-o.nix</code>
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-incompatibilities"></a>B.4.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-incompatibilities"></a>B.5.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -4549,7 +5264,7 @@ $ hydra-backfill-ids
           The TokuDB storage engine will be disabled in mariadb 10.5. It
           is recommended to switch to RocksDB. See also
           <a class="link" href="https://mariadb.com/kb/en/tokudb/" target="_top">TokuDB</a>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-notable-changes"></a>B.4.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-20.03-notable-changes"></a>B.5.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           SD images are now compressed by default using
           <code class="literal">bzip2</code>.
         </p></li><li class="listitem"><p>
@@ -4687,7 +5402,7 @@ $ hydra-backfill-ids
             Since it's not entirely free and not OSI-approved, it's
             listed as non-free. This means that Hydra doesn't provide
             prebuilt mongodb-packages and needs to be built locally.
-          </p></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-19.09"></a>B.5. Release 19.09 (<span class="quote">“<span class="quote">Loris</span>”</span>, 2019/10/09)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-highlights"></a>B.5.1. Highlights</h3></div></div></div><p>
+          </p></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-19.09"></a>B.6. Release 19.09 (<span class="quote">“<span class="quote">Loris</span>”</span>, 2019/10/09)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-highlights"></a>B.6.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -4811,7 +5526,7 @@ $ hydra-backfill-ids
               <code class="literal">orca</code>
             </p></li><li class="listitem"><p>
               <code class="literal">services.avahi.enable</code>
-            </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-new-services"></a>B.5.2. New Services</h3></div></div></div><p>
+            </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-new-services"></a>B.6.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">./programs/dwm-status.nix</code>
@@ -4849,7 +5564,7 @@ $ hydra-backfill-ids
           <code class="literal">environment.systemPackages</code> please migrate
           to using the NixOS module, as this would result in an
           insufficiently configured blueman.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-incompatibilities"></a>B.5.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-incompatibilities"></a>B.6.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -5217,7 +5932,7 @@ $ hydra-backfill-ids
           upstream docs</a> or
           <a class="link" href="https://github.com/NixOS/nixpkgs/issues/71086" target="_top">
           our ticket</a>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-notable-changes"></a>B.5.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-notable-changes"></a>B.6.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The <code class="literal">documentation</code> module gained an option
           named <code class="literal">documentation.nixos.includeAllModules</code>
           which makes the generated configuration.nix 5 manual page
@@ -5453,7 +6168,7 @@ $ hydra-backfill-ids
           <code class="literal">pkgs.python3</code>. Weechat also recommends
           <a class="link" href="https://weechat.org/scripts/python3/" target="_top">to use
           Python3 in their docs.</a>
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-19.03"></a>B.6. Release 19.03 (<span class="quote">“<span class="quote">Koi</span>”</span>, 2019/04/11)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-highlights"></a>B.6.1. Highlights</h3></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-19.03"></a>B.7. Release 19.03 (<span class="quote">“<span class="quote">Koi</span>”</span>, 2019/04/11)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-highlights"></a>B.7.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -5493,7 +6208,7 @@ $ hydra-backfill-ids
           restrict services into a chroot 2 ed environment that only
           contains the store paths from the runtime closure of the
           service.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-new-services"></a>B.6.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-new-services"></a>B.7.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">./programs/nm-applet.nix</code>
@@ -5521,7 +6236,7 @@ $ hydra-backfill-ids
           configure it using the <code class="literal">security.duosec</code>
           options along with the corresponding PAM option in
           <code class="literal">security.pam.services.&lt;name?&gt;.duoSecurity.enable</code>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-incompatibilities"></a>B.6.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-incompatibilities"></a>B.7.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -5827,7 +6542,7 @@ $ hydra-backfill-ids
           <code class="literal">nodejs-6_x</code>,
           <code class="literal">nodejs-slim-6_x</code> and
           <code class="literal">nodePackages_6_x</code> are removed.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-notable-changes"></a>B.6.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.03-notable-changes"></a>B.7.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The <code class="literal">services.matomo</code> module gained the
           option <code class="literal">services.matomo.package</code> which
           determines the used Matomo version.
@@ -5997,7 +6712,7 @@ $ hydra-backfill-ids
         </p></li><li class="listitem"><p>
           A new subcommand <code class="literal">nixos-rebuild edit</code> was
           added.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-18.09"></a>B.7. Release 18.09 (<span class="quote">“<span class="quote">Jellyfish</span>”</span>, 2018/10/05)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-highlights"></a>B.7.1. Highlights</h3></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-18.09"></a>B.8. Release 18.09 (<span class="quote">“<span class="quote">Jellyfish</span>”</span>, 2018/10/05)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-highlights"></a>B.8.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following notable updates:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -6055,7 +6770,7 @@ $ nix-channel --update
 $ nix-build '&lt;nixpkgsunstable&gt;' -A gitFull
 $ nix run -f '&lt;nixpkgsunstable&gt;' gitFull
 $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
-</pre></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-new-services"></a>B.7.2. New Services</h3></div></div></div><p>
+</pre></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-new-services"></a>B.8.2. New Services</h3></div></div></div><p>
       A curated selection of new services that were added since the last
       release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -6212,7 +6927,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           <code class="literal">./virtualisation/kvmgt.nix</code>
         </p></li><li class="listitem"><p>
           <code class="literal">./virtualisation/qemu-guest-agent.nix</code>
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-incompatibilities"></a>B.7.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-incompatibilities"></a>B.8.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -6332,7 +7047,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
         </p></li><li class="listitem"><p>
           Groups <code class="literal">kvm</code> and <code class="literal">render</code>
           are introduced now, as systemd requires them.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-notable-changes"></a>B.7.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.09-notable-changes"></a>B.8.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">dockerTools.pullImage</code> relies on image
           digest instead of image tag to download the image. The
           <code class="literal">sha256</code> of a pulled image has to be updated.
@@ -6516,7 +7231,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           instead: <code class="literal">stdenv.buildPlatform</code>,
           <code class="literal">stdenv.hostPlatform</code>, and
           <code class="literal">stdenv.targetPlatform</code>.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-18.03"></a>B.8. Release 18.03 (<span class="quote">“<span class="quote">Impala</span>”</span>, 2018/04/04)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-highlights"></a>B.8.1. Highlights</h3></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-18.03"></a>B.9. Release 18.03 (<span class="quote">“<span class="quote">Impala</span>”</span>, 2018/04/04)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-highlights"></a>B.9.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -6552,7 +7267,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
               libraries including <code class="literal">libmysqld.a</code>
             </p></li></ul></div></li><li class="listitem"><p>
           PHP now defaults to PHP 7.2, updated from 7.1.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-new-services"></a>B.8.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-new-services"></a>B.9.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">./config/krb5/default.nix</code>
@@ -6674,7 +7389,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           <code class="literal">./tasks/filesystems/ecryptfs.nix</code>
         </p></li><li class="listitem"><p>
           <code class="literal">./virtualisation/hyperv-guest.nix</code>
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-incompatibilities"></a>B.8.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-incompatibilities"></a>B.9.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -6889,7 +7604,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           All prometheus exporter modules are now defined as submodules.
           The exporters are configured using
           <code class="literal">services.prometheus.exporters</code>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-notable-changes"></a>B.8.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-18.03-notable-changes"></a>B.9.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           ZNC option <code class="literal">services.znc.mutable</code> now
           defaults to <code class="literal">true</code>. That means that old
           configuration is not overwritten by default when update to the
@@ -6986,7 +7701,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           installing the
           <a class="link" href="https://github.com/hedning/nix-bash-completions" target="_top">nix-bash-completions</a>
           package.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-17.09"></a>B.9. Release 17.09 (<span class="quote">“<span class="quote">Hummingbird</span>”</span>, 2017/09/??)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-highlights"></a>B.9.1. Highlights</h3></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-17.09"></a>B.10. Release 17.09 (<span class="quote">“<span class="quote">Hummingbird</span>”</span>, 2017/09/??)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-highlights"></a>B.10.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -7043,7 +7758,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           generic <code class="literal">listen</code> option which makes it
           possible to specify multiple addresses, ports and SSL configs
           dependant on the new SSL handling mentioned above.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-new-services"></a>B.9.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-new-services"></a>B.10.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">config/fonts/fontconfig-penultimate.nix</code>
@@ -7189,7 +7904,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           <code class="literal">tasks/filesystems/bcachefs.nix</code>
         </p></li><li class="listitem"><p>
           <code class="literal">tasks/powertop.nix</code>
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-incompatibilities"></a>B.9.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-incompatibilities"></a>B.10.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -7418,7 +8133,7 @@ FLUSH PRIVILEGES;
           Redis has been updated to version 4 which mandates a cluster
           mass-restart, due to changes in the network handling, in order
           to ensure compatibility with networks NATing traffic.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-notable-changes"></a>B.9.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-notable-changes"></a>B.10.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           Modules can now be disabled by using
           <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-replace-modules" target="_top">
           disabledModules</a>, allowing another to take it's place.
@@ -7503,7 +8218,7 @@ FLUSH PRIVILEGES;
           omitting the
           <code class="literal">services.dnscrypt-proxy.resolverName</code> option
           or setting it to <code class="literal">"random"</code>.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-17.03"></a>B.10. Release 17.03 (<span class="quote">“<span class="quote">Gorilla</span>”</span>, 2017/03/31)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-highlights"></a>B.10.1. Highlights</h3></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-17.03"></a>B.11. Release 17.03 (<span class="quote">“<span class="quote">Gorilla</span>”</span>, 2017/03/31)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-highlights"></a>B.11.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -7541,7 +8256,7 @@ FLUSH PRIVILEGES;
           manual</a> for more information.
         </p></li><li class="listitem"><p>
           PHP now defaults to PHP 7.1
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-new-services"></a>B.10.2. New Services</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-new-services"></a>B.11.2. New Services</h3></div></div></div><p>
       The following new services were added since the last release:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">hardware/ckb.nix</code>
@@ -7705,7 +8420,7 @@ FLUSH PRIVILEGES;
           <code class="literal">virtualisation/openstack/keystone.nix</code>
         </p></li><li class="listitem"><p>
           <code class="literal">virtualisation/openstack/glance.nix</code>
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-incompatibilities"></a>B.10.3. Backward Incompatibilities</h3></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-incompatibilities"></a>B.11.3. Backward Incompatibilities</h3></div></div></div><p>
       When upgrading from a previous release, please be aware of the
       following incompatible changes:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -7860,7 +8575,7 @@ in
         </p></li><li class="listitem"><p>
           The ihaskell, monetdb, offlineimap and sitecopy services have
           been removed.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-notable-changes"></a>B.10.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.03-notable-changes"></a>B.11.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           Module type system have a new extensible option types feature
           that allow to extend certain types, such as enum, through
           multiple option declarations of the same option across
@@ -7919,7 +8634,7 @@ in
           <code class="literal">~/.config/nixpkgs</code>. The former is still
           valid for <code class="literal">config.nix</code> for backwards
           compatibility.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-16.09"></a>B.11. Release 16.09 (<span class="quote">“<span class="quote">Flounder</span>”</span>, 2016/09/30)</h2></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-16.09"></a>B.12. Release 16.09 (<span class="quote">“<span class="quote">Flounder</span>”</span>, 2016/09/30)</h2></div></div></div><p>
     In addition to numerous new and upgraded packages, this release has
     the following highlights:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -8091,7 +8806,7 @@ in
         Gummi boot has been replaced using systemd-boot.
       </p></li><li class="listitem"><p>
         Hydra package and NixOS module were added for convenience.
-      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-16.03"></a>B.12. Release 16.03 (<span class="quote">“<span class="quote">Emu</span>”</span>, 2016/03/31)</h2></div></div></div><p>
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-16.03"></a>B.13. Release 16.03 (<span class="quote">“<span class="quote">Emu</span>”</span>, 2016/03/31)</h2></div></div></div><p>
     In addition to numerous new and upgraded packages, this release has
     the following highlights:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -8491,7 +9206,7 @@ export GPG_TTY
         Input method support was improved. New NixOS modules (fcitx,
         nabi and uim), fcitx engines (chewing, hangul, m17n, mozc and
         table-other) and ibus engines (hangul and m17n) have been added.
-      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-15.09"></a>B.13. Release 15.09 (<span class="quote">“<span class="quote">Dingo</span>”</span>, 2015/09/30)</h2></div></div></div><p>
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-15.09"></a>B.14. Release 15.09 (<span class="quote">“<span class="quote">Dingo</span>”</span>, 2015/09/30)</h2></div></div></div><p>
     In addition to numerous new and upgraded packages, this release has
     the following highlights:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -8929,7 +9644,7 @@ in
       </p></li><li class="listitem"><p>
         <code class="literal">buildEnv.env</code> on all Python interpreters is
         now available for nix-shell interoperability.
-      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-14.12"></a>B.14. Release 14.12 (<span class="quote">“<span class="quote">Caterpillar</span>”</span>, 2014/12/30)</h2></div></div></div><p>
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-14.12"></a>B.15. Release 14.12 (<span class="quote">“<span class="quote">Caterpillar</span>”</span>, 2014/12/30)</h2></div></div></div><p>
     In addition to numerous new and upgraded packages, this release has
     the following highlights:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -9147,7 +9862,7 @@ in
       </p></li><li class="listitem"><p>
         The Intel GPU driver was updated to the 3.x prerelease version
         (used by most distributions) and supports DRI3 now.
-      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-14.04"></a>B.15. Release 14.04 (<span class="quote">“<span class="quote">Baboon</span>”</span>, 2014/04/30)</h2></div></div></div><p>
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-14.04"></a>B.16. Release 14.04 (<span class="quote">“<span class="quote">Baboon</span>”</span>, 2014/04/30)</h2></div></div></div><p>
     This is the second stable release branch of NixOS. In addition to
     numerous new and upgraded packages and modules, this release has the
     following highlights:
@@ -9270,6 +9985,6 @@ in
         Programs should instead use the environment variable
         <code class="literal">OPENSSL_X509_CERT_FILE</code> (which points to
         <code class="literal">/etc/ssl/certs/ca-bundle.crt</code>).
-      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-13.10"></a>B.16. Release 13.10 (<span class="quote">“<span class="quote">Aardvark</span>”</span>, 2013/10/31)</h2></div></div></div><p>
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-13.10"></a>B.17. Release 13.10 (<span class="quote">“<span class="quote">Aardvark</span>”</span>, 2013/10/31)</h2></div></div></div><p>
     This is the first stable release branch of NixOS.
   </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="options.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> </td></tr><tr><td width="40%" align="left" valign="top">Appendix A. Configuration Options </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
