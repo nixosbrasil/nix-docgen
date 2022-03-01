@@ -9930,12 +9930,62 @@ in
             attributes <code class="literal">type</code> and
             <code class="literal">generate</code> as specified
             <a class="link" href="index.html#pkgs-formats-result">below</a>.
-          </p></dd></dl></div><p><a id="pkgs-formats-result"></a>
+          </p></dd><dt><span class="term">
+          <code class="literal">pkgs.formats.elixirConf { elixir ? pkgs.elixir }</code>
+        </span></dt><dd><p>
+            A function taking an attribute set with values
+          </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+                <code class="literal">elixir</code>
+              </span></dt><dd><p>
+                  The Elixir package which will be used to format the
+                  generated output
+                </p></dd></dl></div><p>
+            It returns a set with Elixir-Config-specific attributes
+            <code class="literal">type</code>, <code class="literal">lib</code>, and
+            <code class="literal">generate</code> as specified
+            <a class="link" href="index.html#pkgs-formats-result">below</a>.
+          </p><p>
+            The <code class="literal">lib</code> attribute contains functions to
+            be used in settings, for generating special Elixir values:
+          </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+                <code class="literal">mkRaw elixirCode</code>
+              </span></dt><dd><p>
+                  Outputs the given string as raw Elixir code
+                </p></dd><dt><span class="term">
+                <code class="literal">mkGetEnv { envVariable, fallback ? null }</code>
+              </span></dt><dd><p>
+                  Makes the configuration fetch an environment variable
+                  at runtime
+                </p></dd><dt><span class="term">
+                <code class="literal">mkAtom atom</code>
+              </span></dt><dd><p>
+                  Outputs the given string as an Elixir atom, instead of
+                  the default Elixir binary string. Note: lowercase
+                  atoms still needs to be prefixed with
+                  <code class="literal">:</code>
+                </p></dd><dt><span class="term">
+                <code class="literal">mkTuple array</code>
+              </span></dt><dd><p>
+                  Outputs the given array as an Elixir tuple, instead of
+                  the default Elixir list
+                </p></dd><dt><span class="term">
+                <code class="literal">mkMap attrset</code>
+              </span></dt><dd><p>
+                  Outputs the given attribute set as an Elixir map,
+                  instead of the default Elixir keyword list
+                </p></dd></dl></div></dd></dl></div><p><a id="pkgs-formats-result"></a>
       These functions all return an attribute set with these values:
     </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
           <code class="literal">type</code>
         </span></dt><dd><p>
             A module system type representing a value of the format
+          </p></dd><dt><span class="term">
+          <code class="literal">lib</code>
+        </span></dt><dd><p>
+            Utility functions for convenience, or special interactions
+            with the format. This attribute is optional. It may contain
+            inside a <code class="literal">types</code> attribute containing types
+            specific to this format.
           </p></dd><dt><span class="term">
           <code class="literal">generate</code>
           <span class="emphasis"><em><code class="literal">filename jsonValue</code></em></span>
