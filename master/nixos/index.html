@@ -8936,6 +8936,14 @@ services.xserver.displayManager.enable = mkOption {
             type should only be used when checking, merging and nested
             evaluation are not desirable.
           </p></dd><dt><span class="term">
+          <code class="literal">types.optionType</code>
+        </span></dt><dd><p>
+            The type of an option’s type. Its merging operation ensures
+            that nested options have the correct file location
+            annotated, and that if possible, multiple option definitions
+            are correctly merged together. The main use case is as the
+            type of the <code class="literal">_module.freeformType</code> option.
+          </p></dd><dt><span class="term">
           <code class="literal">types.attrs</code>
         </span></dt><dd><p>
             A free-form attribute set.
