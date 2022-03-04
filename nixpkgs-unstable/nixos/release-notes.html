@@ -31,6 +31,15 @@
           <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.reloadTriggers</a>
           instead of <code class="literal">reloadIfChanged</code> for a more
           granular distinction between reloads and restarts.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://kops.sigs.k8s.io" target="_top"><code class="literal">kops</code></a>
+          defaults to 1.22.4, which will enable
+          <a class="link" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html" target="_top">Instance
+          Metadata Service Version 2</a> and require tokens on new
+          clusters with Kubernetes 1.22. This will increase security by
+          default, but may break some types of workloads. See the
+          <a class="link" href="https://kops.sigs.k8s.io/releases/1.22-notes/" target="_top">release
+          notes</a> for details.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://github.com/intel/linux-sgx#install-the-intelr-sgx-psw" target="_top">aesmd</a>,
           the Intel SGX Architectural Enclave Service Manager. Available
@@ -355,6 +364,10 @@
           unmaintained
         </p></li><li class="listitem"><p>
           <code class="literal">tilp2</code> was removed together with its module
+        </p></li><li class="listitem"><p>
+          The F-PROT antivirus (<code class="literal">fprot</code> package) and
+          its service module were removed because it reached
+          <a class="link" href="https://kb.cyren.com/av-support/index.php?/Knowledgebase/Article/View/434/0/end-of-sale--end-of-life-for-f-prot-and-csam" target="_top">end-of-life</a>.
         </p></li><li class="listitem"><p>
           <code class="literal">bird1</code> and its modules
           <code class="literal">services.bird</code> as well as
