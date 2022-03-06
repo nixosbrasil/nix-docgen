@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>NixOS Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">NixOS Manual</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-nixos-manual"></a>NixOS Manual</h1></div><div><h2 class="subtitle">Version 22.05
-  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">I. Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">1. Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">2. Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">3. Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">4. Upgrading NixOS</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">II. Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">5. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">6. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">7. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">8. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">9. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">10. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">11. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">12. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">13. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">14. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">15. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">16. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">17. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">18. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">19. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">20. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">21. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">22. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">23. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">24. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">25. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">26. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">27. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">28. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">29. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">30. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">31. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">32. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">33. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">34. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">35. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">36. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">37. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">38. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">39. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">40. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">41. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">42. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">43. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">44. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">45. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">46. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">47. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">48. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">49. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">50. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">51. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">52. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">53. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">54. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">55. Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">III. Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">56. Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">57. Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">58. User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">59. Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">60. Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">61. Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">62. Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">63. Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">IV. Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">64. Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">65. Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">66. Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">67. What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">68. Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">69. Building a NixOS (Live) ISO</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">70. NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">71. Testing the Installer</a></span></dt></dl></dd><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="chapter"><a href="index.html#chap-contributing">72. Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>43.1. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="filename">emacs.nix</code>)</a></dt><dt>43.2. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>43.3. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="filename">configuration.nix</code></a></dt><dt>43.4. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="filename">~/.config/nixpkgs/config.nix</code></a></dt><dt>43.5. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>43.6. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="filename">.emacs</code></a></dt><dt>43.7. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="filename">~/.emacs.d/schemas.xml</code>)</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
+  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">I. Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">1. Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">2. Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">3. Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">4. Upgrading NixOS</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">II. Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">5. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">6. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">7. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">8. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">9. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">10. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">11. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">12. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">13. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">14. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">15. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">16. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">17. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">18. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">19. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">20. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">21. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">22. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">23. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">24. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">25. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">26. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">27. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">28. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">29. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">30. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">31. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">32. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">33. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">34. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">35. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">36. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">37. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">38. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">39. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">40. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">41. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">42. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">43. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">44. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">45. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">46. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">47. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">48. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">49. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">50. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">51. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">52. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">53. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">54. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">55. Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">III. Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">56. Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">57. Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">58. User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">59. Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">60. Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">61. Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">62. Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">63. Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">IV. Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">64. Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">65. Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">66. Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">67. What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">68. Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">69. Building a NixOS (Live) ISO</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">70. NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">71. Testing the Installer</a></span></dt></dl></dd><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="chapter"><a href="index.html#chap-contributing">72. Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>43.1. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="filename">emacs.nix</code>)</a></dt><dt>43.2. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>43.3. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="filename">configuration.nix</code></a></dt><dt>43.4. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="filename">~/.config/nixpkgs/config.nix</code></a></dt><dt>43.5. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>43.6. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="filename">.emacs</code></a></dt><dt>43.7. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="filename">~/.emacs.d/schemas.xml</code>)</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
   This manual describes how to install, use and extend NixOS, a Linux
   distribution based on the purely functional package management system
   <a class="link" href="https://nixos.org/nix" target="_top">Nix</a>, that is composed
@@ -1090,7 +1090,7 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-21.11;
    <code class="filename">/etc/nixos/configuration.nix</code>. As described in
    <a class="xref" href="index.html#sec-changing-config" title="Chapter 3. Changing the Configuration">Chapter 3, <em>Changing the Configuration</em></a>, changes to this file only take
    effect after you run <span class="command"><strong>nixos-rebuild</strong></span>.
-  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">5. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">6. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">7. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">8. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">9. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">10. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">11. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">12. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">13. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">14. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">15. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">16. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">17. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">18. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">19. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">20. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">21. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">22. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">23. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">24. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">25. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">26. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">27. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">28. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">29. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">30. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">31. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">32. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">33. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">34. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">35. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">36. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">37. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">38. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">39. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">40. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">41. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">42. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">43. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">44. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">45. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">46. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">47. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">48. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">49. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">50. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">51. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">52. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">53. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">54. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">55. Kubernetes</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-configuration-syntax"></a>Chapter 5. Configuration Syntax</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-configuration-file">5.1. NixOS Configuration File</a></span></dt><dt><span class="section"><a href="index.html#sec-module-abstractions">5.2. Abstractions</a></span></dt><dt><span class="section"><a href="index.html#sec-modularity">5.3. Modularity</a></span></dt><dt><span class="section"><a href="index.html#sec-nix-syntax-summary">5.4. Syntax Summary</a></span></dt></dl></div><p>
+  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">5. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">6. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">7. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">8. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">9. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">10. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">11. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">12. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">13. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">14. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">15. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">16. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">17. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">18. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">19. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">20. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">21. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">22. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">23. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">24. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">25. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">26. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">27. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">28. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">29. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">30. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">31. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">32. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">33. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">34. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">35. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">36. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">37. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">38. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">39. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">40. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">41. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">42. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">43. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">44. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">45. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">46. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">47. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">48. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">49. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">50. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">51. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">52. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">53. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">54. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">55. Kubernetes</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-configuration-syntax"></a>Chapter 5. Configuration Syntax</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-configuration-file">5.1. NixOS Configuration File</a></span></dt><dt><span class="section"><a href="index.html#sec-module-abstractions">5.2. Abstractions</a></span></dt><dt><span class="section"><a href="index.html#sec-modularity">5.3. Modularity</a></span></dt><dt><span class="section"><a href="index.html#sec-nix-syntax-summary">5.4. Syntax Summary</a></span></dt></dl></div><p>
     The NixOS configuration file
     <code class="literal">/etc/nixos/configuration.nix</code> is actually a
     <span class="emphasis"><em>Nix expression</em></span>, which is the Nix package
@@ -5332,7 +5332,207 @@ in {
    However, it's possible to use e.g. <span class="package">httpd</span> by explicitly disabling
    <span class="package">nginx</span> using <a class="xref" href="options.html#opt-services.nginx.enable"><code class="option">services.nginx.enable</code></a> and fixing the
    <code class="literal">settings</code>.
-  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-matrix"></a>Chapter 38. Matrix</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-matrix-synapse">38.1. Synapse Homeserver</a></span></dt><dt><span class="section"><a href="index.html#module-services-matrix-element-web">38.2. Element (formerly known as Riot) Web Client</a></span></dt></dl></div><p>
+  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-gitlab"></a>Chapter 38. GitLab</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-gitlab-prerequisites">38.1. Prerequisites</a></span></dt><dt><span class="section"><a href="index.html#module-services-gitlab-configuring">38.2. Configuring</a></span></dt><dt><span class="section"><a href="index.html#module-services-gitlab-maintenance">38.3. Maintenance</a></span></dt></dl></div><p>
+  GitLab is a feature-rich git hosting service.
+ </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-gitlab-prerequisites"></a>38.1. Prerequisites</h2></div></div></div><p>
+   The <code class="literal">gitlab</code> service exposes only an Unix socket at
+   <code class="literal">/run/gitlab/gitlab-workhorse.socket</code>. You need to
+   configure a webserver to proxy HTTP requests to the socket.
+  </p><p>
+   For instance, the following configuration could be used to use nginx as
+   frontend proxy:
+</p><pre class="programlisting">
+<a class="link" href="options.html#opt-services.nginx.enable">services.nginx</a> = {
+  <a class="link" href="options.html#opt-services.nginx.enable">enable</a> = true;
+  <a class="link" href="options.html#opt-services.nginx.recommendedGzipSettings">recommendedGzipSettings</a> = true;
+  <a class="link" href="options.html#opt-services.nginx.recommendedOptimisation">recommendedOptimisation</a> = true;
+  <a class="link" href="options.html#opt-services.nginx.recommendedProxySettings">recommendedProxySettings</a> = true;
+  <a class="link" href="options.html#opt-services.nginx.recommendedTlsSettings">recommendedTlsSettings</a> = true;
+  <a class="link" href="options.html#opt-services.nginx.virtualHosts">virtualHosts</a>."git.example.com" = {
+    <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.enableACME">enableACME</a> = true;
+    <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.forceSSL">forceSSL</a> = true;
+    <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.proxyPass">locations."/".proxyPass</a> = "http://unix:/run/gitlab/gitlab-workhorse.socket";
+  };
+};
+</pre><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-gitlab-configuring"></a>38.2. Configuring</h2></div></div></div><p>
+   GitLab depends on both PostgreSQL and Redis and will automatically enable
+   both services. In the case of PostgreSQL, a database and a role will be
+   created.
+  </p><p>
+   The default state dir is <code class="literal">/var/gitlab/state</code>. This is where
+   all data like the repositories and uploads will be stored.
+  </p><p>
+   A basic configuration with some custom settings could look like this:
+</p><pre class="programlisting">
+services.gitlab = {
+  <a class="link" href="options.html#opt-services.gitlab.enable">enable</a> = true;
+  <a class="link" href="options.html#opt-services.gitlab.databasePasswordFile">databasePasswordFile</a> = "/var/keys/gitlab/db_password";
+  <a class="link" href="options.html#opt-services.gitlab.initialRootPasswordFile">initialRootPasswordFile</a> = "/var/keys/gitlab/root_password";
+  <a class="link" href="options.html#opt-services.gitlab.https">https</a> = true;
+  <a class="link" href="options.html#opt-services.gitlab.host">host</a> = "git.example.com";
+  <a class="link" href="options.html#opt-services.gitlab.port">port</a> = 443;
+  <a class="link" href="options.html#opt-services.gitlab.user">user</a> = "git";
+  <a class="link" href="options.html#opt-services.gitlab.group">group</a> = "git";
+  smtp = {
+    <a class="link" href="options.html#opt-services.gitlab.smtp.enable">enable</a> = true;
+    <a class="link" href="options.html#opt-services.gitlab.smtp.address">address</a> = "localhost";
+    <a class="link" href="options.html#opt-services.gitlab.smtp.port">port</a> = 25;
+  };
+  secrets = {
+    <a class="link" href="options.html#opt-services.gitlab.secrets.dbFile">dbFile</a> = "/var/keys/gitlab/db";
+    <a class="link" href="options.html#opt-services.gitlab.secrets.secretFile">secretFile</a> = "/var/keys/gitlab/secret";
+    <a class="link" href="options.html#opt-services.gitlab.secrets.otpFile">otpFile</a> = "/var/keys/gitlab/otp";
+    <a class="link" href="options.html#opt-services.gitlab.secrets.jwsFile">jwsFile</a> = "/var/keys/gitlab/jws";
+  };
+  <a class="link" href="options.html#opt-services.gitlab.extraConfig">extraConfig</a> = {
+    gitlab = {
+      email_from = "gitlab-no-reply@example.com";
+      email_display_name = "Example GitLab";
+      email_reply_to = "gitlab-no-reply@example.com";
+      default_projects_features = { builds = false; };
+    };
+  };
+};
+</pre><p>
+  </p><p>
+   If you're setting up a new GitLab instance, generate new
+   secrets. You for instance use <code class="literal">tr -dc A-Za-z0-9 &lt;
+   /dev/urandom | head -c 128 &gt; /var/keys/gitlab/db</code> to
+   generate a new db secret. Make sure the files can be read by, and
+   only by, the user specified by <a class="link" href="options.html#opt-services.gitlab.user">services.gitlab.user</a>. GitLab
+   encrypts sensitive data stored in the database. If you're restoring
+   an existing GitLab instance, you must specify the secrets secret
+   from <code class="literal">config/secrets.yml</code> located in your GitLab
+   state folder.
+  </p><p>
+    When <code class="literal">incoming_mail.enabled</code> is set to <code class="literal">true</code>
+    in <a class="link" href="options.html#opt-services.gitlab.extraConfig">extraConfig</a> an additional
+    service called <code class="literal">gitlab-mailroom</code> is enabled for fetching incoming mail.
+  </p><p>
+   Refer to <a class="xref" href="options.html" title="Appendix A. Configuration Options">Appendix A, <em>Configuration Options</em></a> for all available configuration
+   options for the
+   <a class="link" href="options.html#opt-services.gitlab.enable">services.gitlab</a> module.
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-gitlab-maintenance"></a>38.3. Maintenance</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-gitlab-maintenance-backups"></a>38.3.1. Backups</h3></div></div></div><p>
+     Backups can be configured with the options in <a class="link" href="options.html#opt-services.gitlab.backup.keepTime">services.gitlab.backup</a>. Use
+     the <a class="link" href="options.html#opt-services.gitlab.backup.startAt">services.gitlab.backup.startAt</a>
+     option to configure regular backups.
+   </p><p>
+     To run a manual backup, start the <code class="literal">gitlab-backup</code> service:
+</p><pre class="screen">
+<code class="prompt">$ </code>systemctl start gitlab-backup.service
+</pre><p>
+   </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-gitlab-maintenance-rake"></a>38.3.2. Rake tasks</h3></div></div></div><p>
+    You can run GitLab's rake tasks with <code class="literal">gitlab-rake</code>
+    which will be available on the system when GitLab is enabled. You
+    will have to run the command as the user that you configured to run
+    GitLab with.
+   </p><p>
+    A list of all availabe rake tasks can be obtained by running:
+</p><pre class="screen">
+<code class="prompt">$ </code>sudo -u git -H gitlab-rake -T
+</pre><p>
+   </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-mjolnir"></a>Chapter 39. Mjolnir (Matrix Moderation Tool)</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-mjolnir-setup">39.1. Mjolnir Setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-mjolnir-matrix-synapse-antispam">39.2. Synapse Antispam Module</a></span></dt></dl></div><p>
+  This chapter will show you how to set up your own, self-hosted
+  <a class="link" href="https://github.com/matrix-org/mjolnir" target="_top">Mjolnir</a>
+  instance.
+ </p><p>
+  As an all-in-one moderation tool, it can protect your server from
+  malicious invites, spam messages, and whatever else you don't want.
+  In addition to server-level protection, Mjolnir is great for communities
+  wanting to protect their rooms without having to use their personal
+  accounts for moderation.
+ </p><p>
+  The bot by default includes support for bans, redactions, anti-spam,
+  server ACLs, room directory changes, room alias transfers, account
+  deactivation, room shutdown, and more.
+ </p><p>
+  See the <a class="link" href="https://github.com/matrix-org/mjolnir#readme" target="_top">README</a>
+  page and the <a class="link" href="https://github.com/matrix-org/mjolnir/blob/main/docs/moderators.md" target="_top">Moderator's guide</a>
+  for additional instructions on how to setup and use Mjolnir.
+ </p><p>
+  For <a class="link" href="options.html#opt-services.mjolnir.settings">additional settings</a>
+  see <a class="link" href="https://github.com/matrix-org/mjolnir/blob/main/config/default.yaml" target="_top">the default configuration</a>.
+ </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-mjolnir-setup"></a>39.1. Mjolnir Setup</h2></div></div></div><p>
+   First create a new Room which will be used as a management room for Mjolnir. In
+   this room, Mjolnir will log possible errors and debugging information. You'll
+   need to set this Room-ID in <a class="link" href="options.html#opt-services.mjolnir.managementRoom">services.mjolnir.managementRoom</a>.
+  </p><p>
+   Next, create a new user for Mjolnir on your homeserver, if not present already.
+  </p><p>
+   The Mjolnir Matrix user expects to be free of any rate limiting.
+   See <a class="link" href="https://github.com/matrix-org/synapse/issues/6286" target="_top">Synapse #6286</a>
+   for an example on how to achieve this.
+  </p><p>
+   If you want Mjolnir to be able to deactivate users, move room aliases, shutdown rooms, etc.
+   you'll need to make the Mjolnir user a Matrix server admin.
+  </p><p>
+   Now invite the Mjolnir user to the management room.
+  </p><p>
+   It is recommended to use <a class="link" href="https://github.com/matrix-org/pantalaimon" target="_top">Pantalaimon</a>,
+   so your management room can be encrypted. This also applies if you are looking to moderate an encrypted room.
+  </p><p>
+   To enable the Pantalaimon E2E Proxy for mjolnir, enable
+   <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.enable">services.mjolnir.pantalaimon</a>. This will
+   autoconfigure a new Pantalaimon instance, which will connect to the homeserver
+   set in <a class="link" href="options.html#opt-services.mjolnir.homeserverUrl">services.mjolnir.homeserverUrl</a> and Mjolnir itself
+   will be configured to connect to the new Pantalaimon instance.
+  </p><pre class="programlisting">
+{
+  services.mjolnir = {
+    enable = true;
+    <a class="link" href="options.html#opt-services.mjolnir.homeserverUrl">homeserverUrl</a> = "https://matrix.domain.tld";
+    <a class="link" href="options.html#opt-services.mjolnir.pantalaimon">pantalaimon</a> = {
+       <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.enable">enable</a> = true;
+       <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.username">username</a> = "mjolnir";
+       <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.passwordFile">passwordFile</a> = "/run/secrets/mjolnir-password";
+    };
+    <a class="link" href="options.html#opt-services.mjolnir.protectedRooms">protectedRooms</a> = [
+      "https://matrix.to/#/!xxx:domain.tld"
+    ];
+    <a class="link" href="options.html#opt-services.mjolnir.managementRoom">managementRoom</a> = "!yyy:domain.tld";
+  };
+}
+</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-mjolnir-setup-ems"></a>39.1.1. Element Matrix Services (EMS)</h3></div></div></div><p>
+   If you are using a managed <a class="link" href="https://ems.element.io/" target="_top">"Element Matrix Services (EMS)"</a>
+   server, you will need to consent to the terms and conditions. Upon startup, an error
+   log entry with a URL to the consent page will be generated.
+  </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-mjolnir-matrix-synapse-antispam"></a>39.2. Synapse Antispam Module</h2></div></div></div><p>
+   A Synapse module is also available to apply the same rulesets the bot
+   uses across an entire homeserver.
+  </p><p>
+   To use the Antispam Module, add <span class="package">matrix-synapse-plugins.matrix-synapse-mjolnir-antispam</span>
+   to the Synapse plugin list and enable the <code class="literal">mjolnir.Module</code> module.
+  </p><pre class="programlisting">
+{
+  services.matrix-synapse = {
+    plugins = with pkgs; [
+      matrix-synapse-plugins.matrix-synapse-mjolnir-antispam
+    ];
+    extraConfig = ''
+      modules:
+        - module: mjolnir.Module
+          config:
+            # Prevent servers/users in the ban lists from inviting users on this
+            # server to rooms. Default true.
+            block_invites: true
+            # Flag messages sent by servers/users in the ban lists as spam. Currently
+            # this means that spammy messages will appear as empty to users. Default
+            # false.
+            block_messages: false
+            # Remove users from the user directory search by filtering matrix IDs and
+            # display names by the entries in the user ban list. Default false.
+            block_usernames: false
+            # The room IDs of the ban lists to honour. Unlike other parts of Mjolnir,
+            # this list cannot be room aliases or permalinks. This server is expected
+            # to already be joined to the room - Mjolnir will not automatically join
+            # these rooms.
+            ban_lists:
+              - "!roomid:example.org"
+    '';
+  };
+}
+</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-matrix"></a>Chapter 40. Matrix</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-matrix-synapse">40.1. Synapse Homeserver</a></span></dt><dt><span class="section"><a href="index.html#module-services-matrix-element-web">40.2. Element (formerly known as Riot) Web Client</a></span></dt></dl></div><p>
   <a class="link" href="https://matrix.org/" target="_top">Matrix</a> is an open standard for
   interoperable, decentralised, real-time communication over IP. It can be used
   to power Instant Messaging, VoIP/WebRTC signalling, Internet of Things
@@ -5346,7 +5546,7 @@ in {
   Matrix Now!</a> overview page for links to Element Apps for Android and iOS,
   desktop clients, as well as bridges to other networks and other projects
   around Matrix.
- </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-synapse"></a>38.1. Synapse Homeserver</h2></div></div></div><p>
+ </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-synapse"></a>40.1. Synapse Homeserver</h2></div></div></div><p>
    <a class="link" href="https://github.com/matrix-org/synapse" target="_top">Synapse</a> is
    the reference homeserver implementation of Matrix from the core development
    team at matrix.org. The following configuration example will set up a
@@ -5438,20 +5638,21 @@ in {
   };
   services.matrix-synapse = {
     <a class="link" href="options.html#opt-services.matrix-synapse.enable">enable</a> = true;
-    <a class="link" href="options.html#opt-services.matrix-synapse.server_name">server_name</a> = config.networking.domain;
-    <a class="link" href="options.html#opt-services.matrix-synapse.listeners">listeners</a> = [
+    <a class="link" href="options.html#opt-services.matrix-synapse.settings.server_name">server_name</a> = config.networking.domain;
+    <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners">listeners</a> = [
       {
-        <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.port">port</a> = 8008;
-        <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.bind_address">bind_address</a> = "::1";
-        <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.type">type</a> = "http";
-        <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.tls">tls</a> = false;
-        <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.x_forwarded">x_forwarded</a> = true;
-        <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.resources">resources</a> = [
-          {
-            <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.resources._.names">names</a> = [ "client" "federation" ];
-            <a class="link" href="options.html#opt-services.matrix-synapse.listeners._.resources._.compress">compress</a> = false;
-          }
-        ];
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.port">port</a> = 8008;
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.bind_addresses">bind_address</a> = [ "::1" ];
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.type">type</a> = "http";
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.tls">tls</a> = false;
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.x_forwarded">x_forwarded</a> = true;
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources">resources</a> = [ {
+          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.names">names</a> = [ "client" ];
+          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.compress">compress</a> = true;
+        } {
+          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.names">names</a> = [ "federation" ];
+          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.compress">compress</a> = false;
+        } ];
       }
     ];
   };
@@ -5470,11 +5671,11 @@ in {
    <code class="code">/.well-known</code> redirection target.
   </p><p>
    If you want to run a server with public registration by anybody, you can
-   then enable <code class="literal"><a class="link" href="options.html#opt-services.matrix-synapse.enable_registration">services.matrix-synapse.enable_registration</a> =
+   then enable <code class="literal"><a class="link" href="options.html#opt-services.matrix-synapse.settings.enable_registration">services.matrix-synapse.enable_registration</a> =
    true;</code>. Otherwise, or you can generate a registration secret with
    <span class="command"><strong>pwgen -s 64 1</strong></span> and set it with
-   <code class="option"><a class="link" href="options.html#opt-services.matrix-synapse.registration_shared_secret">services.matrix-synapse.registration_shared_secret</a></code>. To
-   create a new user or admin, run the following after you have set the secret
+   <code class="option"><a class="link" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret">services.matrix-synapse.registration_shared_secret</a></code>.
+   To create a new user or admin, run the following after you have set the secret
    and have rebuilt NixOS:
 </p><pre class="screen">
 <code class="prompt">$ </code>nix run nixpkgs.matrix-synapse
@@ -5489,9 +5690,9 @@ Success!
    <code class="literal">@your-username:example.org</code>. Note that the registration
    secret ends up in the nix store and therefore is world-readable by any user
    on your machine, so it makes sense to only temporarily activate the
-   <a class="link" href="options.html#opt-services.matrix-synapse.registration_shared_secret">registration_shared_secret</a>
+   <a class="link" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret">registration_shared_secret</a>
    option until a better solution for NixOS is in place.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-element-web"></a>38.2. Element (formerly known as Riot) Web Client</h2></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-element-web"></a>40.2. Element (formerly known as Riot) Web Client</h2></div></div></div><p>
    <a class="link" href="https://github.com/vector-im/riot-web/" target="_top">Element Web</a> is
    the reference web client for Matrix and developed by the core team at
    matrix.org. Element was formerly known as Riot.im, see the
@@ -5537,207 +5738,7 @@ Success!
    <code class="literal">element.example.org</code> in the example. See the
    <a class="link" href="https://github.com/vector-im/riot-web#important-security-note" target="_top">Element
    Important Security Notes</a> for more information on this subject.
-  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-gitlab"></a>Chapter 39. GitLab</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-gitlab-prerequisites">39.1. Prerequisites</a></span></dt><dt><span class="section"><a href="index.html#module-services-gitlab-configuring">39.2. Configuring</a></span></dt><dt><span class="section"><a href="index.html#module-services-gitlab-maintenance">39.3. Maintenance</a></span></dt></dl></div><p>
-  GitLab is a feature-rich git hosting service.
- </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-gitlab-prerequisites"></a>39.1. Prerequisites</h2></div></div></div><p>
-   The <code class="literal">gitlab</code> service exposes only an Unix socket at
-   <code class="literal">/run/gitlab/gitlab-workhorse.socket</code>. You need to
-   configure a webserver to proxy HTTP requests to the socket.
-  </p><p>
-   For instance, the following configuration could be used to use nginx as
-   frontend proxy:
-</p><pre class="programlisting">
-<a class="link" href="options.html#opt-services.nginx.enable">services.nginx</a> = {
-  <a class="link" href="options.html#opt-services.nginx.enable">enable</a> = true;
-  <a class="link" href="options.html#opt-services.nginx.recommendedGzipSettings">recommendedGzipSettings</a> = true;
-  <a class="link" href="options.html#opt-services.nginx.recommendedOptimisation">recommendedOptimisation</a> = true;
-  <a class="link" href="options.html#opt-services.nginx.recommendedProxySettings">recommendedProxySettings</a> = true;
-  <a class="link" href="options.html#opt-services.nginx.recommendedTlsSettings">recommendedTlsSettings</a> = true;
-  <a class="link" href="options.html#opt-services.nginx.virtualHosts">virtualHosts</a>."git.example.com" = {
-    <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.enableACME">enableACME</a> = true;
-    <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.forceSSL">forceSSL</a> = true;
-    <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.proxyPass">locations."/".proxyPass</a> = "http://unix:/run/gitlab/gitlab-workhorse.socket";
-  };
-};
-</pre><p>
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-gitlab-configuring"></a>39.2. Configuring</h2></div></div></div><p>
-   GitLab depends on both PostgreSQL and Redis and will automatically enable
-   both services. In the case of PostgreSQL, a database and a role will be
-   created.
-  </p><p>
-   The default state dir is <code class="literal">/var/gitlab/state</code>. This is where
-   all data like the repositories and uploads will be stored.
-  </p><p>
-   A basic configuration with some custom settings could look like this:
-</p><pre class="programlisting">
-services.gitlab = {
-  <a class="link" href="options.html#opt-services.gitlab.enable">enable</a> = true;
-  <a class="link" href="options.html#opt-services.gitlab.databasePasswordFile">databasePasswordFile</a> = "/var/keys/gitlab/db_password";
-  <a class="link" href="options.html#opt-services.gitlab.initialRootPasswordFile">initialRootPasswordFile</a> = "/var/keys/gitlab/root_password";
-  <a class="link" href="options.html#opt-services.gitlab.https">https</a> = true;
-  <a class="link" href="options.html#opt-services.gitlab.host">host</a> = "git.example.com";
-  <a class="link" href="options.html#opt-services.gitlab.port">port</a> = 443;
-  <a class="link" href="options.html#opt-services.gitlab.user">user</a> = "git";
-  <a class="link" href="options.html#opt-services.gitlab.group">group</a> = "git";
-  smtp = {
-    <a class="link" href="options.html#opt-services.gitlab.smtp.enable">enable</a> = true;
-    <a class="link" href="options.html#opt-services.gitlab.smtp.address">address</a> = "localhost";
-    <a class="link" href="options.html#opt-services.gitlab.smtp.port">port</a> = 25;
-  };
-  secrets = {
-    <a class="link" href="options.html#opt-services.gitlab.secrets.dbFile">dbFile</a> = "/var/keys/gitlab/db";
-    <a class="link" href="options.html#opt-services.gitlab.secrets.secretFile">secretFile</a> = "/var/keys/gitlab/secret";
-    <a class="link" href="options.html#opt-services.gitlab.secrets.otpFile">otpFile</a> = "/var/keys/gitlab/otp";
-    <a class="link" href="options.html#opt-services.gitlab.secrets.jwsFile">jwsFile</a> = "/var/keys/gitlab/jws";
-  };
-  <a class="link" href="options.html#opt-services.gitlab.extraConfig">extraConfig</a> = {
-    gitlab = {
-      email_from = "gitlab-no-reply@example.com";
-      email_display_name = "Example GitLab";
-      email_reply_to = "gitlab-no-reply@example.com";
-      default_projects_features = { builds = false; };
-    };
-  };
-};
-</pre><p>
-  </p><p>
-   If you're setting up a new GitLab instance, generate new
-   secrets. You for instance use <code class="literal">tr -dc A-Za-z0-9 &lt;
-   /dev/urandom | head -c 128 &gt; /var/keys/gitlab/db</code> to
-   generate a new db secret. Make sure the files can be read by, and
-   only by, the user specified by <a class="link" href="options.html#opt-services.gitlab.user">services.gitlab.user</a>. GitLab
-   encrypts sensitive data stored in the database. If you're restoring
-   an existing GitLab instance, you must specify the secrets secret
-   from <code class="literal">config/secrets.yml</code> located in your GitLab
-   state folder.
-  </p><p>
-    When <code class="literal">incoming_mail.enabled</code> is set to <code class="literal">true</code>
-    in <a class="link" href="options.html#opt-services.gitlab.extraConfig">extraConfig</a> an additional
-    service called <code class="literal">gitlab-mailroom</code> is enabled for fetching incoming mail.
-  </p><p>
-   Refer to <a class="xref" href="options.html" title="Appendix A. Configuration Options">Appendix A, <em>Configuration Options</em></a> for all available configuration
-   options for the
-   <a class="link" href="options.html#opt-services.gitlab.enable">services.gitlab</a> module.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-gitlab-maintenance"></a>39.3. Maintenance</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-gitlab-maintenance-backups"></a>39.3.1. Backups</h3></div></div></div><p>
-     Backups can be configured with the options in <a class="link" href="options.html#opt-services.gitlab.backup.keepTime">services.gitlab.backup</a>. Use
-     the <a class="link" href="options.html#opt-services.gitlab.backup.startAt">services.gitlab.backup.startAt</a>
-     option to configure regular backups.
-   </p><p>
-     To run a manual backup, start the <code class="literal">gitlab-backup</code> service:
-</p><pre class="screen">
-<code class="prompt">$ </code>systemctl start gitlab-backup.service
-</pre><p>
-   </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-gitlab-maintenance-rake"></a>39.3.2. Rake tasks</h3></div></div></div><p>
-    You can run GitLab's rake tasks with <code class="literal">gitlab-rake</code>
-    which will be available on the system when GitLab is enabled. You
-    will have to run the command as the user that you configured to run
-    GitLab with.
-   </p><p>
-    A list of all availabe rake tasks can be obtained by running:
-</p><pre class="screen">
-<code class="prompt">$ </code>sudo -u git -H gitlab-rake -T
-</pre><p>
-   </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-mjolnir"></a>Chapter 40. Mjolnir (Matrix Moderation Tool)</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-mjolnir-setup">40.1. Mjolnir Setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-mjolnir-matrix-synapse-antispam">40.2. Synapse Antispam Module</a></span></dt></dl></div><p>
-  This chapter will show you how to set up your own, self-hosted
-  <a class="link" href="https://github.com/matrix-org/mjolnir" target="_top">Mjolnir</a>
-  instance.
- </p><p>
-  As an all-in-one moderation tool, it can protect your server from
-  malicious invites, spam messages, and whatever else you don't want.
-  In addition to server-level protection, Mjolnir is great for communities
-  wanting to protect their rooms without having to use their personal
-  accounts for moderation.
- </p><p>
-  The bot by default includes support for bans, redactions, anti-spam,
-  server ACLs, room directory changes, room alias transfers, account
-  deactivation, room shutdown, and more.
- </p><p>
-  See the <a class="link" href="https://github.com/matrix-org/mjolnir#readme" target="_top">README</a>
-  page and the <a class="link" href="https://github.com/matrix-org/mjolnir/blob/main/docs/moderators.md" target="_top">Moderator's guide</a>
-  for additional instructions on how to setup and use Mjolnir.
- </p><p>
-  For <a class="link" href="options.html#opt-services.mjolnir.settings">additional settings</a>
-  see <a class="link" href="https://github.com/matrix-org/mjolnir/blob/main/config/default.yaml" target="_top">the default configuration</a>.
- </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-mjolnir-setup"></a>40.1. Mjolnir Setup</h2></div></div></div><p>
-   First create a new Room which will be used as a management room for Mjolnir. In
-   this room, Mjolnir will log possible errors and debugging information. You'll
-   need to set this Room-ID in <a class="link" href="options.html#opt-services.mjolnir.managementRoom">services.mjolnir.managementRoom</a>.
-  </p><p>
-   Next, create a new user for Mjolnir on your homeserver, if not present already.
-  </p><p>
-   The Mjolnir Matrix user expects to be free of any rate limiting.
-   See <a class="link" href="https://github.com/matrix-org/synapse/issues/6286" target="_top">Synapse #6286</a>
-   for an example on how to achieve this.
-  </p><p>
-   If you want Mjolnir to be able to deactivate users, move room aliases, shutdown rooms, etc.
-   you'll need to make the Mjolnir user a Matrix server admin.
-  </p><p>
-   Now invite the Mjolnir user to the management room.
-  </p><p>
-   It is recommended to use <a class="link" href="https://github.com/matrix-org/pantalaimon" target="_top">Pantalaimon</a>,
-   so your management room can be encrypted. This also applies if you are looking to moderate an encrypted room.
-  </p><p>
-   To enable the Pantalaimon E2E Proxy for mjolnir, enable
-   <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.enable">services.mjolnir.pantalaimon</a>. This will
-   autoconfigure a new Pantalaimon instance, which will connect to the homeserver
-   set in <a class="link" href="options.html#opt-services.mjolnir.homeserverUrl">services.mjolnir.homeserverUrl</a> and Mjolnir itself
-   will be configured to connect to the new Pantalaimon instance.
-  </p><pre class="programlisting">
-{
-  services.mjolnir = {
-    enable = true;
-    <a class="link" href="options.html#opt-services.mjolnir.homeserverUrl">homeserverUrl</a> = "https://matrix.domain.tld";
-    <a class="link" href="options.html#opt-services.mjolnir.pantalaimon">pantalaimon</a> = {
-       <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.enable">enable</a> = true;
-       <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.username">username</a> = "mjolnir";
-       <a class="link" href="options.html#opt-services.mjolnir.pantalaimon.passwordFile">passwordFile</a> = "/run/secrets/mjolnir-password";
-    };
-    <a class="link" href="options.html#opt-services.mjolnir.protectedRooms">protectedRooms</a> = [
-      "https://matrix.to/#/!xxx:domain.tld"
-    ];
-    <a class="link" href="options.html#opt-services.mjolnir.managementRoom">managementRoom</a> = "!yyy:domain.tld";
-  };
-}
-</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-mjolnir-setup-ems"></a>40.1.1. Element Matrix Services (EMS)</h3></div></div></div><p>
-   If you are using a managed <a class="link" href="https://ems.element.io/" target="_top">"Element Matrix Services (EMS)"</a>
-   server, you will need to consent to the terms and conditions. Upon startup, an error
-   log entry with a URL to the consent page will be generated.
-  </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-mjolnir-matrix-synapse-antispam"></a>40.2. Synapse Antispam Module</h2></div></div></div><p>
-   A Synapse module is also available to apply the same rulesets the bot
-   uses across an entire homeserver.
-  </p><p>
-   To use the Antispam Module, add <span class="package">matrix-synapse-plugins.matrix-synapse-mjolnir-antispam</span>
-   to the Synapse plugin list and enable the <code class="literal">mjolnir.Module</code> module.
-  </p><pre class="programlisting">
-{
-  services.matrix-synapse = {
-    plugins = with pkgs; [
-      matrix-synapse-plugins.matrix-synapse-mjolnir-antispam
-    ];
-    extraConfig = ''
-      modules:
-        - module: mjolnir.Module
-          config:
-            # Prevent servers/users in the ban lists from inviting users on this
-            # server to rooms. Default true.
-            block_invites: true
-            # Flag messages sent by servers/users in the ban lists as spam. Currently
-            # this means that spammy messages will appear as empty to users. Default
-            # false.
-            block_messages: false
-            # Remove users from the user directory search by filtering matrix IDs and
-            # display names by the entries in the user ban list. Default false.
-            block_usernames: false
-            # The room IDs of the ban lists to honour. Unlike other parts of Mjolnir,
-            # this list cannot be room aliases or permalinks. This server is expected
-            # to already be joined to the room - Mjolnir will not automatically join
-            # these rooms.
-            ban_lists:
-              - "!roomid:example.org"
-    '';
-  };
-}
-</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-mailman"></a>Chapter 41. Mailman</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-mailman-basic-usage">41.1. Basic usage with Postfix</a></span></dt><dt><span class="section"><a href="index.html#module-services-mailman-other-mtas">41.2. Using with other MTAs</a></span></dt></dl></div><p>
+  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-mailman"></a>Chapter 41. Mailman</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-mailman-basic-usage">41.1. Basic usage with Postfix</a></span></dt><dt><span class="section"><a href="index.html#module-services-mailman-other-mtas">41.2. Using with other MTAs</a></span></dt></dl></div><p>
     <a class="link" href="https://www.list.org" target="_top">Mailman</a> is free
     software for managing electronic mail discussion and e-newsletter
     lists. Mailman and its web interface can be configured using the
@@ -8789,28 +8790,29 @@ lib.mkOption {
             display manager options and a module file per display
             manager backend (sddm, gdm ...).
           </p><p>
-            There are two approach to this module structure:
+            There are two approaches we could take with this module
+            structure:
           </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-                Managing the display managers independently by adding an
-                enable option to every display manager module backend.
-                (NixOS)
+                Configuring the display managers independently by adding
+                an enable option to every display manager module
+                backend. (NixOS)
               </p></li><li class="listitem"><p>
-                Managing the display managers in the central module by
-                adding an option to select which display manager backend
-                to use.
+                Configuring the display managers in the central module
+                by adding an option to select which display manager
+                backend to use.
               </p></li></ul></div><p>
             Both approaches have problems.
           </p><p>
             Making backends independent can quickly become hard to
-            manage. For display managers, there can be only one enabled
-            at a time, but the type system can not enforce this
-            restriction as there is no relation between each backend
+            manage. For display managers, there can only be one enabled
+            at a time, but the type system cannot enforce this
+            restriction as there is no relation between each backend’s
             <code class="literal">enable</code> option. As a result, this
-            restriction has to be done explicitely by adding assertions
+            restriction has to be done explicitly by adding assertions
             in each display manager backend module.
           </p><p>
-            On the other hand, managing the display managers backends in
-            the central module will require to change the central module
+            On the other hand, managing the display manager backends in
+            the central module will require changing the central module
             option every time a new backend is added or removed.
           </p><p>
             By using extensible option types, it is possible to create a
@@ -8829,7 +8831,7 @@ lib.mkOption {
           </p><p>
             As a result, <code class="literal">displayManager.enable</code> option
             values can be added without changing the main service module
-            file and the type system automatically enforce that there
+            file and the type system automatically enforces that there
             can only be a single display manager enabled.
           </p><a id="ex-option-declaration-eot-service"></a><p>
             <span class="strong"><strong>Example: Extensible type placeholder
@@ -8882,10 +8884,10 @@ services.xserver.displayManager.enable = mkOption {
           </p></dd><dt><span class="term">
           <code class="literal">types.path</code>
         </span></dt><dd><p>
-            A filesystem path, defined as anything that when coerced to
-            a string starts with a slash. Even if derivations can be
-            considered as path, the more specific
-            <code class="literal">types.package</code> should be preferred.
+            A filesystem path is anything that starts with a slash when
+            coerced to a string. Even if derivations can be considered
+            as paths, the more specific <code class="literal">types.package</code>
+            should be preferred.
           </p></dd><dt><span class="term">
           <code class="literal">types.package</code>
         </span></dt><dd><p>

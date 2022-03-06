@@ -10308,9 +10308,10 @@ $ cp $(nix-build -A 'config.systemd.units."httpd.service".unit')/httpd.service \
             <code class="literal">X-OnlyManualStart</code> in the
             <code class="literal">[Unit]</code> section.
           </p></li><li class="listitem"><p>
-            The rest of the behavior is decided whether the unit has
+            Further behavior depends on the unit having
             <code class="literal">X-StopIfChanged</code> in the
-            <code class="literal">[Service]</code> section set (exposed via
+            <code class="literal">[Service]</code> section set to
+            <code class="literal">true</code> (exposed via
             <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.stopIfChanged</a>).
             This is set to <code class="literal">true</code> by default and must
             be explicitly turned off if not wanted. If the flag is
@@ -10320,14 +10321,19 @@ $ cp $(nix-build -A 'config.systemd.units."httpd.service".unit')/httpd.service \
             is <span class="strong"><strong>restart</strong></span>ed. The goal of
             the flag is to make sure that the new unit never runs in the
             old environment which is still in place before the
-            activation script is run.
+            activation script is run. This behavior is different when
+            the service is socket-activated, as outlined in the
+            following steps.
           </p></li><li class="listitem"><p>
             The last thing that is taken into account is whether the
-            unit is a service and socket-activated. Due to a bug, this
-            is currently only done when
-            <code class="literal">X-StopIfChanged</code> is set. If the unit is
-            socket-activated, the socket is stopped and started, and the
-            service is stopped and to be started by socket activation.
+            unit is a service and socket-activated. If
+            <code class="literal">X-StopIfChanged</code> is
+            <span class="strong"><strong>not</strong></span> set, the service is
+            <span class="strong"><strong>restart</strong></span>ed with the
+            others. If it is set, both the service and the socket are
+            <span class="strong"><strong>stop</strong></span>ped and the socket is
+            <span class="strong"><strong>start</strong></span>ed, leaving socket
+            activation to start the service when it’s needed.
           </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-activation-script"></a>67.2. Activation script</h2></div></div></div><p>
     The activation script is a bash script called to activate the new
     configuration which resides in a NixOS system in
