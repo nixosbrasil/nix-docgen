@@ -8891,7 +8891,9 @@ services.xserver.displayManager.enable = mkOption {
           </p></dd><dt><span class="term">
           <code class="literal">types.package</code>
         </span></dt><dd><p>
-            A derivation or a store path.
+            A top-level store path. This can be an attribute set
+            pointing to a store path, like a derivation or a flake
+            input.
           </p></dd><dt><span class="term">
           <code class="literal">types.anything</code>
         </span></dt><dd><p>
