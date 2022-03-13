@@ -113,6 +113,11 @@
           a Prometheus exporter for mtr metrics. Available as
           <a class="link" href="options.html#opt-services.mtr-exporter.enable" target="_top">services.mtr-exporter</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/prometheus-pve/prometheus-pve-exporter" target="_top">prometheus-pve-exporter</a>,
+          a tool that exposes information from the Proxmox VE API for
+          use by Prometheus. Available as
+          <a class="link" href="options.html#opt-services.prometheus.exporters.pve" target="_top">services.prometheus.exporters.pve</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://tetrd.app" target="_top">tetrd</a>, share your
           internet connection from your device to your PC and vice versa
           through a USB cable. Available at
@@ -229,6 +234,17 @@
           since the former have been deprecated and are no longer
           functional in kubernetes&gt;=1.23. Ensure that you are not
           relying on the insecure behaviour before upgrading.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.k3s.enable</code> no longer implies
+          <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>,
+          and will default to the <span class="quote">“<span class="quote">systemd</span>”</span> cgroup driver
+          when using <code class="literal">services.k3s.docker = true</code>. This
+          change may require a reboot to take effect, and k3s may not be
+          able to run if the boot cgroup hierarchy does not match its
+          configuration. The previous behavior may be retained by
+          explicitly setting
+          <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>
+          in your configuration.
         </p></li><li class="listitem"><p>
           The DHCP server (<code class="literal">services.dhcpd4</code>,
           <code class="literal">services.dhcpd6</code>) has been hardened. The
@@ -520,6 +536,15 @@
           <a class="link" href="https://github.com/numtide/nixpkgs-terraform-providers-bin" target="_top">nixpkgs-terraform-providers-bin</a>
           directly.
         </p></li><li class="listitem"><p>
+          The <code class="literal">dendrite</code> package has been upgraded from
+          0.5.1 to
+          <a class="link" href="https://github.com/matrix-org/dendrite/releases/tag/v0.6.5" target="_top">0.6.5</a>.
+          Instances configured with split sqlite databases, which has
+          been the default in NixOS, require merging of the federation
+          sender and signing key databases. See upstream
+          <a class="link" href="https://github.com/matrix-org/dendrite/releases/tag/v0.6.0" target="_top">release
+          notes</a> on version 0.6.0 for details on database changes.
+        </p></li><li class="listitem"><p>
           The existing <code class="literal">pkgs.opentelemetry-collector</code>
           has been moved to
           <code class="literal">pkgs.opentelemetry-collector-contrib</code> to
@@ -721,6 +746,9 @@
           place upstream. A combined <code class="literal">influxdb2</code>
           package is still provided in this release for backwards
           compatibilty, but will be removed at a later date.
+        </p></li><li class="listitem"><p>
+          <code class="literal">programs.zsh.autosuggestions.strategy</code> now
+          takes a list of strings instead of a string.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.unifi.openPorts</code> option default
           value of <code class="literal">true</code> is now deprecated and will be
