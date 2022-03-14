@@ -8582,6 +8582,24 @@ $ ln -s /my/sources/nixpkgs ~/.nix-defexpr/nixpkgs
     <code class="literal">systemd.services</code> (the set of all systemd
     services) and <code class="literal">systemd.timers</code> (the list of
     commands to be executed periodically by <code class="literal">systemd</code>).
+  </p><p>
+    Care must be taken when writing systemd services using
+    <code class="literal">Exec*</code> directives. By default systemd performs
+    substitution on <code class="literal">%&lt;char&gt;</code> specifiers in these
+    directives, expands environment variables from
+    <code class="literal">$FOO</code> and <code class="literal">${FOO}</code>, splits
+    arguments on whitespace, and splits commands on
+    <code class="literal">;</code>. All of these must be escaped to avoid
+    unexpected substitution or splitting when interpolating into an
+    <code class="literal">Exec*</code> directive, e.g. when using an
+    <code class="literal">extraArgs</code> option to pass additional arguments to
+    the service. The functions
+    <code class="literal">utils.escapeSystemdExecArg</code> and
+    <code class="literal">utils.escapeSystemdExecArgs</code> are provided for
+    this, see <a class="link" href="index.html#exec-escaping-example">Example: Escaping in
+    Exec directives</a> for an example. When using these functions
+    system environment substitution should <span class="emphasis"><em>not</em></span> be
+    disabled explicitly.
   </p><a id="locate-example"></a><p>
     <span class="strong"><strong>Example: NixOS Module for the
     <span class="quote">“<span class="quote">locate</span>”</span> Service</strong></span>
@@ -8640,6 +8658,33 @@ in {
         timerConfig.OnCalendar = cfg.interval;
       };
   };
+}
+</pre><a id="exec-escaping-example"></a><p>
+    <span class="strong"><strong>Example: Escaping in Exec
+    directives</strong></span>
+  </p><pre class="programlisting">
+{ config, lib, pkgs, utils, ... }:
+
+with lib;
+
+let
+  cfg = config.services.echo;
+  echoAll = pkgs.writeScript "echo-all" ''
+    #! ${pkgs.runtimeShell}
+    for s in "$@"; do
+      printf '%s\n' "$s"
+    done
+  '';
+  args = [ "a%Nything" "lang=\${LANG}" ";" "/bin/sh -c date" ];
+in {
+  systemd.services.echo =
+    { description = "Echo to the journal";
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig.Type = "oneshot";
+      serviceConfig.ExecStart = ''
+        ${echoAll} ${utils.escapeSystemdExecArgs args}
+      '';
+    };
 }
 </pre><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-option-declarations"></a>65.1. Option Declarations</h2></div></div></div><p>
     An option declaration specifies the name, type and description of a
@@ -10280,8 +10325,9 @@ $ cp $(nix-build -A 'config.systemd.units."httpd.service".unit')/httpd.service \
         <span class="strong"><strong>reload</strong></span> the unit. The NixOS
         module system allows setting these triggers with the option
         <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.reloadTriggers</a>.
-        If the unit files differ in any way, the following actions are
-        performed:
+        There are some additional keys in the <code class="literal">[Unit]</code>
+        section that are ignored as well. If the unit files differ in
+        any way, the following actions are performed:
       </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
             <code class="literal">.path</code> and <code class="literal">.slice</code> units
             are ignored. There is no need to restart them since changes
@@ -10301,6 +10347,11 @@ $ cp $(nix-build -A 'config.systemd.units."httpd.service".unit')/httpd.service \
             <code class="literal">[Service]</code> section is set to
             <code class="literal">true</code> (exposed via
             <a class="link" href="options.html#opt-systemd.services">systemd.services.&lt;name&gt;.reloadIfChanged</a>).
+            A little exception is done for units that were deactivated
+            in the meantime, for example because they require a unit
+            that got stopped before. These are
+            <span class="strong"><strong>start</strong></span>ed instead of
+            reloaded.
           </p></li><li class="listitem"><p>
             If the reload flag is not set, some more flags decide if the
             unit is skipped. These flags are
