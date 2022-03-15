@@ -151,9 +151,21 @@
           a server for handling XMPP HTTP Upload requests. Available at
           <a class="link" href="options.html#opt-services.prosody-filer.enable">services.prosody-filer</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/rfjakob/systembus-notify" target="_top">systembus-notify</a>,
+          allow system level notifications to reach the users. Available
+          as
+          <a class="link" href="opt-services.systembus-notify.enable" target="_top">services.systembus-notify</a>.
+          Please keep in mind that this service should only be enabled
+          on machines with fully trusted users, as any local user is
+          able to DoS user sessions by spamming notifications.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/audreyt/ethercalc" target="_top">ethercalc</a>,
           an online collaborative spreadsheet. Available as
           <a class="link" href="options.html#opt-services.ethercalc.enable" target="_top">services.ethercalc</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://nbd.sourceforge.io/" target="_top">nbd</a>, a
+          Network Block Device server. Available as
+          <a class="link" href="options.html#opt-services.nbd.server.enable" target="_top">services.nbd</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://timetagger.app" target="_top">timetagger</a>,
           an open source time-tracker with an intuitive user experience
@@ -569,6 +581,40 @@
           of <code class="literal">pkgs.noto-fonts-cjk-sans</code> and doesn’t
           include serif fonts.
         </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.epgstation</code> has been upgraded from v1
+          to v2, resulting in incompatible changes in the database
+          scheme and configuration format.
+        </p></li><li class="listitem"><p>
+          Some top-level settings under
+          <a class="link" href="options.html#opt-services.epgstation.enable">services.epgstation</a>
+          is now deprecated because it was redudant due to the same
+          options being present in
+          <a class="link" href="options.html#opt-services.epgstation.settings">services.epgstation.settings</a>.
+        </p></li><li class="listitem"><p>
+          The option <code class="literal">services.epgstation.basicAuth</code>
+          was removed because basic authentication support was dropped
+          by upstream.
+        </p></li><li class="listitem"><p>
+          The option
+          <a class="link" href="options.html#opt-services.epgstation.database.passwordFile">services.epgstation.database.passwordFile</a>
+          no longer has a default value. Make sure to set this option
+          explicitly before upgrading. Change the database password if
+          necessary.
+        </p></li><li class="listitem"><p>
+          The
+          <a class="link" href="options.html#opt-services.epgstation.settings">services.epgstation.settings</a>
+          option now expects options for <code class="literal">config.yml</code>
+          in EPGStation v2.
+        </p></li><li class="listitem"><p>
+          Existing data for the
+          <a class="link" href="options.html#opt-services.epgstation.enable">services.epgstation</a>
+          module would have to be backed up prior to the upgrade. To
+          back up exising data to
+          <code class="literal">/tmp/epgstation.bak</code>, run
+          <code class="literal">sudo -u epgstation epgstation run backup /tmp/epgstation.bak</code>.
+          To import that data after to the upgrade, run
+          <code class="literal">sudo -u epgstation epgstation run v1migrate /tmp/epgstation.bak</code>
+        </p></li><li class="listitem"><p>
           <code class="literal">switch-to-configuration</code> (the script that is
           run when running <code class="literal">nixos-rebuild switch</code> for
           example) has been reworked
@@ -880,6 +926,13 @@
           Using the old option name will still work, but produce a
           warning.
         </p></li><li class="listitem"><p>
+          The <code class="literal">pomerium-cli</code> command has been moved out
+          of the <code class="literal">pomerium</code> package into the
+          <code class="literal">pomerium-cli</code> package, following upstream’s
+          repository split. If you are using the
+          <code class="literal">pomerium-cli</code> command, you should now
+          install the <code class="literal">pomerium-cli</code> package.
+        </p></li><li class="listitem"><p>
           The option
           <a class="link" href="options.html#opt-networking.networkmanager.enableFccUnlock">services.networking.networkmanager.enableFccUnlock</a>
           was added to support FCC unlock procedures. Since release
@@ -920,7 +973,17 @@
           This means, <code class="literal">ip[6]tables</code>,
           <code class="literal">arptables</code> and <code class="literal">ebtables</code>
           commands will actually show rules from some specific tables in
-          the <code class="literal">nf_tables</code> kernel subsystem.
+          the <code class="literal">nf_tables</code> kernel subsystem. In case
+          you’re migrating from an older release without rebooting,
+          there might be cases where you end up with iptable rules
+          configured both in the legacy <code class="literal">iptables</code>
+          kernel backend, as well as in the <code class="literal">nf_tables</code>
+          backend. This can lead to confusing firewall behaviour. An
+          <code class="literal">iptables-save</code> after switching will complain
+          about <span class="quote">“<span class="quote">iptables-legacy tables present</span>”</span>. It’s
+          probably best to reboot after the upgrade, or manually
+          removing all legacy iptables rules (via the
+          <code class="literal">iptables-legacy</code> package).
         </p></li><li class="listitem"><p>
           systemd got an <code class="literal">nftables</code> backend, and
           configures (networkd) rules in their own
