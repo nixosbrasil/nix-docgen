@@ -186,6 +186,9 @@
           <a class="link" href="https://0xerr0r.github.io/blocky/" target="_top">blocky</a>,
           fast and lightweight DNS proxy as ad-blocker for local network
           with many features.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://clusterlabs.org/pacemaker/" target="_top">pacemaker</a>
+          cluster resource manager
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">pkgs.ghc</code> now refers to
           <code class="literal">pkgs.targetPackages.haskellPackages.ghc</code>.
@@ -258,6 +261,20 @@
           <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>
           in your configuration.
         </p></li><li class="listitem"><p>
+          <code class="literal">fonts.fonts</code> no longer includes ancient
+          bitmap fonts when both
+          <code class="literal">config.services.xserver.enable</code> and
+          <code class="literal">config.nixpkgs.config.allowUnfree</code> are
+          enabled. If you still want these fonts, use:
+        </p><pre class="programlisting">
+{
+  fonts.fonts = [
+    pkgs.xorg.fontbhlucidatypewriter100dpi
+    pkgs.xorg.fontbhlucidatypewriter75dpi
+    pkgs.xorg.fontbh100dpi
+  ];
+}
+</pre></li><li class="listitem"><p>
           The DHCP server (<code class="literal">services.dhcpd4</code>,
           <code class="literal">services.dhcpd6</code>) has been hardened. The
           service is now using the systemd’s
@@ -957,7 +974,30 @@
           <code class="literal">security.polkit.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
           desktop environments as needed.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li><li class="listitem"><p>
+          The <code class="literal">hadoop</code> package has added support for
+          <code class="literal">aarch64-linux</code> and
+          <code class="literal">aarch64-darwin</code> as of 3.3.1
+          (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/158613" target="_top">#158613</a>).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">R</code> package now builds again on
+          <code class="literal">aarch64-darwin</code>
+          (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/158992" target="_top">#158992</a>).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">spark3</code> package has been updated from
+          3.1.2 to 3.2.1
+          (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/160075" target="_top">#160075</a>):
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              Testing has been enabled for
+              <code class="literal">aarch64-linux</code> in addition to
+              <code class="literal">x86_64-linux</code>.
+            </p></li><li class="listitem"><p>
+              The <code class="literal">spark3</code> package is now usable on
+              <code class="literal">aarch64-darwin</code> as a result of
+              <a class="link" href="https://github.com/NixOS/nixpkgs/pull/158613" target="_top">#158613</a>
+              and
+              <a class="link" href="https://github.com/NixOS/nixpkgs/pull/158992" target="_top">#158992</a>.
+            </p></li></ul></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of June 2022, handing over to
         22.05.
       </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-highlights"></a>B.2.1. Highlights</h3></div></div></div><p>
