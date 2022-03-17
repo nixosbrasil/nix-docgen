@@ -397,6 +397,19 @@
           (<code class="literal">services.moinmoin</code>) has been removed,
           because Python 2 is being retired from nixpkgs.
         </p></li><li class="listitem"><p>
+          Services in the <code class="literal">hadoop</code> module previously
+          set <code class="literal">openFirewall</code> to true by default. This
+          has now been changed to false. Node definitions for multi-node
+          clusters would need <code class="literal">openFirewall = true;</code> to
+          be added to to hadoop services when upgrading from NixOS
+          21.11.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.hadoop.yarn.nodemanager</code> now uses
+          cgroup-based CPU limit enforcement by default. Additionally,
+          the option <code class="literal">useCGroups</code> was added to
+          nodemanagers as an easy way to switch back to the old
+          behavior.
+        </p></li><li class="listitem"><p>
           The <code class="literal">wafHook</code> hook now honors
           <code class="literal">NIX_BUILD_CORES</code> when
           <code class="literal">enableParallelBuilding</code> is not set
@@ -793,6 +806,19 @@
           convenience functions to create executable Python 2/3 scripts
           using the PyPy interpreter were added.
         </p></li><li class="listitem"><p>
+          Some improvements have been made to the
+          <code class="literal">hadoop</code> module:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              A <code class="literal">gatewayRole</code> option has been added,
+              for deploying hadoop cluster configuration files to a node
+              that does not have any active services
+            </p></li><li class="listitem"><p>
+              Support for older versions of hadoop have been added to
+              the module
+            </p></li><li class="listitem"><p>
+              Overriding and extending site XML files has been made
+              easier
+            </p></li></ul></div></li><li class="listitem"><p>
           If you are using Wayland you can choose to use the Ozone
           Wayland support in Chrome and several Electron apps by setting
           the environment variable <code class="literal">NIXOS_OZONE_WL=1</code>
@@ -867,6 +893,25 @@
           configuration in <code class="literal">hardware-configuration.nix</code>
           instead of <code class="literal">configuration.nix</code>.
         </p></li><li class="listitem"><p>
+          ORY Kratos was updated to version 0.8.3-alpha.1.pre.0, which
+          introduces some breaking changes:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              If you are relying on the SQLite images, update your
+              Docker Pull commands as follows:
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <code class="literal">docker pull oryd/kratos:{version}</code>
+                </p></li></ul></div></li><li class="listitem"><p>
+              Additionally, all passwords now have to be at least 8
+              characters long.
+            </p></li><li class="listitem"><p>
+              For more details, see:
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.1-alpha.1" target="_top">Release
+                  Notes for v0.8.1-alpha-1</a>
+                </p></li><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.2-alpha.1" target="_top">Release
+                  Notes for v0.8.2-alpha-1</a>
+                </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
           <code class="literal">fetchFromSourcehut</code> now allows fetching
           repositories recursively using <code class="literal">fetchgit</code> or
           <code class="literal">fetchhg</code> if the argument

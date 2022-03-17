@@ -8716,9 +8716,11 @@ options = {
         <code class="literal">type</code>
       </span></dt><dd><p>
           The type of the option (see
-          <a class="xref" href="index.html#sec-option-types" title="65.2. Options Types">Section 65.2, “Options Types”</a>). It may be omitted, but
-          that’s not advisable since it may lead to errors that are hard
-          to diagnose.
+          <a class="xref" href="index.html#sec-option-types" title="65.2. Options Types">Section 65.2, “Options Types”</a>). This argument is
+          mandatory for nixpkgs modules. Setting this is highly
+          recommended for the sake of documentation and type checking.
+          In case it is not set, a fallback type with unspecified
+          behavior is used.
         </p></dd><dt><span class="term">
         <code class="literal">default</code>
       </span></dt><dd><p>
