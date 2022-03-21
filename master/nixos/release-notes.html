@@ -306,6 +306,11 @@
           still supported, because you can set arbitrary values in this
           freeform type.
         </p><p>
+          The <code class="literal">listeners.*.bind_address</code> option was
+          renamed to <code class="literal">bind_addresses</code> in order to match
+          the upstream <code class="literal">homeserver.yaml</code> option name.
+          It is now also a list of strings instead of a string.
+        </p><p>
           An example to make the required migration clearer:
         </p><p>
           Before:
@@ -362,7 +367,7 @@
 
       listeners = [ {
         port = 8448;
-        bind_address = [
+        bind_addresses = [
           "::"
           "0.0.0.0"
         ];
@@ -391,7 +396,14 @@
           Additionally a few option defaults have been synced up with
           upstream default values, for example the
           <code class="literal">max_upload_size</code> grew from
-          <code class="literal">10M</code> to <code class="literal">50M</code>.
+          <code class="literal">10M</code> to <code class="literal">50M</code>. For the same
+          reason, the default <code class="literal">media_store_path</code> was
+          changed from <code class="literal">${dataDir}/media</code> to
+          <code class="literal">${dataDir}/media_store</code> if
+          <code class="literal">system.stateVersion</code> is at least
+          <code class="literal">22.05</code>. Files will need to be manually moved
+          to the new location if the <code class="literal">stateVersion</code> is
+          updated.
         </p></li><li class="listitem"><p>
           The MoinMoin wiki engine
           (<code class="literal">services.moinmoin</code>) has been removed,
@@ -566,6 +578,13 @@
           now activated by default. If you want to keep running nspawn
           containers without user namespaces you need to set
           <code class="literal">systemd.nspawn.&lt;name&gt;.execConfig.PrivateUsers = false</code>
+        </p></li><li class="listitem"><p>
+          The Tor SOCKS proxy is now actually disabled if
+          <code class="literal">services.tor.client.enable</code> is set to
+          <code class="literal">false</code> (the default). If you are using this
+          functionality but didn’t change the setting or set it to
+          <code class="literal">false</code>, you now need to set it to
+          <code class="literal">true</code>.
         </p></li><li class="listitem"><p>
           The terraform 0.12 compatibility has been removed and the
           <code class="literal">terraform.withPlugins</code> and
