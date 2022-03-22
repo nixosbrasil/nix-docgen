@@ -40,6 +40,11 @@
           default, but may break some types of workloads. See the
           <a class="link" href="https://kops.sigs.k8s.io/releases/1.22-notes/" target="_top">release
           notes</a> for details.
+        </p></li><li class="listitem"><p>
+          Module authors can use
+          <code class="literal">mkRenamedOptionModuleWith</code> to automate the
+          deprecation cycle without annoying out-of-tree module authors
+          and their users.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://github.com/intel/linux-sgx#install-the-intelr-sgx-psw" target="_top">aesmd</a>,
           the Intel SGX Architectural Enclave Service Manager. Available
@@ -166,6 +171,10 @@
           <a class="link" href="https://nbd.sourceforge.io/" target="_top">nbd</a>, a
           Network Block Device server. Available as
           <a class="link" href="options.html#opt-services.nbd.server.enable" target="_top">services.nbd</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/Mic92/nix-ld" target="_top">nix-ld</a>,
+          Run unpatched dynamic binaries on NixOS. Available as
+          <a class="link" href="options.html#opt-programs.nix-ld.enable" target="_top">programs.nix-ld</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://timetagger.app" target="_top">timetagger</a>,
           an open source time-tracker with an intuitive user experience
@@ -816,7 +825,8 @@
               Legacy options have been mapped to the corresponding
               options under under
               <a class="link" href="options.html#opt-nix.settings" target="_top">nix.settings</a>
-              but may be deprecated in the future.
+              and will be deprecated when NixOS 21.11 reaches end of
+              life.
             </p></li><li class="listitem"><p>
               <a class="link" href="options.html#opt-nix.buildMachines.publicHostKey" target="_top">nix.buildMachines.publicHostKey</a>
               has been added.
