@@ -5642,7 +5642,7 @@ in {
     <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners">listeners</a> = [
       {
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.port">port</a> = 8008;
-        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.bind_addresses">bind_address</a> = [ "::1" ];
+        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.bind_addresses">bind_addresses</a> = [ "::1" ];
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.type">type</a> = "http";
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.tls">tls</a> = false;
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.x_forwarded">x_forwarded</a> = true;
@@ -5671,10 +5671,10 @@ in {
    <code class="code">/.well-known</code> redirection target.
   </p><p>
    If you want to run a server with public registration by anybody, you can
-   then enable <code class="literal"><a class="link" href="options.html#opt-services.matrix-synapse.settings.enable_registration">services.matrix-synapse.enable_registration</a> =
+   then enable <code class="literal"><a class="link" href="options.html#opt-services.matrix-synapse.settings.enable_registration">services.matrix-synapse.settings.enable_registration</a> =
    true;</code>. Otherwise, or you can generate a registration secret with
    <span class="command"><strong>pwgen -s 64 1</strong></span> and set it with
-   <code class="option"><a class="link" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret">services.matrix-synapse.registration_shared_secret</a></code>.
+   <code class="option"><a class="link" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret">services.matrix-synapse.settings.registration_shared_secret</a></code>.
    To create a new user or admin, run the following after you have set the secret
    and have rebuilt NixOS:
 </p><pre class="screen">
@@ -8716,9 +8716,11 @@ options = {
         <code class="literal">type</code>
       </span></dt><dd><p>
           The type of the option (see
-          <a class="xref" href="index.html#sec-option-types" title="65.2. Options Types">Section 65.2, “Options Types”</a>). It may be omitted, but
-          that’s not advisable since it may lead to errors that are hard
-          to diagnose.
+          <a class="xref" href="index.html#sec-option-types" title="65.2. Options Types">Section 65.2, “Options Types”</a>). This argument is
+          mandatory for nixpkgs modules. Setting this is highly
+          recommended for the sake of documentation and type checking.
+          In case it is not set, a fallback type with unspecified
+          behavior is used.
         </p></dd><dt><span class="term">
         <code class="literal">default</code>
       </span></dt><dd><p>

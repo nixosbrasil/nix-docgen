@@ -40,6 +40,11 @@
           default, but may break some types of workloads. See the
           <a class="link" href="https://kops.sigs.k8s.io/releases/1.22-notes/" target="_top">release
           notes</a> for details.
+        </p></li><li class="listitem"><p>
+          Module authors can use
+          <code class="literal">mkRenamedOptionModuleWith</code> to automate the
+          deprecation cycle without annoying out-of-tree module authors
+          and their users.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://github.com/intel/linux-sgx#install-the-intelr-sgx-psw" target="_top">aesmd</a>,
           the Intel SGX Architectural Enclave Service Manager. Available
@@ -167,6 +172,10 @@
           Network Block Device server. Available as
           <a class="link" href="options.html#opt-services.nbd.server.enable" target="_top">services.nbd</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/Mic92/nix-ld" target="_top">nix-ld</a>,
+          Run unpatched dynamic binaries on NixOS. Available as
+          <a class="link" href="options.html#opt-programs.nix-ld.enable" target="_top">programs.nix-ld</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://timetagger.app" target="_top">timetagger</a>,
           an open source time-tracker with an intuitive user experience
           and powerful reporting.
@@ -186,6 +195,9 @@
           <a class="link" href="https://0xerr0r.github.io/blocky/" target="_top">blocky</a>,
           fast and lightweight DNS proxy as ad-blocker for local network
           with many features.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://clusterlabs.org/pacemaker/" target="_top">pacemaker</a>
+          cluster resource manager
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">pkgs.ghc</code> now refers to
           <code class="literal">pkgs.targetPackages.haskellPackages.ghc</code>.
@@ -303,6 +315,11 @@
           still supported, because you can set arbitrary values in this
           freeform type.
         </p><p>
+          The <code class="literal">listeners.*.bind_address</code> option was
+          renamed to <code class="literal">bind_addresses</code> in order to match
+          the upstream <code class="literal">homeserver.yaml</code> option name.
+          It is now also a list of strings instead of a string.
+        </p><p>
           An example to make the required migration clearer:
         </p><p>
           Before:
@@ -359,7 +376,7 @@
 
       listeners = [ {
         port = 8448;
-        bind_address = [
+        bind_addresses = [
           "::"
           "0.0.0.0"
         ];
@@ -388,11 +405,31 @@
           Additionally a few option defaults have been synced up with
           upstream default values, for example the
           <code class="literal">max_upload_size</code> grew from
-          <code class="literal">10M</code> to <code class="literal">50M</code>.
+          <code class="literal">10M</code> to <code class="literal">50M</code>. For the same
+          reason, the default <code class="literal">media_store_path</code> was
+          changed from <code class="literal">${dataDir}/media</code> to
+          <code class="literal">${dataDir}/media_store</code> if
+          <code class="literal">system.stateVersion</code> is at least
+          <code class="literal">22.05</code>. Files will need to be manually moved
+          to the new location if the <code class="literal">stateVersion</code> is
+          updated.
         </p></li><li class="listitem"><p>
           The MoinMoin wiki engine
           (<code class="literal">services.moinmoin</code>) has been removed,
           because Python 2 is being retired from nixpkgs.
+        </p></li><li class="listitem"><p>
+          Services in the <code class="literal">hadoop</code> module previously
+          set <code class="literal">openFirewall</code> to true by default. This
+          has now been changed to false. Node definitions for multi-node
+          clusters would need <code class="literal">openFirewall = true;</code> to
+          be added to to hadoop services when upgrading from NixOS
+          21.11.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.hadoop.yarn.nodemanager</code> now uses
+          cgroup-based CPU limit enforcement by default. Additionally,
+          the option <code class="literal">useCGroups</code> was added to
+          nodemanagers as an easy way to switch back to the old
+          behavior.
         </p></li><li class="listitem"><p>
           The <code class="literal">wafHook</code> hook now honors
           <code class="literal">NIX_BUILD_CORES</code> when
@@ -509,6 +546,9 @@
           <code class="literal">pkgs.docbookrx</code> was removed since it’s
           unmaintained
         </p></li><li class="listitem"><p>
+          <code class="literal">pkgs._7zz</code> is now correctly licensed as
+          LGPL3+ and BSD3 with optional unfree unRAR licensed code
+        </p></li><li class="listitem"><p>
           <code class="literal">tilp2</code> was removed together with its module
         </p></li><li class="listitem"><p>
           The F-PROT antivirus (<code class="literal">fprot</code> package) and
@@ -529,6 +569,13 @@
           <code class="literal">networking.useNetworkd</code> to
           <code class="literal">true</code>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">miller</code> package has been upgraded from
+          5.10.3 to
+          <a class="link" href="https://github.com/johnkerl/miller/releases/tag/v6.2.0" target="_top">6.2.0</a>.
+          See
+          <a class="link" href="https://miller.readthedocs.io/en/latest/new-in-miller-6" target="_top">What’s
+          new in Miller 6</a>.
+        </p></li><li class="listitem"><p>
           MultiMC has been replaced with the fork PolyMC due to upstream
           developers being hostile to 3rd party package maintainers.
           PolyMC removes all MultiMC branding and is aimed at providing
@@ -547,6 +594,13 @@
           now activated by default. If you want to keep running nspawn
           containers without user namespaces you need to set
           <code class="literal">systemd.nspawn.&lt;name&gt;.execConfig.PrivateUsers = false</code>
+        </p></li><li class="listitem"><p>
+          The Tor SOCKS proxy is now actually disabled if
+          <code class="literal">services.tor.client.enable</code> is set to
+          <code class="literal">false</code> (the default). If you are using this
+          functionality but didn’t change the setting or set it to
+          <code class="literal">false</code>, you now need to set it to
+          <code class="literal">true</code>.
         </p></li><li class="listitem"><p>
           The terraform 0.12 compatibility has been removed and the
           <code class="literal">terraform.withPlugins</code> and
@@ -778,7 +832,8 @@
               Legacy options have been mapped to the corresponding
               options under under
               <a class="link" href="options.html#opt-nix.settings" target="_top">nix.settings</a>
-              but may be deprecated in the future.
+              and will be deprecated when NixOS 21.11 reaches end of
+              life.
             </p></li><li class="listitem"><p>
               <a class="link" href="options.html#opt-nix.buildMachines.publicHostKey" target="_top">nix.buildMachines.publicHostKey</a>
               has been added.
@@ -790,6 +845,19 @@
           convenience functions to create executable Python 2/3 scripts
           using the PyPy interpreter were added.
         </p></li><li class="listitem"><p>
+          Some improvements have been made to the
+          <code class="literal">hadoop</code> module:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              A <code class="literal">gatewayRole</code> option has been added,
+              for deploying hadoop cluster configuration files to a node
+              that does not have any active services
+            </p></li><li class="listitem"><p>
+              Support for older versions of hadoop have been added to
+              the module
+            </p></li><li class="listitem"><p>
+              Overriding and extending site XML files has been made
+              easier
+            </p></li></ul></div></li><li class="listitem"><p>
           If you are using Wayland you can choose to use the Ozone
           Wayland support in Chrome and several Electron apps by setting
           the environment variable <code class="literal">NIXOS_OZONE_WL=1</code>
@@ -806,6 +874,11 @@
           place upstream. A combined <code class="literal">influxdb2</code>
           package is still provided in this release for backwards
           compatibilty, but will be removed at a later date.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">unifi</code> package was switched from
+          <code class="literal">unifi6</code> to <code class="literal">unifi7</code>. Direct
+          downgrades from Unifi 7 to Unifi 6 are not possible and
+          require restoring from a backup made by Unifi 6.
         </p></li><li class="listitem"><p>
           <code class="literal">programs.zsh.autosuggestions.strategy</code> now
           takes a list of strings instead of a string.
@@ -855,15 +928,34 @@
           been added to allow changing the location of duplicati’s
           files.
         </p></li><li class="listitem"><p>
-          A new option
-          <code class="literal">boot.initrd.extraModprobeConfig</code> has been
-          added which can be used to configure kernel modules that are
-          loaded in the initrd.
+          The options <code class="literal">boot.extraModprobeConfig</code> and
+          <code class="literal">boot.blacklistedKernelModules</code> now also take
+          effect in the initrd by copying the file
+          <code class="literal">/etc/modprobe.d/nixos.conf</code> into the initrd.
         </p></li><li class="listitem"><p>
           <code class="literal">nixos-generate-config</code> now puts the dhcp
           configuration in <code class="literal">hardware-configuration.nix</code>
           instead of <code class="literal">configuration.nix</code>.
         </p></li><li class="listitem"><p>
+          ORY Kratos was updated to version 0.8.3-alpha.1.pre.0, which
+          introduces some breaking changes:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              If you are relying on the SQLite images, update your
+              Docker Pull commands as follows:
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <code class="literal">docker pull oryd/kratos:{version}</code>
+                </p></li></ul></div></li><li class="listitem"><p>
+              Additionally, all passwords now have to be at least 8
+              characters long.
+            </p></li><li class="listitem"><p>
+              For more details, see:
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.1-alpha.1" target="_top">Release
+                  Notes for v0.8.1-alpha-1</a>
+                </p></li><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.2-alpha.1" target="_top">Release
+                  Notes for v0.8.2-alpha-1</a>
+                </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
           <code class="literal">fetchFromSourcehut</code> now allows fetching
           repositories recursively using <code class="literal">fetchgit</code> or
           <code class="literal">fetchhg</code> if the argument
@@ -971,7 +1063,30 @@
           <code class="literal">security.polkit.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
           desktop environments as needed.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li><li class="listitem"><p>
+          The <code class="literal">hadoop</code> package has added support for
+          <code class="literal">aarch64-linux</code> and
+          <code class="literal">aarch64-darwin</code> as of 3.3.1
+          (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/158613" target="_top">#158613</a>).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">R</code> package now builds again on
+          <code class="literal">aarch64-darwin</code>
+          (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/158992" target="_top">#158992</a>).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">spark3</code> package has been updated from
+          3.1.2 to 3.2.1
+          (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/160075" target="_top">#160075</a>):
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              Testing has been enabled for
+              <code class="literal">aarch64-linux</code> in addition to
+              <code class="literal">x86_64-linux</code>.
+            </p></li><li class="listitem"><p>
+              The <code class="literal">spark3</code> package is now usable on
+              <code class="literal">aarch64-darwin</code> as a result of
+              <a class="link" href="https://github.com/NixOS/nixpkgs/pull/158613" target="_top">#158613</a>
+              and
+              <a class="link" href="https://github.com/NixOS/nixpkgs/pull/158992" target="_top">#158992</a>.
+            </p></li></ul></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of June 2022, handing over to
         22.05.
       </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-highlights"></a>B.2.1. Highlights</h3></div></div></div><p>
