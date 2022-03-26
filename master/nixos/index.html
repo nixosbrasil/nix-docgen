@@ -10799,6 +10799,13 @@ start_all()
             type the string <code class="literal">foobar</code> followed by the
             Enter key.
           </p></dd><dt><span class="term">
+          <code class="literal">send_console</code>
+        </span></dt><dd><p>
+            Send keys to the kernel console. This allows interaction
+            with the systemd emergency mode, for example. Takes a string
+            that is sent, e.g.,
+            <code class="literal">send_console("\n\nsystemctl default\n")</code>.
+          </p></dd><dt><span class="term">
           <code class="literal">execute</code>
         </span></dt><dd><p>
             Execute a shell command, returning a list
@@ -10924,6 +10931,15 @@ machine.systemctl("list-jobs --no-pager", "any-user") # spawns a shell for `any-
             production tests. Killing the interactive session with
             <code class="literal">Ctrl-d</code> or <code class="literal">Ctrl-c</code> also
             ends the guest session.
+          </p></dd><dt><span class="term">
+          <code class="literal">console_interact</code>
+        </span></dt><dd><p>
+            Allows you to directly interact with QEMU’s stdin. This
+            should only be used during test development, not in
+            production tests. Output from QEMU is only read line-wise.
+            <code class="literal">Ctrl-c</code> kills QEMU and
+            <code class="literal">Ctrl-d</code> closes console and returns to the
+            test runner.
           </p></dd></dl></div><p>
       To test user units declared by
       <code class="literal">systemd.user.services</code> the optional
