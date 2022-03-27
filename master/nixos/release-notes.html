@@ -16,6 +16,13 @@
           hosts (e.g.
           <code class="literal">services.nginx.virtualHosts.*.enableACME</code>).
         </p></li><li class="listitem"><p>
+          GNOME has been upgraded to 42. Please take a look at their
+          <a class="link" href="https://release.gnome.org/42/" target="_top">Release
+          Notes</a> for details. Notably, it replaces gedit with
+          GNOME Text Editor, GNOME Terminal with GNOME Console (formerly
+          King’s Cross), and GNOME Screenshot with a tool built into the
+          Shell.
+        </p></li><li class="listitem"><p>
           PHP 8.1 is now available
         </p></li><li class="listitem"><p>
           Mattermost has been updated to extended support release 6.3,
@@ -466,6 +473,13 @@
           The <code class="literal">gnome-passwordsafe</code> package updated to
           <a class="link" href="https://gitlab.gnome.org/World/secrets/-/tags/6.0" target="_top">version
           6.x</a> and renamed to <code class="literal">gnome-secrets</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.gnome.experimental-features.realtime-scheduling</code>
+          option has been removed, as GNOME Shell now
+          <a class="link" href="https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2060" target="_top">uses
+          rtkit</a>. Use
+          <code class="literal">security.rtkit.enable = true;</code> instead. As
+          before, you will need to have it enabled using GSettings.
         </p></li><li class="listitem"><p>
           If you previously used
           <code class="literal">/etc/docker/daemon.json</code>, you need to
