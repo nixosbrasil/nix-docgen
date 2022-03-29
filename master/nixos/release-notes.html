@@ -9,6 +9,11 @@
         Support is planned until the end of December 2022, handing over
         to 22.11.
       </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-highlights"></a>B.1.1. Highlights</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          The <code class="literal">firefox</code> browser on
+          <code class="literal">x86_64-linux</code> is now making use of
+          profile-guided optimization resulting in a much more
+          responsive browsing experience.
+        </p></li><li class="listitem"><p>
           <code class="literal">security.acme.defaults</code> has been added to
           simplify configuring settings for many certificates at once.
           This also opens up the the option to use DNS-01 validation
@@ -78,7 +83,7 @@
         </p></li><li class="listitem"><p>
           <a class="link" href="https://frrouting.org/" target="_top">FRRouting</a>, a
           popular suite of Internet routing protocol daemons (BGP, BFD,
-          OSPF, IS-IS, VVRP and others). Available as
+          OSPF, IS-IS, VRRP and others). Available as
           <a class="link" href="options.html#opt-services.frr.babel.enable">services.frr</a>
         </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/hifi/heisenbridge" target="_top">heisenbridge</a>,
@@ -480,6 +485,10 @@
           rtkit</a>. Use
           <code class="literal">security.rtkit.enable = true;</code> instead. As
           before, you will need to have it enabled using GSettings.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.telepathy</code> will no longer be
+          enabled by default for GNOME desktops, one should enable it in
+          their configs if using Empathy or Polari.
         </p></li><li class="listitem"><p>
           If you previously used
           <code class="literal">/etc/docker/daemon.json</code>, you need to
