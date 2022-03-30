@@ -578,6 +578,38 @@
           <code class="literal">pkgs._7zz</code> is now correctly licensed as
           LGPL3+ and BSD3 with optional unfree unRAR licensed code
         </p></li><li class="listitem"><p>
+          The <code class="literal">vim.customize</code> function produced by
+          <code class="literal">vimUtils.makeCustomizable</code> now has a
+          slightly different interface:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              The wrapper now includes everything in the given Vim
+              derivation if <code class="literal">name</code> is
+              <code class="literal">"vim"</code> (the default). This
+              makes the <code class="literal">wrapManual</code> argument obsolete,
+              but this behavior can be overriden by setting the
+              <code class="literal">standalone</code> argument.
+            </p></li><li class="listitem"><p>
+              All the executables present in the given derivation (or,
+              in <code class="literal">standalone</code> mode, only the
+              <code class="literal">*vim</code> ones) are wrapped. This makes the
+              <code class="literal">wrapGui</code> argument obsolete.
+            </p></li><li class="listitem"><p>
+              The <code class="literal">vimExecutableName</code> and
+              <code class="literal">gvimExecutableName</code> arguments were
+              replaced by a single <code class="literal">executableName</code>
+              argument in which the shell variable
+              <code class="literal">$exe</code> can be used to refer to the
+              wrapped executable’s name.
+            </p></li></ul></div><p>
+          See the comments in
+          <code class="literal">pkgs/applications/editors/vim/plugins/vim-utils.nix</code>
+          for more details.
+        </p><p>
+          <code class="literal">vimUtils.vimWithRC</code> was removed. You should
+          instead use <code class="literal">customize</code> on a Vim derivation,
+          which now accepts <code class="literal">vimrcFile</code> and
+          <code class="literal">gvimrcFile</code> arguments.
+        </p></li><li class="listitem"><p>
           <code class="literal">tilp2</code> was removed together with its module
         </p></li><li class="listitem"><p>
           The F-PROT antivirus (<code class="literal">fprot</code> package) and
@@ -916,6 +948,12 @@
           value of <code class="literal">true</code> is now deprecated and will be
           changed to <code class="literal">false</code> in 22.11. Configurations
           using this default will print a warning when rebuilt.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">services.unifi-video.openPorts</code> option
+          default value of <code class="literal">true</code> is now deprecated and
+          will be changed to <code class="literal">false</code> in 22.11.
+          Configurations using this default will print a warning when
+          rebuilt.
         </p></li><li class="listitem"><p>
           <code class="literal">security.acme</code> certificates will now
           correctly check for CA revokation before reaching their
