@@ -57,6 +57,11 @@
           <code class="literal">mkRenamedOptionModuleWith</code> to automate the
           deprecation cycle without annoying out-of-tree module authors
           and their users.
+        </p></li><li class="listitem"><p>
+          The default GHC version has been updated from 8.10.7 to 9.0.2.
+          <code class="literal">pkgs.haskellPackages</code> and
+          <code class="literal">pkgs.ghc</code> will now use this version by
+          default.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://github.com/intel/linux-sgx#install-the-intelr-sgx-psw" target="_top">aesmd</a>,
           the Intel SGX Architectural Enclave Service Manager. Available
@@ -134,6 +139,10 @@
           a tool that exposes information from the Proxmox VE API for
           use by Prometheus. Available as
           <a class="link" href="options.html#opt-services.prometheus.exporters.pve" target="_top">services.prometheus.exporters.pve</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/netbox-community/netbox" target="_top">netbox</a>,
+          infrastructure resource modeling (IRM) tool. Available as
+          <a class="link" href="options.html#opt-services.netbox.enable" target="_top">services.netbox</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://tetrd.app" target="_top">tetrd</a>, share your
           internet connection from your device to your PC and vice versa
@@ -698,8 +707,8 @@
           <code class="literal">otelcorecol</code> and enjoy a 7x smaller binary.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.pgadmin</code> now refers to
-          <code class="literal">pkgs.pgadmin4</code>. If you still need pgadmin3,
-          use <code class="literal">pkgs.pgadmin3</code>.
+          <code class="literal">pkgs.pgadmin4</code>. <code class="literal">pgadmin3</code>
+          has been removed.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.noto-fonts-cjk</code> is now deprecated in
           favor of <code class="literal">pkgs.noto-fonts-cjk-sans</code> and
@@ -846,6 +855,10 @@
             </p></li></ul></div><p>
           See the <code class="literal">vscode</code> package for a more detailed
           example.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.cosmopolitan</code> no longer provides the
+          <code class="literal">cosmoc</code> command. It has been moved to
+          <code class="literal">pkgs.cosmoc</code>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The option
           <a class="link" href="options.html#opt-services.redis.servers">services.redis.servers</a>
