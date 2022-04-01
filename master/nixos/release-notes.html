@@ -1092,9 +1092,17 @@
           to allow the declarative installation of Mattermost plugins.
           Plugins are automatically repackaged using autoPatchelf.
         </p></li><li class="listitem"><p>
-          <code class="literal">services.logrotate.enable</code> now defaults to
-          true if any rotate path has been defined, and some paths have
-          been added by default.
+          <a class="link" href="options.html#opt-services.logrotate.enable">services.logrotate.enable</a>
+          now defaults to true if any rotate path has been defined, and
+          some paths have been added by default.
+        </p></li><li class="listitem"><p>
+          The logrotate module also has been updated to freeform syntax:
+          <a class="link" href="options.html#opt-services.logrotate.paths">services.logrotate.paths</a>
+          and
+          <a class="link" href="options.html#opt-services.logrotate.extraConfig">services.logrotate.extraConfig</a>
+          will work, but issue deprecation warnings and
+          <a class="link" href="options.html#opt-services.logrotate.settings">services.logrotate.settings</a>
+          should now be used instead.
         </p></li><li class="listitem"><p>
           The <code class="literal">zrepl</code> package has been updated from
           0.4.0 to 0.5:
