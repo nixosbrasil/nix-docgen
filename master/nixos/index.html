@@ -514,7 +514,7 @@ $ diskutil list
 [..]
 $ diskutil unmountDisk diskN
 Unmount of all volumes on diskN was successful
-$ sudo dd if=nix.iso of=/dev/rdiskN
+$ sudo dd if=nix.iso of=/dev/rdiskN bs=1M
 </pre><p>
       Using the 'raw' <code class="literal">rdiskN</code> device instead of
       <code class="literal">diskN</code> completes in minutes instead of hours.
@@ -9945,6 +9945,23 @@ in
       type and string generator already declared under
       <code class="literal">pkgs.formats</code>:
     </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          <code class="literal">pkgs.formats.javaProperties</code> {
+          <span class="emphasis"><em><code class="literal">comment</code></em></span> ?
+          <code class="literal">"Generated with Nix"</code> }
+        </span></dt><dd><p>
+            A function taking an attribute set with values
+          </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+                <code class="literal">comment</code>
+              </span></dt><dd><p>
+                  A string to put at the start of the file in a comment.
+                  It can have multiple lines.
+                </p></dd></dl></div><p>
+            It returns the <code class="literal">type</code>:
+            <code class="literal">attrsOf str</code> and a function
+            <code class="literal">generate</code> to build a Java
+            <code class="literal">.properties</code> file, taking care of the
+            correct escaping, etc.
+          </p></dd><dt><span class="term">
           <code class="literal">pkgs.formats.json</code> { }
         </span></dt><dd><p>
             A function taking an empty attribute set (for future
