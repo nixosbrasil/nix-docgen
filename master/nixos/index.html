@@ -334,6 +334,12 @@ OK
                 <a class="xref" href="options.html#opt-boot.loader.grub.device"><code class="option">boot.loader.grub.device</code></a> to
                 specify on which disk the GRUB boot loader is to be
                 installed. Without it, NixOS cannot boot.
+              </p><p>
+                If there are other operating systems running on the
+                machine before installing NixOS, the
+                <a class="xref" href="options.html#opt-boot.loader.grub.useOSProber"><code class="option">boot.loader.grub.useOSProber</code></a>
+                option can be set to <code class="literal">true</code> to
+                automatically add them to the grub menu.
               </p></dd><dt><span class="term">
               UEFI systems
             </span></dt><dd><p>
@@ -350,12 +356,6 @@ OK
                 <a class="link" href="options.html#opt-boot.loader.systemd-boot.enable"><code class="literal">boot.loader.systemd-boot</code></a>
                 as well.
               </p></dd></dl></div><p>
-          If there are other operating systems running on the machine
-          before installing NixOS, the
-          <a class="xref" href="options.html#opt-boot.loader.grub.useOSProber"><code class="option">boot.loader.grub.useOSProber</code></a> option can
-          be set to <code class="literal">true</code> to automatically add them to
-          the grub menu.
-        </p><p>
           If you need to configure networking for your machine the
           configuration options are described in
           <a class="xref" href="index.html#sec-networking" title="Chapter 13. Networking">Chapter 13, <em>Networking</em></a>. In particular, while wifi
