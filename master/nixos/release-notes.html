@@ -44,6 +44,8 @@
           instead of <code class="literal">reloadIfChanged</code> for a more
           granular distinction between reloads and restarts.
         </p></li><li class="listitem"><p>
+          Systemd has been upgraded to the version 250.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://kops.sigs.k8s.io" target="_top"><code class="literal">kops</code></a>
           defaults to 1.22.4, which will enable
           <a class="link" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html" target="_top">Instance
@@ -279,6 +281,9 @@
           since the former have been deprecated and are no longer
           functional in kubernetes&gt;=1.23. Ensure that you are not
           relying on the insecure behaviour before upgrading.
+        </p></li><li class="listitem"><p>
+          <code class="literal">openssh</code> has been update to 8.9p1, changing
+          the FIDO security key middleware interface.
         </p></li><li class="listitem"><p>
           <code class="literal">services.k3s.enable</code> no longer implies
           <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>,
@@ -1010,9 +1015,11 @@
         </p></li><li class="listitem"><p>
           <a class="link" href="options.html#opt-programs.ssh.knownHosts">programs.ssh.knownHosts</a>
           has gained an <code class="literal">extraHostNames</code> option to
-          replace <code class="literal">hostNames</code>.
-          <code class="literal">hostNames</code> is deprecated, but still
-          available for now.
+          augment <code class="literal">hostNames</code>. It is now possible to
+          use the attribute name of a <code class="literal">knownHosts</code>
+          entry as the primary host name and specify secondary host
+          names using <code class="literal">extraHostNames</code> without having
+          to duplicate the primary host name.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.stubby</code> module was converted to
           a
@@ -8216,6 +8223,11 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           installing the
           <a class="link" href="https://github.com/hedning/nix-bash-completions" target="_top">nix-bash-completions</a>
           package.
+        </p></li><li class="listitem"><p>
+          The vim/kakoune plugin updater now reads from a CSV file:
+          check
+          <code class="literal">pkgs/applications/editors/vim/plugins/vim-plugin-names</code>
+          out to see the new format
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-17.09"></a>B.10. Release 17.09 (<span class="quote">“<span class="quote">Hummingbird</span>”</span>, 2017/09/??)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-highlights"></a>B.10.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
