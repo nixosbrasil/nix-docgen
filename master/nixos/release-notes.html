@@ -133,6 +133,12 @@
           Users must add themselves to the <code class="literal">k40</code> group
           to be able to access the device.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/mozilla-mobile/mozilla-vpn-client" target="_top">mozillavpn</a>,
+          the client for the
+          <a class="link" href="https://vpn.mozilla.org/" target="_top">Mozilla VPN</a>
+          service. Available as
+          <a class="link" href="options.html#opt-services.mozillavpn" target="_top">services.mozillavpn</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/mgumz/mtr-exporter" target="_top">mtr-exporter</a>,
           a Prometheus exporter for mtr metrics. Available as
           <a class="link" href="options.html#opt-services.mtr-exporter.enable" target="_top">services.mtr-exporter</a>.
@@ -270,6 +276,9 @@
           <code class="literal">pkgs.emacsPackages.elpaPackages</code> and
           <code class="literal">pkgs.emacsPackages.nongnuPackages</code> where the
           new versions will release.
+        </p></li><li class="listitem"><p>
+          <code class="literal">security.klogd</code> was removed. Logging of
+          kernel messages is handled by systemd since Linux 3.5.
         </p></li><li class="listitem"><p>
           <code class="literal">services.kubernetes.addons.dashboard</code> was
           removed due to it being an outdated version.
@@ -861,6 +870,19 @@
           See the <code class="literal">vscode</code> package for a more detailed
           example.
         </p></li><li class="listitem"><p>
+          Existing <code class="literal">resholve*</code> functions have been
+          renamed and nested under <code class="literal">pkgs.resholve</code>.
+          Update uses to:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              <code class="literal">resholvePackage</code> -&gt;
+              <code class="literal">resholve.mkDerivation</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">resholveScript</code> -&gt;
+              <code class="literal">resholve.writeScript</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">resholveScriptBin</code> -&gt;
+              <code class="literal">resholve.writeScriptBin</code>
+            </p></li></ul></div></li><li class="listitem"><p>
           <code class="literal">pkgs.cosmopolitan</code> no longer provides the
           <code class="literal">cosmoc</code> command. It has been moved to
           <code class="literal">pkgs.cosmoc</code>.
@@ -976,6 +998,12 @@
         </p></li><li class="listitem"><p>
           <code class="literal">programs.zsh.autosuggestions.strategy</code> now
           takes a list of strings instead of a string.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">asterisk</code> and
+          <code class="literal">asterisk-stable</code> packages were switched from
+          <code class="literal">asterisk_18</code> to the newly-packaged
+          <code class="literal">asterisk_19</code>. Asterisk 13 and 17 have been
+          removed as they have reached their end of life.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.unifi.openPorts</code> option default
           value of <code class="literal">true</code> is now deprecated and will be
@@ -1180,6 +1208,14 @@
           <code class="literal">security.polkit.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
           desktop environments as needed.
+        </p></li><li class="listitem"><p>
+          xfsprogs was update to version 5.15, which enables inobtcount
+          and bigtime by default on filesystem creation. Support for
+          these features was added in kernel 5.10 and deemed stable in
+          kernel 5.15. If you want to be able to mount XFS filesystems
+          created with this release of xfsprogs on kernel releases older
+          than 5.10, you need to format them with
+          <code class="literal">mkfs.xfs -m bigtime=0 -m inobtcount=0</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">services.xserver.desktopManager.xfce</code> now
           includes Xfce’s screen locker,
