@@ -1100,6 +1100,10 @@
           <code class="literal">fetchSubmodules</code> is set to
           <code class="literal">true</code>.
         </p></li><li class="listitem"><p>
+          A module for declarative configuration of openconnect VPN
+          profiles was added under
+          <code class="literal">networking.openconnect</code>.
+        </p></li><li class="listitem"><p>
           The <code class="literal">element-desktop</code> package now has an
           <code class="literal">useKeytar</code> option (defaults to
           <code class="literal">true</code>), which allows disabling
@@ -1161,6 +1165,12 @@
           will work, but issue deprecation warnings and
           <a class="link" href="options.html#opt-services.logrotate.settings">services.logrotate.settings</a>
           should now be used instead.
+        </p></li><li class="listitem"><p>
+          <code class="literal">security.pam.ussh</code> has been added, which
+          allows authorizing PAM sessions based on SSH
+          <span class="emphasis"><em>certificates</em></span> held within an SSH agent,
+          using
+          <a class="link" href="https://github.com/uber/pam-ussh" target="_top">pam-ussh</a>.
         </p></li><li class="listitem"><p>
           The <code class="literal">zrepl</code> package has been updated from
           0.4.0 to 0.5:
