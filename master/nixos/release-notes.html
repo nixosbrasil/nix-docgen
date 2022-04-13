@@ -328,6 +328,10 @@
   ];
 }
 </pre></li><li class="listitem"><p>
+          <code class="literal">services.prometheus.alertManagerTimeout</code> has
+          been removed as it has been deprecated upstream and has no
+          effect.
+        </p></li><li class="listitem"><p>
           The DHCP server (<code class="literal">services.dhcpd4</code>,
           <code class="literal">services.dhcpd6</code>) has been hardened. The
           service is now using the systemd’s
@@ -351,6 +355,14 @@
           rely on systemd interpolating <code class="literal">extraFlags</code> in
           the service <code class="literal">ExecStart</code>, this will no longer
           work.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.paperless-ng</code> was renamed to
+          <code class="literal">services.paperless</code>. Accordingly, the
+          <code class="literal">paperless-ng-manage</code> script (located in
+          <code class="literal">dataDir</code>) was renamed to
+          <code class="literal">paperless-manage</code>.
+          <code class="literal">services.paperless</code> now uses
+          <code class="literal">paperless-ngx</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">matrix-synapse</code> service
           (<code class="literal">services.matrix-synapse</code>) has been
