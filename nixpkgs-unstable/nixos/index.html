@@ -334,6 +334,12 @@ OK
                 <a class="xref" href="options.html#opt-boot.loader.grub.device"><code class="option">boot.loader.grub.device</code></a> to
                 specify on which disk the GRUB boot loader is to be
                 installed. Without it, NixOS cannot boot.
+              </p><p>
+                If there are other operating systems running on the
+                machine before installing NixOS, the
+                <a class="xref" href="options.html#opt-boot.loader.grub.useOSProber"><code class="option">boot.loader.grub.useOSProber</code></a>
+                option can be set to <code class="literal">true</code> to
+                automatically add them to the grub menu.
               </p></dd><dt><span class="term">
               UEFI systems
             </span></dt><dd><p>
@@ -350,12 +356,6 @@ OK
                 <a class="link" href="options.html#opt-boot.loader.systemd-boot.enable"><code class="literal">boot.loader.systemd-boot</code></a>
                 as well.
               </p></dd></dl></div><p>
-          If there are other operating systems running on the machine
-          before installing NixOS, the
-          <a class="xref" href="options.html#opt-boot.loader.grub.useOSProber"><code class="option">boot.loader.grub.useOSProber</code></a> option can
-          be set to <code class="literal">true</code> to automatically add them to
-          the grub menu.
-        </p><p>
           If you need to configure networking for your machine the
           configuration options are described in
           <a class="xref" href="index.html#sec-networking" title="Chapter 13. Networking">Chapter 13, <em>Networking</em></a>. In particular, while wifi
@@ -514,7 +514,7 @@ $ diskutil list
 [..]
 $ diskutil unmountDisk diskN
 Unmount of all volumes on diskN was successful
-$ sudo dd if=nix.iso of=/dev/rdiskN
+$ sudo dd if=nix.iso of=/dev/rdiskN bs=1M
 </pre><p>
       Using the 'raw' <code class="literal">rdiskN</code> device instead of
       <code class="literal">diskN</code> completes in minutes instead of hours.
@@ -8809,14 +8809,14 @@ lib.mkOption {
 </pre><a id="ex-options-declarations-util-mkPackageOption-ghc"></a><pre class="programlisting">
 lib.mkPackageOption pkgs "GHC" {
   default = [ "ghc" ];
-  example = "pkgs.haskell.package.ghc921.ghc.withPackages (hkgs: [ hkgs.primes ])";
+  example = "pkgs.haskell.package.ghc922.ghc.withPackages (hkgs: [ hkgs.primes ])";
 }
 # is like
 lib.mkOption {
   type = lib.types.package;
   default = pkgs.ghc;
   defaultText = lib.literalExpression "pkgs.ghc";
-  example = lib.literalExpression "pkgs.haskell.package.ghc921.ghc.withPackages (hkgs: [ hkgs.primes ])";
+  example = lib.literalExpression "pkgs.haskell.package.ghc922.ghc.withPackages (hkgs: [ hkgs.primes ])";
   description = "The GHC package to use.";
 }
 </pre><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="sec-option-declarations-eot"></a>65.1.1.1.1.1. Extensible Option Types</h6></div></div></div><p>
@@ -9945,6 +9945,23 @@ in
       type and string generator already declared under
       <code class="literal">pkgs.formats</code>:
     </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          <code class="literal">pkgs.formats.javaProperties</code> {
+          <span class="emphasis"><em><code class="literal">comment</code></em></span> ?
+          <code class="literal">"Generated with Nix"</code> }
+        </span></dt><dd><p>
+            A function taking an attribute set with values
+          </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+                <code class="literal">comment</code>
+              </span></dt><dd><p>
+                  A string to put at the start of the file in a comment.
+                  It can have multiple lines.
+                </p></dd></dl></div><p>
+            It returns the <code class="literal">type</code>:
+            <code class="literal">attrsOf str</code> and a function
+            <code class="literal">generate</code> to build a Java
+            <code class="literal">.properties</code> file, taking care of the
+            correct escaping, etc.
+          </p></dd><dt><span class="term">
           <code class="literal">pkgs.formats.json</code> { }
         </span></dt><dd><p>
             A function taking an empty attribute set (for future
@@ -10647,15 +10664,9 @@ $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd
   </p><pre class="programlisting">
 import ./make-test-python.nix {
 
-  # Either the configuration of a single machine:
-  machine =
-    { config, pkgs, ... }:
-    { configuration…
-    };
-
-  # Or a set of machines:
+  # One or more machines:
   nodes =
-    { machine1 =
+    { machine =
         { config, pkgs, ... }: { … };
       machine2 =
         { config, pkgs, ... }: { … };
@@ -10671,18 +10682,17 @@ import ./make-test-python.nix {
     The attribute <code class="literal">testScript</code> is a bit of Python code
     that executes the test (described below). During the test, it will
     start one or more virtual machines, the configuration of which is
-    described by the attribute <code class="literal">machine</code> (if you need
-    only one machine in your test) or by the attribute
-    <code class="literal">nodes</code> (if you need multiple machines). For
-    instance,
-    <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/login.nix" target="_top"><code class="literal">login.nix</code></a>
-    only needs a single machine to test whether users can log in on the
-    virtual console, whether device ownership is correctly maintained
-    when switching between consoles, and so on. On the other hand,
-    <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/nfs/simple.nix" target="_top"><code class="literal">nfs/simple.nix</code></a>,
-    which tests NFS client and server functionality in the Linux kernel
-    (including whether locks are maintained across server crashes),
-    requires three machines: a server and two clients.
+    described by the attribute <code class="literal">nodes</code>.
+  </p><p>
+    An example of a single-node test is
+    <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/login.nix" target="_top"><code class="literal">login.nix</code></a>.
+    It only needs a single machine to test whether users can log in on
+    the virtual console, whether device ownership is correctly
+    maintained when switching between consoles, and so on. An
+    interesting multi-node test is
+    <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/nfs/simple.nix" target="_top"><code class="literal">nfs/simple.nix</code></a>.
+    It uses two client nodes to test correct locking across server
+    crashes.
   </p><p>
     There are a few special NixOS configuration options for test VMs:
   </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -10711,9 +10721,8 @@ import ./make-test-python.nix {
     various actions, such as starting VMs, executing commands in the
     VMs, and so on. Each virtual machine is represented as an object
     stored in the variable <code class="literal">name</code> if this is also the
-    identifier of the machine in the declarative config. If you didn't
-    specify multiple machines using the <code class="literal">nodes</code>
-    attribute, it is just <code class="literal">machine</code>. The following
+    identifier of the machine in the declarative config. If you
+    specified a node <code class="literal">nodes.machine</code>, the following
     example starts the machine, waits until it has finished booting,
     then executes a command and checks that the output is more-or-less
     correct:
@@ -10723,7 +10732,7 @@ machine.wait_for_unit("default.target")
 if not "Linux" in machine.succeed("uname"):
   raise Exception("Wrong OS")
 </pre><p>
-    The first line is actually unnecessary; machines are implicitly
+    The first line is technically unnecessary; machines are implicitly
     started when you first execute an action on them (such as
     <code class="literal">wait_for_unit</code> or <code class="literal">succeed</code>). If
     you have multiple machines, you can speed up the test by starting
@@ -10959,7 +10968,7 @@ machine.wait_for_unit("xautolock.service", "x-session-user")
     </p><pre class="programlisting">
 import ./make-test-python.nix {
   skipLint = true;
-  machine =
+  nodes.machine =
     { config, pkgs, ... }:
     { configuration…
     };

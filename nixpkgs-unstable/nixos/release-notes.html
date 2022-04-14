@@ -9,12 +9,24 @@
         Support is planned until the end of December 2022, handing over
         to 22.11.
       </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-highlights"></a>B.1.1. Highlights</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          The <code class="literal">firefox</code> browser on
+          <code class="literal">x86_64-linux</code> is now making use of
+          profile-guided optimization resulting in a much more
+          responsive browsing experience.
+        </p></li><li class="listitem"><p>
           <code class="literal">security.acme.defaults</code> has been added to
           simplify configuring settings for many certificates at once.
           This also opens up the the option to use DNS-01 validation
           when using <code class="literal">enableACME</code> on web server virtual
           hosts (e.g.
           <code class="literal">services.nginx.virtualHosts.*.enableACME</code>).
+        </p></li><li class="listitem"><p>
+          GNOME has been upgraded to 42. Please take a look at their
+          <a class="link" href="https://release.gnome.org/42/" target="_top">Release
+          Notes</a> for details. Notably, it replaces gedit with
+          GNOME Text Editor, GNOME Terminal with GNOME Console (formerly
+          King’s Cross), and GNOME Screenshot with a tool built into the
+          Shell.
         </p></li><li class="listitem"><p>
           PHP 8.1 is now available
         </p></li><li class="listitem"><p>
@@ -32,6 +44,8 @@
           instead of <code class="literal">reloadIfChanged</code> for a more
           granular distinction between reloads and restarts.
         </p></li><li class="listitem"><p>
+          Systemd has been upgraded to the version 250.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://kops.sigs.k8s.io" target="_top"><code class="literal">kops</code></a>
           defaults to 1.22.4, which will enable
           <a class="link" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html" target="_top">Instance
@@ -45,6 +59,11 @@
           <code class="literal">mkRenamedOptionModuleWith</code> to automate the
           deprecation cycle without annoying out-of-tree module authors
           and their users.
+        </p></li><li class="listitem"><p>
+          The default GHC version has been updated from 8.10.7 to 9.0.2.
+          <code class="literal">pkgs.haskellPackages</code> and
+          <code class="literal">pkgs.ghc</code> will now use this version by
+          default.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <a class="link" href="https://github.com/intel/linux-sgx#install-the-intelr-sgx-psw" target="_top">aesmd</a>,
           the Intel SGX Architectural Enclave Service Manager. Available
@@ -61,6 +80,10 @@
           Available as
           <a class="link" href="option.html#opt-services.matrix-conduit.enable" target="_top">services.matrix-conduit</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/vvilhonen/nethoscope" target="_top">nethoscope</a>,
+          listen to your network traffic. Available as
+          <a class="link" href="options.html#opt-programs.nethoscope.enable">programs.nethoscope</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-overview.html" target="_top">filebeat</a>,
           a lightweight shipper for forwarding and centralizing log
           data. Available as
@@ -71,7 +94,7 @@
         </p></li><li class="listitem"><p>
           <a class="link" href="https://frrouting.org/" target="_top">FRRouting</a>, a
           popular suite of Internet routing protocol daemons (BGP, BFD,
-          OSPF, IS-IS, VVRP and others). Available as
+          OSPF, IS-IS, VRRP and others). Available as
           <a class="link" href="options.html#opt-services.frr.babel.enable">services.frr</a>
         </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/hifi/heisenbridge" target="_top">heisenbridge</a>,
@@ -114,6 +137,12 @@
           Users must add themselves to the <code class="literal">k40</code> group
           to be able to access the device.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/mozilla-mobile/mozilla-vpn-client" target="_top">mozillavpn</a>,
+          the client for the
+          <a class="link" href="https://vpn.mozilla.org/" target="_top">Mozilla VPN</a>
+          service. Available as
+          <a class="link" href="options.html#opt-services.mozillavpn" target="_top">services.mozillavpn</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/mgumz/mtr-exporter" target="_top">mtr-exporter</a>,
           a Prometheus exporter for mtr metrics. Available as
           <a class="link" href="options.html#opt-services.mtr-exporter.enable" target="_top">services.mtr-exporter</a>.
@@ -122,6 +151,10 @@
           a tool that exposes information from the Proxmox VE API for
           use by Prometheus. Available as
           <a class="link" href="options.html#opt-services.prometheus.exporters.pve" target="_top">services.prometheus.exporters.pve</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/netbox-community/netbox" target="_top">netbox</a>,
+          infrastructure resource modeling (IRM) tool. Available as
+          <a class="link" href="options.html#opt-services.netbox.enable" target="_top">services.netbox</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://tetrd.app" target="_top">tetrd</a>, share your
           internet connection from your device to your PC and vice versa
@@ -198,6 +231,11 @@
         </p></li><li class="listitem"><p>
           <a class="link" href="https://clusterlabs.org/pacemaker/" target="_top">pacemaker</a>
           cluster resource manager
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://nifi.apache.org" target="_top">nifi</a>, an
+          easy to use, powerful, and reliable system to process and
+          distribute data. Available as
+          <a class="link" href="options.html#opt-services.nifi.enable" target="_top">services.nifi</a>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">pkgs.ghc</code> now refers to
           <code class="literal">pkgs.targetPackages.haskellPackages.ghc</code>.
@@ -248,6 +286,9 @@
           <code class="literal">pkgs.emacsPackages.nongnuPackages</code> where the
           new versions will release.
         </p></li><li class="listitem"><p>
+          <code class="literal">security.klogd</code> was removed. Logging of
+          kernel messages is handled by systemd since Linux 3.5.
+        </p></li><li class="listitem"><p>
           <code class="literal">services.kubernetes.addons.dashboard</code> was
           removed due to it being an outdated version.
         </p></li><li class="listitem"><p>
@@ -258,6 +299,9 @@
           since the former have been deprecated and are no longer
           functional in kubernetes&gt;=1.23. Ensure that you are not
           relying on the insecure behaviour before upgrading.
+        </p></li><li class="listitem"><p>
+          <code class="literal">openssh</code> has been update to 8.9p1, changing
+          the FIDO security key middleware interface.
         </p></li><li class="listitem"><p>
           <code class="literal">services.k3s.enable</code> no longer implies
           <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>,
@@ -284,6 +328,10 @@
   ];
 }
 </pre></li><li class="listitem"><p>
+          <code class="literal">services.prometheus.alertManagerTimeout</code> has
+          been removed as it has been deprecated upstream and has no
+          effect.
+        </p></li><li class="listitem"><p>
           The DHCP server (<code class="literal">services.dhcpd4</code>,
           <code class="literal">services.dhcpd6</code>) has been hardened. The
           service is now using the systemd’s
@@ -307,6 +355,14 @@
           rely on systemd interpolating <code class="literal">extraFlags</code> in
           the service <code class="literal">ExecStart</code>, this will no longer
           work.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.paperless-ng</code> was renamed to
+          <code class="literal">services.paperless</code>. Accordingly, the
+          <code class="literal">paperless-ng-manage</code> script (located in
+          <code class="literal">dataDir</code>) was renamed to
+          <code class="literal">paperless-manage</code>.
+          <code class="literal">services.paperless</code> now uses
+          <code class="literal">paperless-ngx</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">matrix-synapse</code> service
           (<code class="literal">services.matrix-synapse</code>) has been
@@ -467,6 +523,17 @@
           <a class="link" href="https://gitlab.gnome.org/World/secrets/-/tags/6.0" target="_top">version
           6.x</a> and renamed to <code class="literal">gnome-secrets</code>.
         </p></li><li class="listitem"><p>
+          <code class="literal">services.gnome.experimental-features.realtime-scheduling</code>
+          option has been removed, as GNOME Shell now
+          <a class="link" href="https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2060" target="_top">uses
+          rtkit</a>. Use
+          <code class="literal">security.rtkit.enable = true;</code> instead. As
+          before, you will need to have it enabled using GSettings.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.telepathy</code> will no longer be
+          enabled by default for GNOME desktops, one should enable it in
+          their configs if using Empathy or Polari.
+        </p></li><li class="listitem"><p>
           If you previously used
           <code class="literal">/etc/docker/daemon.json</code>, you need to
           incorporate the changes into the new option
@@ -554,6 +621,38 @@
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs._7zz</code> is now correctly licensed as
           LGPL3+ and BSD3 with optional unfree unRAR licensed code
+        </p></li><li class="listitem"><p>
+          The <code class="literal">vim.customize</code> function produced by
+          <code class="literal">vimUtils.makeCustomizable</code> now has a
+          slightly different interface:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              The wrapper now includes everything in the given Vim
+              derivation if <code class="literal">name</code> is
+              <code class="literal">"vim"</code> (the default). This
+              makes the <code class="literal">wrapManual</code> argument obsolete,
+              but this behavior can be overriden by setting the
+              <code class="literal">standalone</code> argument.
+            </p></li><li class="listitem"><p>
+              All the executables present in the given derivation (or,
+              in <code class="literal">standalone</code> mode, only the
+              <code class="literal">*vim</code> ones) are wrapped. This makes the
+              <code class="literal">wrapGui</code> argument obsolete.
+            </p></li><li class="listitem"><p>
+              The <code class="literal">vimExecutableName</code> and
+              <code class="literal">gvimExecutableName</code> arguments were
+              replaced by a single <code class="literal">executableName</code>
+              argument in which the shell variable
+              <code class="literal">$exe</code> can be used to refer to the
+              wrapped executable’s name.
+            </p></li></ul></div><p>
+          See the comments in
+          <code class="literal">pkgs/applications/editors/vim/plugins/vim-utils.nix</code>
+          for more details.
+        </p><p>
+          <code class="literal">vimUtils.vimWithRC</code> was removed. You should
+          instead use <code class="literal">customize</code> on a Vim derivation,
+          which now accepts <code class="literal">vimrcFile</code> and
+          <code class="literal">gvimrcFile</code> arguments.
         </p></li><li class="listitem"><p>
           <code class="literal">tilp2</code> was removed together with its module
         </p></li><li class="listitem"><p>
@@ -643,8 +742,8 @@
           <code class="literal">otelcorecol</code> and enjoy a 7x smaller binary.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.pgadmin</code> now refers to
-          <code class="literal">pkgs.pgadmin4</code>. If you still need pgadmin3,
-          use <code class="literal">pkgs.pgadmin3</code>.
+          <code class="literal">pkgs.pgadmin4</code>. <code class="literal">pgadmin3</code>
+          has been removed.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.noto-fonts-cjk</code> is now deprecated in
           favor of <code class="literal">pkgs.noto-fonts-cjk-sans</code> and
@@ -791,6 +890,23 @@
             </p></li></ul></div><p>
           See the <code class="literal">vscode</code> package for a more detailed
           example.
+        </p></li><li class="listitem"><p>
+          Existing <code class="literal">resholve*</code> functions have been
+          renamed and nested under <code class="literal">pkgs.resholve</code>.
+          Update uses to:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              <code class="literal">resholvePackage</code> -&gt;
+              <code class="literal">resholve.mkDerivation</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">resholveScript</code> -&gt;
+              <code class="literal">resholve.writeScript</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">resholveScriptBin</code> -&gt;
+              <code class="literal">resholve.writeScriptBin</code>
+            </p></li></ul></div></li><li class="listitem"><p>
+          <code class="literal">pkgs.cosmopolitan</code> no longer provides the
+          <code class="literal">cosmoc</code> command. It has been moved to
+          <code class="literal">pkgs.cosmoc</code>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The option
           <a class="link" href="options.html#opt-services.redis.servers">services.redis.servers</a>
@@ -874,6 +990,21 @@
           Furthermore, not all Electron apps use the latest Electron
           versions.
         </p></li><li class="listitem"><p>
+          A new option group
+          <code class="literal">systemd.network.wait-online</code> was added, with
+          options to configure
+          <code class="literal">systemd-networkd-wait-online.service</code>:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              <code class="literal">anyInterface</code> allows specifying that the
+              network should be considered online when <span class="emphasis"><em>at
+              least one</em></span> interface is online (useful on
+              laptops)
+            </p></li><li class="listitem"><p>
+              <code class="literal">timeout</code> defines how long to wait for
+              the network to come online
+            </p></li><li class="listitem"><p>
+              <code class="literal">extraArgs</code> for everything else
+            </p></li></ul></div></li><li class="listitem"><p>
           The <code class="literal">influxdb2</code> package was split into
           <code class="literal">influxdb2-server</code> and
           <code class="literal">influxdb2-cli</code>, matching the split that took
@@ -889,10 +1020,22 @@
           <code class="literal">programs.zsh.autosuggestions.strategy</code> now
           takes a list of strings instead of a string.
         </p></li><li class="listitem"><p>
+          The <code class="literal">asterisk</code> and
+          <code class="literal">asterisk-stable</code> packages were switched from
+          <code class="literal">asterisk_18</code> to the newly-packaged
+          <code class="literal">asterisk_19</code>. Asterisk 13 and 17 have been
+          removed as they have reached their end of life.
+        </p></li><li class="listitem"><p>
           The <code class="literal">services.unifi.openPorts</code> option default
           value of <code class="literal">true</code> is now deprecated and will be
           changed to <code class="literal">false</code> in 22.11. Configurations
           using this default will print a warning when rebuilt.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">services.unifi-video.openPorts</code> option
+          default value of <code class="literal">true</code> is now deprecated and
+          will be changed to <code class="literal">false</code> in 22.11.
+          Configurations using this default will print a warning when
+          rebuilt.
         </p></li><li class="listitem"><p>
           <code class="literal">security.acme</code> certificates will now
           correctly check for CA revokation before reaching their
@@ -921,14 +1064,20 @@
         </p></li><li class="listitem"><p>
           <a class="link" href="options.html#opt-programs.ssh.knownHosts">programs.ssh.knownHosts</a>
           has gained an <code class="literal">extraHostNames</code> option to
-          replace <code class="literal">hostNames</code>.
-          <code class="literal">hostNames</code> is deprecated, but still
-          available for now.
+          augment <code class="literal">hostNames</code>. It is now possible to
+          use the attribute name of a <code class="literal">knownHosts</code>
+          entry as the primary host name and specify secondary host
+          names using <code class="literal">extraHostNames</code> without having
+          to duplicate the primary host name.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.stubby</code> module was converted to
           a
           <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">settings-style</a>
           configuration.
+        </p></li><li class="listitem"><p>
+          A new module was added for the Envoy reverse proxy, providing
+          the options <code class="literal">services.envoy.enable</code> and
+          <code class="literal">services.envoy.settings</code>.
         </p></li><li class="listitem"><p>
           The option <code class="literal">services.duplicati.dataDir</code> has
           been added to allow changing the location of duplicati’s
@@ -967,6 +1116,10 @@
           <code class="literal">fetchhg</code> if the argument
           <code class="literal">fetchSubmodules</code> is set to
           <code class="literal">true</code>.
+        </p></li><li class="listitem"><p>
+          A module for declarative configuration of openconnect VPN
+          profiles was added under
+          <code class="literal">networking.openconnect</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">element-desktop</code> package now has an
           <code class="literal">useKeytar</code> option (defaults to
@@ -1018,9 +1171,23 @@
           to allow the declarative installation of Mattermost plugins.
           Plugins are automatically repackaged using autoPatchelf.
         </p></li><li class="listitem"><p>
-          <code class="literal">services.logrotate.enable</code> now defaults to
-          true if any rotate path has been defined, and some paths have
-          been added by default.
+          <a class="link" href="options.html#opt-services.logrotate.enable">services.logrotate.enable</a>
+          now defaults to true if any rotate path has been defined, and
+          some paths have been added by default.
+        </p></li><li class="listitem"><p>
+          The logrotate module also has been updated to freeform syntax:
+          <a class="link" href="options.html#opt-services.logrotate.paths">services.logrotate.paths</a>
+          and
+          <a class="link" href="options.html#opt-services.logrotate.extraConfig">services.logrotate.extraConfig</a>
+          will work, but issue deprecation warnings and
+          <a class="link" href="options.html#opt-services.logrotate.settings">services.logrotate.settings</a>
+          should now be used instead.
+        </p></li><li class="listitem"><p>
+          <code class="literal">security.pam.ussh</code> has been added, which
+          allows authorizing PAM sessions based on SSH
+          <span class="emphasis"><em>certificates</em></span> held within an SSH agent,
+          using
+          <a class="link" href="https://github.com/uber/pam-ussh" target="_top">pam-ussh</a>.
         </p></li><li class="listitem"><p>
           The <code class="literal">zrepl</code> package has been updated from
           0.4.0 to 0.5:
@@ -1043,6 +1210,9 @@
           Reason is that the old name has been deprecated upstream.
           Using the old option name will still work, but produce a
           warning.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.autorandr</code> now allows for adding
+          hooks and profiles declaratively.
         </p></li><li class="listitem"><p>
           The <code class="literal">pomerium-cli</code> command has been moved out
           of the <code class="literal">pomerium</code> package into the
@@ -1070,6 +1240,18 @@
           default. It will automatically be enabled through services and
           desktop environments as needed.
         </p></li><li class="listitem"><p>
+          xfsprogs was update to version 5.15, which enables inobtcount
+          and bigtime by default on filesystem creation. Support for
+          these features was added in kernel 5.10 and deemed stable in
+          kernel 5.15. If you want to be able to mount XFS filesystems
+          created with this release of xfsprogs on kernel releases older
+          than 5.10, you need to format them with
+          <code class="literal">mkfs.xfs -m bigtime=0 -m inobtcount=0</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.xserver.desktopManager.xfce</code> now
+          includes Xfce’s screen locker,
+          <code class="literal">xfce4-screensaver</code>.
+        </p></li><li class="listitem"><p>
           The <code class="literal">hadoop</code> package has added support for
           <code class="literal">aarch64-linux</code> and
           <code class="literal">aarch64-darwin</code> as of 3.3.1
@@ -1092,7 +1274,10 @@
               <a class="link" href="https://github.com/NixOS/nixpkgs/pull/158613" target="_top">#158613</a>
               and
               <a class="link" href="https://github.com/NixOS/nixpkgs/pull/158992" target="_top">#158992</a>.
-            </p></li></ul></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+            </p></li></ul></div></li><li class="listitem"><p>
+          The <code class="literal">programs.nncp</code> options were added for
+          generating host-global NNCP configuration.
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.11"></a>B.2. Release 21.11 (“Porcupine”, 2021/11/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of June 2022, handing over to
         22.05.
       </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-highlights"></a>B.2.1. Highlights</h3></div></div></div><p>
@@ -8109,6 +8294,11 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           installing the
           <a class="link" href="https://github.com/hedning/nix-bash-completions" target="_top">nix-bash-completions</a>
           package.
+        </p></li><li class="listitem"><p>
+          The vim/kakoune plugin updater now reads from a CSV file:
+          check
+          <code class="literal">pkgs/applications/editors/vim/plugins/vim-plugin-names</code>
+          out to see the new format
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-17.09"></a>B.10. Release 17.09 (<span class="quote">“<span class="quote">Hummingbird</span>”</span>, 2017/09/??)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-highlights"></a>B.10.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
