@@ -314,6 +314,10 @@
               allow only local connections to the REST API server
               (<code class="literal">services.pdns-recursor.api.allowFrom</code>).
             </p></li></ul></div></li><li class="listitem"><p>
+          In the ncdns module, the default value of
+          <code class="literal">services.ncdns.address</code> has been changed to
+          the IPv6 loopback address (<code class="literal">::1</code>).
+        </p></li><li class="listitem"><p>
           <code class="literal">openssh</code> has been update to 8.9p1, changing
           the FIDO security key middleware interface.
         </p></li><li class="listitem"><p>
@@ -490,6 +494,97 @@
           to the new location if the <code class="literal">stateVersion</code> is
           updated.
         </p></li><li class="listitem"><p>
+          The Keycloak package (<code class="literal">pkgs.keycloak</code>) has
+          been switched from the Wildfly version, which will soon be
+          deprecated, to the Quarkus based version. The Keycloak service
+          (<code class="literal">services.keycloak</code>) has been updated to
+          accommodate the change and now differs from the previous
+          version in a few ways:
+        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
+              <code class="literal">services.keycloak.extraConfig</code> has been
+              removed in favor of the new
+              <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">settings-style</a>
+              <a class="link" href="options.html#opt-services.keycloak.settings"><code class="literal">services.keycloak.settings</code></a>
+              option. The available options correspond directly to
+              parameters in <code class="literal">conf/keycloak.conf</code>. Some
+              of the most important parameters are documented as
+              suboptions, the rest can be found in the
+              <a class="link" href="https://www.keycloak.org/server/all-config" target="_top">All
+              configuration section of the Keycloak Server Installation
+              and Configuration Guide</a>. While the new
+              configuration is much simpler and cleaner than the old
+              JBoss CLI one, this unfortunately mean that there’s no
+              straightforward way to convert an old configuration to the
+              new format and some settings may not even be available
+              anymore.
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.keycloak.frontendUrl</code> was
+              removed and the frontend URL is now configured through the
+              <code class="literal">hostname</code> family of settings in
+              <a class="link" href="options.html#opt-services.keycloak.settings"><code class="literal">services.keycloak.settings</code></a>
+              instead. See the
+              <a class="link" href="https://www.keycloak.org/server/hostname" target="_top">Hostname
+              section of the Keycloak Server Installation and
+              Configuration Guide</a> for more details. Additionally,
+              <code class="literal">/auth</code> was removed from the default
+              context path and needs to be added back in
+              <a class="link" href="options.html#opt-services.keycloak.settings.http-relative-path"><code class="literal">services.keycloak.settings.http-relative-path</code></a>
+              if you want to keep compatibility with your current
+              clients.
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.keycloak.bindAddress</code>,
+              <code class="literal">services.keycloak.forceBackendUrlToFrontendUrl</code>,
+              <code class="literal">services.keycloak.httpPort</code> and
+              <code class="literal">services.keycloak.httpsPort</code> have been
+              removed in favor of their equivalent options in
+              <a class="link" href="options.html#opt-services.keycloak.settings"><code class="literal">services.keycloak.settings</code></a>.
+              <code class="literal">httpPort</code> and
+              <code class="literal">httpsPort</code> have additionally had their
+              types changed from <code class="literal">str</code> to
+              <code class="literal">port</code>.
+            </p><p>
+              The new names are as follows:
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <code class="literal">bindAddress</code>:
+                  <a class="link" href="options.html#opt-services.keycloak.settings.http-host"><code class="literal">services.keycloak.settings.http-host</code></a>
+                </p></li><li class="listitem"><p>
+                  <code class="literal">forceBackendUrlToFrontendUrl</code>:
+                  <a class="link" href="options.html#opt-services.keycloak.settings.hostname-strict-backchannel"><code class="literal">services.keycloak.settings.hostname-strict-backchannel</code></a>
+                </p></li><li class="listitem"><p>
+                  <code class="literal">httpPort</code>:
+                  <a class="link" href="options.html#opt-services.keycloak.settings.http-port"><code class="literal">services.keycloak.settings.http-port</code></a>
+                </p></li><li class="listitem"><p>
+                  <code class="literal">httpsPort</code>:
+                  <a class="link" href="options.html#opt-services.keycloak.settings.https-port"><code class="literal">services.keycloak.settings.https-port</code></a>
+                </p></li></ul></div></li></ul></div><p>
+          For example, when using a reverse proxy the migration could
+          look like this:
+        </p><p>
+          Before:
+        </p><pre class="programlisting">
+  services.keycloak = {
+    enable = true;
+    httpPort = "8080";
+    frontendUrl = "https://keycloak.example.com/auth";
+    database.passwordFile = "/run/keys/db_password";
+    extraConfig = {
+      "subsystem=undertow"."server=default-server"."http-listener=default".proxy-address-forwarding = true;
+    };
+  };
+</pre><p>
+          After:
+        </p><pre class="programlisting">
+  services.keycloak = {
+    enable = true;
+    settings = {
+      http-port = 8080;
+      hostname = "keycloak.example.com";
+      http-relative-path = "/auth";
+      proxy = "edge";
+    };
+    database.passwordFile = "/run/keys/db_password";
+  };
+</pre></li><li class="listitem"><p>
           The MoinMoin wiki engine
           (<code class="literal">services.moinmoin</code>) has been removed,
           because Python 2 is being retired from nixpkgs.
@@ -921,6 +1016,14 @@
           <code class="literal">pkgs.cosmopolitan</code> no longer provides the
           <code class="literal">cosmoc</code> command. It has been moved to
           <code class="literal">pkgs.cosmoc</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.graalvmXX-ce</code> packages no longer
+          provide support for Python/Ruby/WASM, instead focusing only in
+          Java and Native Image Support. If you need to add support
+          back, please see the
+          <code class="literal">pkgs.graalvmCEPackages.mkGraal</code> function to
+          create your own customized version of GraalVM with support for
+          what you need.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The option
           <a class="link" href="options.html#opt-services.redis.servers">services.redis.servers</a>
@@ -1216,6 +1319,16 @@
               documentation</a> and check the output of
               <code class="literal">zfs get -r encryption,zrepl:placeholder PATH_TO_ROOTFS</code>
               on the receiver.
+            </p></li></ul></div></li><li class="listitem"><p>
+          The <code class="literal">polybar</code> package has been updated from
+          3.5.7 to 3.6.2. See
+          <a class="link" href="https://github.com/polybar/polybar/releases/tag/3.6.0" target="_top">the
+          changelog</a> for more details.
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              Breaking changes include changes to escaping rules in
+              configuration values, changes in behavior when
+              encountering invalid tag names, and changes to
+              inter-process-messaging (IPC).
             </p></li></ul></div></li><li class="listitem"><p>
           Renamed option
           <code class="literal">services.openssh.challengeResponseAuthentication</code>

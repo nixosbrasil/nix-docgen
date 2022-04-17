@@ -3797,7 +3797,7 @@ services.lemmy = {
           This has been tested using a local database with a unix socket
           connection. Using different database settings will likely
           require modifications
-        </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-keycloak"></a>Chapter 23. Keycloak</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-keycloak-admin">23.1. Administration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-database">23.2. Database access</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-frontendurl">23.3. Frontend URL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-tls">23.4. Setting up TLS/SSL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-themes">23.5. Themes</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-extra-config">23.6. Additional configuration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-example-config">23.7. Example configuration</a></span></dt></dl></div><p>
+        </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-keycloak"></a>Chapter 23. Keycloak</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-keycloak-admin">23.1. Administration</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-database">23.2. Database access</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-hostname">23.3. Hostname</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-tls">23.4. Setting up TLS/SSL</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-themes">23.5. Themes</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-settings">23.6. Configuration file settings</a></span></dt><dt><span class="section"><a href="index.html#module-services-keycloak-example-config">23.7. Example configuration</a></span></dt></dl></div><p>
    <a class="link" href="https://www.keycloak.org/" target="_top">Keycloak</a> is an
    open source identity and access management server with support for
    <a class="link" href="https://openid.net/connect/" target="_top">OpenID
@@ -3813,25 +3813,25 @@ services.lemmy = {
        not stored safely and should be changed immediately in the
        admin panel.
      </p><p>
-       Refer to the <a class="link" href="https://www.keycloak.org/docs/latest/server_admin/index.html#admin-console" target="_top">Admin
-       Console section of the Keycloak Server Administration Guide</a> for
-       information on how to administer your
-       <span class="productname">Keycloak</span> instance.
+       Refer to the <a class="link" href="https://www.keycloak.org/docs/latest/server_admin/index.html" target="_top">
+       Keycloak Server Administration Guide</a> for information on
+       how to administer your <span class="productname">Keycloak</span>
+       instance.
      </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-database"></a>23.2. Database access</h2></div></div></div><p>
        <span class="productname">Keycloak</span> can be used with either
-       <span class="productname">PostgreSQL</span> or
+       <span class="productname">PostgreSQL</span>,
+       <span class="productname">MariaDB</span> or
        <span class="productname">MySQL</span>. Which one is used can be
        configured in <a class="xref" href="options.html#opt-services.keycloak.database.type"><code class="option">services.keycloak.database.type</code></a>. The selected
        database will automatically be enabled and a database and role
-       created unless <a class="xref" href="options.html#opt-services.keycloak.database.host"><code class="option">services.keycloak.database.host</code></a> is changed from
-       its default of <code class="literal">localhost</code> or <a class="xref" href="options.html#opt-services.keycloak.database.createLocally"><code class="option">services.keycloak.database.createLocally</code></a> is set
-       to <code class="literal">false</code>.
+       created unless <a class="xref" href="options.html#opt-services.keycloak.database.host"><code class="option">services.keycloak.database.host</code></a> is changed
+       from its default of <code class="literal">localhost</code> or <a class="xref" href="options.html#opt-services.keycloak.database.createLocally"><code class="option">services.keycloak.database.createLocally</code></a> is
+       set to <code class="literal">false</code>.
      </p><p>
        External database access can also be configured by setting
-       <a class="xref" href="options.html#opt-services.keycloak.database.host"><code class="option">services.keycloak.database.host</code></a>, <a class="xref" href="options.html#opt-services.keycloak.database.username"><code class="option">services.keycloak.database.username</code></a>, <a class="xref" href="options.html#opt-services.keycloak.database.useSSL"><code class="option">services.keycloak.database.useSSL</code></a> and <a class="xref" href="options.html#opt-services.keycloak.database.caCert"><code class="option">services.keycloak.database.caCert</code></a> as
-       appropriate. Note that you need to manually create a database
-       called <code class="literal">keycloak</code> and allow the configured
-       database user full access to it.
+       <a class="xref" href="options.html#opt-services.keycloak.database.host"><code class="option">services.keycloak.database.host</code></a>, <a class="xref" href="options.html#opt-services.keycloak.database.name"><code class="option">services.keycloak.database.name</code></a>, <a class="xref" href="options.html#opt-services.keycloak.database.username"><code class="option">services.keycloak.database.username</code></a>, <a class="xref" href="options.html#opt-services.keycloak.database.useSSL"><code class="option">services.keycloak.database.useSSL</code></a> and <a class="xref" href="options.html#opt-services.keycloak.database.caCert"><code class="option">services.keycloak.database.caCert</code></a> as
+       appropriate. Note that you need to manually create the database
+       and allow the configured database user full access to it.
      </p><p>
        <a class="xref" href="options.html#opt-services.keycloak.database.passwordFile"><code class="option">services.keycloak.database.passwordFile</code></a>
        must be set to the path to a file containing the password used
@@ -3843,17 +3843,16 @@ services.lemmy = {
      </p><div class="warning"><h3 class="title">Warning</h3><p>
          The path should be provided as a string, not a Nix path, since Nix
          paths are copied into the world readable Nix store.
-       </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-frontendurl"></a>23.3. Frontend URL</h2></div></div></div><p>
-       The frontend URL is used as base for all frontend requests and
-       must be configured through <a class="xref" href="options.html#opt-services.keycloak.frontendUrl"><code class="option">services.keycloak.frontendUrl</code></a>.
-       It should normally include a trailing <code class="literal">/auth</code>
-       (the default web context). If you use a reverse proxy, you need
-       to set this option to <code class="literal">""</code>, so that frontend URL
-       is derived from HTTP headers. <code class="literal">X-Forwarded-*</code> headers
-       support also should be enabled, using <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/index.html#identifying-client-ip-addresses" target="_top">
-       respective guidelines</a>.
-     </p><p>
-       <a class="xref" href="options.html#opt-services.keycloak.forceBackendUrlToFrontendUrl"><code class="option">services.keycloak.forceBackendUrlToFrontendUrl</code></a>
+       </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-hostname"></a>23.3. Hostname</h2></div></div></div><p>
+       The hostname is used to build the public URL used as base for
+       all frontend requests and must be configured through <a class="xref" href="options.html#opt-services.keycloak.settings.hostname"><code class="option">services.keycloak.settings.hostname</code></a>.
+     </p><div class="note"><h3 class="title">Note</h3><p>
+         If you're migrating an old Wildfly based Keycloak instance
+         and want to keep compatibility with your current clients,
+         you'll likely want to set <a class="xref" href="options.html#opt-services.keycloak.settings.http-relative-path"><code class="option">services.keycloak.settings.http-relative-path</code></a> to <code class="literal">/auth</code>. See the option description
+         for more details.
+       </p></div><p>
+       <a class="xref" href="options.html#opt-services.keycloak.settings.hostname-strict-backchannel"><code class="option">services.keycloak.settings.hostname-strict-backchannel</code></a>
        determines whether Keycloak should force all requests to go
        through the frontend URL. By default,
        <span class="productname">Keycloak</span> allows backend requests to
@@ -3861,9 +3860,9 @@ services.lemmy = {
        advertise it to clients through its OpenID Connect Discovery
        endpoint.
      </p><p>
-       See the <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/#_hostname" target="_top">Hostname
-       section of the Keycloak Server Installation and Configuration
-       Guide</a> for more information.
+        For more information on hostname configuration, see the <a class="link" href="https://www.keycloak.org/server/hostname" target="_top">Hostname
+        section of the Keycloak Server Installation and Configuration
+        Guide</a>.
      </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-tls"></a>23.4. Setting up TLS/SSL</h2></div></div></div><p>
        By default, <span class="productname">Keycloak</span> won't accept
        unsecured HTTP connections originating from outside its local
@@ -3876,62 +3875,34 @@ services.lemmy = {
          The paths should be provided as a strings, not a Nix paths,
          since Nix paths are copied into the world readable Nix store.
        </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-themes"></a>23.5. Themes</h2></div></div></div><p>
-        You can package custom themes and make them visible to Keycloak via
-        <a class="xref" href="options.html#opt-services.keycloak.themes"><code class="option">services.keycloak.themes</code></a>
-        option. See the <a class="link" href="https://www.keycloak.org/docs/latest/server_development/#_themes" target="_top">
+        You can package custom themes and make them visible to
+        Keycloak through <a class="xref" href="options.html#opt-services.keycloak.themes"><code class="option">services.keycloak.themes</code></a>. See the <a class="link" href="https://www.keycloak.org/docs/latest/server_development/#_themes" target="_top">
         Themes section of the Keycloak Server Development Guide</a>
-        and respective NixOS option description for more information.
-     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-extra-config"></a>23.6. Additional configuration</h2></div></div></div><p>
-       Additional Keycloak configuration options, for which no
-       explicit <span class="productname">NixOS</span> options are provided,
-       can be set in <a class="xref" href="options.html#opt-services.keycloak.extraConfig"><code class="option">services.keycloak.extraConfig</code></a>.
+        and the description of the aforementioned NixOS option for
+        more information.
+     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-settings"></a>23.6. Configuration file settings</h2></div></div></div><p>
+       Keycloak server configuration parameters can be set in <a class="xref" href="options.html#opt-services.keycloak.settings"><code class="option">services.keycloak.settings</code></a>. These correspond
+       directly to options in
+       <code class="filename">conf/keycloak.conf</code>. Some of the most
+       important parameters are documented as suboptions, the rest can
+       be found in the <a class="link" href="https://www.keycloak.org/server/all-config" target="_top">All
+       configuration section of the Keycloak Server Installation and
+       Configuration Guide</a>.
      </p><p>
-       Options are expressed as a Nix attribute set which matches the
-       structure of the jboss-cli configuration. The configuration is
-       effectively overlayed on top of the default configuration
-       shipped with Keycloak. To remove existing nodes and undefine
-       attributes from the default configuration, set them to
-       <code class="literal">null</code>.
-     </p><p>
-       For example, the following script, which removes the hostname
-       provider <code class="literal">default</code>, adds the deprecated
-       hostname provider <code class="literal">fixed</code> and defines it the
-       default:
-
-</p><pre class="programlisting">
-/subsystem=keycloak-server/spi=hostname/provider=default:remove()
-/subsystem=keycloak-server/spi=hostname/provider=fixed:add(enabled = true, properties = { hostname = "keycloak.example.com" })
-/subsystem=keycloak-server/spi=hostname:write-attribute(name=default-provider, value="fixed")
-</pre><p>
-
-       would be expressed as
-
-</p><pre class="programlisting">
-services.keycloak.extraConfig = {
-  "subsystem=keycloak-server" = {
-    "spi=hostname" = {
-      "provider=default" = null;
-      "provider=fixed" = {
-        enabled = true;
-        properties.hostname = "keycloak.example.com";
-      };
-      default-provider = "fixed";
-    };
-  };
-};
-</pre><p>
-     </p><p>
-       You can discover available options by using the <a class="link" href="http://docs.wildfly.org/21/Admin_Guide.html#Command_Line_Interface" target="_top">jboss-cli.sh</a>
-       program and by referring to the <a class="link" href="https://www.keycloak.org/docs/latest/server_installation/index.html" target="_top">Keycloak
-       Server Installation and Configuration Guide</a>.
+       Options containing secret data should be set to an attribute
+       set containing the attribute <code class="literal">_secret</code> - a
+       string pointing to a file containing the value the option
+       should be set to. See the description of <a class="xref" href="options.html#opt-services.keycloak.settings"><code class="option">services.keycloak.settings</code></a> for an example.
      </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-keycloak-example-config"></a>23.7. Example configuration</h2></div></div></div><p>
        A basic configuration with some custom settings could look like this:
 </p><pre class="programlisting">
 services.keycloak = {
   <a class="link" href="options.html#opt-services.keycloak.enable">enable</a> = true;
+  settings = {
+    <a class="link" href="options.html#opt-services.keycloak.settings.hostname">hostname</a> = "keycloak.example.com";
+    <a class="link" href="options.html#opt-services.keycloak.settings.hostname-strict-backchannel">hostname-strict-backchannel</a> = true;
+  };
   <a class="link" href="options.html#opt-services.keycloak.initialAdminPassword">initialAdminPassword</a> = "e6Wcm0RrtegMEHl";  # change on first login
-  <a class="link" href="options.html#opt-services.keycloak.frontendUrl">frontendUrl</a> = "https://keycloak.example.com/auth";
-  <a class="link" href="options.html#opt-services.keycloak.forceBackendUrlToFrontendUrl">forceBackendUrlToFrontendUrl</a> = true;
   <a class="link" href="options.html#opt-services.keycloak.sslCertificate">sslCertificate</a> = "/run/keys/ssl_cert";
   <a class="link" href="options.html#opt-services.keycloak.sslCertificateKey">sslCertificateKey</a> = "/run/keys/ssl_key";
   <a class="link" href="options.html#opt-services.keycloak.database.passwordFile">database.passwordFile</a> = "/run/keys/db_password";
