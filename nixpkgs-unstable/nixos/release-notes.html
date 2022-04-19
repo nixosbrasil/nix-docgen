@@ -1097,6 +1097,11 @@
               Overriding and extending site XML files has been made
               easier
             </p></li></ul></div></li><li class="listitem"><p>
+          The auto-upgrade service now accepts persistent (default:
+          true) parameter. By default auto-upgrade will now run
+          immediately if it would have been triggered at least once
+          during the time when the timer was inactive.
+        </p></li><li class="listitem"><p>
           If you are using Wayland you can choose to use the Ozone
           Wayland support in Chrome and several Electron apps by setting
           the environment variable <code class="literal">NIXOS_OZONE_WL=1</code>
@@ -1679,7 +1684,7 @@
           <a class="link" href="https://dmarc.org/" target="_top">DMARC</a> reports and
           stores or sends them to a downstream service for further
           analysis. Documented in
-          <a class="link" href="index.html#module-services-parsedmarc" title="Chapter 34. parsedmarc">its manual
+          <a class="link" href="index.html#module-services-parsedmarc" title="Chapter 35. parsedmarc">its manual
           entry</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://spark.apache.org/" target="_top">spark</a>, a
@@ -2713,7 +2718,7 @@ Superuser created successfully.
           <a class="link" href="https://en.wikipedia.org/wiki/SAML_2.0" target="_top">SAML
           2.0</a>.
         </p><p>
-          See the <a class="link" href="index.html#module-services-keycloak" title="Chapter 23. Keycloak">Keycloak
+          See the <a class="link" href="index.html#module-services-keycloak" title="Chapter 24. Keycloak">Keycloak
           section of the NixOS manual</a> for more information.
         </p></li><li class="listitem"><p>
           <a class="link" href="options.html#opt-services.samba-wsdd.enable" target="_top">services.samba-wsdd.enable</a>
@@ -2722,7 +2727,7 @@ Superuser created successfully.
           <a class="link" href="https://www.discourse.org/" target="_top">Discourse</a>,
           a modern and open source discussion platform.
         </p><p>
-          See the <a class="link" href="index.html#module-services-discourse" title="Chapter 26. Discourse">Discourse
+          See the <a class="link" href="index.html#module-services-discourse" title="Chapter 27. Discourse">Discourse
           section of the NixOS manual</a> for more information.
         </p></li><li class="listitem"><p>
           <a class="link" href="options.html#opt-services.nebula.networks" target="_top">services.nebula.networks</a>
@@ -2746,7 +2751,7 @@ Superuser created successfully.
           working due to a change in the initialisation of dhcpcd and
           systemd networkd. To avoid this, either move them to
           <code class="literal">services.udev.initrdRules</code> or see the new
-          <a class="link" href="index.html#sec-custom-ifnames" title="13.8.1. Assigning custom names">Assigning custom
+          <a class="link" href="index.html#sec-custom-ifnames" title="14.8.1. Assigning custom names">Assigning custom
           names</a> section of the NixOS manual for an example using
           networkd links.
         </p></li><li class="listitem"><p>
@@ -3882,7 +3887,7 @@ self: super:
               <code class="literal">types.submodule</code>. These allow you to
               explicitly declare a subset of options while still
               permitting definitions without an associated option. See
-              <a class="xref" href="index.html#sec-freeform-modules" title="65.8. Freeform modules">Section 65.8, “Freeform modules”</a> for how to use
+              <a class="xref" href="index.html#sec-freeform-modules" title="66.8. Freeform modules">Section 66.8, “Freeform modules”</a> for how to use
               them.
             </p></li><li class="listitem"><p>
               Following its deprecation in 20.03, the Perl NixOS test
@@ -6097,7 +6102,7 @@ $ hydra-backfill-ids
           the database yourself (e.g. by using the
           <a class="link" href="options.html#opt-services.postgresql.initialScript" target="_top">services.postgresql.initialScript</a>
           option). An example for this can be found in the
-          <a class="link" href="index.html#module-services-matrix" title="Chapter 40. Matrix">documentation of the
+          <a class="link" href="index.html#module-services-matrix" title="Chapter 41. Matrix">documentation of the
           Matrix module</a>.
         </p></li><li class="listitem"><p>
           If you initially deployed your matrix-synapse on
@@ -6924,7 +6929,7 @@ $ hydra-backfill-ids
           components and enhancing security. Two-way TLS and RBAC has
           been enabled by default for all components, which slightly
           changes the way the module is configured. See:
-          <a class="xref" href="index.html#sec-kubernetes" title="Chapter 55. Kubernetes">Chapter 55, <em>Kubernetes</em></a> for details.
+          <a class="xref" href="index.html#sec-kubernetes" title="Chapter 56. Kubernetes">Chapter 56, <em>Kubernetes</em></a> for details.
         </p></li><li class="listitem"><p>
           There is now a set of <code class="literal">confinement</code> options
           for <code class="literal">systemd.services</code>, which allows to
@@ -7238,7 +7243,7 @@ $ hydra-backfill-ids
           last version to accept self-signed certificates</a>. As
           such, it is now recommended to use a proper certificate
           verified by a root CA (for example Let's Encrypt). The new
-          <a class="link" href="index.html#module-services-matrix" title="Chapter 40. Matrix">manual chapter on
+          <a class="link" href="index.html#module-services-matrix" title="Chapter 41. Matrix">manual chapter on
           Matrix</a> contains a working example of using nginx as a
           reverse proxy in front of <code class="literal">matrix-synapse</code>,
           using Let's Encrypt certificates.
@@ -7312,7 +7317,7 @@ $ hydra-backfill-ids
           The quassel-webserver package and module was removed from
           nixpkgs due to the lack of maintainers.
         </p></li><li class="listitem"><p>
-          The manual gained a <a class="link" href="index.html#module-services-matrix" title="Chapter 40. Matrix">
+          The manual gained a <a class="link" href="index.html#module-services-matrix" title="Chapter 41. Matrix">
           new chapter on self-hosting <code class="literal">matrix-synapse</code>
           and <code class="literal">riot-web</code> </a>, the most prevalent
           server and client implementations for the
@@ -10633,7 +10638,7 @@ in
         run a NixOS instance as a container in a NixOS host system.
         These containers are suitable for testing and experimentation
         but not production use, since they’re not fully isolated from
-        the host. See <a class="xref" href="index.html#ch-containers" title="Chapter 62. Container Management">Chapter 62, <em>Container Management</em></a> for details.
+        the host. See <a class="xref" href="index.html#ch-containers" title="Chapter 63. Container Management">Chapter 63, <em>Container Management</em></a> for details.
       </p></li><li class="listitem"><p>
         Systemd units provided by packages can now be overridden from
         the NixOS configuration. For instance, if a package
