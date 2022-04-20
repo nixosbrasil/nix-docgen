@@ -1284,9 +1284,35 @@
           configuration in <code class="literal">hardware-configuration.nix</code>
           instead of <code class="literal">configuration.nix</code>.
         </p></li><li class="listitem"><p>
-          ORY Kratos was updated to version 0.8.3-alpha.1.pre.0, which
+          ORY Kratos was updated to version 0.9.0-alpha.3, which
           introduces some breaking changes:
         </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              All endpoints at the Admin API are now exposed at
+              <code class="literal">/admin/</code>. For example, endpoint
+              <code class="literal">https://kratos:4434/identities</code> is now
+              exposed at
+              <code class="literal">https://kratos:4434/admin/identities</code>
+            </p></li><li class="listitem"><p>
+              Configuration key
+              <code class="literal">selfservice.whitelisted_return_urls</code> has
+              been renamed to <code class="literal">allowed_return_urls</code>
+            </p></li><li class="listitem"><p>
+              The <code class="literal">password_identifier</code> form field of
+              the password login strategy has been renamed to
+              <code class="literal">identifier</code> to make compatibility with
+              passwordless flows possible.
+            </p></li><li class="listitem"><p>
+              Instead of having a global
+              <code class="literal">default_schema_url</code> which developers
+              used to update their schema, you now need to define the
+              <code class="literal">default_schema_id</code> which must reference
+              schema ID in your config.
+            </p></li><li class="listitem"><p>
+              Calling <code class="literal">/self-service/recovery</code> without
+              flow ID or with an invalid flow ID while authenticated
+              will now respond with an error instead of redirecting to
+              the default page.
+            </p></li><li class="listitem"><p>
               If you are relying on the SQLite images, update your
               Docker Pull commands as follows:
             </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
@@ -1302,6 +1328,12 @@
                 </p></li><li class="listitem"><p>
                   <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.2-alpha.1" target="_top">Release
                   Notes for v0.8.2-alpha-1</a>
+                </p></li><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.9.0-alpha.1" target="_top">Release
+                  Notes for v0.9.0-alpha-1</a>
+                </p></li><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.9.0-alpha.3" target="_top">Release
+                  Notes for v0.9.0-alpha-3</a>
                 </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
           <code class="literal">fetchFromSourcehut</code> now allows fetching
           repositories recursively using <code class="literal">fetchgit</code> or
@@ -1472,6 +1504,11 @@
           <code class="literal">nss_esr</code>. This was done to ease maintenance
           of <code class="literal">nss</code> and dependent high-profile packages
           like <code class="literal">firefox</code>.
+        </p></li><li class="listitem"><p>
+          The Nextcloud module now supports to create a Mysql database
+          automatically with
+          <code class="literal">services.nextcloud.database.createLocally</code>
+          enabled.
         </p></li><li class="listitem"><p>
           The <code class="literal">spark3</code> package has been updated from
           3.1.2 to 3.2.1
