@@ -46,6 +46,10 @@
         </p></li><li class="listitem"><p>
           Systemd has been upgraded to the version 250.
         </p></li><li class="listitem"><p>
+          The new
+          <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook" target="_top"><code class="literal">postgresqlTestHook</code></a>
+          runs a PostgreSQL server for the duration of package checks.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://kops.sigs.k8s.io" target="_top"><code class="literal">kops</code></a>
           defaults to 1.22.4, which will enable
           <a class="link" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html" target="_top">Instance
@@ -289,6 +293,40 @@
           <code class="literal">security.klogd</code> was removed. Logging of
           kernel messages is handled by systemd since Linux 3.5.
         </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.ssmtp</code> has been dropped due to the
+          program being unmaintained. <code class="literal">pkgs.msmtp</code> can
+          be used instead as a substitute <code class="literal">sendmail</code>
+          implementation. The corresponding options
+          <code class="literal">services.ssmtp.*</code> have been removed as well.
+          <code class="literal">programs.msmtp.*</code> can be used instead for an
+          equivalent setup. For example:
+        </p><pre class="programlisting">
+{
+  # Original ssmtp configuration:
+  services.ssmtp = {
+    enable = true;
+    useTLS = true;
+    useSTARTTLS = true;
+    hostName = "smtp.example:587";
+    authUser = "someone";
+    authPassFile = "/secrets/password.txt";
+  };
+
+  # Equivalent msmtp configuration:
+  programs.msmtp = {
+    enable = true;
+    accounts.default = {
+      tls = true;
+      tls_starttls = true;
+      auth = true;
+      host = "smtp.example";
+      port = 587;
+      user = "someone";
+      passwordeval = "cat /secrets/password.txt";
+    };
+  };
+}
+</pre></li><li class="listitem"><p>
           <code class="literal">services.kubernetes.addons.dashboard</code> was
           removed due to it being an outdated version.
         </p></li><li class="listitem"><p>
@@ -320,6 +358,12 @@
         </p></li><li class="listitem"><p>
           <code class="literal">openssh</code> has been update to 8.9p1, changing
           the FIDO security key middleware interface.
+        </p></li><li class="listitem"><p>
+          <code class="literal">git</code> no longer hardcodes the path to
+          openssh’ ssh binary to reduce the amount of rebuilds. If you
+          are using git with ssh remotes and do not have a ssh binary in
+          your enviroment consider adding <code class="literal">openssh</code> to
+          it or switching to <code class="literal">gitFull</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">services.k3s.enable</code> no longer implies
           <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>,
@@ -373,6 +417,10 @@
           rely on systemd interpolating <code class="literal">extraFlags</code> in
           the service <code class="literal">ExecStart</code>, this will no longer
           work.
+        </p></li><li class="listitem"><p>
+          <code class="literal">hbase</code> version 0.98.24 has been removed. The
+          package now defaults to version 2.4.11. Versions 1.7.1 and
+          3.0.0-alpha-2 are also available.
         </p></li><li class="listitem"><p>
           <code class="literal">services.paperless-ng</code> was renamed to
           <code class="literal">services.paperless</code>. Accordingly, the
@@ -809,12 +857,23 @@
           containers without user namespaces you need to set
           <code class="literal">systemd.nspawn.&lt;name&gt;.execConfig.PrivateUsers = false</code>
         </p></li><li class="listitem"><p>
+          <code class="literal">systemd-shutdown</code> is now properly linked on
+          shutdown to unmount all filesystems and device mapper devices
+          cleanly. This can be disabled using
+          <code class="literal">boot.systemd.shutdown.enable</code>.
+        </p></li><li class="listitem"><p>
           The Tor SOCKS proxy is now actually disabled if
           <code class="literal">services.tor.client.enable</code> is set to
           <code class="literal">false</code> (the default). If you are using this
           functionality but didn’t change the setting or set it to
           <code class="literal">false</code>, you now need to set it to
           <code class="literal">true</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.github-runner</code> has been hardened.
+          Notably address families and system calls have been
+          restricted, which may adversely affect some kinds of testing,
+          e.g. using <code class="literal">AF_BLUETOOTH</code> to test bluetooth
+          devices.
         </p></li><li class="listitem"><p>
           The terraform 0.12 compatibility has been removed and the
           <code class="literal">terraform.withPlugins</code> and
@@ -1197,6 +1256,23 @@
           <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">settings-style</a>
           configuration.
         </p></li><li class="listitem"><p>
+          The option
+          <a class="link" href="options.html#opt-services.xserver.desktopManager.runXdgAutostartIfNone">services.xserver.desktopManager.runXdgAutostartIfNone</a>
+          was added in order to automatically run XDG autostart files
+          for sessions without a desktop manager. This replaces helpers
+          like the <code class="literal">dex</code> package.
+        </p></li><li class="listitem"><p>
+          When setting
+          <a class="link" href="options.html#opt-i18n.inputMethod.enabled">i18n.inputMethod.enabled</a>
+          to <code class="literal">fcitx5</code>, it no longer creates
+          corresponding systemd user services. It now relies on XDG
+          autostart files to start and work properly in your desktop
+          sessions. If you are using only a window manager without a
+          desktop manager, you need to enable
+          <code class="literal">services.xserver.desktopManager.runXdgAutostartIfNone</code>
+          or using the <code class="literal">dex</code> package to make
+          <code class="literal">fcitx5</code> work.
+        </p></li><li class="listitem"><p>
           A new module was added for the Envoy reverse proxy, providing
           the options <code class="literal">services.envoy.enable</code> and
           <code class="literal">services.envoy.settings</code>.
@@ -1214,9 +1290,35 @@
           configuration in <code class="literal">hardware-configuration.nix</code>
           instead of <code class="literal">configuration.nix</code>.
         </p></li><li class="listitem"><p>
-          ORY Kratos was updated to version 0.8.3-alpha.1.pre.0, which
+          ORY Kratos was updated to version 0.9.0-alpha.3, which
           introduces some breaking changes:
         </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              All endpoints at the Admin API are now exposed at
+              <code class="literal">/admin/</code>. For example, endpoint
+              <code class="literal">https://kratos:4434/identities</code> is now
+              exposed at
+              <code class="literal">https://kratos:4434/admin/identities</code>
+            </p></li><li class="listitem"><p>
+              Configuration key
+              <code class="literal">selfservice.whitelisted_return_urls</code> has
+              been renamed to <code class="literal">allowed_return_urls</code>
+            </p></li><li class="listitem"><p>
+              The <code class="literal">password_identifier</code> form field of
+              the password login strategy has been renamed to
+              <code class="literal">identifier</code> to make compatibility with
+              passwordless flows possible.
+            </p></li><li class="listitem"><p>
+              Instead of having a global
+              <code class="literal">default_schema_url</code> which developers
+              used to update their schema, you now need to define the
+              <code class="literal">default_schema_id</code> which must reference
+              schema ID in your config.
+            </p></li><li class="listitem"><p>
+              Calling <code class="literal">/self-service/recovery</code> without
+              flow ID or with an invalid flow ID while authenticated
+              will now respond with an error instead of redirecting to
+              the default page.
+            </p></li><li class="listitem"><p>
               If you are relying on the SQLite images, update your
               Docker Pull commands as follows:
             </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
@@ -1232,6 +1334,12 @@
                 </p></li><li class="listitem"><p>
                   <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.8.2-alpha.1" target="_top">Release
                   Notes for v0.8.2-alpha-1</a>
+                </p></li><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.9.0-alpha.1" target="_top">Release
+                  Notes for v0.9.0-alpha-1</a>
+                </p></li><li class="listitem"><p>
+                  <a class="link" href="https://github.com/ory/kratos/releases/tag/v0.9.0-alpha.3" target="_top">Release
+                  Notes for v0.9.0-alpha-3</a>
                 </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
           <code class="literal">fetchFromSourcehut</code> now allows fetching
           repositories recursively using <code class="literal">fetchgit</code> or
@@ -1395,6 +1503,18 @@
           The <code class="literal">R</code> package now builds again on
           <code class="literal">aarch64-darwin</code>
           (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/158992" target="_top">#158992</a>).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">nss</code> package was split into
+          <code class="literal">nss_esr</code> and <code class="literal">nss_latest</code>,
+          with <code class="literal">nss</code> being an alias for
+          <code class="literal">nss_esr</code>. This was done to ease maintenance
+          of <code class="literal">nss</code> and dependent high-profile packages
+          like <code class="literal">firefox</code>.
+        </p></li><li class="listitem"><p>
+          The Nextcloud module now supports to create a Mysql database
+          automatically with
+          <code class="literal">services.nextcloud.database.createLocally</code>
+          enabled.
         </p></li><li class="listitem"><p>
           The <code class="literal">spark3</code> package has been updated from
           3.1.2 to 3.2.1

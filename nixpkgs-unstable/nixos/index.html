@@ -4899,6 +4899,7 @@ services.mosquitto = {
 </p><pre class="programlisting">
   services.prometheus.exporters.node = {
     enable = true;
+    port = 9100;
     enabledCollectors = [
       "logind"
       "systemd"
@@ -4921,6 +4922,24 @@ services.mosquitto = {
    the
    <a class="link" href="https://nixos.org/nixos/options.html#prometheus.exporters" target="_top">available
    options</a>.
+  </p><p>
+    Prometheus can now be configured to consume the metrics produced by the exporter:
+    </p><pre class="programlisting">
+    services.prometheus = {
+      # ...
+
+      scrapeConfigs = [
+        {
+          job_name = "node";
+          static_configs = [{
+            targets = [ "localhost:${toString config.services.prometheus.exporters.node.port}" ];
+          }];
+        }
+      ];
+
+      # ...
+    }
+    </pre><p>
   </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-prometheus-exporters-new-exporter"></a>34.2. Adding a new exporter</h2></div></div></div><p>
    To add a new exporter, it has to be packaged first (see
    <code class="literal">nixpkgs/pkgs/servers/monitoring/prometheus/</code> for
