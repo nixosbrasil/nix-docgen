@@ -10834,8 +10834,24 @@ start_all()
           <code class="literal">execute</code>
         </span></dt><dd><p>
             Execute a shell command, returning a list
-            <code class="literal">(status, stdout)</code>. If the command
-            detaches, it must close stdout, as
+            <code class="literal">(status, stdout)</code>.
+          </p><p>
+            Commands are run with <code class="literal">set -euo pipefail</code>
+            set:
+          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+                If several commands are separated by
+                <code class="literal">;</code> and one fails, the command as a
+                whole will fail.
+              </p></li><li class="listitem"><p>
+                For pipelines, the last non-zero exit status will be
+                returned (if there is one; otherwise zero will be
+                returned).
+              </p></li><li class="listitem"><p>
+                Dereferencing unset variables fails the command.
+              </p></li><li class="listitem"><p>
+                It will wait for stdout to be closed.
+              </p></li></ul></div><p>
+            If the command detaches, it must close stdout, as
             <code class="literal">execute</code> will wait for this to consume all
             output reliably. This can be achieved by redirecting stdout
             to stderr <code class="literal">&gt;&amp;2</code>, to
@@ -10845,34 +10861,29 @@ start_all()
             where the shell forks a new process that can write to stdout
             and <code class="literal">xclip -i</code>, where the
             <code class="literal">xclip</code> command itself forks without
-            closing stdout. Takes an optional parameter
-            <code class="literal">check_return</code> that defaults to
-            <code class="literal">True</code>. Setting this parameter to
-            <code class="literal">False</code> will not check for the return code
-            and return -1 instead. This can be used for commands that
-            shut down the VM and would therefore break the pipe that
-            would be used for retrieving the return code.
+            closing stdout.
+          </p><p>
+            Takes an optional parameter <code class="literal">check_return</code>
+            that defaults to <code class="literal">True</code>. Setting this
+            parameter to <code class="literal">False</code> will not check for the
+            return code and return -1 instead. This can be used for
+            commands that shut down the VM and would therefore break the
+            pipe that would be used for retrieving the return code.
+          </p><p>
+            A timeout for the command can be specified (in seconds)
+            using the optional <code class="literal">timeout</code> parameter,
+            e.g., <code class="literal">execute(cmd, timeout=10)</code> or
+            <code class="literal">execute(cmd, timeout=None)</code>. The default
+            is 900 seconds.
           </p></dd><dt><span class="term">
           <code class="literal">succeed</code>
         </span></dt><dd><p>
             Execute a shell command, raising an exception if the exit
             status is not zero, otherwise returning the standard output.
-            Commands are run with <code class="literal">set -euo pipefail</code>
-            set:
-          </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-                If several commands are separated by
-                <code class="literal">;</code> and one fails, the command as a
-                whole will fail.
-              </p></li><li class="listitem"><p>
-                For pipelines, the last non-zero exit status will be
-                returned (if there is one, zero will be returned
-                otherwise).
-              </p></li><li class="listitem"><p>
-                Dereferencing unset variables fail the command.
-              </p></li><li class="listitem"><p>
-                It will wait for stdout to be closed. See
-                <code class="literal">execute</code> for the implications.
-              </p></li></ul></div></dd><dt><span class="term">
+            Similar to <code class="literal">execute</code>, except that the
+            timeout is <code class="literal">None</code> by default. See
+            <code class="literal">execute</code> for details on command execution.
+          </p></dd><dt><span class="term">
           <code class="literal">fail</code>
         </span></dt><dd><p>
             Like <code class="literal">succeed</code>, but raising an exception if
@@ -10881,12 +10892,15 @@ start_all()
           <code class="literal">wait_until_succeeds</code>
         </span></dt><dd><p>
             Repeat a shell command with 1-second intervals until it
-            succeeds.
+            succeeds. Has a default timeout of 900 seconds which can be
+            modified, e.g.
+            <code class="literal">wait_until_succeeds(cmd, timeout=10)</code>. See
+            <code class="literal">execute</code> for details on command execution.
           </p></dd><dt><span class="term">
           <code class="literal">wait_until_fails</code>
         </span></dt><dd><p>
-            Repeat a shell command with 1-second intervals until it
-            fails.
+            Like <code class="literal">wait_until_succeeds</code>, but repeating
+            the command until it fails.
           </p></dd><dt><span class="term">
           <code class="literal">wait_for_unit</code>
         </span></dt><dd><p>
