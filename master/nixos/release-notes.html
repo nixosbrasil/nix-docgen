@@ -295,6 +295,23 @@
           <code class="literal">pkgs.emacsPackages.nongnuPackages</code> where the
           new versions will release.
         </p></li><li class="listitem"><p>
+          The configuration and state directories used by
+          <code class="literal">nixos-containers</code> have been moved from
+          <code class="literal">/etc/containers</code> and
+          <code class="literal">/var/lib/containers</code> to
+          <code class="literal">/etc/nixos-containers</code> and
+          <code class="literal">/var/lib/nixos-containers</code>.
+        </p><p>
+          If you are changing <code class="literal">system.stateVersion</code> to
+          <code class="literal">"22.05"</code> manually on an existing
+          system you are responsible for migrating these directories
+          yourself.
+        </p><p>
+          This is to improve compatibility with
+          <code class="literal">libcontainer</code> based software such as Podman
+          and Skopeo which assumes they have ownership over
+          <code class="literal">/etc/containers</code>.
+        </p></li><li class="listitem"><p>
           <code class="literal">security.klogd</code> was removed. Logging of
           kernel messages is handled by systemd since Linux 3.5.
         </p></li><li class="listitem"><p>

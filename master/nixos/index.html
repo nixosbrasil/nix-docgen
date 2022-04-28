@@ -3258,7 +3258,7 @@ USER_NAME = rw
       The Subversion repositories will be accessible as
       <code class="literal">http://HOSTNAME/svn/REPO_NAME</code>.
     </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-pantheon"></a>Chapter 17. Pantheon Desktop</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-pantheon-enable">17.1. Enabling Pantheon</a></span></dt><dt><span class="section"><a href="index.html#sec-pantheon-wingpanel-switchboard">17.2. Wingpanel and Switchboard plugins</a></span></dt><dt><span class="section"><a href="index.html#sec-pantheon-faq">17.3. FAQ</a></span></dt></dl></div><p>
-  Pantheon is the desktop environment created for the elementary OS distribution. It is written from scratch in Vala, utilizing GNOME technologies with GTK 3 and Granite.
+  Pantheon is the desktop environment created for the elementary OS distribution. It is written from scratch in Vala, utilizing GNOME technologies with GTK and Granite.
  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pantheon-enable"></a>17.1. Enabling Pantheon</h2></div></div></div><p>
    All of Pantheon is working in NixOS and the applications should be available, aside from a few <a class="link" href="https://github.com/NixOS/nixpkgs/issues/58161" target="_top">exceptions</a>. To enable Pantheon, set
 </p><pre class="programlisting">
@@ -3314,8 +3314,8 @@ switchboard-with-plugs.override {
      I have switched from a different desktop and Pantheon’s theming looks messed up.
     </span></dt><dd><p>
       Open Switchboard and go to: <span class="guilabel">Administration</span> → <span class="guilabel">About</span> → <span class="guilabel">Restore Default Settings</span> → <span class="guibutton">Restore Settings</span>. This will reset any dconf settings to their Pantheon defaults. Note this could reset certain GNOME specific preferences if that desktop was used prior.
-     </p></dd><dt><a id="sec-pantheon-faq-gnome3-and-pantheon"></a><span class="term">
-     I cannot enable both GNOME 3 and Pantheon.
+     </p></dd><dt><a id="sec-pantheon-faq-gnome-and-pantheon"></a><span class="term">
+     I cannot enable both GNOME and Pantheon.
     </span></dt><dd><p>
       This is a known <a class="link" href="https://github.com/NixOS/nixpkgs/issues/64611" target="_top">issue</a> and there is no known workaround.
      </p></dd><dt><a id="sec-pantheon-faq-appcenter"></a><span class="term">
@@ -8120,8 +8120,9 @@ $ nix-store --optimise
 # nixos-container create foo
 </pre><p>
     This creates the container’s root directory in
-    <code class="literal">/var/lib/containers/foo</code> and a small configuration
-    file in <code class="literal">/etc/containers/foo.conf</code>. It also builds
+    <code class="literal">/var/lib/nixos-containers/foo</code> and a small
+    configuration file in
+    <code class="literal">/etc/nixos-containers/foo.conf</code>. It also builds
     the container’s initial system configuration and stores it in
     <code class="literal">/nix/var/nix/profiles/per-container/foo/system</code>.
     You can modify the initial configuration of the container on the
@@ -8254,8 +8255,8 @@ containers.database = {
     <code class="literal">configuration.nix</code> and run
     <code class="literal">nixos-rebuild switch</code>. Note that this will not
     delete the root directory of the container in
-    <code class="literal">/var/lib/containers</code>. Containers can be destroyed
-    using the imperative method:
+    <code class="literal">/var/lib/nixos-containers</code>. Containers can be
+    destroyed using the imperative method:
     <code class="literal">nixos-container destroy foo</code>.
   </p><p>
     Declarative containers can be started and stopped using the
