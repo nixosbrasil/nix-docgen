@@ -8120,8 +8120,9 @@ $ nix-store --optimise
 # nixos-container create foo
 </pre><p>
     This creates the container’s root directory in
-    <code class="literal">/var/lib/containers/foo</code> and a small configuration
-    file in <code class="literal">/etc/containers/foo.conf</code>. It also builds
+    <code class="literal">/var/lib/nixos-containers/foo</code> and a small
+    configuration file in
+    <code class="literal">/etc/nixos-containers/foo.conf</code>. It also builds
     the container’s initial system configuration and stores it in
     <code class="literal">/nix/var/nix/profiles/per-container/foo/system</code>.
     You can modify the initial configuration of the container on the
@@ -8254,8 +8255,8 @@ containers.database = {
     <code class="literal">configuration.nix</code> and run
     <code class="literal">nixos-rebuild switch</code>. Note that this will not
     delete the root directory of the container in
-    <code class="literal">/var/lib/containers</code>. Containers can be destroyed
-    using the imperative method:
+    <code class="literal">/var/lib/nixos-containers</code>. Containers can be
+    destroyed using the imperative method:
     <code class="literal">nixos-container destroy foo</code>.
   </p><p>
     Declarative containers can be started and stopped using the
