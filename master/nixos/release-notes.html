@@ -46,6 +46,19 @@
         </p></li><li class="listitem"><p>
           Systemd has been upgraded to the version 250.
         </p></li><li class="listitem"><p>
+          Pulseaudio has been upgraded to version 15.0 and now
+          optionally
+          <a class="link" href="https://www.freedesktop.org/wiki/Software/PulseAudio/Notes/15.0/#supportforldacandaptxbluetoothcodecsplussbcxqsbcwithhigher-qualityparameters" target="_top">supports
+          additional Bluetooth audio codecs</a> like aptX or LDAC,
+          with codec switching support being available in
+          <code class="literal">pavucontrol</code>. This feature is disabled by
+          default but can be enabled by using
+          <code class="literal">hardware.pulseaudio.package = pkgs.pulseaudioFull;</code>.
+          Existing 3rd party modules that provided similar
+          functionality, like <code class="literal">pulseaudio-modules-bt</code>
+          or <code class="literal">pulseaudio-hsphfpd</code> are deprecated and
+          have been removed.
+        </p></li><li class="listitem"><p>
           The new
           <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#sec-postgresqlTestHook" target="_top"><code class="literal">postgresqlTestHook</code></a>
           runs a PostgreSQL server for the duration of package checks.
@@ -935,6 +948,13 @@
           you refer to. If you don’t need them update your commands from
           <code class="literal">otelcontribcol</code> to
           <code class="literal">otelcorecol</code> and enjoy a 7x smaller binary.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.zookeeper</code> has a new option
+          <code class="literal">jre</code> for specifying the JRE to start
+          zookeeper with. It defaults to the JRE that
+          <code class="literal">pkgs.zookeeper</code> was wrapped with, instead of
+          <code class="literal">pkgs.jre</code>. This changes the JRE to
+          <code class="literal">pkgs.jdk11_headless</code> by default.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.pgadmin</code> now refers to
           <code class="literal">pkgs.pgadmin4</code>. <code class="literal">pgadmin3</code>
