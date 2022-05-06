@@ -28,6 +28,28 @@
           King’s Cross), and GNOME Screenshot with a tool built into the
           Shell.
         </p></li><li class="listitem"><p>
+          <code class="literal">stdenv.mkDerivation</code> now supports a
+          self-referencing <code class="literal">finalAttrs:</code> parameter
+          containing the final <code class="literal">mkDerivation</code> arguments
+          including overrides. <code class="literal">drv.overrideAttrs</code> now
+          supports two parameters
+          <code class="literal">finalAttrs: previousAttrs:</code>. This allows
+          packaging configuration to be overridden in a consistent
+          manner by providing an alternative to
+          <code class="literal">rec {}</code> syntax.
+        </p><p>
+          Additionally, <code class="literal">passthru</code> can now reference
+          <code class="literal">finalAttrs.finalPackage</code> containing the
+          final package, including attributes such as the output paths
+          and <code class="literal">overrideAttrs</code>.
+        </p><p>
+          New language integrations can be simplified by overriding a
+          <span class="quote">“<span class="quote">prototype</span>”</span> package containing the
+          language-specific logic. This removes the need for a extra
+          layer of overriding for the <span class="quote">“<span class="quote">generic builder</span>”</span>
+          arguments, thus removing a usability problem and source of
+          error.
+        </p></li><li class="listitem"><p>
           PHP 8.1 is now available
         </p></li><li class="listitem"><p>
           Mattermost has been updated to extended support release 6.3,
@@ -591,6 +613,10 @@
           <code class="literal">22.05</code>. Files will need to be manually moved
           to the new location if the <code class="literal">stateVersion</code> is
           updated.
+        </p><p>
+          As of Synapse 1.58.0, the old groups/communities feature has
+          been disabled by default. It will be completely removed with
+          Synapse 1.61.0.
         </p></li><li class="listitem"><p>
           The Keycloak package (<code class="literal">pkgs.keycloak</code>) has
           been switched from the Wildfly version, which will soon be
