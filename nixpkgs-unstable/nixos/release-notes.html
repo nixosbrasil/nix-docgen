@@ -1969,8 +1969,9 @@
           <a class="link" href="options.html#opt-services.prometheus.exporters.smartctl.enable" target="_top">services.prometheus.exporters.smartctl</a>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-21.11-incompatibilities"></a>B.2.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The NixOS VM test framework,
-          <code class="literal">pkgs.nixosTest</code>/<code class="literal">make-test-python.nix</code>,
-          now requires detaching commands such as
+          <code class="literal">pkgs.nixosTest</code>/<code class="literal">make-test-python.nix</code>
+          (<code class="literal">pkgs.testers.nixosTest</code> since 22.05), now
+          requires detaching commands such as
           <code class="literal">succeed("foo &amp;")</code> and
           <code class="literal">succeed("foo | xclip -i")</code> to
           close stdout. This can be done with a redirect such as
