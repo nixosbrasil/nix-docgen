@@ -210,6 +210,11 @@
           through a USB cable. Available at
           <a class="link" href="options.html#opt-services.tetrd.enable">services.tetrd</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://upterm.dev" target="_top">uptermd</a>, an
+          open-source solution for sharing terminal sessions instantly
+          over the public internet via secure tunnels. Available at
+          <a class="link" href="options.html#opt-services.uptermd.enable">services.uptermd</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/mbrubeck/agate" target="_top">agate</a>,
           a very simple server for the Gemini hypertext protocol.
           Available as
@@ -1271,6 +1276,28 @@
           immediately if it would have been triggered at least once
           during the time when the timer was inactive.
         </p></li><li class="listitem"><p>
+          Mastodon now uses <code class="literal">services.redis.servers</code> to
+          start a new redis server, instead of using a global redis
+          server. This improves compatibility with other services that
+          use redis.
+        </p><p>
+          Note that this will recreate the redis database, although
+          according to the
+          <a class="link" href="https://docs.joinmastodon.org/admin/backups/" target="_top">Mastodon
+          docs</a>, this is almost harmless:
+        </p><div class="blockquote"><blockquote class="blockquote"><p>
+            Losing the Redis database is almost harmless: The only
+            irrecoverable data will be the contents of the Sidekiq
+            queues and scheduled retries of previously failed jobs. The
+            home and list feeds are stored in Redis, but can be
+            regenerated with tootctl.
+          </p></blockquote></div><p>
+          If you do want to save the redis database, you can use the
+          following commands:
+        </p><pre class="programlisting">
+redis-cli save
+cp /var/lib/redis/dump.rdb "/var/lib/redis-mastodon/dump.rdb"
+</pre></li><li class="listitem"><p>
           If you are using Wayland you can choose to use the Ozone
           Wayland support in Chrome and several Electron apps by setting
           the environment variable <code class="literal">NIXOS_OZONE_WL=1</code>
@@ -1597,6 +1624,11 @@
           <code class="literal">security.polkit.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
           desktop environments as needed.
+        </p></li><li class="listitem"><p>
+          <code class="literal">mercury</code> was updated to 22.01.1, which has
+          some breaking changes
+          (<a class="link" href="https://dl.mercurylang.org/release/release-notes-22.01.html" target="_top">Mercury
+          22.01 news</a>).
         </p></li><li class="listitem"><p>
           xfsprogs was update to version 5.15, which enables inobtcount
           and bigtime by default on filesystem creation. Support for
