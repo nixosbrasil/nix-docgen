@@ -210,6 +210,11 @@
           through a USB cable. Available at
           <a class="link" href="options.html#opt-services.tetrd.enable">services.tetrd</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://upterm.dev" target="_top">uptermd</a>, an
+          open-source solution for sharing terminal sessions instantly
+          over the public internet via secure tunnels. Available at
+          <a class="link" href="options.html#opt-services.uptermd.enable">services.uptermd</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/mbrubeck/agate" target="_top">agate</a>,
           a very simple server for the Gemini hypertext protocol.
           Available as
@@ -814,6 +819,13 @@
           <a class="link" href="https://autorestic.vercel.app/migration/1.4_1.5" target="_top">their
           migration guide</a> for more details.
         </p></li><li class="listitem"><p>
+          <code class="literal">teleport</code> has been upgraded to major version
+          9. Please see upstream
+          <a class="link" href="https://goteleport.com/docs/setup/operations/upgrading/" target="_top">upgrade
+          instructions</a> and
+          <a class="link" href="https://goteleport.com/docs/changelog/#900" target="_top">release
+          notes</a>.
+        </p></li><li class="listitem"><p>
           For <code class="literal">pkgs.python3.pkgs.ipython</code>, its direct
           dependency
           <code class="literal">pkgs.python3.pkgs.matplotlib-inline</code> (which
@@ -1264,6 +1276,28 @@
           immediately if it would have been triggered at least once
           during the time when the timer was inactive.
         </p></li><li class="listitem"><p>
+          Mastodon now uses <code class="literal">services.redis.servers</code> to
+          start a new redis server, instead of using a global redis
+          server. This improves compatibility with other services that
+          use redis.
+        </p><p>
+          Note that this will recreate the redis database, although
+          according to the
+          <a class="link" href="https://docs.joinmastodon.org/admin/backups/" target="_top">Mastodon
+          docs</a>, this is almost harmless:
+        </p><div class="blockquote"><blockquote class="blockquote"><p>
+            Losing the Redis database is almost harmless: The only
+            irrecoverable data will be the contents of the Sidekiq
+            queues and scheduled retries of previously failed jobs. The
+            home and list feeds are stored in Redis, but can be
+            regenerated with tootctl.
+          </p></blockquote></div><p>
+          If you do want to save the redis database, you can use the
+          following commands:
+        </p><pre class="programlisting">
+redis-cli save
+cp /var/lib/redis/dump.rdb "/var/lib/redis-mastodon/dump.rdb"
+</pre></li><li class="listitem"><p>
           If you are using Wayland you can choose to use the Ozone
           Wayland support in Chrome and several Electron apps by setting
           the environment variable <code class="literal">NIXOS_OZONE_WL=1</code>
@@ -1525,6 +1559,11 @@
           The <code class="literal">vscode-extensions.ionide.ionide-fsharp</code>
           package has been updated to 6.0.0 and now requires .NET 6.0.
         </p></li><li class="listitem"><p>
+          The <code class="literal">phpPackages.box</code> package has been
+          updated from 2.7.5 to 3.16.0. See the
+          <a class="link" href="https://github.com/box-project/box/blob/master/UPGRADE.md#from-27-to-30" target="_top">upgrade
+          guide</a> for more details.
+        </p></li><li class="listitem"><p>
           The <code class="literal">zrepl</code> package has been updated from
           0.4.0 to 0.5:
         </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
@@ -1585,6 +1624,11 @@
           <code class="literal">security.polkit.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
           desktop environments as needed.
+        </p></li><li class="listitem"><p>
+          <code class="literal">mercury</code> was updated to 22.01.1, which has
+          some breaking changes
+          (<a class="link" href="https://dl.mercurylang.org/release/release-notes-22.01.html" target="_top">Mercury
+          22.01 news</a>).
         </p></li><li class="listitem"><p>
           xfsprogs was update to version 5.15, which enables inobtcount
           and bigtime by default on filesystem creation. Support for
