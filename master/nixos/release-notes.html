@@ -1131,6 +1131,16 @@
           The <code class="literal">vpnc</code> package has been changed to use
           GnuTLS instead of OpenSSL by default for licensing reasons.
         </p></li><li class="listitem"><p>
+          The default version of <code class="literal">nextcloud</code> is
+          <span class="strong"><strong>nextcloud24</strong></span>. Please note
+          that it’s <span class="strong"><strong>not</strong></span> possible to
+          upgrade <code class="literal">nextcloud</code> across multiple major
+          versions! This means it’s e.g. not possible to upgrade from
+          <code class="literal">nextcloud22</code> to
+          <code class="literal">nextcloud24</code> in a single deploy and most
+          <code class="literal">21.11</code> users will have to upgrade to
+          <code class="literal">nextcloud23</code> first.
+        </p></li><li class="listitem"><p>
           <code class="literal">pkgs.vimPlugins.onedark-nvim</code> now refers to
           <a class="link" href="https://github.com/navarasu/onedark.nvim" target="_top">navarasu/onedark.nvim</a>
           (formerly refers to
