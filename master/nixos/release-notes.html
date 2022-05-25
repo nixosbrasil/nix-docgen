@@ -8,7 +8,7 @@
   </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-highlights"></a>B.1.1. Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
-    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           During cross-compilation, tests are now executed if the test
           suite can be executed by the build platform. This is the case
           when doing “native” cross-compilation where the build and host
@@ -25,6 +25,8 @@
           built for <code class="literal">stdenv.hostPlatform</code> (i.e.
           produced by <code class="literal">stdenv.cc</code>) by evaluating
           <code class="literal">stdenv.buildPlatform.canExecute stdenv.hostPlatform</code>.
+        </p></li><li class="listitem"><p>
+          PHP now defaults to PHP 8.1, updated from 8.0.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
           Please remove this line when you add the first item since
           docbook requires the section to be non-empty
@@ -131,13 +133,26 @@
           runs a PostgreSQL server for the duration of package checks.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://kops.sigs.k8s.io" target="_top"><code class="literal">kops</code></a>
-          defaults to 1.22.4, which will enable
+          defaults to 1.23.2, which will enable
           <a class="link" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html" target="_top">Instance
           Metadata Service Version 2</a> and require tokens on new
-          clusters with Kubernetes 1.22. This will increase security by
-          default, but may break some types of workloads. See the
-          <a class="link" href="https://kops.sigs.k8s.io/releases/1.22-notes/" target="_top">release
-          notes</a> for details.
+          clusters with Kubernetes &gt;= 1.22. This will increase
+          security by default, but may break some types of workloads.
+          The default behaviour for
+          <code class="literal">spec.kubeDNS.nodeLocalDNS.forwardToKubeDNS</code>
+          has changed from <code class="literal">true</code> to
+          <code class="literal">false</code>. Cilium now has
+          <code class="literal">disable-cnp-status-updates: true</code> by
+          default. Set this to false if you rely on the
+          CiliumNetworkPolicy status fields. Support for Kubernetes
+          1.17, the Lyft CNI, Weave CNI on Kubernetes &gt;= 1.23, CentOS
+          7 and 8, Debian 9, RHEL 7, and Ubuntu 16.05 (Xenial) has been
+          removed. See the
+          <a class="link" href="https://kops.sigs.k8s.io/releases/1.22-notes/" target="_top">1.22
+          release notes</a> and
+          <a class="link" href="https://kops.sigs.k8s.io/releases/1.23-notes/" target="_top">1.23
+          release notes</a> for more details, including other
+          significant changes.
         </p></li><li class="listitem"><p>
           Module authors can use
           <code class="literal">mkRenamedOptionModuleWith</code> to automate the
