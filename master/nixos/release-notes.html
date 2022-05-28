@@ -739,14 +739,16 @@
     };
 
     extraConfigFiles = [
-      /run/keys/matrix-synapse/secrets.yaml
+      "/run/keys/matrix-synapse/secrets.yaml"
     ];
   };
 }
 </pre><p>
           The secrets in your original config should be migrated into a
           YAML file that is included via
-          <code class="literal">extraConfigFiles</code>.
+          <code class="literal">extraConfigFiles</code>. The filename must be
+          quoted to prevent nix from copying it to the (world readable)
+          store.
         </p><p>
           Additionally a few option defaults have been synced up with
           upstream default values, for example the
