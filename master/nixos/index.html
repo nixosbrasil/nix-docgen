@@ -983,7 +983,7 @@ $ ssh -p 2222 localhost
     been built. These channels are:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         <span class="emphasis"><em>Stable channels</em></span>, such as
-        <a class="link" href="https://nixos.org/channels/nixos-21.11" target="_top"><code class="literal">nixos-21.11</code></a>.
+        <a class="link" href="https://nixos.org/channels/nixos-22.05" target="_top"><code class="literal">nixos-22.05</code></a>.
         These only get conservative bug fixes and package upgrades. For
         instance, a channel update may cause the Linux kernel on your
         system to be upgraded from 4.19.34 to 4.19.38 (a minor bug fix),
@@ -998,7 +998,7 @@ $ ssh -p 2222 localhost
         recommended for production systems.
       </p></li><li class="listitem"><p>
         <span class="emphasis"><em>Small channels</em></span>, such as
-        <a class="link" href="https://nixos.org/channels/nixos-21.11-small" target="_top"><code class="literal">nixos-21.11-small</code></a>
+        <a class="link" href="https://nixos.org/channels/nixos-22.05-small" target="_top"><code class="literal">nixos-22.05-small</code></a>
         or
         <a class="link" href="https://nixos.org/channels/nixos-unstable-small" target="_top"><code class="literal">nixos-unstable-small</code></a>.
         These are identical to the stable and unstable channels
@@ -1021,8 +1021,8 @@ $ ssh -p 2222 localhost
   </p><p>
     When you first install NixOS, you’re automatically subscribed to the
     NixOS channel that corresponds to your installation source. For
-    instance, if you installed from a 21.11 ISO, you will be subscribed
-    to the <code class="literal">nixos-21.11</code> channel. To see which NixOS
+    instance, if you installed from a 22.05 ISO, you will be subscribed
+    to the <code class="literal">nixos-22.05</code> channel. To see which NixOS
     channel you’re subscribed to, run the following as root:
   </p><pre class="programlisting">
 # nix-channel --list | grep nixos
@@ -1033,14 +1033,14 @@ nixos https://nixos.org/channels/nixos-unstable
 # nix-channel --add https://nixos.org/channels/channel-name nixos
 </pre><p>
     (Be sure to include the <code class="literal">nixos</code> parameter at the
-    end.) For instance, to use the NixOS 21.11 stable channel:
+    end.) For instance, to use the NixOS 22.05 stable channel:
   </p><pre class="programlisting">
-# nix-channel --add https://nixos.org/channels/nixos-21.11 nixos
+# nix-channel --add https://nixos.org/channels/nixos-22.05 nixos
 </pre><p>
     If you have a server, you may want to use the <span class="quote">“<span class="quote">small</span>”</span>
     channel instead:
   </p><pre class="programlisting">
-# nix-channel --add https://nixos.org/channels/nixos-21.11-small nixos
+# nix-channel --add https://nixos.org/channels/nixos-22.05-small nixos
 </pre><p>
     And if you want to live on the bleeding edge:
   </p><pre class="programlisting">
@@ -1083,7 +1083,7 @@ system.autoUpgrade.allowReboot = true;
       contains a different kernel, initrd or kernel modules. You can
       also specify a channel explicitly, e.g.
     </p><pre class="programlisting">
-system.autoUpgrade.channel = https://nixos.org/channels/nixos-21.11;
+system.autoUpgrade.channel = https://nixos.org/channels/nixos-22.05;
 </pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-building-image"></a>Chapter 5. Building a NixOS (Live) ISO</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-building-image-instructions">5.1. Practical Instructions</a></span></dt><dt><span class="section"><a href="index.html#sec-building-image-drivers">5.2. Additional drivers or firmware</a></span></dt><dt><span class="section"><a href="index.html#sec-building-image-tech-notes">5.3. Technical Notes</a></span></dt></dl></div><p>
     Default live installer configurations are available inside
     <code class="literal">nixos/modules/installer/cd-dvd</code>. For building
