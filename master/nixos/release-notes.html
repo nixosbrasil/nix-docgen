@@ -62,6 +62,14 @@
           providing the options
           <code class="literal">hardware.saleae-logic.enable</code> and
           <code class="literal">hardware.saleae-logic.package</code>.
+        </p></li><li class="listitem"><p>
+          Matrix Synapse now requires entries in the
+          <code class="literal">state_group_edges</code> table to be unique, in
+          order to prevent accidentally introducing duplicate
+          information (for example, because a database backup was
+          restored multiple times). If your Synapse database already has
+          duplicate rows in this table, this could fail with an error
+          and require manual remediation.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.
@@ -1474,6 +1482,22 @@
         </p><pre class="programlisting">
 redis-cli save
 cp /var/lib/redis/dump.rdb "/var/lib/redis-mastodon/dump.rdb"
+</pre></li><li class="listitem"><p>
+          Peertube now uses services.redis.servers to start a new redis
+          server, instead of using a global redis server. This improves
+          compatibility with other services that use redis.
+        </p><p>
+          Redis database is used for storage only cache and job queue.
+          More information can be found here -
+          <a class="link" href="https://docs.joinpeertube.org/contribute-architecture" target="_top">Peertube
+          architecture</a>.
+        </p><p>
+          If you do want to save the redis database, you can use the
+          following commands before upgrade OS:
+        </p><pre class="programlisting">
+redis-cli save
+sudo mkdir /var/lib/redis-peertube
+sudo cp /var/lib/redis/dump.rdb /var/lib/redis-peertube/dump.rdb
 </pre></li><li class="listitem"><p>
           If you are using Wayland you can choose to use the Ozone
           Wayland support in Chrome and several Electron apps by setting
