@@ -11026,6 +11026,17 @@ import ./make-test-python.nix {
       Python code…
       # fmt: on
     '';
+</pre><p>
+      Similarly, the type checking of test scripts can be disabled in
+      the following way:
+    </p><pre class="programlisting">
+import ./make-test-python.nix {
+  skipTypeCheck = true;
+  nodes.machine =
+    { config, pkgs, ... }:
+    { configuration…
+    };
+}
 </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-failing-tests-early"></a>70.1.2. Failing tests early</h3></div></div></div><p>
       To fail tests early when certain invariables are no longer met
       (instead of waiting for the build to time out), the decorator
