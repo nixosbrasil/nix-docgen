@@ -32,9 +32,19 @@
           Nix based app VMs. Available as
           <a class="link" href="options.html#opt-virtualisation.appvm.enable" target="_top">virtualisation.appvm</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://dragonflydb.io/" target="_top">dragonflydb</a>,
+          a modern replacement for Redis and Memcached. Available as
+          <a class="link" href="options.html#opt-services.dragonflydb.enable">services.dragonflydb</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/leetronics/infnoise" target="_top">infnoise</a>,
           a hardware True Random Number Generator dongle. Available as
           <a class="link" href="options.html#opt-services.infnoise.enable" target="_top">services.infnoise</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/aiberia/persistent-evdev" target="_top">persistent-evdev</a>,
+          a daemon to add virtual proxy devices that mirror a physical
+          input device but persist even if the underlying hardware is
+          hot-plugged. Available as
+          <a class="link" href="options.html#opt-services.persistent-evdev.enable">services.persistent-evdev</a>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The <code class="literal">isCompatible</code> predicate checking CPU
           compatibility is no longer exposed by the platform sets
