@@ -557,7 +557,73 @@ nix-build -A netboot.x86_64-linux '&lt;nixpkgs/nixos/release.nix&gt;'
     products from hydra at which point we will update this documentation
     with instructions on how to obtain them either for placing on a
     dedicated TFTP server or to boot them directly over the internet.
-  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-instaling-virtualbox-guest"></a>2.5.3. Installing in a VirtualBox guest</h3></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-booting-via-kexec"></a>2.5.3. <span class="quote">“<span class="quote">Booting</span>”</span> into NixOS via kexec</h3></div></div></div><p>
+    In some cases, your system might already be booted into/preinstalled
+    with another Linux distribution, and booting NixOS by attaching an
+    installation image is quite a manual process.
+  </p><p>
+    This is particularly useful for (cloud) providers where you can’t
+    boot a custom image, but get some Debian or Ubuntu installation.
+  </p><p>
+    In these cases, it might be easier to use <code class="literal">kexec</code>
+    to <span class="quote">“<span class="quote">jump into NixOS</span>”</span> from the running system, which
+    only assumes <code class="literal">bash</code> and <code class="literal">kexec</code> to
+    be installed on the machine.
+  </p><p>
+    Note that kexec may not work correctly on some hardware, as devices
+    are not fully re-initialized in the process. In practice, this
+    however is rarely the case.
+  </p><p>
+    To build the necessary files from your current version of nixpkgs,
+    you can run:
+  </p><pre class="programlisting">
+nix-build -A kexec.x86_64-linux '&lt;nixpkgs/nixos/release.nix&gt;'
+</pre><p>
+    This will create a <code class="literal">result</code> directory containing
+    the following:
+  </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <code class="literal">bzImage</code> (the Linux kernel)
+      </p></li><li class="listitem"><p>
+        <code class="literal">initrd</code> (the initrd file)
+      </p></li><li class="listitem"><p>
+        <code class="literal">kexec-boot</code> (a shellscript invoking
+        <code class="literal">kexec</code>)
+      </p></li></ul></div><p>
+    These three files are meant to be copied over to the other already
+    running Linux Distribution.
+  </p><p>
+    Note it’s symlinks pointing elsewhere, so <code class="literal">cd</code> in,
+    and use <code class="literal">scp * root@$destination</code> to copy it over,
+    rather than rsync.
+  </p><p>
+    Once you finished copying, execute <code class="literal">kexec-boot</code>
+    <span class="emphasis"><em>on the destination</em></span>, and after some seconds, the
+    machine should be booting into an (ephemeral) NixOS installation
+    medium.
+  </p><p>
+    In case you want to describe your own system closure to kexec into,
+    instead of the default installer image, you can build your own
+    <code class="literal">configuration.nix</code>:
+  </p><pre class="programlisting">
+{ modulesPath, ... }: {
+  imports = [
+    (modulesPath + "/installer/netboot/netboot-minimal.nix")
+  ];
+
+  services.openssh.enable = true;
+  users.users.root.openssh.authorizedKeys.keys = [
+    "my-ssh-pubkey"
+  ];
+}
+</pre><pre class="programlisting">
+nix-build '&lt;nixpkgs/nixos&gt;' \
+  --arg configuration ./configuration.nix
+  --attr config.system.build.kexecTree
+</pre><p>
+    Make sure your <code class="literal">configuration.nix</code> does still
+    import <code class="literal">netboot-minimal.nix</code> (or
+    <code class="literal">netboot-base.nix</code>).
+  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-instaling-virtualbox-guest"></a>2.5.4. Installing in a VirtualBox guest</h3></div></div></div><p>
     Installing NixOS into a VirtualBox guest is convenient for users who
     want to try NixOS without installing it on bare metal. If you want
     to use a pre-made VirtualBox appliance, it is available at
@@ -612,7 +678,7 @@ boot.initrd.checkJournalingFS = false;
 }
 </pre><p>
     The folder will be available directly under the root directory.
-  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-installing-from-other-distro"></a>2.5.4. Installing from another Linux distribution</h3></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-installing-from-other-distro"></a>2.5.5. Installing from another Linux distribution</h3></div></div></div><p>
     Because Nix (the package manager) &amp; Nixpkgs (the Nix packages
     collection) can both be installed on any (most?) Linux
     distributions, they can be used to install NixOS in various creative
@@ -865,7 +931,7 @@ sudo rm -rf /old-root
         <a class="link" href="https://github.com/elitak/nixos-infect" target="_top">nixos-infect</a>
         uses the lustrate process to convert Digital Ocean droplets to
         NixOS from other distributions automatically.
-      </p></li></ol></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-installing-behind-proxy"></a>2.5.5. Installing behind a proxy</h3></div></div></div><p>
+      </p></li></ol></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-installing-behind-proxy"></a>2.5.6. Installing behind a proxy</h3></div></div></div><p>
     To install NixOS behind a proxy, do the following before running
     <code class="literal">nixos-install</code>.
   </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
