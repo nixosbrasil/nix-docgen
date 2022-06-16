@@ -9290,7 +9290,34 @@ services.xserver.displayManager.enable = mkOption {
                 non-<code class="literal">config</code> section requires using a
                 function:
                 <code class="literal">the-submodule = { ... }: { options = { ... }; }</code>.
-              </p></li></ul></div></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-types-composed"></a>66.2.3. Composed Types</h3></div></div></div><p>
+              </p></li></ul></div></dd><dt><span class="term">
+          <code class="literal">types.deferredModule</code>
+        </span></dt><dd><p>
+            Whereas <code class="literal">submodule</code> represents an option
+            tree, <code class="literal">deferredModule</code> represents a module
+            value, such as a module file or a configuration.
+          </p><p>
+            It can be set multiple times.
+          </p><p>
+            Module authors can use its value in
+            <code class="literal">imports</code>, in
+            <code class="literal">submoduleWith</code><span class="quote">“<span class="quote">s
+            <code class="literal">modules</code> or in
+            <code class="literal">evalModules</code></span>”</span>
+            <code class="literal">modules</code> parameter, among other places.
+          </p><p>
+            Note that <code class="literal">imports</code> must be evaluated
+            before the module fixpoint. Because of this, deferred
+            modules can only be imported into <span class="quote">“<span class="quote">other</span>”</span>
+            fixpoints, such as submodules.
+          </p><p>
+            One use case for this type is the type of a
+            <span class="quote">“<span class="quote">default</span>”</span> module that allow the user to affect
+            all submodules in an <code class="literal">attrsOf submodule</code> at
+            once. This is more convenient and discoverable than
+            expecting the module user to type-merge with the
+            <code class="literal">attrsOf submodule</code> option.
+          </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-types-composed"></a>66.2.3. Composed Types</h3></div></div></div><p>
       Composed types are types that take a type as parameter.
       <code class="literal">listOf int</code> and
       <code class="literal">either int str</code> are examples of composed types.
