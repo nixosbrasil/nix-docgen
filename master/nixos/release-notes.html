@@ -26,6 +26,47 @@
           produced by <code class="literal">stdenv.cc</code>) by evaluating
           <code class="literal">stdenv.buildPlatform.canExecute stdenv.hostPlatform</code>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">nixpkgs.hostPlatform</code> and
+          <code class="literal">nixpkgs.buildPlatform</code> options have been
+          added. These cover and override the
+          <code class="literal">nixpkgs.{system,localSystem,crossSystem}</code>
+          options.
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              <code class="literal">hostPlatform</code> is the platform or
+              <span class="quote">“<span class="quote"><code class="literal">system</code></span>”</span> string of the
+              NixOS system described by the configuration.
+            </p></li><li class="listitem"><p>
+              <code class="literal">buildPlatform</code> is the platform that is
+              responsible for building the NixOS configuration. It
+              defaults to the <code class="literal">hostPlatform</code>, for a
+              non-cross build configuration. To cross compile, set
+              <code class="literal">buildPlatform</code> to a different value.
+            </p></li></ul></div><p>
+          The new options convey the same information, but with fewer
+          options, and following the Nixpkgs terminology.
+        </p><p>
+          The existing options
+          <code class="literal">nixpkgs.{system,localSystem,crossSystem}</code>
+          have not been formally deprecated, to allow for evaluation of
+          the change and to allow for a transition period so that in
+          time the ecosystem can switch without breaking compatibility
+          with any supported NixOS release.
+        </p></li><li class="listitem"><p>
+          <code class="literal">nixos-generate-config</code> now generates
+          configurations that can be built in pure mode. This is
+          achieved by setting the new
+          <code class="literal">nixpkgs.hostPlatform</code> option.
+        </p><p>
+          You may have to unset the <code class="literal">system</code> parameter
+          in <code class="literal">lib.nixosSystem</code>, or similarly remove
+          definitions of the
+          <code class="literal">nixpkgs.{system,localSystem,crossSystem}</code>
+          options.
+        </p><p>
+          Alternatively, you can remove the
+          <code class="literal">hostPlatform</code> line and use NixOS like you
+          would in NixOS 22.05 and earlier.
+        </p></li><li class="listitem"><p>
           PHP now defaults to PHP 8.1, updated from 8.0.
         </p></li><li class="listitem"><p>
           <code class="literal">hardware.nvidia</code> has a new option
@@ -114,6 +155,11 @@
           <code class="literal">k3s</code> no longer supports docker as runtime
           due to upstream dropping support.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          The <code class="literal">xplr</code> package has been updated from
+          0.18.0 to 0.19.0, which brings some breaking changes. See the
+          <a class="link" href="https://github.com/sayanarijit/xplr/releases/tag/v0.19.0" target="_top">upstream
+          release notes</a> for more details.
+        </p></li><li class="listitem"><p>
           A new module was added for the Saleae Logic device family,
           providing the options
           <code class="literal">hardware.saleae-logic.enable</code> and
@@ -126,6 +172,9 @@
           restored multiple times). If your Synapse database already has
           duplicate rows in this table, this could fail with an error
           and require manual remediation.
+        </p></li><li class="listitem"><p>
+          <code class="literal">zfs</code> was updated from 2.1.4 to 2.1.5,
+          enabling it to be used with Linux kernel 5.18.
         </p></li><li class="listitem"><p>
           memtest86+ was updated from 5.00-coreboot-002 to 6.00-beta2.
           It is now the upstream version from https://www.memtest.org/,
