@@ -93,6 +93,16 @@
           you can replace <code class="literal">foo.isPowerPC</code> with
           <code class="literal">(with foo; isPower &amp;&amp; is32bit &amp;&amp; isBigEndian)</code>.
         </p></li><li class="listitem"><p>
+          The Barco ClickShare driver/client package
+          <code class="literal">pkgs.clickshare-csc1</code> and the option
+          <code class="literal">programs.clickshare-csc1.enable</code> have been
+          removed, as it requires <code class="literal">qt4</code>, which reached
+          its end-of-life 2015 and will no longer be supported by
+          nixpkgs.
+          <a class="link" href="https://www.barco.com/de/support/knowledge-base/4380-can-i-use-linux-os-with-clickshare-base-units" target="_top">According
+          to Barco</a> many of their base unit models can be used
+          with Google Chrome and the Google Cast extension.
+        </p></li><li class="listitem"><p>
           PHP 7.4 is no longer supported due to upstream not supporting
           this version for the entire lifecycle of the 22.11 release.
         </p></li><li class="listitem"><p>
