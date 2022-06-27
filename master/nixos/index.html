@@ -2803,7 +2803,7 @@ other::---
         get more diagnostic information. For example, OpenCL can be
         tested with <code class="literal">LD_DEBUG=files clinfo</code>, which
         should report missing symbols.
-      </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-xfce"></a>Chapter 13. Xfce Desktop Environment</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-xfce-thunar-plugins">13.1. Thunar Plugins</a></span></dt><dt><span class="section"><a href="index.html#sec-xfce-troubleshooting">13.2. Troubleshooting</a></span></dt></dl></div><p>
+      </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-xfce"></a>Chapter 13. Xfce Desktop Environment</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-xfce-thunar-plugins">13.1. Thunar</a></span></dt><dt><span class="section"><a href="index.html#sec-xfce-troubleshooting">13.2. Troubleshooting</a></span></dt></dl></div><p>
     To enable the Xfce Desktop Environment, set
   </p><pre class="programlisting">
 services.xserver.desktopManager.xfce.enable = true;
@@ -2824,11 +2824,16 @@ services.picom = {
     manually (system wide), put them into your
     <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a> from
     <code class="literal">pkgs.xfce</code>.
-  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-xfce-thunar-plugins"></a>13.1. Thunar Plugins</h2></div></div></div><p>
-      If you'd like to add extra plugins to Thunar, add them to
-      <a class="xref" href="options.html#opt-services.xserver.desktopManager.xfce.thunarPlugins"><code class="option">services.xserver.desktopManager.xfce.thunarPlugins</code></a>.
-      You shouldn't just add them to
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-xfce-thunar-plugins"></a>13.1. Thunar</h2></div></div></div><p>
+      Thunar (the Xfce file manager) is automatically enabled when Xfce
+      is enabled. To enable Thunar without enabling Xfce, use the
+      configuration option <a class="xref" href="options.html#opt-programs.thunar.enable"><code class="option">programs.thunar.enable</code></a>
+      instead of simply adding <code class="literal">pkgs.xfce.thunar</code> to
       <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>.
+    </p><p>
+      If you'd like to add extra plugins to Thunar, add them to
+      <a class="xref" href="options.html#opt-programs.thunar.plugins"><code class="option">programs.thunar.plugins</code></a>. You shouldn't just
+      add them to <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-xfce-troubleshooting"></a>13.2. Troubleshooting</h2></div></div></div><p>
       Even after enabling udisks2, volume management might not work.
       Thunar and/or the desktop takes time to show up. Thunar will spit
