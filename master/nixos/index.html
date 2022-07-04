@@ -1914,33 +1914,40 @@ nixpkgs.config.packageOverrides = pkgs:
     recursion.)
   </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-custom-packages"></a>7.1.2. Adding Custom Packages</h3></div></div></div><p>
     It’s possible that a package you need is not available in NixOS. In
-    that case, you can do two things. First, you can clone the Nixpkgs
-    repository, add the package to your clone, and (optionally) submit a
-    patch or pull request to have it accepted into the main Nixpkgs
-    repository. This is described in detail in the
-    <a class="link" href="https://nixos.org/nixpkgs/manual" target="_top">Nixpkgs
-    manual</a>. In short, you clone Nixpkgs:
-  </p><pre class="programlisting">
+    that case, you can do two things. Either you can package it with
+    Nix, or you can try to use prebuilt packages from upstream. Due to
+    the peculiarities of NixOS, it is important to note that building
+    software from source is often easier than using pre-built
+    executables.
+  </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-custom-packages-nix"></a>7.1.2.1. Building with Nix</h4></div></div></div><p>
+      This can be done either in-tree or out-of-tree. For an in-tree
+      build, you can clone the Nixpkgs repository, add the package to
+      your clone, and (optionally) submit a patch or pull request to
+      have it accepted into the main Nixpkgs repository. This is
+      described in detail in the
+      <a class="link" href="https://nixos.org/nixpkgs/manual" target="_top">Nixpkgs
+      manual</a>. In short, you clone Nixpkgs:
+    </p><pre class="programlisting">
 $ git clone https://github.com/NixOS/nixpkgs
 $ cd nixpkgs
 </pre><p>
-    Then you write and test the package as described in the Nixpkgs
-    manual. Finally, you add it to
-    <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>, e.g.
-  </p><pre class="programlisting">
+      Then you write and test the package as described in the Nixpkgs
+      manual. Finally, you add it to
+      <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>, e.g.
+    </p><pre class="programlisting">
 environment.systemPackages = [ pkgs.my-package ];
 </pre><p>
-    and you run <code class="literal">nixos-rebuild</code>, specifying your own
-    Nixpkgs tree:
-  </p><pre class="programlisting">
+      and you run <code class="literal">nixos-rebuild</code>, specifying your own
+      Nixpkgs tree:
+    </p><pre class="programlisting">
 # nixos-rebuild switch -I nixpkgs=/path/to/my/nixpkgs
 </pre><p>
-    The second possibility is to add the package outside of the Nixpkgs
-    tree. For instance, here is how you specify a build of the
-    <a class="link" href="https://www.gnu.org/software/hello/" target="_top">GNU
-    Hello</a> package directly in
-    <code class="literal">configuration.nix</code>:
-  </p><pre class="programlisting">
+      The second possibility is to add the package outside of the
+      Nixpkgs tree. For instance, here is how you specify a build of the
+      <a class="link" href="https://www.gnu.org/software/hello/" target="_top">GNU
+      Hello</a> package directly in
+      <code class="literal">configuration.nix</code>:
+    </p><pre class="programlisting">
 environment.systemPackages =
   let
     my-hello = with pkgs; stdenv.mkDerivation rec {
@@ -1953,13 +1960,13 @@ environment.systemPackages =
   in
   [ my-hello ];
 </pre><p>
-    Of course, you can also move the definition of
-    <code class="literal">my-hello</code> into a separate Nix expression, e.g.
-  </p><pre class="programlisting">
+      Of course, you can also move the definition of
+      <code class="literal">my-hello</code> into a separate Nix expression, e.g.
+    </p><pre class="programlisting">
 environment.systemPackages = [ (import ./my-hello.nix) ];
 </pre><p>
-    where <code class="literal">my-hello.nix</code> contains:
-  </p><pre class="programlisting">
+      where <code class="literal">my-hello.nix</code> contains:
+    </p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {}; # bring all of Nixpkgs into scope
 
 stdenv.mkDerivation rec {
@@ -1970,12 +1977,32 @@ stdenv.mkDerivation rec {
   };
 }
 </pre><p>
-    This allows testing the package easily:
-  </p><pre class="programlisting">
+      This allows testing the package easily:
+    </p><pre class="programlisting">
 $ nix-build my-hello.nix
 $ ./result/bin/hello
 Hello, world!
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-ad-hoc-packages"></a>7.2. Ad-Hoc Package Management</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-custom-packages-prebuilt"></a>7.1.2.2. Using pre-built executables</h4></div></div></div><p>
+      Most pre-built executables will not work on NixOS. There are two
+      notable exceptions: flatpaks and AppImages. For flatpaks see the
+      <a class="link" href="index.html#module-services-flatpak" title="Chapter 46. Flatpak">dedicated section</a>.
+      AppImages will not run <span class="quote">“<span class="quote">as-is</span>”</span> on NixOS. First you
+      need to install <code class="literal">appimage-run</code>: add to
+      <code class="literal">/etc/nixos/configuration.nix</code>
+    </p><pre class="programlisting">
+environment.systemPackages = [ pkgs.appimage-run ];
+</pre><p>
+      Then instead of running the AppImage <span class="quote">“<span class="quote">as-is</span>”</span>, run
+      <code class="literal">appimage-run foo.appimage</code>.
+    </p><p>
+      To make other pre-built executables work on NixOS, you need to
+      package them with Nix and special helpers like
+      <code class="literal">autoPatchelfHook</code> or
+      <code class="literal">buildFHSUserEnv</code>. See the
+      <a class="link" href="https://nixos.org/nixpkgs/manual" target="_top">Nixpkgs
+      manual</a> for details. This is complex and often doing a
+      source build is easier.
+    </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-ad-hoc-packages"></a>7.2. Ad-Hoc Package Management</h2></div></div></div><p>
     With the command <code class="literal">nix-env</code>, you can install and
     uninstall packages from the command line. For instance, to install
     Mozilla Thunderbird:
