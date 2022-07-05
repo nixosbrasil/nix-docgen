@@ -5591,7 +5591,7 @@ services.gitlab = {
 </p><pre class="screen">
 <code class="prompt">$ </code>sudo -u git -H gitlab-rake -T
 </pre><p>
-   </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-matrix"></a>Chapter 40. Matrix</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-matrix-synapse">40.1. Synapse Homeserver</a></span></dt><dt><span class="section"><a href="index.html#module-services-matrix-element-web">40.2. Element (formerly known as Riot) Web Client</a></span></dt></dl></div><p>
+   </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-matrix"></a>Chapter 40. Matrix</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-matrix-synapse">40.1. Synapse Homeserver</a></span></dt><dt><span class="section"><a href="index.html#module-services-matrix-register-users">40.2. Registering Matrix users</a></span></dt><dt><span class="section"><a href="index.html#module-services-matrix-element-web">40.3. Element (formerly known as Riot) Web Client</a></span></dt></dl></div><p>
   <a class="link" href="https://matrix.org/" target="_top">Matrix</a> is an open standard for
   interoperable, decentralised, real-time communication over IP. It can be used
   to power Instant Messaging, VoIP/WebRTC signalling, Internet of Things
@@ -5615,21 +5615,26 @@ services.gitlab = {
    <a class="link" href="https://github.com/matrix-org/synapse#synapse-installation" target="_top">
    installation instructions of Synapse </a>.
 </p><pre class="programlisting">
-{ pkgs, lib, ... }:
+{ pkgs, lib, config, ... }:
 let
-  fqdn =
-    let
-      join = hostName: domain: hostName + lib.optionalString (domain != null) ".${domain}";
-    in join config.networking.hostName config.networking.domain;
-in {
-  networking = {
-    <a class="link" href="options.html#opt-networking.hostName">hostName</a> = "myhostname";
-    <a class="link" href="options.html#opt-networking.domain">domain</a> = "example.org";
+  fqdn = "${config.networking.hostName}.${config.networking.domain}";
+  clientConfig = {
+    "m.homeserver".base_url = "https://${fqdn}";
+    "m.identity_server" = {};
   };
-  <a class="link" href="options.html#opt-networking.firewall.allowedTCPPorts">networking.firewall.allowedTCPPorts</a> = [ 80 443 ];
+  serverConfig."m.server" = "${config.services.matrix-synapse.settings.server_name}:443";
+  mkWellKnown = data: ''
+    add_header Content-Type application/json;
+    add_header Access-Control-Allow-Origin *;
+    return 200 '${builtins.toJSON data}';
+  '';
+in {
+  <a class="xref" href="options.html#opt-networking.hostName"><code class="option">networking.hostName</code></a> = "myhostname";
+  <a class="xref" href="options.html#opt-networking.domain"><code class="option">networking.domain</code></a> = "example.org";
+  <a class="xref" href="options.html#opt-networking.firewall.allowedTCPPorts"><code class="option">networking.firewall.allowedTCPPorts</code></a> = [ 80 443 ];
 
-  <a class="link" href="options.html#opt-services.postgresql.enable">services.postgresql.enable</a> = true;
-  <a class="link" href="options.html#opt-services.postgresql.initialScript">services.postgresql.initialScript</a> = pkgs.writeText "synapse-init.sql" ''
+  <a class="xref" href="options.html#opt-services.postgresql.enable"><code class="option">services.postgresql.enable</code></a> = true;
+  <a class="xref" href="options.html#opt-services.postgresql.initialScript"><code class="option">services.postgresql.initialScript</code></a> = pkgs.writeText "synapse-init.sql" ''
     CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD 'synapse';
     CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
       TEMPLATE template0
@@ -5639,96 +5644,78 @@ in {
 
   services.nginx = {
     <a class="link" href="options.html#opt-services.nginx.enable">enable</a> = true;
-    # only recommendedProxySettings and recommendedGzipSettings are strictly required,
-    # but the rest make sense as well
     <a class="link" href="options.html#opt-services.nginx.recommendedTlsSettings">recommendedTlsSettings</a> = true;
     <a class="link" href="options.html#opt-services.nginx.recommendedOptimisation">recommendedOptimisation</a> = true;
     <a class="link" href="options.html#opt-services.nginx.recommendedGzipSettings">recommendedGzipSettings</a> = true;
     <a class="link" href="options.html#opt-services.nginx.recommendedProxySettings">recommendedProxySettings</a> = true;
-
     <a class="link" href="options.html#opt-services.nginx.virtualHosts">virtualHosts</a> = {
-      # This host section can be placed on a different host than the rest,
-      # i.e. to delegate from the host being accessible as ${config.networking.domain}
-      # to another host actually running the Matrix homeserver.
-      "${config.networking.domain}" = {
+      "${config.networking.domain}" = { <a id="ex-matrix-synapse-dns"></a><span><img src="images/callouts/1.svg" alt="1" border="0" /></span>
         <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.enableACME">enableACME</a> = true;
         <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.forceSSL">forceSSL</a> = true;
-
-        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.extraConfig">locations."= /.well-known/matrix/server".extraConfig</a> =
-          let
-            # use 443 instead of the default 8448 port to unite
-            # the client-server and server-server port for simplicity
-            server = { "m.server" = "${fqdn}:443"; };
-          in ''
-            add_header Content-Type application/json;
-            return 200 '${builtins.toJSON server}';
-          '';
-        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.extraConfig">locations."= /.well-known/matrix/client".extraConfig</a> =
-          let
-            client = {
-              "m.homeserver" =  { "base_url" = "https://${fqdn}"; };
-              "m.identity_server" =  { "base_url" = "https://vector.im"; };
-            };
-          # ACAO required to allow element-web on any URL to request this json file
-          in ''
-            add_header Content-Type application/json;
-            add_header Access-Control-Allow-Origin *;
-            return 200 '${builtins.toJSON client}';
-          '';
+        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.extraConfig">locations."= /.well-known/matrix/server".extraConfig</a> = mkWellKnown serverConfig; <a id="ex-matrix-synapse-well-known-server"></a><span><img src="images/callouts/2.svg" alt="2" border="0" /></span>
+        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.extraConfig">locations."= /.well-known/matrix/client".extraConfig</a> = mkWellKnown clientConfig; <a id="ex-matrix-synapse-well-known-client"></a><span><img src="images/callouts/3.svg" alt="3" border="0" /></span>
       };
-
-      # Reverse proxy for Matrix client-server and server-server communication
-      ${fqdn} = {
+      "${fqdn}" = {
         <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.enableACME">enableACME</a> = true;
         <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.forceSSL">forceSSL</a> = true;
-
-        # Or do a redirect instead of the 404, or whatever is appropriate for you.
-        # But do not put a Matrix Web client here! See the Element web section below.
-        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.extraConfig">locations."/".extraConfig</a> = ''
+        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.extraConfig">locations."/".extraConfig</a> = '' <a id="ex-matrix-synapse-rev-default"></a><span><img src="images/callouts/4.svg" alt="4" border="0" /></span>
           return 404;
         '';
-
-        # forward all Matrix API calls to the synapse Matrix homeserver
-        locations."/_matrix" = {
-          <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.proxyPass">proxyPass</a> = "http://[::1]:8008"; # without a trailing /
-        };
+        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.proxyPass">locations."/_matrix".proxyPass</a> = "http://[::1]:8008"; <a id="ex-matrix-synapse-rev-proxy-pass"></a><span><img src="images/callouts/5.svg" alt="5" border="0" /></span>
+        <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.locations._name_.proxyPass">locations."/_synapse/client".proxyPass</a> = "http://[::1]:8008"; <a id="ex-matrix-synapse-rev-client"></a><span><img src="images/callouts/6.svg" alt="6" border="0" /></span>
       };
     };
   };
+
   services.matrix-synapse = {
     <a class="link" href="options.html#opt-services.matrix-synapse.enable">enable</a> = true;
-    <a class="link" href="options.html#opt-services.matrix-synapse.settings.server_name">server_name</a> = config.networking.domain;
-    <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners">listeners</a> = [
-      {
-        <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.port">port</a> = 8008;
+    <a class="link" href="options.html#opt-services.matrix-synapse.settings.server_name">settings.server_name</a> = config.networking.domain;
+    <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners">settings.listeners</a> = [
+      { <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.port">port</a> = 8008;
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.bind_addresses">bind_addresses</a> = [ "::1" ];
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.type">type</a> = "http";
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.tls">tls</a> = false;
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.x_forwarded">x_forwarded</a> = true;
         <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources">resources</a> = [ {
-          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.names">names</a> = [ "client" ];
+          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.names">names</a> = [ "client" "federation" ];
           <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.compress">compress</a> = true;
-        } {
-          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.names">names</a> = [ "federation" ];
-          <a class="link" href="options.html#opt-services.matrix-synapse.settings.listeners._.resources._.compress">compress</a> = false;
         } ];
       }
     ];
   };
 }
 </pre><p>
-  </p><p>
-   If the <code class="code">A</code> and <code class="code">AAAA</code> DNS records on
-   <code class="literal">example.org</code> do not point on the same host as the records
-   for <code class="code">myhostname.example.org</code>, you can easily move the
-   <code class="code">/.well-known</code> virtualHost section of the code to the host that
-   is serving <code class="literal">example.org</code>, while the rest stays on
-   <code class="literal">myhostname.example.org</code> with no other changes required.
-   This pattern also allows to seamlessly move the homeserver from
-   <code class="literal">myhostname.example.org</code> to
-   <code class="literal">myotherhost.example.org</code> by only changing the
-   <code class="code">/.well-known</code> redirection target.
-  </p><p>
+  </p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#ex-matrix-synapse-dns"><span><img src="images/callouts/1.svg" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+     If the <code class="code">A</code> and <code class="code">AAAA</code> DNS records on
+     <code class="literal">example.org</code> do not point on the same host as the records
+     for <code class="code">myhostname.example.org</code>, you can easily move the
+     <code class="code">/.well-known</code> virtualHost section of the code to the host that
+     is serving <code class="literal">example.org</code>, while the rest stays on
+     <code class="literal">myhostname.example.org</code> with no other changes required.
+     This pattern also allows to seamlessly move the homeserver from
+     <code class="literal">myhostname.example.org</code> to
+     <code class="literal">myotherhost.example.org</code> by only changing the
+     <code class="code">/.well-known</code> redirection target.
+    </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-matrix-synapse-well-known-server"><span><img src="images/callouts/2.svg" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+     This section is not needed if the <a class="link" href="options.html#opt-services.matrix-synapse.settings.server_name">server_name</a>
+     of <span class="package">matrix-synapse</span> is equal to the domain (i.e.
+     <code class="literal">example.org</code> from <code class="literal">@foo:example.org</code>)
+     and the federation port is 8448.
+     Further reference can be found in the <a class="link" href="https://matrix-org.github.io/synapse/latest/delegate.html" target="_top">docs
+     about delegation</a>.
+    </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-matrix-synapse-well-known-client"><span><img src="images/callouts/3.svg" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+     This is usually needed for homeserver discovery (from e.g. other Matrix clients).
+     Further reference can be found in the <a class="link" href="https://spec.matrix.org/latest/client-server-api/#getwell-knownmatrixclient" target="_top">upstream docs</a>
+    </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-matrix-synapse-rev-default"><span><img src="images/callouts/4.svg" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+     It's also possible to do a redirect here or something else, this vhost is not
+     needed for Matrix. It's recommended though to <span class="emphasis"><em>not put</em></span> element
+     here, see also the <a class="link" href="index.html#ex-matrix-synapse-rev-default">section about Element</a>.
+    </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-matrix-synapse-rev-proxy-pass"><span><img src="images/callouts/5.svg" alt="5" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+     Forward all Matrix API calls to the synapse Matrix homeserver. A trailing slash
+     <span class="emphasis"><em>must not</em></span> be used here.
+    </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-matrix-synapse-rev-client"><span><img src="images/callouts/6.svg" alt="6" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+     Forward requests for e.g. SSO and password-resets.
+    </p></td></tr></table></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-register-users"></a>40.2. Registering Matrix users</h2></div></div></div><p>
    If you want to run a server with public registration by anybody, you can
    then enable <code class="literal"><a class="link" href="options.html#opt-services.matrix-synapse.settings.enable_registration">services.matrix-synapse.settings.enable_registration</a> =
    true;</code>. Otherwise, or you can generate a registration secret with
@@ -5737,7 +5724,7 @@ in {
    To create a new user or admin, run the following after you have set the secret
    and have rebuilt NixOS:
 </p><pre class="screen">
-<code class="prompt">$ </code>nix run nixpkgs.matrix-synapse
+<code class="prompt">$ </code>nix-shell -p matrix-synapse
 <code class="prompt">$ </code>register_new_matrix_user -k <em class="replaceable"><code>your-registration-shared-secret</code></em> http://localhost:8008
 <code class="prompt">New user localpart: </code><em class="replaceable"><code>your-username</code></em>
 <code class="prompt">Password:</code>
@@ -5746,12 +5733,36 @@ in {
 Success!
 </pre><p>
    In the example, this would create a user with the Matrix Identifier
-   <code class="literal">@your-username:example.org</code>. Note that the registration
-   secret ends up in the nix store and therefore is world-readable by any user
-   on your machine, so it makes sense to only temporarily activate the
-   <a class="link" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret">registration_shared_secret</a>
-   option until a better solution for NixOS is in place.
-  </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-element-web"></a>40.2. Element (formerly known as Riot) Web Client</h2></div></div></div><p>
+   <code class="literal">@your-username:example.org</code>.
+   </p><div class="warning"><h3 class="title">Warning</h3><p>
+     When using <a class="xref" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret"><code class="option">services.matrix-synapse.settings.registration_shared_secret</code></a>, the secret
+     will end up in the world-readable store. Instead it's recommended to deploy the secret
+     in an additional file like this:
+     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Create a file with the following contents:
+</p><pre class="programlisting">registration_shared_secret: your-very-secret-secret</pre><p>
+       </p></li><li class="listitem"><p>
+        Deploy the file with a secret-manager such as <a class="link" href="https://nixops.readthedocs.io/en/latest/overview.html#managing-keys" target="_top"><code class="option">deployment.keys</code></a>
+        from <span class="citerefentry"><span class="refentrytitle">nixops</span>(1)</span>
+        or <a class="link" href="https://github.com/Mic92/sops-nix/" target="_top">sops-nix</a> to
+        e.g. <code class="filename">/run/secrets/matrix-shared-secret</code> and ensure that it's readable
+        by <span class="package">matrix-synapse</span>.
+       </p></li><li class="listitem"><p>
+        Include the file like this in your configuration:
+</p><pre class="programlisting">
+{
+  <a class="xref" href="options.html#opt-services.matrix-synapse.extraConfigFiles"><code class="option">services.matrix-synapse.extraConfigFiles</code></a> = [
+    "/run/secrets/matrix-shared-secret"
+  ];
+}
+</pre><p>
+       </p></li></ul></div><p>
+    </p></div><p>
+  </p><div class="note"><h3 class="title">Note</h3><p>
+    It's also possible to user alternative authentication mechanism such as
+    <a class="link" href="https://github.com/matrix-org/matrix-synapse-ldap3" target="_top">LDAP (via <code class="literal">matrix-synapse-ldap3</code>)</a>
+    or <a class="link" href="https://matrix-org.github.io/synapse/latest/openid.html" target="_top">OpenID</a>.
+   </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-matrix-element-web"></a>40.3. Element (formerly known as Riot) Web Client</h2></div></div></div><p>
    <a class="link" href="https://github.com/vector-im/riot-web/" target="_top">Element Web</a> is
    the reference web client for Matrix and developed by the core team at
    matrix.org. Element was formerly known as Riot.im, see the
@@ -5779,25 +5790,22 @@ Success!
 
     <a class="link" href="options.html#opt-services.nginx.virtualHosts._name_.root">root</a> = pkgs.element-web.override {
       conf = {
-        default_server_config."m.homeserver" = {
-          "base_url" = "https://${fqdn}";
-          "server_name" = "${fqdn}";
-        };
+        default_server_config = clientConfig; # see `clientConfig` from the snippet above.
       };
     };
   };
 }
 </pre><p>
-  </p><p>
-   Note that the Element developers do not recommend running Element and your Matrix
-   homeserver on the same fully-qualified domain name for security reasons. In
-   the example, this means that you should not reuse the
-   <code class="literal">myhostname.example.org</code> virtualHost to also serve Element,
-   but instead serve it on a different subdomain, like
-   <code class="literal">element.example.org</code> in the example. See the
-   <a class="link" href="https://github.com/vector-im/riot-web#important-security-note" target="_top">Element
-   Important Security Notes</a> for more information on this subject.
-  </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-mjolnir"></a>Chapter 41. Mjolnir (Matrix Moderation Tool)</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-mjolnir-setup">41.1. Mjolnir Setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-mjolnir-matrix-synapse-antispam">41.2. Synapse Antispam Module</a></span></dt></dl></div><p>
+  </p><div class="note"><h3 class="title">Note</h3><p>
+    The Element developers do not recommend running Element and your Matrix
+    homeserver on the same fully-qualified domain name for security reasons. In
+    the example, this means that you should not reuse the
+    <code class="literal">myhostname.example.org</code> virtualHost to also serve Element,
+    but instead serve it on a different subdomain, like
+    <code class="literal">element.example.org</code> in the example. See the
+    <a class="link" href="https://github.com/vector-im/element-web/tree/v1.10.0#important-security-notes" target="_top">Element
+    Important Security Notes</a> for more information on this subject.
+   </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-mjolnir"></a>Chapter 41. Mjolnir (Matrix Moderation Tool)</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-mjolnir-setup">41.1. Mjolnir Setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-mjolnir-matrix-synapse-antispam">41.2. Synapse Antispam Module</a></span></dt></dl></div><p>
   This chapter will show you how to set up your own, self-hosted
   <a class="link" href="https://github.com/matrix-org/mjolnir" target="_top">Mjolnir</a>
   instance.
