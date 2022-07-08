@@ -199,6 +199,12 @@
           duplicate rows in this table, this could fail with an error
           and require manual remediation.
         </p></li><li class="listitem"><p>
+          <code class="literal">dockerTools.buildImage</code> deprecates the
+          misunderstood <code class="literal">contents</code> parameter, in favor
+          of <code class="literal">copyToRoot</code>. Use
+          <code class="literal">copyToRoot = buildEnv { ... };</code> or similar
+          if you intend to add packages to <code class="literal">/bin</code>.
+        </p></li><li class="listitem"><p>
           memtest86+ was updated from 5.00-coreboot-002 to 6.00-beta2.
           It is now the upstream version from https://www.memtest.org/,
           as coreboot’s fork is no longer available.
