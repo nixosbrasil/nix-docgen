@@ -11240,6 +11240,9 @@ import ./make-test-python.nix
 
   nodes = { };
 
+  # Type checking on extra packages doesn't work yet
+  skipTypeCheck = true;
+
   testScript = ''
     import numpy as np
     assert str(np.zeros(4) == "array([0., 0., 0., 0.])")
