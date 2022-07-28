@@ -1169,9 +1169,13 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-22.05;
   </p><p>
     However, if you are confident, you can opt to override those
     enforced values with <code class="literal">mkForce</code>.
-  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-building-image-instructions"></a>5.1. Practical Instructions</h2></div></div></div><pre class="programlisting">
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-building-image-instructions"></a>5.1. Practical Instructions</h2></div></div></div><p>
+      To build an ISO image for the channel
+      <code class="literal">nixos-unstable</code>:
+    </p><pre class="programlisting">
 $ git clone https://github.com/NixOS/nixpkgs.git
 $ cd nixpkgs/nixos
+$ git switch nixos-unstable
 $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd-dvd/installation-cd-minimal.nix default.nix
 </pre><p>
       To check the content of an ISO image, mount it like so:
