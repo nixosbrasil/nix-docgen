@@ -174,9 +174,17 @@
           PHP 7.4 is no longer supported due to upstream not supporting
           this version for the entire lifecycle of the 22.11 release.
         </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.cosign</code> does not provide the
+          <code class="literal">cosigned</code> binary anymore.
+        </p></li><li class="listitem"><p>
           riak package removed along with
           <code class="literal">services.riak</code> module, due to lack of
           maintainer to update the package.
+        </p></li><li class="listitem"><p>
+          xow package removed along with the
+          <code class="literal">hardware.xow</code> module, due to the project
+          being deprecated in favor of <code class="literal">xone</code>, which is
+          available via the <code class="literal">hardware.xone</code> module.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.graphite.api</code> and
           <code class="literal">services.graphite.beacon</code> NixOS options, and

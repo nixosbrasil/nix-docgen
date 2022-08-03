@@ -8314,9 +8314,9 @@ mkDerivation {
        </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="ex-buildGoModule"></a>17.13.1.1. Example for <code class="literal">buildGoModule</code></h4></div></div></div><p>
        In the following is an example expression using <code class="literal">buildGoModule</code>, the following arguments are of special significance to the function:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-         <code class="literal">vendorSha256</code>: is the hash of the output of the intermediate fetcher derivation. <code class="literal">vendorSha256</code> can also take <code class="literal">null</code> as an input. When <code class="literal">null</code> is used as a value, rather than fetching the dependencies and vendoring them, we use the vendoring included within the source repo. If you’d like to not have to update this field on dependency changes, run <code class="literal">go mod vendor</code> in your source repo and set <code class="literal">vendorSha256 = null;</code>
+         <code class="literal">vendorHash</code>: is the hash of the output of the intermediate fetcher derivation. <code class="literal">vendorHash</code> can also take <code class="literal">null</code> as an input. When <code class="literal">null</code> is used as a value, rather than fetching the dependencies and vendoring them, we use the vendoring included within the source repo. If you’d like to not have to update this field on dependency changes, run <code class="literal">go mod vendor</code> in your source repo and set <code class="literal">vendorHash = null;</code>
         </p></li><li class="listitem"><p>
-         <code class="literal">proxyVendor</code>: Fetches (go mod download) and proxies the vendor directory. This is useful if your code depends on c code and go mod tidy does not include the needed sources to build or if any dependency has case-insensitive conflicts which will produce platform dependant <code class="literal">vendorSha256</code> checksums.
+         <code class="literal">proxyVendor</code>: Fetches (go mod download) and proxies the vendor directory. This is useful if your code depends on c code and go mod tidy does not include the needed sources to build or if any dependency has case-insensitive conflicts which will produce platform dependant <code class="literal">vendorHash</code> checksums.
         </p></li></ul></div><pre class="programlisting">
 pet = buildGoModule rec {
   pname = "pet";
@@ -8329,7 +8329,7 @@ pet = buildGoModule rec {
     sha256 = "0m2fzpqxk7hrbxsgqplkg7h2p7gv6s1miymv3gvw0cz039skag0s";
   };
 
-  vendorSha256 = "1879j77k96684wi554rkjxydrj8g3hpp0kvxz03sd8dmwr3lh83j";
+  vendorHash = "sha256-ciBIR+a1oaYH+H1PcC8cD8ncfJczk1IiJ8iYNM+R6aA=";
 
   meta = with lib; {
     description = "Simple command-line snippet manager, written in Go";
@@ -8919,27 +8919,42 @@ node2nix --development -l package-lock.json
          </p></li><li class="listitem"><p>
           <code class="literal">node2nix</code> does not like missing packages from NPM. If you see something like <code class="literal">Cannot resolve version: vue-loader-v16@undefined</code> then you might want to try another tool. The package might have been pulled off of NPM.
          </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-yarn2nix"></a>17.19.6.2. yarn2nix</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-preparation"></a>17.19.6.2.1. Preparation</h5></div></div></div><p>
-        You will need at least a yarn.lock and yarn.nix file.
-       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-          Generate a yarn.lock in upstream if it is not already there.
-         </p></li><li class="listitem"><p>
-          <code class="literal">yarn2nix &gt; yarn.nix</code> will generate the dependencies in a Nix format.
-         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnPackage"></a>17.19.6.2.2. mkYarnPackage</h5></div></div></div><p>
-        This will by default try to generate a binary. For package only generating static assets (Svelte, Vue, React…), you will need to explicitly override the build step with your instructions. It’s important to use the <code class="literal">--offline</code> flag. For example if you script is <code class="literal">"build": "something"</code> in package.json use:
+        You will need at least a <code class="literal">yarn.lock</code> file. If upstream does not have one you need to generate it and reference it in your package definition.
+       </p><p>
+        If the downloaded files contain the <code class="literal">package.json</code> and <code class="literal">yarn.lock</code> files they can be used like this:
+       </p><pre class="programlisting">
+offlineCache = fetchYarnDeps {
+  yarnLock = src + "/yarn.lock";
+  sha256 = "....";
+};
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnPackage"></a>17.19.6.2.2. mkYarnPackage</h5></div></div></div><p>
+        <code class="literal">mkYarnPackage</code> will by default try to generate a binary. For package only generating static assets (Svelte, Vue, React, WebPack, …), you will need to explicitly override the build step with your instructions.
+       </p><p>
+        It’s important to use the <code class="literal">--offline</code> flag. For example if you script is <code class="literal">"build": "something"</code> in <code class="literal">package.json</code> use:
        </p><pre class="programlisting">
 buildPhase = ''
-  yarn build --offline
+  export HOME=$(mktemp -d)
+  yarn --offline build
 '';
 </pre><p>
         The dist phase is also trying to build a binary, the only way to override it is with:
        </p><pre class="programlisting">
 distPhase = "true";
 </pre><p>
-        The configure phase can sometimes fail because it tries to be too clever. One common override is:
+        The configure phase can sometimes fail because it makes many assumptions which may not always apply. One common override is:
        </p><pre class="programlisting">
-configurePhase = "ln -s $node_modules node_modules";
+configurePhase = ''
+  ln -s $node_modules node_modules
+'';
+</pre><p>
+        or if you need a writeable node_modules directory:
+       </p><pre class="programlisting">
+configurePhase = ''
+  cp -r $node_modules node_modules
+  chmod +w node_modules
+'';
 </pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnModules"></a>17.19.6.2.3. mkYarnModules</h5></div></div></div><p>
-        This will generate a derivation including the node_modules. If you have to build a derivation for an integrated web framework (rails, phoenix..), this is probably the easiest way. <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/servers/web-apps/plausible/default.nix#L39" target="_top">Plausible</a> offers a good example of how to do this.
+        This will generate a derivation including the <code class="literal">node_modules</code> directory. If you have to build a derivation for an integrated web framework (rails, phoenix..), this is probably the easiest way.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.21.7.3.5"></a>17.19.6.2.4. Overriding dependency behavior</h5></div></div></div><p>
         In the <code class="literal">mkYarnPackage</code> record the property <code class="literal">pkgConfig</code> can be used to override packages when you encounter problems building.
        </p><p>
