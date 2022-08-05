@@ -4270,7 +4270,7 @@ passthru.updateScript = [ ../../update.sh pname "--requested-release=unstable" ]
         The script will be usually run from the root of the Nixpkgs repository but you should not rely on that. Also note that the update scripts will be run in parallel by default; you should avoid running <code class="literal">git commit</code> or any other commands that cannot handle that.
        </p></div><p>
        For information about how to run the updates, execute <code class="literal">nix-shell maintainers/scripts/update.nix</code>.
-      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.4.2.6.5"></a>6.4.4. Recursive attributes in <code class="literal">mkDerivation</code></h3></div></div></div><p>
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="mkderivation-recursive-attributes"></a>6.4.4. Recursive attributes in <code class="literal">mkDerivation</code></h3></div></div></div><p>
       If you pass a function to <code class="literal">mkDerivation</code>, it will receive as its argument the final arguments, including the overrides when reinvoked via <code class="literal">overrideAttrs</code>. For example:
      </p><pre class="programlisting">
 mkDerivation (finalAttrs: {
@@ -4508,27 +4508,31 @@ installTargets = "install-bin install-doc";
         If set, files in <code class="literal">$out/sbin</code> are not moved to <code class="literal">$out/bin</code>. By default, they are.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripAllList"></a>6.5.8.1.6. <code class="literal">stripAllList</code></h5></div></div></div><p>
         List of directories to search for libraries and executables from which <span class="emphasis"><em>all</em></span> symbols should be stripped. By default, it’s empty. Stripping all symbols is risky, since it may remove not just debug symbols but also ELF information necessary for normal execution.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripAllFlags"></a>6.5.8.1.7. <code class="literal">stripAllFlags</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripAllListTarget"></a>6.5.8.1.7. <code class="literal">stripAllListTarget</code></h5></div></div></div><p>
+        Like <code class="literal">stripAllList</code>, but only applies to packages’ target platform. By default, it’s empty. Useful when supporting cross compilation.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripAllFlags"></a>6.5.8.1.8. <code class="literal">stripAllFlags</code></h5></div></div></div><p>
         Flags passed to the <code class="literal">strip</code> command applied to the files in the directories listed in <code class="literal">stripAllList</code>. Defaults to <code class="literal">-s</code> (i.e. <code class="literal">--strip-all</code>).
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripDebugList"></a>6.5.8.1.8. <code class="literal">stripDebugList</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripDebugList"></a>6.5.8.1.9. <code class="literal">stripDebugList</code></h5></div></div></div><p>
         List of directories to search for libraries and executables from which only debugging-related symbols should be stripped. It defaults to <code class="literal">lib lib32 lib64 libexec bin sbin</code>.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripDebugFlags"></a>6.5.8.1.9. <code class="literal">stripDebugFlags</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripDebugListTarget"></a>6.5.8.1.10. <code class="literal">stripDebugListTarget</code></h5></div></div></div><p>
+        Like <code class="literal">stripDebugList</code>, but only applies to packages’ target platform. By default, it’s empty. Useful when supporting cross compilation.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripDebugFlags"></a>6.5.8.1.11. <code class="literal">stripDebugFlags</code></h5></div></div></div><p>
         Flags passed to the <code class="literal">strip</code> command applied to the files in the directories listed in <code class="literal">stripDebugList</code>. Defaults to <code class="literal">-S</code> (i.e. <code class="literal">--strip-debug</code>).
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontPatchELF"></a>6.5.8.1.10. <code class="literal">dontPatchELF</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontPatchELF"></a>6.5.8.1.12. <code class="literal">dontPatchELF</code></h5></div></div></div><p>
         If set, the <code class="literal">patchelf</code> command is not used to remove unnecessary <code class="literal">RPATH</code> entries. Only applies to Linux.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontPatchShebangs"></a>6.5.8.1.11. <code class="literal">dontPatchShebangs</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontPatchShebangs"></a>6.5.8.1.13. <code class="literal">dontPatchShebangs</code></h5></div></div></div><p>
         If set, scripts starting with <code class="literal">#!</code> do not have their interpreter paths rewritten to paths in the Nix store. See <a class="xref" href="#patch-shebangs.sh" title="6.7.4. patch-shebangs.sh">Section 6.7.4, “<code class="literal">patch-shebangs.sh</code>”</a> on how patching shebangs works.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontPruneLibtoolFiles"></a>6.5.8.1.12. <code class="literal">dontPruneLibtoolFiles</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontPruneLibtoolFiles"></a>6.5.8.1.14. <code class="literal">dontPruneLibtoolFiles</code></h5></div></div></div><p>
         If set, libtool <code class="literal">.la</code> files associated with shared libraries won’t have their <code class="literal">dependency_libs</code> field cleared.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-forceShare"></a>6.5.8.1.13. <code class="literal">forceShare</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-forceShare"></a>6.5.8.1.15. <code class="literal">forceShare</code></h5></div></div></div><p>
         The list of directories that must be moved from <code class="literal">$out</code> to <code class="literal">$out/share</code>. Defaults to <code class="literal">man doc info</code>.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-setupHook"></a>6.5.8.1.14. <code class="literal">setupHook</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-setupHook"></a>6.5.8.1.16. <code class="literal">setupHook</code></h5></div></div></div><p>
         A package can export a <a class="link" href="#ssec-setup-hooks" title="6.7. Package setup hooks">setup hook</a> by setting this variable. The setup hook, if defined, is copied to <code class="literal">$out/nix-support/setup-hook</code>. Environment variables are then substituted in it using <code class="literal">substituteAll</code>.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-preFixup"></a>6.5.8.1.15. <code class="literal">preFixup</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-preFixup"></a>6.5.8.1.17. <code class="literal">preFixup</code></h5></div></div></div><p>
         Hook executed at the start of the fixup phase.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-postFixup"></a>6.5.8.1.16. <code class="literal">postFixup</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-postFixup"></a>6.5.8.1.18. <code class="literal">postFixup</code></h5></div></div></div><p>
         Hook executed at the end of the fixup phase.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="stdenv-separateDebugInfo"></a>6.5.8.1.17. <code class="literal">separateDebugInfo</code></h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="stdenv-separateDebugInfo"></a>6.5.8.1.19. <code class="literal">separateDebugInfo</code></h5></div></div></div><p>
         If set to <code class="literal">true</code>, the standard environment will enable debug information in C/C++ builds. After installation, the debug information will be separated from the executables and stored in the output named <code class="literal">debug</code>. (This output is enabled automatically; you don’t need to set the <code class="literal">outputs</code> attribute explicitly.) To be precise, the debug information is stored in <code class="literal">debug/lib/debug/.build-id/XX/YYYY…</code>, where &lt;XXYYYY…&gt; is the &lt;build ID&gt; of the binary — a SHA-1 hash of the contents of the binary. Debuggers like GDB use the build ID to look up the separated debug information.
        </p><p>
         For example, with GDB, you can add
@@ -4611,8 +4615,8 @@ substitute ./foo.in ./foo.out \
     --replace /usr/bin/bar $bar/bin/bar \
     --replace "a string containing spaces" "some other text" \
     --subst-var someVar
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="fun-substituteInPlace"></a>6.6.4. <code class="literal">substituteInPlace</code> &lt;file&gt; &lt;subs&gt;</h3></div></div></div><p>
-      Like <code class="literal">substitute</code>, but performs the substitutions in place on the file &lt;file&gt;.
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="fun-substituteInPlace"></a>6.6.4. <code class="literal">substituteInPlace</code> &lt;multiple files&gt; &lt;subs&gt;</h3></div></div></div><p>
+      Like <code class="literal">substitute</code>, but performs the substitutions in place on the files passed.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="fun-substituteAll"></a>6.6.5. <code class="literal">substituteAll</code> &lt;infile&gt; &lt;outfile&gt;</h3></div></div></div><p>
       Replaces every occurrence of <code class="literal">@varName@</code>, where &lt;varName&gt; is any environment variable, in &lt;infile&gt;, writing the result to &lt;outfile&gt;. For instance, if &lt;infile&gt; has the contents
      </p><pre class="programlisting">
@@ -4698,7 +4702,7 @@ patchShebangs --build configure
         </p></div><p>
         This mechanism ensures that the interpreter for a given script is always found and is exactly the one specified by the build.
        </p><p>
-        It can be disabled by setting <a class="link" href="#var-stdenv-dontPatchShebangs" title="6.5.8.1.11. dontPatchShebangs"><code class="literal">dontPatchShebangs</code></a>:
+        It can be disabled by setting <a class="link" href="#var-stdenv-dontPatchShebangs" title="6.5.8.1.13. dontPatchShebangs"><code class="literal">dontPatchShebangs</code></a>:
        </p><pre class="programlisting">
 stdenv.mkDerivation {
   # ...
@@ -5168,7 +5172,7 @@ outputs = [ "bin" "dev" "out" "doc" ];
 </pre><p>
      Often such a single line is enough. For each output an equally named environment variable is passed to the builder and contains the path in nix store for that output. Typically you also want to have the main <code class="literal">out</code> output, as it catches any files that didn’t get elsewhere.
     </p><div class="note"><h3 class="title">Note</h3><p>
-      There is a special handling of the <code class="literal">debug</code> output, described at <a class="xref" href="#stdenv-separateDebugInfo" title="6.5.8.1.17. separateDebugInfo">Section 6.5.8.1.17, “<code class="literal">separateDebugInfo</code>”</a>.
+      There is a special handling of the <code class="literal">debug</code> output, described at <a class="xref" href="#stdenv-separateDebugInfo" title="6.5.8.1.19. separateDebugInfo">Section 6.5.8.1.19, “<code class="literal">separateDebugInfo</code>”</a>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="multiple-output-file-binaries-first-convention"></a>8.4.1. “Binaries first”</h3></div></div></div><p>
       A commonly adopted convention in <code class="literal">nixpkgs</code> is that executables provided by the package are contained within its first output. This convention allows the dependent packages to reference the executables provided by packages in a uniform manner. For instance, provided with the knowledge that the <code class="literal">perl</code> package contains a <code class="literal">perl</code> executable it can be referenced as <code class="literal">${pkgs.perl}/bin/perl</code> within a Nix derivation that needs to execute a Perl script.
      </p><p>
@@ -5495,11 +5499,38 @@ stdenv.mkDerivation {
       </p></li><li class="listitem"><p>
        x86_64-darwin uses the 10.12 SDK by default, but some software is not compatible with that version of the SDK. In that case, the 11.0 SDK used by aarch64-darwin is available for use on x86_64-darwin. To use it, reference <code class="literal">apple_sdk_11_0</code> instead of <code class="literal">apple_sdk</code> in your derivation and use <code class="literal">pkgs.darwin.apple_sdk_11_0.callPackage</code> instead of <code class="literal">pkgs.callPackage</code>. On Linux, this will have the same effect as <code class="literal">pkgs.callPackage</code>, so you can use <code class="literal">pkgs.darwin.apple_sdk_11_0.callPackage</code> regardless of platform.
       </p></li></ul></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="id-1.5"></a>Part III. Builders</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-pkgs-fetchers">11. Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">12. Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-testers">13. Testers</a></span></dt><dt><span class="chapter"><a href="#chap-special">14. Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">15. Images</a></span></dt><dt><span class="chapter"><a href="#chap-hooks">16. Hooks reference</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">17. Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">18. Packages</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-pkgs-fetchers"></a>Chapter 11. Fetchers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#id-1.5.2.3">11.1. Caveats</a></span></dt><dt><span class="section"><a href="#fetchurl">11.2. <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code></a></span></dt><dt><span class="section"><a href="#fetchpatch">11.3. <code class="literal">fetchpatch</code></a></span></dt><dt><span class="section"><a href="#fetchsvn">11.4. <code class="literal">fetchsvn</code></a></span></dt><dt><span class="section"><a href="#fetchgit">11.5. <code class="literal">fetchgit</code></a></span></dt><dt><span class="section"><a href="#fetchfossil">11.6. <code class="literal">fetchfossil</code></a></span></dt><dt><span class="section"><a href="#fetchcvs">11.7. <code class="literal">fetchcvs</code></a></span></dt><dt><span class="section"><a href="#fetchhg">11.8. <code class="literal">fetchhg</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitea">11.9. <code class="literal">fetchFromGitea</code></a></span></dt><dt><span class="section"><a href="#fetchfromgithub">11.10. <code class="literal">fetchFromGitHub</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitlab">11.11. <code class="literal">fetchFromGitLab</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitiles">11.12. <code class="literal">fetchFromGitiles</code></a></span></dt><dt><span class="section"><a href="#fetchfrombitbucket">11.13. <code class="literal">fetchFromBitbucket</code></a></span></dt><dt><span class="section"><a href="#fetchfromsavannah">11.14. <code class="literal">fetchFromSavannah</code></a></span></dt><dt><span class="section"><a href="#fetchfromrepoorcz">11.15. <code class="literal">fetchFromRepoOrCz</code></a></span></dt><dt><span class="section"><a href="#fetchfromsourcehut">11.16. <code class="literal">fetchFromSourcehut</code></a></span></dt></dl></div><p>
-    When using Nix, you will frequently need to download source code and other files from the internet. For this purpose, Nix provides the <a class="link" href="https://nixos.org/manual/nix/stable/#fixed-output-drvs" target="_top"><span class="emphasis"><em>fixed output derivation</em></span></a> feature and Nixpkgs provides various functions that implement the actual fetching from various protocols and services.
+    Building software with Nix often requires downloading source code and other files from the internet. <code class="literal">nixpkgs</code> provides <span class="emphasis"><em>fetchers</em></span> for different protocols and services. Fetchers are functions that simplify downloading files.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="id-1.5.2.3"></a>11.1. Caveats</h2></div></div></div><p>
-     Because fixed output derivations are <span class="emphasis"><em>identified</em></span> by their hash, a common mistake is to update a fetcher’s URL or a version parameter, without updating the hash. <span class="strong"><strong>This will cause the old contents to be used.</strong></span> So remember to always invalidate the hash argument.
+     Fetchers create <a class="link" href="https://nixos.org/manual/nix/stable/#fixed-output-drvs" target="_top">fixed output derivations</a> from downloaded files. Nix can reuse the downloaded files via the hash of the resulting derivation.
     </p><p>
-     For those who develop and maintain fetchers, a similar problem arises with changes to the implementation of a fetcher. These may cause a fixed output derivation to fail, but won’t normally be caught by tests because the supposed output is already in the store or cache. For the purpose of testing, you can use a trick that is embodied by the <a class="link" href="#tester-invalidateFetcherByDrvHash" title="13.3. invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a> function. It uses the derivation <code class="literal">name</code> to create a unique output path per fetcher implementation, defeating the caching precisely where it would be harmful.
+     The fact that the hash belongs to the Nix derivation output and not the file itself can lead to confusion. For example, consider the following fetcher:
+    </p><pre class="programlisting">
+fetchurl {
+  url = "http://www.example.org/hello-1.0.tar.gz";
+  sha256 = "0v6r3wwnsk5pdjr188nip3pjgn1jrn5pc5ajpcfy6had6b3v4dwm";
+};
+</pre><p>
+     A common mistake is to update a fetcher’s URL, or a version parameter, without updating the hash.
+    </p><pre class="programlisting">
+fetchurl {
+  url = "http://www.example.org/hello-1.1.tar.gz";
+  sha256 = "0v6r3wwnsk5pdjr188nip3pjgn1jrn5pc5ajpcfy6had6b3v4dwm";
+};
+</pre><p>
+     <span class="strong"><strong>This will reuse the old contents</strong></span>. Remember to invalidate the hash argument, in this case by setting the <code class="literal">sha256</code> attribute to an empty string.
+    </p><pre class="programlisting">
+fetchurl {
+  url = "http://www.example.org/hello-1.1.tar.gz";
+  sha256 = "";
+};
+</pre><p>
+     Use the resulting error message to determine the correct hash.
+    </p><pre class="programlisting">
+error: hash mismatch in fixed-output derivation '/path/to/my.drv':
+         specified: sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+            got:    sha256-RApQUm78dswhBLC/rfU9y0u6pSAzHceIJqgmetRD24E=
+</pre><p>
+     A similar problem arises while testing changes to a fetcher’s implementation. If the output of the derivation already exists in the Nix store, test failures can go undetected. The <a class="link" href="#tester-invalidateFetcherByDrvHash" title="13.3. invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a> function helps prevent reusing cached derivations.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchurl"></a>11.2. <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code></h2></div></div></div><p>
      Two basic fetchers are <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code>. Both of these have two required arguments, a URL and a hash. The hash is typically <code class="literal">sha256</code>, although many more hash algorithms are supported. Nixpkgs contributors are currently recommended to use <code class="literal">sha256</code>. This hash will be used by Nix to identify your source. A typical usage of <code class="literal">fetchurl</code> is provided below.
     </p><pre class="programlisting">

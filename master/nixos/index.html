@@ -9007,14 +9007,14 @@ lib.mkOption {
 </pre><a id="ex-options-declarations-util-mkPackageOption-ghc"></a><pre class="programlisting">
 lib.mkPackageOption pkgs "GHC" {
   default = [ "ghc" ];
-  example = "pkgs.haskell.package.ghc923.ghc.withPackages (hkgs: [ hkgs.primes ])";
+  example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])";
 }
 # is like
 lib.mkOption {
   type = lib.types.package;
   default = pkgs.ghc;
   defaultText = lib.literalExpression "pkgs.ghc";
-  example = lib.literalExpression "pkgs.haskell.package.ghc923.ghc.withPackages (hkgs: [ hkgs.primes ])";
+  example = lib.literalExpression "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])";
   description = "The GHC package to use.";
 }
 </pre><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="sec-option-declarations-eot"></a>66.1.1.1.1.1. Extensible Option Types</h6></div></div></div><p>
