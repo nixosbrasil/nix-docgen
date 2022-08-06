@@ -3677,7 +3677,7 @@ mkPackageOption pkgs "hello" { }
 
 mkPackageOption pkgs "GHC" {
 default = [ "ghc" ];
-example = "pkgs.haskell.package.ghc923.ghc.withPackages (hkgs: [ hkgs.primes ])";
+example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])";
 }
 =&gt; { _type = "option"; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = "The GHC package to use."; example = { ... }; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkPackageOption"></a>
@@ -6274,7 +6274,25 @@ buildImage {
 }
 </pre><p>
       Creating base files like <code class="literal">/etc/passwd</code> or <code class="literal">/etc/login.defs</code> is necessary for shadow-utils to manipulate users and groups.
-     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-ociTools"></a>15.3. pkgs.ociTools</h2></div></div></div><p>
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-fakeNss"></a>15.2.7. fakeNss</h3></div></div></div><p>
+      If your primary goal is providing a basic skeleton for user lookups to work, and/or a lesser privileged user, adding <code class="literal">pkgs.fakeNss</code> to the container image root might be the better choice than a custom script running <code class="literal">useradd</code> and friends.
+     </p><p>
+      It provides a <code class="literal">/etc/passwd</code> and <code class="literal">/etc/group</code>, containing <code class="literal">root</code> and <code class="literal">nobody</code> users and groups.
+     </p><p>
+      It also provides a <code class="literal">/etc/nsswitch.conf</code>, configuring NSS host resolution to first check <code class="literal">/etc/hosts</code>, before checking DNS, as the default in the absence of a config file (<code class="literal">dns [!UNAVAIL=return] files</code>) is quite unexpected.
+     </p><p>
+      You can pair it with <code class="literal">binSh</code>, which provides <code class="literal">bin/sh</code> as a symlink to <code class="literal">bashInteractive</code> (as <code class="literal">/bin/sh</code> is configured as a shell).
+     </p><pre class="programlisting">
+buildImage {
+  name = "shadow-basic";
+
+  copyToRoot = pkgs.buildEnv {
+    name = "image-root";
+    paths = [ binSh pkgs.fakeNss ];
+    pathsToLink = [ "/bin" "/etc" "/var" ];
+  };
+}
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-ociTools"></a>15.3. pkgs.ociTools</h2></div></div></div><p>
      <code class="literal">pkgs.ociTools</code> is a set of functions for creating containers according to the <a class="link" href="https://github.com/opencontainers/runtime-spec" target="_top">OCI container specification v1.0.0</a>. Beyond that, it makes no assumptions about the container runner you choose to use to run the created container.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-ociTools-buildContainer"></a>15.3.1. buildContainer</h3></div></div></div><p>
       This function creates a simple OCI container that runs a single command inside of it. An OCI container consists of a <code class="literal">config.json</code> and a rootfs directory. The nix store of the container will contain all referenced dependencies of the given command.
@@ -13775,9 +13793,9 @@ src = fetchFromGitHub {
   rev = "1f795f9f44607cc5bec70d1300150bfefcef2aae";
   sha256 = "1i2yxndxb6yc9l6c99pypbd92lfq5aac4klq7y2v93c9qvx2cgpc";
 }
-</pre><p>
-       Find the value to put as <code class="literal">sha256</code> by running <code class="literal">nix run -f '&lt;nixpkgs&gt;' nix-prefetch-github -c nix-prefetch-github --rev 1f795f9f44607cc5bec70d1300150bfefcef2aae NixOS nix</code> or <code class="literal">nix-prefetch-url --unpack https://github.com/NixOS/nix/archive/1f795f9f44607cc5bec70d1300150bfefcef2aae.tar.gz</code>.
-      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-source-hashes"></a>20.5. Obtaining source hash</h2></div></div></div><p>
+</pre></li></ul></div><p>
+     Find the value to put as <code class="literal">sha256</code> by running <code class="literal">nix-shell -p nix-prefetch-github --run "nix-prefetch-github --rev 1f795f9f44607cc5bec70d1300150bfefcef2aae NixOS nix"</code>.
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-source-hashes"></a>20.5. Obtaining source hash</h2></div></div></div><p>
      Preferred source hash type is sha256. There are several ways to get it.
     </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
        Prefetch URL (with <code class="literal">nix-prefetch-XXX URL</code>, where <code class="literal">XXX</code> is one of <code class="literal">url</code>, <code class="literal">git</code>, <code class="literal">hg</code>, <code class="literal">cvs</code>, <code class="literal">bzr</code>, <code class="literal">svn</code>). Hash is printed to stdout.
