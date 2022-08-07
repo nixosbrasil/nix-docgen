@@ -11074,9 +11074,23 @@ self: super: {
     };
   };
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="how-to-use-intels-mkl-with-numpy-and-scipy"></a>17.27.3.9. How to use Intel’s MKL with numpy and scipy?</h4></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="how-to-override-a-python-package-for-all-python-versions-using-extensions"></a>17.27.3.9. How to override a Python package for all Python versions using extensions?</h4></div></div></div><p>
+       The following overlay overrides the call to <code class="literal">buildPythonPackage</code> for the <code class="literal">foo</code> package for all interpreters by appending a Python extension to the <code class="literal">pythonPackagesExtensions</code> list of extensions.
+      </p><pre class="programlisting">
+final: prev: {
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (
+      python-final: python-prev: {
+        foo = python-prev.foo.overridePythonAttrs (oldAttrs: {
+          ...
+        });
+      }
+    )
+  ];
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="how-to-use-intels-mkl-with-numpy-and-scipy"></a>17.27.3.10. How to use Intel’s MKL with numpy and scipy?</h4></div></div></div><p>
        MKL can be configured using an overlay. See the section <span class="quote">“<span class="quote"><a class="link" href="#sec-overlays-alternatives-blas-lapack" title="3.3.1. BLAS/LAPACK">Using overlays to configure alternatives</a></span>”</span>.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="what-inputs-do-setup_requires-install_requires-and-tests_require-map-to"></a>17.27.3.10. What inputs do <code class="literal">setup_requires</code>, <code class="literal">install_requires</code> and <code class="literal">tests_require</code> map to?</h4></div></div></div><p>
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="what-inputs-do-setup_requires-install_requires-and-tests_require-map-to"></a>17.27.3.11. What inputs do <code class="literal">setup_requires</code>, <code class="literal">install_requires</code> and <code class="literal">tests_require</code> map to?</h4></div></div></div><p>
        In a <code class="literal">setup.py</code> or <code class="literal">setup.cfg</code> it is common to declare dependencies:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          <code class="literal">setup_requires</code> corresponds to <code class="literal">nativeBuildInputs</code>
