@@ -252,6 +252,15 @@
           It is now the upstream version from https://www.memtest.org/,
           as coreboot’s fork is no longer available.
         </p></li><li class="listitem"><p>
+          The udisks2 service, available at
+          <code class="literal">services.udisks2.enable</code>, is now disabled by
+          default. It will automatically be enabled through services and
+          desktop environments as needed. This also means that polkit
+          will now actually be disabled by default. The default for
+          <code class="literal">security.polkit.enable</code> was already flipped
+          in the previous release, but udisks2 being enabled by default
+          re-enabled it.
+        </p></li><li class="listitem"><p>
           Add udev rules for the Teensy family of microcontrollers.
         </p></li><li class="listitem"><p>
           The <code class="literal">pass-secret-service</code> package now
@@ -259,6 +268,9 @@
           NixOS <code class="literal">services.dbus.packages</code> option will
           make it start automatically as a systemd user service when an
           application tries to talk to the libsecret D-Bus API.
+        </p></li><li class="listitem"><p>
+          There is a new module for AMD SEV CPU functionality, which
+          grants access to the hardware.
         </p></li><li class="listitem"><p>
           There is a new module for the <code class="literal">thunar</code>
           program (the Xfce file manager), which depends on the
