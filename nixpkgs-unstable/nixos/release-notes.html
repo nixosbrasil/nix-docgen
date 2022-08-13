@@ -84,6 +84,10 @@
           Nix based app VMs. Available as
           <a class="link" href="options.html#opt-virtualisation.appvm.enable" target="_top">virtualisation.appvm</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/mozilla-services/syncstorage-rs" target="_top">syncstorage-rs</a>,
+          a self-hostable sync server for Firefox. Available as
+          <a class="link" href="options.html#opt-services.firefox-syncserver.enable" target="_top">services.firefox-syncserver</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://dragonflydb.io/" target="_top">dragonflydb</a>,
           a modern replacement for Redis and Memcached. Available as
           <a class="link" href="options.html#opt-services.dragonflydb.enable">services.dragonflydb</a>.
@@ -2420,7 +2424,7 @@ sudo cp /var/lib/redis/dump.rdb /var/lib/redis-peertube/dump.rdb
           <a class="link" href="https://dmarc.org/" target="_top">DMARC</a> reports and
           stores or sends them to a downstream service for further
           analysis. Documented in
-          <a class="link" href="index.html#module-services-parsedmarc" title="Chapter 35. parsedmarc">its manual
+          <a class="link" href="index.html#module-services-parsedmarc" title="Chapter 36. parsedmarc">its manual
           entry</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://spark.apache.org/" target="_top">spark</a>, a
@@ -4624,7 +4628,7 @@ self: super:
               <code class="literal">types.submodule</code>. These allow you to
               explicitly declare a subset of options while still
               permitting definitions without an associated option. See
-              <a class="xref" href="index.html#sec-freeform-modules" title="66.8. Freeform modules">Section 66.8, “Freeform modules”</a> for how to use
+              <a class="xref" href="index.html#sec-freeform-modules" title="67.8. Freeform modules">Section 67.8, “Freeform modules”</a> for how to use
               them.
             </p></li><li class="listitem"><p>
               Following its deprecation in 20.03, the Perl NixOS test
@@ -6839,7 +6843,7 @@ $ hydra-backfill-ids
           the database yourself (e.g. by using the
           <a class="link" href="options.html#opt-services.postgresql.initialScript" target="_top">services.postgresql.initialScript</a>
           option). An example for this can be found in the
-          <a class="link" href="index.html#module-services-matrix" title="Chapter 40. Matrix">documentation of the
+          <a class="link" href="index.html#module-services-matrix" title="Chapter 41. Matrix">documentation of the
           Matrix module</a>.
         </p></li><li class="listitem"><p>
           If you initially deployed your matrix-synapse on
@@ -7666,7 +7670,7 @@ $ hydra-backfill-ids
           components and enhancing security. Two-way TLS and RBAC has
           been enabled by default for all components, which slightly
           changes the way the module is configured. See:
-          <a class="xref" href="index.html#sec-kubernetes" title="Chapter 56. Kubernetes">Chapter 56, <em>Kubernetes</em></a> for details.
+          <a class="xref" href="index.html#sec-kubernetes" title="Chapter 57. Kubernetes">Chapter 57, <em>Kubernetes</em></a> for details.
         </p></li><li class="listitem"><p>
           There is now a set of <code class="literal">confinement</code> options
           for <code class="literal">systemd.services</code>, which allows to
@@ -7980,7 +7984,7 @@ $ hydra-backfill-ids
           last version to accept self-signed certificates</a>. As
           such, it is now recommended to use a proper certificate
           verified by a root CA (for example Let's Encrypt). The new
-          <a class="link" href="index.html#module-services-matrix" title="Chapter 40. Matrix">manual chapter on
+          <a class="link" href="index.html#module-services-matrix" title="Chapter 41. Matrix">manual chapter on
           Matrix</a> contains a working example of using nginx as a
           reverse proxy in front of <code class="literal">matrix-synapse</code>,
           using Let's Encrypt certificates.
@@ -8054,7 +8058,7 @@ $ hydra-backfill-ids
           The quassel-webserver package and module was removed from
           nixpkgs due to the lack of maintainers.
         </p></li><li class="listitem"><p>
-          The manual gained a <a class="link" href="index.html#module-services-matrix" title="Chapter 40. Matrix">
+          The manual gained a <a class="link" href="index.html#module-services-matrix" title="Chapter 41. Matrix">
           new chapter on self-hosting <code class="literal">matrix-synapse</code>
           and <code class="literal">riot-web</code> </a>, the most prevalent
           server and client implementations for the
@@ -11375,7 +11379,7 @@ in
         run a NixOS instance as a container in a NixOS host system.
         These containers are suitable for testing and experimentation
         but not production use, since they’re not fully isolated from
-        the host. See <a class="xref" href="index.html#ch-containers" title="Chapter 63. Container Management">Chapter 63, <em>Container Management</em></a> for details.
+        the host. See <a class="xref" href="index.html#ch-containers" title="Chapter 64. Container Management">Chapter 64, <em>Container Management</em></a> for details.
       </p></li><li class="listitem"><p>
         Systemd units provided by packages can now be overridden from
         the NixOS configuration. For instance, if a package
