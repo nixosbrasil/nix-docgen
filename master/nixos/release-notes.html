@@ -167,6 +167,15 @@
           you can replace <code class="literal">foo.isPowerPC</code> with
           <code class="literal">(with foo; isPower &amp;&amp; is32bit &amp;&amp; isBigEndian)</code>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">fetchgit</code> fetcher now uses
+          <a class="link" href="https://www.git-scm.com/docs/git-sparse-checkout/2.37.0#_internalscone_mode_handling" target="_top">cone
+          mode</a> by default for sparse checkouts.
+          <a class="link" href="https://www.git-scm.com/docs/git-sparse-checkout/2.37.0#_internalsnon_cone_problems" target="_top">Non-cone
+          mode</a> can be enabled by passing
+          <code class="literal">nonConeMode = true</code>, but note that non-cone
+          mode is deprecated and this option may be removed alongside a
+          future Git update without notice.
+        </p></li><li class="listitem"><p>
           <code class="literal">bsp-layout</code> no longer uses the command
           <code class="literal">cycle</code> to switch to other window layouts, as
           it got replaced by the commands <code class="literal">previous</code>
