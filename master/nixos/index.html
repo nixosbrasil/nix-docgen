@@ -195,13 +195,13 @@ OK
             and the space left in front (512MiB) which will be used by
             the boot partition.
           </p><pre class="programlisting">
-# parted /dev/sda -- mkpart primary 512MiB -8GiB
+# parted /dev/sda -- mkpart primary 512MB -8GB
 </pre></li><li class="listitem"><p>
             Next, add a <span class="emphasis"><em>swap</em></span> partition. The size
-            required will vary according to needs, here a 8GiB one is
+            required will vary according to needs, here a 8GB one is
             created.
           </p><pre class="programlisting">
-# parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+# parted /dev/sda -- mkpart primary linux-swap -8GB 100%
 </pre><div class="note"><h3 class="title">Note</h3><p>
               The swap partition size rules are no different than for
               other Linux distributions.
@@ -211,7 +211,7 @@ OK
             <span class="emphasis"><em>/boot</em></span> partition. It uses the initially
             reserved 512MiB at the start of the disk.
           </p><pre class="programlisting">
-# parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
+# parted /dev/sda -- mkpart ESP fat32 1MB 512MB
 # parted /dev/sda -- set 3 esp on
 </pre></li></ol></div><p>
         Once complete, you can follow with
@@ -231,13 +231,13 @@ OK
             the the disk except for the end part, where the swap will
             live.
           </p><pre class="programlisting">
-# parted /dev/sda -- mkpart primary 1MiB -8GiB
+# parted /dev/sda -- mkpart primary 1MB -8GB
 </pre></li><li class="listitem"><p>
             Finally, add a <span class="emphasis"><em>swap</em></span> partition. The size
             required will vary according to needs, here a 8GiB one is
             created.
           </p><pre class="programlisting">
-# parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+# parted /dev/sda -- mkpart primary linux-swap -8GB 100%
 </pre><div class="note"><h3 class="title">Note</h3><p>
               The swap partition size rules are no different than for
               other Linux distributions.
