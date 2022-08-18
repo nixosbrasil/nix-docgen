@@ -6034,6 +6034,9 @@ buildImage {
     WorkingDir = "/data";
     Volumes = { "/data" = { }; };
   };
+
+  diskSize = 1024;
+  buildVMMemorySize = 512;
 }
 </pre><p>
       The above example will build a Docker image <code class="literal">redis/latest</code> from the given base image. Loading and running this image in Docker results in <code class="literal">redis-server</code> being started automatically.
@@ -6053,8 +6056,12 @@ buildImage {
         <code class="literal">runAsRoot</code> is a bash script that will run as root in an environment that overlays the existing layers of the base image with the new resulting layer, including the previously copied <code class="literal">contents</code> derivation. This can be similarly seen as <code class="literal">RUN ...</code> in a <code class="literal">Dockerfile</code>.
        </p></li></ul></div><div class="blockquote"><blockquote class="blockquote"><p>
        <span class="strong"><strong><span class="emphasis"><em>NOTE:</em></span></strong></span> Using this parameter requires the <code class="literal">kvm</code> device to be available.
-      </p></blockquote></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+      </p></blockquote></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         <code class="literal">config</code> is used to specify the configuration of the containers that will be started off the built image in Docker. The available options are listed in the <a class="link" href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions" target="_top">Docker Image Specification v1.2.0</a>.
+       </p></li><li class="listitem"><p>
+        <code class="literal">diskSize</code> is used to specify the disk size of the VM used to build the image in megabytes. By default it’s 1024 MiB.
+       </p></li><li class="listitem"><p>
+        <code class="literal">buildVMMemorySize</code> is used to specify the memory size of the VM to build the image in megabytes. By default it’s 512 MiB.
        </p></li></ul></div><p>
       After the new layer has been created, its closure (to which <code class="literal">contents</code>, <code class="literal">config</code> and <code class="literal">runAsRoot</code> contribute) will be copied in the layer itself. Only new dependencies that are not already in the existing layers will be copied.
      </p><p>
