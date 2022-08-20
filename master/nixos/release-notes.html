@@ -52,6 +52,23 @@
           time the ecosystem can switch without breaking compatibility
           with any supported NixOS release.
         </p></li><li class="listitem"><p>
+          <code class="literal">emacs</code> enables native compilation which
+          means:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              emacs packages from nixpkgs, builtin or not, will do
+              native compilation ahead of time so you can enjoy the
+              benefit of native compilation without compiling them on
+              you machine;
+            </p></li><li class="listitem"><p>
+              emacs packages from somewhere else, e.g.
+              <code class="literal">package-install</code>, will do asynchronously
+              deferred native compilation. If you do not want this,
+              maybe to avoid CPU consumption for compilation, you can
+              use
+              <code class="literal">(setq native-comp-deferred-compilation nil)</code>
+              to disable it while still enjoy the benefit of native
+              compilation for packages from nixpkgs.
+            </p></li></ul></div></li><li class="listitem"><p>
           <code class="literal">nixos-generate-config</code> now generates
           configurations that can be built in pure mode. This is
           achieved by setting the new
@@ -69,7 +86,9 @@
         </p></li><li class="listitem"><p>
           PHP now defaults to PHP 8.1, updated from 8.0.
         </p></li><li class="listitem"><p>
-          Cinnamon has been updated to 5.4.
+          Cinnamon has been updated to 5.4. While at it, the cinnamon
+          module now defaults to blueman as bluetooth manager and
+          slick-greeter as lightdm greeter to match upstream.
         </p></li><li class="listitem"><p>
           <code class="literal">hardware.nvidia</code> has a new option
           <code class="literal">open</code> that can be used to opt in the

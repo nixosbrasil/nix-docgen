@@ -4582,11 +4582,22 @@ doInstallCheck = true;
 # adds `FOOBAR=baz` to `$out/bin/foo`’s environment
 makeWrapper $out/bin/foo $wrapperfile --set FOOBAR baz
 
-# prefixes the binary paths of `hello` and `git`
+# Prefixes the binary paths of `hello` and `git`
+# and suffixes the binary path of `xdg-utils`.
 # Be advised that paths often should be patched in directly
 # (via string replacements or in `configurePhase`).
-makeWrapper $out/bin/foo $wrapperfile --prefix PATH : ${lib.makeBinPath [ hello git ]}
+makeWrapper $out/bin/foo $wrapperfile \
+  --prefix PATH : ${lib.makeBinPath [ hello git ]} \
+  --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
 </pre><p>
+      Packages may expect or require other utilities to be available at runtime. <code class="literal">makeWrapper</code> can be used to add packages to a <code class="literal">PATH</code> environment variable local to a wrapper.
+     </p><p>
+      Use <code class="literal">--prefix</code> to explicitly set dependencies in <code class="literal">PATH</code>.
+     </p><p>
+      <code class="literal">--prefix</code> essentially hard-codes dependencies into the wrapper. They cannot be overridden without rebuilding the package.
+     </p><p>
+      If dependencies should be resolved at runtime, use <code class="literal">--suffix</code> to append fallback values to <code class="literal">PATH</code>.
+     </p><p>
       There’s many more kinds of arguments, they are documented in <code class="literal">nixpkgs/pkgs/build-support/setup-hooks/make-wrapper.sh</code> for the <code class="literal">makeWrapper</code> implementation and in <code class="literal">nixpkgs/pkgs/build-support/setup-hooks/make-binary-wrapper/make-binary-wrapper.sh</code> for the <code class="literal">makeBinaryWrapper</code> implementation.
      </p><p>
       <code class="literal">wrapProgram</code> is a convenience function you probably want to use most of the time, implemented by both <code class="literal">makeWrapper</code> and <code class="literal">makeBinaryWrapper</code>.
@@ -6034,6 +6045,9 @@ buildImage {
     WorkingDir = "/data";
     Volumes = { "/data" = { }; };
   };
+
+  diskSize = 1024;
+  buildVMMemorySize = 512;
 }
 </pre><p>
       The above example will build a Docker image <code class="literal">redis/latest</code> from the given base image. Loading and running this image in Docker results in <code class="literal">redis-server</code> being started automatically.
@@ -6053,8 +6067,12 @@ buildImage {
         <code class="literal">runAsRoot</code> is a bash script that will run as root in an environment that overlays the existing layers of the base image with the new resulting layer, including the previously copied <code class="literal">contents</code> derivation. This can be similarly seen as <code class="literal">RUN ...</code> in a <code class="literal">Dockerfile</code>.
        </p></li></ul></div><div class="blockquote"><blockquote class="blockquote"><p>
        <span class="strong"><strong><span class="emphasis"><em>NOTE:</em></span></strong></span> Using this parameter requires the <code class="literal">kvm</code> device to be available.
-      </p></blockquote></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+      </p></blockquote></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         <code class="literal">config</code> is used to specify the configuration of the containers that will be started off the built image in Docker. The available options are listed in the <a class="link" href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions" target="_top">Docker Image Specification v1.2.0</a>.
+       </p></li><li class="listitem"><p>
+        <code class="literal">diskSize</code> is used to specify the disk size of the VM used to build the image in megabytes. By default it’s 1024 MiB.
+       </p></li><li class="listitem"><p>
+        <code class="literal">buildVMMemorySize</code> is used to specify the memory size of the VM to build the image in megabytes. By default it’s 512 MiB.
        </p></li></ul></div><p>
       After the new layer has been created, its closure (to which <code class="literal">contents</code>, <code class="literal">config</code> and <code class="literal">runAsRoot</code> contribute) will be copied in the layer itself. Only new dependencies that are not already in the existing layers will be copied.
      </p><p>
