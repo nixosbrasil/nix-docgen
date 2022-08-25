@@ -10446,7 +10446,45 @@ pkg3
         In general you should always use <code class="literal">pythonRelaxDeps</code>, because <code class="literal">pythonRemoveDeps</code> will convert build errors into runtime errors. However <code class="literal">pythonRemoveDeps</code> may still be useful in exceptional cases, and also to remove dependencies wrongly declared by upstream (for example, declaring <code class="literal">black</code> as a runtime dependency instead of a dev dependency).
        </p><p>
         Keep in mind that while the examples above are done with <code class="literal">requirements.txt</code>, <code class="literal">pythonRelaxDepsHook</code> works by modifying the resulting wheel file, so it should work in any of the formats supported by <code class="literal">buildPythonPackage</code> currently, with the exception of <code class="literal">other</code> (see <code class="literal">format</code> in <a class="link" href="#buildpythonpackage-parameters" title="17.27.2.3.1.1. buildPythonPackage parameters"><code class="literal">buildPythonPackage</code> parameters</a> for more details).
-       </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="develop-local-package"></a>17.27.1.3. Develop local package</h4></div></div></div><p>
+       </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="using-unittestcheckhook"></a>17.27.1.3. Using unittestCheckHook</h4></div></div></div><p>
+       <code class="literal">unittestCheckHook</code> is a hook which will substitute the setuptools <code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">python -m unittest discover</code>:
+      </p><pre class="programlisting">
+  checkInputs = [ unittestCheckHook ];
+
+  unittestFlags = [ "-s" "tests" "-v" ];
+</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-sphinxhook"></a>17.27.1.3.1. Using sphinxHook</h5></div></div></div><p>
+        The <code class="literal">sphinxHook</code> is a helpful tool to build documentation and manpages using the popular Sphinx documentation generator. It is setup to automatically find common documentation source paths and render them using the default <code class="literal">html</code> style.
+       </p><pre class="programlisting">
+  outputs = [
+    "out"
+    "doc"
+  ];
+
+  nativeBuildInputs = [
+    sphinxHook
+  ];
+</pre><p>
+        The hook will automatically build and install the artifact into the <code class="literal">doc</code> output, if it exists. It also provides an automatic diversion for the artifacts of the <code class="literal">man</code> builder into the <code class="literal">man</code> target.
+       </p><pre class="programlisting">
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
+
+  # Use multiple builders
+  sphinxBuilders = [
+    "singlehtml"
+    "man"
+  ];
+</pre><p>
+        Overwrite <code class="literal">sphinxRoot</code> when the hook is unable to find your documentation source root.
+       </p><pre class="programlisting">
+  # Configure sphinxRoot for uncommon paths
+  sphinxRoot = "weird/docs/path";
+</pre><p>
+        The hook is also available to packages outside the python ecosystem by referencing it using <code class="literal">python3.pkgs.sphinxHook</code>.
+       </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="develop-local-package"></a>17.27.1.4. Develop local package</h4></div></div></div><p>
        As a Python developer you’re likely aware of <a class="link" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#development-mode" target="_top">development mode</a> (<code class="literal">python setup.py develop</code>); instead of installing the package this command creates a special link to the project code. That way, you can run updated code without having to reinstall after each and every change you make. Development mode is also available. Let’s see how you can use it.
       </p><p>
        In the previous Nix expression the source was fetched from a url. We can also refer to a local source instead using <code class="literal">src = ./path/to/source/tree;</code>
@@ -10465,11 +10503,11 @@ buildPythonPackage rec {
 }
 </pre><p>
        It is important to note that due to how development mode is implemented on Nix it is not possible to have multiple packages simultaneously in development mode.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="organising-your-packages"></a>17.27.1.4. Organising your packages</h4></div></div></div><p>
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="organising-your-packages"></a>17.27.1.5. Organising your packages</h4></div></div></div><p>
        So far we discussed how you can use Python on Nix, and how you can develop with it. We’ve looked at how you write expressions to package Python packages, and we looked at how you can create environments in which specified packages are available.
       </p><p>
        At some point you’ll likely have multiple packages which you would like to be able to use in different projects. In order to minimise unnecessary duplication we now look at how you can maintain a repository with your own packages. The important functions here are <code class="literal">import</code> and <code class="literal">callPackage</code>.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="including-a-derivation-using-callpackage"></a>17.27.1.5. Including a derivation using <code class="literal">callPackage</code></h4></div></div></div><p>
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="including-a-derivation-using-callpackage"></a>17.27.1.6. Including a derivation using <code class="literal">callPackage</code></h4></div></div></div><p>
        Earlier we created a Python environment using <code class="literal">withPackages</code>, and included the <code class="literal">toolz</code> package via a <code class="literal">let</code> expression. Let’s split the package definition from the environment definition.
       </p><p>
        We first create a function that builds <code class="literal">toolz</code> in <code class="literal">~/path/to/toolz/release.nix</code>
@@ -10807,17 +10845,21 @@ with import &lt;nixpkgs&gt; {};
          </p></li><li class="listitem"><p>
           <code class="literal">pythonImportsCheckHook</code> to check whether importing the listed modules works.
          </p></li><li class="listitem"><p>
+          <code class="literal">pythonRelaxDepsHook</code> will relax Python dependencies restrictions for the package. See <a class="link" href="#using-pythonrelaxdepshook" title="17.27.1.2.7. Using pythonRelaxDepsHook">example usage</a>.
+         </p></li><li class="listitem"><p>
           <code class="literal">pythonRemoveBinBytecode</code> to remove bytecode from the <code class="literal">/bin</code> folder.
          </p></li><li class="listitem"><p>
           <code class="literal">setuptoolsBuildHook</code> to build a wheel using <code class="literal">setuptools</code>.
          </p></li><li class="listitem"><p>
           <code class="literal">setuptoolsCheckHook</code> to run tests with <code class="literal">python setup.py test</code>.
          </p></li><li class="listitem"><p>
+          <code class="literal">sphinxHook</code> to build documentation and manpages using Sphinx.
+         </p></li><li class="listitem"><p>
           <code class="literal">venvShellHook</code> to source a Python 3 <code class="literal">venv</code> at the <code class="literal">venvDir</code> location. A <code class="literal">venv</code> is created if it does not yet exist. <code class="literal">postVenvCreation</code> can be used to to run commands only after venv is first created.
          </p></li><li class="listitem"><p>
           <code class="literal">wheelUnpackHook</code> to move a wheel to the correct folder so it can be installed with the <code class="literal">pipInstallHook</code>.
          </p></li><li class="listitem"><p>
-          <code class="literal">pythonRelaxDepsHook</code> will relax Python dependencies restrictions for the package. See <a class="link" href="#using-pythonrelaxdepshook" title="17.27.1.2.7. Using pythonRelaxDepsHook">example usage</a>.
+          <code class="literal">unittestCheckHook</code> will run tests with <code class="literal">python -m unittest discover</code>. See <a class="link" href="#using-unittestcheckhook" title="17.27.1.3. Using unittestCheckHook">example usage</a>.
          </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="development-mode"></a>17.27.2.4. Development mode</h4></div></div></div><p>
        Development or editable mode is supported. To develop Python packages <code class="literal">buildPythonPackage</code> has additional logic inside <code class="literal">shellPhase</code> to run <code class="literal">pip install -e . --prefix $TMPDIR/</code>for the package.
       </p><p>

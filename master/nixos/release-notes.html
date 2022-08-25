@@ -160,6 +160,8 @@
           Available as
           <a class="link" href="options.html#opt-services.patroni.enable" target="_top">services.patroni</a>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          Nixpkgs now requires Nix 2.3 or newer.
+        </p></li><li class="listitem"><p>
           The <code class="literal">isCompatible</code> predicate checking CPU
           compatibility is no longer exposed by the platform sets
           generated using <code class="literal">lib.systems.elaborate</code>. In
