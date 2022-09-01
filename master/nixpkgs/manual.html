@@ -6275,9 +6275,29 @@ exportImage {
       The parameters relative to the base image have the same synopsis as described in <a class="link" href="#ssec-pkgs-dockerTools-buildImage" title="15.2.1. buildImage">buildImage</a>, except that <code class="literal">fromImage</code> is the only required argument in this case.
      </p><p>
       The <code class="literal">name</code> argument is the name of the derivation output, which defaults to <code class="literal">fromImage.name</code>.
-     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-shadowSetup"></a>15.2.6. shadowSetup</h3></div></div></div><p>
-      This constant string is a helper for setting up the base files for managing users and groups, only if such files don’t exist already. It is suitable for being used in a <a class="link" href="#ex-dockerTools-buildImage-runAsRoot"><code class="literal">buildImage</code> <code class="literal">runAsRoot</code></a> script for cases like in the example below:
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-helpers"></a>15.2.6. Environment Helpers</h3></div></div></div><p>
+      Some packages expect certain files to be available globally. When building an image from scratch (i.e. without <code class="literal">fromImage</code>), these files are missing. <code class="literal">pkgs.dockerTools</code> provides some helpers to set up an environment with the necessary files. You can include them in <code class="literal">copyToRoot</code> like this:
      </p><pre class="programlisting">
+buildImage {
+  name = "environment-example";
+  copyToRoot = with pkgs.dockerTools; [
+    usrBinEnv
+    binSh
+    caCertificates
+    fakeNss
+  ];
+}
+</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-usrBinEnv"></a>15.2.6.1. usrBinEnv</h4></div></div></div><p>
+       This provides the <code class="literal">env</code> utility at <code class="literal">/usr/bin/env</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-binSh"></a>15.2.6.2. binSh</h4></div></div></div><p>
+       This provides <code class="literal">bashInteractive</code> at <code class="literal">/bin/sh</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-caCertificates"></a>15.2.6.3. caCertificates</h4></div></div></div><p>
+       This sets up <code class="literal">/etc/ssl/certs/ca-certificates.crt</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-fakeNss"></a>15.2.6.4. fakeNss</h4></div></div></div><p>
+       Provides <code class="literal">/etc/passwd</code> and <code class="literal">/etc/group</code> that contain root and nobody. Useful when packaging binaries that insist on using nss to look up username/groups (like nginx).
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="ssec-pkgs-dockerTools-shadowSetup"></a>15.2.6.5. shadowSetup</h4></div></div></div><p>
+       This constant string is a helper for setting up the base files for managing users and groups, only if such files don’t exist already. It is suitable for being used in a <a class="link" href="#ex-dockerTools-buildImage-runAsRoot"><code class="literal">buildImage</code> <code class="literal">runAsRoot</code></a> script for cases like in the example below:
+      </p><pre class="programlisting">
 buildImage {
   name = "shadow-basic";
 
@@ -6291,8 +6311,8 @@ buildImage {
   '';
 }
 </pre><p>
-      Creating base files like <code class="literal">/etc/passwd</code> or <code class="literal">/etc/login.defs</code> is necessary for shadow-utils to manipulate users and groups.
-     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-fakeNss"></a>15.2.7. fakeNss</h3></div></div></div><p>
+       Creating base files like <code class="literal">/etc/passwd</code> or <code class="literal">/etc/login.defs</code> is necessary for shadow-utils to manipulate users and groups.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-fakeNss"></a>15.2.7. fakeNss</h3></div></div></div><p>
       If your primary goal is providing a basic skeleton for user lookups to work, and/or a lesser privileged user, adding <code class="literal">pkgs.fakeNss</code> to the container image root might be the better choice than a custom script running <code class="literal">useradd</code> and friends.
      </p><p>
       It provides a <code class="literal">/etc/passwd</code> and <code class="literal">/etc/group</code>, containing <code class="literal">root</code> and <code class="literal">nobody</code> users and groups.
