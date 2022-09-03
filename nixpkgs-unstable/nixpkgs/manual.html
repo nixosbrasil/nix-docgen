@@ -3681,7 +3681,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
 }
 =&gt; { _type = "option"; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = "The GHC package to use."; example = { ... }; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkPackageOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L128" target="_top">lib/options.nix:128</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L131" target="_top">lib/options.nix:131</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkSinkUndeclaredOptions"></a>5.1.7.5. <code class="function">lib.options.mkSinkUndeclaredOptions</code></h4></div></div></div><p>
        This option accepts anything, but it does not produce any result.
       </p><p>
@@ -3691,7 +3691,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mkSinkUndeclaredOptions"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L150" target="_top">lib/options.nix:150</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L153" target="_top">lib/options.nix:153</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mergeEqualOption"></a>5.1.7.6. <code class="function">lib.options.mergeEqualOption</code></h4></div></div></div><p>
        "Merge" option definitions by checking that they all have the same value.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3703,7 +3703,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mergeEqualOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L183" target="_top">lib/options.nix:183</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L186" target="_top">lib/options.nix:186</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getValues"></a>5.1.7.7. <code class="function">lib.options.getValues</code></h4></div><div><h5 class="subtitle"><code class="literal">getValues :: [ { value :: a } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "value" keys of the given list.
@@ -3711,7 +3711,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
 getValues [ { value = 1; } { value = 2; } ] // =&gt; [ 1 2 ]
 getValues [ ]                               // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getValues"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L203" target="_top">lib/options.nix:203</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L206" target="_top">lib/options.nix:206</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getFiles"></a>5.1.7.8. <code class="function">lib.options.getFiles</code></h4></div><div><h5 class="subtitle"><code class="literal">getFiles :: [ { file :: a } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "file" keys of the given list
@@ -3719,7 +3719,7 @@ getValues [ ]                               // =&gt; [ ]
 getFiles [ { file = "file1"; } { file = "file2"; } ] // =&gt; [ "file1" "file2" ]
 getFiles [ ]                                         // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getFiles"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L213" target="_top">lib/options.nix:213</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L216" target="_top">lib/options.nix:216</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.scrubOptionValue"></a>5.1.7.9. <code class="function">lib.options.scrubOptionValue</code></h4></div></div></div><p>
        This function recursively removes all derivation attributes from `x` except for the `name` attribute.
       </p><p>
@@ -3729,7 +3729,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.scrubOptionValue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L258" target="_top">lib/options.nix:258</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L261" target="_top">lib/options.nix:261</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalExpression"></a>5.1.7.10. <code class="function">lib.options.literalExpression</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given string to be rendered verbatim in the documentation as Nix code. This is necessary for complex values, e.g. functions, or values that depend on other values or packages.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3737,7 +3737,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalExpression"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L271" target="_top">lib/options.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L274" target="_top">lib/options.nix:274</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalDocBook"></a>5.1.7.11. <code class="function">lib.options.literalDocBook</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given DocBook text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3745,7 +3745,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalDocBook"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L282" target="_top">lib/options.nix:282</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L285" target="_top">lib/options.nix:285</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mdDoc"></a>5.1.7.12. <code class="function">lib.options.mdDoc</code></h4></div></div></div><p>
        Transition marker for documentation that's already migrated to markdown syntax.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3753,7 +3753,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mdDoc"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L289" target="_top">lib/options.nix:289</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L292" target="_top">lib/options.nix:292</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalMD"></a>5.1.7.13. <code class="function">lib.options.literalMD</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given MD text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3761,7 +3761,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalMD"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L297" target="_top">lib/options.nix:297</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L300" target="_top">lib/options.nix:300</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.showOption"></a>5.1.7.14. <code class="function">lib.options.showOption</code></h4></div></div></div><p>
        Convert an option, described as a list of the option parts in to a safe, human readable version.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3779,7 +3779,7 @@ Placeholders will not be quoted as they are not actual values:
 Unlike attributes, options can also start with numbers:
 (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.2bwm.enable"
 </pre></div></div><br class="example-break" /><p><a id="lib.options.showOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L317" target="_top">lib/options.nix:317</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L320" target="_top">lib/options.nix:320</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-sources"></a>5.1.8. Source filtering functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.pathType"></a>5.1.8.1. <code class="function">lib.sources.pathType</code></h4></div></div></div><p>
        Returns the type of a path: regular (for file), symlink, or directory.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -5003,7 +5003,7 @@ hello-2.3  A program that produces a familiar, friendly greeting
      </p><p>
       Right: <code class="literal">"A library for decoding PNG images"</code>
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-longDescription"></a>7.1.2. <code class="literal">longDescription</code></h3></div></div></div><p>
-      An arbitrarily long description of the package.
+      An arbitrarily long description of the package in <a class="link" href="https://commonmark.org" target="_top">CommonMark</a> Markdown.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-branch"></a>7.1.3. <code class="literal">branch</code></h3></div></div></div><p>
       Release branch. Used to specify that a package is not going to receive updates that are not in this branch; for example, Linux kernel 3.0 is supposed to be updated to 3.0.X, not 3.1.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-homepage"></a>7.1.4. <code class="literal">homepage</code></h3></div></div></div><p>
@@ -6275,9 +6275,29 @@ exportImage {
       The parameters relative to the base image have the same synopsis as described in <a class="link" href="#ssec-pkgs-dockerTools-buildImage" title="15.2.1. buildImage">buildImage</a>, except that <code class="literal">fromImage</code> is the only required argument in this case.
      </p><p>
       The <code class="literal">name</code> argument is the name of the derivation output, which defaults to <code class="literal">fromImage.name</code>.
-     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-shadowSetup"></a>15.2.6. shadowSetup</h3></div></div></div><p>
-      This constant string is a helper for setting up the base files for managing users and groups, only if such files don’t exist already. It is suitable for being used in a <a class="link" href="#ex-dockerTools-buildImage-runAsRoot"><code class="literal">buildImage</code> <code class="literal">runAsRoot</code></a> script for cases like in the example below:
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-helpers"></a>15.2.6. Environment Helpers</h3></div></div></div><p>
+      Some packages expect certain files to be available globally. When building an image from scratch (i.e. without <code class="literal">fromImage</code>), these files are missing. <code class="literal">pkgs.dockerTools</code> provides some helpers to set up an environment with the necessary files. You can include them in <code class="literal">copyToRoot</code> like this:
      </p><pre class="programlisting">
+buildImage {
+  name = "environment-example";
+  copyToRoot = with pkgs.dockerTools; [
+    usrBinEnv
+    binSh
+    caCertificates
+    fakeNss
+  ];
+}
+</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-usrBinEnv"></a>15.2.6.1. usrBinEnv</h4></div></div></div><p>
+       This provides the <code class="literal">env</code> utility at <code class="literal">/usr/bin/env</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-binSh"></a>15.2.6.2. binSh</h4></div></div></div><p>
+       This provides <code class="literal">bashInteractive</code> at <code class="literal">/bin/sh</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-caCertificates"></a>15.2.6.3. caCertificates</h4></div></div></div><p>
+       This sets up <code class="literal">/etc/ssl/certs/ca-certificates.crt</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sssec-pkgs-dockerTools-helpers-fakeNss"></a>15.2.6.4. fakeNss</h4></div></div></div><p>
+       Provides <code class="literal">/etc/passwd</code> and <code class="literal">/etc/group</code> that contain root and nobody. Useful when packaging binaries that insist on using nss to look up username/groups (like nginx).
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="ssec-pkgs-dockerTools-shadowSetup"></a>15.2.6.5. shadowSetup</h4></div></div></div><p>
+       This constant string is a helper for setting up the base files for managing users and groups, only if such files don’t exist already. It is suitable for being used in a <a class="link" href="#ex-dockerTools-buildImage-runAsRoot"><code class="literal">buildImage</code> <code class="literal">runAsRoot</code></a> script for cases like in the example below:
+      </p><pre class="programlisting">
 buildImage {
   name = "shadow-basic";
 
@@ -6291,8 +6311,8 @@ buildImage {
   '';
 }
 </pre><p>
-      Creating base files like <code class="literal">/etc/passwd</code> or <code class="literal">/etc/login.defs</code> is necessary for shadow-utils to manipulate users and groups.
-     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-fakeNss"></a>15.2.7. fakeNss</h3></div></div></div><p>
+       Creating base files like <code class="literal">/etc/passwd</code> or <code class="literal">/etc/login.defs</code> is necessary for shadow-utils to manipulate users and groups.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-fakeNss"></a>15.2.7. fakeNss</h3></div></div></div><p>
       If your primary goal is providing a basic skeleton for user lookups to work, and/or a lesser privileged user, adding <code class="literal">pkgs.fakeNss</code> to the container image root might be the better choice than a custom script running <code class="literal">useradd</code> and friends.
      </p><p>
       It provides a <code class="literal">/etc/passwd</code> and <code class="literal">/etc/group</code>, containing <code class="literal">root</code> and <code class="literal">nobody</code> users and groups.
@@ -14662,9 +14682,13 @@ $ nix-shell
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
          <code class="literal">{command}`rm -rfi`</code> turns into <span class="command"><strong>rm -rfi</strong></span>
         </p></li><li class="listitem"><p>
-         <code class="literal">{option}`networking.useDHCP`</code> turns into <code class="option">networking.useDHCP</code>
+         <code class="literal">{env}`XDG_DATA_DIRS`</code> turns into <code class="envar">XDG_DATA_DIRS</code>
         </p></li><li class="listitem"><p>
          <code class="literal">{file}`/etc/passwd`</code> turns into <code class="filename">/etc/passwd</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">{option}`networking.useDHCP`</code> turns into <code class="option">networking.useDHCP</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">{var}`/etc/passwd`</code> turns into <code class="varname">/etc/passwd</code>
         </p></li></ul></div><p>
        These literal kinds are used mostly in NixOS option documentation.
       </p><p>
