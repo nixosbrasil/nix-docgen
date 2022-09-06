@@ -13890,6 +13890,8 @@ src = fetchFromGitHub {
   sha256 = "1i2yxndxb6yc9l6c99pypbd92lfq5aac4klq7y2v93c9qvx2cgpc";
 }
 </pre></li></ul></div><p>
+     When fetching from GitHub, commits must always be referenced by their full commit hash. This is because GitHub shares commit hashes among all forks and returns <code class="literal">404 Not Found</code> when a short commit hash is ambiguous. It already happens for some short, 6-character commit hashes in <code class="literal">nixpkgs</code>. It is a practical vector for a denial-of-service attack by pushing large amounts of auto generated commits into forks and was already <a class="link" href="https://blog.teddykatz.com/2019/11/12/github-actions-dos.html" target="_top">demonstrated against GitHub Actions Beta</a>.
+    </p><p>
      Find the value to put as <code class="literal">sha256</code> by running <code class="literal">nix-shell -p nix-prefetch-github --run "nix-prefetch-github --rev 1f795f9f44607cc5bec70d1300150bfefcef2aae NixOS nix"</code>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-source-hashes"></a>20.5. Obtaining source hash</h2></div></div></div><p>
      Preferred source hash type is sha256. There are several ways to get it.

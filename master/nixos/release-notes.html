@@ -253,6 +253,14 @@
           HBase clusters, use <code class="literal">services.hadoop.hbase</code>
           instead.
         </p></li><li class="listitem"><p>
+          The <code class="literal">coq</code> package and versioned variants
+          starting at <code class="literal">coq_8_14</code> no longer include
+          CoqIDE, which is now available through
+          <code class="literal">coqPackages.coqide</code>. It is still possible to
+          get CoqIDE as part of the <code class="literal">coq</code> package by
+          overriding the <code class="literal">buildIde</code> argument of the
+          derivation.
+        </p></li><li class="listitem"><p>
           PHP 7.4 is no longer supported due to upstream not supporting
           this version for the entire lifecycle of the 22.11 release.
         </p></li><li class="listitem"><p>
