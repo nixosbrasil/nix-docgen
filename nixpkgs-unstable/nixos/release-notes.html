@@ -134,6 +134,10 @@
           customization. Available as
           <a class="link" href="options.html#opt-services.kanata.enable" target="_top">services.kanata</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://languagetool.org/" target="_top">languagetool</a>,
+          a multilingual grammar, style, and spell checker. Available as
+          <a class="link" href="options.html#opt-services.languagetool.enable" target="_top">services.languagetool</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://www.getoutline.com/" target="_top">Outline</a>,
           a wiki and knowledge base similar to Notion. Available as
           <a class="link" href="options.html#opt-services.outline.enable">services.outline</a>.
@@ -152,6 +156,11 @@
           mailing list manager with PGP support. Enable using
           <a class="link" href="options.html#opt-services.schleuder.enable">services.schleuder</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.dolibarr.org/" target="_top">Dolibarr</a>,
+          an enterprise resource planning and customer relationship
+          manager. Enable using
+          <a class="link" href="options.html#opt-services.dolibarr.enable">services.dolibarr</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://www.expressvpn.com" target="_top">expressvpn</a>,
           the CLI client for ExpressVPN. Available as
           <a class="link" href="options.html#opt-services.expressvpn.enable">services.expressvpn</a>.
@@ -164,6 +173,11 @@
           a template for PostgreSQL HA with ZooKeeper, etcd or Consul.
           Available as
           <a class="link" href="options.html#opt-services.patroni.enable" target="_top">services.patroni</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/prometheus-community/ipmi_exporter" target="_top">Prometheus
+          IPMI exporter</a>, an IPMI exporter for Prometheus.
+          Available as
+          <a class="link" href="options.html#opt-services.prometheus.exporters.ipmi.enable">services.prometheus.exporters.ipmi</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://writefreely.org" target="_top">WriteFreely</a>,
           a simple blogging platform with ActivityPub support. Available
@@ -244,11 +258,24 @@
           HBase clusters, use <code class="literal">services.hadoop.hbase</code>
           instead.
         </p></li><li class="listitem"><p>
+          The <code class="literal">coq</code> package and versioned variants
+          starting at <code class="literal">coq_8_14</code> no longer include
+          CoqIDE, which is now available through
+          <code class="literal">coqPackages.coqide</code>. It is still possible to
+          get CoqIDE as part of the <code class="literal">coq</code> package by
+          overriding the <code class="literal">buildIde</code> argument of the
+          derivation.
+        </p></li><li class="listitem"><p>
           PHP 7.4 is no longer supported due to upstream not supporting
           this version for the entire lifecycle of the 22.11 release.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.cosign</code> does not provide the
           <code class="literal">cosigned</code> binary anymore.
+        </p></li><li class="listitem"><p>
+          Emacs now uses the Lucid toolkit by default instead of GTK
+          because of stability and compatibility issues. Users who still
+          wish to remain using GTK can do so by using
+          <code class="literal">emacs-gtk</code>.
         </p></li><li class="listitem"><p>
           riak package removed along with
           <code class="literal">services.riak</code> module, due to lack of
@@ -272,6 +299,10 @@
           The <code class="literal">meta.mainProgram</code> attribute of packages
           in <code class="literal">wineWowPackages</code> now defaults to
           <code class="literal">"wine64"</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">paperless</code> module now defaults
+          <code class="literal">PAPERLESS_TIME_ZONE</code> to your configured
+          system timezone.
         </p></li><li class="listitem"><p>
           (Neo)Vim can not be configured with
           <code class="literal">configure.pathogen</code> anymore to reduce
