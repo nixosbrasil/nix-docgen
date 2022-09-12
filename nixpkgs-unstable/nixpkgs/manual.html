@@ -272,7 +272,7 @@ $ export NIXPKGS_ALLOW_INSECURE=1
       </a></span></dt><dd><p>
         Whether to warn when <code class="literal">config</code> contains an unrecognized attribute.
        </p><p>
-        <span class="emphasis"><em>Type:</em></span> unspecified
+        <span class="emphasis"><em>Type:</em></span> boolean
        </p><p>
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
@@ -3753,7 +3753,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mdDoc"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L292" target="_top">lib/options.nix:292</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L295" target="_top">lib/options.nix:295</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalMD"></a>5.1.7.13. <code class="function">lib.options.literalMD</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given MD text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3761,7 +3761,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalMD"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L300" target="_top">lib/options.nix:300</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L303" target="_top">lib/options.nix:303</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.showOption"></a>5.1.7.14. <code class="function">lib.options.showOption</code></h4></div></div></div><p>
        Convert an option, described as a list of the option parts in to a safe, human readable version.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3779,7 +3779,7 @@ Placeholders will not be quoted as they are not actual values:
 Unlike attributes, options can also start with numbers:
 (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.2bwm.enable"
 </pre></div></div><br class="example-break" /><p><a id="lib.options.showOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L320" target="_top">lib/options.nix:320</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L323" target="_top">lib/options.nix:323</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-sources"></a>5.1.8. Source filtering functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.pathType"></a>5.1.8.1. <code class="function">lib.sources.pathType</code></h4></div></div></div><p>
        Returns the type of a path: regular (for file), symlink, or directory.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -12541,7 +12541,7 @@ titaniumenv.buildApp {
     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
        Vim packages (<span class="emphasis"><em>recommended</em></span>)
       </p></li><li class="listitem"><p>
-       vim-plug
+       vim-plug (vim only)
       </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="custom-configuration"></a>17.34.1. Custom configuration</h3></div></div></div><p>
       Adding custom .vimrc lines can be done using the following code:
      </p><pre class="programlisting">
@@ -12691,19 +12691,8 @@ vim_configurable.customize {
   };
 }
 </pre><p>
-      For Neovim the syntax is:
-     </p><pre class="programlisting">
-neovim.override {
-  configure = {
-    customRC = ''
-      # your custom configuration goes here! 
-    '';
-    plug.plugins = with pkgs.vimPlugins; [
-      vim-go
-    ];
-  };
-}
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="adding-new-plugins-to-nixpkgs"></a>17.34.4. Adding new plugins to nixpkgs</h3></div></div></div><p>
+      Note: this is not possible anymore for Neovim.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="adding-new-plugins-to-nixpkgs"></a>17.34.4. Adding new plugins to nixpkgs</h3></div></div></div><p>
       Nix expressions for Vim plugins are stored in <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/pkgs/applications/editors/vim/plugins" target="_top">pkgs/applications/editors/vim/plugins</a>. For the vast majority of plugins, Nix expressions are automatically generated by running <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/update.py" target="_top"><code class="literal">./update.py</code></a>. This creates a <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/generated.nix" target="_top">generated.nix</a> file based on the plugins listed in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/vim-plugin-names" target="_top">vim-plugin-names</a>. Plugins are listed in alphabetical order in <code class="literal">vim-plugin-names</code> using the format <code class="literal">[github username]/[repository]@[gitref]</code>. For example https://github.com/scrooloose/nerdtree becomes <code class="literal">scrooloose/nerdtree</code>.
      </p><p>
       Some plugins require overrides in order to function properly. Overrides are placed in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vim/plugins/overrides.nix" target="_top">overrides.nix</a>. Overrides are most often required when a plugin requires some dependencies, or extra steps are required during the build process. For example <code class="literal">deoplete-fish</code> requires both <code class="literal">deoplete-nvim</code> and <code class="literal">vim-fish</code>, and so the following override was added:
@@ -12716,7 +12705,7 @@ deoplete-fish = super.deoplete-fish.overrideAttrs(old: {
      </p><p>
       To add a new plugin, run <code class="literal">./update.py --add "[owner]/[name]"</code>. <span class="strong"><strong>NOTE</strong></span>: This script automatically commits to your git repository. Be sure to check out a fresh branch before running.
      </p><p>
-      Finally, there are some plugins that are also packaged in nodePackages because they have Javascript-related build steps, such as running webpack. Those plugins are not listed in <code class="literal">vim-plugin-names</code> or managed by <code class="literal">update.py</code> at all, and are included separately in <code class="literal">overrides.nix</code>. Currently, all these plugins are related to the <code class="literal">coc.nvim</code> ecosystem of the Language Server Protocol integration with vim/neovim.
+      Finally, there are some plugins that are also packaged in nodePackages because they have Javascript-related build steps, such as running webpack. Those plugins are not listed in <code class="literal">vim-plugin-names</code> or managed by <code class="literal">update.py</code> at all, and are included separately in <code class="literal">overrides.nix</code>. Currently, all these plugins are related to the <code class="literal">coc.nvim</code> ecosystem of the Language Server Protocol integration with Vim/Neovim.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="updating-plugins-in-nixpkgs"></a>17.34.5. Updating plugins in nixpkgs</h3></div></div></div><p>
       Run the update script with a GitHub API token that has at least <code class="literal">public_repo</code> access. Running the script without the token is likely to result in rate-limiting (429 errors). For steps on creating an API token, please refer to <a class="link" href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token" target="_top">GitHub’s token documentation</a>.
      </p><pre class="programlisting">
@@ -12725,11 +12714,22 @@ GITHUB_API_TOKEN=my_token ./pkgs/applications/editors/vim/plugins/update.py
       Alternatively, set the number of processes to a lower count to avoid rate-limiting.
      </p><pre class="programlisting">
 ./pkgs/applications/editors/vim/plugins/update.py --proc 1
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="important-repositories"></a>17.34.6. Important repositories</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        <a class="link" href="https://bitbucket.org/vimcommunity/vim-pi" target="_top">vim-pi</a> is a plugin repository from VAM plugin manager meant to be used by others as well used by
-       </p></li><li class="listitem"><p>
-        <a class="link" href="https://github.com/MarcWeber/vim-addon-vim2nix" target="_top">vim2nix</a> which generates the .nix code
-       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-packages"></a>Chapter 18. Packages</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-citrix">18.1. Citrix Workspace</a></span></dt><dt><span class="section"><a href="#dlib">18.2. DLib</a></span></dt><dt><span class="section"><a href="#sec-eclipse">18.3. Eclipse</a></span></dt><dt><span class="section"><a href="#sec-elm">18.4. Elm</a></span></dt><dt><span class="section"><a href="#sec-emacs">18.5. Emacs</a></span></dt><dt><span class="section"><a href="#sec-firefox">18.6. Firefox</a></span></dt><dt><span class="section"><a href="#sec-fish">18.7. Fish</a></span></dt><dt><span class="section"><a href="#sec-fuse">18.8. FUSE</a></span></dt><dt><span class="section"><a href="#sec-ibus-typing-booster">18.9. ibus-engines.typing-booster</a></span></dt><dt><span class="section"><a href="#sec-kakoune">18.10. Kakoune</a></span></dt><dt><span class="section"><a href="#sec-linux-kernel">18.11. Linux kernel</a></span></dt><dt><span class="section"><a href="#locales">18.12. Locales</a></span></dt><dt><span class="section"><a href="#etc">18.13. /etc files</a></span></dt><dt><span class="section"><a href="#sec-nginx">18.14. Nginx</a></span></dt><dt><span class="section"><a href="#sec-opengl">18.15. OpenGL</a></span></dt><dt><span class="section"><a href="#sec-shell-helpers">18.16. Interactive shell helpers</a></span></dt><dt><span class="section"><a href="#sec-steam">18.17. Steam</a></span></dt><dt><span class="section"><a href="#cataclysm-dark-days-ahead">18.18. Cataclysm: Dark Days Ahead</a></span></dt><dt><span class="section"><a href="#sec-urxvt">18.19. Urxvt</a></span></dt><dt><span class="section"><a href="#sec-weechat">18.20. WeeChat</a></span></dt><dt><span class="section"><a href="#sec-xorg">18.21. X.org</a></span></dt></dl></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.36.11"></a>17.34.6. How to maintain an out-of-tree overlay of vim plugins ?</h3></div></div></div><p>
+      You can use the updater script to generate basic packages out of a custom vim plugin list:
+     </p><pre class="programlisting">
+pkgs/applications/editors/vim/plugins/update.py -i vim-plugin-names -o generated.nix --no-commit
+</pre><p>
+      with the contents of <code class="literal">vim-plugin-names</code> being for example:
+     </p><pre class="programlisting">
+repo,branch,alias
+pwntester/octo.nvim,,
+</pre><p>
+      You can then reference the generated vim plugins via:
+     </p><pre class="programlisting">
+myVimPlugins = pkgs.vimPlugins.extend (
+  (pkgs.callPackage generated.nix {})
+);
+</pre></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-packages"></a>Chapter 18. Packages</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-citrix">18.1. Citrix Workspace</a></span></dt><dt><span class="section"><a href="#dlib">18.2. DLib</a></span></dt><dt><span class="section"><a href="#sec-eclipse">18.3. Eclipse</a></span></dt><dt><span class="section"><a href="#sec-elm">18.4. Elm</a></span></dt><dt><span class="section"><a href="#sec-emacs">18.5. Emacs</a></span></dt><dt><span class="section"><a href="#sec-firefox">18.6. Firefox</a></span></dt><dt><span class="section"><a href="#sec-fish">18.7. Fish</a></span></dt><dt><span class="section"><a href="#sec-fuse">18.8. FUSE</a></span></dt><dt><span class="section"><a href="#sec-ibus-typing-booster">18.9. ibus-engines.typing-booster</a></span></dt><dt><span class="section"><a href="#sec-kakoune">18.10. Kakoune</a></span></dt><dt><span class="section"><a href="#sec-linux-kernel">18.11. Linux kernel</a></span></dt><dt><span class="section"><a href="#locales">18.12. Locales</a></span></dt><dt><span class="section"><a href="#etc">18.13. /etc files</a></span></dt><dt><span class="section"><a href="#sec-nginx">18.14. Nginx</a></span></dt><dt><span class="section"><a href="#sec-opengl">18.15. OpenGL</a></span></dt><dt><span class="section"><a href="#sec-shell-helpers">18.16. Interactive shell helpers</a></span></dt><dt><span class="section"><a href="#sec-steam">18.17. Steam</a></span></dt><dt><span class="section"><a href="#cataclysm-dark-days-ahead">18.18. Cataclysm: Dark Days Ahead</a></span></dt><dt><span class="section"><a href="#sec-urxvt">18.19. Urxvt</a></span></dt><dt><span class="section"><a href="#sec-weechat">18.20. WeeChat</a></span></dt><dt><span class="section"><a href="#sec-xorg">18.21. X.org</a></span></dt></dl></div><p>
     This chapter contains information about how to use and maintain the Nix expressions for a number of specific packages, such as the Linux kernel or X.org.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-citrix"></a>18.1. Citrix Workspace</h2></div></div></div><p>
      The <a class="link" href="https://www.citrix.com/products/workspace-app/" target="_top">Citrix Workspace App</a> is a remote desktop viewer which provides access to <a class="link" href="https://www.citrix.com/products/xenapp-xendesktop/" target="_top">XenDesktop</a> installations.

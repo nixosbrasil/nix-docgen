@@ -8985,29 +8985,26 @@ options = {
           verbatim in the manual. Useful if the default value is a
           complex expression or depends on other values or packages. Use
           <code class="literal">lib.literalExpression</code> for a Nix expression,
-          <code class="literal">lib.literalDocBook</code> for a plain English
-          description in DocBook format.
+          <code class="literal">lib.literalMD</code> for a plain English
+          description in
+          <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-contributing-markup" target="_top">Nixpkgs-flavored
+          Markdown</a> format.
         </p></dd><dt><span class="term">
         <code class="literal">example</code>
       </span></dt><dd><p>
           An example value that will be shown in the NixOS manual. You
           can use <code class="literal">lib.literalExpression</code> and
-          <code class="literal">lib.literalDocBook</code> in the same way as in
+          <code class="literal">lib.literalMD</code> in the same way as in
           <code class="literal">defaultText</code>.
         </p></dd><dt><span class="term">
         <code class="literal">description</code>
       </span></dt><dd><p>
-          A textual description of the option, in DocBook format, that
-          will be included in the NixOS manual. During the migration
-          process from DocBook to CommonMark the description may also be
-          written in CommonMark, but has to be wrapped in
-          <code class="literal">lib.mdDoc</code> to differentiate it from DocBook.
-          See the nixpkgs manual for
-          <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-contributing-markup" target="_top">the
-          list of CommonMark extensions</a> supported by NixOS
-          documentation.
-        </p><p>
-          New documentation should preferably be written as CommonMark.
+          A textual description of the option, in
+          <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-contributing-markup" target="_top">Nixpkgs-flavored
+          Markdown</a> format, that will be included in the NixOS
+          manual. During the migration process from DocBook to
+          CommonMark the description may also be written in DocBook, but
+          this is discouraged.
         </p></dd></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-util"></a>67.1.1. Utility functions for common option patterns</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-option-declarations-util-mkEnableOption"></a>67.1.1.1. <code class="literal">mkEnableOption</code></h4></div></div></div><p>
         Creates an Option attribute set for a boolean value option i.e
         an option to be toggled on or off.
