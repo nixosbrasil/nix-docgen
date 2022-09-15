@@ -90,6 +90,8 @@
           module now defaults to blueman as bluetooth manager and
           slick-greeter as lightdm greeter to match upstream.
         </p></li><li class="listitem"><p>
+          OpenSSL now defaults to OpenSSL 3, updated from 1.1.1.
+        </p></li><li class="listitem"><p>
           <code class="literal">hardware.nvidia</code> has a new option
           <code class="literal">open</code> that can be used to opt in the
           opensource version of NVIDIA kernel driver. Note that the
@@ -164,6 +166,10 @@
           <a class="link" href="https://www.expressvpn.com" target="_top">expressvpn</a>,
           the CLI client for ExpressVPN. Available as
           <a class="link" href="options.html#opt-services.expressvpn.enable">services.expressvpn</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/L11R/go-autoconfig" target="_top">go-autoconfig</a>,
+          IMAP/SMTP autodiscover server. Available as
+          <a class="link" href="options.html#opt-services.go-autoconfig.enable">services.go-autoconfig</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://www.grafana.com/oss/tempo/" target="_top">Grafana
           Tempo</a>, a distributed tracing store. Available as
@@ -290,6 +296,12 @@
           <code class="literal">hardware.xow</code> module, due to the project
           being deprecated in favor of <code class="literal">xone</code>, which is
           available via the <code class="literal">hardware.xone</code> module.
+        </p></li><li class="listitem"><p>
+          dd-agent package removed along with the
+          <code class="literal">services.dd-agent</code> module, due to the
+          project being deprecated in favor of
+          <code class="literal">datadog-agent</code>, which is available via the
+          <code class="literal">services.datadog-agent</code> module.
         </p></li><li class="listitem"><p>
           virtlyst package and <code class="literal">services.virtlyst</code>
           module removed, due to lack of maintainers.
