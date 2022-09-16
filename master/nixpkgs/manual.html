@@ -5814,18 +5814,24 @@ writeDirectReferencesToFile (writeScriptBin "hi" ''${hello}/bin/hello'')
     </p><p>
      Examples:
     </p><pre class="programlisting">
-passthru.tests.version = testVersion { package = hello; };
+passthru.tests.version = testers.testVersion { package = hello; };
 
-passthru.tests.version = testVersion {
+passthru.tests.version = testers.testVersion {
   package = seaweedfs;
   command = "weed version";
 };
 
-passthru.tests.version = testVersion {
+passthru.tests.version = testers.testVersion {
   package = key;
   command = "KeY --help";
   # Wrong '2.5' version in the code. Drop on next version.
   version = "2.5";
+};
+
+passthru.tests.version = testers.testVersion {
+  package = ghr;
+  # The output needs to contain the 'version' string without any prefix or suffix.
+  version = "v${version}";
 };
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testEqualDerivation"></a>13.2. <code class="literal">testEqualDerivation</code></h2></div></div></div><p>
      Checks that two packages produce the exact same build instructions.
@@ -5836,7 +5842,7 @@ passthru.tests.version = testVersion {
     </p><p>
      Example:
     </p><pre class="programlisting">
-testEqualDerivation
+testers.testEqualDerivation
   "The hello package must stay the same when enabling checks."
   hello
   (hello.overrideAttrs(o: { doCheck = true; }))
@@ -5855,7 +5861,7 @@ testEqualDerivation
     </p><p>
      Example:
     </p><pre class="programlisting">
-tests.fetchgit = invalidateFetcherByDrvHash fetchgit {
+tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
   name = "nix-source";
   url = "https://github.com/NixOS/nix";
   rev = "9d9dbe6ed05854e03811c361a3380e09183f4f4a";
