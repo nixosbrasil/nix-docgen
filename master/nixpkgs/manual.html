@@ -7475,7 +7475,46 @@ with lib; mkCoqDerivation {
     license = licenses.cecill-c;
   };
 }
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="crystal"></a>17.7. Crystal</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="building-a-crystal-package"></a>17.7.1. Building a Crystal package</h3></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="coq-overriding-packages"></a>17.6.3. Three ways of overriding Coq packages</h3></div></div></div><p>
+      There are three distinct ways of changing a Coq package by overriding one of its values: <code class="literal">.override</code>, <code class="literal">overrideCoqDerivation</code>, and <code class="literal">.overrideAttrs</code>. This section explains what sort of values can be overridden with each of these methods.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="coq-override"></a>17.6.3.1. <code class="literal">.override</code></h4></div></div></div><p>
+       <code class="literal">.override</code> lets you change arguments to a Coq derivation. In the case of the <code class="literal">multinomials</code> package above, <code class="literal">.override</code> would let you override arguments like <code class="literal">mkCoqDerivation</code>, <code class="literal">version</code>, <code class="literal">coq</code>, <code class="literal">mathcomp</code>, <code class="literal">mathcom-finmap</code>, etc.
+      </p><p>
+       For example, assuming you have a special <code class="literal">mathcomp</code> dependency you want to use, here is how you could override the <code class="literal">mathcomp</code> dependency:
+      </p><pre class="programlisting">
+multinomials.override {
+  mathcomp = my-special-mathcomp;
+}
+</pre><p>
+       In Nixpkgs, all Coq derivations take a <code class="literal">version</code> argument. This can be overridden in order to easily use a different version:
+      </p><pre class="programlisting">
+coqPackages.multinomials.override {
+  version = "1.5.1";
+}
+</pre><p>
+       Refer to <a class="xref" href="#coq-packages-attribute-sets-coqpackages" title="17.6.2. Coq packages attribute sets: coqPackages">Section 17.6.2, “Coq packages attribute sets: <code class="literal">coqPackages</code>”</a> for all the different formats that you can potentially pass to <code class="literal">version</code>, as well as the restrictions.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="coq-overrideCoqDerivation"></a>17.6.3.2. <code class="literal">overrideCoqDerivation</code></h4></div></div></div><p>
+       The <code class="literal">overrideCoqDerivation</code> function lets you easily change arguments to <code class="literal">mkCoqDerivation</code>. These arguments are described in <a class="xref" href="#coq-packages-attribute-sets-coqpackages" title="17.6.2. Coq packages attribute sets: coqPackages">Section 17.6.2, “Coq packages attribute sets: <code class="literal">coqPackages</code>”</a>.
+      </p><p>
+       For example, here is how you could locally add a new release of the <code class="literal">multinomials</code> library, and set the <code class="literal">defaultVersion</code> to use this release:
+      </p><pre class="programlisting">
+coqPackages.lib.overrideCoqDerivation
+  {
+    defaultVersion = "2.0";
+    release."2.0".sha256 = "1lq8x86vd3vqqh2yq6hvyagpnhfq5wmk5pg2z0xq7b7dbbbhyfkk";
+  }
+  coqPackages.multinomials
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="coq-overrideAttrs"></a>17.6.3.3. <code class="literal">.overrideAttrs</code></h4></div></div></div><p>
+       <code class="literal">.overrideAttrs</code> lets you override arguments to the underlying <code class="literal">stdenv.mkDerivation</code> call. Internally, <code class="literal">mkCoqDerivation</code> uses <code class="literal">stdenv.mkDerivation</code> to create derivations for Coq libraries. You can override arguments to <code class="literal">stdenv.mkDerivation</code> with <code class="literal">.overrideAttrs</code>.
+      </p><p>
+       For instance, here is how you could add some code to be performed in the derivation after installation is complete:
+      </p><pre class="programlisting">
+coqPackages.multinomials.overrideAttrs (oldAttrs: {
+  postInstall = oldAttrs.postInstall or "" + ''
+    echo "you can do anything you want here"
+  '';
+})
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="crystal"></a>17.7. Crystal</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="building-a-crystal-package"></a>17.7.1. Building a Crystal package</h3></div></div></div><p>
       This section uses <a class="link" href="https://github.com/mint-lang/mint" target="_top">Mint</a> as an example for how to build a Crystal package.
      </p><p>
       If the Crystal project has any dependencies, the first step is to get a <code class="literal">shards.nix</code> file encoding those. Get a copy of the project and go to its root directory such that its <code class="literal">shard.lock</code> file is in the current directory. Executable projects should usually commit the <code class="literal">shard.lock</code> file, but sometimes that’s not the case, which means you need to generate it yourself. With an existing <code class="literal">shard.lock</code> file, <code class="literal">crystal2nix</code> can be run.
