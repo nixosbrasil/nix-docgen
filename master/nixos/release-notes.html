@@ -135,6 +135,11 @@
           a hardware True Random Number Generator dongle. Available as
           <a class="link" href="options.html#opt-services.infnoise.enable" target="_top">services.infnoise</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/prymitive/kthxbye" target="_top">kthxbye</a>,
+          an alert acknowledgement management daemon for Prometheus
+          Alertmanager. Available as
+          <a class="link" href="options.html#opt-services.kthxbye.enable" target="_top">services.kthxbye</a>
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/jtroo/kanata" target="_top">kanata</a>,
           a tool to improve keyboard comfort and usability with advanced
           customization. Available as
@@ -303,6 +308,11 @@
           riak package removed along with
           <code class="literal">services.riak</code> module, due to lack of
           maintainer to update the package.
+        </p></li><li class="listitem"><p>
+          The (previously undocumented) Nixpkgs configuration option
+          <code class="literal">checkMeta</code> now defaults to
+          <code class="literal">true</code>. This may cause evaluation failures
+          for packages with incorrect <code class="literal">meta</code> attribute.
         </p></li><li class="listitem"><p>
           xow package removed along with the
           <code class="literal">hardware.xow</code> module, due to the project
