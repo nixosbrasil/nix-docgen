@@ -213,6 +213,16 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-checkMeta"></a><a class="term" href="#opt-checkMeta">
+       <code class="option">checkMeta</code>
+      </a></span></dt><dd><p>
+        Whether to check that the `meta` attribute of derivations are correct during evaluation time.
+       </p><p>
+        <span class="emphasis"><em>Type:</em></span> boolean
+       </p><p>
+        <span class="emphasis"><em>Default:</em></span> <code class="literal">true</code>
+       </p><p>
+        <span class="emphasis"><em>Declared by:</em></span>
        </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-configurePlatformsByDefault"></a><a class="term" href="#opt-configurePlatformsByDefault">
        <code class="option">configurePlatformsByDefault</code>
       </a></span></dt><dd><p>
@@ -7989,7 +7999,7 @@ $ dotnet --info
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="packaging-a-dotnet-application"></a>17.10.4. Packaging a Dotnet Application</h3></div></div></div><p>
       To package Dotnet applications, you can use <code class="literal">buildDotnetModule</code>. This has similar arguments to <code class="literal">stdenv.mkDerivation</code>, with the following additions:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">projectFile</code> has to be used for specifying the dotnet project file relative to the source root. These usually have <code class="literal">.sln</code> or <code class="literal">.csproj</code> file extensions. This can be an array of multiple projects as well.
+        <code class="literal">projectFile</code> is used for specifying the dotnet project file, relative to the source root. These usually have <code class="literal">.sln</code> or <code class="literal">.csproj</code> file extensions. This can be a list of multiple projects as well. Most of the time dotnet can figure this location out by itself, so this should only be set if necessary.
        </p></li><li class="listitem"><p>
         <code class="literal">nugetDeps</code> takes either a path to a <code class="literal">deps.nix</code> file, or a derivation. The <code class="literal">deps.nix</code> file can be generated using the script attached to <code class="literal">passthru.fetch-deps</code>. This file can also be generated manually using <code class="literal">nuget-to-nix</code> tool, which is available in nixpkgs. If the argument is a derivation, it will be used directly and assume it has the same output as <code class="literal">mkNugetDeps</code>.
        </p></li><li class="listitem"><p>
@@ -8034,7 +8044,7 @@ $ dotnet --info
        </p></li><li class="listitem"><p>
         <code class="literal">dotnetFlags</code> can be used to pass flags to all of the above phases.
        </p></li></ul></div><p>
-      When packaging a new application, you need to fetch it’s dependencies. You can set <code class="literal">nugetDeps</code> to an empty string to make the derivation temporarily evaluate, and then run <code class="literal">nix-build -A package.passthru.fetch-deps</code> to generate it’s dependency fetching script. After running the script, you should have the location of the generated lockfile printed to the console. This can be copied to a stable directory. Note that if either <code class="literal">projectFile</code> or <code class="literal">nugetDeps</code> are unset, this script cannot be generated!
+      When packaging a new application, you need to fetch its dependencies. You can run <code class="literal">nix-build -A package.fetch-deps</code> to generate a script that will build a lockfile for you. After running the script you should have the location of the generated lockfile printed to the console, which can be copied to a stable directory. Then set <code class="literal">nugetDeps = ./deps.nix</code> and you’re ready to build the derivation.
      </p><p>
       Here is an example <code class="literal">default.nix</code>, using some of the previously discussed arguments:
      </p><pre class="programlisting">

@@ -4275,7 +4275,7 @@ passthru.updateScript = writeScript "update-zoom-us" ''
       </p><pre class="programlisting">
 passthru.updateScript = [ ../../update.sh pname "--requested-release=unstable" ];
 </pre><p>
-       The script will be run with <code class="literal">UPDATE_NIX_ATTR_PATH</code> environment variable set to the attribute path it is supposed to update.
+       The script will be run with the <code class="literal">UPDATE_NIX_NAME</code>, <code class="literal">UPDATE_NIX_PNAME</code>, <code class="literal">UPDATE_NIX_OLD_VERSION</code> and <code class="literal">UPDATE_NIX_ATTR_PATH</code> environment variables set respectively to the name, pname, old version and attribute path of the package it is supposed to update.
       </p><div class="note"><h3 class="title">Note</h3><p>
         The script will be usually run from the root of the Nixpkgs repository but you should not rely on that. Also note that the update scripts will be run in parallel by default; you should avoid running <code class="literal">git commit</code> or any other commands that cannot handle that.
        </p></div><p>
@@ -7999,7 +7999,7 @@ $ dotnet --info
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="packaging-a-dotnet-application"></a>17.10.4. Packaging a Dotnet Application</h3></div></div></div><p>
       To package Dotnet applications, you can use <code class="literal">buildDotnetModule</code>. This has similar arguments to <code class="literal">stdenv.mkDerivation</code>, with the following additions:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">projectFile</code> has to be used for specifying the dotnet project file relative to the source root. These usually have <code class="literal">.sln</code> or <code class="literal">.csproj</code> file extensions. This can be an array of multiple projects as well.
+        <code class="literal">projectFile</code> is used for specifying the dotnet project file, relative to the source root. These usually have <code class="literal">.sln</code> or <code class="literal">.csproj</code> file extensions. This can be a list of multiple projects as well. Most of the time dotnet can figure this location out by itself, so this should only be set if necessary.
        </p></li><li class="listitem"><p>
         <code class="literal">nugetDeps</code> takes either a path to a <code class="literal">deps.nix</code> file, or a derivation. The <code class="literal">deps.nix</code> file can be generated using the script attached to <code class="literal">passthru.fetch-deps</code>. This file can also be generated manually using <code class="literal">nuget-to-nix</code> tool, which is available in nixpkgs. If the argument is a derivation, it will be used directly and assume it has the same output as <code class="literal">mkNugetDeps</code>.
        </p></li><li class="listitem"><p>
@@ -8044,7 +8044,7 @@ $ dotnet --info
        </p></li><li class="listitem"><p>
         <code class="literal">dotnetFlags</code> can be used to pass flags to all of the above phases.
        </p></li></ul></div><p>
-      When packaging a new application, you need to fetch it’s dependencies. You can set <code class="literal">nugetDeps</code> to an empty string to make the derivation temporarily evaluate, and then run <code class="literal">nix-build -A package.passthru.fetch-deps</code> to generate it’s dependency fetching script. After running the script, you should have the location of the generated lockfile printed to the console. This can be copied to a stable directory. Note that if either <code class="literal">projectFile</code> or <code class="literal">nugetDeps</code> are unset, this script cannot be generated!
+      When packaging a new application, you need to fetch its dependencies. You can run <code class="literal">nix-build -A package.fetch-deps</code> to generate a script that will build a lockfile for you. After running the script you should have the location of the generated lockfile printed to the console, which can be copied to a stable directory. Then set <code class="literal">nugetDeps = ./deps.nix</code> and you’re ready to build the derivation.
      </p><p>
       Here is an example <code class="literal">default.nix</code>, using some of the previously discussed arguments:
      </p><pre class="programlisting">
