@@ -452,6 +452,18 @@
         </p></li><li class="listitem"><p>
           Add udev rules for the Teensy family of microcontrollers.
         </p></li><li class="listitem"><p>
+          systemd-oomd is enabled by default. Depending on which systemd
+          units have <code class="literal">ManagedOOMSwap=kill</code> or
+          <code class="literal">ManagedOOMMemoryPressure=kill</code>, systemd-oomd
+          will SIGKILL all the processes under the appropriate
+          descendant cgroups when the configured limits are exceeded.
+          NixOS does currently not configure cgroups with oomd by
+          default, this can be enabled using
+          <a class="link" href="options.html#opt-systemd.oomd.enableRootSlice" target="_top">systemd.oomd.enableRootSlice</a>,
+          <a class="link" href="options.html#opt-systemd.oomd.enableSystemSlice" target="_top">systemd.oomd.enableSystemSlice</a>,
+          and
+          <a class="link" href="options.html#opt-systemd.oomd.enableUserServices" target="_top">systemd.oomd.enableUserServices</a>.
+        </p></li><li class="listitem"><p>
           The <code class="literal">pass-secret-service</code> package now
           includes systemd units from upstream, so adding it to the
           NixOS <code class="literal">services.dbus.packages</code> option will
