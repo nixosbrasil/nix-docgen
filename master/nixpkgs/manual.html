@@ -3592,7 +3592,7 @@ trace: { fn = "id"; from = { a.b = {…}; }; to = { a.b = {…}; }; }
 isOption 1             // =&gt; false
 isOption (mkOption {}) // =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.options.isOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L51" target="_top">lib/options.nix:51</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L50" target="_top">lib/options.nix:50</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkOption"></a>5.1.7.2. <code class="function">lib.options.mkOption</code></h4></div></div></div><p>
        Creates an Option attribute set. mkOption accepts an attribute set with the following keys:
       </p><p>
@@ -3645,7 +3645,7 @@ isOption (mkOption {}) // =&gt; true
 mkOption { }  // =&gt; { _type = "option"; }
 mkOption { default = "foo"; } // =&gt; { _type = "option"; default = "foo"; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L61" target="_top">lib/options.nix:61</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L60" target="_top">lib/options.nix:60</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkEnableOption"></a>5.1.7.3. <code class="function">lib.options.mkEnableOption</code></h4></div></div></div><p>
        Creates an Option attribute set for a boolean value option i.e an option to be toggled on or off:
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3656,7 +3656,7 @@ mkOption { default = "foo"; } // =&gt; { _type = "option"; default = "foo"; }
 mkEnableOption "foo"
 =&gt; { _type = "option"; default = false; description = "Whether to enable foo."; example = true; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkEnableOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L93" target="_top">lib/options.nix:93</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L92" target="_top">lib/options.nix:92</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkPackageOption"></a>5.1.7.4. <code class="function">lib.options.mkPackageOption</code></h4></div><div><h5 class="subtitle"><code class="literal">mkPackageOption :: pkgs -&gt; string -&gt; { default :: [string], example :: null | string | [string] } -&gt; optionThe package is specified as a list of strings representing its attribute path in nixpkgs.Because of this, you need to pass nixpkgs itself as the first argument.The second argument is the name of the option, used in the description "The &lt;name&gt; package to use.".You can also pass an example value, either a literal string or a package's attribute path.You can omit the default path if the name of the option is also attribute path in nixpkgs.</code>
       </h5></div></div></div><p>
        Creates an Option attribute set for an option that specifies the package a module should use for some purpose.
@@ -3691,7 +3691,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
 }
 =&gt; { _type = "option"; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = "The GHC package to use."; example = { ... }; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkPackageOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L131" target="_top">lib/options.nix:131</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L130" target="_top">lib/options.nix:130</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkSinkUndeclaredOptions"></a>5.1.7.5. <code class="function">lib.options.mkSinkUndeclaredOptions</code></h4></div></div></div><p>
        This option accepts anything, but it does not produce any result.
       </p><p>
@@ -3701,7 +3701,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mkSinkUndeclaredOptions"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L153" target="_top">lib/options.nix:153</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L152" target="_top">lib/options.nix:152</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mergeEqualOption"></a>5.1.7.6. <code class="function">lib.options.mergeEqualOption</code></h4></div></div></div><p>
        "Merge" option definitions by checking that they all have the same value.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3713,7 +3713,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mergeEqualOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L186" target="_top">lib/options.nix:186</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L185" target="_top">lib/options.nix:185</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getValues"></a>5.1.7.7. <code class="function">lib.options.getValues</code></h4></div><div><h5 class="subtitle"><code class="literal">getValues :: [ { value :: a } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "value" keys of the given list.
@@ -3721,7 +3721,7 @@ example = "pkgs.haskell.packages.ghc924.ghc.withPackages (hkgs: [ hkgs.primes ])
 getValues [ { value = 1; } { value = 2; } ] // =&gt; [ 1 2 ]
 getValues [ ]                               // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getValues"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L206" target="_top">lib/options.nix:206</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L205" target="_top">lib/options.nix:205</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getFiles"></a>5.1.7.8. <code class="function">lib.options.getFiles</code></h4></div><div><h5 class="subtitle"><code class="literal">getFiles :: [ { file :: a } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "file" keys of the given list
@@ -3729,7 +3729,7 @@ getValues [ ]                               // =&gt; [ ]
 getFiles [ { file = "file1"; } { file = "file2"; } ] // =&gt; [ "file1" "file2" ]
 getFiles [ ]                                         // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getFiles"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L216" target="_top">lib/options.nix:216</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L215" target="_top">lib/options.nix:215</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.scrubOptionValue"></a>5.1.7.9. <code class="function">lib.options.scrubOptionValue</code></h4></div></div></div><p>
        This function recursively removes all derivation attributes from `x` except for the `name` attribute.
       </p><p>
@@ -3739,7 +3739,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.scrubOptionValue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L261" target="_top">lib/options.nix:261</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L260" target="_top">lib/options.nix:260</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalExpression"></a>5.1.7.10. <code class="function">lib.options.literalExpression</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given string to be rendered verbatim in the documentation as Nix code. This is necessary for complex values, e.g. functions, or values that depend on other values or packages.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3747,7 +3747,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalExpression"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L274" target="_top">lib/options.nix:274</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L273" target="_top">lib/options.nix:273</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalDocBook"></a>5.1.7.11. <code class="function">lib.options.literalDocBook</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given DocBook text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3755,7 +3755,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalDocBook"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L285" target="_top">lib/options.nix:285</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L284" target="_top">lib/options.nix:284</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mdDoc"></a>5.1.7.12. <code class="function">lib.options.mdDoc</code></h4></div></div></div><p>
        Transition marker for documentation that's already migrated to markdown syntax.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3763,7 +3763,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mdDoc"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L295" target="_top">lib/options.nix:295</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L294" target="_top">lib/options.nix:294</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalMD"></a>5.1.7.13. <code class="function">lib.options.literalMD</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given MD text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3771,7 +3771,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalMD"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L303" target="_top">lib/options.nix:303</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L302" target="_top">lib/options.nix:302</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.showOption"></a>5.1.7.14. <code class="function">lib.options.showOption</code></h4></div></div></div><p>
        Convert an option, described as a list of the option parts in to a safe, human readable version.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3789,7 +3789,7 @@ Placeholders will not be quoted as they are not actual values:
 Unlike attributes, options can also start with numbers:
 (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.2bwm.enable"
 </pre></div></div><br class="example-break" /><p><a id="lib.options.showOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L323" target="_top">lib/options.nix:323</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L322" target="_top">lib/options.nix:322</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-sources"></a>5.1.8. Source filtering functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.pathType"></a>5.1.8.1. <code class="function">lib.sources.pathType</code></h4></div></div></div><p>
        Returns the type of a path: regular (for file), symlink, or directory.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3797,7 +3797,7 @@ Unlike attributes, options can also start with numbers:
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.sources.pathType"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.pathIsDirectory"></a>5.1.8.2. <code class="function">lib.sources.pathIsDirectory</code></h4></div></div></div><p>
        Returns true if the path exists and is a directory, false otherwise.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3805,7 +3805,7 @@ Unlike attributes, options can also start with numbers:
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.sources.pathIsDirectory"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.pathIsRegularFile"></a>5.1.8.3. <code class="function">lib.sources.pathIsRegularFile</code></h4></div></div></div><p>
        Returns true if the path exists and is a regular file, false otherwise.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3813,7 +3813,7 @@ Unlike attributes, options can also start with numbers:
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.sources.pathIsRegularFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.cleanSourceFilter"></a>5.1.8.4. <code class="function">lib.sources.cleanSourceFilter</code></h4></div></div></div><p>
        A basic filter for `cleanSourceWith` that removes directories of version control system, backup files (*~) and some generated files.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3825,7 +3825,7 @@ Unlike attributes, options can also start with numbers:
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.sources.cleanSourceFilter"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.cleanSource"></a>5.1.8.5. <code class="function">lib.sources.cleanSource</code></h4></div></div></div><p>
        Filters a source tree removing version control files and directories using cleanSourceFilter.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3835,7 +3835,7 @@ Unlike attributes, options can also start with numbers:
          </p></dd></dl></div><div class="example"><a id="id-1.3.5.3.10.6.4"></a><p class="title"><strong>Example 5.150. <code class="function">lib.sources.cleanSource</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 cleanSource ./.
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.cleanSource"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.cleanSourceWith"></a>5.1.8.6. <code class="function">lib.sources.cleanSourceWith</code></h4></div></div></div><p>
        Like `builtins.filterSource`, except it will compose with itself, allowing you to chain multiple calls together without any intermediate copies being put in the nix store.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3867,7 +3867,7 @@ src = ./.;
 builtins.filterSource f (builtins.filterSource g ./.)
 # Fails!
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.cleanSourceWith"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.trace"></a>5.1.8.7. <code class="function">lib.sources.trace</code></h4></div><div><h5 class="subtitle"><code class="literal">sources.trace :: sourceLike -&gt; Source</code>
       </h5></div></div></div><p>
        Add logging to a source, for troubleshooting the filtering behavior.
@@ -3876,7 +3876,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
         </span></dt><dd><p>
           Source to debug. The returned source will behave like this source, but also log its filter invocations.
          </p></dd></dl></div><p><a id="lib.sources.trace"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.sourceByRegex"></a>5.1.8.8. <code class="function">lib.sources.sourceByRegex</code></h4></div></div></div><p>
        Filter sources by a list of regular expressions.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3889,7 +3889,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
           Function argument
          </p></dd></dl></div><div class="example"><a id="id-1.3.5.3.10.9.4"></a><p class="title"><strong>Example 5.152. <code class="function">lib.sources.sourceByRegex</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">src = sourceByRegex ./my-subproject [".*\.py$" "^database.sql$"]
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.sourceByRegex"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.sourceFilesBySuffices"></a>5.1.8.9. <code class="function">lib.sources.sourceFilesBySuffices</code></h4></div><div><h5 class="subtitle"><code class="literal">sourceLike -&gt; [String] -&gt; Source</code>
       </h5></div></div></div><p>
        Get all files ending with the specified suffices from the given source directory or its descendants, omitting files that do not match any suffix. The result of the example below will include files like `./dir/module.c` and `./dir/subdir/doc.xml` if present.
@@ -3904,12 +3904,12 @@ builtins.filterSource f (builtins.filterSource g ./.)
          </p></dd></dl></div><div class="example"><a id="id-1.3.5.3.10.10.5"></a><p class="title"><strong>Example 5.153. <code class="function">lib.sources.sourceFilesBySuffices</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 sourceFilesBySuffices ./. [ ".xml" ".c" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.sourceFilesBySuffices"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.commitIdFromGitRepo"></a>5.1.8.10. <code class="function">lib.sources.commitIdFromGitRepo</code></h4></div></div></div><p>
        Get the commit id of a git repo.
       </p><div class="example"><a id="id-1.3.5.3.10.11.3"></a><p class="title"><strong>Example 5.154. <code class="function">lib.sources.commitIdFromGitRepo</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">commitIdFromGitRepo &lt;nixpkgs/.git&gt;
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.commitIdFromGitRepo"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L265" target="_top">lib/sources.nix:265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L264" target="_top">lib/sources.nix:264</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-generators"></a>5.2. Generators</h2></div></div></div><p>
      Generators are functions that create file formats from nix data structures, e. g. for configuration files. There are generators available for: <code class="literal">INI</code>, <code class="literal">JSON</code> and <code class="literal">YAML</code>
     </p><p>
