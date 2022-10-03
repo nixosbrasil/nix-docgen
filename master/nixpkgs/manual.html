@@ -220,7 +220,7 @@ $ export NIXPKGS_ALLOW_INSECURE=1
        </p><p>
         <span class="emphasis"><em>Type:</em></span> boolean
        </p><p>
-        <span class="emphasis"><em>Default:</em></span> <code class="literal">true</code>
+        <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
        </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-configurePlatformsByDefault"></a><a class="term" href="#opt-configurePlatformsByDefault">
@@ -7417,7 +7417,7 @@ $ egg2nix eggs.scm &gt; eggs.nix
        </p></li><li class="listitem"><p>
         <code class="literal">namePrefix</code> (optional, defaults to <code class="literal">[ "coq" ]</code>), provides a way to alter the computation of <code class="literal">name</code> from <code class="literal">pname</code>, by explaining which dependencies must occur in <code class="literal">name</code>,
        </p></li><li class="listitem"><p>
-        <code class="literal">nativeBuildInputs</code> (optional), is a list of executables that are required to build the current derivation, in addition to the default ones (namely <code class="literal">which</code>, <code class="literal">dune</code> and <code class="literal">ocaml</code> depending on whether <code class="literal">useDune2</code>, <code class="literal">useDune2ifVersion</code> and <code class="literal">mlPlugin</code> are set).
+        <code class="literal">nativeBuildInputs</code> (optional), is a list of executables that are required to build the current derivation, in addition to the default ones (namely <code class="literal">which</code>, <code class="literal">dune</code> and <code class="literal">ocaml</code> depending on whether <code class="literal">useDune</code>, <code class="literal">useDuneifVersion</code> and <code class="literal">mlPlugin</code> are set).
        </p></li><li class="listitem"><p>
         <code class="literal">extraNativeBuildInputs</code> (optional, deprecated), an additional list of derivation to add to <code class="literal">nativeBuildInputs</code>,
        </p></li><li class="listitem"><p>
@@ -7433,9 +7433,9 @@ $ egg2nix eggs.scm &gt; eggs.nix
        </p></li><li class="listitem"><p>
         <code class="literal">mlPlugin</code> (optional, defaults to <code class="literal">false</code>). Some extensions (plugins) might require OCaml and sometimes other OCaml packages. Standard dependencies can be added by setting the current option to <code class="literal">true</code>. For a finer grain control, the <code class="literal">coq.ocamlPackages</code> attribute can be used in <code class="literal">nativeBuildInputs</code>, <code class="literal">buildInputs</code>, and <code class="literal">propagatedBuildInputs</code> to depend on the same package set Coq was built against.
        </p></li><li class="listitem"><p>
-        <code class="literal">useDune2ifVersion</code> (optional, default to <code class="literal">(x: false)</code> uses Dune2 to build the package if the provided predicate evaluates to true on the version, e.g. <code class="literal">useDune2ifVersion = versions.isGe "1.1"</code> will use dune if the version of the package is greater or equal to <code class="literal">"1.1"</code>,
+        <code class="literal">useDuneifVersion</code> (optional, default to <code class="literal">(x: false)</code> uses Dune to build the package if the provided predicate evaluates to true on the version, e.g. <code class="literal">useDuneifVersion = versions.isGe "1.1"</code> will use dune if the version of the package is greater or equal to <code class="literal">"1.1"</code>,
        </p></li><li class="listitem"><p>
-        <code class="literal">useDune2</code> (optional, defaults to <code class="literal">false</code>) uses Dune2 to build the package if set to true, the presence of this attribute overrides the behavior of the previous one.
+        <code class="literal">useDune</code> (optional, defaults to <code class="literal">false</code>) uses Dune to build the package if set to true, the presence of this attribute overrides the behavior of the previous one.
        </p></li><li class="listitem"><p>
         <code class="literal">opam-name</code> (optional, defaults to concatenating with a dash separator the components of <code class="literal">namePrefix</code> and <code class="literal">pname</code>), name of the Dune package to build.
        </p></li><li class="listitem"><p>
