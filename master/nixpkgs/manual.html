@@ -5987,7 +5987,7 @@ pkgs.mkShell {
       … all the attributes of <code class="literal">stdenv.mkDerivation</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.4.5"></a>14.2.3. Building the shell</h3></div></div></div><p>
       This derivation output will contain a text file that contains a reference to all the build inputs. This is useful in CI where we want to make sure that every derivation, and its dependencies, build properly. Or when creating a GC root so that the build dependencies don’t get garbage-collected.
-     </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Chapter 15. Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">15.1. pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">15.2. pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">15.3. pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">15.4. pkgs.snapTools</a></span></dt></dl></div><p>
+     </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Chapter 15. Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">15.1. pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">15.2. pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">15.3. pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">15.4. pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">15.5. pkgs.portableService</a></span></dt></dl></div><p>
     This chapter describes tools for creating various types of images.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-appimageTools"></a>15.1. pkgs.appimageTools</h2></div></div></div><p>
      <code class="literal">pkgs.appimageTools</code> is a set of functions for extracting and wrapping <a class="link" href="https://appimage.org/" target="_top">AppImage</a> files. They are meant to be used if traditional packaging from source is infeasible, or it would take too long. To quickly run an AppImage file, <code class="literal">pkgs.appimage-run</code> can be used as well.
@@ -6442,7 +6442,75 @@ in snapTools.makeSnap {
       <code class="literal">nix-build</code> this expression and install it with <code class="literal">snap install ./result --dangerous</code>. <code class="literal">nix-example-firefox</code> will now be the Snapcraft version of the Firefox package.
      </p><p>
       The specific meaning behind plugs can be looked up in the <a class="link" href="https://docs.snapcraft.io/supported-interfaces" target="_top">Snapcraft interface documentation</a>.
-     </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-hooks"></a>Chapter 16. Hooks reference</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-postgresqlTestHook">16.1. <code class="literal">postgresqlTestHook</code></a></span></dt></dl></div><p>
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-portableService"></a>15.5. pkgs.portableService</h2></div></div></div><p>
+     <code class="literal">pkgs.portableService</code> is a function to create <span class="emphasis"><em>portable service images</em></span>, as read-only, immutable, <code class="literal">squashfs</code> archives.
+    </p><p>
+     systemd supports a concept of <a class="link" href="https://systemd.io/PORTABLE_SERVICES/" target="_top">Portable Services</a>. Portable Services are a delivery method for system services that uses two specific features of container management:
+    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+       Applications are bundled. I.e. multiple services, their binaries and all their dependencies are packaged in an image, and are run directly from it.
+      </p></li><li class="listitem"><p>
+       Stricter default security policies, i.e. sandboxing of applications.
+      </p></li></ul></div><p>
+     This allows using Nix to build images which can be run on many recent Linux distributions.
+    </p><p>
+     The primary tool for interacting with Portable Services is <code class="literal">portablectl</code>, and they are managed by the <code class="literal">systemd-portabled</code> system service.
+    </p><div class="note"><h3 class="title">Note</h3><p>
+      Portable services are supported starting with systemd 239 (released on 2018-06-22).
+     </p></div><p>
+     A very simple example of using <code class="literal">portableService</code> is described below:
+    </p><p>
+     <a id="ex-pkgs-portableService"></a>
+    </p><pre class="programlisting">
+pkgs.portableService {
+  pname = "demo";
+  version = "1.0";
+  units = [ demo-service demo-socket ];
+}
+</pre><p>
+     The above example will build an squashfs archive image in <code class="literal">result/$pname_$version.raw</code>. The image will contain the file system structure as required by the portable service specification, and a subset of the Nix store with all the dependencies of the two derivations in the <code class="literal">units</code> list. <code class="literal">units</code> must be a list of derivations, and their names must be prefixed with the service name (<code class="literal">"demo"</code> in this case). Otherwise <code class="literal">systemd-portabled</code> will ignore them.
+    </p><p>
+     The <code class="literal">.raw</code> file extension of the image is required by the portable services specification.
+    </p><p>
+     Some other options available are:
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+       <code class="literal">description</code>, <code class="literal">homepage</code>
+      </p><p>
+       Are added to the <code class="literal">/etc/os-release</code> in the image and are shown by the portable services tooling. Default to empty values, not added to os-release.
+      </p></li><li class="listitem"><p>
+       <code class="literal">symlinks</code>
+      </p><p>
+       A list of attribute sets {object, symlink}. Symlinks will be created in the root filesystem of the image to objects in the Nix store. Defaults to an empty list.
+      </p></li><li class="listitem"><p>
+       <code class="literal">contents</code>
+      </p><p>
+       A list of additional derivations to be included in the image Nix store, as-is. Defaults to an empty list.
+      </p></li><li class="listitem"><p>
+       <code class="literal">squashfsTools</code>
+      </p><p>
+       Defaults to <code class="literal">pkgs.squashfsTools</code>, allows you to override the package that provides <code class="literal">mksquashfs</code>.
+      </p></li><li class="listitem"><p>
+       <code class="literal">squash-compression</code>, <code class="literal">squash-block-size</code>
+      </p><p>
+       Options to <code class="literal">mksquashfs</code>. Default to <code class="literal">"xz -Xdict-size 100%"</code> and <code class="literal">"1M"</code> respectively.
+      </p></li></ul></div><p>
+     A typical usage of <code class="literal">symlinks</code> would be:
+    </p><pre class="programlisting">
+  symlinks = [
+    { object = "${pkgs.cacert}/etc/ssl"; symlink = "/etc/ssl"; }
+    { object = "${pkgs.bash}/bin/bash"; symlink = "/bin/sh"; }
+    { object = "${pkgs.php}/bin/php"; symlink = "/usr/bin/php"; }
+  ];
+</pre><p>
+     to create these symlinks for legacy applications that assume them existing globally.
+    </p><p>
+     Once the image is created, and deployed on a host in <code class="literal">/var/lib/portables/</code>, you can attach the image and run the service. As root run:
+    </p><pre class="programlisting">
+portablectl attach demo_1.0.raw
+systemctl enable --now demo.socket
+systemctl enable --now demo.service
+</pre><p>
+     See the <a class="link" href="https://www.freedesktop.org/software/systemd/man/portablectl.html" target="_top">man page</a> of <code class="literal">portablectl</code> for more info on its usage.
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-hooks"></a>Chapter 16. Hooks reference</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-postgresqlTestHook">16.1. <code class="literal">postgresqlTestHook</code></a></span></dt></dl></div><p>
     Nixpkgs has several hook packages that augment the stdenv phases.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-postgresqlTestHook"></a>16.1. <code class="literal">postgresqlTestHook</code></h2></div></div></div><p>
      This hook starts a PostgreSQL server during the <code class="literal">checkPhase</code>. Example:
