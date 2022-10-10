@@ -169,6 +169,10 @@
           a simple and extensible webmail. Available as
           <a class="link" href="options.html#opt-services.alps.enable">services.alps</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/shizunge/endlessh-go" target="_top">endlessh-go</a>,
+          an SSH tarpit that exposes Prometheus metrics. Available as
+          <a class="link" href="options.html#opt-services.endlessh-go.enable">services.endlessh-go</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://netbird.io" target="_top">netbird</a>, a zero
           configuration VPN. Available as
           <a class="link" href="options.html#opt-services.netbird.enable" target="_top">services.netbird</a>.
@@ -320,7 +324,9 @@
           this version for the entire lifecycle of the 22.11 release.
         </p></li><li class="listitem"><p>
           <code class="literal">pkgs.cosign</code> does not provide the
-          <code class="literal">cosigned</code> binary anymore.
+          <code class="literal">cosigned</code> binary anymore. The
+          <code class="literal">sget</code> binary has been moved into its own
+          package.
         </p></li><li class="listitem"><p>
           Emacs now uses the Lucid toolkit by default instead of GTK
           because of stability and compatibility issues. Users who still
