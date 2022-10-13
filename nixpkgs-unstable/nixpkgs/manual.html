@@ -14039,14 +14039,24 @@ $ nix-hash --type sha256 --to-base32 HASH
 </pre></li><li class="listitem"><p>
        Extracting hash from local source tarball can be done with <code class="literal">sha256sum</code>. Use <code class="literal">nix-prefetch-url file:///path/to/tarball</code> if you want base32 hash.
       </p></li><li class="listitem"><p>
-       Fake hash: set fake hash in package expression, perform build and extract correct hash from error Nix prints.
-      </p><p>
-       For package updates it is enough to change one symbol to make hash fake. For new packages, you can use <code class="literal">lib.fakeSha256</code>, <code class="literal">lib.fakeSha512</code> or any other fake hash.
-      </p><p>
+       Fake hash: set the hash to one of
+      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">""</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">lib.fakeHash</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">lib.fakeSha256</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">lib.fakeSha512</code>
+        </p></li></ul></div><p>
+       in the package expression, attempt build and extract correct hash from error messages.
+      </p><div class="warning"><h3 class="title">Warning</h3><p>
+        You must use one of these four fake hashes and not some arbitrarily-chosen hash.
+       </p><p>
+        See <a class="xref" href="#sec-source-hashes-security" title="20.5.1. Obtaining hashes securely">Section 20.5.1, “Obtaining hashes securely”</a>.
+       </p></div><p>
        This is last resort method when reconstructing source URL is non-trivial and <code class="literal">nix-prefetch-url -A</code> isn’t applicable (for example, <a class="link" href="https://github.com/NixOS/nixpkgs/blob/d2ab091dd308b99e4912b805a5eb088dd536adb9/pkgs/applications/video/kodi/default.nix#L73" target="_top">one of <code class="literal">kodi</code> dependencies</a>). The easiest way then would be replace hash with a fake one and rebuild. Nix build will fail and error message will contain desired hash.
-      </p></li></ol></div><div class="warning"><h3 class="title">Warning</h3><p>
-      This method has security problems. Check below for details.
-     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-source-hashes-security"></a>20.5.1. Obtaining hashes securely</h3></div></div></div><p>
+      </p></li></ol></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-source-hashes-security"></a>20.5.1. Obtaining hashes securely</h3></div></div></div><p>
       Let’s say Man-in-the-Middle (MITM) sits close to your network. Then instead of fetching source you can fetch malware, and instead of source hash you get hash of malware. Here are security considerations for this scenario:
      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         <code class="literal">http://</code> URLs are not secure to prefetch hash from;
@@ -14055,7 +14065,7 @@ $ nix-hash --type sha256 --to-base32 HASH
        </p></li><li class="listitem"><p>
         <code class="literal">https://</code> URLs are secure in methods 1, 2, 3;
        </p></li><li class="listitem"><p>
-        <code class="literal">https://</code> URLs are not secure in method 5. When obtaining hashes with fake hash method, TLS checks are disabled. So refetch source hash from several different networks to exclude MITM scenario. Alternatively, use fake hash method to make Nix error, but instead of extracting hash from error, extract <code class="literal">https://</code> URL and prefetch it with method 1.
+        <code class="literal">https://</code> URLs are secure in method 5 <span class="emphasis"><em>only if</em></span> you use one of the listed fake hashes. If you use any other hash, <code class="literal">fetchurl</code> will pass <code class="literal">--insecure</code> to <code class="literal">curl</code> and may then degrade to HTTP in case of TLS certificate expiration.
        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-patches"></a>20.6. Patches</h2></div></div></div><p>
      Patches available online should be retrieved using <code class="literal">fetchpatch</code>.
     </p><pre class="programlisting">
