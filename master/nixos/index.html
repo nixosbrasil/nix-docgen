@@ -7888,16 +7888,6 @@ services.kubernetes.roles = [ "master" "node" ];
     <a class="xref" href="options.html#opt-services.kubernetes.flannel.enable"><code class="option">services.kubernetes.flannel.enable</code></a> and
     <a class="xref" href="options.html#opt-services.kubernetes.easyCerts"><code class="option">services.kubernetes.easyCerts</code></a> to true. This
     sets up flannel as CNI and activates automatic PKI bootstrapping.
-  </p><p>
-    As of kubernetes 1.10.X it has been deprecated to open
-    non-tls-enabled ports on kubernetes components. Thus, from NixOS
-    19.03 all plain HTTP ports have been disabled by default. While
-    opening insecure ports is still possible, it is recommended not to
-    bind these to other interfaces than loopback. To re-enable the
-    insecure port on the apiserver, see options:
-    <a class="xref" href="options.html#opt-services.kubernetes.apiserver.insecurePort"><code class="option">services.kubernetes.apiserver.insecurePort</code></a>
-    and
-    <a class="xref" href="options.html#opt-services.kubernetes.apiserver.insecureBindAddress"><code class="option">services.kubernetes.apiserver.insecureBindAddress</code></a>
   </p><div class="note"><h3 class="title">Note</h3><p>
       As of NixOS 19.03, it is mandatory to configure:
       <a class="xref" href="options.html#opt-services.kubernetes.masterAddress"><code class="option">services.kubernetes.masterAddress</code></a>. The
