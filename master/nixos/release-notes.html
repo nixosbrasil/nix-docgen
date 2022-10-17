@@ -468,6 +468,13 @@
           <code class="literal">luauSupport</code> overrides, use
           <code class="literal">features</code> instead, which defaults to
           <code class="literal">[ "lua54" "luau" ]</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">pkgs.fetchNextcloudApp</code> has been rewritten
+          to circumvent impurities in e.g. tarballs from GitHub and to
+          make it easier to apply patches. This means that your hashes
+          are out-of-date and the (previously required) attributes
+          <code class="literal">name</code> and <code class="literal">version</code> are no
+          longer accepted.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The <code class="literal">xplr</code> package has been updated from
           0.18.0 to 0.19.0, which brings some breaking changes. See the
