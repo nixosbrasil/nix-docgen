@@ -30,6 +30,21 @@
           produced by <code class="literal">stdenv.cc</code>) by evaluating
           <code class="literal">stdenv.buildPlatform.canExecute stdenv.hostPlatform</code>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">polymc</code> package has been removed due to
+          a rogue maintainer. It has been replaced by
+          <code class="literal">prismlauncher</code>, a fork by the rest of the
+          maintainers. For more details, see
+          <a class="link" href="https://github.com/NixOS/nixpkgs/pull/196624" target="_top">the
+          pull request that made this change</a> and
+          <a class="link" href="https://github.com/NixOS/nixpkgs/issues/196460" target="_top">this
+          issue detailing the vulnerability</a>. Users with existing
+          installations should rename
+          <code class="literal">~/.local/share/polymc</code> to
+          <code class="literal">~/.local/share/PrismLauncher</code>. The main
+          config file’s path has also moved from
+          <code class="literal">~/.local/share/polymc/polymc.cfg</code> to
+          <code class="literal">~/.local/share/PrismLauncher/prismlauncher.cfg</code>.
+        </p></li><li class="listitem"><p>
           The <code class="literal">nixpkgs.hostPlatform</code> and
           <code class="literal">nixpkgs.buildPlatform</code> options have been
           added. These cover and override the
@@ -1630,18 +1645,18 @@
           <a class="link" href="https://miller.readthedocs.io/en/latest/new-in-miller-6" target="_top">What’s
           new in Miller 6</a>.
         </p></li><li class="listitem"><p>
-          MultiMC has been replaced with the fork PolyMC due to upstream
-          developers being hostile to 3rd party package maintainers.
-          PolyMC removes all MultiMC branding and is aimed at providing
-          proper 3rd party packages like the one contained in Nixpkgs.
-          This change affects the data folder where game instances and
-          other save and configuration files are stored. Users with
-          existing installations should rename
+          MultiMC has been replaced with the fork PrismLauncher due to
+          upstream developers being hostile to 3rd party package
+          maintainers. PrismLauncher removes all MultiMC branding and is
+          aimed at providing proper 3rd party packages like the one
+          contained in Nixpkgs. This change affects the data folder
+          where game instances and other save and configuration files
+          are stored. Users with existing installations should rename
           <code class="literal">~/.local/share/multimc</code> to
-          <code class="literal">~/.local/share/polymc</code>. The main config
-          file’s path has also moved from
+          <code class="literal">~/.local/share/PrismLauncher</code>. The main
+          config file’s path has also moved from
           <code class="literal">~/.local/share/multimc/multimc.cfg</code> to
-          <code class="literal">~/.local/share/polymc/polymc.cfg</code>.
+          <code class="literal">~/.local/share/PrismLauncher/prismlauncher.cfg</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">systemd-nspawn@.service</code> settings have been
           reverted to the default systemd behaviour. User namespaces are
