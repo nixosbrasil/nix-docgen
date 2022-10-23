@@ -14431,10 +14431,14 @@ nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"
       The <code class="literal">master</code> branch is the main development branch. It should only see non-breaking commits that do not cause mass rebuilds.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="submitting-changes-staging-branch"></a>21.7.2. Staging branch</h3></div></div></div><p>
       The <code class="literal">staging</code> branch is a development branch where mass-rebuilds go. Mass rebuilds are commits that cause rebuilds for many packages, like more than 500 (or perhaps, if it’s <span class="quote">“<span class="quote">light</span>”</span> packages, 1000). It should only see non-breaking mass-rebuild commits. That means it is not to be used for testing, and changes must have been well tested already. If the branch is already in a broken state, please refrain from adding extra new breakages.
+     </p><p>
+      During the process of a releasing a new NixOS version, this branch or the release-critical packages can be restricted to non-breaking changes.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="submitting-changes-staging-next-branch"></a>21.7.3. Staging-next branch</h3></div></div></div><p>
       The <code class="literal">staging-next</code> branch is for stabilizing mass-rebuilds submitted to the <code class="literal">staging</code> branch prior to merging them into <code class="literal">master</code>. Mass-rebuilds must go via the <code class="literal">staging</code> branch. It must only see non-breaking commits that are fixing issues blocking it from being merged into the <code class="literal">master</code> branch.
      </p><p>
       If the branch is already in a broken state, please refrain from adding extra new breakages. Stabilize it for a few days and then merge into master.
+     </p><p>
+      During the process of a releasing a new NixOS version, this branch or the release-critical packages can be restricted to non-breaking changes.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="submitting-changes-stable-release-branches"></a>21.7.4. Stable release branches</h3></div></div></div><p>
       The same staging workflow applies to stable release branches, but the main branch is called <code class="literal">release-*</code> instead of <code class="literal">master</code>.
      </p><p>
