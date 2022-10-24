@@ -3767,7 +3767,7 @@ This endpoint returns the following JSON structure on success with a 201 Created
   <a class="link" href="options.html#opt-services.nextcloud.enable">services.nextcloud</a>. A
   desktop client is packaged at <code class="literal">pkgs.nextcloud-client</code>.
  </p><p>
-  The current default by NixOS is <span class="package">nextcloud24</span> which is also the latest
+  The current default by NixOS is <span class="package">nextcloud25</span> which is also the latest
   major version available.
  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-nextcloud-basic-usage"></a>22.1. Basic usage</h2></div></div></div><p>
    Nextcloud is a PHP-based application which requires an HTTP server
@@ -5020,7 +5020,7 @@ services.firefox-syncserver = {
  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-litestream-configuration"></a>34.1. Configuration</h2></div></div></div><p>
    Litestream service is managed by a dedicated user named <code class="literal">litestream</code>
    which needs permission to the database file. Here's an example config which gives
-   required permissions to access <a class="link" href="options.html#opt-services.grafana.database.path">
+   required permissions to access <a class="link" href="options.html#opt-services.grafana.settings.database.path">
    grafana database</a>:
 </p><pre class="programlisting">
 { pkgs, ... }:
