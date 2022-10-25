@@ -30,21 +30,6 @@
           produced by <code class="literal">stdenv.cc</code>) by evaluating
           <code class="literal">stdenv.buildPlatform.canExecute stdenv.hostPlatform</code>.
         </p></li><li class="listitem"><p>
-          The <code class="literal">polymc</code> package has been removed due to
-          a rogue maintainer. It has been replaced by
-          <code class="literal">prismlauncher</code>, a fork by the rest of the
-          maintainers. For more details, see
-          <a class="link" href="https://github.com/NixOS/nixpkgs/pull/196624" target="_top">the
-          pull request that made this change</a> and
-          <a class="link" href="https://github.com/NixOS/nixpkgs/issues/196460" target="_top">this
-          issue detailing the vulnerability</a>. Users with existing
-          installations should rename
-          <code class="literal">~/.local/share/polymc</code> to
-          <code class="literal">~/.local/share/PrismLauncher</code>. The main
-          config file’s path has also moved from
-          <code class="literal">~/.local/share/polymc/polymc.cfg</code> to
-          <code class="literal">~/.local/share/PrismLauncher/prismlauncher.cfg</code>.
-        </p></li><li class="listitem"><p>
           The <code class="literal">nixpkgs.hostPlatform</code> and
           <code class="literal">nixpkgs.buildPlatform</code> options have been
           added. These cover and override the
@@ -551,6 +536,21 @@
         </p></li><li class="listitem"><p>
           The <code class="literal">networking.wireguard</code> module now can set
           the mtu on interfaces and tag its packets with an fwmark.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">polymc</code> package has been removed due to
+          a rogue maintainer. It has been replaced by
+          <code class="literal">prismlauncher</code>, a fork by the rest of the
+          maintainers. For more details, see
+          <a class="link" href="https://github.com/NixOS/nixpkgs/pull/196624" target="_top">the
+          pull request that made this change</a> and
+          <a class="link" href="https://github.com/NixOS/nixpkgs/issues/196460" target="_top">this
+          issue detailing the vulnerability</a>. Users with existing
+          installations should rename
+          <code class="literal">~/.local/share/polymc</code> to
+          <code class="literal">~/.local/share/PrismLauncher</code>. The main
+          config file’s path has also moved from
+          <code class="literal">~/.local/share/polymc/polymc.cfg</code> to
+          <code class="literal">~/.local/share/PrismLauncher/prismlauncher.cfg</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.matrix-synapse</code> systemd unit
           has been hardened.
