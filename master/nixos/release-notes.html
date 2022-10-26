@@ -493,6 +493,18 @@
           <code class="literal">k3s</code> no longer supports docker as runtime
           due to upstream dropping support.
         </p></li><li class="listitem"><p>
+          <code class="literal">mysql57</code> has been removed. Please update to
+          <code class="literal">mysql80</code> or <code class="literal">mariadb</code>. See
+          the
+          <a class="link" href="https://mariadb.com/kb/en/upgrading-from-mysql-to-mariadb/" target="_top">upgrade
+          guide</a> for more information.
+        </p></li><li class="listitem"><p>
+          Consequently, <code class="literal">cqrlog</code> and
+          <code class="literal">amorok</code> now use <code class="literal">mariadb</code>
+          instead of <code class="literal">mysql57</code> for their embedded
+          databases. Running <code class="literal">mysql_upgrade</code> may be
+          neccesary.
+        </p></li><li class="listitem"><p>
           <code class="literal">k3s</code> supports <code class="literal">clusterInit</code>
           option, and it is enabled by default, for servers.
         </p></li><li class="listitem"><p>

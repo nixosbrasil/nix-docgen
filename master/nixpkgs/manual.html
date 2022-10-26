@@ -9414,7 +9414,7 @@ luaposix = buildLuarocksPackage {
        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
           it adds <code class="literal">luarocks</code> as an unpacker for <code class="literal">src.rock</code> files (zip files really).
          </p></li><li class="listitem"><p>
-          configurePhase<code class="literal">writes a temporary luarocks configuration file which location is exported via the environment variable</code>LUAROCKS_CONFIG`.
+          <code class="literal">configurePhase</code> writes a temporary luarocks configuration file which location is exported via the environment variable <code class="literal">LUAROCKS_CONFIG</code>.
          </p></li><li class="listitem"><p>
           the <code class="literal">buildPhase</code> does nothing.
          </p></li><li class="listitem"><p>
