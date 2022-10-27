@@ -493,6 +493,18 @@
           <code class="literal">k3s</code> no longer supports docker as runtime
           due to upstream dropping support.
         </p></li><li class="listitem"><p>
+          <code class="literal">mysql57</code> has been removed. Please update to
+          <code class="literal">mysql80</code> or <code class="literal">mariadb</code>. See
+          the
+          <a class="link" href="https://mariadb.com/kb/en/upgrading-from-mysql-to-mariadb/" target="_top">upgrade
+          guide</a> for more information.
+        </p></li><li class="listitem"><p>
+          Consequently, <code class="literal">cqrlog</code> and
+          <code class="literal">amorok</code> now use <code class="literal">mariadb</code>
+          instead of <code class="literal">mysql57</code> for their embedded
+          databases. Running <code class="literal">mysql_upgrade</code> may be
+          neccesary.
+        </p></li><li class="listitem"><p>
           <code class="literal">k3s</code> supports <code class="literal">clusterInit</code>
           option, and it is enabled by default, for servers.
         </p></li><li class="listitem"><p>
@@ -551,6 +563,12 @@
           config file’s path has also moved from
           <code class="literal">~/.local/share/polymc/polymc.cfg</code> to
           <code class="literal">~/.local/share/PrismLauncher/prismlauncher.cfg</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">bloat</code> package has been updated from
+          unstable-2022-03-31 to unstable-2022-10-25, which brings a
+          breaking change. See
+          <a class="link" href="https://git.freesoftwareextremist.com/bloat/commit/?id=887ed241d64ba5db3fd3d87194fb5595e5ad7d73" target="_top">this
+          upstream commit message</a> for details.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.matrix-synapse</code> systemd unit
           has been hardened.
@@ -10558,7 +10576,7 @@ in
         for more information.
       </p></li><li class="listitem"><p>
         Support for PXE netboot. See
-        <a class="xref" href="index.html#sec-booting-from-pxe" title="2.5.2. Booting from the “netboot” media (PXE)">Section 2.5.2, “Booting from the <span class="quote">“<span class="quote">netboot</span>”</span> media (PXE)”</a> for documentation.
+        <a class="xref" href="index.html#sec-booting-from-pxe" title="2.4.2. Booting from the “netboot” media (PXE)">Section 2.4.2, “Booting from the <span class="quote">“<span class="quote">netboot</span>”</span> media (PXE)”</a> for documentation.
       </p></li><li class="listitem"><p>
         X.org server 1.18. If you use the <code class="literal">ati_unfree</code>
         driver, 1.17 is still used due to an ABI incompatibility.

@@ -195,6 +195,11 @@
           an SSH tarpit that exposes Prometheus metrics. Available as
           <a class="link" href="options.html#opt-services.endlessh-go.enable">services.endlessh-go</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://garagehq.deuxfleurs.fr/" target="_top">Garage</a>,
+          a simple object storage server for geodistributed deployments,
+          alternative to MinIO. Available as
+          <a class="link" href="options.html#opt-services.garage.enable">services.garage</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://netbird.io" target="_top">netbird</a>, a zero
           configuration VPN. Available as
           <a class="link" href="options.html#opt-services.netbird.enable" target="_top">services.netbird</a>.
@@ -487,6 +492,11 @@
           Neovim can not be configured with plug anymore (still works
           for vim).
         </p></li><li class="listitem"><p>
+          The <code class="literal">adguardhome</code> module no longer uses
+          <code class="literal">host</code> and <code class="literal">port</code> options,
+          use <code class="literal">settings.bind_host</code> and
+          <code class="literal">settings.bind_port</code> instead.
+        </p></li><li class="listitem"><p>
           The default <code class="literal">kops</code> version is now 1.25.1 and
           support for 1.22 and older has been dropped.
         </p></li><li class="listitem"><p>
@@ -563,6 +573,12 @@
           config file’s path has also moved from
           <code class="literal">~/.local/share/polymc/polymc.cfg</code> to
           <code class="literal">~/.local/share/PrismLauncher/prismlauncher.cfg</code>.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">bloat</code> package has been updated from
+          unstable-2022-03-31 to unstable-2022-10-25, which brings a
+          breaking change. See
+          <a class="link" href="https://git.freesoftwareextremist.com/bloat/commit/?id=887ed241d64ba5db3fd3d87194fb5595e5ad7d73" target="_top">this
+          upstream commit message</a> for details.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.matrix-synapse</code> systemd unit
           has been hardened.
@@ -10570,7 +10586,7 @@ in
         for more information.
       </p></li><li class="listitem"><p>
         Support for PXE netboot. See
-        <a class="xref" href="index.html#sec-booting-from-pxe" title="2.5.2. Booting from the “netboot” media (PXE)">Section 2.5.2, “Booting from the <span class="quote">“<span class="quote">netboot</span>”</span> media (PXE)”</a> for documentation.
+        <a class="xref" href="index.html#sec-booting-from-pxe" title="2.4.2. Booting from the “netboot” media (PXE)">Section 2.4.2, “Booting from the <span class="quote">“<span class="quote">netboot</span>”</span> media (PXE)”</a> for documentation.
       </p></li><li class="listitem"><p>
         X.org server 1.18. If you use the <code class="literal">ati_unfree</code>
         driver, 1.17 is still used due to an ABI incompatibility.
