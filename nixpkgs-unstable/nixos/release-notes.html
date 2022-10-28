@@ -195,6 +195,11 @@
           an SSH tarpit that exposes Prometheus metrics. Available as
           <a class="link" href="options.html#opt-services.endlessh-go.enable">services.endlessh-go</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://garagehq.deuxfleurs.fr/" target="_top">Garage</a>,
+          a simple object storage server for geodistributed deployments,
+          alternative to MinIO. Available as
+          <a class="link" href="options.html#opt-services.garage.enable">services.garage</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://netbird.io" target="_top">netbird</a>, a zero
           configuration VPN. Available as
           <a class="link" href="options.html#opt-services.netbird.enable" target="_top">services.netbird</a>.
@@ -486,6 +491,11 @@
         </p></li><li class="listitem"><p>
           Neovim can not be configured with plug anymore (still works
           for vim).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">adguardhome</code> module no longer uses
+          <code class="literal">host</code> and <code class="literal">port</code> options,
+          use <code class="literal">settings.bind_host</code> and
+          <code class="literal">settings.bind_port</code> instead.
         </p></li><li class="listitem"><p>
           The default <code class="literal">kops</code> version is now 1.25.1 and
           support for 1.22 and older has been dropped.
