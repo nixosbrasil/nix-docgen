@@ -368,6 +368,14 @@
           PHP 7.4 is no longer supported due to upstream not supporting
           this version for the entire lifecycle of the 22.11 release.
         </p></li><li class="listitem"><p>
+          The ipfs package and module were renamed to kubo. The kubo
+          module now uses an RFC42-style <code class="literal">settings</code>
+          option instead of <code class="literal">extraConfig</code> and the
+          <code class="literal">gatewayAddress</code>,
+          <code class="literal">apiAddress</code> and
+          <code class="literal">swarmAddress</code> options were renamed. Using
+          the old names will print a warning but still work.
+        </p></li><li class="listitem"><p>
           <code class="literal">pkgs.cosign</code> does not provide the
           <code class="literal">cosigned</code> binary anymore. The
           <code class="literal">sget</code> binary has been moved into its own
@@ -703,6 +711,15 @@
           The Wordpress module got support for installing language packs
           through
           <code class="literal">services.wordpress.sites.&lt;site&gt;.languages</code>.
+        </p></li><li class="listitem"><p>
+          The default package for
+          <code class="literal">services.mullvad-vpn.package</code> was changed to
+          <code class="literal">pkgs.mullvad</code>, allowing cross-platform usage
+          of Mullvad. <code class="literal">pkgs.mullvad</code> only contains the
+          Mullvad CLI tool, so users who rely on the Mullvad GUI will
+          want to change it back to <code class="literal">pkgs.mullvad-vpn</code>,
+          or add <code class="literal">pkgs.mullvad-vpn</code> to their
+          environment.
         </p></li><li class="listitem"><p>
           There is a new module for the <code class="literal">thunar</code>
           program (the Xfce file manager), which depends on the
