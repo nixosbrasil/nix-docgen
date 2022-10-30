@@ -6714,16 +6714,20 @@ in {
 { config, pkgs, ... }:
 {
   <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a> = [
-    (pkgs.writeScriptBin "upgrade-pg-cluster" ''
+    (let
+      # XXX specify the postgresql package you'd like to upgrade to.
+      # Do not forget to list the extensions you need.
+      newPostgres = pkgs.postgresql_13.withPackages (pp: [
+        # pp.plv8
+      ]);
+    in pkgs.writeScriptBin "upgrade-pg-cluster" ''
       set -eux
       # XXX it's perhaps advisable to stop all services that depend on postgresql
       systemctl stop postgresql
 
-      # XXX replace `&lt;new version&gt;` with the psqlSchema here
-      export NEWDATA="/var/lib/postgresql/&lt;new version&gt;"
+      export NEWDATA="/var/lib/postgresql/${newPostgres.psqlSchema}"
 
-      # XXX specify the postgresql package you'd like to upgrade to
-      export NEWBIN="${pkgs.postgresql_13}/bin"
+      export NEWBIN="${newPostgres}/bin"
 
       export OLDDATA="${config.<a class="xref" href="options.html#opt-services.postgresql.dataDir"><code class="option">services.postgresql.dataDir</code></a>}"
       export OLDBIN="${config.<a class="xref" href="options.html#opt-services.postgresql.package"><code class="option">services.postgresql.package</code></a>}/bin"
@@ -6751,12 +6755,16 @@ in {
     </p></li><li class="listitem"><p>
      Change postgresql package in NixOS configuration to the one you were upgrading to via <a class="xref" href="options.html#opt-services.postgresql.package"><code class="option">services.postgresql.package</code></a>. Rebuild NixOS. This should start new postgres using upgraded data directory and all services you stopped during the upgrade.
     </p></li><li class="listitem"><p>
-     After the upgrade it's advisable to analyze the new cluster (as <code class="literal">su -l postgres</code> in the
-     <a class="xref" href="options.html#opt-services.postgresql.dataDir"><code class="option">services.postgresql.dataDir</code></a>, in this example <code class="filename">/var/lib/postgresql/13</code>):
+     After the upgrade it's advisable to analyze the new cluster.
+    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+       For PostgreSQL ≥ 14, use the <code class="literal">vacuumdb</code> command printed by the upgrades script.
+      </p></li><li class="listitem"><p>
+        For PostgreSQL &lt; 14, run (as <code class="literal">su -l postgres</code> in the <a class="xref" href="options.html#opt-services.postgresql.dataDir"><code class="option">services.postgresql.dataDir</code></a>, in this example <code class="filename">/var/lib/postgresql/13</code>):
 </p><pre class="programlisting">
 <code class="prompt">$ </code>./analyze_new_cluster.sh
 </pre><p>
-     </p><div class="warning"><h3 class="title">Warning</h3><p>The next step removes the old state-directory!</p></div><p>
+       </p></li></ul></div><p>
+      </p><div class="warning"><h3 class="title">Warning</h3><p>The next step removes the old state-directory!</p></div><p>
 </p><pre class="programlisting">
 <code class="prompt">$ </code>./delete_old_cluster.sh
 </pre><p>

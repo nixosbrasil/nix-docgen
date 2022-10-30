@@ -556,6 +556,15 @@
           <code class="literal">hardware.saleae-logic.enable</code> and
           <code class="literal">hardware.saleae-logic.package</code>.
         </p></li><li class="listitem"><p>
+          ZFS module will not allow hibernation by default, this is a
+          safety measure to prevent data loss cases like the ones
+          described at
+          <a class="link" href="https://github.com/openzfs/zfs/issues/260" target="_top">OpenZFS/260</a>
+          and
+          <a class="link" href="https://github.com/openzfs/zfs/issues/12842" target="_top">OpenZFS/12842</a>.
+          Use the <code class="literal">boot.zfs.allowHibernation</code> option to
+          configure this behaviour.
+        </p></li><li class="listitem"><p>
           The Redis module now disables RDB persistence when
           <code class="literal">services.redis.servers.&lt;name&gt;.save = []</code>
           instead of using the Redis default.
