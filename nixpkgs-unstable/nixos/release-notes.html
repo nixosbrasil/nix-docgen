@@ -576,6 +576,20 @@
           The <code class="literal">networking.wireguard</code> module now can set
           the mtu on interfaces and tag its packets with an fwmark.
         </p></li><li class="listitem"><p>
+          The option <code class="literal">overrideStrategy</code> was added to
+          the different systemd unit options
+          (<code class="literal">systemd.services.&lt;name&gt;</code>,
+          <code class="literal">systemd.sockets.&lt;name&gt;</code>, …) to allow
+          enforcing the creation of a dropin file, rather than the main
+          unit file, by setting it to <code class="literal">asDropin</code>. This
+          is useful in cases where the existence of the main unit file
+          is not known to Nix at evaluation time, for example when the
+          main unit file is provided by adding a package to
+          <code class="literal">systemd.packages</code>. See the fix proposed in
+          <a class="link" href="https://github.com/NixOS/nixpkgs/issues/135557#issuecomment-1295392470" target="_top">NixOS’s
+          systemd abstraction doesn’t work with systemd template
+          units</a> for an example.
+        </p></li><li class="listitem"><p>
           The <code class="literal">polymc</code> package has been removed due to
           a rogue maintainer. It has been replaced by
           <code class="literal">prismlauncher</code>, a fork by the rest of the
