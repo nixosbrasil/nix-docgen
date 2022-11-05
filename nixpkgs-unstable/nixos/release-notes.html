@@ -463,6 +463,10 @@
           <code class="literal">python3.pkgs.influxgraph</code> packages, have
           been removed due to lack of upstream maintenance.
         </p></li><li class="listitem"><p>
+          The <code class="literal">trace</code> binary from
+          <code class="literal">perf-linux</code> package has been removed, due to
+          being a duplicate of the <code class="literal">perf</code> binary.
+        </p></li><li class="listitem"><p>
           The <code class="literal">aws</code> package has been removed due to
           being abandoned by the upstream. It is recommended to use
           <code class="literal">awscli</code> or <code class="literal">awscli2</code>
@@ -532,6 +536,13 @@
           <code class="literal">k3s</code> no longer supports docker as runtime
           due to upstream dropping support.
         </p></li><li class="listitem"><p>
+          <code class="literal">cassandra_2_1</code> and
+          <code class="literal">cassandra_2_2</code> have been removed. Please
+          update to <code class="literal">cassandra_3_11</code> or
+          <code class="literal">cassandra_3_0</code>. See the
+          <a class="link" href="https://github.com/apache/cassandra/blob/cassandra-3.11.14/NEWS.txt" target="_top">changelog</a>
+          for more information about the upgrade process.
+        </p></li><li class="listitem"><p>
           <code class="literal">mysql57</code> has been removed. Please update to
           <code class="literal">mysql80</code> or <code class="literal">mariadb</code>. See
           the
@@ -546,6 +557,10 @@
         </p></li><li class="listitem"><p>
           <code class="literal">k3s</code> supports <code class="literal">clusterInit</code>
           option, and it is enabled by default, for servers.
+        </p></li><li class="listitem"><p>
+          <code class="literal">percona-server56</code> has been removed. Please
+          migrate to <code class="literal">mysql</code> or
+          <code class="literal">mariadb</code> if possible.
         </p></li><li class="listitem"><p>
           <code class="literal">stylua</code> no longer accepts
           <code class="literal">lua52Support</code> and
@@ -743,6 +758,10 @@
           and
           <a class="link" href="options.html#opt-systemd.oomd.enableUserServices" target="_top">systemd.oomd.enableUserServices</a>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">tt-rss</code> service performs two database
+          migrations when you first use its web UI after upgrade.
+          Consider backing up its database before updating.
+        </p></li><li class="listitem"><p>
           The <code class="literal">pass-secret-service</code> package now
           includes systemd units from upstream, so adding it to the
           NixOS <code class="literal">services.dbus.packages</code> option will
@@ -764,6 +783,14 @@
           want to change it back to <code class="literal">pkgs.mullvad-vpn</code>,
           or add <code class="literal">pkgs.mullvad-vpn</code> to their
           environment.
+        </p></li><li class="listitem"><p>
+          PowerDNS has been updated from <code class="literal">4.6.x</code> to
+          <code class="literal">4.7.x</code>. Please be sure to review the
+          <a class="link" href="https://doc.powerdns.com/authoritative/upgrading.html#to-4-7-0-or-master" target="_top">Upgrade
+          Notes</a> provided by upstream before upgrading. Worth
+          specifically noting is that the new Catalog Zones feature
+          comes with a mandatory schema change for the gsql database
+          backends, which has to be manually applied.
         </p></li><li class="listitem"><p>
           There is a new module for the <code class="literal">thunar</code>
           program (the Xfce file manager), which depends on the
