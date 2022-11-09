@@ -607,6 +607,17 @@
           migrate to <code class="literal">mysql</code> or
           <code class="literal">mariadb</code> if possible.
         </p></li><li class="listitem"><p>
+          <code class="literal">signald</code> has been bumped to
+          <code class="literal">0.23.0</code>. For the upgrade, a migration
+          process is necessary. It can be done by running a command like
+          this before starting <code class="literal">signald.service</code>:
+        </p><pre class="programlisting">
+signald -d /var/lib/signald/db \
+  --database sqlite:/var/lib/signald/db \
+  --migrate-data
+</pre><p>
+          For further information, please read the upstream changelogs.
+        </p></li><li class="listitem"><p>
           <code class="literal">stylua</code> no longer accepts
           <code class="literal">lua52Support</code> and
           <code class="literal">luauSupport</code> overrides, use
@@ -865,6 +876,11 @@
           versions and a new <code class="literal">postRebuild</code> hook has
           been added for packages to perform extra build steps before
           the npm install step prunes dev dependencies.
+        </p></li><li class="listitem"><p>
+          boot.kernel.sysctl is defined as a freeformType and adds a
+          custom merge option for <span class="quote">“<span class="quote">net.core.rmem_max</span>”</span>
+          (taking the highest value defined to avoid conflicts between 2
+          services trying to set that value)
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.
