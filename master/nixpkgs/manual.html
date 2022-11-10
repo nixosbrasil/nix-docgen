@@ -9222,7 +9222,58 @@ The unauthenticated git protocol on port 9418 is no longer supported
         Use the following Git configuration to resolve the issue:
        </p><pre class="programlisting">
 git config --global url."https://github.com/".insteadOf git://github.com/
-</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="javascript-tool-specific"></a>17.19.6. Tool specific instructions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-node2nix"></a>17.19.6.1. node2nix</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-node2nix-preparation"></a>17.19.6.1.1. Preparation</h5></div></div></div><p>
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="javascript-tool-specific"></a>17.19.6. Tool specific instructions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-buildNpmPackage"></a>17.19.6.1. buildNpmPackage</h4></div></div></div><p>
+       <code class="literal">buildNpmPackage</code> allows you to package npm-based projects in Nixpkgs without the use of an auto-generated dependencies file (as used in <a class="link" href="#javascript-node2nix" title="17.19.6.2. node2nix">node2nix</a>). It works by utilizing npm’s cache functionality – creating a reproducible cache that contains the dependencies of a project, and pointing npm to it.
+      </p><pre class="programlisting">
+{ lib, buildNpmPackage, fetchFromGitHub }:
+
+buildNpmPackage rec {
+  pname = "flood";
+  version = "4.7.0";
+
+  src = fetchFromGitHub {
+    owner = "jesec";
+    repo = pname;
+    rev = "v${version}";
+    hash = "sha256-BR+ZGkBBfd0dSQqAvujsbgsEPFYw/ThrylxUbOksYxM=";
+  };
+
+  patches = [ ./remove-prepack-script.patch ];
+
+  npmDepsHash = "sha256-s8SpZY/1tKZVd3vt7sA9vsqHvEaNORQBMrSyhWpj048=";
+
+  NODE_OPTIONS = "--openssl-legacy-provider";
+
+  meta = with lib; {
+    description = "A modern web UI for various torrent clients with a Node.js backend and React frontend";
+    homepage = "https://flood.js.org";
+    license = licenses.gpl3Only;
+    maintainers = with maintainers; [ winter ];
+  };
+}
+</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-buildNpmPackage-arguments"></a>17.19.6.1.1. Arguments</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">npmDepsHash</code>: The output hash of the dependencies for this project. Can be calculated in advance with <a class="link" href="#javascript-buildNpmPackage-prefetch-npm-deps" title="17.19.6.1.2. prefetch-npm-deps"><code class="literal">prefetch-npm-deps</code></a>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">makeCacheWritable</code>: Whether to make the cache writable prior to installing dependencies. Don’t set this unless npm tries to write to the cache directory, as it can slow down the build.
+         </p></li><li class="listitem"><p>
+          <code class="literal">npmBuildScript</code>: The script to run to build the project. Defaults to <code class="literal">"build"</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">npmFlags</code>: Flags to pass to all npm commands.
+         </p></li><li class="listitem"><p>
+          <code class="literal">npmInstallFlags</code>: Flags to pass to <code class="literal">npm ci</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">npmBuildFlags</code>: Flags to pass to <code class="literal">npm run ${npmBuildScript}</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">npmPackFlags</code>: Flags to pass to <code class="literal">npm pack</code>.
+         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-buildNpmPackage-prefetch-npm-deps"></a>17.19.6.1.2. prefetch-npm-deps</h5></div></div></div><p>
+        <code class="literal">prefetch-npm-deps</code> can calculate the hash of the dependencies of an npm project ahead of time.
+       </p><pre class="programlisting">
+$ ls
+package.json package-lock.json index.js
+$ prefetch-npm-deps package-lock.json
+...
+sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-node2nix"></a>17.19.6.2. node2nix</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-node2nix-preparation"></a>17.19.6.2.1. Preparation</h5></div></div></div><p>
         You will need to generate a Nix expression for the dependencies. Don’t forget the <code class="literal">-l package-lock.json</code> if there is a lock file. Most probably you will need the <code class="literal">--development</code> to include the <code class="literal">devDependencies</code>
        </p><p>
         So the command will most likely be:
@@ -9230,13 +9281,13 @@ git config --global url."https://github.com/".insteadOf git://github.com/
 node2nix --development -l package-lock.json
 </pre><p>
         See <code class="literal">node2nix</code> <a class="link" href="https://github.com/svanderburg/node2nix" target="_top">docs</a> for more info.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-node2nix-pitfalls"></a>17.19.6.1.2. Pitfalls</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-node2nix-pitfalls"></a>17.19.6.2.2. Pitfalls</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
           If upstream package.json does not have a <span class="quote">“<span class="quote">version</span>”</span> attribute, <code class="literal">node2nix</code> will crash. You will need to add it like shown in <a class="link" href="#javascript-upstream-package-json" title="17.19.4.3. Try to use upstream package.json">the package.json section</a>.
          </p></li><li class="listitem"><p>
           <code class="literal">node2nix</code> has some <a class="link" href="https://github.com/svanderburg/node2nix/issues/238" target="_top">bugs</a> related to working with lock files from NPM distributed with <code class="literal">nodejs-16_x</code>.
          </p></li><li class="listitem"><p>
           <code class="literal">node2nix</code> does not like missing packages from NPM. If you see something like <code class="literal">Cannot resolve version: vue-loader-v16@undefined</code> then you might want to try another tool. The package might have been pulled off of NPM.
-         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-yarn2nix"></a>17.19.6.2. yarn2nix</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-preparation"></a>17.19.6.2.1. Preparation</h5></div></div></div><p>
+         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-yarn2nix"></a>17.19.6.3. yarn2nix</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-preparation"></a>17.19.6.3.1. Preparation</h5></div></div></div><p>
         You will need at least a <code class="literal">yarn.lock</code> file. If upstream does not have one you need to generate it and reference it in your package definition.
        </p><p>
         If the downloaded files contain the <code class="literal">package.json</code> and <code class="literal">yarn.lock</code> files they can be used like this:
@@ -9245,7 +9296,7 @@ offlineCache = fetchYarnDeps {
   yarnLock = src + "/yarn.lock";
   sha256 = "....";
 };
-</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnPackage"></a>17.19.6.2.2. mkYarnPackage</h5></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnPackage"></a>17.19.6.3.2. mkYarnPackage</h5></div></div></div><p>
         <code class="literal">mkYarnPackage</code> will by default try to generate a binary. For package only generating static assets (Svelte, Vue, React, WebPack, …), you will need to explicitly override the build step with your instructions.
        </p><p>
         It’s important to use the <code class="literal">--offline</code> flag. For example if you script is <code class="literal">"build": "something"</code> in <code class="literal">package.json</code> use:
@@ -9271,9 +9322,9 @@ configurePhase = ''
   cp -r $node_modules node_modules
   chmod +w node_modules
 '';
-</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnModules"></a>17.19.6.2.3. mkYarnModules</h5></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnModules"></a>17.19.6.3.3. mkYarnModules</h5></div></div></div><p>
         This will generate a derivation including the <code class="literal">node_modules</code> directory. If you have to build a derivation for an integrated web framework (rails, phoenix..), this is probably the easiest way.
-       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.21.7.3.5"></a>17.19.6.2.4. Overriding dependency behavior</h5></div></div></div><p>
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.21.7.4.5"></a>17.19.6.3.4. Overriding dependency behavior</h5></div></div></div><p>
         In the <code class="literal">mkYarnPackage</code> record the property <code class="literal">pkgConfig</code> can be used to override packages when you encounter problems building.
        </p><p>
         For instance, say your package is throwing errors when trying to invoke node-sass:
@@ -9293,7 +9344,7 @@ mkYarnPackage rec {
     };
   };
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-pitfalls"></a>17.19.6.2.5. Pitfalls</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-pitfalls"></a>17.19.6.3.5. Pitfalls</h5></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           If version is missing from upstream package.json, yarn will silently install nothing. In that case, you will need to override package.json as shown in the <a class="link" href="#javascript-upstream-package-json" title="17.19.4.3. Try to use upstream package.json">package.json section</a>
          </p></li><li class="listitem"><p>
           Having trouble with <code class="literal">node-gyp</code>? Try adding these lines to the <code class="literal">yarnPreBuild</code> steps:
