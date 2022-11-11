@@ -806,6 +806,16 @@ signald -d /var/lib/signald/db \
             </p></li></ul></div></li><li class="listitem"><p>
           Add udev rules for the Teensy family of microcontrollers.
         </p></li><li class="listitem"><p>
+          The Qt QML disk cache is now disabled by default. This fixes a
+          long-standing issue where updating Qt/KDE apps would sometimes
+          cause them to crash or behave strangely without explanation.
+          Those concerned about the small (~10%) performance hit to
+          application startup can re-enable the cache (and expose
+          themselves to gremlins) by setting the envrionment variable
+          <code class="literal">QML_FORCE_DISK_CACHE</code> to
+          <code class="literal">1</code> using e.g. the
+          <code class="literal">environment.sessionVariables</code> NixOS option.
+        </p></li><li class="listitem"><p>
           systemd-oomd is enabled by default. Depending on which systemd
           units have <code class="literal">ManagedOOMSwap=kill</code> or
           <code class="literal">ManagedOOMMemoryPressure=kill</code>, systemd-oomd
@@ -877,10 +887,17 @@ signald -d /var/lib/signald/db \
           been added for packages to perform extra build steps before
           the npm install step prunes dev dependencies.
         </p></li><li class="listitem"><p>
-          boot.kernel.sysctl is defined as a freeformType and adds a
-          custom merge option for <span class="quote">“<span class="quote">net.core.rmem_max</span>”</span>
-          (taking the highest value defined to avoid conflicts between 2
-          services trying to set that value)
+          <code class="literal">boot.kernel.sysctl</code> is defined as a
+          freeformType and adds a custom merge option for
+          <span class="quote">“<span class="quote">net.core.rmem_max</span>”</span> (taking the highest value
+          defined to avoid conflicts between 2 services trying to set
+          that value).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">mame</code> package does not ship with its
+          tools anymore in the default output. They were moved to a
+          separate <code class="literal">tools</code> output instead. For
+          convenience, <code class="literal">mame-tools</code> package was added
+          for those who want to use it.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.

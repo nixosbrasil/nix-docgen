@@ -557,6 +557,9 @@
           The top-level <code class="literal">termonad-with-packages</code> alias
           for <code class="literal">termonad</code> has been removed.
         </p></li><li class="listitem"><p>
+          Linux 4.9 has been removed because it will reach its end of
+          life within the lifespan of 22.11.
+        </p></li><li class="listitem"><p>
           (Neo)Vim can not be configured with
           <code class="literal">configure.pathogen</code> anymore to reduce
           maintainance burden. Use <code class="literal">configure.packages</code>
@@ -770,6 +773,10 @@ signald -d /var/lib/signald/db \
           <code class="literal">true</code> to preserve the previous behavior and
           will be removed once the transition to CommonMark is complete.
         </p></li><li class="listitem"><p>
+          The redis module now persists each instance’s configuration
+          file in the state directory, in order to support some more
+          advanced use cases like sentinel.
+        </p></li><li class="listitem"><p>
           The udisks2 service, available at
           <code class="literal">services.udisks2.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
@@ -805,6 +812,16 @@ signald -d /var/lib/signald/db \
               first.
             </p></li></ul></div></li><li class="listitem"><p>
           Add udev rules for the Teensy family of microcontrollers.
+        </p></li><li class="listitem"><p>
+          The Qt QML disk cache is now disabled by default. This fixes a
+          long-standing issue where updating Qt/KDE apps would sometimes
+          cause them to crash or behave strangely without explanation.
+          Those concerned about the small (~10%) performance hit to
+          application startup can re-enable the cache (and expose
+          themselves to gremlins) by setting the envrionment variable
+          <code class="literal">QML_FORCE_DISK_CACHE</code> to
+          <code class="literal">1</code> using e.g. the
+          <code class="literal">environment.sessionVariables</code> NixOS option.
         </p></li><li class="listitem"><p>
           systemd-oomd is enabled by default. Depending on which systemd
           units have <code class="literal">ManagedOOMSwap=kill</code> or
@@ -877,10 +894,24 @@ signald -d /var/lib/signald/db \
           been added for packages to perform extra build steps before
           the npm install step prunes dev dependencies.
         </p></li><li class="listitem"><p>
-          boot.kernel.sysctl is defined as a freeformType and adds a
-          custom merge option for <span class="quote">“<span class="quote">net.core.rmem_max</span>”</span>
-          (taking the highest value defined to avoid conflicts between 2
-          services trying to set that value)
+          <code class="literal">boot.kernel.sysctl</code> is defined as a
+          freeformType and adds a custom merge option for
+          <span class="quote">“<span class="quote">net.core.rmem_max</span>”</span> (taking the highest value
+          defined to avoid conflicts between 2 services trying to set
+          that value).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">mame</code> package does not ship with its
+          tools anymore in the default output. They were moved to a
+          separate <code class="literal">tools</code> output instead. For
+          convenience, <code class="literal">mame-tools</code> package was added
+          for those who want to use it.
+        </p></li><li class="listitem"><p>
+          A NixOS module for Firefox has been added which allows
+          preferences and
+          <a class="link" href="https://github.com/mozilla/policy-templates/blob/master/README.md" target="_top">policies</a>
+          to be set. This also allows extensions to be installed via the
+          <code class="literal">ExtensionSettings</code> policy. The new options
+          are under <code class="literal">programs.firefox</code>.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.
