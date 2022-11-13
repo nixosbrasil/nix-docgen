@@ -557,6 +557,9 @@
           The top-level <code class="literal">termonad-with-packages</code> alias
           for <code class="literal">termonad</code> has been removed.
         </p></li><li class="listitem"><p>
+          Linux 4.9 has been removed because it will reach its end of
+          life within the lifespan of 22.11.
+        </p></li><li class="listitem"><p>
           (Neo)Vim can not be configured with
           <code class="literal">configure.pathogen</code> anymore to reduce
           maintainance burden. Use <code class="literal">configure.packages</code>
@@ -606,6 +609,11 @@
           <code class="literal">percona-server56</code> has been removed. Please
           migrate to <code class="literal">mysql</code> or
           <code class="literal">mariadb</code> if possible.
+        </p></li><li class="listitem"><p>
+          <code class="literal">obs-studio</code> hase been updated to version 28.
+          If you have packaged custom plugins, check if they are
+          compatible. <code class="literal">obs-websocket</code> has been
+          integrated into <code class="literal">obs-studio</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">signald</code> has been bumped to
           <code class="literal">0.23.0</code>. For the upgrade, a migration
@@ -770,6 +778,10 @@ signald -d /var/lib/signald/db \
           <code class="literal">true</code> to preserve the previous behavior and
           will be removed once the transition to CommonMark is complete.
         </p></li><li class="listitem"><p>
+          The redis module now persists each instance’s configuration
+          file in the state directory, in order to support some more
+          advanced use cases like sentinel.
+        </p></li><li class="listitem"><p>
           The udisks2 service, available at
           <code class="literal">services.udisks2.enable</code>, is now disabled by
           default. It will automatically be enabled through services and
@@ -898,6 +910,13 @@ signald -d /var/lib/signald/db \
           separate <code class="literal">tools</code> output instead. For
           convenience, <code class="literal">mame-tools</code> package was added
           for those who want to use it.
+        </p></li><li class="listitem"><p>
+          A NixOS module for Firefox has been added which allows
+          preferences and
+          <a class="link" href="https://github.com/mozilla/policy-templates/blob/master/README.md" target="_top">policies</a>
+          to be set. This also allows extensions to be installed via the
+          <code class="literal">ExtensionSettings</code> policy. The new options
+          are under <code class="literal">programs.firefox</code>.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.
@@ -4020,7 +4039,7 @@ Superuser created successfully.
           <code class="literal">ghc810</code>. Those attributes point to the same
           compilers and packagesets but have the advantage that e.g.
           <code class="literal">ghc92</code> stays stable when we update from
-          <code class="literal">ghc924</code> to <code class="literal">ghc925</code>.
+          <code class="literal">ghc925</code> to <code class="literal">ghc926</code>.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-21.05"></a>B.4. Release 21.05 (<span class="quote">“<span class="quote">Okapi</span>”</span>, 2021.05/31)</h2></div></div></div><p>
     Support is planned until the end of December 2021, handing over to
     21.11.
