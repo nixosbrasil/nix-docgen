@@ -90,6 +90,12 @@
         </p></li><li class="listitem"><p>
           PHP now defaults to PHP 8.1, updated from 8.0.
         </p></li><li class="listitem"><p>
+          PHP is now built <code class="literal">NTS</code> (Non-Thread Safe)
+          style by default, for Apache and <code class="literal">mod_php</code>
+          usage we still enable <code class="literal">ZTS</code> (Zend Thread
+          Safe). This has been a common practice for a long time in
+          other distributions.
+        </p></li><li class="listitem"><p>
           <code class="literal">protonup</code> has been aliased to and replaced
           by <code class="literal">protonup-ng</code> due to upstream not
           maintaining it.
@@ -638,6 +644,13 @@ signald -d /var/lib/signald/db \
           are out-of-date and the (previously required) attributes
           <code class="literal">name</code> and <code class="literal">version</code> are no
           longer accepted.
+        </p></li><li class="listitem"><p>
+          The Syncthing service now only allows absolute paths—starting
+          with <code class="literal">/</code> or <code class="literal">~/</code>—for
+          <code class="literal">services.syncthing.folders.&lt;name&gt;.path</code>.
+          In a future release other paths will be allowed again and
+          interpreted relative to
+          <code class="literal">services.syncthing.dataDir</code>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The <code class="literal">xplr</code> package has been updated from
           0.18.0 to 0.19.0, which brings some breaking changes. See the

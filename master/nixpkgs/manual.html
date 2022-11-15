@@ -12968,7 +12968,7 @@ neovim.override {
 { config, pkgs, ... }:
 
 let
-  easygrep = pkgs.vimUtils.buildVimPlugin {
+  easygrep = pkgs.vimUtils.buildVimPluginFrom2Nix {
     name = "vim-easygrep";
     src = pkgs.fetchFromGitHub {
       owner = "dkprice";
@@ -12996,7 +12996,9 @@ in
     )
   ];
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.36.7.10"></a>17.34.2.2. Specificities for some plugins</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.36.7.10.2"></a>17.34.2.2.1. Treesitter</h5></div></div></div><p>
+</pre><p>
+       If your package requires building specific parts, use instead <code class="literal">pkgs.vimUtils.buildVimPlugin</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.36.7.10"></a>17.34.2.2. Specificities for some plugins</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.36.7.10.2"></a>17.34.2.2.1. Treesitter</h5></div></div></div><p>
         By default <code class="literal">nvim-treesitter</code> encourages you to download, compile and install the required Treesitter grammars at run time with <code class="literal">:TSInstall</code>. This works poorly on NixOS. Instead, to install the <code class="literal">nvim-treesitter</code> plugins with a set of precompiled grammars, you can use <code class="literal">nvim-treesitter.withPlugins</code> function:
        </p><pre class="programlisting">
 (pkgs.neovim.override {
