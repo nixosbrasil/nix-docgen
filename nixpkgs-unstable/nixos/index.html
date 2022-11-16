@@ -9113,7 +9113,7 @@ options = {
     type = type specification;
     default = default value;
     example = example value;
-    description = "Description for use in the NixOS manual.";
+    description = lib.mdDoc "Description for use in the NixOS manual.";
   };
 };
 </pre><p>
@@ -9168,9 +9168,11 @@ options = {
           A textual description of the option, in
           <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-contributing-markup" target="_top">Nixpkgs-flavored
           Markdown</a> format, that will be included in the NixOS
-          manual. During the migration process from DocBook to
-          CommonMark the description may also be written in DocBook, but
-          this is discouraged.
+          manual. During the migration process from DocBook it is
+          necessary to mark descriptions written in CommonMark with
+          <code class="literal">lib.mdDoc</code>. The description may still be
+          written in DocBook (without any marker), but this is
+          discouraged and will be deprecated in the future.
         </p></dd></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-util"></a>67.1.1. Utility functions for common option patterns</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-option-declarations-util-mkEnableOption"></a>67.1.1.1. <code class="literal">mkEnableOption</code></h4></div></div></div><p>
         Creates an Option attribute set for a boolean value option i.e
         an option to be toggled on or off.
@@ -9189,7 +9191,7 @@ lib.mkOption {
   type = lib.types.bool;
   default = false;
   example = true;
-  description = "Whether to enable magic.";
+  description = lib.mdDoc "Whether to enable magic.";
 }
 </pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-option-declarations-util-mkPackageOption"></a>67.1.1.1.1. <code class="literal">mkPackageOption</code></h5></div></div></div><p>
           Usage:
@@ -9226,7 +9228,7 @@ lib.mkOption {
   type = lib.types.package;
   default = pkgs.hello;
   defaultText = lib.literalExpression "pkgs.hello";
-  description = "The hello package to use.";
+  description = lib.mdDoc "The hello package to use.";
 }
 </pre><a id="ex-options-declarations-util-mkPackageOption-ghc"></a><pre class="programlisting">
 lib.mkPackageOption pkgs "GHC" {
@@ -9239,7 +9241,7 @@ lib.mkOption {
   default = pkgs.ghc;
   defaultText = lib.literalExpression "pkgs.ghc";
   example = lib.literalExpression "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
-  description = "The GHC package to use.";
+  description = lib.mdDoc "The GHC package to use.";
 }
 </pre><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="sec-option-declarations-eot"></a>67.1.1.1.1.1. Extensible Option Types</h6></div></div></div><p>
             Extensible option types is a feature that allow to extend
