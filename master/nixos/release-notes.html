@@ -638,6 +638,9 @@ signald -d /var/lib/signald/db \
           <code class="literal">features</code> instead, which defaults to
           <code class="literal">[ "lua54" "luau" ]</code>.
         </p></li><li class="listitem"><p>
+          <code class="literal">ocamlPackages.ocaml_extlib</code> has been renamed
+          to <code class="literal">ocamlPackages.extlib</code>.
+        </p></li><li class="listitem"><p>
           <code class="literal">pkgs.fetchNextcloudApp</code> has been rewritten
           to circumvent impurities in e.g. tarballs from GitHub and to
           make it easier to apply patches. This means that your hashes
@@ -948,6 +951,11 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
           to be set. This also allows extensions to be installed via the
           <code class="literal">ExtensionSettings</code> policy. The new options
           are under <code class="literal">programs.firefox</code>.
+        </p></li><li class="listitem"><p>
+          The option
+          <code class="literal">services.picom.experimentalBackends</code> was
+          removed since it is now the default and the option will cause
+          <code class="literal">picom</code> to quit instead.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.

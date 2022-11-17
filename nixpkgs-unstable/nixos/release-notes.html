@@ -638,6 +638,9 @@ signald -d /var/lib/signald/db \
           <code class="literal">features</code> instead, which defaults to
           <code class="literal">[ "lua54" "luau" ]</code>.
         </p></li><li class="listitem"><p>
+          <code class="literal">ocamlPackages.ocaml_extlib</code> has been renamed
+          to <code class="literal">ocamlPackages.extlib</code>.
+        </p></li><li class="listitem"><p>
           <code class="literal">pkgs.fetchNextcloudApp</code> has been rewritten
           to circumvent impurities in e.g. tarballs from GitHub and to
           make it easier to apply patches. This means that your hashes
@@ -651,11 +654,29 @@ signald -d /var/lib/signald/db \
           In a future release other paths will be allowed again and
           interpreted relative to
           <code class="literal">services.syncthing.dataDir</code>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.github-runner</code> and
+          <code class="literal">services.github-runners.&lt;name&gt;</code> gained
+          the option <code class="literal">serviceOverrides</code> which allows
+          overriding the systemd <code class="literal">serviceConfig</code>. If
+          you have been overriding the systemd service configuration
+          (i.e., by defining
+          <code class="literal">systemd.services.github-runner.serviceConfig</code>),
+          you have to use the <code class="literal">serviceOverrides</code> option
+          now. Example:
+        </p><pre class="programlisting">
+services.github-runner.serviceOverrides.SupplementaryGroups = [
+  "docker"
+];
+</pre></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-22.11-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The <code class="literal">xplr</code> package has been updated from
           0.18.0 to 0.19.0, which brings some breaking changes. See the
           <a class="link" href="https://github.com/sayanarijit/xplr/releases/tag/v0.19.0" target="_top">upstream
           release notes</a> for more details.
+        </p></li><li class="listitem"><p>
+          Configuring multiple GitHub runners is now possible through
+          <code class="literal">services.github-runners.&lt;name&gt;</code>. The
+          option <code class="literal">services.github-runner</code> remains.
         </p></li><li class="listitem"><p>
           <code class="literal">github-runner</code> gained support for ephemeral
           runners and registrations using a personal access token (PAT)
@@ -930,6 +951,11 @@ signald -d /var/lib/signald/db \
           to be set. This also allows extensions to be installed via the
           <code class="literal">ExtensionSettings</code> policy. The new options
           are under <code class="literal">programs.firefox</code>.
+        </p></li><li class="listitem"><p>
+          The option
+          <code class="literal">services.picom.experimentalBackends</code> was
+          removed since it is now the default and the option will cause
+          <code class="literal">picom</code> to quit instead.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.2. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.
