@@ -354,8 +354,8 @@ OK
 # parted /dev/sda -- set 1 boot on
 </pre></li><li class="listitem"><p>
               Finally, add a <span class="emphasis"><em>swap</em></span> partition. The
-              size required will vary according to needs, here a 8GiB
-              one is created.
+              size required will vary according to needs, here a 8GB one
+              is created.
             </p><pre class="programlisting">
 # parted /dev/sda -- mkpart primary linux-swap -8GB 100%
 </pre><div class="note"><h3 class="title">Note</h3><p>
@@ -600,16 +600,16 @@ $ passwd eelco
         NixOS on <code class="literal">/dev/sda</code> (MBR)</strong></span>
       </p><pre class="programlisting">
 # parted /dev/sda -- mklabel msdos
-# parted /dev/sda -- mkpart primary 1MiB -8GiB
-# parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+# parted /dev/sda -- mkpart primary 1MB -8GB
+# parted /dev/sda -- mkpart primary linux-swap -8GB 100%
 </pre><a id="ex-partition-scheme-UEFI"></a><p>
         <span class="strong"><strong>Example: Example partition schemes for
         NixOS on <code class="literal">/dev/sda</code> (UEFI)</strong></span>
       </p><pre class="programlisting">
 # parted /dev/sda -- mklabel gpt
-# parted /dev/sda -- mkpart primary 512MiB -8GiB
-# parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
-# parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
+# parted /dev/sda -- mkpart primary 512MB -8GB
+# parted /dev/sda -- mkpart primary linux-swap -8GB 100%
+# parted /dev/sda -- mkpart ESP fat32 1MB 512MB
 # parted /dev/sda -- set 3 esp on
 </pre><a id="ex-install-sequence"></a><p>
         <span class="strong"><strong>Example: Commands for Installing NixOS
@@ -1424,7 +1424,7 @@ $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd
    <code class="filename">/etc/nixos/configuration.nix</code>. As described in
    <a class="xref" href="index.html#sec-changing-config" title="Chapter 3. Changing the Configuration">Chapter 3, <em>Changing the Configuration</em></a>, changes to this file only take
    effect after you run <span class="command"><strong>nixos-rebuild</strong></span>.
-  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">6. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">7. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">8. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">9. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">10. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">11. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">12. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">13. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">14. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">15. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">16. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">17. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">18. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">19. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">20. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">21. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">22. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">23. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">24. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">25. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">26. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">27. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">28. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">29. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">30. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">31. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">32. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">33. Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">34. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">35. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">36. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">37. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">38. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">39. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">40. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">41. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">42. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">43. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">44. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">45. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">46. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">47. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">48. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">49. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">50. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">51. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">52. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">53. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">54. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">55. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">56. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">57. Kubernetes</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-configuration-syntax"></a>Chapter 6. Configuration Syntax</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-configuration-file">6.1. NixOS Configuration File</a></span></dt><dt><span class="section"><a href="index.html#sec-module-abstractions">6.2. Abstractions</a></span></dt><dt><span class="section"><a href="index.html#sec-modularity">6.3. Modularity</a></span></dt><dt><span class="section"><a href="index.html#sec-nix-syntax-summary">6.4. Syntax Summary</a></span></dt></dl></div><p>
+  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">6. Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">7. Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">8. User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">9. File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">10. X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">11. Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">12. GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">13. Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">14. Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">15. Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">16. Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">17. Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">18. GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">19. Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">20. Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">21. Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">22. Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">23. Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">24. Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">25. Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">26. Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">27. Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">28. Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">29. Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">30. Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">31. Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">32. Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">33. Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">34. Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">35. Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">36. parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">37. WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">38. Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">39. Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">40. GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">41. Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">42. Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">43. Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">44. Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">45. Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">46. Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">47. Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">48. PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">49. FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">50. BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">51. SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">52. Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">53. Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">54. Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">55. Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">56. Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">57. Kubernetes</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-configuration-syntax"></a>Chapter 6. Configuration Syntax</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-configuration-file">6.1. NixOS Configuration File</a></span></dt><dt><span class="section"><a href="index.html#sec-module-abstractions">6.2. Abstractions</a></span></dt><dt><span class="section"><a href="index.html#sec-modularity">6.3. Modularity</a></span></dt></dl></div><p>
     The NixOS configuration file
     <code class="literal">/etc/nixos/configuration.nix</code> is actually a
     <span class="emphasis"><em>Nix expression</em></span>, which is the Nix package
@@ -1807,177 +1807,7 @@ let netConfig = hostName: {
 in
 
 { imports = [ (netConfig "nixos.localdomain") ]; }
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-nix-syntax-summary"></a>6.4. Syntax Summary</h2></div></div></div><p>
-    Below is a summary of the most important syntactic constructs in the
-    Nix expression language. It’s not complete. In particular, there are
-    many other built-in functions. See the
-    <a class="link" href="https://nixos.org/nix/manual/#chap-writing-nix-expressions" target="_top">Nix
-    manual</a> for the rest.
-  </p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col align="left" /><col align="left" /></colgroup><thead><tr><th align="left">
-            Example
-          </th><th align="left">
-            Description
-          </th></tr></thead><tbody><tr><td align="left">
-            <span class="emphasis"><em>Basic values</em></span>
-          </td><td align="left">
-          </td></tr><tr><td align="left">
-            <code class="literal">"Hello world"</code>
-          </td><td align="left">
-            A string
-          </td></tr><tr><td align="left">
-            <code class="literal">"${pkgs.bash}/bin/sh"</code>
-          </td><td align="left">
-            A string containing an expression (expands to
-            <code class="literal">"/nix/store/hash-bash-version/bin/sh"</code>)
-          </td></tr><tr><td align="left">
-            <code class="literal">true</code>, <code class="literal">false</code>
-          </td><td align="left">
-            Booleans
-          </td></tr><tr><td align="left">
-            <code class="literal">123</code>
-          </td><td align="left">
-            An integer
-          </td></tr><tr><td align="left">
-            <code class="literal">./foo.png</code>
-          </td><td align="left">
-            A path (relative to the containing Nix expression)
-          </td></tr><tr><td align="left">
-            <span class="emphasis"><em>Compound values</em></span>
-          </td><td align="left">
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x = 1; y = 2; }</code>
-          </td><td align="left">
-            A set with attributes named <code class="literal">x</code> and
-            <code class="literal">y</code>
-          </td></tr><tr><td align="left">
-            <code class="literal">{ foo.bar = 1; }</code>
-          </td><td align="left">
-            A nested set, equivalent to
-            <code class="literal">{ foo = { bar = 1; }; }</code>
-          </td></tr><tr><td align="left">
-            <code class="literal">rec { x = "foo"; y = x + "bar"; }</code>
-          </td><td align="left">
-            A recursive set, equivalent to
-            <code class="literal">{ x = "foo"; y = "foobar"; }</code>
-          </td></tr><tr><td align="left">
-            <code class="literal">[ "foo" "bar" ]</code>
-          </td><td align="left">
-            A list with two elements
-          </td></tr><tr><td align="left">
-            <span class="emphasis"><em>Operators</em></span>
-          </td><td align="left">
-          </td></tr><tr><td align="left">
-            <code class="literal">"foo" + "bar"</code>
-          </td><td align="left">
-            String concatenation
-          </td></tr><tr><td align="left">
-            <code class="literal">1 + 2</code>
-          </td><td align="left">
-            Integer addition
-          </td></tr><tr><td align="left">
-            <code class="literal">"foo" == "f" + "oo"</code>
-          </td><td align="left">
-            Equality test (evaluates to <code class="literal">true</code>)
-          </td></tr><tr><td align="left">
-            <code class="literal">"foo" != "bar"</code>
-          </td><td align="left">
-            Inequality test (evaluates to <code class="literal">true</code>)
-          </td></tr><tr><td align="left">
-            <code class="literal">!true</code>
-          </td><td align="left">
-            Boolean negation
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x = 1; y = 2; }.x</code>
-          </td><td align="left">
-            Attribute selection (evaluates to <code class="literal">1</code>)
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x = 1; y = 2; }.z or 3</code>
-          </td><td align="left">
-            Attribute selection with default (evaluates to
-            <code class="literal">3</code>)
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x = 1; y = 2; } // { z = 3; }</code>
-          </td><td align="left">
-            Merge two sets (attributes in the right-hand set taking
-            precedence)
-          </td></tr><tr><td align="left">
-            <span class="emphasis"><em>Control structures</em></span>
-          </td><td align="left">
-          </td></tr><tr><td align="left">
-            <code class="literal">if 1 + 1 == 2 then "yes!" else "no!"</code>
-          </td><td align="left">
-            Conditional expression
-          </td></tr><tr><td align="left">
-            <code class="literal">assert 1 + 1 == 2; "yes!"</code>
-          </td><td align="left">
-            Assertion check (evaluates to
-            <code class="literal">"yes!"</code>). See
-            <a class="xref" href="index.html#sec-assertions" title="67.4. Warnings and Assertions">Section 67.4, “Warnings and Assertions”</a> for using assertions in
-            modules
-          </td></tr><tr><td align="left">
-            <code class="literal">let x = "foo"; y = "bar"; in x + y</code>
-          </td><td align="left">
-            Variable definition
-          </td></tr><tr><td align="left">
-            <code class="literal">with pkgs.lib; head [ 1 2 3 ]</code>
-          </td><td align="left">
-            Add all attributes from the given set to the scope
-            (evaluates to <code class="literal">1</code>)
-          </td></tr><tr><td align="left">
-            <span class="emphasis"><em>Functions (lambdas)</em></span>
-          </td><td align="left">
-          </td></tr><tr><td align="left">
-            <code class="literal">x: x + 1</code>
-          </td><td align="left">
-            A function that expects an integer and returns it increased
-            by 1
-          </td></tr><tr><td align="left">
-            <code class="literal">(x: x + 1) 100</code>
-          </td><td align="left">
-            A function call (evaluates to 101)
-          </td></tr><tr><td align="left">
-            <code class="literal">let inc = x: x + 1; in inc (inc (inc 100))</code>
-          </td><td align="left">
-            A function bound to a variable and subsequently called by
-            name (evaluates to 103)
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x, y }: x + y</code>
-          </td><td align="left">
-            A function that expects a set with required attributes
-            <code class="literal">x</code> and <code class="literal">y</code> and
-            concatenates them
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x, y ? "bar" }: x + y</code>
-          </td><td align="left">
-            A function that expects a set with required attribute
-            <code class="literal">x</code> and optional <code class="literal">y</code>,
-            using <code class="literal">"bar"</code> as default value
-            for <code class="literal">y</code>
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x, y, ... }: x + y</code>
-          </td><td align="left">
-            A function that expects a set with required attributes
-            <code class="literal">x</code> and <code class="literal">y</code> and ignores
-            any other attributes
-          </td></tr><tr><td align="left">
-            <code class="literal">{ x, y } @ args: x + y</code>
-          </td><td align="left">
-            A function that expects a set with required attributes
-            <code class="literal">x</code> and <code class="literal">y</code>, and binds the
-            whole set to <code class="literal">args</code>
-          </td></tr><tr><td align="left">
-            <span class="emphasis"><em>Built-in functions</em></span>
-          </td><td align="left">
-          </td></tr><tr><td align="left">
-            <code class="literal">import ./foo.nix</code>
-          </td><td align="left">
-            Load and return Nix expression in given file
-          </td></tr><tr><td align="left">
-            <code class="literal">map (x: x + x) [ 1 2 3 ]</code>
-          </td><td align="left">
-            Apply a function to every element of a list (evaluates to
-            <code class="literal">[ 2 4 6 ]</code>)
-          </td></tr></tbody></table></div></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.id-1.4.3.5.14.3" class="footnote"><p><a href="#id-1.4.3.5.14.3" class="para"><sup class="para">[1] </sup></a>
+</pre></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.id-1.4.3.5.14.3" class="footnote"><p><a href="#id-1.4.3.5.14.3" class="para"><sup class="para">[1] </sup></a>
         If you’re wondering how it’s possible that the (indirect)
         <span class="emphasis"><em>result</em></span> of a function is passed as an
         <span class="emphasis"><em>input</em></span> to that same function: that’s because
