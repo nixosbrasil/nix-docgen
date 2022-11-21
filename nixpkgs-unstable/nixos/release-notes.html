@@ -96,6 +96,8 @@
           Safe). This has been a common practice for a long time in
           other distributions.
         </p></li><li class="listitem"><p>
+          PHP 8.2.0 RC 6 is available.
+        </p></li><li class="listitem"><p>
           <code class="literal">protonup</code> has been aliased to and replaced
           by <code class="literal">protonup-ng</code> due to upstream not
           maintaining it.
@@ -396,6 +398,19 @@
           <code class="literal">p4d</code>, <code class="literal">p4broker</code>, and
           <code class="literal">p4p</code>. To install the Helix Core Server
           binaries, use the <code class="literal">p4d</code> package instead.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">openssl</code>-extension for the PHP
+          interpreter used by Nextcloud is built against OpenSSL 1.1 if
+          <a class="xref" href="options.html#opt-system.stateVersion"><code class="option">system.stateVersion</code></a> is below
+          <code class="literal">22.11</code>. This is to make sure that people
+          using
+          <a class="link" href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html" target="_top">server-side
+          encryption</a> don’t loose access to their files.
+        </p><p>
+          In any other case it’s safe to use OpenSSL 3 for PHP’s openssl
+          extension. This can be done by setting
+          <a class="xref" href="options.html#opt-services.nextcloud.enableBrokenCiphersForSSE"><code class="option">services.nextcloud.enableBrokenCiphersForSSE</code></a>
+          to <code class="literal">false</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">coq</code> package and versioned variants
           starting at <code class="literal">coq_8_14</code> no longer include

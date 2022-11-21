@@ -3872,7 +3872,15 @@ This endpoint returns the following JSON structure on success with a 201 Created
        advisable because the fresh install doesn't have any state that can be lost.
        In case that doesn't help, an entire re-creation can be forced via
        <span class="command"><strong>rm -rf ~nextcloud/</strong></span>.
-      </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-nextcloud-httpd"></a>22.3. Using an alternative webserver as reverse-proxy (e.g. <code class="literal">httpd</code>)</h2></div></div></div><p>
+      </p></li></ul></div></li><li class="listitem"><p><strong>Server-side encryption. </strong>
+      Nextcloud supports <a class="link" href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html" target="_top">server-side encryption (SSE)</a>.
+      This is not an end-to-end encryption, but can be used to encrypt files that will be persisted
+      to external storage such as S3. Please note that this won't work anymore when using OpenSSL 3
+      for PHP's openssl extension because this is implemented using the legacy cipher RC4.
+      If <a class="xref" href="options.html#opt-system.stateVersion"><code class="option">system.stateVersion</code></a> is <span class="emphasis"><em>above</em></span> <code class="literal">22.05</code>,
+      this is disabled by default. To turn it on again and for further information please refer to
+      <a class="xref" href="options.html#opt-services.nextcloud.enableBrokenCiphersForSSE"><code class="option">services.nextcloud.enableBrokenCiphersForSSE</code></a>.
+     </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-nextcloud-httpd"></a>22.3. Using an alternative webserver as reverse-proxy (e.g. <code class="literal">httpd</code>)</h2></div></div></div><p>
    By default, <span class="package">nginx</span> is used as reverse-proxy for <span class="package">nextcloud</span>.
    However, it's possible to use e.g. <span class="package">httpd</span> by explicitly disabling
    <span class="package">nginx</span> using <a class="xref" href="options.html#opt-services.nginx.enable"><code class="option">services.nginx.enable</code></a> and fixing the
