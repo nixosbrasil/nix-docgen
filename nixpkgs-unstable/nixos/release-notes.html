@@ -780,19 +780,106 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
           The <code class="literal">services.matrix-synapse</code> systemd unit
           has been hardened.
         </p></li><li class="listitem"><p>
-          The <code class="literal">services.grafana</code> options were converted
-          to a
+          The module <code class="literal">services.grafana</code> was refactored
+          to be compliant with
           <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">RFC
-          0042</a> configuration.
-        </p></li><li class="listitem"><p>
-          The <code class="literal">services.grafana.provision.datasources</code>
-          and <code class="literal">services.grafana.provision.dashboards</code>
-          options were converted to a
-          <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">RFC
-          0042</a> configuration. They also now support specifying
-          the provisioning YAML file with <code class="literal">path</code>
-          option.
-        </p></li><li class="listitem"><p>
+          0042</a>. To be precise, this means that the following
+          things have changed:
+        </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
+              The newly introduced option
+              <a class="xref" href="options.html#opt-services.grafana.settings"><code class="option">services.grafana.settings</code></a> is an
+              attribute-set that will be converted into Grafana’s INI
+              format. This means that the configuration from
+              <a class="link" href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/" target="_top">Grafana’s
+              configuration reference</a> can be directly written as
+              attribute-set in Nix within this option.
+            </p></li><li class="listitem"><p>
+              The option
+              <code class="literal">services.grafana.extraOptions</code> has been
+              removed. This option was an association of environment
+              variables for Grafana. If you had an expression like
+            </p><pre class="programlisting">
+{
+  services.grafana.extraOptions.SECURITY_ADMIN_USER = "foobar";
+}
+</pre><p>
+              your Grafana instance was running with
+              <code class="literal">GF_SECURITY_ADMIN_USER=foobar</code> in its
+              environment.
+            </p><p>
+              For the migration, it is recommended to turn it into the
+              INI format, i.e. to declare
+            </p><pre class="programlisting">
+{
+  services.grafana.settings.security.admin_user = "foobar";
+}
+</pre><p>
+              instead.
+            </p><p>
+              The keys in
+              <code class="literal">services.grafana.extraOptions</code> have the
+              format
+              <code class="literal">&lt;INI section name&gt;_&lt;Key Name&gt;</code>.
+              Further details are outlined in the
+              <a class="link" href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#override-configuration-with-environment-variables" target="_top">configuration
+              reference</a>.
+            </p><p>
+              Alternatively you can also set all your values from
+              <code class="literal">extraOptions</code> to
+              <code class="literal">systemd.services.grafana.environment</code>,
+              make sure you don’t forget to add the
+              <code class="literal">GF_</code> prefix though!
+            </p></li><li class="listitem"><p>
+              Previously, the options
+              <a class="xref" href="options.html#opt-services.grafana.provision.datasources"><code class="option">services.grafana.provision.datasources</code></a>
+              and
+              <a class="xref" href="options.html#opt-services.grafana.provision.dashboards"><code class="option">services.grafana.provision.dashboards</code></a>
+              expected lists of datasources or dashboards for the
+              <a class="link" href="https://grafana.com/docs/grafana/latest/administration/provisioning/" target="_top">declarative
+              provisioning</a>.
+            </p><p>
+              To declare lists of
+            </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+                  <span class="strong"><strong>datasources</strong></span>, please
+                  rename your declarations to
+                  <a class="xref" href="options.html#opt-services.grafana.provision.datasources.settings.datasources"><code class="option">services.grafana.provision.datasources.settings.datasources</code></a>.
+                </p></li><li class="listitem"><p>
+                  <span class="strong"><strong>dashboards</strong></span>, please
+                  rename your declarations to
+                  <a class="xref" href="options.html#opt-services.grafana.provision.dashboards.settings.providers"><code class="option">services.grafana.provision.dashboards.settings.providers</code></a>.
+                </p></li></ul></div><p>
+              This change was made to support more features for that:
+            </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p>
+                  It’s possible to declare the
+                  <code class="literal">apiVersion</code> of your dashboards and
+                  datasources by
+                  <a class="xref" href="options.html#opt-services.grafana.provision.datasources.settings.apiVersion"><code class="option">services.grafana.provision.datasources.settings.apiVersion</code></a>
+                  (or
+                  <a class="xref" href="options.html#opt-services.grafana.provision.dashboards.settings.apiVersion"><code class="option">services.grafana.provision.dashboards.settings.apiVersion</code></a>).
+                </p></li><li class="listitem"><p>
+                  Instead of declaring datasources and dashboards in
+                  pure Nix, it’s also possible to specify configuration
+                  files (or directories) with YAML instead using
+                  <a class="xref" href="options.html#opt-services.grafana.provision.datasources.path"><code class="option">services.grafana.provision.datasources.path</code></a>
+                  (or
+                  <a class="xref" href="options.html#opt-services.grafana.provision.dashboards.path"><code class="option">services.grafana.provision.dashboards.path</code></a>.
+                  This is useful when having provisioning files from
+                  non-NixOS Grafana instances that you also want to
+                  deploy to NixOS.
+                </p><p>
+                  <span class="strong"><strong>Note:</strong></span> secrets from
+                  these files will be leaked into the store unless you
+                  use a
+                  <a class="link" href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#file-provider" target="_top"><span class="strong"><strong>file</strong></span>-provider
+                  or env-var</a> for secrets!
+                </p></li><li class="listitem"><p>
+                  <a class="xref" href="options.html#opt-services.grafana.provision.notifiers"><code class="option">services.grafana.provision.notifiers</code></a>
+                  is not affected by this change because this feature is
+                  deprecated by Grafana and will probably removed in
+                  Grafana 10. It’s recommended to use
+                  <code class="literal">services.grafana.provision.alerting.contactPoints</code>
+                  instead.
+                </p></li></ul></div></li></ul></div></li><li class="listitem"><p>
           The <code class="literal">services.grafana.provision.alerting</code>
           option was added. It includes suboptions for every
           alerting-related objects (with the exception of

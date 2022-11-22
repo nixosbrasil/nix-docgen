@@ -5573,7 +5573,7 @@ error: hash mismatch in fixed-output derivation '/path/to/my.drv':
          specified: sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
             got:    sha256-RApQUm78dswhBLC/rfU9y0u6pSAzHceIJqgmetRD24E=
 </pre><p>
-     A similar problem arises while testing changes to a fetcher’s implementation. If the output of the derivation already exists in the Nix store, test failures can go undetected. The <a class="link" href="#tester-invalidateFetcherByDrvHash" title="13.3. invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a> function helps prevent reusing cached derivations.
+     A similar problem arises while testing changes to a fetcher’s implementation. If the output of the derivation already exists in the Nix store, test failures can go undetected. The <a class="link" href="#tester-invalidateFetcherByDrvHash" title="13.5. invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a> function helps prevent reusing cached derivations.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchurl"></a>11.2. <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code></h2></div></div></div><p>
      Two basic fetchers are <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code>. Both of these have two required arguments, a URL and a hash. The hash is typically <code class="literal">sha256</code>, although many more hash algorithms are supported. Nixpkgs contributors are currently recommended to use <code class="literal">sha256</code>. This hash will be used by Nix to identify your source. A typical usage of <code class="literal">fetchurl</code> is provided below.
     </p><pre class="programlisting">
@@ -5835,7 +5835,7 @@ writeDirectReferencesToFile (writeScriptBin "hi" ''${hello}/bin/hello'')
 /nix/store/&lt;hash&gt;-hello-2.10
 </pre><p>
      but none of <code class="literal">hello</code>’s dependencies because those are not referenced directly by <code class="literal">hi</code>’s output.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-testers"></a>Chapter 13. Testers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#tester-testVersion">13.1. <code class="literal">testVersion</code></a></span></dt><dt><span class="section"><a href="#tester-testEqualDerivation">13.2. <code class="literal">testEqualDerivation</code></a></span></dt><dt><span class="section"><a href="#tester-invalidateFetcherByDrvHash">13.3. <code class="literal">invalidateFetcherByDrvHash</code></a></span></dt><dt><span class="section"><a href="#tester-nixosTest">13.4. <code class="literal">nixosTest</code></a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-testers"></a>Chapter 13. Testers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#tester-testVersion">13.1. <code class="literal">testVersion</code></a></span></dt><dt><span class="section"><a href="#tester-testBuildFailure">13.2. <code class="literal">testBuildFailure</code></a></span></dt><dt><span class="section"><a href="#tester-equalContents">13.3. <code class="literal">testEqualContents</code></a></span></dt><dt><span class="section"><a href="#tester-testEqualDerivation">13.4. <code class="literal">testEqualDerivation</code></a></span></dt><dt><span class="section"><a href="#tester-invalidateFetcherByDrvHash">13.5. <code class="literal">invalidateFetcherByDrvHash</code></a></span></dt><dt><span class="section"><a href="#tester-nixosTest">13.6. <code class="literal">nixosTest</code></a></span></dt></dl></div><p>
     This chapter describes several testing builders which are available in the <code class="literal">testers</code> namespace.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testVersion"></a>13.1. <code class="literal">testVersion</code></h2></div></div></div><p>
      Checks the command output contains the specified version
@@ -5863,7 +5863,64 @@ passthru.tests.version = testers.testVersion {
   # The output needs to contain the 'version' string without any prefix or suffix.
   version = "v${version}";
 };
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testEqualDerivation"></a>13.2. <code class="literal">testEqualDerivation</code></h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testBuildFailure"></a>13.2. <code class="literal">testBuildFailure</code></h2></div></div></div><p>
+     Make sure that a build does not succeed. This is useful for testing testers.
+    </p><p>
+     This returns a derivation with an override on the builder, with the following effects:
+    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+       Fail the build when the original builder succeeds
+      </p></li><li class="listitem"><p>
+       Move <code class="literal">$out</code> to <code class="literal">$out/result</code>, if it exists (assuming <code class="literal">out</code> is the default output)
+      </p></li><li class="listitem"><p>
+       Save the build log to <code class="literal">$out/testBuildFailure.log</code> (same)
+      </p></li></ul></div><p>
+     Example:
+    </p><pre class="programlisting">
+runCommand "example" {
+  failed = testers.testBuildFailure (runCommand "fail" {} ''
+    echo ok-ish &gt;$out
+    echo failing though
+    exit 3
+  '');
+} ''
+  grep -F 'ok-ish' $failed/result
+  grep -F 'failing though' $failed/testBuildFailure.log
+  [[ 3 = $(cat $failed/testBuildFailure.exit) ]]
+  touch $out
+'';
+</pre><p>
+     While <code class="literal">testBuildFailure</code> is designed to keep changes to the original builder’s environment to a minimum, some small changes are inevitable.
+    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+       The file <code class="literal">$TMPDIR/testBuildFailure.log</code> is present. It should not be deleted.
+      </p></li><li class="listitem"><p>
+       <code class="literal">stdout</code> and <code class="literal">stderr</code> are a pipe instead of a tty. This could be improved.
+      </p></li><li class="listitem"><p>
+       One or two extra processes are present in the sandbox during the original builder’s execution.
+      </p></li><li class="listitem"><p>
+       The derivation and output hashes are different, but not unusual.
+      </p></li><li class="listitem"><p>
+       The derivation includes a dependency on <code class="literal">buildPackages.bash</code> and <code class="literal">expect-failure.sh</code>, which is built to include a transitive dependency on <code class="literal">buildPackages.coreutils</code> and possibly more. These are not added to <code class="literal">PATH</code> or any other environment variable, so they should be hard to observe.
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-equalContents"></a>13.3. <code class="literal">testEqualContents</code></h2></div></div></div><p>
+     Check that two paths have the same contents.
+    </p><p>
+     Example:
+    </p><pre class="programlisting">
+testers.testEqualContents {
+  assertion = "sed -e performs replacement";
+  expected = writeText "expected" ''
+    foo baz baz
+  '';
+  actual = runCommand "actual" {
+    # not really necessary for a package that's in stdenv
+    nativeBuildInputs = [ gnused ];
+    base = writeText "base" ''
+      foo bar baz
+    '';
+  } ''
+    sed -e 's/bar/baz/g' $base &gt;$out
+  '';
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testEqualDerivation"></a>13.4. <code class="literal">testEqualDerivation</code></h2></div></div></div><p>
      Checks that two packages produce the exact same build instructions.
     </p><p>
      This can be used to make sure that a certain difference of configuration, such as the presence of an overlay does not cause a cache miss.
@@ -5876,7 +5933,7 @@ testers.testEqualDerivation
   "The hello package must stay the same when enabling checks."
   hello
   (hello.overrideAttrs(o: { doCheck = true; }))
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-invalidateFetcherByDrvHash"></a>13.3. <code class="literal">invalidateFetcherByDrvHash</code></h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-invalidateFetcherByDrvHash"></a>13.5. <code class="literal">invalidateFetcherByDrvHash</code></h2></div></div></div><p>
      Use the derivation hash to invalidate the output via name, for testing.
     </p><p>
      Type: <code class="literal">(a@{ name, ... } -&gt; Derivation) -&gt; a -&gt; Derivation</code>
@@ -5897,7 +5954,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
   rev = "9d9dbe6ed05854e03811c361a3380e09183f4f4a";
   sha256 = "sha256-7DszvbCNTjpzGRmpIVAWXk20P0/XTrWZ79KSOGLrUWY=";
 };
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-nixosTest"></a>13.4. <code class="literal">nixosTest</code></h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-nixosTest"></a>13.6. <code class="literal">nixosTest</code></h2></div></div></div><p>
      Run a NixOS VM network test using this evaluation of Nixpkgs.
     </p><p>
      NOTE: This function is primarily for external use. NixOS itself uses <code class="literal">make-test-python.nix</code> directly. Packages defined in Nixpkgs <a class="link" href="#ssec-nixos-tests-linking" title="20.7.5. Linking NixOS module tests to a package">reuse NixOS tests via <code class="literal">nixosTests</code>, plural</a>.
@@ -5905,7 +5962,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
      It is mostly equivalent to the function <code class="literal">import ./make-test-python.nix</code> from the <a class="link" href="https://nixos.org/nixos/manual/index.html#sec-nixos-tests" target="_top">NixOS manual</a>, except that the current application of Nixpkgs (<code class="literal">pkgs</code>) will be used, instead of letting NixOS invoke Nixpkgs anew.
     </p><p>
      If a test machine needs to set NixOS options under <code class="literal">nixpkgs</code>, it must set only the <code class="literal">nixpkgs.pkgs</code> option.
-    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.6.6"></a>13.4.1. Parameter</h3></div></div></div><p>
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.8.6"></a>13.6.1. Parameter</h3></div></div></div><p>
       A <a class="link" href="https://nixos.org/nixos/manual/index.html#sec-nixos-tests" target="_top">NixOS VM test network</a>, or path to it. Example:
      </p><pre class="programlisting">
 {
@@ -5923,7 +5980,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
     machine1.succeed("hello | foo-send")
   '';
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.6.7"></a>13.4.2. Result</h3></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.8.7"></a>13.6.2. Result</h3></div></div></div><p>
       A derivation that runs the VM test.
      </p><p>
       Notable attributes:
@@ -10831,7 +10888,7 @@ pkg3
   # Configure sphinxRoot for uncommon paths
   sphinxRoot = "weird/docs/path";
 </pre><p>
-        The hook is also available to packages outside the python ecosystem by referencing it using <code class="literal">python3.pkgs.sphinxHook</code>.
+        The hook is also available to packages outside the python ecosystem by referencing it using <code class="literal">sphinxHook</code> from top-level.
        </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="develop-local-package"></a>17.27.1.4. Develop local package</h4></div></div></div><p>
        As a Python developer you’re likely aware of <a class="link" href="http://setuptools.readthedocs.io/en/latest/setuptools.html#development-mode" target="_top">development mode</a> (<code class="literal">python setup.py develop</code>); instead of installing the package this command creates a special link to the project code. That way, you can run updated code without having to reinstall after each and every change you make. Development mode is also available. Let’s see how you can use it.
       </p><p>
