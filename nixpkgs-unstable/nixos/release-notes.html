@@ -463,7 +463,7 @@
           <code class="literal">22.11</code>. This is to make sure that people
           using
           <a class="link" href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html" target="_top">server-side
-          encryption</a> don’t loose access to their files.
+          encryption</a> don’t lose access to their files.
         </p><p>
           In any other case it’s safe to use OpenSSL 3 for PHP’s openssl
           extension. This can be done by setting
@@ -498,6 +498,11 @@
           because of stability and compatibility issues. Users who still
           wish to remain using GTK can do so by using
           <code class="literal">emacs-gtk</code>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">kanidm</code> has been updated to 1.1.0-alpha.10
+          and now requires a tls certificate and key. It will always
+          start an https and – if enabled – an ldaps server and no http
+          and ldap server anymore.
         </p></li><li class="listitem"><p>
           riak package removed along with
           <code class="literal">services.riak</code> module, due to lack of
@@ -1158,6 +1163,16 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
           <code class="literal">services.picom.experimentalBackends</code> was
           removed since it is now the default and the option will cause
           <code class="literal">picom</code> to quit instead.
+        </p></li><li class="listitem"><p>
+          <code class="literal">haskellPackage.callHackage</code> is not always
+          invalidated if <code class="literal">all-cabal-hashes</code> changes,
+          leading to less rebuilds of haskell dependencies.
+        </p></li><li class="listitem"><p>
+          <code class="literal">haskellPackages.callHackage</code> and
+          <code class="literal">haskellPackages.callCabal2nix</code> (and related
+          functions) no longer keep a reference to the
+          <code class="literal">cabal2nix</code> call used to generate them. As a
+          result, they will be garbage collected more often.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.05"></a>B.3. Release 22.05 (“Quokka”, 2022.05/30)</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Support is planned until the end of December 2022, handing over
         to 22.11.
@@ -3849,7 +3864,7 @@ Superuser created successfully.
         </p></li><li class="listitem"><p>
           The default GNAT version has been changed: The
           <code class="literal">gnat</code> attribute now points to
-          <code class="literal">gnat11</code> instead of <code class="literal">gnat9</code>.
+          <code class="literal">gnat12</code> instead of <code class="literal">gnat9</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">retroArchCores</code> has been removed. This means
           that using <code class="literal">nixpkgs.config.retroarch</code> to

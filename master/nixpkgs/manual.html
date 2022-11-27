@@ -6425,7 +6425,121 @@ buildImage {
     pathsToLink = [ "/bin" "/etc" "/var" ];
   };
 }
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-ociTools"></a>15.3. pkgs.ociTools</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-dockerTools-buildNixShellImage"></a>15.2.8. buildNixShellImage</h3></div></div></div><p>
+      Create a Docker image that sets up an environment similar to that of running <code class="literal">nix-shell</code> on a derivation. When run in Docker, this environment somewhat resembles the Nix sandbox typically used by <code class="literal">nix-build</code>, with a major difference being that access to the internet is allowed. It additionally also behaves like an interactive <code class="literal">nix-shell</code>, running things like <code class="literal">shellHook</code> and setting an interactive prompt. If the derivation is fully buildable (i.e. <code class="literal">nix-build</code> can be used on it), running <code class="literal">buildDerivation</code> inside such a Docker image will build the derivation, with all its outputs being available in the correct <code class="literal">/nix/store</code> paths, pointed to by the respective environment variables like <code class="literal">$out</code>, etc.
+     </p><div class="warning"><h3 class="title">Warning</h3><p>
+       The behavior doesn’t match <code class="literal">nix-shell</code> or <code class="literal">nix-build</code> exactly and this function is known not to work correctly for e.g. fixed-output derivations, content-addressed derivations, impure derivations and other special types of derivations.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.6.4.10.4"></a>15.2.8.1. Arguments</h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+         <code class="literal">drv</code>
+        </span></dt><dd><p>
+          The derivation on which to base the Docker image.
+         </p><p>
+          Adding packages to the Docker image is possible by e.g. extending the list of <code class="literal">nativeBuildInputs</code> of this derivation like
+         </p><pre class="programlisting">
+buildNixShellImage {
+  drv = someDrv.overrideAttrs (old: {
+    nativeBuildInputs = old.nativeBuildInputs or [] ++ [
+      somethingExtra
+    ];
+  });
+  # ...
+}
+</pre><p>
+          Similarly, you can extend the image initialization script by extending <code class="literal">shellHook</code>
+         </p></dd><dt><span class="term">
+         <code class="literal">name</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          The name of the resulting image.
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> <code class="literal">drv.name + "-env"</code>
+         </p></dd><dt><span class="term">
+         <code class="literal">tag</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          Tag of the generated image.
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> the resulting image derivation output path’s hash
+         </p></dd><dt><span class="term">
+         <code class="literal">uid</code>/<code class="literal">gid</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          The user/group ID to run the container as. This is like a <code class="literal">nixbld</code> build user.
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> 1000/1000
+         </p></dd><dt><span class="term">
+         <code class="literal">homeDirectory</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          The home directory of the user the container is running as
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> <code class="literal">/build</code>
+         </p></dd><dt><span class="term">
+         <code class="literal">shell</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          The path to the <code class="literal">bash</code> binary to use as the shell. This shell is started when running the image.
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> <code class="literal">pkgs.bashInteractive + "/bin/bash"</code>
+         </p></dd><dt><span class="term">
+         <code class="literal">command</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          Run this command in the environment of the derivation, in an interactive shell. See the <code class="literal">--command</code> option in the <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/nix-shell.html?highlight=nix-shell#options" target="_top"><code class="literal">nix-shell</code> documentation</a>.
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> (none)
+         </p></dd><dt><span class="term">
+         <code class="literal">run</code> <span class="emphasis"><em>optional</em></span>
+        </span></dt><dd><p>
+          Same as <code class="literal">command</code>, but runs the command in a non-interactive shell instead. See the <code class="literal">--run</code> option in the <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/nix-shell.html?highlight=nix-shell#options" target="_top"><code class="literal">nix-shell</code> documentation</a>.
+         </p><p>
+          <span class="emphasis"><em>Default:</em></span> (none)
+         </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.6.4.10.5"></a>15.2.8.2. Example</h4></div></div></div><p>
+       The following shows how to build the <code class="literal">pkgs.hello</code> package inside a Docker container built with <code class="literal">buildNixShellImage</code>.
+      </p><pre class="programlisting">
+with import &lt;nixpkgs&gt; {};
+dockerTools.buildNixShellImage {
+  drv = hello;
+}
+</pre><p>
+       Build the derivation:
+      </p><pre class="programlisting">
+nix-build hello.nix
+</pre><pre class="programlisting">
+these 8 derivations will be built:
+  /nix/store/xmw3a5ln29rdalavcxk1w3m4zb2n7kk6-nix-shell-rc.drv
+...
+Creating layer 56 from paths: ['/nix/store/crpnj8ssz0va2q0p5ibv9i6k6n52gcya-stdenv-linux']
+Creating layer 57 with customisation...
+Adding manifests...
+Done.
+/nix/store/cpyn1lc897ghx0rhr2xy49jvyn52bazv-hello-2.12-env.tar.gz
+</pre><p>
+       Load the image:
+      </p><pre class="programlisting">
+docker load -i result
+</pre><pre class="programlisting">
+0d9f4c4cd109: Loading layer [==================================================&gt;]   2.56MB/2.56MB
+...
+ab1d897c0697: Loading layer [==================================================&gt;]  10.24kB/10.24kB
+Loaded image: hello-2.12-env:pgj9h98nal555415faa43vsydg161bdz
+</pre><p>
+       Run the container:
+      </p><pre class="programlisting">
+docker run -it hello-2.12-env:pgj9h98nal555415faa43vsydg161bdz
+</pre><pre class="programlisting">
+[nix-shell:/build]$
+</pre><p>
+       In the running container, run the build:
+      </p><pre class="programlisting">
+buildDerivation
+</pre><pre class="programlisting">
+unpacking sources
+unpacking source archive /nix/store/8nqv6kshb3vs5q5bs2k600xpj5bkavkc-hello-2.12.tar.gz
+...
+patching script interpreter paths in /nix/store/z5wwy5nagzy15gag42vv61c2agdpz2f2-hello-2.12
+checking for references to /build/ in /nix/store/z5wwy5nagzy15gag42vv61c2agdpz2f2-hello-2.12...
+</pre><p>
+       Check the build result:
+      </p><pre class="programlisting">
+$out/bin/hello
+</pre><pre class="programlisting">
+Hello, world!
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-ociTools"></a>15.3. pkgs.ociTools</h2></div></div></div><p>
      <code class="literal">pkgs.ociTools</code> is a set of functions for creating containers according to the <a class="link" href="https://github.com/opencontainers/runtime-spec" target="_top">OCI container specification v1.0.0</a>. Beyond that, it makes no assumptions about the container runner you choose to use to run the created container.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-pkgs-ociTools-buildContainer"></a>15.3.1. buildContainer</h3></div></div></div><p>
       This function creates a simple OCI container that runs a single command inside of it. An OCI container consists of a <code class="literal">config.json</code> and a rootfs directory. The nix store of the container will contain all referenced dependencies of the given command.
