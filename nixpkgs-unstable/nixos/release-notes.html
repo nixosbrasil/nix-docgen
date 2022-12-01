@@ -9,7 +9,9 @@
       In addition to numerous new and upgraded packages, this release
       has the following highlights:
     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-          Create the first release note entry in this section!
+          Cinnamon has been updated to 5.6, see
+          <a class="link" href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204" target="_top">the
+          pull request</a> for what is changed.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-new-services"></a>B.1.2. New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
           Create the first release note entry in this section!
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>B.1.3. Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -45,8 +47,21 @@
           swap-formatted instance store devices and partitions in
           stage-1 (initramfs). This behaviour has been removed. Users
           relying on this should provide their own implementation.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-          Create the first release note entry in this section!
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          The module for the application firewall
+          <code class="literal">opensnitch</code> got the ability to configure
+          rules. Available as
+          <a class="link" href="options.html#opt-services.opensnitch.rules">services.opensnitch.rules</a>
+        </p></li><li class="listitem"><p>
+          A new <code class="literal">virtualisation.rosetta</code> module was
+          added to allow running <code class="literal">x86_64</code> binaries
+          through
+          <a class="link" href="https://developer.apple.com/documentation/apple-silicon/about-the-rosetta-translation-environment" target="_top">Rosetta</a>
+          inside virtualised NixOS guests on Apple silicon. This feature
+          works by default with the
+          <a class="link" href="https://docs.getutm.app/" target="_top">UTM</a>
+          virtualisation
+          <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=utm&amp;from=0&amp;size=1&amp;sort=relevance&amp;type=packages&amp;query=utm" target="_top">package</a>.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>B.2. Release 22.11 (“Raccoon”, 2022.11/??)</h2></div></div></div><p>
     Support is planned until the end of June 2023, handing over to
     23.05.
@@ -100,6 +115,26 @@
           the change and to allow for a transition period so that in
           time the ecosystem can switch without breaking compatibility
           with any supported NixOS release.
+        </p></li><li class="listitem"><p>
+          <code class="literal">nscd</code> functionality, necessary to provide
+          non-glibc-builtin NSS modules (such as
+          <code class="literal">nss_systemd</code> or <code class="literal">nss_ldap</code>)
+          can now be provided by <code class="literal">nsncd</code>, by setting
+          <code class="literal">services.nscd.enableNsncd</code> to
+          <code class="literal">true</code>.
+        </p><p>
+          The <code class="literal">nscd</code> daemon provided by glibc, which is
+          currently used by NixOS isn’t very reliable. For example, it’s
+          <a class="link" href="https://github.com/NixOS/nixpkgs/issues/135888" target="_top">not
+          fully possible to disable caching functionality</a>,
+          causing various issues and failed lookups.
+        </p><p>
+          In contrast to nscd’s behavior of caching module responses on
+          its own, nsncd merely forwards requests to NSS modules, which
+          might cache or not.
+        </p><p>
+          We plan to use <code class="literal">nsncd</code> by default in NixOS
+          23.05.
         </p></li><li class="listitem"><p>
           <code class="literal">emacs</code> enables native compilation which
           means:
@@ -252,7 +287,7 @@
         </p></li><li class="listitem"><p>
           <a class="link" href="https://gitlab.com/CalcProgrammer1/OpenRGB/-/tree/master" target="_top">OpenRGB</a>,
           a FOSS tool for controlling RGB lighting. Available as
-          <a class="link" href="options.html#opt-services-hardware-openrgb-enable" target="_top">services.hardware.openrgb.enable</a>.
+          <a class="link" href="options.html#opt-services.hardware.openrgb.enable" target="_top">services.hardware.openrgb.enable</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://www.getoutline.com/" target="_top">Outline</a>,
           a wiki and knowledge base similar to Notion. Available as
@@ -547,6 +582,12 @@
           disables the config check. The new
           <code class="literal">nix.checkAllErrors</code> option behaves like
           <code class="literal">nix.checkConfig</code> previously did.
+        </p></li><li class="listitem"><p>
+          <code class="literal">nix.buildMachines</code> got a new submodule
+          option <code class="literal">protocol</code>. An undocumented hack to
+          set the protocol via <code class="literal">hostName</code> is no longer
+          working and the <code class="literal">protocol</code> option should be
+          used instead.
         </p></li><li class="listitem"><p>
           <code class="literal">generateOptparseApplicativeCompletions</code> and
           <code class="literal">generateOptparseApplicativeCompletion</code> from
