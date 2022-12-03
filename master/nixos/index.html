@@ -9916,18 +9916,39 @@ config = {
 };
 </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-definitions-setting-priorities"></a>67.3.2. Setting Priorities</h3></div></div></div><p>
       A module can override the definitions of an option in other
-      modules by setting a <span class="emphasis"><em>priority</em></span>. All option
-      definitions that do not have the lowest priority value are
-      discarded. By default, option definitions have priority 1000. You
-      can specify an explicit priority by using
-      <code class="literal">mkOverride</code>, e.g.
+      modules by setting an <span class="emphasis"><em>override priority</em></span>. All
+      option definitions that do not have the lowest priority value are
+      discarded. By default, option definitions have priority 100 and
+      option defaults have priority 1500. You can specify an explicit
+      priority by using <code class="literal">mkOverride</code>, e.g.
     </p><pre class="programlisting">
 services.openssh.enable = mkOverride 10 false;
 </pre><p>
       This definition causes all other definitions with priorities above
       10 to be discarded. The function <code class="literal">mkForce</code> is
-      equal to <code class="literal">mkOverride 50</code>.
-    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-definitions-merging"></a>67.3.3. Merging Configurations</h3></div></div></div><p>
+      equal to <code class="literal">mkOverride 50</code>, and
+      <code class="literal">mkDefault</code> is equal to
+      <code class="literal">mkOverride 1000</code>.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-definitions-ordering"></a>67.3.3. Ordering Definitions</h3></div></div></div><p>
+      It is also possible to influence the order in which the
+      definitions for an option are merged by setting an <span class="emphasis"><em>order
+      priority</em></span> with <code class="literal">mkOrder</code>. The default
+      order priority is 1000. The functions <code class="literal">mkBefore</code>
+      and <code class="literal">mkAfter</code> are equal to
+      <code class="literal">mkOrder 500</code> and
+      <code class="literal">mkOrder 1500</code>, respectively. As an example,
+    </p><pre class="programlisting">
+hardware.firmware = mkBefore [ myFirmware ];
+</pre><p>
+      This definition ensures that <code class="literal">myFirmware</code> comes
+      before other unordered definitions in the final list value of
+      <code class="literal">hardware.firmware</code>.
+    </p><p>
+      Note that this is different from
+      <a class="link" href="index.html#sec-option-definitions-setting-priorities" title="67.3.2. Setting Priorities">override
+      priorities</a>: setting an order does not affect whether the
+      definition is included or not.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-definitions-merging"></a>67.3.4. Merging Configurations</h3></div></div></div><p>
       In conjunction with <code class="literal">mkIf</code>, it is sometimes
       useful for a module to return multiple sets of option definitions,
       to be merged together as if they were declared in separate

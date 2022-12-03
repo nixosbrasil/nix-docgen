@@ -34,6 +34,13 @@
           <code class="literal">after</code> dependency on
           <code class="literal">fetch-ec2-metadata.service</code>
         </p></li><li class="listitem"><p>
+          <code class="literal">services.sourcehut.dispatch</code> and the
+          corresponding package
+          (<code class="literal">sourcehut.dispatchsrht</code>) have been removed
+          due to
+          <a class="link" href="https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/" target="_top">upstream
+          deprecation</a>.
+        </p></li><li class="listitem"><p>
           The EC2 image module previously detected and automatically
           mounted ext3-formatted instance store devices and partitions
           in stage-1 (initramfs), storing <code class="literal">/tmp</code> on the
@@ -47,6 +54,10 @@
           swap-formatted instance store devices and partitions in
           stage-1 (initramfs). This behaviour has been removed. Users
           relying on this should provide their own implementation.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">nix.readOnlyStore</code> option has been
+          renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
+          that it configures the NixOS boot process, not the Nix daemon.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           The module for the application firewall
           <code class="literal">opensnitch</code> got the ability to configure
@@ -62,10 +73,14 @@
           <a class="link" href="https://docs.getutm.app/" target="_top">UTM</a>
           virtualisation
           <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=utm&amp;from=0&amp;size=1&amp;sort=relevance&amp;type=packages&amp;query=utm" target="_top">package</a>.
+        </p></li><li class="listitem"><p>
+          Resilio sync secret keys can now be provided using a secrets
+          file at runtime, preventing these secrets from ending up in
+          the Nix store.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>B.2. Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
-    22.11. NixOS is both a Linux distribution, and a set of packages
-    usable on other Linux systems and macOS.
+    22.11. NixOS is a Linux distribution, whose set of packages can also
+    be used on other Linux systems and macOS.
   </p><p>
     This release is supported until the end of June 2023, handing over
     to NixOS 23.05.
@@ -252,10 +267,7 @@
           generated using <code class="literal">lib.systems.elaborate</code>. In
           most cases you will want to use the new
           <code class="literal">canExecute</code> predicate instead which also
-          considers the kernel / syscall interface. It is briefly
-          described in the release’s
-          <a class="link" href="release-notes.html#sec-release-22.11-highlights" title="B.2.1. Highlights">highlights
-          section</a>.
+          takes the kernel / syscall interface into account.
           <code class="literal">lib.systems.parse.isCompatible</code> still
           exists, but has changed semantically: Architectures with
           differing endianness modes are <span class="emphasis"><em>no longer considered
@@ -1218,6 +1230,10 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
           <a class="link" href="https://tandoor.dev" target="_top">Tandoor Recipes</a>,
           a self-hosted multi-tenant recipe collection. Available as
           <a class="link" href="options.html#opt-services.tandoor-recipes.enable" target="_top">services.tandoor-recipes</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="http://www.litech.org/tayga/" target="_top">TAYGA</a>,
+          an out-of-kernel stateless NAT64 implementation. Available as
+          <a class="link" href="options.html#opt-services.tayga.enable">services.tayga</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/tmate-io/tmate-ssh-server" target="_top">tmate-ssh-server</a>,
           server side part of
