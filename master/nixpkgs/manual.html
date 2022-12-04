@@ -12353,7 +12353,14 @@ rustPlatform.buildRustPackage {
     "--skip=example::tests:example_test"
   ];
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="setting-test-threads"></a>17.31.1.4.3. Setting <code class="literal">test-threads</code></h5></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-cargo-nextest"></a>17.31.1.4.3. Using <code class="literal">cargo-nextest</code></h5></div></div></div><p>
+        Tests can be run with <a class="link" href="https://github.com/nextest-rs/nextest" target="_top">cargo-nextest</a> by setting <code class="literal">useNextest = true</code>. The same options still apply, but nextest accepts a different set of arguments and the settings might need to be adapted to be compatible with cargo-nextest.
+       </p><pre class="programlisting">
+rustPlatform.buildRustPackage {
+  /* ... */
+  useNextest = true;
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="setting-test-threads"></a>17.31.1.4.4. Setting <code class="literal">test-threads</code></h5></div></div></div><p>
         <code class="literal">buildRustPackage</code> will use parallel test threads by default, sometimes it may be necessary to disable this so the tests run consecutively.
        </p><pre class="programlisting">
 rustPlatform.buildRustPackage {
@@ -12427,6 +12434,8 @@ cargoDeps = rustPlatform.importCargoLock {
          <code class="literal">maturinBuildHook</code>: use <a class="link" href="https://github.com/PyO3/maturin" target="_top">Maturin</a> to build a Python wheel. Similar to <code class="literal">cargoBuildHook</code>, the optional variable <code class="literal">buildAndTestSubdir</code> can be used to build a crate in a Cargo workspace. Additional Maturin flags can be passed through <code class="literal">maturinBuildFlags</code>.
         </p></li><li class="listitem"><p>
          <code class="literal">cargoCheckHook</code>: run tests using Cargo. The build type for checks can be set using <code class="literal">cargoCheckType</code>. Features can be specified with <code class="literal">cargoCheckNoDefaultFeatures</code> and <code class="literal">cargoCheckFeatures</code>. Additional flags can be passed to the tests using <code class="literal">checkFlags</code> and <code class="literal">checkFlagsArray</code>. By default, tests are run in parallel. This can be disabled by setting <code class="literal">dontUseCargoParallelTests</code>.
+        </p></li><li class="listitem"><p>
+         <code class="literal">cargoNextestHook</code>: run tests using <a class="link" href="https://github.com/nextest-rs/nextest" target="_top">cargo-nextest</a>. The same options for <code class="literal">cargoCheckHook</code> also applies to <code class="literal">cargoNextestHook</code>.
         </p></li><li class="listitem"><p>
          <code class="literal">cargoInstallHook</code>: install binaries and static/shared libraries that were built using <code class="literal">cargoBuildHook</code>.
         </p></li><li class="listitem"><p>

@@ -57,6 +57,12 @@
           stage-1 (initramfs). This behaviour has been removed. Users
           relying on this should provide their own implementation.
         </p></li><li class="listitem"><p>
+          Qt 5.12 and 5.14 have been removed, as the corresponding
+          branches have been EOL upstream for a long time. This affected
+          under 10 packages in nixpkgs, largely unmaintained upstream as
+          well, however, out-of-tree package expressions may need to be
+          updated manually.
+        </p></li><li class="listitem"><p>
           The <code class="literal">nix.readOnlyStore</code> option has been
           renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
@@ -79,6 +85,10 @@
           Resilio sync secret keys can now be provided using a secrets
           file at runtime, preventing these secrets from ending up in
           the Nix store.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">unifi-poller</code> package and corresponding
+          NixOS module have been renamed to <code class="literal">unpoller</code>
+          to match upstream.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>B.2. Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also
