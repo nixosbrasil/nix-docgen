@@ -637,8 +637,8 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 mySed = pkgs.gnused.overrideDerivation (oldAttrs: {
   name = "sed-4.2.2-pre";
   src = fetchurl {
-    url = ftp://alpha.gnu.org/gnu/sed/sed-4.2.2-pre.tar.bz2;
-    sha256 = "11nq06d131y4wmf3drm0yk502d2xc6n5qy82cg88rb9nqd2lj41k";
+    url = "ftp://alpha.gnu.org/gnu/sed/sed-4.2.2-pre.tar.bz2";
+    hash = "sha256-MxBJRcM2rYzQYwJ5XKxhXTQByvSg5jZc5cSHEZoB2IY=";
   };
   patches = [];
 });
@@ -4123,7 +4123,7 @@ stdenv.mkDerivation {
   name = "libfoo-1.2.3";
   src = fetchurl {
     url = "http://example.org/libfoo-1.2.3.tar.bz2";
-    sha256 = "0x2g1jqygyr5wiwg4ma1nd7w4ydpy82z9gkcv8vh2v8dn3y58v5m";
+    hash = "sha256-tWxU/LANbQE32my+9AXyt3nCT7NBVfJ45CX757EMT3Q=";
   };
 }
 </pre><p>
@@ -4134,7 +4134,7 @@ stdenv.mkDerivation rec {
   version = "1.2.3";
   src = fetchurl {
     url = "http://example.org/libfoo-source-${version}.tar.bz2";
-    sha256 = "0x2g1jqygyr5wiwg4ma1nd7w4ydpy82z9gkcv8vh2v8dn3y58v5m";
+    hash = "sha256-tWxU/LANbQE32my+9AXyt3nCT7NBVfJ45CX757EMT3Q=";
   };
 }
 </pre><p>
@@ -5550,32 +5550,32 @@ stdenv.mkDerivation {
     </p><pre class="programlisting">
 fetchurl {
   url = "http://www.example.org/hello-1.0.tar.gz";
-  sha256 = "0v6r3wwnsk5pdjr188nip3pjgn1jrn5pc5ajpcfy6had6b3v4dwm";
+  hash = "sha256-lTeyxzJNQeMdu1IVdovNMtgn77jRIhSybLdMbTkf2Ww=";
 };
 </pre><p>
      A common mistake is to update a fetcher’s URL, or a version parameter, without updating the hash.
     </p><pre class="programlisting">
 fetchurl {
   url = "http://www.example.org/hello-1.1.tar.gz";
-  sha256 = "0v6r3wwnsk5pdjr188nip3pjgn1jrn5pc5ajpcfy6had6b3v4dwm";
+  hash = "sha256-lTeyxzJNQeMdu1IVdovNMtgn77jRIhSybLdMbTkf2Ww=";
 };
 </pre><p>
-     <span class="strong"><strong>This will reuse the old contents</strong></span>. Remember to invalidate the hash argument, in this case by setting the <code class="literal">sha256</code> attribute to an empty string.
+     <span class="strong"><strong>This will reuse the old contents</strong></span>. Remember to invalidate the hash argument, in this case by setting the <code class="literal">hash</code> attribute to an empty string.
     </p><pre class="programlisting">
 fetchurl {
   url = "http://www.example.org/hello-1.1.tar.gz";
-  sha256 = "";
+  hash = "";
 };
 </pre><p>
      Use the resulting error message to determine the correct hash.
     </p><pre class="programlisting">
 error: hash mismatch in fixed-output derivation '/path/to/my.drv':
          specified: sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
-            got:    sha256-RApQUm78dswhBLC/rfU9y0u6pSAzHceIJqgmetRD24E=
+            got:    sha256-lTeyxzJNQeMdu1IVdovNMtgn77jRIhSybLdMbTkf2Ww=
 </pre><p>
      A similar problem arises while testing changes to a fetcher’s implementation. If the output of the derivation already exists in the Nix store, test failures can go undetected. The <a class="link" href="#tester-invalidateFetcherByDrvHash" title="13.5. invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a> function helps prevent reusing cached derivations.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchurl"></a>11.2. <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code></h2></div></div></div><p>
-     Two basic fetchers are <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code>. Both of these have two required arguments, a URL and a hash. The hash is typically <code class="literal">sha256</code>, although many more hash algorithms are supported. Nixpkgs contributors are currently recommended to use <code class="literal">sha256</code>. This hash will be used by Nix to identify your source. A typical usage of <code class="literal">fetchurl</code> is provided below.
+     Two basic fetchers are <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code>. Both of these have two required arguments, a URL and a hash. The hash is typically <code class="literal">hash</code>, although many more hash algorithms are supported. Nixpkgs contributors are currently recommended to use <code class="literal">hash</code>. This hash will be used by Nix to identify your source. A typical usage of <code class="literal">fetchurl</code> is provided below.
     </p><pre class="programlisting">
 { stdenv, fetchurl }:
 
@@ -5583,7 +5583,7 @@ stdenv.mkDerivation {
   name = "hello";
   src = fetchurl {
     url = "http://www.example.org/hello.tar.gz";
-    sha256 = "1111111111111111111111111111111111111111111111111111";
+    hash = "sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB=";
   };
 }
 </pre><p>
@@ -5603,13 +5603,13 @@ stdenv.mkDerivation {
       </p></li><li class="listitem"><p>
        <code class="literal">revert</code>: Revert the patch.
       </p></li></ul></div><p>
-     Note that because the checksum is computed after applying these effects, using or modifying these arguments will have no effect unless the <code class="literal">sha256</code> argument is changed as well.
+     Note that because the checksum is computed after applying these effects, using or modifying these arguments will have no effect unless the <code class="literal">hash</code> argument is changed as well.
     </p><p>
      Most other fetchers return a directory rather than a single file.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchsvn"></a>11.4. <code class="literal">fetchsvn</code></h2></div></div></div><p>
-     Used with Subversion. Expects <code class="literal">url</code> to a Subversion directory, <code class="literal">rev</code>, and <code class="literal">sha256</code>.
+     Used with Subversion. Expects <code class="literal">url</code> to a Subversion directory, <code class="literal">rev</code>, and <code class="literal">hash</code>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchgit"></a>11.5. <code class="literal">fetchgit</code></h2></div></div></div><p>
-     Used with Git. Expects <code class="literal">url</code> to a Git repo, <code class="literal">rev</code>, and <code class="literal">sha256</code>. <code class="literal">rev</code> in this case can be full the git commit id (SHA1 hash) or a tag name like <code class="literal">refs/tags/v1.0</code>.
+     Used with Git. Expects <code class="literal">url</code> to a Git repo, <code class="literal">rev</code>, and <code class="literal">hash</code>. <code class="literal">rev</code> in this case can be full the git commit id (SHA1 hash) or a tag name like <code class="literal">refs/tags/v1.0</code>.
     </p><p>
      Additionally, the following optional arguments can be given: <code class="literal">fetchSubmodules = true</code> makes <code class="literal">fetchgit</code> also fetch the submodules of a repository. If <code class="literal">deepClone</code> is set to true, the entire repository is cloned as opposing to just creating a shallow clone. <code class="literal">deepClone = true</code> also implies <code class="literal">leaveDotGit = true</code> which means that the <code class="literal">.git</code> directory of the clone won’t be removed after checkout.
     </p><p>
@@ -5625,21 +5625,21 @@ stdenv.mkDerivation {
       "directory/to/be/included"
       "another/directory"
     ];
-    sha256 = "0000000000000000000000000000000000000000000000000000";
+    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   };
 }
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchfossil"></a>11.6. <code class="literal">fetchfossil</code></h2></div></div></div><p>
-     Used with Fossil. Expects <code class="literal">url</code> to a Fossil archive, <code class="literal">rev</code>, and <code class="literal">sha256</code>.
+     Used with Fossil. Expects <code class="literal">url</code> to a Fossil archive, <code class="literal">rev</code>, and <code class="literal">hash</code>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchcvs"></a>11.7. <code class="literal">fetchcvs</code></h2></div></div></div><p>
-     Used with CVS. Expects <code class="literal">cvsRoot</code>, <code class="literal">tag</code>, and <code class="literal">sha256</code>.
+     Used with CVS. Expects <code class="literal">cvsRoot</code>, <code class="literal">tag</code>, and <code class="literal">hash</code>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchhg"></a>11.8. <code class="literal">fetchhg</code></h2></div></div></div><p>
-     Used with Mercurial. Expects <code class="literal">url</code>, <code class="literal">rev</code>, and <code class="literal">sha256</code>.
+     Used with Mercurial. Expects <code class="literal">url</code>, <code class="literal">rev</code>, and <code class="literal">hash</code>.
     </p><p>
      A number of fetcher functions wrap part of <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code>. They are mainly convenience functions intended for commonly used destinations of source code in Nixpkgs. These wrapper fetchers are listed below.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchfromgitea"></a>11.9. <code class="literal">fetchFromGitea</code></h2></div></div></div><p>
-     <code class="literal">fetchFromGitea</code> expects five arguments. <code class="literal">domain</code> is the gitea server name. <code class="literal">owner</code> is a string corresponding to the Gitea user or organization that controls this repository. <code class="literal">repo</code> corresponds to the name of the software repository. These are located at the top of every Gitea HTML page as <code class="literal">owner</code>/<code class="literal">repo</code>. <code class="literal">rev</code> corresponds to the Git commit hash or tag (e.g <code class="literal">v1.0</code>) that will be downloaded from Git. Finally, <code class="literal">sha256</code> corresponds to the hash of the extracted directory. Again, other hash algorithms are also available but <code class="literal">sha256</code> is currently preferred.
+     <code class="literal">fetchFromGitea</code> expects five arguments. <code class="literal">domain</code> is the gitea server name. <code class="literal">owner</code> is a string corresponding to the Gitea user or organization that controls this repository. <code class="literal">repo</code> corresponds to the name of the software repository. These are located at the top of every Gitea HTML page as <code class="literal">owner</code>/<code class="literal">repo</code>. <code class="literal">rev</code> corresponds to the Git commit hash or tag (e.g <code class="literal">v1.0</code>) that will be downloaded from Git. Finally, <code class="literal">hash</code> corresponds to the hash of the extracted directory. Again, other hash algorithms are also available but <code class="literal">hash</code> is currently preferred.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchfromgithub"></a>11.10. <code class="literal">fetchFromGitHub</code></h2></div></div></div><p>
-     <code class="literal">fetchFromGitHub</code> expects four arguments. <code class="literal">owner</code> is a string corresponding to the GitHub user or organization that controls this repository. <code class="literal">repo</code> corresponds to the name of the software repository. These are located at the top of every GitHub HTML page as <code class="literal">owner</code>/<code class="literal">repo</code>. <code class="literal">rev</code> corresponds to the Git commit hash or tag (e.g <code class="literal">v1.0</code>) that will be downloaded from Git. Finally, <code class="literal">sha256</code> corresponds to the hash of the extracted directory. Again, other hash algorithms are also available, but <code class="literal">sha256</code> is currently preferred.
+     <code class="literal">fetchFromGitHub</code> expects four arguments. <code class="literal">owner</code> is a string corresponding to the GitHub user or organization that controls this repository. <code class="literal">repo</code> corresponds to the name of the software repository. These are located at the top of every GitHub HTML page as <code class="literal">owner</code>/<code class="literal">repo</code>. <code class="literal">rev</code> corresponds to the Git commit hash or tag (e.g <code class="literal">v1.0</code>) that will be downloaded from Git. Finally, <code class="literal">hash</code> corresponds to the hash of the extracted directory. Again, other hash algorithms are also available, but <code class="literal">hash</code> is currently preferred.
     </p><p>
      <code class="literal">fetchFromGitHub</code> uses <code class="literal">fetchzip</code> to download the source archive generated by GitHub for the specified revision. If <code class="literal">leaveDotGit</code>, <code class="literal">deepClone</code> or <code class="literal">fetchSubmodules</code> are set to <code class="literal">true</code>, <code class="literal">fetchFromGitHub</code> will use <code class="literal">fetchgit</code> instead. Refer to its section for documentation of these options.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchfromgitlab"></a>11.11. <code class="literal">fetchFromGitLab</code></h2></div></div></div><p>
@@ -5653,7 +5653,7 @@ stdenv.mkDerivation {
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchfromrepoorcz"></a>11.15. <code class="literal">fetchFromRepoOrCz</code></h2></div></div></div><p>
      This is used with repo.or.cz repositories. The arguments expected are very similar to <code class="literal">fetchFromGitHub</code> above.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="fetchfromsourcehut"></a>11.16. <code class="literal">fetchFromSourcehut</code></h2></div></div></div><p>
-     This is used with sourcehut repositories. Similar to <code class="literal">fetchFromGitHub</code> above, it expects <code class="literal">owner</code>, <code class="literal">repo</code>, <code class="literal">rev</code> and <code class="literal">sha256</code>, but don’t forget the tilde (~) in front of the username! Expected arguments also include <code class="literal">vc</code> (<span class="quote">“<span class="quote">git</span>”</span> (default) or <span class="quote">“<span class="quote">hg</span>”</span>), <code class="literal">domain</code> and <code class="literal">fetchSubmodules</code>.
+     This is used with sourcehut repositories. Similar to <code class="literal">fetchFromGitHub</code> above, it expects <code class="literal">owner</code>, <code class="literal">repo</code>, <code class="literal">rev</code> and <code class="literal">hash</code>, but don’t forget the tilde (~) in front of the username! Expected arguments also include <code class="literal">vc</code> (<span class="quote">“<span class="quote">git</span>”</span> (default) or <span class="quote">“<span class="quote">hg</span>”</span>), <code class="literal">domain</code> and <code class="literal">fetchSubmodules</code>.
     </p><p>
      If <code class="literal">fetchSubmodules</code> is <code class="literal">true</code>, <code class="literal">fetchFromSourcehut</code> uses <code class="literal">fetchgit</code> or <code class="literal">fetchhg</code> with <code class="literal">fetchSubmodules</code> or <code class="literal">fetchSubrepos</code> set to <code class="literal">true</code>, respectively. Otherwise, the fetcher uses <code class="literal">fetchzip</code>.
     </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-trivial-builders"></a>Chapter 12. Trivial builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#trivial-builder-runCommand">12.1. <code class="literal">runCommand</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-runCommandCC">12.2. <code class="literal">runCommandCC</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-runCommandLocal">12.3. <code class="literal">runCommandLocal</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-writeText">12.4. <code class="literal">writeTextFile</code>, <code class="literal">writeText</code>, <code class="literal">writeTextDir</code>, <code class="literal">writeScript</code>, <code class="literal">writeScriptBin</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-concatText">12.5. <code class="literal">concatTextFile</code>, <code class="literal">concatText</code>, <code class="literal">concatScript</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-writeShellApplication">12.6. <code class="literal">writeShellApplication</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-symlinkJoin">12.7. <code class="literal">symlinkJoin</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-writeReferencesToFile">12.8. <code class="literal">writeReferencesToFile</code></a></span></dt><dt><span class="section"><a href="#trivial-builder-writeDirectReferencesToFile">12.9. <code class="literal">writeDirectReferencesToFile</code></a></span></dt></dl></div><p>
@@ -5952,7 +5952,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
   name = "nix-source";
   url = "https://github.com/NixOS/nix";
   rev = "9d9dbe6ed05854e03811c361a3380e09183f4f4a";
-  sha256 = "sha256-7DszvbCNTjpzGRmpIVAWXk20P0/XTrWZ79KSOGLrUWY=";
+  hash = "sha256-7DszvbCNTjpzGRmpIVAWXk20P0/XTrWZ79KSOGLrUWY=";
 };
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-nixosTest"></a>13.6. <code class="literal">nixosTest</code></h2></div></div></div><p>
      Run a NixOS VM network test using this evaluation of Nixpkgs.
@@ -6092,7 +6092,7 @@ appimageTools.wrapType2 { # or wrapType1
   name = "patchwork";
   src = fetchurl {
     url = "https://github.com/ssbc/patchwork/releases/download/v3.11.4/Patchwork-3.11.4-linux-x86_64.AppImage";
-    sha256 = "1blsprpkvm0ws9b96gb36f0rbf8f5jgmw4x6dsb1kswr4ysf591s";
+    hash = "sha256-OqTitCeZ6xmWbqYTXp8sDrmVgTNjPZNW0hzUPW++mq4=";
   };
   extraPkgs = pkgs: with pkgs; [ ];
 }
@@ -6319,10 +6319,10 @@ $(nix-build) | gzip --fast | skopeo copy docker-archive:/dev/stdin docker://some
 pullImage {
   imageName = "nixos/nix";
   imageDigest =
-    "sha256:20d9485b25ecfd89204e843a962c1bd70e9cc6858d65d7f5fadc340246e2116b";
+    "sha256:473a2b527958665554806aea24d0131bacec46d23af09fef4598eeab331850fa";
   finalImageName = "nix";
-  finalImageTag = "1.11";
-  sha256 = "0mqjy3zq2v6rrhizgb9nvhczl87lcfphq9601wcprdika2jz7qh8";
+  finalImageTag = "2.11.1";
+  sha256 = "sha256-qvhj+Hlmviz+KEBVmsyPIzTB3QlVAFzwAY1zDPIBGxc=";
   os = "linux";
   arch = "x86_64";
 }
@@ -6929,7 +6929,7 @@ agda.withPackages (p: [
       repo = "agda-stdlib";
       owner = "agda";
       rev = "v1.5";
-      sha256 = "16fcb7ssj6kj687a042afaa2gq48rc8abihpm14k684ncihb2k4w";
+      hash = "sha256-nEyxYGSWIDNJqBfGpRDLiOAnlHJKEKAOMnIaqfVZzJk=";
     };
   }))
 ])
@@ -6955,7 +6955,7 @@ agda.withPackages (p: [
       owner = "owner";
       version = "...";
       rev = "...";
-      sha256 = "...";
+      hash = "...";
     };
   })
 ])
@@ -7404,7 +7404,7 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
           owner = "elixir-libraries";
           repo = "prometheus.ex";
           rev = "a4e9beb3c1c479d14b352fd9d6dd7b1f6d7deee5";
-          sha256 = "1v0q4bi7sb253i8q016l7gwlv5562wk5zy3l2sa446csvsacnpjk";
+          hash = "sha256-U17LlN6aGUKUFnT4XyYXppRN+TvUBIBRHEUsfeIiGOw=";
         };
         # you can re-use the same beamDeps argument as generated
         beamDeps = with final; [ prometheus ];
@@ -7412,7 +7412,7 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
   });
 };
 </pre><p>
-          You will need to run the build process once to fix the sha256 to correspond to your new git src.
+          You will need to run the build process once to fix the hash to correspond to your new git src.
          </p></div><div class="simplesect"><div class="titlepage"><div><div><h6 class="title"><a id="fixed-output-derivation"></a>FOD</h6></div></div></div><p>
           A fixed output derivation will download mix dependencies from the internet. To ensure reproducibility, a hash will be supplied. Note that mix is relatively reproducible. An FOD generating a different hash on each run hasn’t been observed (as opposed to npm where the chances are relatively high). See <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/beam-modules/elixir_ls.nix" target="_top">elixir_ls</a> for a usage example of FOD.
          </p><p>
@@ -7423,12 +7423,12 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
   mixFodDeps = fetchMixDeps {
     pname = "mix-deps-${pname}";
     inherit src version;
-    sha256 = lib.fakeSha256;
+    hash = lib.fakeHash;
   };
 </pre><p>
-          The first build will complain about the sha256 value, you can replace with the suggested value after that.
+          The first build will complain about the hash value, you can replace with the suggested value after that.
          </p><p>
-          Note that if after you’ve replaced the value, nix suggests another sha256, then mix is not fetching the dependencies reproducibly. An FOD will not work in that case and you will have to use mix2nix.
+          Note that if after you’ve replaced the value, nix suggests another hash, then mix is not fetching the dependencies reproducibly. An FOD will not work in that case and you will have to use mix2nix.
          </p></div></div><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="mix-release-example"></a>17.3.6.1.4.3. mixRelease - example</h6></div></div></div><p>
          Here is how your <code class="literal">default.nix</code> file would look for a phoenix project.
         </p><pre class="programlisting">
@@ -7451,7 +7451,7 @@ let
     pname = "mix-deps-${pname}";
     inherit src version;
     # nix will complain and tell you the right value to replace this with
-    sha256 = lib.fakeSha256;
+    hash = lib.fakeHash;
     # if you have build time environment variables add them here
     MY_ENV_VAR="my_value";
   };
@@ -7553,13 +7553,13 @@ mkShell {
   buildInputs = [ elixir ];
 }
 </pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.5.8.3"></a>17.3.7.2. Using an overlay</h4></div></div></div><p>
-       If you need to use an overlay to change some attributes of a derivation, e.g. if you need a bugfix from a version that is not yet available in nixpkgs, you can override attributes such as <code class="literal">version</code> (and the corresponding <code class="literal">sha256</code>) and then use this overlay in your development environment:
+       If you need to use an overlay to change some attributes of a derivation, e.g. if you need a bugfix from a version that is not yet available in nixpkgs, you can override attributes such as <code class="literal">version</code> (and the corresponding <code class="literal">hash</code>) and then use this overlay in your development environment:
       </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.5.8.3.3"></a>17.3.7.2.1. <code class="literal">shell.nix</code></h5></div></div></div><pre class="programlisting">
 let
   elixir_1_13_1_overlay = (self: super: {
       elixir_1_13 = super.elixir_1_13.override {
         version = "1.13.1";
-        sha256 = "0z0b1w2vvw4vsnb99779c2jgn9bgslg7b1pmd9vlbv02nza9qj5p";
+        sha256 = "sha256-t0ic1LcC7EV3avWGdR7VbyX7pGDpnJSW1ZvwvQUPC3w=";
       };
     });
   pkgs = import &lt;nixpkgs&gt; { overlays = [ elixir_1_13_1_overlay ]; };
@@ -7792,7 +7792,7 @@ $ egg2nix eggs.scm &gt; eggs.nix
        </p></li><li class="listitem"><p>
         <code class="literal">release</code> (optional, defaults to <code class="literal">{}</code>), lists all the known releases of the library and for each of them provides an attribute set with at least a <code class="literal">sha256</code> attribute (you may put the empty string <code class="literal">""</code> in order to automatically insert a fake sha256, this will trigger an error which will allow you to find the correct sha256), each attribute set of the list of releases also takes optional overloading arguments for the fetcher as below (i.e.<code class="literal">domain</code>, <code class="literal">owner</code>, <code class="literal">repo</code>, <code class="literal">rev</code> assuming the default fetcher is used) and optional overrides for the result of the fetcher (i.e. <code class="literal">version</code> and <code class="literal">src</code>).
        </p></li><li class="listitem"><p>
-        <code class="literal">fetcher</code> (optional, defaults to a generic fetching mechanism supporting github or gitlab based infrastructures), is a function that takes at least an <code class="literal">owner</code>, a <code class="literal">repo</code>, a <code class="literal">rev</code>, and a <code class="literal">sha256</code> and returns an attribute set with a <code class="literal">version</code> and <code class="literal">src</code>.
+        <code class="literal">fetcher</code> (optional, defaults to a generic fetching mechanism supporting github or gitlab based infrastructures), is a function that takes at least an <code class="literal">owner</code>, a <code class="literal">repo</code>, a <code class="literal">rev</code>, and a <code class="literal">hash</code> and returns an attribute set with a <code class="literal">version</code> and <code class="literal">src</code>.
        </p></li><li class="listitem"><p>
         <code class="literal">repo</code> (optional, defaults to the value of <code class="literal">pname</code>),
        </p></li><li class="listitem"><p>
@@ -7939,7 +7939,7 @@ crystal.buildCrystalPackage rec {
     owner = "mint-lang";
     repo = "mint";
     rev = version;
-    sha256 = "0vxbx38c390rd2ysvbwgh89v2232sh5rbsp3nk9wzb70jybpslvl";
+    hash = "sha256-dFN9l5fgrM/TtOPqlQvUYgixE4KPr629aBmkwdDoq28=";
   };
 
   # Insert the path to your shards.nix file here
@@ -7968,7 +7968,7 @@ crystal.buildCrystalPackage rec {
     owner = "mint-lang";
     repo = "mint";
     rev = version;
-    sha256 = "0vxbx38c390rd2ysvbwgh89v2232sh5rbsp3nk9wzb70jybpslvl";
+    hash = "sha256-dFN9l5fgrM/TtOPqlQvUYgixE4KPr629aBmkwdDoq28=";
   };
 
   shardsFile = ./shards.nix;
@@ -8055,7 +8055,7 @@ buildDhallPackage {
 let
   nixpkgs = builtins.fetchTarball {
     url    = "https://github.com/NixOS/nixpkgs/archive/94b2848559b12a8ed1fe433084686b2a81123c99.tar.gz";
-    sha256 = "1pbl4c2dsaz2lximgd31m96jwbps6apn3anx8cvvhk1gl9rkg107";
+    sha256 = "sha256-B4Q3c6IvTLg3Q92qYa8y+i4uTaphtFdjp+Ir3QQjdN0=";
   };
 
   dhallOverlay = self: super: {
@@ -8213,7 +8213,7 @@ $ cat ./result/source.dhall
        </p></li><li class="listitem"><p>
         <code class="literal">document</code>: Set to <code class="literal">true</code> to generate documentation for the package
        </p></li></ul></div><p>
-      Additionally, <code class="literal">buildDhallGitHubPackage</code> accepts the same arguments as <code class="literal">fetchFromGitHub</code>, such as <code class="literal">sha256</code> or <code class="literal">fetchSubmodules</code>.
+      Additionally, <code class="literal">buildDhallGitHubPackage</code> accepts the same arguments as <code class="literal">fetchFromGitHub</code>, such as <code class="literal">hash</code> or <code class="literal">fetchSubmodules</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-dhall-dhall-to-nixpkgs"></a>17.9.5. <code class="literal">dhall-to-nixpkgs</code></h3></div></div></div><p>
       You can use the <code class="literal">dhall-to-nixpkgs</code> command-line utility to automate packaging Dhall code. For example:
      </p><pre class="programlisting">
@@ -8230,7 +8230,7 @@ $ dhall-to-nixpkgs github https://github.com/Gabriel439/dhall-semver.git
     repo = "dhall-semver";
     rev = "2d44ae605302ce5dc6c657a1216887fbb96392a4";
     fetchSubmodules = false;
-    sha256 = "0y8shvp8srzbjjpmnsvz9c12ciihnx1szs0yzyi9ashmrjvd0jcz";
+    hash = "sha256-n0nQtswVapWi/x7or0O3MEYmAkt/a1uvlOtnje6GGnk=";
     directory = "";
     file = "package.dhall";
     source = false;
@@ -8587,7 +8587,7 @@ xmlmirror = pkgs.buildEmscriptenPackage rec {
   src = pkgs.fetchgit {
     url = "https://gitlab.com/odfplugfest/xmlmirror.git";
     rev = "4fd7e86f7c9526b8f4c1733e5c8b45175860a8fd";
-    sha256 = "1jasdqnbdnb83wbcnyrp32f36w3xwhwp0wq8lwwmhqagxrij1r4b";
+    hash = "sha256-i+QgY+5PYVg5pwhzcDnkfXAznBg3e8sWH2jZtixuWsk=";
   };
 
   configurePhase = ''
@@ -8861,7 +8861,7 @@ pet = buildGoModule rec {
     owner = "knqyf263";
     repo = "pet";
     rev = "v${version}";
-    sha256 = "0m2fzpqxk7hrbxsgqplkg7h2p7gv6s1miymv3gvw0cz039skag0s";
+    hash = "sha256-Gjw1dRrgM8D3G7v6WIM2+50r4HmTXvx0Xxme2fH9TlQ=";
   };
 
   vendorHash = "sha256-ciBIR+a1oaYH+H1PcC8cD8ncfJczk1IiJ8iYNM+R6aA=";
@@ -8892,7 +8892,7 @@ deis = buildGoPackage rec {
     owner = "deis";
     repo = "deis";
     rev = "v${version}";
-    sha256 = "1qv9lxqx7m18029lj8cw3k7jngvxs4iciwrypdy0gd2nnghc68sw";
+    hash = "sha256-XCPD4LNWtAd8uz7zyCLRfT8rzxycIUmTACjU03GnaeM=";
   };
 
   goDeps = ./deps.nix;
@@ -8907,11 +8907,11 @@ deis = buildGoPackage rec {
     goPackagePath = "gopkg.in/yaml.v2";
     fetch = {
       # `fetch type` that needs to be used to get package source.
-      # If `git` is used there should be `url`, `rev` and `sha256` defined next to it.
+      # If `git` is used there should be `url`, `rev` and `hash` defined next to it.
       type = "git";
       url = "https://gopkg.in/yaml.v2";
       rev = "a83829b6f1293c91addabc89d0571c246397bbf4";
-      sha256 = "1m4dsmk90sbi17571h6pld44zxz7jc4lrnl4f27dpd1l8g5xvjhh";
+      hash = "sha256-EMrdy0M0tNuOcITaTAmT5/dPSKPXwHDKCXFpkGbVjdQ=";
     };
   }
   {
@@ -8920,7 +8920,7 @@ deis = buildGoPackage rec {
       type = "git";
       url = "https://github.com/docopt/docopt-go";
       rev = "784ddc588536785e7299f7272f39101f7faccc3f";
-      sha256 = "0wwz48jl9fvl1iknvn9dqr4gfy1qs03gxaikrxxp9gry6773v3sj";
+      hash = "sha256-Uo89zjE+v3R7zzOq/gbQOHj3SMYt2W1nDHS7RCUin3M=";
     };
   }
 ]
@@ -9048,7 +9048,7 @@ build-idris-package  {
     owner = "Heather";
     repo = "Idris.Yaml";
     rev = "5afa51ffc839844862b8316faba3bafa15656db4";
-    sha256 = "1g4pi0swmg214kndj85hj50ccmckni7piprsxfdzdfhg87s0avw7";
+    hash = "sha256-h28F9EEPuvab6zrfeE+0k1XGQJGwINnsJEG8yjWIl7w=";
   };
 
   meta = with lib; {
@@ -9511,7 +9511,7 @@ node2nix --development -l package-lock.json
        </p><pre class="programlisting">
 offlineCache = fetchYarnDeps {
   yarnLock = src + "/yarn.lock";
-  sha256 = "....";
+  hash = "....";
 };
 </pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-yarn2nix-mkYarnPackage"></a>17.19.6.3.2. mkYarnPackage</h5></div></div></div><p>
         <code class="literal">mkYarnPackage</code> will by default try to generate a binary. For package only generating static assets (Svelte, Vue, React, WebPack, …), you will need to explicitly override the build step with your instructions.
@@ -9696,7 +9696,7 @@ luaposix = buildLuarocksPackage {
 
   src = fetchurl {
     url    = "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/luaposix-34.0.4-1.src.rock";
-    sha256 = "0yrm5cn2iyd0zjd4liyj27srphvy0gjrjx572swar6zqr4dwjqp2";
+    hash = "sha256-4mLJG8n4m6y4Fqd0meUDfsOb9RHSR0qa/KD5KCwrNXs=";
   };
   disabled = (luaOlder "5.1") || (luaAtLeast "5.4");
   propagatedBuildInputs = [ bit32 lua std_normalize ];
@@ -10072,7 +10072,7 @@ nimPackages.buildNimPackage rec {
 
   src = fetchurl {
     url = "https://git.sr.ht/~ehmry/hottext/archive/v${version}.tar.gz";
-    sha256 = "sha256-hIUofi81zowSMbt1lUsxCnVzfJGN3FEiTtN8CEFpwzY=";
+    hash = "sha256-hIUofi81zowSMbt1lUsxCnVzfJGN3FEiTtN8CEFpwzY=";
   };
 
   buildInputs = with nimPackages; [
@@ -10101,7 +10101,7 @@ buildNimPackage rec {
   version = "2.0.4";
   src = fetchNimble {
     inherit pname version;
-    hash = "sha256-Vtcj8goI4zZPQs2TbFoBFlcR5UqDtOldaXSH/+/xULk=";
+    hash = "sha256-qDtVSnf+7rTq36WAxgsUZ8XoUk4sKwHyt8EJcY5WP+o=";
   };
   propagatedBuildInputs = [ SDL2 ];
 }
@@ -10181,7 +10181,7 @@ buildDunePackage rec {
     owner  = "inhabitedtype";
     repo   = pname;
     rev    = version;
-    sha256 = "1hmrkdcdlkwy7rxhngf3cv3sa61cznnd9p5lmqhx20664gx2ibrh";
+    hash   = "sha256-MK8o+iPGANEhrrTc1Kz9LBilx2bDPQt7Pp5P2libucI=";
   };
 
   checkInputs = [ alcotest ppx_let ];
@@ -10210,7 +10210,7 @@ buildDunePackage rec {
 
   src = fetchurl {
     url = "https://github.com/flowtype/ocaml-${pname}/releases/download/v${version}/${pname}-v${version}.tbz";
-    sha256 = "09ygcxxd5warkdzz17rgpidrd0pg14cy2svvnvy1hna080lzg7vp";
+    hash = "sha256-d5/3KUBAWRj8tntr4RkJ74KWW7wvn/B/m1nx0npnzyc=";
   };
 
   meta = with lib; {
@@ -10325,7 +10325,7 @@ ClassC3 = buildPerlPackage rec {
   version = "0.21";
   src = fetchurl {
     url = "mirror://cpan/authors/id/F/FL/FLORA/${pname}-${version}.tar.gz";
-    sha256 = "1bl8z095y4js66pwxnm7s853pi9czala4sqc743fdlnk27kq94gz";
+    hash = "sha256-/5GE5xHT0uYGOQxroqj6LMU7CtKn2s6vMVoSXxL4iK4=";
   };
 };
 </pre><p>
@@ -10360,7 +10360,7 @@ buildPerlPackage rec {
 
   src = fetchurl {
     url = "mirror://cpan/authors/id/P/PM/PMQS/${pname}-${version}.tar.gz";
-    sha256 = "07xf50riarb60l1h6m2dqmql8q5dij619712fsgw7ach04d8g3z1";
+    hash = "sha256-4Y+HGgGQqcOfdiKcFIyMrWBEccVNVAMDBWZlFTMorh8=";
   };
 
   preConfigure = ''
@@ -10376,7 +10376,7 @@ ClassC3Componentised = buildPerlPackage rec {
   version = "1.0004";
   src = fetchurl {
     url = "mirror://cpan/authors/id/A/AS/ASH/${pname}-${version}.tar.gz";
-    sha256 = "0xql73jkcdbq4q9m0b0rnca6nrlvf5hyzy8is0crdk65bynvs8q1";
+    hash = "sha256-ASO9rV/FzJYZ0BH572Fxm2ZrFLMZLFATJng1NuU4FHc=";
   };
   propagatedBuildInputs = [
     ClassC3 ClassInspector TestException MROCompat
@@ -10389,11 +10389,11 @@ ClassC3Componentised = buildPerlPackage rec {
 
 ImageExifTool = buildPerlPackage {
   pname = "Image-ExifTool";
-  version = "11.50";
+  version = "12.50";
 
   src = fetchurl {
-    url = "https://www.sno.phy.queensu.ca/~phil/exiftool/${pname}-${version}.tar.gz";
-    sha256 = "0d8v48y94z8maxkmw1rv7v9m0jg2dc8xbp581njb6yhr7abwqdv3";
+    url = "https://exiftool.org/${pname}-${version}.tar.gz";
+    hash = "sha256-vOhB/FwQMC8PPvdnjDvxRpU6jAZcC6GMQfc0AH4uwKg=";
   };
 
   buildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
@@ -10418,7 +10418,7 @@ $ nix-generate-from-cpan XML::Simple
     version = "2.22";
     src = fetchurl {
       url = "mirror://cpan/authors/id/G/GR/GRANTM/XML-Simple-2.22.tar.gz";
-      sha256 = "b9450ef22ea9644ae5d6ada086dc4300fa105be050a2030ebd4efd28c198eb49";
+      hash = "sha256-uUUO8i6pZErl1q2ghtxDAPoQW+BQogMOvU79KMGY60k=";
     };
     propagatedBuildInputs = [ XMLNamespaceSupport XMLSAX XMLSAXExpat ];
     meta = {
@@ -10719,7 +10719,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "08fdd5ef7c96480ad11c12d472de21acd32359996f69a5259299b540feba4560";
+    hash = "sha256-CP3V73yWSArRHBLUct4hrNMjWZlvaaUlkpm1QP66RWA=";
   };
 
   doCheck = false;
@@ -10749,7 +10749,7 @@ with import &lt;nixpkgs&gt; {};
 
       src = python39.pkgs.fetchPypi {
         inherit pname version;
-        sha256 = "08fdd5ef7c96480ad11c12d472de21acd32359996f69a5259299b540feba4560";
+        hash = "sha256-CP3V73yWSArRHBLUct4hrNMjWZlvaaUlkpm1QP66RWA=";
       };
 
       doCheck = false;
@@ -10779,7 +10779,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "14b2ef766d4c9652ab813182e866f493475e65e558bed0822e38bf07bba1a278";
+    hash = "sha256-FLLvdm1MllKrgTGC6Gb0k0deZeVYvtCCLji/B7uhong=";
   };
 
   checkInputs = [ pytest ];
@@ -10805,7 +10805,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "16a0fa97hym9ysdk3rmqz32xdjqmy4w34ld3rm3jf5viqjx65lxk";
+    hash = "sha256-s9NiusRxFydHzaNRMjjxFcvWxfi45jGb9ql6eJJyQJk=";
   };
 
   buildInputs = [ pkgs.libxml2 pkgs.libxslt ];
@@ -10830,7 +10830,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "f6bbb6afa93085409ab24885a1a3cdb8909f095a142f4d49e346f2bd1b789074";
+    hash = "sha256-9ru2r6kwhUCaskiFoaPNuJCfCVoUL01J40byvRt4kHQ=";
   };
 
   buildInputs = [ pkgs.fftw pkgs.fftwFloat pkgs.fftwLongDouble];
@@ -11039,7 +11039,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "08fdd5ef7c96480ad11c12d472de21acd32359996f69a5259299b540feba4560";
+    hash = "sha256-CP3V73yWSArRHBLUct4hrNMjWZlvaaUlkpm1QP66RWA=";
   };
 
   meta = with lib; {
@@ -11136,7 +11136,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "cf8436dc59d8695346fcd3ab296de46425ecab00d64096cebe79fb51ecb2eb93";
+    hash = "sha256-z4Q23FnYaVNG/NOrKW3kZCXsqwDWQJbOvnn7Ueyy65M=";
   };
 
   postPatch = ''
@@ -11220,7 +11220,7 @@ with import &lt;nixpkgs&gt; {};
         src =  super.fetchPypi {
           pname = "pandas";
           inherit version;
-          sha256 = "08blshqj9zj1wyjhhw3kl2vas75vhhicvv72flvf1z3jvapgw295";
+          hash = "sha256-JQn+rtpy/OA2deLszSKEuxyttqBzcAil50H+JDHUdCE=";
         };
       });
     };
@@ -11256,7 +11256,7 @@ python3.pkgs.buildPythonApplication rec {
 
   src = python3.pkgs.fetchPypi {
     inherit pname version;
-    sha256 = "035w8gqql36zlan0xjrzz9j4lh9hs0qrsgnbyw07qs7lnkvbdv9x";
+    hash  = "sha256-Pe229rT0aHwA98s+nTHQMEFKZPo/yw6sot8MivFDvAw=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [ tornado python-daemon ];
@@ -11617,9 +11617,9 @@ in pkgs.mkShell rec {
       packageOverrides = python-self: python-super: {
         twisted = python-super.twisted.overridePythonAttrs (oldAttrs: {
           src = super.fetchPypi {
-            pname = "twisted";
+            pname = "Twisted";
             version = "19.10.0";
-            sha256 = "7394ba7f272ae722a74f3d969dcf599bc4ef093bc392038748a490f1724a515d";
+            hash = "sha256-c5S6fycq5yKnTz2Wnc9Zm8TvCTvDkgOHSKSQ8XJKUV0=";
             extension = "tar.bz2";
           };
         });
@@ -11644,9 +11644,9 @@ self: super: {
     packageOverrides = python-self: python-super: {
       twisted = python-super.twisted.overrideAttrs (oldAttrs: {
         src = super.fetchPypi {
-          pname = "twisted";
+          pname = "Twisted";
           version = "19.10.0";
-          sha256 = "7394ba7f272ae722a74f3d969dcf599bc4ef093bc392038748a490f1724a515d";
+          hash = "sha256-c5S6fycq5yKnTz2Wnc9Zm8TvCTvDkgOHSKSQ8XJKUV0=";
           extension = "tar.bz2";
         };
       });
@@ -12163,10 +12163,10 @@ rustPlatform.buildRustPackage rec {
     owner = "BurntSushi";
     repo = pname;
     rev = version;
-    sha256 = "1hqps7l5qrjh9f914r5i6kmcz6f1yb951nv4lby0cjnp5l253kps";
+    hash = "sha256-+s5RBC3XSgb8omTbUNLywZnP6jSxZBKSS1BmXOjRF8M=";
   };
 
-  cargoSha256 = "03wf9r2csi6jpa7v5sw5lpxkrk4wfzwmzx7k3991q3bdjzcwnnwp";
+  cargoHash = "sha256-jtBw4ahSl88L0iuCXxQgZVm1EcboWRJMNtjxLVTtzts=";
 
   meta = with lib; {
     description = "A fast line-oriented regex search tool, similar to ag and ack";
@@ -12200,10 +12200,10 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "1mqaynrqaas82f5957lx31x80v74zwmwmjxxlbywajb61vh00d38";
+    sha256 = "sha256-aDQA4A5mScX9or3Lyiv/5GyAehidnpKKE0grhbP1Ctc=";
   };
 
-  cargoHash = "sha256-JmBZcDVYJaK1cK05cxx5BrnGWp4t8ca6FLUbvIot67s=";
+  cargoHash = "sha256-tbrTbutUs5aPSV+yE0IBUZAAytgmZV7Eqxia7g+9zRs=";
   cargoDepsName = pname;
 
   # ...
@@ -12400,7 +12400,7 @@ cargoDeps = rustPlatform.fetchCargoTarball {
   hash = "sha256-BoHIN/519Top1NUBjpB/oEMqi86Omt3zTQcXFWqrek0=";
 };
 </pre><p>
-       The <code class="literal">src</code> attribute is required, as well as a hash specified through one of the <code class="literal">sha256</code> or <code class="literal">hash</code> attributes. The following optional attributes can also be used:
+       The <code class="literal">src</code> attribute is required, as well as a hash specified through one of the <code class="literal">hash</code> attribute. The following optional attributes can also be used:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          <code class="literal">name</code>: the name that is used for the dependencies tarball. If <code class="literal">name</code> is not specified, then the name <code class="literal">cargo-deps</code> will be used.
         </p></li><li class="listitem"><p>
@@ -12465,7 +12465,7 @@ buildPythonPackage rec {
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src sourceRoot;
     name = "${pname}-${version}";
-    hash = "sha256-BoHIN/519Top1NUBjpB/oEMqi86Omt3zTQcXFWqrek0=";
+    hash = "sha256-miW//pnOmww2i6SOGbkrAIdc/JMDT4FJLqdMFojZeoY=";
   };
 
   sourceRoot = "source/bindings/python";
@@ -12495,7 +12495,7 @@ buildPythonPackage rec {
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "1i1mx5y9hkyfi9jrrkcw804hmkcglxi6rmf7vin7jfnbr2bf4q64";
+    hash = "sha256-xGDilsjLOnls3MfVbGKnj80KCUCczZxlis5PmHzpNcQ=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
@@ -12526,7 +12526,7 @@ buildPythonPackage rec {
     owner = "Qiskit";
     repo = "retworkx";
     rev = version;
-    sha256 = "11n30ldg3y3y6qxg3hbj837pnbwjkqw3nxq6frds647mmmprrd20";
+    hash = "sha256-11n30ldg3y3y6qxg3hbj837pnbwjkqw3nxq6frds647mmmprrd20=";
   };
 
   cargoDeps = rustPlatform.fetchCargoTarball {
@@ -12586,7 +12586,7 @@ let src = fetchFromGitHub {
       repo = "nixpkgs-mozilla";
       # commit from: 2019-05-15
       rev = "9f35c4b09fd44a77227e79ff0c1b4b6a69dff533";
-      sha256 = "18h0nvh55b5an4gmlgfbvwbyqj91bklf1zymis6lbdh75571qaz0";
+      hash = "sha256-18h0nvh55b5an4gmlgfbvwbyqj91bklf1zymis6lbdh75571qaz0=";
    };
 in
 with import "${src.out}/rust-overlay.nix" pkgs pkgs;
@@ -12665,7 +12665,7 @@ rustPlatform.buildRustPackage rec {
     owner = "BurntSushi";
     repo = "ripgrep";
     rev = version;
-    sha256 = "1hqps7l5qrjh9f914r5i6kmcz6f1yb951nv4lby0cjnp5l253kps";
+    hash = "sha256-1hqps7l5qrjh9f914r5i6kmcz6f1yb951nv4lby0cjnp5l253kps=";
   };
 
   cargoSha256 = "03wf9r2csi6jpa7v5sw5lpxkrk4wfzwmzx7k3991q3bdjzcwnnwp";
@@ -12743,11 +12743,11 @@ let
     srcs = [
       (fetchurl {
         url = "http://mirrors.ctan.org/macros/latex/contrib/foiltex/foiltex.dtx";
-        sha256 = "07frz0krpz7kkcwlayrwrj2a2pixmv0icbngyw92srp9fp23cqpz";
+        hash = "sha256-/2I2xHXpZi0S988uFsGuPV6hhMw8e0U5m/P8myf42R0=";
       })
       (fetchurl {
         url = "http://mirrors.ctan.org/macros/latex/contrib/foiltex/foiltex.ins";
-        sha256 = "09wkyidxk3n3zvqxfs61wlypmbhi1pxmjdi1kns9n2ky8ykbff99";
+        hash = "sha256-KTm3pkd+Cpu0nSE2WfsNEa56PeXBaNfx/sOO2Vv0kyc=";
       })
     ];
 
@@ -13009,7 +13009,7 @@ let
       owner = "dkprice";
       repo = "vim-easygrep";
       rev = "d0c36a77cc63c22648e792796b1815b44164653a";
-      sha256 = "0y2p5mz0d5fhg6n68lhfhl8p4mlwkb82q337c22djs4w5zyzggbc";
+      hash = "sha256-bL33/S+caNmEYGcMLNCanFZyEYUOUmSsedCVBn4tV3g=";
     };
   };
 in
@@ -13170,11 +13170,11 @@ packageOverrides = pkgs: {
         name = "myplugin1-1.0";
         srcFeature = fetchurl {
           url = "http://…/features/myplugin1.jar";
-          sha256 = "123…";
+          hash = "sha256-123…";
         };
         srcPlugin = fetchurl {
           url = "http://…/plugins/myplugin1.jar";
-          sha256 = "123…";
+          hash = "sha256-123…";
         };
       });
       (plugins.buildEclipseUpdateSite {
@@ -13182,7 +13182,7 @@ packageOverrides = pkgs: {
         src = fetchurl {
           stripRoot = false;
           url = "http://…/myplugin2.zip";
-          sha256 = "123…";
+          hash = "sha256-123…";
         };
       });
     ];
@@ -13316,7 +13316,7 @@ overrides = self: super: rec {
       (fetchFirefoxAddon {
         name = "ublock"; # Has to be unique!
         url = "https://addons.mozilla.org/firefox/downloads/file/3679754/ublock_origin-1.31.0-an+fx.xpi";
-        sha256 = "1h768ljlh3pi23l27qp961v1hd0nbj2vasgy11bmcrlqp40zgvnr";
+        hash = "sha256-2e73AbmYZlZXCP5ptYVcFjQYdjDp4iPoEPEOSCVF5sA=";
       })
     ];
 
@@ -13636,7 +13636,7 @@ let
         owner = "Someone";
         repo = "AwesomeMod";
         rev = "...";
-        sha256 = "...";
+        hash = "...";
       };
       # Path to be installed in the unpacked source (default: ".")
       modRoot = "contents/under/this/path/will/be/installed";
@@ -13776,7 +13776,7 @@ stdenv.mkDerivation {
   name = "exemplary-weechat-script";
   src = fetchurl {
     url = "https://scripts.tld/your-scripts.tar.gz";
-    sha256 = "...";
+    hash = "...";
   };
   passthru.scripts = [ "foo.py" "bar.lua" ];
   installPhase = ''
@@ -14241,9 +14241,10 @@ buildInputs = if stdenv.isDarwin then [ iconv ] else null;
        Bad: Uses <code class="literal">git://</code> which won’t be proxied.
       </p><pre class="programlisting">
 src = fetchgit {
+  url = "git@github.com:NixOS/nix.git"
   url = "git://github.com/NixOS/nix.git";
   rev = "1f795f9f44607cc5bec70d1300150bfefcef2aae";
-  sha256 = "1cw5fszffl5pkpa6s6wjnkiv6lm5k618s32sp60kvmvpy7a2v9kg";
+  hash = "sha256-7D4m+saJjbSFP5hOwpQq2FGR2rr+psQMTcyb1ZvtXsQ=";
 }
 </pre></li><li class="listitem"><p>
        Better: This is ok, but an archive fetch will still be faster.
@@ -14251,7 +14252,7 @@ src = fetchgit {
 src = fetchgit {
   url = "https://github.com/NixOS/nix.git";
   rev = "1f795f9f44607cc5bec70d1300150bfefcef2aae";
-  sha256 = "1cw5fszffl5pkpa6s6wjnkiv6lm5k618s32sp60kvmvpy7a2v9kg";
+  hash = "sha256-7D4m+saJjbSFP5hOwpQq2FGR2rr+psQMTcyb1ZvtXsQ=";
 }
 </pre></li><li class="listitem"><p>
        Best: Fetches a snapshot archive and you get the rev you want.
@@ -14260,12 +14261,12 @@ src = fetchFromGitHub {
   owner = "NixOS";
   repo = "nix";
   rev = "1f795f9f44607cc5bec70d1300150bfefcef2aae";
-  sha256 = "1i2yxndxb6yc9l6c99pypbd92lfq5aac4klq7y2v93c9qvx2cgpc";
+  hash = "ha256-7D4m+saJjbSFP5hOwpQq2FGR2rr+psQMTcyb1ZvtXsQ=;
 }
 </pre></li></ul></div><p>
      When fetching from GitHub, commits must always be referenced by their full commit hash. This is because GitHub shares commit hashes among all forks and returns <code class="literal">404 Not Found</code> when a short commit hash is ambiguous. It already happens for some short, 6-character commit hashes in <code class="literal">nixpkgs</code>. It is a practical vector for a denial-of-service attack by pushing large amounts of auto generated commits into forks and was already <a class="link" href="https://blog.teddykatz.com/2019/11/12/github-actions-dos.html" target="_top">demonstrated against GitHub Actions Beta</a>.
     </p><p>
-     Find the value to put as <code class="literal">sha256</code> by running <code class="literal">nix-shell -p nix-prefetch-github --run "nix-prefetch-github --rev 1f795f9f44607cc5bec70d1300150bfefcef2aae NixOS nix"</code>.
+     Find the value to put as <code class="literal">hash</code> by running <code class="literal">nix-shell -p nix-prefetch-github --run "nix-prefetch-github --rev 1f795f9f44607cc5bec70d1300150bfefcef2aae NixOS nix"</code>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-source-hashes"></a>20.5. Obtaining source hash</h2></div></div></div><p>
      Preferred source hash type is sha256. There are several ways to get it.
     </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
@@ -14319,7 +14320,7 @@ patches = [
   (fetchpatch {
     name = "fix-check-for-using-shared-freetype-lib.patch";
     url = "http://git.ghostscript.com/?p=ghostpdl.git;a=patch;h=8f5d285";
-    sha256 = "1f0k043rng7f0rfl9hhb89qzvvksqmkrikmm38p61yfx51l325xr";
+    hash = "sha256-uRcxaCjd+WAuGrXOmGfFeu79cUILwkRdBu48mwcBE7g=";
   })
 ];
 </pre><p>
@@ -14524,7 +14525,7 @@ Additional information.
 (fetchpatch {
   name = "CVE-2019-11068.patch";
   url = "https://gitlab.gnome.org/GNOME/libxslt/commit/e03553605b45c88f0b4b2980adfbbb8f6fca2fd6.patch";
-  sha256 = "0pkpb4837km15zgg6h57bncp66d5lwrlvkr73h0lanywq7zrwhj8";
+  hash = "sha256-SEKe/8HcW0UBHCfPTTOnpRlzmV2nQPPeL6HOMxBZd14=";
 })
 </pre></li></ul></div><p>
      If a security fix applies to both master and a stable release then, similar to regular changes, they are preferably delivered via master first and cherry-picked to the release branch.

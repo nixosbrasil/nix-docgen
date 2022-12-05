@@ -72,6 +72,12 @@
           rules. Available as
           <a class="link" href="options.html#opt-services.opensnitch.rules">services.opensnitch.rules</a>
         </p></li><li class="listitem"><p>
+          <code class="literal">services.mastodon</code> gained a tootctl wrapped
+          named <code class="literal">mastodon-tootctl</code> similar to
+          <code class="literal">nextcloud-occ</code> which can be executed from
+          any user and switches to the configured mastodon user with
+          sudo and sources the environment variables.
+        </p></li><li class="listitem"><p>
           A new <code class="literal">virtualisation.rosetta</code> module was
           added to allow running <code class="literal">x86_64</code> binaries
           through
@@ -816,9 +822,9 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
               <code class="literal">GF_</code> prefix though!
             </p></li><li class="listitem"><p>
               Previously, the options
-              <a class="xref" href="options.html#opt-services.grafana.provision.datasources"><code class="option">services.grafana.provision.datasources</code></a>
+              <a class="link" href="options.html#opt-services.grafana.provision.datasources">services.grafana.provision.datasources</a>
               and
-              <a class="xref" href="options.html#opt-services.grafana.provision.dashboards"><code class="option">services.grafana.provision.dashboards</code></a>
+              <a class="link" href="options.html#opt-services.grafana.provision.dashboards">services.grafana.provision.dashboards</a>
               expected lists of datasources or dashboards for the
               <a class="link" href="https://grafana.com/docs/grafana/latest/administration/provisioning/" target="_top">declarative
               provisioning</a>.
@@ -827,27 +833,27 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
             </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
                   <span class="strong"><strong>datasources</strong></span>, please
                   rename your declarations to
-                  <a class="xref" href="options.html#opt-services.grafana.provision.datasources.settings.datasources"><code class="option">services.grafana.provision.datasources.settings.datasources</code></a>.
+                  <a class="link" href="options.html#opt-services.grafana.provision.datasources.settings.datasources">services.grafana.provision.datasources.settings.datasources</a>.
                 </p></li><li class="listitem"><p>
                   <span class="strong"><strong>dashboards</strong></span>, please
                   rename your declarations to
-                  <a class="xref" href="options.html#opt-services.grafana.provision.dashboards.settings.providers"><code class="option">services.grafana.provision.dashboards.settings.providers</code></a>.
+                  <a class="link" href="options.html#opt-services.grafana.provision.dashboards.settings.providers">services.grafana.provision.dashboards.settings.providers</a>.
                 </p></li></ul></div><p>
               This change was made to support more features for that:
             </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: square; "><li class="listitem"><p>
                   It’s possible to declare the
                   <code class="literal">apiVersion</code> of your dashboards and
                   datasources by
-                  <a class="xref" href="options.html#opt-services.grafana.provision.datasources.settings.apiVersion"><code class="option">services.grafana.provision.datasources.settings.apiVersion</code></a>
+                  <a class="link" href="options.html#opt-services.grafana.provision.datasources.settings.apiVersion">services.grafana.provision.datasources.settings.apiVersion</a>
                   (or
-                  <a class="xref" href="options.html#opt-services.grafana.provision.dashboards.settings.apiVersion"><code class="option">services.grafana.provision.dashboards.settings.apiVersion</code></a>).
+                  <a class="link" href="options.html#opt-services.grafana.provision.dashboards.settings.apiVersion">services.grafana.provision.dashboards.settings.apiVersion</a>).
                 </p></li><li class="listitem"><p>
                   Instead of declaring datasources and dashboards in
                   pure Nix, it’s also possible to specify configuration
                   files (or directories) with YAML instead using
-                  <a class="xref" href="options.html#opt-services.grafana.provision.datasources.path"><code class="option">services.grafana.provision.datasources.path</code></a>
+                  <a class="link" href="options.html#opt-services.grafana.provision.datasources.path">services.grafana.provision.datasources.path</a>
                   (or
-                  <a class="xref" href="options.html#opt-services.grafana.provision.dashboards.path"><code class="option">services.grafana.provision.dashboards.path</code></a>.
+                  <a class="link" href="options.html#opt-services.grafana.provision.dashboards.path">services.grafana.provision.dashboards.path</a>.
                   This is useful when having provisioning files from
                   non-NixOS Grafana instances that you also want to
                   deploy to NixOS.
@@ -858,9 +864,9 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
                   <a class="link" href="https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#file-provider" target="_top"><span class="strong"><strong>file</strong></span>-provider
                   or env-var</a> for secrets!
                 </p></li><li class="listitem"><p>
-                  <a class="xref" href="options.html#opt-services.grafana.provision.notifiers"><code class="option">services.grafana.provision.notifiers</code></a>
+                  <a class="link" href="options.html#opt-services.grafana.provision.notifiers">services.grafana.provision.notifiers</a>
                   is not affected by this change because this feature is
-                  deprecated by Grafana and will probably removed in
+                  deprecated by Grafana and will probably be removed in
                   Grafana 10. It’s recommended to use
                   <code class="literal">services.grafana.provision.alerting.contactPoints</code>
                   instead.
