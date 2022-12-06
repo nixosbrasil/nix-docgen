@@ -43,6 +43,34 @@
           <a class="link" href="https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/" target="_top">upstream
           deprecation</a>.
         </p></li><li class="listitem"><p>
+          The
+          <a class="link" href="options.html#opt-services.snapserver.openFirewall">services.snapserver.openFirewall</a>
+          module option default value has been changed from
+          <code class="literal">true</code> to <code class="literal">false</code>. You will
+          need to explicitely set this option to
+          <code class="literal">true</code>, or configure your firewall.
+        </p></li><li class="listitem"><p>
+          The
+          <a class="link" href="options.html#opt-services.avahi.openFirewall">services.avahi.openFirewall</a>
+          module option default value has been changed from
+          <code class="literal">true</code> to <code class="literal">false</code>. You will
+          need to explicitely set this option to
+          <code class="literal">true</code>, or configure your firewall.
+        </p></li><li class="listitem"><p>
+          The
+          <a class="link" href="options.html#opt-services.tmate-ssh-server.openFirewall">services.tmate-ssh-server.openFirewall</a>
+          module option default value has been changed from
+          <code class="literal">true</code> to <code class="literal">false</code>. You will
+          need to explicitely set this option to
+          <code class="literal">true</code>, or configure your firewall.
+        </p></li><li class="listitem"><p>
+          The
+          <a class="link" href="options.html#opt-services.unifi-video.openFirewall">services.unifi-video.openFirewall</a>
+          module option default value has been changed from
+          <code class="literal">true</code> to <code class="literal">false</code>. You will
+          need to explicitely set this option to
+          <code class="literal">true</code>, or configure your firewall.
+        </p></li><li class="listitem"><p>
           The EC2 image module previously detected and automatically
           mounted ext3-formatted instance store devices and partitions
           in stage-1 (initramfs), storing <code class="literal">/tmp</code> on the
