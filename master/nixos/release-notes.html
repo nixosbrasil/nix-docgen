@@ -110,6 +110,12 @@
           any user and switches to the configured mastodon user with
           sudo and sources the environment variables.
         </p></li><li class="listitem"><p>
+          The <code class="literal">dnsmasq</code> service now takes configuration
+          via the <code class="literal">services.dnsmasq.settings</code> attribute
+          set. The option
+          <code class="literal">services.dnsmasq.extraConfig</code> will be
+          deprecated when NixOS 22.11 reaches end of life.
+        </p></li><li class="listitem"><p>
           A new <code class="literal">virtualisation.rosetta</code> module was
           added to allow running <code class="literal">x86_64</code> binaries
           through
