@@ -99,6 +99,14 @@
           renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>B.1.4. Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">vim_configurable</code> has been renamed to
+          <code class="literal">vim-full</code> to avoid confusion:
+          <code class="literal">vim-full</code>’s build-time features are
+          configurable, but both <code class="literal">vim</code> and
+          <code class="literal">vim-full</code> are
+          <span class="emphasis"><em>customizable</em></span> (in the sense of user
+          configuration, like vimrc).
+        </p></li><li class="listitem"><p>
           The module for the application firewall
           <code class="literal">opensnitch</code> got the ability to configure
           rules. Available as
@@ -109,6 +117,21 @@
           <code class="literal">nextcloud-occ</code> which can be executed from
           any user and switches to the configured mastodon user with
           sudo and sources the environment variables.
+        </p></li><li class="listitem"><p>
+          The <code class="literal">dnsmasq</code> service now takes configuration
+          via the <code class="literal">services.dnsmasq.settings</code> attribute
+          set. The option
+          <code class="literal">services.dnsmasq.extraConfig</code> will be
+          deprecated when NixOS 22.11 reaches end of life.
+        </p></li><li class="listitem"><p>
+          To reduce closure size in
+          <code class="literal">nixos/modules/profiles/minimal.nix</code> profile
+          disabled installation documentations and manuals. Also
+          disabled <code class="literal">logrotate</code> and
+          <code class="literal">udisks2</code> services.
+        </p></li><li class="listitem"><p>
+          The minimal ISO image now use
+          <code class="literal">nixos/modules/profiles/minimal.nix</code> profile.
         </p></li><li class="listitem"><p>
           A new <code class="literal">virtualisation.rosetta</code> module was
           added to allow running <code class="literal">x86_64</code> binaries
