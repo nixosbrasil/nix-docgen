@@ -2275,7 +2275,7 @@ readPathsFromFile /prefix
 "/prefix/nix-profiles-library-paths.patch"
 "/prefix/compose-search-path.patch" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.readPathsFromFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L954" target="_top">lib/strings.nix:954</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L955" target="_top">lib/strings.nix:955</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fileContents"></a>5.1.3.57. <code class="function">lib.strings.fileContents</code></h4></div><div><h5 class="subtitle"><code class="literal">fileContents :: path -&gt; string</code>
       </h5></div></div></div><p>
        Read the contents of a file removing the trailing \n
@@ -2289,7 +2289,7 @@ $ echo "1.0" &gt; ./version
 fileContents ./version
 =&gt; "1.0"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fileContents"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L974" target="_top">lib/strings.nix:974</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L975" target="_top">lib/strings.nix:975</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.sanitizeDerivationName"></a>5.1.3.58. <code class="function">lib.strings.sanitizeDerivationName</code></h4></div><div><h5 class="subtitle"><code class="literal">sanitizeDerivationName :: String -&gt; String</code>
       </h5></div></div></div><p>
        Creates a valid derivation name from a potentially invalid one.
@@ -2301,7 +2301,7 @@ sanitizeDerivationName ""
 sanitizeDerivationName pkgs.hello
 =&gt; "-nix-store-2g75chlbpxlrqn15zlby2dfh8hr9qwbk-hello-2.10"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.sanitizeDerivationName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L989" target="_top">lib/strings.nix:989</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L990" target="_top">lib/strings.nix:990</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshtein"></a>5.1.3.59. <code class="function">lib.strings.levenshtein</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshtein :: string -&gt; string -&gt; int</code>
       </h5></div></div></div><p>
        Computes the Levenshtein distance between two strings. Complexity O(n*m) where n and m are the lengths of the strings. Algorithm adjusted from https://stackoverflow.com/a/9750974/6605742
@@ -2321,7 +2321,7 @@ levenshtein "book" "hook"
 levenshtein "hello" "Heyo"
 =&gt; 3
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshtein"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1028" target="_top">lib/strings.nix:1028</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1029" target="_top">lib/strings.nix:1029</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonPrefixLength"></a>5.1.3.60. <code class="function">lib.strings.commonPrefixLength</code></h4></div></div></div><p>
        Returns the length of the prefix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2333,7 +2333,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonPrefixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1049" target="_top">lib/strings.nix:1049</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1050" target="_top">lib/strings.nix:1050</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonSuffixLength"></a>5.1.3.61. <code class="function">lib.strings.commonSuffixLength</code></h4></div></div></div><p>
        Returns the length of the suffix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2345,7 +2345,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonSuffixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1057" target="_top">lib/strings.nix:1057</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1058" target="_top">lib/strings.nix:1058</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshteinAtMost"></a>5.1.3.62. <code class="function">lib.strings.levenshteinAtMost</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshteinAtMost :: int -&gt; string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Returns whether the levenshtein distance between two strings is at most some value Complexity is O(min(n,m)) for k &lt;= 2 and O(n*m) otherwise
@@ -2361,7 +2361,7 @@ levenshteinAtMost 2 "This is a sentence" "this is a sentense."
 levenshteinAtMost 3 "This is a sentence" "this is a sentense."
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshteinAtMost"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1081" target="_top">lib/strings.nix:1081</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1082" target="_top">lib/strings.nix:1082</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-trivial"></a>5.1.4. Miscellaneous functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.trivial.id"></a>5.1.4.1. <code class="function">lib.trivial.id</code></h4></div><div><h5 class="subtitle"><code class="literal">id :: a -&gt; a</code>
       </h5></div></div></div><p>
        The identity function For when you need a function that does “nothing”.
@@ -9671,14 +9671,16 @@ yarnPreBuild = ''
             The <code class="literal">echo 9</code> steps comes from this answer: <a class="link" href="https://stackoverflow.com/a/49139496" target="_top">https://stackoverflow.com/a/49139496</a>
            </p></li><li class="listitem"><p>
             Exporting the headers in <code class="literal">npm_config_nodedir</code> comes from this issue: <a class="link" href="https://github.com/nodejs/node-gyp/issues/1191#issuecomment-301243919" target="_top">https://github.com/nodejs/node-gyp/issues/1191#issuecomment-301243919</a>
-           </p></li></ul></div></li></ul></div></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="javascript-outside-nixpkgs"></a>17.20.7. Outside of nixpkgs</h3></div></div></div><p>
-      There are some other options available that can’t be used inside nixpkgs. Those other options are written in Nix. Importing them in nixpkgs will require moving the source code into nixpkgs. Using <a class="link" href="https://nixos.wiki/wiki/Import_From_Derivation" target="_top">Import From Derivation</a> is not allowed in Hydra at present. If you are packaging something outside nixpkgs, those can be considered
+           </p></li></ul></div></li></ul></div></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="javascript-outside-nixpkgs"></a>17.20.7. Outside Nixpkgs</h3></div></div></div><p>
+      There are some other tools available, which are written in the Nix language. These that can’t be used inside Nixpkgs because they require <a class="link" href="#ssec-import-from-derivation" title="20.7.6. Import From Derivation">Import From Derivation</a>, which is not allowed in Nixpkgs.
+     </p><p>
+      If you are packaging something outside Nixpkgs, consider the following:
      </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-npmlock2nix"></a>17.20.7.1. npmlock2nix</h4></div></div></div><p>
-       <a class="link" href="https://github.com/nix-community/npmlock2nix" target="_top">npmlock2nix</a> aims at building node_modules without code generation. It hasn’t reached v1 yet, the API might be subject to change.
+       <a class="link" href="https://github.com/nix-community/npmlock2nix" target="_top">npmlock2nix</a> aims at building <code class="literal">node_modules</code> without code generation. It hasn’t reached v1 yet, the API might be subject to change.
       </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-npmlock2nix-pitfalls"></a>17.20.7.1.1. Pitfalls</h5></div></div></div><p>
         There are some <a class="link" href="https://github.com/tweag/npmlock2nix/issues/45" target="_top">problems with npm v7</a>.
        </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="javascript-nix-npm-buildpackage"></a>17.20.7.2. nix-npm-buildpackage</h4></div></div></div><p>
-       <a class="link" href="https://github.com/serokell/nix-npm-buildpackage" target="_top">nix-npm-buildpackage</a> aims at building node_modules without code generation. It hasn’t reached v1 yet, the API might change. It supports both package-lock.json and yarn.lock.
+       <a class="link" href="https://github.com/serokell/nix-npm-buildpackage" target="_top">nix-npm-buildpackage</a> aims at building <code class="literal">node_modules</code> without code generation. It hasn’t reached v1 yet, the API might change. It supports both <code class="literal">package-lock.json</code> and yarn.lock.
       </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-nix-npm-buildpackage-pitfalls"></a>17.20.7.2.1. Pitfalls</h5></div></div></div><p>
         There are some <a class="link" href="https://github.com/serokell/nix-npm-buildpackage/issues/33" target="_top">problems with npm v7</a>.
        </p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="users-guide-to-lua-infrastructure"></a>17.21. User’s Guide to Lua Infrastructure</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="using-lua"></a>17.21.1. Using Lua</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="overview-of-lua"></a>17.21.1.1. Overview of Lua</h4></div></div></div><p>
@@ -14544,7 +14546,13 @@ stdenv.mkDerivation {
 
   ...
 }
-</pre></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-submitting-changes"></a>Chapter 21. Submitting changes</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#submitting-changes-making-patches">21.1. Making patches</a></span></dt><dt><span class="section"><a href="#submitting-changes-submitting-changes">21.2. Submitting changes</a></span></dt><dt><span class="section"><a href="#submitting-changes-submitting-security-fixes">21.3. Submitting security fixes</a></span></dt><dt><span class="section"><a href="#submitting-changes-deprecating-packages">21.4. Deprecating/removing packages</a></span></dt><dt><span class="section"><a href="#submitting-changes-pull-request-template">21.5. Pull Request Template</a></span></dt><dt><span class="section"><a href="#submitting-changes-hotfixing-pull-requests">21.6. Hotfixing pull requests</a></span></dt><dt><span class="section"><a href="#submitting-changes-commit-policy">21.7. Commit policy</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="submitting-changes-making-patches"></a>21.1. Making patches</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-import-from-derivation"></a>20.7.6. Import From Derivation</h3></div></div></div><p>
+      Import From Derivation (IFD) is disallowed in Nixpkgs for performance reasons: <a class="link" href="https://github.com/NixOS/hydra" target="_top">Hydra</a> evaluates the entire package set, and sequential builds during evaluation would increase evaluation times to become impractical.
+     </p><p>
+      Import From Derivation can be worked around in some cases by committing generated intermediate files to version control and reading those instead.
+     </p><p>
+      See also <a class="link" href="https://nixos.wiki/wiki/Import_From_Derivation" target="_top">NixOS Wiki: Import From Derivation</a>.
+     </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-submitting-changes"></a>Chapter 21. Submitting changes</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#submitting-changes-making-patches">21.1. Making patches</a></span></dt><dt><span class="section"><a href="#submitting-changes-submitting-changes">21.2. Submitting changes</a></span></dt><dt><span class="section"><a href="#submitting-changes-submitting-security-fixes">21.3. Submitting security fixes</a></span></dt><dt><span class="section"><a href="#submitting-changes-deprecating-packages">21.4. Deprecating/removing packages</a></span></dt><dt><span class="section"><a href="#submitting-changes-pull-request-template">21.5. Pull Request Template</a></span></dt><dt><span class="section"><a href="#submitting-changes-hotfixing-pull-requests">21.6. Hotfixing pull requests</a></span></dt><dt><span class="section"><a href="#submitting-changes-commit-policy">21.7. Commit policy</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="submitting-changes-making-patches"></a>21.1. Making patches</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
        Read <a class="link" href="https://nixos.org/nixpkgs/manual/" target="_top">Manual (How to write packages for Nix)</a>.
       </p></li><li class="listitem"><p>
        Fork <a class="link" href="https://github.com/nixos/nixpkgs/" target="_top">the Nixpkgs repository</a> on GitHub.
