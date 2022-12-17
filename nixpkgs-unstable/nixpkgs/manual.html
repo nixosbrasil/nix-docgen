@@ -1850,7 +1850,7 @@ escapeXML ''"test" 'test' &lt; &amp; &gt;''
 toLower "HOME"
 =&gt; "home"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toLower"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L500" target="_top">lib/strings.nix:500</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L489" target="_top">lib/strings.nix:489</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toUpper"></a><code class="function">lib.strings.toUpper</code></h4></div><div><h5 class="subtitle"><code class="literal">toUpper :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to upper-case.
@@ -1858,7 +1858,7 @@ toLower "HOME"
 toUpper "home"
 =&gt; "HOME"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toUpper"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L510" target="_top">lib/strings.nix:510</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L499" target="_top">lib/strings.nix:499</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.addContextFrom"></a><code class="function">lib.strings.addContextFrom</code></h4></div></div></div><p>
        Appends string context from another string. This is an implementation detail of Nix and should be used carefully.
       </p><p>
@@ -1876,7 +1876,7 @@ pkgs = import &lt;nixpkgs&gt; { };
 addContextFrom pkgs.coreutils "bar"
 =&gt; "bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.addContextFrom"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L525" target="_top">lib/strings.nix:525</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L514" target="_top">lib/strings.nix:514</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.splitString"></a><code class="function">lib.strings.splitString</code></h4></div></div></div><p>
        Cut a string with a separator and produces a list of strings which were separated by this separator.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -1893,7 +1893,7 @@ splitString "." "foo.bar.baz"
 splitString "/" "/usr/local/bin"
 =&gt; [ "" "usr" "local" "bin" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.splitString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L536" target="_top">lib/strings.nix:536</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L525" target="_top">lib/strings.nix:525</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.removePrefix"></a><code class="function">lib.strings.removePrefix</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Return a string without the specified prefix, if the prefix matches.
@@ -1911,7 +1911,7 @@ removePrefix "foo." "foo.bar.baz"
 removePrefix "xxx" "foo.bar.baz"
 =&gt; "foo.bar.baz"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.removePrefix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L552" target="_top">lib/strings.nix:552</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L541" target="_top">lib/strings.nix:541</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.removeSuffix"></a><code class="function">lib.strings.removeSuffix</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Return a string without the specified suffix, if the suffix matches.
@@ -1929,7 +1929,7 @@ removeSuffix "front" "homefront"
 removeSuffix "xxx" "homefront"
 =&gt; "homefront"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.removeSuffix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L576" target="_top">lib/strings.nix:576</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L565" target="_top">lib/strings.nix:565</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.versionOlder"></a><code class="function">lib.strings.versionOlder</code></h4></div></div></div><p>
        Return true if string v1 denotes a version older than v2.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -1946,7 +1946,7 @@ versionOlder "1.1" "1.2"
 versionOlder "1.1" "1.1"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.versionOlder"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L598" target="_top">lib/strings.nix:598</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L587" target="_top">lib/strings.nix:587</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.versionAtLeast"></a><code class="function">lib.strings.versionAtLeast</code></h4></div></div></div><p>
        Return true if string v1 denotes a version equal to or newer than v2.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -1965,7 +1965,7 @@ versionAtLeast "1.1" "1.1"
 versionAtLeast "1.1" "1.2"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.versionAtLeast"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L610" target="_top">lib/strings.nix:610</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L599" target="_top">lib/strings.nix:599</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.getName"></a><code class="function">lib.strings.getName</code></h4></div></div></div><p>
        This function takes an argument that's either a derivation or a derivation's "name" attribute and extracts the name part from that argument.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -1978,7 +1978,7 @@ getName "youtube-dl-2016.01.01"
 getName pkgs.youtube-dl
 =&gt; "youtube-dl"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.getName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L622" target="_top">lib/strings.nix:622</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L611" target="_top">lib/strings.nix:611</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.getVersion"></a><code class="function">lib.strings.getVersion</code></h4></div></div></div><p>
        This function takes an argument that's either a derivation or a derivation's "name" attribute and extracts the version part from that argument.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -1991,7 +1991,7 @@ getVersion "youtube-dl-2016.01.01"
 getVersion pkgs.youtube-dl
 =&gt; "2016.01.01"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.getVersion"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L639" target="_top">lib/strings.nix:639</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L628" target="_top">lib/strings.nix:628</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.nameFromURL"></a><code class="function">lib.strings.nameFromURL</code></h4></div></div></div><p>
        Extract name with version from URL. Ask for separator which is supposed to start extension.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2008,7 +2008,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
 nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2" "_"
 =&gt; "nix-1.7-x86"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.nameFromURL"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L655" target="_top">lib/strings.nix:655</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L644" target="_top">lib/strings.nix:644</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonOption"></a><code class="function">lib.strings.mesonOption</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonOption :: string -&gt; string -&gt; string@param feature The feature to be set@param value The desired value</code>
       </h5></div></div></div><p>
        Create a -D&lt;feature&gt;=&lt;value&gt; string that can be passed to typical Meson invocations.
@@ -2024,7 +2024,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
 mesonOption "engine" "opengl"
 =&gt; "-Dengine=opengl"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L674" target="_top">lib/strings.nix:674</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L663" target="_top">lib/strings.nix:663</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonBool"></a><code class="function">lib.strings.mesonBool</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonBool :: string -&gt; bool -&gt; string@param condition The condition to be made true or false@param flag The controlling flag of the condition</code>
       </h5></div></div></div><p>
        Create a -D&lt;condition&gt;={true,false} string that can be passed to typical Meson invocations.
@@ -2042,7 +2042,7 @@ mesonBool "hardened" true
 mesonBool "static" false
 =&gt; "-Dstatic=false"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonBool"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L693" target="_top">lib/strings.nix:693</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L682" target="_top">lib/strings.nix:682</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonEnable"></a><code class="function">lib.strings.mesonEnable</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonEnable :: string -&gt; bool -&gt; string@param feature The feature to be enabled or disabled@param flag The controlling flag</code>
       </h5></div></div></div><p>
        Create a -D&lt;feature&gt;={enabled,disabled} string that can be passed to typical Meson invocations.
@@ -2060,7 +2060,7 @@ mesonEnable "docs" true
 mesonEnable "savage" false
 =&gt; "-Dsavage=disabled"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonEnable"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L712" target="_top">lib/strings.nix:712</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L701" target="_top">lib/strings.nix:701</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.enableFeature"></a><code class="function">lib.strings.enableFeature</code></h4></div></div></div><p>
        Create an --{enable,disable}-&lt;feat&gt; string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2077,7 +2077,7 @@ enableFeature true "shared"
 enableFeature false "shared"
 =&gt; "--disable-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.enableFeature"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L726" target="_top">lib/strings.nix:726</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L715" target="_top">lib/strings.nix:715</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.enableFeatureAs"></a><code class="function">lib.strings.enableFeatureAs</code></h4></div></div></div><p>
        Create an --{enable-&lt;feat&gt;=&lt;value&gt;,disable-&lt;feat&gt;} string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2098,7 +2098,7 @@ enableFeatureAs true "shared" "foo"
 enableFeatureAs false "shared" (throw "ignored")
 =&gt; "--disable-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.enableFeatureAs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L739" target="_top">lib/strings.nix:739</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L728" target="_top">lib/strings.nix:728</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.withFeature"></a><code class="function">lib.strings.withFeature</code></h4></div></div></div><p>
        Create an --{with,without}-&lt;feat&gt; string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2115,7 +2115,7 @@ withFeature true "shared"
 withFeature false "shared"
 =&gt; "--without-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.withFeature"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L750" target="_top">lib/strings.nix:750</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L739" target="_top">lib/strings.nix:739</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.withFeatureAs"></a><code class="function">lib.strings.withFeatureAs</code></h4></div></div></div><p>
        Create an --{with-&lt;feat&gt;=&lt;value&gt;,without-&lt;feat&gt;} string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2136,7 +2136,7 @@ withFeatureAs true "shared" "foo"
 withFeatureAs false "shared" (throw "ignored")
 =&gt; "--without-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.withFeatureAs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L763" target="_top">lib/strings.nix:763</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L752" target="_top">lib/strings.nix:752</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fixedWidthString"></a><code class="function">lib.strings.fixedWidthString</code></h4></div><div><h5 class="subtitle"><code class="literal">fixedWidthString :: int -&gt; string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Create a fixed width string with additional prefix to match required width.
@@ -2158,7 +2158,7 @@ withFeatureAs false "shared" (throw "ignored")
 fixedWidthString 5 "0" (toString 15)
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L777" target="_top">lib/strings.nix:777</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L766" target="_top">lib/strings.nix:766</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fixedWidthNumber"></a><code class="function">lib.strings.fixedWidthNumber</code></h4></div></div></div><p>
        Format a number adding leading zeroes up to fixed width.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2173,7 +2173,7 @@ fixedWidthString 5 "0" (toString 15)
 fixedWidthNumber 5 15
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthNumber"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L794" target="_top">lib/strings.nix:794</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L783" target="_top">lib/strings.nix:783</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.floatToString"></a><code class="function">lib.strings.floatToString</code></h4></div></div></div><p>
        Convert a float to a string, but emit a warning when precision is lost during the conversion
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2187,7 +2187,7 @@ floatToString 0.0000001
 =&gt; trace: warning: Imprecise conversion from float to string 0.000000
 "0.000000"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.floatToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L806" target="_top">lib/strings.nix:806</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L795" target="_top">lib/strings.nix:795</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isCoercibleToString"></a><code class="function">lib.strings.isCoercibleToString</code></h4></div></div></div><p>
        Check whether a value can be coerced to a string
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2195,7 +2195,7 @@ floatToString 0.0000001
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.isCoercibleToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L813" target="_top">lib/strings.nix:813</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L802" target="_top">lib/strings.nix:802</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isStorePath"></a><code class="function">lib.strings.isStorePath</code></h4></div></div></div><p>
        Check whether a value is a store path.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2212,7 +2212,7 @@ isStorePath pkgs.python
 isStorePath [] || isStorePath 42 || isStorePath {} || …
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.isStorePath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L831" target="_top">lib/strings.nix:831</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L820" target="_top">lib/strings.nix:820</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toInt"></a><code class="function">lib.strings.toInt</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; int</code>
       </h5></div></div></div><p>
        Parse a string as an int. Does not support parsing of integers with preceding zero due to ambiguity between zero-padded and octal numbers. See toIntBase10.
@@ -2237,7 +2237,7 @@ toInt "00024"
 toInt "3.14"
 =&gt; error: floating point JSON numbers are not supported
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toInt"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L861" target="_top">lib/strings.nix:861</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L850" target="_top">lib/strings.nix:850</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toIntBase10"></a><code class="function">lib.strings.toIntBase10</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; int</code>
       </h5></div></div></div><p>
        Parse a string as a base 10 int. This supports parsing of zero-padded integers.
@@ -2261,7 +2261,7 @@ toIntBase10 "00024"
 toIntBase10 "3.14"
 =&gt; error: floating point JSON numbers are not supported
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toIntBase10"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L912" target="_top">lib/strings.nix:912</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L901" target="_top">lib/strings.nix:901</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.readPathsFromFile"></a><code class="function">lib.strings.readPathsFromFile</code></h4></div></div></div><p>
        Read a list of paths from `file`, relative to the `rootPath`. Lines beginning with `#` are treated as comments and ignored. Whitespace is significant.
       </p><p>
@@ -2275,7 +2275,7 @@ readPathsFromFile /prefix
 "/prefix/nix-profiles-library-paths.patch"
 "/prefix/compose-search-path.patch" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.readPathsFromFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L955" target="_top">lib/strings.nix:955</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L944" target="_top">lib/strings.nix:944</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fileContents"></a><code class="function">lib.strings.fileContents</code></h4></div><div><h5 class="subtitle"><code class="literal">fileContents :: path -&gt; string</code>
       </h5></div></div></div><p>
        Read the contents of a file removing the trailing \n
@@ -2289,7 +2289,7 @@ $ echo "1.0" &gt; ./version
 fileContents ./version
 =&gt; "1.0"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fileContents"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L975" target="_top">lib/strings.nix:975</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L964" target="_top">lib/strings.nix:964</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.sanitizeDerivationName"></a><code class="function">lib.strings.sanitizeDerivationName</code></h4></div><div><h5 class="subtitle"><code class="literal">sanitizeDerivationName :: String -&gt; String</code>
       </h5></div></div></div><p>
        Creates a valid derivation name from a potentially invalid one.
@@ -2301,7 +2301,7 @@ sanitizeDerivationName ""
 sanitizeDerivationName pkgs.hello
 =&gt; "-nix-store-2g75chlbpxlrqn15zlby2dfh8hr9qwbk-hello-2.10"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.sanitizeDerivationName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L990" target="_top">lib/strings.nix:990</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L979" target="_top">lib/strings.nix:979</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshtein"></a><code class="function">lib.strings.levenshtein</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshtein :: string -&gt; string -&gt; int</code>
       </h5></div></div></div><p>
        Computes the Levenshtein distance between two strings. Complexity O(n*m) where n and m are the lengths of the strings. Algorithm adjusted from https://stackoverflow.com/a/9750974/6605742
@@ -2321,7 +2321,7 @@ levenshtein "book" "hook"
 levenshtein "hello" "Heyo"
 =&gt; 3
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshtein"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1029" target="_top">lib/strings.nix:1029</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1018" target="_top">lib/strings.nix:1018</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonPrefixLength"></a><code class="function">lib.strings.commonPrefixLength</code></h4></div></div></div><p>
        Returns the length of the prefix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2333,7 +2333,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonPrefixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1050" target="_top">lib/strings.nix:1050</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1039" target="_top">lib/strings.nix:1039</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonSuffixLength"></a><code class="function">lib.strings.commonSuffixLength</code></h4></div></div></div><p>
        Returns the length of the suffix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2345,7 +2345,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonSuffixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1058" target="_top">lib/strings.nix:1058</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1047" target="_top">lib/strings.nix:1047</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshteinAtMost"></a><code class="function">lib.strings.levenshteinAtMost</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshteinAtMost :: int -&gt; string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Returns whether the levenshtein distance between two strings is at most some value Complexity is O(min(n,m)) for k &lt;= 2 and O(n*m) otherwise
@@ -2361,7 +2361,7 @@ levenshteinAtMost 2 "This is a sentence" "this is a sentense."
 levenshteinAtMost 3 "This is a sentence" "this is a sentense."
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshteinAtMost"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1082" target="_top">lib/strings.nix:1082</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1071" target="_top">lib/strings.nix:1071</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-trivial"></a>Miscellaneous functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.trivial.id"></a><code class="function">lib.trivial.id</code></h4></div><div><h5 class="subtitle"><code class="literal">id :: a -&gt; a</code>
       </h5></div></div></div><p>
        The identity function For when you need a function that does “nothing”.

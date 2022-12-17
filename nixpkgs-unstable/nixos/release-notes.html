@@ -93,6 +93,14 @@
           well, however, out-of-tree package expressions may need to be
           updated manually.
         </p></li><li class="listitem"><p>
+          In <code class="literal">mastodon</code> it is now necessary to specify
+          location of file with <code class="literal">PostgreSQL</code> database
+          password. In
+          <code class="literal">services.mastodon.database.passwordFile</code>
+          parameter default value
+          <code class="literal">/var/lib/mastodon/secrets/db-password</code> has
+          been changed to <code class="literal">null</code>.
+        </p></li><li class="listitem"><p>
           The <code class="literal">nix.readOnlyStore</code> option has been
           renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
@@ -130,6 +138,9 @@
         </p></li><li class="listitem"><p>
           The minimal ISO image now uses the
           <code class="literal">nixos/modules/profiles/minimal.nix</code> profile.
+        </p></li><li class="listitem"><p>
+          <code class="literal">mastodon</code> now supports connection to a
+          remote <code class="literal">PostgreSQL</code> database.
         </p></li><li class="listitem"><p>
           A new <code class="literal">virtualisation.rosetta</code> module was
           added to allow running <code class="literal">x86_64</code> binaries
