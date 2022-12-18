@@ -25,6 +25,11 @@
           a sync server for shell history. Available as
           <a class="link" href="options.html#opt-services.atuin.enable">services.atuin</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://gitlab.com/kop316/mmsd" target="_top">mmsd</a>,
+          a lower level daemon that transmits and recieves MMSes.
+          Available as
+          <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://v2raya.org" target="_top">v2rayA</a>, a Linux
           web GUI client of Project V which supports V2Ray, Xray, SS,
           SSR, Trojan and Pingtunnel. Available as
@@ -177,6 +182,17 @@
           The <code class="literal">unifi-poller</code> package and corresponding
           NixOS module have been renamed to <code class="literal">unpoller</code>
           to match upstream.
+        </p></li><li class="listitem"><p>
+          The new option
+          <code class="literal">services.tailscale.useRoutingFeatures</code>
+          controls various settings for using Tailscale features like
+          exit nodes and subnet routers. If you wish to use your machine
+          as an exit node, you can set this setting to
+          <code class="literal">server</code>, otherwise if you wish to use an
+          exit node you can set this setting to
+          <code class="literal">client</code>. The strict RPF warning has been
+          removed as the RPF will be loosened automatically based on the
+          value of this setting.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also

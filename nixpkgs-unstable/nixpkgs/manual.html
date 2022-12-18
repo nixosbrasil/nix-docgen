@@ -7996,7 +7996,17 @@ mypkg = let
     cudnn = prev.cudnn_8_3_2;
   }});
 in callPackage { inherit cudaPackages; };
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="cuelang"></a>Cue (Cuelang)</h2></div></div></div><p>
+</pre><p>
+     The CUDA NVCC compiler requires flags to determine which hardware you want to target for in terms of SASS (real hardware) or PTX (JIT kernels).
+    </p><p>
+     Nixpkgs tries to target support real architecture defaults based on the CUDA toolkit version with PTX support for future hardware. Experienced users may optmize this configuration for a variety of reasons such as reducing binary size and compile time, supporting legacy hardware, or optimizing for specific hardware.
+    </p><p>
+     You may provide capabilities to add support or reduce binary size through <code class="literal">config</code> using <code class="literal">cudaCapabilities = [ "6.0" "7.0" ];</code> and <code class="literal">cudaForwardCompat = true;</code> if you want PTX support for future hardware.
+    </p><p>
+     Please consult <a class="link" href="https://en.wikipedia.org/wiki/CUDA#GPUs_supported" target="_top">GPUs supported</a> for your specific card(s).
+    </p><p>
+     Library maintainers should consult <a class="link" href="https://docs.nvidia.com/cuda/cuda-compiler-driver-nvcc/" target="_top">NVCC Docs</a> and release notes for their software package.
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="cuelang"></a>Cue (Cuelang)</h2></div></div></div><p>
      <a class="link" href="https://cuelang.org/" target="_top">Cuelang</a> is a language to:
     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
        describe schemas and validate backward-compatibility
