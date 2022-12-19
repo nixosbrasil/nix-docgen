@@ -25,6 +25,11 @@
           a sync server for shell history. Available as
           <a class="link" href="options.html#opt-services.atuin.enable">services.atuin</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://gitlab.com/kop316/mmsd" target="_top">mmsd</a>,
+          a lower level daemon that transmits and recieves MMSes.
+          Available as
+          <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://v2raya.org" target="_top">v2rayA</a>, a Linux
           web GUI client of Project V which supports V2Ray, Xray, SS,
           SSR, Trojan and Pingtunnel. Available as
@@ -65,22 +70,22 @@
           <a class="link" href="options.html#opt-services.snapserver.openFirewall">services.snapserver.openFirewall</a>
           module option default value has been changed from
           <code class="literal">true</code> to <code class="literal">false</code>. You will
-          need to explicitely set this option to
-          <code class="literal">true</code>, or configure your firewall.
+          need to explicitly set this option to <code class="literal">true</code>,
+          or configure your firewall.
         </p></li><li class="listitem"><p>
           The
           <a class="link" href="options.html#opt-services.tmate-ssh-server.openFirewall">services.tmate-ssh-server.openFirewall</a>
           module option default value has been changed from
           <code class="literal">true</code> to <code class="literal">false</code>. You will
-          need to explicitely set this option to
-          <code class="literal">true</code>, or configure your firewall.
+          need to explicitly set this option to <code class="literal">true</code>,
+          or configure your firewall.
         </p></li><li class="listitem"><p>
           The
           <a class="link" href="options.html#opt-services.unifi-video.openFirewall">services.unifi-video.openFirewall</a>
           module option default value has been changed from
           <code class="literal">true</code> to <code class="literal">false</code>. You will
-          need to explicitely set this option to
-          <code class="literal">true</code>, or configure your firewall.
+          need to explicitly set this option to <code class="literal">true</code>,
+          or configure your firewall.
         </p></li><li class="listitem"><p>
           The EC2 image module previously detected and automatically
           mounted ext3-formatted instance store devices and partitions
@@ -165,6 +170,11 @@
           configuring a Message Of The Day that can be updated
           dynamically.
         </p></li><li class="listitem"><p>
+          Enabling global redirect in
+          <code class="literal">services.nginx.virtualHosts</code> now allows one
+          to add exceptions with the <code class="literal">locations</code>
+          option.
+        </p></li><li class="listitem"><p>
           Resilio sync secret keys can now be provided using a secrets
           file at runtime, preventing these secrets from ending up in
           the Nix store.
@@ -177,6 +187,17 @@
           The <code class="literal">unifi-poller</code> package and corresponding
           NixOS module have been renamed to <code class="literal">unpoller</code>
           to match upstream.
+        </p></li><li class="listitem"><p>
+          The new option
+          <code class="literal">services.tailscale.useRoutingFeatures</code>
+          controls various settings for using Tailscale features like
+          exit nodes and subnet routers. If you wish to use your machine
+          as an exit node, you can set this setting to
+          <code class="literal">server</code>, otherwise if you wish to use an
+          exit node you can set this setting to
+          <code class="literal">client</code>. The strict RPF warning has been
+          removed as the RPF will be loosened automatically based on the
+          value of this setting.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also
@@ -1009,9 +1030,9 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
           It is now the upstream version from https://www.memtest.org/,
           as coreboot’s fork is no longer available.
         </p></li><li class="listitem"><p>
-          Option descriptions, examples, and defaults writting in
-          DocBook are now deprecated. Using CommonMark is preferred and
-          will become the default in a future release.
+          Option descriptions, examples, and defaults writing in DocBook
+          are now deprecated. Using CommonMark is preferred and will
+          become the default in a future release.
         </p></li><li class="listitem"><p>
           The
           <code class="literal">documentation.nixos.options.allowDocBook</code>
@@ -1551,7 +1572,7 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
           <a class="link" href="options.html#opt-services.kanidm.enableServer">services.kanidm</a>
         </p></li><li class="listitem"><p>
           <a class="link" href="https://maddy.email/" target="_top">Maddy</a>, a free
-          an open source mail server. Availabe as
+          an open source mail server. Available as
           <a class="link" href="options.html#opt-services.maddy.enable">services.maddy</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://conduit.rs/" target="_top">matrix-conduit</a>,
@@ -2322,7 +2343,7 @@ services.github-runner.serviceOverrides.SupplementaryGroups = [
               derivation if <code class="literal">name</code> is
               <code class="literal">"vim"</code> (the default). This
               makes the <code class="literal">wrapManual</code> argument obsolete,
-              but this behavior can be overriden by setting the
+              but this behavior can be overridden by setting the
               <code class="literal">standalone</code> argument.
             </p></li><li class="listitem"><p>
               All the executables present in the given derivation (or,
@@ -5403,7 +5424,7 @@ self: super:
           "contrib" has been dropped from upstream releases.
         </p></li><li class="listitem"><p>
           In the ACME module, the data used to build the hash for the
-          account directory has changed to accomodate new features to
+          account directory has changed to accommodate new features to
           reduce account rate limit issues. This will trigger new
           account creation on the first rebuild following this update.
           No issues are expected to arise from this, thanks to the new
@@ -8256,7 +8277,7 @@ $ hydra-backfill-ids
           may break if it relies on those options being set.
         </p></li><li class="listitem"><p>
           The <code class="literal">prometheus-nginx-exporter</code> package now
-          uses the offical exporter provided by NGINX Inc. Its metrics
+          uses the official exporter provided by NGINX Inc. Its metrics
           are differently structured and are incompatible to the old
           ones. For information about the metrics, have a look at the
           <a class="link" href="https://github.com/nginxinc/nginx-prometheus-exporter" target="_top">official
@@ -8275,7 +8296,7 @@ $ hydra-backfill-ids
         </p></li><li class="listitem"><p>
           By default, prometheus exporters are now run with
           <code class="literal">DynamicUser</code> enabled. Exporters that need a
-          real user, now run under a seperate user and group which
+          real user, now run under a separate user and group which
           follow the pattern
           <code class="literal">&lt;exporter-name&gt;-exporter</code>, instead of
           the previous default <code class="literal">nobody</code> and
@@ -8895,7 +8916,7 @@ $ hydra-backfill-ids
           information on the new file format.
         </p></li><li class="listitem"><p>
           The versioned <code class="literal">postgresql</code> have been renamed
-          to use underscore number seperators. For example,
+          to use underscore number separators. For example,
           <code class="literal">postgresql96</code> has been renamed to
           <code class="literal">postgresql_9_6</code>.
         </p></li><li class="listitem"><p>
@@ -10614,7 +10635,7 @@ rmdir /var/lib/ipfs/.ipfs
           parameters.
         </p></li><li class="listitem"><p>
           <code class="literal">services.firefox.syncserver</code> now runs by
-          default as a non-root user. To accomodate this change, the
+          default as a non-root user. To accommodate this change, the
           default sqlite database location has also been changed.
           Migration should work automatically. Refer to the description
           of the options for more details.
@@ -11668,7 +11689,7 @@ nginx.override {
         <code class="literal">services.udev.extraRules</code> option now writes
         rules to <code class="literal">99-local.rules</code> instead of
         <code class="literal">10-local.rules</code>. This makes all the user rules
-        apply after others, so their results wouldn't be overriden by
+        apply after others, so their results wouldn't be overridden by
         anything else.
       </p></li><li class="listitem"><p>
         Large parts of the <code class="literal">services.gitlab</code> module has

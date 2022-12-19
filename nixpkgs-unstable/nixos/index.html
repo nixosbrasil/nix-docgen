@@ -221,7 +221,7 @@ $ sudo -i
         <code class="literal">systemctl stop NetworkManager</code>.
       </p><p>
         On the minimal installer, NetworkManager is not available, so
-        configuration must be perfomed manually. To configure the wifi,
+        configuration must be performed manually. To configure the wifi,
         first start wpa_supplicant with
         <code class="literal">sudo systemctl start wpa_supplicant</code>, then run
         <code class="literal">wpa_cli</code>. For most home networks, you need to
@@ -816,7 +816,7 @@ nix-build '&lt;nixpkgs/nixos&gt;' \
     Make sure your <code class="literal">configuration.nix</code> does still
     import <code class="literal">netboot-minimal.nix</code> (or
     <code class="literal">netboot-base.nix</code>).
-  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-instaling-virtualbox-guest"></a>Installing in a VirtualBox guest</h3></div></div></div><p>
+  </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-installing-virtualbox-guest"></a>Installing in a VirtualBox guest</h3></div></div></div><p>
     Installing NixOS into a VirtualBox guest is convenient for users who
     want to try NixOS without installing it on bare metal. If you want
     to use a pre-made VirtualBox appliance, it is available at
@@ -1017,7 +1017,7 @@ $ sudo `which nixos-generate-config`
       </p><p>
         You'll likely want to set a root password for your first boot
         using the configuration files because you won't have a chance to
-        enter a password until after you reboot. You can initalize the
+        enter a password until after you reboot. You can initialize the
         root password to an empty one with this line: (and of course
         don't forget to set one once you've rebooted or to lock the
         account with <code class="literal">sudo passwd -l root</code> if you use
@@ -1357,7 +1357,7 @@ system.autoUpgrade.channel = https://nixos.org/channels/nixos-22.11;
         Combine them with (any of) your host config(s)
       </p></li></ul></div><p>
     System images, such as the live installer ones, know how to enforce
-    configuration settings on wich they immediately depend in order to
+    configuration settings on which they immediately depend in order to
     work correctly.
   </p><p>
     However, if you are confident, you can opt to override those
@@ -1414,7 +1414,7 @@ $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd
       it needs at a minimum for correct functioning, while the installer
       base image overrides the entire file system layout because there
       can’t be any other guarantees on a live medium than those given by
-      the live medium itself. The latter is especially true befor
+      the live medium itself. The latter is especially true before
       formatting the target block device(s). On the other hand, the
       netboot iso only overrides its minimum dependencies since netboot
       images are always made-to-target.
@@ -3984,7 +3984,7 @@ This endpoint returns the following JSON structure on success with a 201 Created
    on fresh setups.
   </p><p>
    If major-releases will be abandoned by upstream, we should check first if those are needed
-   in NixOS for a safe upgrade-path before removing those. In that case we shold keep those
+   in NixOS for a safe upgrade-path before removing those. In that case we should keep those
    packages, but mark them as insecure in an expression like this (in
    <code class="literal">&lt;nixpkgs/pkgs/servers/nextcloud/default.nix&gt;</code>):
 </p><pre class="programlisting">/* ... */
@@ -4620,7 +4620,7 @@ An annotated example of a simple configuration:
     settings = {
       Peers = [
         # Yggdrasil will automatically connect and "peer" with other nodes it
-        # discovers via link-local multicast annoucements. Unless this is the
+        # discovers via link-local multicast announcements. Unless this is the
         # case (it probably isn't) a node needs peers within the existing
         # network that it can tunnel to.
         "tcp://1.2.3.4:1024"
@@ -4664,7 +4664,7 @@ in {
   }];
 
   services.radvd = {
-    # Annouce the 300::/8 prefix to eth0.
+    # Announce the 300::/8 prefix to eth0.
     enable = true;
     config = ''
       interface eth0
@@ -5196,7 +5196,7 @@ services.firefox-syncserver = {
    by default</a>, via http under <code class="literal">/metrics</code>. In this
    example the firewall should just allow incoming connections to the
    exporter's port on the bridge interface <code class="literal">br0</code> (this would
-   have to be configured seperately of course). For more information about
+   have to be configured separately of course). For more information about
    configuration see <code class="literal">man configuration.nix</code> or search through
    the
    <a class="link" href="https://nixos.org/nixos/options.html#prometheus.exporters" target="_top">available
@@ -5296,7 +5296,7 @@ in
   # for the exporter's systemd service. One of
   # `serviceOpts.script` and `serviceOpts.serviceConfig.ExecStart`
   # has to be specified here. This will be merged with the default
-  # service confiuration.
+  # service configuration.
   # Note that by default 'DynamicUser' is 'true'.
   serviceOpts = {
     serviceConfig = {
@@ -5768,7 +5768,7 @@ services.gitlab = {
     will have to run the command as the user that you configured to run
     GitLab with.
    </p><p>
-    A list of all availabe rake tasks can be obtained by running:
+    A list of all available rake tasks can be obtained by running:
 </p><pre class="screen">
 <code class="prompt">$ </code>sudo -u git -H gitlab-rake -T
 </pre><p>
@@ -7903,7 +7903,7 @@ imports = [
     available to processes through the <code class="literal">/sys</code> and
     <code class="literal">/proc</code> filesystems. It also disables the User
     Namespaces feature of the kernel, which stops Nix from being able to
-    build anything (this particular setting can be overriden via
+    build anything (this particular setting can be overridden via
     <a class="xref" href="options.html#opt-security.allowUserNamespaces"><code class="option">security.allowUserNamespaces</code></a>). See the
     <a class="link" href="https://github.com/nixos/nixpkgs/tree/master/nixos/modules/profiles/hardened.nix" target="_top">profile
     source</a> for further detail on which settings are altered.
@@ -9685,7 +9685,7 @@ services.xserver.displayManager.enable = mkOption {
       <code class="literal">options</code> key defining the sub-options. Submodule
       option definitions are type-checked accordingly to the
       <code class="literal">options</code> declarations. Of course, you can nest
-      submodule option definitons for even higher modularity.
+      submodule option definitions for even higher modularity.
     </p><p>
       The option set can be defined directly
       (<a class="link" href="index.html#ex-submodule-direct">Example: Directly defined
@@ -10938,7 +10938,7 @@ system.activationScripts.my-activation-script = {
     An activation script can write to special files instructing
     <code class="literal">switch-to-configuration</code> to restart/reload units.
     The script will take these requests into account and will
-    incorperate the unit configuration as described above. This means
+    incorporate the unit configuration as described above. This means
     that the activation script will <span class="quote">“<span class="quote">fake</span>”</span> a modified unit
     file and <code class="literal">switch-to-configuration</code> will act
     accordingly. By doing so, configuration like
@@ -10958,7 +10958,7 @@ system.activationScripts.my-activation-script = {
     <code class="literal">/run/nixos/dry-activation-reload-list</code>. Those
     files can contain newline-separated lists of unit names where
     duplicates are being ignored. These files are not create
-    automatically and activation scripts must take the possiblility into
+    automatically and activation scripts must take the possibility into
     account that they have to create them first.
   </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-activation-script-nixos-snippets"></a>NixOS snippets</h3></div></div></div><p>
       There are some snippets NixOS enables by default because disabling
@@ -11414,7 +11414,7 @@ start_all()
         </span></dt><dd><p>
             Wait until the supplied regular expressions match a line of
             the serial console output. This method is useful when OCR is
-            not possibile or accurate enough.
+            not possible or accurate enough.
           </p></dd><dt><span class="term">
           <code class="literal">wait_for_window</code>
         </span></dt><dd><p>
@@ -11470,7 +11470,7 @@ machine.wait_for_unit("xautolock.service", "x-session-user")
       <code class="literal">stop_job</code>.
     </p><p>
       For faster dev cycles it's also possible to disable the
-      code-linters (this shouldn't be commited though):
+      code-linters (this shouldn't be committed though):
     </p><pre class="programlisting">
 {
   skipLint = true;
@@ -11697,7 +11697,9 @@ $ nix-build '&lt;nixpkgs/nixos&gt;' -A config.system.build.nixos-install
 $ nix-build '&lt;nixpkgs/nixos&gt;' -A config.system.build.nixos-enter
 # ./result/bin/nixos-enter
 </pre></div></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="chap-contributing"></a>Contributing to this manual</h1></div></div></div><p>
-    The DocBook and CommonMark sources of NixOS’ manual are in the
+    The
+    <a class="link" href="https://en.wikipedia.org/wiki/DocBook" target="_top">DocBook</a>
+    and CommonMark sources of the NixOS manual are in the
     <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual" target="_top">nixos/doc/manual</a>
     subdirectory of the
     <a class="link" href="https://github.com/NixOS/nixpkgs" target="_top">Nixpkgs</a>
@@ -11711,4 +11713,25 @@ $ nix-build nixos/release.nix -A manual.x86_64-linux
 </pre><p>
     If the build succeeds, the manual will be in
     <code class="literal">./result/share/doc/nixos/index.html</code>.
+  </p><p>
+    <span class="strong"><strong>Contributing to the man pages</strong></span>
+  </p><p>
+    The man pages are written in
+    <a class="link" href="https://en.wikipedia.org/wiki/DocBook" target="_top">DocBook</a>
+    which is XML.
+  </p><p>
+    To see what your edits look like:
+  </p><pre class="programlisting">
+$ cd /path/to/nixpkgs
+$ nix-build nixos/release.nix -A manpages.x86_64-linux
+</pre><p>
+    You can then read the man page you edited by running
+  </p><pre class="programlisting">
+$ man --manpath=result/share/man nixos-rebuild # Replace nixos-rebuild with the command whose manual you edited
+</pre><p>
+    If you’re on a different architecture that’s supported by NixOS
+    (check nixos/release.nix) then replace
+    <code class="literal">x86_64-linux</code> with the architecture.
+    <code class="literal">nix-build</code> will complain otherwise, but should
+    also tell you which architecture you have + the supported ones.
   </p></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top"> </td><td width="20%" align="center"> </td><td width="40%" align="right" valign="top"> Appendix A. Configuration Options</td></tr></table></div></body></html>

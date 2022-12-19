@@ -1267,7 +1267,7 @@ boot.loader.grub.device = "";
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">pattern</code>
         </span></dt><dd><p>
-          Attribute set strucutre to match
+          Attribute set structure to match
          </p></dd><dt><span class="term">
          <code class="varname">attrs</code>
         </span></dt><dd><p>
@@ -1576,7 +1576,7 @@ makeBinPath ["/root" "/usr" "/usr/local"]
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L186" target="_top">lib/strings.nix:186</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.normalizePath"></a><code class="function">lib.strings.normalizePath</code></h4></div><div><h5 class="subtitle"><code class="literal">normalizePath :: string -&gt; string</code>
       </h5></div></div></div><p>
-       Normalize path, removing extranous /s
+       Normalize path, removing extraneous /s
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">s</code>
         </span></dt><dd><p>
@@ -1718,7 +1718,7 @@ escape ["(" ")"] "(foo)"
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L331" target="_top">lib/strings.nix:331</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeC"></a><code class="function">lib.strings.escapeC</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeC = [string] -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
-       Escape occurence of the element of `list` in `string` by converting to its ASCII value and prefixing it with \\x. Only works for printable ascii characters.
+       Escape occurrence of the element of `list` in `string` by converting to its ASCII value and prefixing it with \\x. Only works for printable ascii characters.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">list</code>
         </span></dt><dd><p>
@@ -4652,9 +4652,9 @@ installTargets = "install-bin install-doc";
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontStrip"></a><code class="literal">dontStrip</code></h5></div></div></div><p>
         If set, libraries and executables are not stripped. By default, they are.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontStripHost"></a><code class="literal">dontStripHost</code></h5></div></div></div><p>
-        Like <code class="literal">dontStrip</code>, but only affects the <code class="literal">strip</code> command targetting the package’s host platform. Useful when supporting cross compilation, but otherwise feel free to ignore.
+        Like <code class="literal">dontStrip</code>, but only affects the <code class="literal">strip</code> command targeting the package’s host platform. Useful when supporting cross compilation, but otherwise feel free to ignore.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontStripTarget"></a><code class="literal">dontStripTarget</code></h5></div></div></div><p>
-        Like <code class="literal">dontStrip</code>, but only affects the <code class="literal">strip</code> command targetting the packages’ target platform. Useful when supporting cross compilation, but otherwise feel free to ignore.
+        Like <code class="literal">dontStrip</code>, but only affects the <code class="literal">strip</code> command targeting the packages’ target platform. Useful when supporting cross compilation, but otherwise feel free to ignore.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontMoveSbin"></a><code class="literal">dontMoveSbin</code></h5></div></div></div><p>
         If set, files in <code class="literal">$out/sbin</code> are not moved to <code class="literal">$out/bin</code>. By default, they are.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-stripAllList"></a><code class="literal">stripAllList</code></h5></div></div></div><p>
@@ -5181,7 +5181,7 @@ meta.hydraPlatforms = [];
        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-multiple-outputs-installing-nix-env"></a>Selecting outputs to install via <code class="literal">nix-env</code></h3></div></div></div><p>
       <code class="literal">nix-env</code> lacks an easy way to select the outputs to install. When installing a package, <code class="literal">nix-env</code> always installs the outputs listed in <code class="literal">meta.outputsToInstall</code>, even when the user explicitly selects an output.
      </p><div class="warning"><h3 class="title">Warning</h3><p>
-       <code class="literal">nix-env</code> silenty disregards the outputs selected by the user, and instead installs the outputs from <code class="literal">meta.outputsToInstall</code>. For example,
+       <code class="literal">nix-env</code> silently disregards the outputs selected by the user, and instead installs the outputs from <code class="literal">meta.outputsToInstall</code>. For example,
       </p><pre class="programlisting">
 $ nix-env -iA nixpkgs.coreutils.info
 </pre><p>
@@ -6886,7 +6886,7 @@ stdenv.mkDerivation {
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="xcbuildhook"></a>xcbuildHook</h2></div></div></div><p>
      Overrides the build and install phases to run the <span class="quote">“<span class="quote">xcbuild</span>”</span> command. This hook is needed when a project only comes with build files for the XCode build system. You can disable this behavior by setting buildPhase and configurePhase to a custom value. xcbuildFlags controls flags passed only to xcbuild.
     </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
-    The <a class="link" href="#chap-stdenv" title="The Standard Environment">standard build environment</a> makes it easy to build typical Autotools-based packages with very little code. Any other kind of package can be accomodated by overriding the appropriate phases of <code class="literal">stdenv</code>. However, there are specialised functions in Nixpkgs to easily build packages for other programming languages, such as Perl or Haskell. These are described in this chapter.
+    The <a class="link" href="#chap-stdenv" title="The Standard Environment">standard build environment</a> makes it easy to build typical Autotools-based packages with very little code. Any other kind of package can be accommodated by overriding the appropriate phases of <code class="literal">stdenv</code>. However, there are specialised functions in Nixpkgs to easily build packages for other programming languages, such as Perl or Haskell. These are described in this chapter.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="agda"></a>Agda</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="how-to-use-agda"></a>How to use Agda</h3></div></div></div><p>
       Agda is available as the <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=agda&amp;from=0&amp;size=30&amp;sort=relevance&amp;query=agda" target="_top">agda</a> package.
      </p><p>
@@ -7381,7 +7381,7 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
            </p></li><li class="listitem"><p>
             pass <code class="literal">mixNixDeps = with pkgs; import ./mix_deps.nix { inherit lib beamPackages; };</code> as an argument to mixRelease.
            </p></li></ul></div><p>
-          If there are git depencencies.
+          If there are git dependencies.
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
             You’ll need to fix the version artificially in mix.exs and regenerate the mix.lock with fixed version (on upstream). This will enable you to run <code class="literal">mix2nix &gt; mix_deps.nix</code>.
            </p></li><li class="listitem"><p>
@@ -7769,7 +7769,7 @@ $ egg2nix eggs.scm &gt; eggs.nix
        </p></li><li class="listitem"><p>
         <code class="literal">coq-version</code> (optional, defaults to the short version e.g. <span class="quote">“<span class="quote">8.10</span>”</span>), is a version number of the form <span class="quote">“<span class="quote">x.y</span>”</span> that indicates which Coq’s version build behavior to mimic when using a source which is not a release. E.g. <code class="literal">coq.override { version = "d370a9d1328a4e1cdb9d02ee032f605a9d94ec7a"; coq-version = "8.10"; }</code>.
        </p></li></ul></div><p>
-      The associated package set can be optained using <code class="literal">mkCoqPackages coq</code>, where <code class="literal">coq</code> is the derivation to use.
+      The associated package set can be obtained using <code class="literal">mkCoqPackages coq</code>, where <code class="literal">coq</code> is the derivation to use.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="coq-packages-attribute-sets-coqpackages"></a>Coq packages attribute sets: <code class="literal">coqPackages</code></h3></div></div></div><p>
       The recommended way of defining a derivation for a Coq library, is to use the <code class="literal">coqPackages.mkCoqDerivation</code> function, which is essentially a specialization of <code class="literal">mkDerivation</code> taking into account most of the specifics of Coq libraries. The following attributes are supported:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
@@ -7999,7 +7999,7 @@ in callPackage { inherit cudaPackages; };
 </pre><p>
      The CUDA NVCC compiler requires flags to determine which hardware you want to target for in terms of SASS (real hardware) or PTX (JIT kernels).
     </p><p>
-     Nixpkgs tries to target support real architecture defaults based on the CUDA toolkit version with PTX support for future hardware. Experienced users may optmize this configuration for a variety of reasons such as reducing binary size and compile time, supporting legacy hardware, or optimizing for specific hardware.
+     Nixpkgs tries to target support real architecture defaults based on the CUDA toolkit version with PTX support for future hardware. Experienced users may optimize this configuration for a variety of reasons such as reducing binary size and compile time, supporting legacy hardware, or optimizing for specific hardware.
     </p><p>
      You may provide capabilities to add support or reduce binary size through <code class="literal">config</code> using <code class="literal">cudaCapabilities = [ "6.0" "7.0" ];</code> and <code class="literal">cudaForwardCompat = true;</code> if you want PTX support for future hardware.
     </p><p>
@@ -8049,9 +8049,9 @@ pkgs.writeCueValidator
 </pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         The first parameter is the Cue schema file.
        </p></li><li class="listitem"><p>
-        The second paramter is an options parameter, currently, only: <code class="literal">document</code> can be passed.
+        The second parameter is an options parameter, currently, only: <code class="literal">document</code> can be passed.
        </p></li></ul></div><p>
-      <code class="literal">document</code> : match your input data against this fragment of structure or definition, e.g. you may use the same schema file but differents documents based on the data you are validating.
+      <code class="literal">document</code> : match your input data against this fragment of structure or definition, e.g. you may use the same schema file but different documents based on the data you are validating.
      </p><p>
       Another example, given the following <code class="literal">validator.nix</code> :
      </p><pre class="programlisting">
@@ -9065,9 +9065,9 @@ done
       </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="haskell"></a>Haskell</h2></div></div></div><p>
      The documentation for the Haskell infrastructure is published at <a class="link" href="https://haskell4nix.readthedocs.io/" target="_top">https://haskell4nix.readthedocs.io/</a>. The source code for that site lives in the <code class="literal">doc/</code> sub-directory of the <a class="link" href="https://github.com/NixOS/cabal2nix" target="_top"><code class="literal">cabal2nix</code> Git repository</a> and changes can be submitted there.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-hy"></a>Hy</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-hy-installation"></a>Installation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="installation-without-packages"></a>Installation without packages</h4></div></div></div><p>
-       You can install <code class="literal">hy</code> via nix-env or by adding it to <code class="literal">configuration.nix</code> by reffering to it as a <code class="literal">hy</code> attribute. This kind of installation adds <code class="literal">hy</code> to your environment and it succesfully works with <code class="literal">python3</code>.
+       You can install <code class="literal">hy</code> via nix-env or by adding it to <code class="literal">configuration.nix</code> by referring to it as a <code class="literal">hy</code> attribute. This kind of installation adds <code class="literal">hy</code> to your environment and it successfully works with <code class="literal">python3</code>.
       </p><div class="caution"><h3 class="title">Caution</h3><p>
-        Packages that are installed with your python derivation, are not accesible by <code class="literal">hy</code> this way.
+        Packages that are installed with your python derivation, are not accessible by <code class="literal">hy</code> this way.
        </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="installation-with-packages"></a>Installation with packages</h4></div></div></div><p>
        Creating <code class="literal">hy</code> derivation with custom <code class="literal">python</code> packages is really simple and similar to the way that python does it. Attribute <code class="literal">hy</code> provides function <code class="literal">withPackages</code> that creates custom <code class="literal">hy</code> derivation with specified packages.
       </p><p>
@@ -10991,7 +10991,7 @@ buildPythonPackage rec {
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-pytestcheckhook"></a>Using pytestCheckHook</h5></div></div></div><p>
         <code class="literal">pytestCheckHook</code> is a convenient hook which will substitute the setuptools <code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">pytest</code>. This is also beneficial when a package may need many items disabled to run the test suite.
        </p><p>
-        Using the example above, the analagous <code class="literal">pytestCheckHook</code> usage would be:
+        Using the example above, the analogous <code class="literal">pytestCheckHook</code> usage would be:
        </p><pre class="programlisting">
   checkInputs = [ pytestCheckHook ];
 
@@ -11008,7 +11008,7 @@ buildPythonPackage rec {
     "tests/test_failing.py"
   ];
 </pre><p>
-        This is expecially useful when tests need to be conditionally disabled, for example:
+        This is especially useful when tests need to be conditionally disabled, for example:
        </p><pre class="programlisting">
   disabledTests = [
     # touches network
@@ -12451,7 +12451,7 @@ rustPlatform.buildRustPackage {
        </p><p>
         However, please check if it’s possible to disable a problematic subset of the test suite and leave a comment explaining your reasoning.
        </p><p>
-        This can be achived with <code class="literal">--skip</code> in <code class="literal">checkFlags</code>:
+        This can be achieved with <code class="literal">--skip</code> in <code class="literal">checkFlags</code>:
        </p><pre class="programlisting">
 rustPlatform.buildRustPackage {
   /* ... */
@@ -14849,7 +14849,7 @@ Reason: several people cannot boot with ZFS on NVMe
          <span class="strong"><strong>Yes</strong></span>: <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#submitting-changes-stable-release-branches" target="_top">Backport the change to the vulnerable release branch(es)</a>.
         </p></li></ul></div></li><li class="listitem"><p>
        When the patch has made it into all the relevant branches (<code class="literal">master</code>, and the vulnerable releases), close the relevant issue(s).
-      </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-reviewing-contributions"></a>Reviewing contributions</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#reviewing-contributions-package-updates">Package updates</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-new-packages">New packages</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-module-updates">Module updates</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-new-modules">New modules</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-indvidual-maintainer-list">Individual maintainer list</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-maintainer-teams">Maintainer teams</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-other-submissions">Other submissions</a></span></dt><dt><span class="section"><a href="#reviewing-contributions--merging-pull-requests">Merging pull requests</a></span></dt></dl></div><div class="warning"><h3 class="title">Warning</h3><p>
+      </p></li></ul></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-reviewing-contributions"></a>Reviewing contributions</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#reviewing-contributions-package-updates">Package updates</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-new-packages">New packages</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-module-updates">Module updates</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-new-modules">New modules</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-individual-maintainer-list">Individual maintainer list</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-maintainer-teams">Maintainer teams</a></span></dt><dt><span class="section"><a href="#reviewing-contributions-other-submissions">Other submissions</a></span></dt><dt><span class="section"><a href="#reviewing-contributions--merging-pull-requests">Merging pull requests</a></span></dt></dl></div><div class="warning"><h3 class="title">Warning</h3><p>
      The following section is a draft, and the policy for reviewing is still being discussed in issues such as <a class="link" href="https://github.com/NixOS/nixpkgs/issues/11166" target="_top">#11166</a> and <a class="link" href="https://github.com/NixOS/nixpkgs/issues/20836" target="_top">#20836</a>.
     </p></div><p>
     The Nixpkgs project receives a fairly high number of contributions via GitHub pull requests. Reviewing and approving these is an important task and a way to contribute to the project.
@@ -15055,7 +15055,7 @@ $ nix-shell -p nixpkgs-review --run "nixpkgs-review pr PRNUMBER"
 ##### Possible improvements
 
 ##### Comments
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="reviewing-contributions-indvidual-maintainer-list"></a>Individual maintainer list</h2></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="reviewing-contributions-individual-maintainer-list"></a>Individual maintainer list</h2></div></div></div><p>
      When adding users to <code class="literal">maintainers/maintainer-list.nix</code>, the following checks should be performed:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
        If the user has specified a GPG key, verify that the commit is signed by their key.
