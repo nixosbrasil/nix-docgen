@@ -87,6 +87,13 @@
           need to explicitly set this option to <code class="literal">true</code>,
           or configure your firewall.
         </p></li><li class="listitem"><p>
+          The Nginx module now validates the syntax of config files at
+          build time. For more complex configurations (using
+          <code class="literal">include</code> with out-of-store files notably)
+          you may need to disable this check by setting
+          <a class="link" href="options.html#opt-services.nginx.validateConfig">services.nginx.validateConfig</a>
+          to <code class="literal">false</code>.
+        </p></li><li class="listitem"><p>
           The EC2 image module previously detected and automatically
           mounted ext3-formatted instance store devices and partitions
           in stage-1 (initramfs), storing <code class="literal">/tmp</code> on the
@@ -131,6 +138,13 @@
           <code class="literal">opensnitch</code> got the ability to configure
           rules. Available as
           <a class="link" href="options.html#opt-services.opensnitch.rules">services.opensnitch.rules</a>
+        </p></li><li class="listitem"><p>
+          The module <code class="literal">usbmuxd</code> now has the ability to
+          change the package used by the daemon. In case you’re
+          experiencing issues with <code class="literal">usbmuxd</code> you can
+          try an alternative program like <code class="literal">usbmuxd2</code>.
+          Available as
+          <a class="link" href="options.html#opt-services.usbmuxd.package">services.usbmuxd.package</a>
         </p></li><li class="listitem"><p>
           <code class="literal">services.mastodon</code> gained a tootctl wrapped
           named <code class="literal">mastodon-tootctl</code> similar to
