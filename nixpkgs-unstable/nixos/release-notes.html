@@ -87,6 +87,13 @@
           need to explicitly set this option to <code class="literal">true</code>,
           or configure your firewall.
         </p></li><li class="listitem"><p>
+          The Nginx module now validates the syntax of config files at
+          build time. For more complex configurations (using
+          <code class="literal">include</code> with out-of-store files notably)
+          you may need to disable this check by setting
+          <a class="link" href="options.html#opt-services.nginx.validateConfig">services.nginx.validateConfig</a>
+          to <code class="literal">false</code>.
+        </p></li><li class="listitem"><p>
           The EC2 image module previously detected and automatically
           mounted ext3-formatted instance store devices and partitions
           in stage-1 (initramfs), storing <code class="literal">/tmp</code> on the

@@ -1674,7 +1674,7 @@ stringToCharacters ""
 =&gt; [ ]
 stringToCharacters "abc"
 =&gt; [ "a" "b" "c" ]
-stringToCharacters "💩"
+stringToCharacters "🦄"
 =&gt; [ "�" "�" "�" "�" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.stringToCharacters"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L287" target="_top">lib/strings.nix:287</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
@@ -3835,7 +3835,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.scrubOptionValue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L262" target="_top">lib/options.nix:262</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L273" target="_top">lib/options.nix:273</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.renderOptionValue"></a><code class="function">lib.options.renderOptionValue</code></h4></div></div></div><p>
        Ensures that the given option value (default or example) is a `_type`d string by rendering Nix values to `literalExpression`s.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3843,7 +3843,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.renderOptionValue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L273" target="_top">lib/options.nix:273</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L284" target="_top">lib/options.nix:284</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalExpression"></a><code class="function">lib.options.literalExpression</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given string to be rendered verbatim in the documentation as Nix code. This is necessary for complex values, e.g. functions, or values that depend on other values or packages.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3851,7 +3851,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalExpression"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L286" target="_top">lib/options.nix:286</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L297" target="_top">lib/options.nix:297</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalDocBook"></a><code class="function">lib.options.literalDocBook</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given DocBook text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3859,7 +3859,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalDocBook"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L297" target="_top">lib/options.nix:297</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L308" target="_top">lib/options.nix:308</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mdDoc"></a><code class="function">lib.options.mdDoc</code></h4></div></div></div><p>
        Transition marker for documentation that's already migrated to markdown syntax.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3867,7 +3867,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mdDoc"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L307" target="_top">lib/options.nix:307</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L318" target="_top">lib/options.nix:318</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalMD"></a><code class="function">lib.options.literalMD</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given MD text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3875,7 +3875,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalMD"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L315" target="_top">lib/options.nix:315</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L326" target="_top">lib/options.nix:326</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.showOption"></a><code class="function">lib.options.showOption</code></h4></div></div></div><p>
        Convert an option, described as a list of the option parts in to a safe, human readable version.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3893,7 +3893,7 @@ Placeholders will not be quoted as they are not actual values:
 Unlike attributes, options can also start with numbers:
 (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.2bwm.enable"
 </pre></div></div><br class="example-break" /><p><a id="lib.options.showOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L335" target="_top">lib/options.nix:335</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L346" target="_top">lib/options.nix:346</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-filesystem"></a>Filesystem functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.haskellPathsInDir"></a><code class="function">lib.filesystem.haskellPathsInDir</code></h4></div><div><h5 class="subtitle"><code class="literal">Path -&gt; Map String Path</code>
       </h5></div></div></div><p>
        A map of all haskell packages defined in the given path, identified by having a cabal file with the same name as the directory itself.
@@ -5983,7 +5983,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
         <code class="literal">nodes</code>: the evaluated NixOS configurations. Useful for debugging and exploring the configuration.
        </p></li><li class="listitem"><p>
         <code class="literal">driverInteractive</code>: a script that launches an interactive Python session in the context of the <code class="literal">testScript</code>.
-       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt></dl></div><p>
+       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt></dl></div><p>
     This chapter describes several special builders.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-fhs-environments"></a>buildFHSUserEnv</h2></div></div></div><p>
      <code class="literal">buildFHSUserEnv</code> provides a way to build and run FHS-compatible lightweight sandboxes. It creates an isolated root with bound <code class="literal">/nix/store</code>, so its footprint in terms of disk space needed is quite small. This allows one to run software which is hard or unfeasible to patch for NixOS – 3rd-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checking and/or external self-updated binaries. It uses Linux namespaces feature to create temporary lightweight environments which are destroyed after all child processes exit, without root user rights requirement. Accepted arguments are:
@@ -6057,7 +6057,49 @@ pkgs.mkShell {
       … all the attributes of <code class="literal">stdenv.mkDerivation</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.4.5"></a>Building the shell</h3></div></div></div><p>
       This derivation output will contain a text file that contains a reference to all the build inputs. This is useful in CI where we want to make sure that every derivation, and its dependencies, build properly. Or when creating a GC root so that the build dependencies don’t get garbage-collected.
-     </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt></dl></div><p>
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-darwin-builder"></a>darwin.builder</h2></div></div></div><p>
+     <code class="literal">darwin.builder</code> provides a way to bootstrap a Linux builder on a macOS machine.
+    </p><p>
+     This requires macOS version 12.4 or later.
+    </p><p>
+     This also requires that port 22 on your machine is free (since Nix does not permit specifying a non-default SSH port for builders).
+    </p><p>
+     You will also need to be a trusted user for your Nix installation. In other words, your <code class="literal">/etc/nix/nix.conf</code> should have something like:
+    </p><pre class="programlisting">
+extra-trusted-users = &lt;your username goes here&gt;
+</pre><p>
+     To launch the builder, run the following flake:
+    </p><pre class="programlisting">
+$ nix run nixpkgs#darwin.builder
+</pre><p>
+     That will prompt you to enter your <code class="literal">sudo</code> password:
+    </p><pre class="programlisting">
++ sudo --reset-timestamp /nix/store/…-install-credentials.sh ./keys
+Password:
+</pre><p>
+     … so that it can install a private key used to <code class="literal">ssh</code> into the build server. After that the script will launch the virtual machine:
+    </p><pre class="programlisting">
+&lt;&lt;&lt; Welcome to NixOS 22.11.20220901.1bd8d11 (aarch64) - ttyAMA0 &gt;&gt;&gt;
+
+Run 'nixos-help' for the NixOS manual.
+
+nixos login:
+</pre><div class="blockquote"><blockquote class="blockquote"><p>
+      Note: When you need to stop the VM, type <code class="literal">Ctrl</code>-<code class="literal">a</code> + <code class="literal">c</code> to open the <code class="literal">qemu</code> prompt and then type <code class="literal">quit</code> followed by <code class="literal">Enter</code>
+     </p></blockquote></div><p>
+     To delegate builds to the remote builder, add the following options to your <code class="literal">nix.conf</code> file:
+    </p><pre class="programlisting">
+# - Replace ${ARCH} with either aarch64 or x86_64 to match your host machine
+# - Replace ${MAX_JOBS} with the maximum number of builds (pick 4 if you're not sure)
+builders = ssh-ng://builder@localhost ${ARCH}-linux /etc/nix/builder_ed25519 ${MAX_JOBS} - - - c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo='
+
+# Not strictly necessary, but this will reduce your disk utilization
+builders-use-substitutes = true
+</pre><p>
+     … and then restart your Nix daemon to apply the change:
+    </p><pre class="programlisting">
+$ sudo launchctl kickstart -k system/org.nixos.nix-daemon
+</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt></dl></div><p>
     This chapter describes tools for creating various types of images.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-appimageTools"></a>pkgs.appimageTools</h2></div></div></div><p>
      <code class="literal">pkgs.appimageTools</code> is a set of functions for extracting and wrapping <a class="link" href="https://appimage.org/" target="_top">AppImage</a> files. They are meant to be used if traditional packaging from source is infeasible, or it would take too long. To quickly run an AppImage file, <code class="literal">pkgs.appimage-run</code> can be used as well.
@@ -7247,7 +7289,6 @@ androidenv.emulateApp {
   platformVersion = "24";
   abiVersion = "armeabi-v7a"; # mips, x86, x86_64
   systemImageType = "default";
-  useGoogleAPIs = false;
   app = ./MyApp.apk;
   package = "MyApp";
   activity = "MainActivity";
@@ -8558,7 +8599,6 @@ in buildDotnetModule rec {
 
   dotnet-sdk = dotnetCorePackages.sdk_3_1;
   dotnet-runtime = dotnetCorePackages.net_5_0;
-  dotnetFlags = [ "--runtime linux-x64" ];
 
   executables = [ "foo" ]; # This wraps "$out/lib/$pname/foo" to `$out/bin/foo`.
   executables = []; # Don't install any executables.
