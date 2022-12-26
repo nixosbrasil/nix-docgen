@@ -12520,7 +12520,21 @@ rustPlatform.buildRustPackage rec {
 }
 </pre><p>
        If you do not specify an output hash for a git dependency, building the package will fail and inform you of which crate needs to be added. To find the correct hash, you can first use <code class="literal">lib.fakeSha256</code> or <code class="literal">lib.fakeHash</code> as a stub hash. Building the package (and thus the vendored dependencies) will then inform you of the correct hash.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="cargo-features"></a>Cargo features</h4></div></div></div><p>
+      </p><p>
+       For usage outside nixpkgs, <code class="literal">allowBuiltinFetchGit</code> could be used to avoid having to specify <code class="literal">outputHashes</code>. For example:
+      </p><pre class="programlisting">
+rustPlatform.buildRustPackage rec {
+  pname = "myproject";
+  version = "1.0.0";
+
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    allowBuiltinFetchGit = true;
+  };
+
+  # ...
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="cargo-features"></a>Cargo features</h4></div></div></div><p>
        You can disable default features using <code class="literal">buildNoDefaultFeatures</code>, and extra features can be added with <code class="literal">buildFeatures</code>.
       </p><p>
        If you want to use different features for check phase, you can use <code class="literal">checkNoDefaultFeatures</code> and <code class="literal">checkFeatures</code>. They are only passed to <code class="literal">cargo test</code> and not <code class="literal">cargo build</code>. If left unset, they default to <code class="literal">buildNoDefaultFeatures</code> and <code class="literal">buildFeatures</code>.
@@ -14341,6 +14355,10 @@ buildInputs = if stdenv.isDarwin then [ iconv ] else null;
           <span class="strong"><strong>If it’s a <span class="emphasis"><em>build manager</em></span>:</strong></span>
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
             <code class="literal">development/tools/build-managers</code> (e.g. <code class="literal">gnumake</code>)
+           </p></li></ul></div></li><li class="listitem"><p>
+          <span class="strong"><strong>If it’s a <span class="emphasis"><em>language server</em></span>:</strong></span>
+         </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+            <code class="literal">development/tools/language-servers</code> (e.g. <code class="literal">ccls</code> or <code class="literal">rnix-lsp</code>)
            </p></li></ul></div></li><li class="listitem"><p>
           <span class="strong"><strong>Else:</strong></span>
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
