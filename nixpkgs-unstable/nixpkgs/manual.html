@@ -6210,7 +6210,7 @@ builders-use-substitutes = true
      … and then restart your Nix daemon to apply the change:
     </p><pre class="programlisting">
 $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
-</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt></dl></div><p>
+</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt><dt><span class="section"><a href="#sec-make-disk-image"><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></a></span></dt></dl></div><p>
     This chapter describes tools for creating various types of images.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-appimageTools"></a>pkgs.appimageTools</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-pkgs-appimageTools-formats">AppImage formats</a></span></dt><dt><span class="section"><a href="#ssec-pkgs-appimageTools-wrapping">Wrapping</a></span></dt></dl></div><p>
      <code class="literal">pkgs.appimageTools</code> is a set of functions for extracting and wrapping <a class="link" href="https://appimage.org/" target="_top">AppImage</a> files. They are meant to be used if traditional packaging from source is infeasible, or it would take too long. To quickly run an AppImage file, <code class="literal">pkgs.appimage-run</code> can be used as well.
@@ -6851,7 +6851,112 @@ systemctl enable --now demo.socket
 systemctl enable --now demo.service
 </pre><div class="note"><h3 class="title">Note</h3><p>
       See the <a class="link" href="https://www.freedesktop.org/software/systemd/man/portablectl.html" target="_top">man page</a> of <code class="literal">portablectl</code> for more info on its usage.
-     </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-hooks"></a>Hooks reference</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#setup-hook-autoconf">Autoconf</a></span></dt><dt><span class="section"><a href="#setup-hook-automake">Automake</a></span></dt><dt><span class="section"><a href="#setup-hook-autopatchelfhook">autoPatchelfHook</a></span></dt><dt><span class="section"><a href="#breakpointhook">breakpointHook</a></span></dt><dt><span class="section"><a href="#cmake">cmake</a></span></dt><dt><span class="section"><a href="#setup-hook-gdk-pixbuf">gdk-pixbuf</a></span></dt><dt><span class="section"><a href="#ghc">GHC</a></span></dt><dt><span class="section"><a href="#gnome-platform">GNOME platform</a></span></dt><dt><span class="section"><a href="#installshellfiles"><code class="literal">installShellFiles</code></a></span></dt><dt><span class="section"><a href="#libiconv-libintl">libiconv, libintl</a></span></dt><dt><span class="section"><a href="#setup-hook-libxml2">libxml2</a></span></dt><dt><span class="section"><a href="#meson">Meson</a></span></dt><dt><span class="section"><a href="#ninja">ninja</a></span></dt><dt><span class="section"><a href="#sec-patchRcPathHooks"><code class="literal">patchRcPath</code> hooks</a></span></dt><dt><span class="section"><a href="#setup-hook-perl">Perl</a></span></dt><dt><span class="section"><a href="#setup-hook-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#sec-postgresqlTestHook"><code class="literal">postgresqlTestHook</code></a></span></dt><dt><span class="section"><a href="#setup-hook-python">Python</a></span></dt><dt><span class="section"><a href="#qt-4">Qt 4</a></span></dt><dt><span class="section"><a href="#scons">scons</a></span></dt><dt><span class="section"><a href="#tetex-tex-live">teTeX / TeX Live</a></span></dt><dt><span class="section"><a href="#unzip">unzip</a></span></dt><dt><span class="section"><a href="#validatepkgconfig">validatePkgConfig</a></span></dt><dt><span class="section"><a href="#wafhook">wafHook</a></span></dt><dt><span class="section"><a href="#xcbuildhook">xcbuildHook</a></span></dt></dl></div><p>
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-make-disk-image"></a><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#id-1.5.6.8.7">Features</a></span></dt><dt><span class="section"><a href="#id-1.5.6.8.8">Usage</a></span></dt></dl></div><p>
+     <code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code> is a function to create <span class="emphasis"><em>disk images</em></span> in multiple formats: raw, QCOW2 (QEMU), QCOW2-Compressed (compressed version), VDI (VirtualBox), VPC (VirtualPC).
+    </p><p>
+     This function can create images in two ways:
+    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+       using <code class="literal">cptofs</code> without any virtual machine to create a Nix store disk image,
+      </p></li><li class="listitem"><p>
+       using a virtual machine to create a full NixOS installation.
+      </p></li></ul></div><p>
+     When testing early-boot or lifecycle parts of NixOS such as a bootloader or multiple generations, it is necessary to opt for a full NixOS system installation. Whereas for many web servers, applications, it is possible to work with a Nix store only disk image and is faster to build.
+    </p><p>
+     NixOS tests also use this function when preparing the VM. The <code class="literal">cptofs</code> method is used when <code class="literal">virtualisation.useBootLoader</code> is false (the default). Otherwise the second method is used.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.6.8.7"></a>Features</h3></div></div></div><p>
+      For reference, read the function signature source code for documentation on arguments: <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/make-disk-image.nix" target="_top">https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/make-disk-image.nix</a>. Features are separated in various sections depending on if you opt for a Nix-store only image or a full NixOS image.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.6.8.7.3"></a>Common</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         arbitrary NixOS configuration
+        </p></li><li class="listitem"><p>
+         automatic or bound disk size: <code class="literal">diskSize</code> parameter, <code class="literal">additionalSpace</code> can be set when <code class="literal">diskSize</code> is <code class="literal">auto</code> to add a constant of disk space
+        </p></li><li class="listitem"><p>
+         multiple partition table layouts: EFI, legacy, legacy + GPT, hybrid, none through <code class="literal">partitionTableType</code> parameter
+        </p></li><li class="listitem"><p>
+         OVMF or EFI firmwares and variables templates can be customized
+        </p></li><li class="listitem"><p>
+         root filesystem <code class="literal">fsType</code> can be customized to whatever <code class="literal">mkfs.${fsType}</code> exist during operations
+        </p></li><li class="listitem"><p>
+         root filesystem label can be customized, defaults to <code class="literal">nix-store</code> if it’s a Nix store image, otherwise <code class="literal">nixpkgs/nixos</code>
+        </p></li><li class="listitem"><p>
+         arbitrary code can be executed after disk image was produced with <code class="literal">postVM</code>
+        </p></li><li class="listitem"><p>
+         the current nixpkgs can be realized as a channel in the disk image, which will change the hash of the image when the sources are updated
+        </p></li><li class="listitem"><p>
+         additional store paths can be provided through <code class="literal">additionalPaths</code>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.6.8.7.4"></a>Full NixOS image</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         arbitrary contents with permissions can be placed in the target filesystem using <code class="literal">contents</code>
+        </p></li><li class="listitem"><p>
+         a <code class="literal">/etc/nixpkgs/nixos/configuration.nix</code> can be provided through <code class="literal">configFile</code>
+        </p></li><li class="listitem"><p>
+         bootloaders are supported
+        </p></li><li class="listitem"><p>
+         EFI variables can be mutated during image production and the result is exposed in <code class="literal">$out</code>
+        </p></li><li class="listitem"><p>
+         boot partition size when partition table is <code class="literal">efi</code> or <code class="literal">hybrid</code>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.6.8.7.5"></a>On bit-to-bit reproducibility</h4></div></div></div><p>
+       Images are <span class="strong"><strong>NOT</strong></span> deterministic, please do not hesitate to try to fix this, source of determinisms are (not exhaustive) :
+      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         bootloader installation have timestamps
+        </p></li><li class="listitem"><p>
+         SQLite Nix store database contain registration times
+        </p></li><li class="listitem"><p>
+         <code class="literal">/etc/shadow</code> is in a non-deterministic order
+        </p></li></ul></div><p>
+       A <code class="literal">deterministic</code> flag is available for best efforts determinism.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.6.8.8"></a>Usage</h3></div></div></div><p>
+      To produce a Nix-store only image:
+     </p><pre class="programlisting">
+let
+  pkgs = import &lt;nixpkgs&gt; {};
+  lib = pkgs.lib;
+  make-disk-image = import &lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;;
+in
+  make-disk-image {
+    inherit pkgs lib;
+    config = {};
+    additionalPaths = [ ];
+    format = "qcow2";
+    onlyNixStore = true;
+    partitionTableType = "none";
+    installBootLoader = false;
+    touchEFIVars = false;
+    diskSize = "auto";
+    additionalSpace = "0M"; # Defaults to 512M.
+    copyChannel = false;
+  }
+</pre><p>
+      Some arguments can be left out, they are shown explicitly for the sake of the example.
+     </p><p>
+      Building this derivation will provide a QCOW2 disk image containing only the Nix store and its registration information.
+     </p><p>
+      To produce a NixOS installation image disk with UEFI and bootloader installed:
+     </p><pre class="programlisting">
+let
+  pkgs = import &lt;nixpkgs&gt; {};
+  lib = pkgs.lib;
+  make-disk-image = import &lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;;
+  evalConfig = import &lt;nixpkgs/nixos/lib/eval-config.nix&gt;;
+in
+  make-disk-image {
+    inherit pkgs lib;
+    config = evalConfig {
+      modules = [
+        {
+          fileSystems."/" = { device = "/dev/vda"; fsType = "ext4"; autoFormat = true; };
+          boot.grub.device = "/dev/vda";
+        }
+      ];
+    };
+    format = "qcow2";
+    onlyNixStore = false;
+    partitionTableType = "legacy+gpt";
+    installBootLoader = true;
+    touchEFIVars = true;
+    diskSize = "auto";
+    additionalSpace = "0M"; # Defaults to 512M.
+    copyChannel = false;
+  }
+</pre></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-hooks"></a>Hooks reference</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#setup-hook-autoconf">Autoconf</a></span></dt><dt><span class="section"><a href="#setup-hook-automake">Automake</a></span></dt><dt><span class="section"><a href="#setup-hook-autopatchelfhook">autoPatchelfHook</a></span></dt><dt><span class="section"><a href="#breakpointhook">breakpointHook</a></span></dt><dt><span class="section"><a href="#cmake">cmake</a></span></dt><dt><span class="section"><a href="#setup-hook-gdk-pixbuf">gdk-pixbuf</a></span></dt><dt><span class="section"><a href="#ghc">GHC</a></span></dt><dt><span class="section"><a href="#gnome-platform">GNOME platform</a></span></dt><dt><span class="section"><a href="#installshellfiles"><code class="literal">installShellFiles</code></a></span></dt><dt><span class="section"><a href="#libiconv-libintl">libiconv, libintl</a></span></dt><dt><span class="section"><a href="#setup-hook-libxml2">libxml2</a></span></dt><dt><span class="section"><a href="#meson">Meson</a></span></dt><dt><span class="section"><a href="#ninja">ninja</a></span></dt><dt><span class="section"><a href="#sec-patchRcPathHooks"><code class="literal">patchRcPath</code> hooks</a></span></dt><dt><span class="section"><a href="#setup-hook-perl">Perl</a></span></dt><dt><span class="section"><a href="#setup-hook-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#sec-postgresqlTestHook"><code class="literal">postgresqlTestHook</code></a></span></dt><dt><span class="section"><a href="#setup-hook-python">Python</a></span></dt><dt><span class="section"><a href="#qt-4">Qt 4</a></span></dt><dt><span class="section"><a href="#scons">scons</a></span></dt><dt><span class="section"><a href="#tetex-tex-live">teTeX / TeX Live</a></span></dt><dt><span class="section"><a href="#unzip">unzip</a></span></dt><dt><span class="section"><a href="#validatepkgconfig">validatePkgConfig</a></span></dt><dt><span class="section"><a href="#wafhook">wafHook</a></span></dt><dt><span class="section"><a href="#xcbuildhook">xcbuildHook</a></span></dt></dl></div><p>
     Nixpkgs has several hook packages that augment the stdenv phases.
    </p><p>
     The stdenv built-in hooks are documented in <a class="xref" href="#ssec-setup-hooks" title="Package setup hooks">the section called “Package setup hooks”</a>.
@@ -12520,7 +12625,21 @@ rustPlatform.buildRustPackage rec {
 }
 </pre><p>
        If you do not specify an output hash for a git dependency, building the package will fail and inform you of which crate needs to be added. To find the correct hash, you can first use <code class="literal">lib.fakeSha256</code> or <code class="literal">lib.fakeHash</code> as a stub hash. Building the package (and thus the vendored dependencies) will then inform you of the correct hash.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="cargo-features"></a>Cargo features</h4></div></div></div><p>
+      </p><p>
+       For usage outside nixpkgs, <code class="literal">allowBuiltinFetchGit</code> could be used to avoid having to specify <code class="literal">outputHashes</code>. For example:
+      </p><pre class="programlisting">
+rustPlatform.buildRustPackage rec {
+  pname = "myproject";
+  version = "1.0.0";
+
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    allowBuiltinFetchGit = true;
+  };
+
+  # ...
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="cargo-features"></a>Cargo features</h4></div></div></div><p>
        You can disable default features using <code class="literal">buildNoDefaultFeatures</code>, and extra features can be added with <code class="literal">buildFeatures</code>.
       </p><p>
        If you want to use different features for check phase, you can use <code class="literal">checkNoDefaultFeatures</code> and <code class="literal">checkFeatures</code>. They are only passed to <code class="literal">cargo test</code> and not <code class="literal">cargo build</code>. If left unset, they default to <code class="literal">buildNoDefaultFeatures</code> and <code class="literal">buildFeatures</code>.
@@ -14341,6 +14460,10 @@ buildInputs = if stdenv.isDarwin then [ iconv ] else null;
           <span class="strong"><strong>If it’s a <span class="emphasis"><em>build manager</em></span>:</strong></span>
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
             <code class="literal">development/tools/build-managers</code> (e.g. <code class="literal">gnumake</code>)
+           </p></li></ul></div></li><li class="listitem"><p>
+          <span class="strong"><strong>If it’s a <span class="emphasis"><em>language server</em></span>:</strong></span>
+         </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
+            <code class="literal">development/tools/language-servers</code> (e.g. <code class="literal">ccls</code> or <code class="literal">rnix-lsp</code>)
            </p></li></ul></div></li><li class="listitem"><p>
           <span class="strong"><strong>Else:</strong></span>
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: square; "><li class="listitem"><p>
