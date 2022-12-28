@@ -13,6 +13,10 @@
           <a class="link" href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204" target="_top">the
           pull request</a> for what is changed.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          <a class="link" href="https://akkoma.social" target="_top">Akkoma</a>, an
+          ActivityPub microblogging server. Available as
+          <a class="link" href="options.html#opt-services.akkoma.enable" target="_top">services.akkoma</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/akinomyoga/ble.sh" target="_top">blesh</a>,
           a line editor written in pure bash. Available as
           <a class="link" href="options.html#opt-programs.bash.blesh.enable">programs.bash.blesh</a>.
@@ -3745,7 +3749,7 @@ Superuser created successfully.
           database format in <code class="literal">2021-05-04</code>, and requires
           a full resync
         </p></li><li class="listitem"><p>
-          The <code class="literal">erigon</code> ethereum node has moved it’s
+          The <code class="literal">erigon</code> ethereum node has moved its
           database location in <code class="literal">2021-08-03</code>, users
           upgrading must manually move their chaindata (see
           <a class="link" href="https://github.com/ledgerwatch/erigon/releases/tag/v2021.08.03" target="_top">release
@@ -4708,14 +4712,14 @@ Superuser created successfully.
         </p></li><li class="listitem"><p>
           The <code class="literal">networking.wireless.iwd</code> module now
           installs the upstream-provided 80-iwd.link file, which sets
-          the NamePolicy= for all wlan devices to "keep
-          kernel", to avoid race conditions between iwd and
-          networkd. If you don't want this, you can set
+          the NamePolicy= for all wlan devices to <span class="quote">“<span class="quote">keep
+          kernel</span>”</span>, to avoid race conditions between iwd and
+          networkd. If you don’t want this, you can set
           <code class="literal">systemd.network.links."80-iwd" = lib.mkForce {}</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">rubyMinimal</code> was removed due to being unused
           and unusable. The default ruby interpreter includes JIT
-          support, which makes it reference it's compiler. Since JIT
+          support, which makes it reference it’s compiler. Since JIT
           support is probably needed by some Gems, it was decided to
           enable this feature with all cc references by default, and
           allow to build a Ruby derivation without references to cc, by
@@ -4844,7 +4848,7 @@ Superuser created successfully.
         </p></li><li class="listitem"><p>
           <a class="link" href="options.html#opt-networking.wireguard.interfaces" target="_top">networking.wireguard.interfaces.&lt;name&gt;.generatePrivateKeyFile</a>,
           which is off by default, had a <code class="literal">chmod</code> race
-          condition fixed. As an aside, the parent directory's
+          condition fixed. As an aside, the parent directory’s
           permissions were widened, and the key files were made
           owner-writable. This only affects newly created keys. However,
           if the exact permissions are important for your setup, read
@@ -4918,7 +4922,7 @@ $ slapcat -F $TMPDIR -n0 -H 'ldap:///???(!(objectClass=olcSchemaConfig))'
             this directory are guarded to only run if the files they
             want to manipulate do not already exist, and so will not
             re-apply their changes if the IMDS response changes.
-            Examples: <code class="literal">root</code>'s SSH key is only added if
+            Examples: <code class="literal">root</code>’s SSH key is only added if
             <code class="literal">/root/.ssh/authorized_keys</code> does not
             exist, and SSH host keys are only set from user data if they
             do not exist in <code class="literal">/etc/ssh</code>.
@@ -4934,7 +4938,7 @@ $ slapcat -F $TMPDIR -n0 -H 'ldap:///???(!(objectClass=olcSchemaConfig))'
           configures Privoxy, and the
           <code class="literal">services.tor.client.privoxy.enable</code> option
           has been removed. To enable Privoxy, and to configure it to
-          use Tor's faster port, use the following configuration:
+          use Tor’s faster port, use the following configuration:
         </p><pre class="programlisting">
 {
   opt-services.privoxy.enable = true;
@@ -4993,7 +4997,7 @@ $ slapcat -F $TMPDIR -n0 -H 'ldap:///???(!(objectClass=olcSchemaConfig))'
           exporter no longer accepts a fixed command-line parameter to
           specify the URL of the endpoint serving JSON. It now expects
           this URL to be passed as an URL parameter, when scraping the
-          exporter's <code class="literal">/probe</code> endpoint. In the
+          exporter’s <code class="literal">/probe</code> endpoint. In the
           prometheus scrape configuration the scrape target might look
           like this:
         </p><pre class="programlisting">
@@ -5108,7 +5112,7 @@ self: super:
           for any device that the kernel recognises as an hardware RNG,
           as it will automatically run the krngd task to periodically
           collect random data from the device and mix it into the
-          kernel's RNG.
+          kernel’s RNG.
         </p><p>
           The default SMTP port for GitLab has been changed to
           <code class="literal">25</code> from its previous default of
@@ -5186,7 +5190,7 @@ self: super:
           <code class="literal">services.minio.dataDir</code> changed type to a
           list of paths, required for specifiyng multiple data
           directories for using with erasure coding. Currently, the
-          service doesn't enforce nor checks the correct number of paths
+          service doesn’t enforce nor checks the correct number of paths
           to correspond to minio requirements.
         </p></li><li class="listitem"><p>
           All CUDA toolkit versions prior to CUDA 10 have been removed.
@@ -5197,7 +5201,7 @@ self: super:
           <code class="literal">dvorak-programmer</code> in
           <code class="literal">console.keyMap</code> now instead of
           <code class="literal">dvp</code>. In
-          <code class="literal">services.xserver.xkbVariant</code> it's still
+          <code class="literal">services.xserver.xkbVariant</code> it’s still
           <code class="literal">dvp</code>.
         </p></li><li class="listitem"><p>
           The babeld service is now being run as an unprivileged user.
@@ -5228,7 +5232,7 @@ self: super:
           version is always used because old versions are not officially
           supported.
         </p><p>
-          Furthermore, Radicale's systemd unit was hardened which might
+          Furthermore, Radicale’s systemd unit was hardened which might
           break some deployments. In particular, a non-default
           <code class="literal">filesystem_folder</code> has to be added to
           <code class="literal">systemd.services.radicale.serviceConfig.ReadWritePaths</code>
@@ -5251,7 +5255,7 @@ self: super:
           for details.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://www.gnuradio.org/" target="_top">GNURadio</a>
-          has a <code class="literal">pkgs</code> attribute set, and there's a
+          has a <code class="literal">pkgs</code> attribute set, and there’s a
           <code class="literal">gnuradio.callPackage</code> function that extends
           <code class="literal">pkgs</code> with a
           <code class="literal">mkDerivation</code>, and a
@@ -5280,7 +5284,7 @@ self: super:
           0042</a> for the motivation).
         </p></li><li class="listitem"><p>
           <a class="link" href="https://kodi.tv/" target="_top">Kodi</a> has been
-          updated to version 19.1 "Matrix". See the
+          updated to version 19.1 <span class="quote">“<span class="quote">Matrix</span>”</span>. See the
           <a class="link" href="https://kodi.tv/article/kodi-19-0-matrix-release" target="_top">announcement</a>
           for further details.
         </p></li><li class="listitem"><p>
@@ -5331,9 +5335,9 @@ self: super:
           documentation</a>.
         </p></li><li class="listitem"><p>
           The default-version of <code class="literal">nextcloud</code> is
-          nextcloud21. Please note that it's <span class="emphasis"><em>not</em></span>
+          nextcloud21. Please note that it’s <span class="emphasis"><em>not</em></span>
           possible to upgrade <code class="literal">nextcloud</code> across
-          multiple major versions! This means that it's e.g. not
+          multiple major versions! This means that it’s e.g. not
           possible to upgrade from nextcloud18 to nextcloud20 in a
           single deploy and most <code class="literal">20.09</code> users will
           have to upgrade to nextcloud20 first.
@@ -5348,7 +5352,7 @@ self: super:
           listen on the loopback interface only, and not all public
           network interfaces.
         </p></li><li class="listitem"><p>
-          NixOS now emits a deprecation warning if systemd's
+          NixOS now emits a deprecation warning if systemd’s
           <code class="literal">StartLimitInterval</code> setting is used in a
           <code class="literal">serviceConfig</code> section instead of in a
           <code class="literal">unitConfig</code>; that setting is deprecated and
@@ -5461,8 +5465,8 @@ self: super:
           to use the new interface.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.dnscrypt-proxy2</code> module now
-          takes the upstream's example configuration and updates it with
-          the user's settings. An option has been added to restore the
+          takes the upstream’s example configuration and updates it with
+          the user’s settings. An option has been added to restore the
           old behaviour if you prefer to declare the configuration from
           scratch.
         </p></li><li class="listitem"><p>
@@ -5491,7 +5495,8 @@ self: super:
         </p></li><li class="listitem"><p>
           The zookeeper package does not provide
           <code class="literal">zooInspector.sh</code> anymore, as that
-          "contrib" has been dropped from upstream releases.
+          <span class="quote">“<span class="quote">contrib</span>”</span> has been dropped from upstream
+          releases.
         </p></li><li class="listitem"><p>
           In the ACME module, the data used to build the hash for the
           account directory has changed to accommodate new features to
@@ -5504,7 +5509,7 @@ self: super:
           now always ensures home directory permissions to be
           <code class="literal">0700</code>. Permissions had previously been
           ignored for already existing home directories, possibly
-          leaving them readable by others. The option's description was
+          leaving them readable by others. The option’s description was
           incorrect regarding ownership management and has been
           simplified greatly.
         </p></li><li class="listitem"><p>
@@ -6048,7 +6053,7 @@ self: super:
           See
           <a class="link" href="https://mariadb.com/kb/en/authentication-from-mariadb-104/" target="_top">Authentication
           from MariaDB 10.4</a>. unix_socket auth plugin does not use
-          a password, and uses the connecting user's UID instead. When a
+          a password, and uses the connecting user’s UID instead. When a
           new MariaDB data directory is initialized, two MariaDB users
           are created and can be used with new unix_socket auth plugin,
           as well as traditional mysql_native_password plugin:
@@ -6163,7 +6168,7 @@ WHERE table_schema = "zabbix" AND COLLATION_NAME = "utf8_general_ci";
         </p></li><li class="listitem"><p>
           <code class="literal">buildGoModule</code> now internally creates a
           vendor directory in the source tree for downloaded modules
-          instead of using go's
+          instead of using go’s
           <a class="link" href="https://golang.org/cmd/go/#hdr-Module_proxy_protocol" target="_top">module
           proxy protocol</a>. This storage format is simpler and
           therefore less likely to break with future versions of go. As
@@ -6222,14 +6227,14 @@ WHERE table_schema = "zabbix" AND COLLATION_NAME = "utf8_general_ci";
         </p><p>
           If you used the
           <code class="literal">boot.initrd.network.ssh.host*Key</code> options,
-          you'll get an error explaining how to convert your host keys
+          you’ll get an error explaining how to convert your host keys
           and migrate to the new
           <code class="literal">boot.initrd.network.ssh.hostKeys</code> option.
-          Otherwise, if you don't have any host keys set, you'll need to
+          Otherwise, if you don’t have any host keys set, you’ll need to
           generate some; see the <code class="literal">hostKeys</code> option
           documentation for instructions.
         </p></li><li class="listitem"><p>
-          Since this release there's an easy way to customize your PHP
+          Since this release there’s an easy way to customize your PHP
           install to get a much smaller base PHP with only wanted
           extensions enabled. See the following snippet installing a
           smaller PHP with the extensions <code class="literal">imagick</code>,
@@ -6249,7 +6254,7 @@ WHERE table_schema = "zabbix" AND COLLATION_NAME = "utf8_general_ci";
   ];
 }
 </pre><p>
-          The default <code class="literal">php</code> attribute hasn't lost any
+          The default <code class="literal">php</code> attribute hasn’t lost any
           extensions. The <code class="literal">opcache</code> extension has been
           added. All upstream PHP extensions are available under
           php.extensions.&lt;name?&gt;.
@@ -6392,7 +6397,7 @@ $ sudo /run/current-system/fine-tune/child-1/bin/switch-to-configuration test
         </p></li><li class="listitem"><p>
           The <code class="literal">systemd-networkd</code> option
           <code class="literal">systemd.network.networks.&lt;name&gt;.dhcp.CriticalConnection</code>
-          has been removed following upstream systemd's deprecation of
+          has been removed following upstream systemd’s deprecation of
           the same. It is recommended to use
           <code class="literal">systemd.network.networks.&lt;name&gt;.networkConfig.KeepConfiguration</code>
           instead. See systemd.network 5 for details.
@@ -6401,7 +6406,7 @@ $ sudo /run/current-system/fine-tune/child-1/bin/switch-to-configuration test
           <code class="literal">systemd.network.networks._name_.dhcpConfig</code>
           has been renamed to
           <a class="link" href="options.html#opt-systemd.network.networks._name_.dhcpV4Config" target="_top">systemd.network.networks.<span class="emphasis"><em>name</em></span>.dhcpV4Config</a>
-          following upstream systemd's documentation change. See
+          following upstream systemd’s documentation change. See
           systemd.network 5 for details.
         </p></li><li class="listitem"><p>
           In the <code class="literal">picom</code> module, several options that
@@ -6482,7 +6487,7 @@ $ sudo /run/current-system/fine-tune/child-1/bin/switch-to-configuration test
           The
           <a class="link" href="https://github.com/okTurtles/dnschain" target="_top">DNSChain</a>
           package and NixOS module have been removed from Nixpkgs as the
-          software is unmaintained and can't be built. For more
+          software is unmaintained and can’t be built. For more
           information see issue
           <a class="link" href="https://github.com/NixOS/nixpkgs/issues/89205" target="_top">#89205</a>.
         </p></li><li class="listitem"><p>
@@ -6525,7 +6530,7 @@ $ sudo /run/current-system/fine-tune/child-1/bin/switch-to-configuration test
             </p></li><li class="listitem"><p>
               Update servers first, then clients.
             </p></li></ul></div></li><li class="listitem"><p>
-          Radicale's default package has changed from 2.x to 3.x. An
+          Radicale’s default package has changed from 2.x to 3.x. An
           upgrade checklist can be found
           <a class="link" href="https://github.com/Kozea/Radicale/blob/3.0.x/NEWS.md#upgrade-checklist" target="_top">here</a>.
           You can use the newer version in the NixOS service by setting
@@ -6616,8 +6621,8 @@ $ sudo /run/current-system/fine-tune/child-1/bin/switch-to-configuration test
 }
 </pre><p>
           The base package has also been upgraded to the 2020-07-29
-          "Hogfather" release. Plugins might be incompatible
-          or require upgrading.
+          <span class="quote">“<span class="quote">Hogfather</span>”</span> release. Plugins might be
+          incompatible or require upgrading.
         </p></li><li class="listitem"><p>
           The
           <a class="link" href="options.html#opt-services.postgresql.dataDir" target="_top">services.postgresql.dataDir</a>
@@ -6703,7 +6708,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           <code class="literal">pkgs.jellyfin_10_5</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">security.rngd</code> service is now disabled
-          by default. This choice was made because there's krngd in the
+          by default. This choice was made because there’s krngd in the
           linux kernel space making it (for most usecases) functionally
           redundent.
         </p></li><li class="listitem"><p>
@@ -6718,15 +6723,15 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           <a class="link" href="https://docs.nextcloud.com/server/19/admin_manual/release_schedule.html" target="_top">
           will be EOL (end of life) within the lifetime of 20.09</a>.
         </p><p>
-          It's necessary to upgrade to nextcloud19:
+          It’s necessary to upgrade to nextcloud19:
         </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
               From nextcloud17, you have to upgrade to nextcloud18 first
-              as Nextcloud doesn't allow going multiple major revisions
+              as Nextcloud doesn’t allow going multiple major revisions
               forward in a single upgrade. This is possible by setting
               <a class="link" href="options.html#opt-services.nextcloud.package" target="_top">services.nextcloud.package</a>
               to nextcloud18.
             </p></li><li class="listitem"><p>
-              From nextcloud18, it's possible to directly upgrade to
+              From nextcloud18, it’s possible to directly upgrade to
               nextcloud19 by setting
               <a class="link" href="options.html#opt-services.nextcloud.package" target="_top">services.nextcloud.package</a>
               to nextcloud19.
@@ -6763,7 +6768,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           default.
         </p></li><li class="listitem"><p>
           The notmuch package moves its emacs-related binaries and emacs
-          lisp files to a separate output. They're not part of the
+          lisp files to a separate output. They’re not part of the
           default <code class="literal">out</code> output anymore - if you relied
           on the <code class="literal">notmuch-emacs-mua</code> binary or the
           emacs lisp files, access them via the
@@ -6798,11 +6803,11 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           break due to those assumptions. For further information,
           please read the Rust section in the Nixpkgs manual.
         </p></li><li class="listitem"><p>
-          The cc- and binutils-wrapper's "infix salt" and
+          The cc- and binutils-wrapper’s <span class="quote">“<span class="quote">infix salt</span>”</span> and
           <code class="literal">_BUILD_</code> and <code class="literal">_TARGET_</code>
-          user infixes have been replaced with with a "suffix
-          salt" and suffixes and <code class="literal">_FOR_BUILD</code> and
-          <code class="literal">_FOR_TARGET</code>. This matches the autotools
+          user infixes have been replaced with with a <span class="quote">“<span class="quote">suffix
+          salt</span>”</span> and suffixes and <code class="literal">_FOR_BUILD</code>
+          and <code class="literal">_FOR_TARGET</code>. This matches the autotools
           convention for env vars which standard for these things,
           making interfacing with other tools easier.
         </p></li><li class="listitem"><p>
@@ -6824,8 +6829,8 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           <code class="literal">network-link-*</code> units, which have been
           removed. Bringing the interface up has been moved to the
           beginning of the <code class="literal">network-addresses-*</code> unit.
-          Note this doesn't require <code class="literal">systemd-networkd</code>
-          - it's udev that parses <code class="literal">.link</code> files. Extra
+          Note this doesn’t require <code class="literal">systemd-networkd</code>
+          - it’s udev that parses <code class="literal">.link</code> files. Extra
           care needs to be taken in the presence of
           <a class="link" href="https://wiki.debian.org/NetworkInterfaceNames#THE_.22PERSISTENT_NAMES.22_SCHEME" target="_top">legacy
           udev rules</a> to rename interfaces, as MAC Address and MTU
@@ -6883,7 +6888,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           With this release <code class="literal">systemd-networkd</code> (when
           enabled through
           <a class="link" href="options.html#opt-networking.useNetworkd" target="_top">networking.useNetworkd</a>)
-          has it's netlink socket created through a
+          has it’s netlink socket created through a
           <code class="literal">systemd.socket</code> unit. This gives us control
           over socket buffer sizes and other parameters. For larger
           setups where networkd has to create a lot of (virtual) devices
@@ -6903,7 +6908,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           without recompiling <code class="literal">systemd-networkd</code>.
         </p><p>
           Since the actual memory requirements depend on hardware,
-          timing, exact configurations etc. it isn't currently possible
+          timing, exact configurations etc. it isn’t currently possible
           to infer a good default from within the NixOS module system.
           Administrators are advised to monitor the logs of
           <code class="literal">systemd-networkd</code> for
@@ -6911,7 +6916,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           and increase the memory limit as they see fit.
         </p><p>
           Note: Increasing the <code class="literal">ReceiveBufferSize=</code>
-          doesn't allocate any memory. It just increases the upper bound
+          doesn’t allocate any memory. It just increases the upper bound
           on the kernel side. The memory allocation depends on the
           amount of messages that are queued on the kernel side of the
           netlink socket.
@@ -6949,8 +6954,8 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           <a class="link" href="https://nextcloud.com/blog/nextcloud-hub-brings-productivity-to-home-office/" target="_top">v19</a>.
         </p><p>
           If you have an existing installation, please make sure that
-          you're on nextcloud18 before upgrading to nextcloud19 since
-          Nextcloud doesn't support upgrades across multiple major
+          you’re on nextcloud18 before upgrading to nextcloud19 since
+          Nextcloud doesn’t support upgrades across multiple major
           versions.
         </p></li><li class="listitem"><p>
           The <code class="literal">nixos-run-vms</code> script now deletes the
@@ -7140,7 +7145,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           Postgresql for NixOS service now defaults to v11.
         </p></li><li class="listitem"><p>
           The graphical installer image starts the graphical session
-          automatically. Before you'd be greeted by a tty and asked to
+          automatically. Before you’d be greeted by a tty and asked to
           enter <code class="literal">systemctl start display-manager</code>. It
           is now possible to disable the display-manager from running by
           selecting the <code class="literal">Disable display-manager</code> quirk
@@ -7154,7 +7159,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
           <a class="link" href="options.html#opt-services.xserver.desktopManager.pantheon.enable" target="_top">services.xserver.desktopManager.pantheon.enable</a>,
           we now default to also use
           <a class="link" href="https://blog.elementary.io/say-hello-to-the-new-greeter/" target="_top">
-          Pantheon's newly designed greeter </a>. Contrary to NixOS's
+          Pantheon’s newly designed greeter </a>. Contrary to NixOS’s
           usual update policy, Pantheon will receive updates during the
           cycle of NixOS 20.03 when backwards compatible.
         </p></li><li class="listitem"><p>
@@ -7228,7 +7233,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           has to be set if the hostname of the node should be non
           default.
         </p></li><li class="listitem"><p>
-          UPower's configuration is now managed by NixOS and can be
+          UPower’s configuration is now managed by NixOS and can be
           customized via <code class="literal">services.upower</code>.
         </p></li><li class="listitem"><p>
           To use Geary you should enable
@@ -7374,7 +7379,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           and
           <a class="link" href="https://github.com/NixOS/nixpkgs/pull/71106" target="_top">#71106</a>.
         </p><p>
-          We already don't support the global
+          We already don’t support the global
           <a class="link" href="options.html#opt-networking.useDHCP" target="_top">networking.useDHCP</a>,
           <a class="link" href="options.html#opt-networking.defaultGateway" target="_top">networking.defaultGateway</a>
           and
@@ -7388,7 +7393,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           The stdenv now runs all bash with <code class="literal">set -u</code>,
           to catch the use of undefined variables. Before, it itself
           used <code class="literal">set -u</code> but was careful to unset it so
-          other packages' code ran as before. Now, all bash code is held
+          other packages’ code ran as before. Now, all bash code is held
           to the same high standard, and the rather complex stateful
           manipulation of the options can be discarded.
         </p></li><li class="listitem"><p>
@@ -7412,7 +7417,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           <code class="literal">xfceUnstable</code> all now point to the latest
           Xfce 4.14 packages. And in the future NixOS releases will be
           the latest released version of Xfce available at the time of
-          the release's development (if viable).
+          the release’s development (if viable).
         </p></li><li class="listitem"><p>
           The
           <a class="link" href="options.html#opt-services.phpfpm.pools" target="_top">phpfpm</a>
@@ -7478,7 +7483,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           <code class="literal">hardware.bluetooth.enable</code>.
         </p></li><li class="listitem"><p>
           The <code class="literal">dump1090</code> derivation has been changed to
-          use FlightAware's dump1090 as its upstream. However, this
+          use FlightAware’s dump1090 as its upstream. However, this
           version does not have an internal webserver anymore. The
           assets in the <code class="literal">share/dump1090</code> directory of
           the derivation can be used in conjunction with an external
@@ -7639,7 +7644,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
               changed - it now accepts an attrset of strings.
             </p></li><li class="listitem"><p>
               The<code class="literal">services.buildkite-agent.openssh.publicKeyPath</code>
-              option has been removed, as it's not necessary to deploy
+              option has been removed, as it’s not necessary to deploy
               public keys to clone private repositories.
             </p></li><li class="listitem"><p>
               <code class="literal">services.buildkite-agent.openssh.privateKeyPath</code>
@@ -7664,7 +7669,7 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
           The <code class="literal">services.xserver.displayManager.auto</code>
           module has been removed. It was only intended for use in
           internal NixOS tests, and gave the false impression of it
-          being a special display manager when it's actually LightDM.
+          being a special display manager when it’s actually LightDM.
           Please use the
           <code class="literal">services.xserver.displayManager.lightdm.autoLogin</code>
           options instead, or any other display manager in NixOS as they
@@ -7690,11 +7695,11 @@ See https://github.com/NixOS/nixpkgs/pull/71684 for details.
         </p><pre class="programlisting">
 auth required pam_succeed_if.so quiet
 </pre><p>
-          line, where default it's:
+          line, where default it’s:
         </p><pre class="programlisting">
  auth required pam_succeed_if.so uid &gt;= 1000 quiet
 </pre><p>
-          not permitting users with uid's below 1000 (like root). All
+          not permitting users with uid’s below 1000 (like root). All
           other display managers in NixOS are configured like this.
         </p></li><li class="listitem"><p>
           There have been lots of improvements to the Mailman module. As
@@ -7749,11 +7754,11 @@ auth required pam_succeed_if.so quiet
           default Bayes backend is now Redis.
         </p></li><li class="listitem"><p>
           The <code class="literal">*psu</code> versions of oraclejdk8 have been
-          removed as they aren't provided by upstream anymore.
+          removed as they aren’t provided by upstream anymore.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.dnscrypt-proxy</code> module has been
           removed as it used the deprecated version of dnscrypt-proxy.
-          We've added
+          We’ve added
           <a class="link" href="options.html#opt-services.dnscrypt-proxy2.enable" target="_top">services.dnscrypt-proxy2.enable</a>
           to use the supported version. This module supports
           configuration via the Nix attribute set
@@ -7781,7 +7786,7 @@ auth required pam_succeed_if.so quiet
           <code class="literal">qesteidutil</code> has been deprecated in favor of
           <code class="literal">qdigidoc</code>.
         </p></li><li class="listitem"><p>
-          sqldeveloper_18 has been removed as it's not maintained
+          sqldeveloper_18 has been removed as it’s not maintained
           anymore, sqldeveloper has been updated to version
           <code class="literal">19.4</code>. Please note that this means that this
           means that the oraclejdk is now required. For further
@@ -7795,7 +7800,7 @@ auth required pam_succeed_if.so quiet
           the different lists of dependencies mashed together as one big
           list, and then partitioning into Haskell and non-Hakell
           dependencies, they work from the original many different
-          dependency parameters and don't need to algorithmically
+          dependency parameters and don’t need to algorithmically
           partition anything.
         </p><p>
           This means that if you incorrectly categorize a dependency,
@@ -7804,7 +7809,7 @@ auth required pam_succeed_if.so quiet
           as a <code class="literal">setupDepends</code>, whereas things would
           have worked before they may not work now.
         </p></li><li class="listitem"><p>
-          The gcc-snapshot-package has been removed. It's marked as
+          The gcc-snapshot-package has been removed. It’s marked as
           broken for &gt;2 years and used to point to a fairly old
           snapshot from the gcc7-branch.
         </p></li><li class="listitem"><p>
@@ -7826,7 +7831,7 @@ auth required pam_succeed_if.so quiet
           <a class="link" href="options.html#opt-environment.systemPackages" target="_top">environment.systemPackages</a>.
         </p></li><li class="listitem"><p>
           nextcloud has been updated to <code class="literal">v18.0.2</code>. This
-          means that users from NixOS 19.09 can't upgrade directly since
+          means that users from NixOS 19.09 can’t upgrade directly since
           you can only move one version forward and 19.09 uses
           <code class="literal">v16.0.8</code>.
         </p><p>
@@ -7842,7 +7847,7 @@ auth required pam_succeed_if.so quiet
               Existing setups will be detected using
               <a class="link" href="options.html#opt-system.stateVersion" target="_top">system.stateVersion</a>:
               by default, nextcloud17 will be used, but will raise a
-              warning which notes that after that deploy it's
+              warning which notes that after that deploy it’s
               recommended to update to the latest stable version
               (nextcloud18) by declaring the newly introduced setting
               <a class="link" href="options.html#opt-services.nextcloud.package" target="_top">services.nextcloud.package</a>.
@@ -7852,12 +7857,12 @@ auth required pam_succeed_if.so quiet
               get an evaluation error by default. This is done to ensure
               that our
               <a class="link" href="options.html#opt-services.nextcloud.package" target="_top">package</a>-option
-              doesn't select an older version by accident. It's
+              doesn’t select an older version by accident. It’s
               recommended to use pkgs.nextcloud18 or to set
               <a class="link" href="options.html#opt-services.nextcloud.package" target="_top">package</a>
               to pkgs.nextcloud explicitly.
             </p></li></ul></div><div class="warning"><h3 class="title">Warning</h3><p>
-            Please note that if you're coming from
+            Please note that if you’re coming from
             <code class="literal">19.03</code> or older, you have to manually
             upgrade to <code class="literal">19.09</code> first to upgrade your
             server to Nextcloud v16.
@@ -7865,7 +7870,7 @@ auth required pam_succeed_if.so quiet
           Hydra has gained a massive performance improvement due to
           <a class="link" href="https://github.com/NixOS/hydra/pull/710" target="_top">some
           database schema changes</a> by adding several IDs and
-          better indexing. However, it's necessary to upgrade Hydra in
+          better indexing. However, it’s necessary to upgrade Hydra in
           multiple steps:
         </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
               At first, an older version of Hydra needs to be deployed
@@ -7898,10 +7903,10 @@ $ hydra-backfill-ids
             <a class="link" href="options.html#opt-system.stateVersion" target="_top">stateVersion</a>
             is set to <code class="literal">20.03</code> or greater,
             hydra-unstable will be used automatically! This will break
-            your setup if you didn't run the migration.
+            your setup if you didn’t run the migration.
           </p></div><p>
           Please note that Hydra is currently not available with
-          nixStable as this doesn't compile anymore.
+          nixStable as this doesn’t compile anymore.
         </p><div class="warning"><h3 class="title">Warning</h3><p>
             pkgs.hydra has been removed to ensure a graceful
             database-migration using the dedicated package-attributes.
@@ -7909,7 +7914,7 @@ $ hydra-backfill-ids
             assertion error will be thrown. To circumvent this, you need
             to set
             <a class="link" href="options.html#opt-services.hydra.package" target="_top">services.hydra.package</a>
-            to pkgs.hydra explicitly and make sure you know what you're
+            to pkgs.hydra explicitly and make sure you know what you’re
             doing!
           </p></div></li><li class="listitem"><p>
           The TokuDB storage engine will be disabled in mariadb 10.5. It
@@ -8000,11 +8005,11 @@ $ hydra-backfill-ids
           Depending on your setup, you need to incorporate one of the
           following changes in your setup to upgrade to 20.03:
         </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
-              If you use <code class="literal">sqlite3</code> you don't need to do
+              If you use <code class="literal">sqlite3</code> you don’t need to do
               anything.
             </p></li><li class="listitem"><p>
               If you use <code class="literal">postgresql</code> on a different
-              server, you don't need to change anything as well since
+              server, you don’t need to change anything as well since
               this module was never designed to configure remote
               databases.
             </p></li><li class="listitem"><p>
@@ -8032,7 +8037,7 @@ $ hydra-backfill-ids
           <code class="literal">nixos-unstable</code> <span class="emphasis"><em>after</em></span>
           the <code class="literal">19.09</code>-release, your database is
           misconfigured due to a regression in NixOS. For now,
-          matrix-synapse will startup with a warning, but it's
+          matrix-synapse will startup with a warning, but it’s
           recommended to reconfigure the database to set the values
           <code class="literal">LC_COLLATE</code> and <code class="literal">LC_CTYPE</code>
           to
@@ -8042,7 +8047,7 @@ $ hydra-backfill-ids
           <a class="link" href="options.html#opt-systemd.network.links" target="_top">systemd.network.links</a>
           option is now respected even when
           <a class="link" href="options.html#opt-systemd.network.enable" target="_top">systemd-networkd</a>
-          is disabled. This mirrors the behaviour of systemd - It's udev
+          is disabled. This mirrors the behaviour of systemd - It’s udev
           that parses <code class="literal">.link</code> files, not
           <code class="literal">systemd-networkd</code>.
         </p></li><li class="listitem"><p>
@@ -8050,8 +8055,8 @@ $ hydra-backfill-ids
         </p><div class="warning"><h3 class="title">Warning</h3><p>
             Please note that mongodb has been relicensed under their own
             <a class="link" href="https://www.mongodb.com/licensing/server-side-public-license/faq" target="_top"><code class="literal"> sspl</code></a>-license.
-            Since it's not entirely free and not OSI-approved, it's
-            listed as non-free. This means that Hydra doesn't provide
+            Since it’s not entirely free and not OSI-approved, it’s
+            listed as non-free. This means that Hydra doesn’t provide
             prebuilt mongodb-packages and needs to be built locally.
           </p></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-19.09"></a>Release 19.09 (<span class="quote">“<span class="quote">Loris</span>”</span>, 2019/10/09)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-19.09-highlights"></a>Highlights</h3></div></div></div><p>
       In addition to numerous new and upgraded packages, this release
@@ -8099,13 +8104,13 @@ $ hydra-backfill-ids
           root. To gain root privileges use <code class="literal">sudo -i</code>
           without a password.
         </p></li><li class="listitem"><p>
-          We've updated to Xfce 4.14, which brings a new module
+          We’ve updated to Xfce 4.14, which brings a new module
           <code class="literal">services.xserver.desktopManager.xfce4-14</code>.
-          If you'd like to upgrade, please switch from the
+          If you’d like to upgrade, please switch from the
           <code class="literal">services.xserver.desktopManager.xfce</code> module
-          as it will be deprecated in a future release. They're
-          incompatibilities with the current Xfce module; it doesn't
-          support <code class="literal">thunarPlugins</code> and it isn't
+          as it will be deprecated in a future release. They’re
+          incompatibilities with the current Xfce module; it doesn’t
+          support <code class="literal">thunarPlugins</code> and it isn’t
           recommended to use
           <code class="literal">services.xserver.desktopManager.xfce</code> and
           <code class="literal">services.xserver.desktopManager.xfce4-14</code>
@@ -8124,7 +8129,7 @@ $ hydra-backfill-ids
               <code class="literal">services.gnome3.games.enable</code>
             </p></li></ul></div><p>
           With these options we hope to give users finer grained control
-          over their systems. Prior to this change you'd either have to
+          over their systems. Prior to this change you’d either have to
           manually disable options or use
           <code class="literal">environment.gnome3.excludePackages</code> which
           only excluded the optional applications.
@@ -8134,7 +8139,7 @@ $ hydra-backfill-ids
           module.
         </p></li><li class="listitem"><p>
           Orthogonal to the previous changes to the GNOME 3 desktop
-          manager module, we've updated all default services and
+          manager module, we’ve updated all default services and
           applications to match as close as possible to a default
           reference GNOME 3 experience.
         </p><p>
@@ -8207,7 +8212,7 @@ $ hydra-backfill-ids
               <code class="literal">services.xserver.desktopManager.mate</code>
               Note Mate uses
               <code class="literal">programs.system-config-printer</code> as it
-              doesn't use it as a service, but its graphical interface
+              doesn’t use it as a service, but its graphical interface
               directly.
             </p></li></ul></div></li><li class="listitem"><p>
           <a class="link" href="options.html#opt-services.blueman.enable" target="_top">services.blueman.enable</a>
@@ -8236,7 +8241,7 @@ $ hydra-backfill-ids
           <code class="literal">services.prometheus.alertmanager.user</code> and
           <code class="literal">services.prometheus.alertmanager.group</code> have
           been removed because the alertmanager service is now using
-          systemd's
+          systemd’s
           <a class="link" href="http://0pointer.net/blog/dynamic-users-with-systemd.html" target="_top">
           DynamicUser mechanism</a> which obviates these options.
         </p></li><li class="listitem"><p>
@@ -8249,7 +8254,7 @@ $ hydra-backfill-ids
           The <code class="literal">services.nzbget.configFile</code> and
           <code class="literal">services.nzbget.openFirewall</code> options were
           removed as they are managed internally by the nzbget. The
-          <code class="literal">services.nzbget.dataDir</code> option hadn't
+          <code class="literal">services.nzbget.dataDir</code> option hadn’t
           actually been used by the module for some time and so was
           removed as cleanup.
         </p></li><li class="listitem"><p>
@@ -8331,7 +8336,7 @@ $ hydra-backfill-ids
           Make sure you set the <code class="literal">_netdev</code> option for
           each of the file systems referring to block devices provided
           by the autoLuks module. Not doing this might render the system
-          in a state where it doesn't boot anymore.
+          in a state where it doesn’t boot anymore.
         </p><p>
           If you are actively using the <code class="literal">autoLuks</code>
           module please let us know in
@@ -8461,7 +8466,7 @@ $ hydra-backfill-ids
           instead of depending on the catch-all
           <code class="literal">acme-certificates.target</code>. This target unit
           was also removed from the codebase. This will mean nginx will
-          no longer depend on certificates it isn't explicitly managing
+          no longer depend on certificates it isn’t explicitly managing
           and fixes a bug with certificate renewal ordering racing with
           nginx restarting which could lead to nginx getting in a broken
           state as described at
@@ -8475,13 +8480,13 @@ $ hydra-backfill-ids
           <code class="literal">services.xserver.desktopManager.xterm</code> is
           now disabled by default if <code class="literal">stateVersion</code> is
           19.09 or higher. Previously the xterm desktopManager was
-          enabled when xserver was enabled, but it isn't useful for all
-          people so it didn't make sense to have any desktopManager
+          enabled when xserver was enabled, but it isn’t useful for all
+          people so it didn’t make sense to have any desktopManager
           enabled default.
         </p></li><li class="listitem"><p>
           The WeeChat plugin
           <code class="literal">pkgs.weechatScripts.weechat-xmpp</code> has been
-          removed as it doesn't receive any updates from upstream and
+          removed as it doesn’t receive any updates from upstream and
           depends on outdated Python2-based modules.
         </p></li><li class="listitem"><p>
           Old unsupported versions (<code class="literal">logstash5</code>,
@@ -8517,11 +8522,11 @@ $ hydra-backfill-ids
           <code class="literal">services.gitlab.secrets.dbFile</code>,
           <code class="literal">services.gitlab.secrets.otpFile</code> and
           <code class="literal">services.gitlab.secrets.jwsFile</code>). This was
-          done so that secrets aren't stored in the world-readable nix
-          store, but means that for each option you'll have to create a
-          file with the same exact string, add "File" to the
-          end of the option name, and change the definition to a string
-          pointing to the corresponding file; e.g.
+          done so that secrets aren’t stored in the world-readable nix
+          store, but means that for each option you’ll have to create a
+          file with the same exact string, add <span class="quote">“<span class="quote">File</span>”</span> to
+          the end of the option name, and change the definition to a
+          string pointing to the corresponding file; e.g.
           <code class="literal">services.gitlab.databasePassword = "supersecurepassword"</code>
           becomes
           <code class="literal">services.gitlab.databasePasswordFile = "/path/to/secret_file"</code>
@@ -8554,7 +8559,7 @@ $ hydra-backfill-ids
           maintained.
         </p></li><li class="listitem"><p>
           The <code class="literal">nodejs-11_x</code> package has been removed as
-          it's EOLed by upstream.
+          it’s EOLed by upstream.
         </p></li><li class="listitem"><p>
           Because of the systemd upgrade, systemd-timesyncd will no
           longer work if <code class="literal">system.stateVersion</code> is not
@@ -8673,7 +8678,7 @@ $ hydra-backfill-ids
           from the upstream default <code class="literal">speex-float-1</code> to
           <code class="literal">speex-float-5</code>. Be aware that low-powered
           ARM-based and MIPS-based boards will struggle with this so
-          you'll need to set
+          you’ll need to set
           <code class="literal">hardware.pulseaudio.daemon.config.resample-method</code>
           back to <code class="literal">speex-float-1</code>.
         </p></li><li class="listitem"><p>
@@ -8698,7 +8703,7 @@ $ hydra-backfill-ids
           <code class="literal">httpd.extraSubservice</code> has been removed from
           nixpkgs.
         </p></li><li class="listitem"><p>
-          It's now possible to change configuration in
+          It’s now possible to change configuration in
           <a class="link" href="options.html#opt-services.nextcloud.enable" target="_top">services.nextcloud</a>
           after the initial deploy since all config parameters are
           persisted in an additional config file generated by the
@@ -8810,7 +8815,7 @@ $ hydra-backfill-ids
           <a class="link" href="https://ceph.com/releases/v14-2-0-nautilus-released/" target="_top">release
           notes</a> for details. The mgr dashboard as well as osds
           backed by loop-devices is no longer explicitly supported by
-          the package and module. Note: There's been some issues with
+          the package and module. Note: There’s been some issues with
           python-cherrypy, which is used by the dashboard and prometheus
           mgr modules (and possibly others), hence
           0000-dont-check-cherrypy-version.patch.
@@ -8835,16 +8840,16 @@ $ hydra-backfill-ids
         </p><div class="note"><h3 class="title">Note</h3><p>
             By default,
             <code class="literal">services.xserver.desktopManager.pantheon</code>
-            enables LightDM as a display manager, as pantheon's screen
+            enables LightDM as a display manager, as pantheon’s screen
             locking implementation relies on it. Because of that it is
-            recommended to leave LightDM enabled. If you'd like to
+            recommended to leave LightDM enabled. If you’d like to
             disable it anyway, set
             <code class="literal">services.xserver.displayManager.lightdm.enable</code>
             to <code class="literal">false</code> and enable your preferred
             display manager.
           </p></div><p>
-          Also note that Pantheon's LightDM greeter is not enabled by
-          default, because it has numerous issues in NixOS and isn't
+          Also note that Pantheon’s LightDM greeter is not enabled by
+          default, because it has numerous issues in NixOS and isn’t
           optimal for use here yet.
         </p></li><li class="listitem"><p>
           A major refactoring of the Kubernetes module has been
@@ -8939,7 +8944,7 @@ $ hydra-backfill-ids
           without Syncthing resetting the permission on every start.
         </p></li><li class="listitem"><p>
           The <code class="literal">ntp</code> module now has sane default
-          restrictions. If you're relying on the previous defaults,
+          restrictions. If you’re relying on the previous defaults,
           which permitted all queries and commands from all
           firewall-permitted sources, you can set
           <code class="literal">services.ntp.restrictDefault</code> and
@@ -9037,7 +9042,7 @@ $ hydra-backfill-ids
           preserved when also setting interface specific rules such as
           <code class="literal">networking.firewall.interfaces.en0.allow*</code>.
           These rules continue to use the pseudo device
-          "default"
+          <span class="quote">“<span class="quote">default</span>”</span>
           (<code class="literal">networking.firewall.interfaces.default.*</code>),
           and assigning to this pseudo device will override the
           (<code class="literal">networking.firewall.allow*</code>) options.
@@ -9052,9 +9057,9 @@ $ hydra-backfill-ids
           presence of <code class="literal">services.sssd.enable = true</code>
           because nscd caching would interfere with
           <code class="literal">sssd</code> in unpredictable ways as well. Because
-          we're using nscd not for caching, but for convincing glibc to
+          we’re using nscd not for caching, but for convincing glibc to
           find NSS modules in the nix store instead of an absolute path,
-          we have decided to disable caching globally now, as it's
+          we have decided to disable caching globally now, as it’s
           usually not the behaviour the user wants and can lead to
           surprising behaviour. Furthermore, negative caching of host
           lookups is also disabled now by default. This should fix the
@@ -9133,7 +9138,7 @@ $ hydra-backfill-ids
           with its control field set to <code class="literal">sufficient</code>
           instead of <code class="literal">required</code>, so that password
           managed only by later PAM password modules are being executed.
-          Previously, for example, changing an LDAP account's password
+          Previously, for example, changing an LDAP account’s password
           through PAM was not possible: the whole password module
           verification was exited prematurely by
           <code class="literal">pam_unix</code>, preventing
@@ -9165,11 +9170,11 @@ $ hydra-backfill-ids
           <a class="link" href="https://matrix.org/blog/2019/02/05/synapse-0-99-0/" target="_top">the
           last version to accept self-signed certificates</a>. As
           such, it is now recommended to use a proper certificate
-          verified by a root CA (for example Let's Encrypt). The new
+          verified by a root CA (for example Let’s Encrypt). The new
           <a class="link" href="index.html#module-services-matrix" title="Matrix">manual chapter on
           Matrix</a> contains a working example of using nginx as a
           reverse proxy in front of <code class="literal">matrix-synapse</code>,
-          using Let's Encrypt certificates.
+          using Let’s Encrypt certificates.
         </p></li><li class="listitem"><p>
           <code class="literal">mailutils</code> now works by default when
           <code class="literal">sendmail</code> is not in a setuid wrapper. As a
@@ -9290,7 +9295,7 @@ $ hydra-backfill-ids
           <a class="link" href="options.html#opt-services.ndppd.enable" target="_top">all
           config options</a> provided by the current upstream version
           as service options. Additionally the <code class="literal">ndppd</code>
-          package doesn't contain the systemd unit configuration from
+          package doesn’t contain the systemd unit configuration from
           upstream anymore, the unit is completely configured by the
           NixOS module now.
         </p></li><li class="listitem"><p>
@@ -9615,21 +9620,21 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           <code class="literal">libspotify</code> package.
         </p></li><li class="listitem"><p>
           The <code class="literal">netcat</code> package is now taken directly
-          from OpenBSD's <code class="literal">libressl</code>, instead of relying
-          on Debian's fork. The new version should be very close to the
+          from OpenBSD’s <code class="literal">libressl</code>, instead of relying
+          on Debian’s fork. The new version should be very close to the
           old version, but there are some minor differences.
           Importantly, flags like -b, -q, -C, and -Z are no longer
           accepted by the nc command.
         </p></li><li class="listitem"><p>
           The <code class="literal">services.docker-registry.extraConfig</code>
-          object doesn't contain environment variables anymore. Instead
+          object doesn’t contain environment variables anymore. Instead
           it needs to provide an object structure that can be mapped
           onto the YAML configuration defined in
           <a class="link" href="https://github.com/docker/distribution/blob/v2.6.2/docs/configuration.md" target="_top">the
           <code class="literal">docker/distribution</code> docs</a>.
         </p></li><li class="listitem"><p>
           <code class="literal">gnucash</code> has changed from version 2.4 to
-          3.x. If you've been using <code class="literal">gnucash</code> (version
+          3.x. If you’ve been using <code class="literal">gnucash</code> (version
           2.4) instead of <code class="literal">gnucash26</code> (version 2.6) you
           must open your Gnucash data file(s) with
           <code class="literal">gnucash26</code> and then save them to upgrade the
@@ -9843,7 +9848,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           The <code class="literal">programs.screen</code> module provides allows
           to configure <code class="literal">/etc/screenrc</code>, however the
           module behaved fairly counterintuitive as the config exists,
-          but the package wasn't available. Since 18.09
+          but the package wasn’t available. Since 18.09
           <code class="literal">pkgs.screen</code> will be added to
           <code class="literal">environment.systemPackages</code>.
         </p></li><li class="listitem"><p>
@@ -9871,7 +9876,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
         </p></li><li class="listitem"><p>
           NixOS option descriptions are now automatically broken up into
           individual paragraphs if the text contains two consecutive
-          newlines, so it's no longer necessary to use
+          newlines, so it’s no longer necessary to use
           <code class="literal">&lt;/para&gt;&lt;para&gt;</code> to start a new
           paragraph.
         </p></li><li class="listitem"><p>
@@ -9890,9 +9895,9 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           over to 18.09.
         </p></li><li class="listitem"><p>
           Platform support: x86_64-linux and x86_64-darwin since release
-          time (the latter isn't NixOS, really). Binaries for
+          time (the latter isn’t NixOS, really). Binaries for
           aarch64-linux are available, but no channel exists yet, as
-          it's waiting for some test fixes, etc.
+          it’s waiting for some test fixes, etc.
         </p></li><li class="listitem"><p>
           Nix now defaults to 2.0; see its
           <a class="link" href="https://nixos.org/nix/manual/#ssec-relnotes-2.0" target="_top">release
@@ -10114,11 +10119,11 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
         </p></li><li class="listitem"><p>
           The propagation logic has been changed. The new logic, along
           with new types of dependencies that go with, is thoroughly
-          documented in the "Specifying dependencies" section
-          of the "Standard Environment" chapter of the nixpkgs
-          manual. The old logic isn't but is easy to describe:
-          dependencies were propagated as the same type of dependency no
-          matter what. In practice, that means that many
+          documented in the <span class="quote">“<span class="quote">Specifying dependencies</span>”</span>
+          section of the <span class="quote">“<span class="quote">Standard Environment</span>”</span> chapter of
+          the nixpkgs manual. The old logic isn’t but is easy to
+          describe: dependencies were propagated as the same type of
+          dependency no matter what. In practice, that means that many
           <code class="literal">propagatedNativeBuildInputs</code> should instead
           be <code class="literal">propagatedBuildInputs</code>. Thankfully, that
           was and is the least used type of dependency. Also, it means
@@ -10148,7 +10153,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           Previously, if other options in the Postfix module like
           <code class="literal">services.postfix.useSrs</code> were set and the
           user set config options that were also set by such options,
-          the resulting config wouldn't include all options that were
+          the resulting config wouldn’t include all options that were
           needed. They are now merged correctly. If config options need
           to be overridden, <code class="literal">lib.mkForce</code> or
           <code class="literal">lib.mkOverride</code> can be used.
@@ -10201,7 +10206,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
               if <code class="literal">config.networking.domain</code> is set,
               <code class="literal">matomo.${config.networking.hostName}</code> if
               it is not set. If you change your
-              <code class="literal">serverName</code>, remember you'll need to
+              <code class="literal">serverName</code>, remember you’ll need to
               update the <code class="literal">trustedHosts[]</code> array in
               <code class="literal">/var/lib/matomo/config/config.ini.php</code>
               as well.
@@ -10299,7 +10304,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
         </p></li><li class="listitem"><p>
           <code class="literal">services.btrfs.autoScrub</code> has been added, to
           periodically check btrfs filesystems for data corruption. If
-          there's a correct copy available, it will automatically repair
+          there’s a correct copy available, it will automatically repair
           corrupted blocks.
         </p></li><li class="listitem"><p>
           <code class="literal">displayManager.lightdm.greeters.gtk.clock-format.</code>
@@ -10372,7 +10377,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           The module option
           <code class="literal">services.xserver.xrandrHeads</code> now causes the
           first head specified in this list to be set as the primary
-          head. Apart from that, it's now possible to also set
+          head. Apart from that, it’s now possible to also set
           additional options by using an attribute set, for example:
         </p><pre class="programlisting">
 { services.xserver.xrandrHeads = [
@@ -10621,7 +10626,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
               <code class="literal">/var/mysql</code> to
               <code class="literal">/var/lib/mysql</code>.
             </p></li><li class="listitem"><p>
-              Radicale's default package has changed from 1.x to 2.x.
+              Radicale’s default package has changed from 1.x to 2.x.
               Instructions to migrate can be found
               <a class="link" href="http://radicale.org/1to2/" target="_top"> here
               </a>. It is also possible to use the newer version by
@@ -10646,14 +10651,14 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
           renamed. All JetBrains IDEs are now at
           <code class="literal">jetbrains</code>.
         </p></li><li class="listitem"><p>
-          <code class="literal">flexget</code>'s state database cannot be upgraded
+          <code class="literal">flexget</code>’s state database cannot be upgraded
           to its new internal format, requiring removal of any existing
           <code class="literal">db-config.sqlite</code> which will be
           automatically recreated.
         </p></li><li class="listitem"><p>
-          The <code class="literal">ipfs</code> service now doesn't ignore the
-          <code class="literal">dataDir</code> option anymore. If you've ever set
-          this option to anything other than the default you'll have to
+          The <code class="literal">ipfs</code> service now doesn’t ignore the
+          <code class="literal">dataDir</code> option anymore. If you’ve ever set
+          this option to anything other than the default you’ll have to
           either unset it (so the default gets used) or migrate the old
           data manually with
         </p><pre class="programlisting">
@@ -10693,16 +10698,16 @@ rmdir /var/lib/ipfs/.ipfs
           This is due to the project being dead and not building with
           openssl 1.1.
         </p></li><li class="listitem"><p>
-          <code class="literal">cc-wrapper</code>'s setup-hook now exports a
+          <code class="literal">cc-wrapper</code><span class="quote">“<span class="quote">s setup-hook now exports a
           number of environment variables corresponding to binutils
           binaries, (e.g. <code class="literal">LD</code>,
           <code class="literal">STRIP</code>, <code class="literal">RANLIB</code>, etc).
-          This is done to prevent packages' build systems guessing,
-          which is harder to predict, especially when cross-compiling.
-          However, some packages have broken due to this—their build
-          systems either not supporting, or claiming to support without
-          adequate testing, taking such environment variables as
-          parameters.
+          This is done to prevent packages</span>”</span> build systems
+          guessing, which is harder to predict, especially when
+          cross-compiling. However, some packages have broken due to
+          this—their build systems either not supporting, or claiming to
+          support without adequate testing, taking such environment
+          variables as parameters.
         </p></li><li class="listitem"><p>
           <code class="literal">services.firefox.syncserver</code> now runs by
           default as a non-root user. To accommodate this change, the
@@ -10718,10 +10723,10 @@ rmdir /var/lib/ipfs/.ipfs
           now deprecated. See the option
           <code class="literal">services.xserver.libinput.enable</code>.
         </p></li><li class="listitem"><p>
-          grsecurity/PaX support has been dropped, following upstream's
+          grsecurity/PaX support has been dropped, following upstream’s
           decision to cease free support. See
           <a class="link" href="https://grsecurity.net/passing_the_baton.php" target="_top">
-          upstream's announcement</a> for more information. No
+          upstream’s announcement</a> for more information. No
           complete replacement for grsecurity/PaX is available
           presently.
         </p></li><li class="listitem"><p>
@@ -10792,7 +10797,7 @@ FLUSH PRIVILEGES;
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-17.09-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           Modules can now be disabled by using
           <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-replace-modules" target="_top">
-          disabledModules</a>, allowing another to take it's place.
+          disabledModules</a>, allowing another to take it’s place.
           This can be used to import a set of modules from another
           channel while keeping the rest of the system on a stable
           release.
@@ -10803,7 +10808,7 @@ FLUSH PRIVILEGES;
           provided by fontconfig-penultimate, replacing
           fontconfig-ultimate; the new defaults are less invasive and
           provide rendering that is more consistent with other systems
-          and hopefully with each font designer's intent. Some
+          and hopefully with each font designer’s intent. Some
           system-wide configuration has been removed from the Fontconfig
           NixOS module where user Fontconfig settings are available.
         </p></li><li class="listitem"><p>
@@ -10885,7 +10890,7 @@ FLUSH PRIVILEGES;
           This release is based on Glibc 2.25, GCC 5.4.0 and systemd
           232. The default Linux kernel is 4.9 and Nix is at 1.11.8.
         </p></li><li class="listitem"><p>
-          The default desktop environment now is KDE's Plasma 5. KDE 4
+          The default desktop environment now is KDE’s Plasma 5. KDE 4
           has been removed
         </p></li><li class="listitem"><p>
           The setuid wrapper functionality now supports setting
@@ -11123,7 +11128,7 @@ FLUSH PRIVILEGES;
           Parsoid service now uses YAML configuration format.
           <code class="literal">service.parsoid.interwikis</code> is now called
           <code class="literal">service.parsoid.wikis</code> and is a list of
-          either API URLs or attribute sets as specified in parsoid's
+          either API URLs or attribute sets as specified in parsoid’s
           documentation.
         </p></li><li class="listitem"><p>
           <code class="literal">Ntpd</code> was replaced by
@@ -11188,7 +11193,7 @@ in
           to suit your needs.
         </p></li><li class="listitem"><p>
           <code class="literal">local_recipient_maps</code> is not set to empty
-          value by Postfix service. It's an insecure default as stated
+          value by Postfix service. It’s an insecure default as stated
           by Postfix documentation. Those who want to retain this
           setting need to set it via
           <code class="literal">services.postfix.extraConfig</code>.
@@ -11204,7 +11209,7 @@ in
           (<code class="literal">ping fe80::1%eth0</code>).
         </p></li><li class="listitem"><p>
           The socket handling of the <code class="literal">services.rmilter</code>
-          module has been fixed and refactored. As rmilter doesn't
+          module has been fixed and refactored. As rmilter doesn’t
           support binding to more than one socket, the options
           <code class="literal">bindUnixSockets</code> and
           <code class="literal">bindInetSockets</code> have been replaced by
@@ -11241,7 +11246,7 @@ in
           improves visual consistency and makes Java follow system font
           style, improving the situation on HighDPI displays. This has a
           cost of increased closure size; for server and other headless
-          workloads it's recommended to use
+          workloads it’s recommended to use
           <code class="literal">jre_headless</code>.
         </p></li><li class="listitem"><p>
           Python 2.6 interpreter and package set have been removed.
@@ -11338,7 +11343,7 @@ in
         LTS Haskell package set. That support has been dropped. The
         previously provided <code class="literal">haskell.packages.lts-x_y</code>
         package sets still exist in name to aviod breaking user code,
-        but these package sets don't actually contain the versions
+        but these package sets don’t actually contain the versions
         mandated by the corresponding LTS release. Instead, our package
         set it loosely based on the latest available LTS release, i.e.
         LTS 7.x at the time of this writing. New releases of NixOS and
@@ -11367,7 +11372,7 @@ in
         <a class="link" href="https://github.com/NixOS/nixpkgs/pull/18365" target="_top">
         the pull request</a> for what bugs this caused.
       </p></li><li class="listitem"><p>
-        Gitlab's maintainance script <code class="literal">gitlab-runner</code>
+        Gitlab’s maintainance script <code class="literal">gitlab-runner</code>
         was removed and split up into the more clearer
         <code class="literal">gitlab-run</code> and <code class="literal">gitlab-rake</code>
         scripts, because <code class="literal">gitlab-runner</code> is a component
@@ -11397,7 +11402,7 @@ in
       </p></li><li class="listitem"><p>
         <code class="literal">goPackages</code> was replaced with separated Go
         applications in appropriate <code class="literal">nixpkgs</code>
-        categories. Each Go package uses its own dependency set. There's
+        categories. Each Go package uses its own dependency set. There’s
         also a new <code class="literal">go2nix</code> tool introduced to generate
         a Go package definition from its Go source automatically.
       </p></li><li class="listitem"><p>
@@ -11655,12 +11660,12 @@ nginx.override {
   modules = [ nginxModules.rtmp nginxModules.dav nginxModules.moreheaders ];
 }
 </pre></li><li class="listitem"><p>
-        <code class="literal">s3sync</code> is removed, as it hasn't been
+        <code class="literal">s3sync</code> is removed, as it hasn’t been
         developed by upstream for 4 years and only runs with ruby 1.8.
         For an actively-developer alternative look at
         <code class="literal">tarsnap</code> and others.
       </p></li><li class="listitem"><p>
-        <code class="literal">ruby_1_8</code> has been removed as it's not
+        <code class="literal">ruby_1_8</code> has been removed as it’s not
         supported from upstream anymore and probably contains security
         issues.
       </p></li><li class="listitem"><p>
@@ -11679,7 +11684,7 @@ nginx.override {
         extra X11 options for nvidia and nouveau drivers, respectively.
       </p></li><li class="listitem"><p>
         The <code class="literal">Ctrl+Alt+Backspace</code> key combination no
-        longer kills the X server by default. There's a new option
+        longer kills the X server by default. There’s a new option
         <code class="literal">services.xserver.enableCtrlAltBackspace</code>
         allowing to enable the combination again.
       </p></li><li class="listitem"><p>
@@ -11691,7 +11696,7 @@ nginx.override {
         <code class="literal">/var/lib/postfix</code>. Old configurations are
         migrated automatically. <code class="literal">service.postfix</code>
         module has also received many improvements, such as correct
-        directories' access rights, new <code class="literal">aliasFiles</code>
+        directories’ access rights, new <code class="literal">aliasFiles</code>
         and <code class="literal">mapFiles</code> options and more.
       </p></li><li class="listitem"><p>
         Filesystem options should now be configured as a list of
@@ -11723,7 +11728,7 @@ nginx.override {
       </p><p>
         There are also Gutenprint improvements; in particular, a new
         option <code class="literal">services.printing.gutenprint</code> is added
-        to enable automatic updating of Gutenprint PPMs; it's greatly
+        to enable automatic updating of Gutenprint PPMs; it’s greatly
         recommended to enable it instead of adding
         <code class="literal">gutenprint</code> to the <code class="literal">drivers</code>
         list.
@@ -11759,7 +11764,7 @@ nginx.override {
         <code class="literal">services.udev.extraRules</code> option now writes
         rules to <code class="literal">99-local.rules</code> instead of
         <code class="literal">10-local.rules</code>. This makes all the user rules
-        apply after others, so their results wouldn't be overridden by
+        apply after others, so their results wouldn’t be overridden by
         anything else.
       </p></li><li class="listitem"><p>
         Large parts of the <code class="literal">services.gitlab</code> module has
@@ -11822,8 +11827,8 @@ error: path ‘/nix/store/*-broadcom-sta-*’ does not exist and cannot be creat
         The <code class="literal">services.xserver.startGnuPGAgent</code> option
         has been removed. GnuPG 2.1.x changed the way the gpg-agent
         works, and that new approach no longer requires (or even
-        supports) the "start everything as a child of the
-        agent" scheme we've implemented in NixOS for older
+        supports) the <span class="quote">“<span class="quote">start everything as a child of the
+        agent</span>”</span> scheme we’ve implemented in NixOS for older
         versions. To configure the gpg-agent for your X session, add the
         following code to <code class="literal">~/.bashrc</code> or some file
         that’s sourced when your shell is started:
@@ -11852,7 +11857,7 @@ export GPG_TTY
     gpg --import ~/.gnupg/secring.gpg
 </pre><p>
         The <code class="literal">gpg-agent(1)</code> man page has more details
-        about this subject, i.e. in the "EXAMPLES" section.
+        about this subject, i.e. in the <span class="quote">“<span class="quote">EXAMPLES</span>”</span> section.
       </p></li></ul></div><p>
     Other notable improvements:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -11868,12 +11873,12 @@ export GPG_TTY
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         The <a class="link" href="http://haskell.org/" target="_top">Haskell</a>
         packages infrastructure has been re-designed from the ground up
-        ("Haskell NG"). NixOS now distributes the latest
+        (<span class="quote">“<span class="quote">Haskell NG</span>”</span>). NixOS now distributes the latest
         version of every single package registered on
         <a class="link" href="http://hackage.haskell.org/" target="_top">Hackage</a> --
         well in excess of 8,000 Haskell packages. Detailed instructions
         on how to use that infrastructure can be found in the
-        <a class="link" href="https://nixos.org/nixpkgs/manual/#users-guide-to-the-haskell-infrastructure" target="_top">User's
+        <a class="link" href="https://nixos.org/nixpkgs/manual/#users-guide-to-the-haskell-infrastructure" target="_top">User’s
         Guide to the Haskell Infrastructure</a>. Users migrating from
         an earlier release may find helpful information below, in the
         list of backwards-incompatible changes. Furthermore, we
@@ -11882,8 +11887,8 @@ export GPG_TTY
         Haskell</a> release since version 0.0 as well as the most
         recent <a class="link" href="http://www.stackage.org/" target="_top">Stackage
         Nightly</a> snapshot. The announcement
-        <a class="link" href="https://nixos.org/nix-dev/2015-September/018138.html" target="_top">"Full
-        Stackage Support in Nixpkgs"</a> gives additional
+        <a class="link" href="https://nixos.org/nix-dev/2015-September/018138.html" target="_top"><span class="quote">“<span class="quote">Full
+        Stackage Support in Nixpkgs</span>”</span></a> gives additional
         details.
       </p></li><li class="listitem"><p>
         Nix has been updated to version 1.10, which among other
@@ -12075,7 +12080,7 @@ export GPG_TTY
         use, you should set
         <code class="literal">nix.requireSignedBinaryCaches = false</code>.
       </p></li><li class="listitem"><p>
-        Steam now doesn't need root rights to work. Instead of using
+        Steam now doesn’t need root rights to work. Instead of using
         <code class="literal">*-steam-chrootenv</code>, you should now just run
         <code class="literal">steam</code>. <code class="literal">steamChrootEnv</code>
         package was renamed to <code class="literal">steam</code>, and old
@@ -12122,15 +12127,15 @@ export GPG_TTY
   };
 }
 </pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-        "<code class="literal">nix-env -qa</code>" no longer discovers
-        Haskell packages by name. The only packages visible in the
-        global scope are <code class="literal">ghc</code>,
+        <span class="quote">“<span class="quote"><code class="literal">nix-env -qa</code></span>”</span> no longer
+        discovers Haskell packages by name. The only packages visible in
+        the global scope are <code class="literal">ghc</code>,
         <code class="literal">cabal-install</code>, and <code class="literal">stack</code>,
         but all other packages are hidden. The reason for this
         inconvenience is the sheer size of the Haskell package set.
         Name-based lookups are expensive, and most
         <code class="literal">nix-env -qa</code> operations would become much
-        slower if we'd add the entire Hackage database into the top
+        slower if we’d add the entire Hackage database into the top
         level attribute set. Instead, the list of Haskell packages can
         be displayed by running:
       </p></li></ul></div><pre class="programlisting">
@@ -12145,13 +12150,13 @@ nix-env -f "&lt;nixpkgs&gt;" -iA haskellPackages.pandoc
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         Previous versions of NixOS came with a feature called
         <code class="literal">ghc-wrapper</code>, a small script that allowed GHC
-        to transparently pick up on libraries installed in the user's
+        to transparently pick up on libraries installed in the user’s
         profile. This feature has been deprecated;
         <code class="literal">ghc-wrapper</code> was removed from the
         distribution. The proper way to register Haskell libraries with
         the compiler now is the
         <code class="literal">haskellPackages.ghcWithPackages</code> function. The
-        <a class="link" href="https://nixos.org/nixpkgs/manual/#users-guide-to-the-haskell-infrastructure" target="_top">User's
+        <a class="link" href="https://nixos.org/nixpkgs/manual/#users-guide-to-the-haskell-infrastructure" target="_top">User’s
         Guide to the Haskell Infrastructure</a> provides more
         information about this subject.
       </p></li><li class="listitem"><p>
@@ -12166,7 +12171,7 @@ nix-env -f "&lt;nixpkgs&gt;" -iA haskellPackages.pandoc
         have a function attribute called <code class="literal">extension</code>
         that users could override in their
         <code class="literal">~/.nixpkgs/config.nix</code> files to configure
-        additional attributes, etc. That function still exists, but it's
+        additional attributes, etc. That function still exists, but it’s
         now called <code class="literal">overrides</code>.
       </p></li><li class="listitem"><p>
         The OpenBLAS library has been updated to version
@@ -12284,7 +12289,7 @@ in
         <code class="literal">/etc/ssh/moduli</code> file with respect to the
         <a class="link" href="https://stribika.github.io/2015/01/04/secure-secure-shell.html" target="_top">vulnerabilities
         discovered in the Diffie-Hellman key exchange</a> can now
-        replace OpenSSH's default version with one they generated
+        replace OpenSSH’s default version with one they generated
         themselves using the new
         <code class="literal">services.openssh.moduliFile</code> option.
       </p></li><li class="listitem"><p>

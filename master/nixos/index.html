@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>NixOS Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">NixOS Manual</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-nixos-manual"></a>NixOS Manual</h1></div><div><h2 class="subtitle">Version 23.05
-  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">Upgrading NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">Building a NixOS (Live) ISO</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#sec-bootloader-external">External Bootloader Backends</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-experimental-bootspec">Experimental feature: Bootspec</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">Testing the Installer</a></span></dt></dl></dd><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="chapter"><a href="index.html#chap-contributing">Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>1. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="filename">emacs.nix</code>)</a></dt><dt>2. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>3. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="filename">configuration.nix</code></a></dt><dt>4. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="filename">~/.config/nixpkgs/config.nix</code></a></dt><dt>5. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>6. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="filename">.emacs</code></a></dt><dt>7. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="filename">~/.emacs.d/schemas.xml</code>)</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
+  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">Upgrading NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">Building a NixOS (Live) ISO</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#sec-bootloader-external">External Bootloader Backends</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-akkoma">Akkoma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-experimental-bootspec">Experimental feature: Bootspec</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">Testing the Installer</a></span></dt></dl></dd><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="chapter"><a href="index.html#chap-contributing">Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>1. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="filename">emacs.nix</code>)</a></dt><dt>2. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>3. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="filename">configuration.nix</code></a></dt><dt>4. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="filename">~/.config/nixpkgs/config.nix</code></a></dt><dt>5. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>6. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="filename">.emacs</code></a></dt><dt>7. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="filename">~/.emacs.d/schemas.xml</code>)</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
   This manual describes how to install, use and extend NixOS, a Linux
   distribution based on the purely functional package management system
   <a class="link" href="https://nixos.org/nix" target="_top">Nix</a>, that is composed
@@ -292,10 +292,10 @@ OK
           <a id="sec-installation-partitioning-UEFI"></a>
           
         </p><p>
-          Here's an example partition scheme for UEFI, using
+          Here’s an example partition scheme for UEFI, using
           <code class="literal">/dev/sda</code> as the device.
         </p><div class="note"><h3 class="title">Note</h3><p>
-            You can safely ignore <code class="literal">parted</code>'s
+            You can safely ignore <code class="literal">parted</code>’s
             informational message about needing to update /etc/fstab.
           </p></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
               Create a <span class="emphasis"><em>GPT</em></span> partition table.
@@ -332,10 +332,10 @@ OK
           <a id="sec-installation-partitioning-MBR"></a>
           
         </p><p>
-          Here's an example partition scheme for Legacy Boot, using
+          Here’s an example partition scheme for Legacy Boot, using
           <code class="literal">/dev/sda</code> as the device.
         </p><div class="note"><h3 class="title">Note</h3><p>
-            You can safely ignore <code class="literal">parted</code>'s
+            You can safely ignore <code class="literal">parted</code>’s
             informational message about needing to update /etc/fstab.
           </p></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
               Create a <span class="emphasis"><em>MBR</em></span> partition table.
@@ -707,13 +707,13 @@ diskutil unmountDisk diskX
         </p></li></ol></div><pre class="programlisting">
 sudo dd if=&lt;path-to-image&gt; of=/dev/rdiskX bs=4m
 </pre><p>
-      After <code class="literal">dd</code> completes, a GUI dialog "The disk
-      you inserted was not readable by this computer" will pop up,
-      which can be ignored.
+      After <code class="literal">dd</code> completes, a GUI dialog <span class="quote">“<span class="quote">The
+      disk you inserted was not readable by this computer</span>”</span> will
+      pop up, which can be ignored.
     </p><div class="note"><h3 class="title">Note</h3><p>
-        Using the 'raw' <code class="literal">rdiskX</code> device instead of
-        <code class="literal">diskX</code> with dd completes in minutes instead of
-        hours.
+        Using the <span class="quote">“<span class="quote">raw</span>”</span> <code class="literal">rdiskX</code> device
+        instead of <code class="literal">diskX</code> with dd completes in minutes
+        instead of hours.
       </p></div><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem" value="5"><p>
           Eject the disk when it is finished.
         </p></li></ol></div><pre class="programlisting">
@@ -785,7 +785,7 @@ nix-build -A kexec.x86_64-linux '&lt;nixpkgs/nixos/release.nix&gt;'
     These three files are meant to be copied over to the other already
     running Linux Distribution.
   </p><p>
-    Note it’s symlinks pointing elsewhere, so <code class="literal">cd</code> in,
+    Note its symlinks pointing elsewhere, so <code class="literal">cd</code> in,
     and use <code class="literal">scp * root@$destination</code> to copy it over,
     rather than rsync.
   </p><p>
@@ -824,8 +824,8 @@ nix-build '&lt;nixpkgs/nixos&gt;' \
     downloads page</a>. If you want to set up a VirtualBox guest
     manually, follow these instructions:
   </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
-        Add a New Machine in VirtualBox with OS Type "Linux / Other
-        Linux"
+        Add a New Machine in VirtualBox with OS Type <span class="quote">“<span class="quote">Linux /
+        Other Linux</span>”</span>
       </p></li><li class="listitem"><p>
         Base Memory Size: 768 MB or higher.
       </p></li><li class="listitem"><p>
@@ -836,7 +836,7 @@ nix-build '&lt;nixpkgs/nixos&gt;' \
         Click on Settings / System / Processor and enable PAE/NX
       </p></li><li class="listitem"><p>
         Click on Settings / System / Acceleration and enable
-        "VT-x/AMD-V" acceleration
+        <span class="quote">“<span class="quote">VT-x/AMD-V</span>”</span> acceleration
       </p></li><li class="listitem"><p>
         Click on Settings / Display / Screen and select VMSVGA as
         Graphics Controller
@@ -856,7 +856,7 @@ boot.initrd.checkJournalingFS = false;
 </pre><p>
     Shared folders can be given a name and a path in the host system in
     the VirtualBox settings (Machine / Settings / Shared Folders, then
-    click on the "Add" icon). Add the following to the
+    click on the <span class="quote">“<span class="quote">Add</span>”</span> icon). Add the following to the
     <code class="literal">/etc/nixos/configuration.nix</code> to auto-mount them.
     If you do not add <code class="literal">"nofail"</code>, the system
     will not boot properly.
@@ -902,7 +902,7 @@ $ . $HOME/.nix-profile/etc/profile.d/nix.sh # …or open a fresh shell
       </p></li><li class="listitem"><p>
         Switch to the NixOS channel:
       </p><p>
-        If you've just installed Nix on a non-NixOS distribution, you
+        If you’ve just installed Nix on a non-NixOS distribution, you
         will be on the <code class="literal">nixpkgs</code> channel by default.
       </p><pre class="programlisting">
 $ nix-channel --list
@@ -919,11 +919,11 @@ $ nix-channel --add https://nixos.org/channels/nixos-version nixpkgs
       </p></li><li class="listitem"><p>
         Install the NixOS installation tools:
       </p><p>
-        You'll need <code class="literal">nixos-generate-config</code> and
+        You’ll need <code class="literal">nixos-generate-config</code> and
         <code class="literal">nixos-install</code>, but this also makes some man
         pages and <code class="literal">nixos-enter</code> available, just in case
         you want to chroot into your NixOS partition. NixOS installs
-        these by default, but you don't have NixOS yet..
+        these by default, but you don’t have NixOS yet..
       </p><pre class="programlisting">
 $ nix-env -f '&lt;nixpkgs&gt;' -iA nixos-install-tools
 </pre></li><li class="listitem"><div class="note"><h3 class="title">Note</h3><p>
@@ -937,7 +937,7 @@ $ nix-env -f '&lt;nixpkgs&gt;' -iA nixos-install-tools
         Please refer to the partitioning, file-system creation, and
         mounting steps of <a class="xref" href="index.html#sec-installation" title="Installing NixOS"><em>Installing NixOS</em></a>
       </p><p>
-        If you're about to install NixOS in place using
+        If you’re about to install NixOS in place using
         <code class="literal">NIXOS_LUSTRATE</code> there is nothing to do for
         this step.
       </p></li><li class="listitem"><p>
@@ -945,13 +945,13 @@ $ nix-env -f '&lt;nixpkgs&gt;' -iA nixos-install-tools
       </p><pre class="programlisting">
 $ sudo `which nixos-generate-config` --root /mnt
 </pre><p>
-        You'll probably want to edit the configuration files. Refer to
+        You’ll probably want to edit the configuration files. Refer to
         the <code class="literal">nixos-generate-config</code> step in
         <a class="xref" href="index.html#sec-installation" title="Installing NixOS"><em>Installing NixOS</em></a> for more information.
       </p><p>
         Consider setting up the NixOS bootloader to give you the ability
         to boot on your existing Linux partition. For instance, if
-        you're using GRUB and your existing distribution is running
+        you’re using GRUB and your existing distribution is running
         Ubuntu, you may want to add something like this to your
         <code class="literal">configuration.nix</code>:
       </p><pre class="programlisting">
@@ -1010,16 +1010,16 @@ $ sudo groupdel nixbld
 $ sudo `which nixos-generate-config`
 </pre><p>
         Note that this will place the generated configuration files in
-        <code class="literal">/etc/nixos</code>. You'll probably want to edit the
+        <code class="literal">/etc/nixos</code>. You’ll probably want to edit the
         configuration files. Refer to the
         <code class="literal">nixos-generate-config</code> step in
         <a class="xref" href="index.html#sec-installation" title="Installing NixOS"><em>Installing NixOS</em></a> for more information.
       </p><p>
-        You'll likely want to set a root password for your first boot
-        using the configuration files because you won't have a chance to
+        You’ll likely want to set a root password for your first boot
+        using the configuration files because you won’t have a chance to
         enter a password until after you reboot. You can initialize the
         root password to an empty one with this line: (and of course
-        don't forget to set one once you've rebooted or to lock the
+        don’t forget to set one once you’ve rebooted or to lock the
         account with <code class="literal">sudo passwd -l root</code> if you use
         <code class="literal">sudo</code>)
       </p><pre class="programlisting">
@@ -1042,7 +1042,7 @@ $ sudo chown -R 0:0 /nix
         NixOS partition (the bootup scripts require its presence).
       </p><p>
         <code class="literal">/etc/NIXOS_LUSTRATE</code> tells the NixOS bootup
-        scripts to move <span class="emphasis"><em>everything</em></span> that's in the
+        scripts to move <span class="emphasis"><em>everything</em></span> that’s in the
         root partition to <code class="literal">/old-root</code>. This will move
         your existing distribution out of the way in the very early
         stages of the NixOS bootup. There are exceptions (we do need to
@@ -1057,12 +1057,12 @@ $ sudo chown -R 0:0 /nix
             <code class="literal">/etc/NIXOS_LUSTRATE</code> (one per line)
           </p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>
           Support for <code class="literal">NIXOS_LUSTRATE</code> was added in
-          NixOS 16.09. The act of "lustrating" refers to the
-          wiping of the existing distribution. Creating
+          NixOS 16.09. The act of <span class="quote">“<span class="quote">lustrating</span>”</span> refers to
+          the wiping of the existing distribution. Creating
           <code class="literal">/etc/NIXOS_LUSTRATE</code> can also be used on
           NixOS to remove all mutable files from your root partition
-          (anything that's not in <code class="literal">/nix</code> or
-          <code class="literal">/boot</code> gets "lustrated" on the
+          (anything that’s not in <code class="literal">/nix</code> or
+          <code class="literal">/boot</code> gets <span class="quote">“<span class="quote">lustrated</span>”</span> on the
           next boot.
         </p><p>
           lustrate /ˈlʌstreɪt/ verb.
@@ -1070,12 +1070,12 @@ $ sudo chown -R 0:0 /nix
           purify by expiatory sacrifice, ceremonial washing, or some
           other ritual action.
         </p></div><p>
-        Let's create the files:
+        Let’s create the files:
       </p><pre class="programlisting">
 $ sudo touch /etc/NIXOS
 $ sudo touch /etc/NIXOS_LUSTRATE
 </pre><p>
-        Let's also make sure the NixOS configuration files are kept once
+        Let’s also make sure the NixOS configuration files are kept once
         we reboot on NixOS:
       </p><pre class="programlisting">
 $ echo etc/nixos | sudo tee -a /etc/NIXOS_LUSTRATE
@@ -1086,7 +1086,7 @@ $ echo etc/nixos | sudo tee -a /etc/NIXOS_LUSTRATE
         moved out now because NixOS needs to install its own boot files:
       </p><div class="warning"><h3 class="title">Warning</h3><p>
           Once you complete this step, your current distribution will no
-          longer be bootable! If you didn't get all the NixOS
+          longer be bootable! If you didn’t get all the NixOS
           configuration right, especially those settings pertaining to
           boot loading and root partition, NixOS may not be bootable
           either. Have a USB rescue device ready in case this happens.
@@ -1098,7 +1098,7 @@ sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
         prompt!
       </p></li><li class="listitem"><p>
         If for some reason you want to revert to the old distribution,
-        you'll need to boot on a USB rescue disk and do something along
+        you’ll need to boot on a USB rescue disk and do something along
         these lines:
       </p><pre class="programlisting">
 # mkdir root
@@ -1113,12 +1113,12 @@ sudo /nix/var/nix/profiles/system/bin/switch-to-configuration boot
         This may work as is or you might also need to reinstall the boot
         loader.
       </p><p>
-        And of course, if you're happy with NixOS and no longer need the
+        And of course, if you’re happy with NixOS and no longer need the
         old distribution:
       </p><pre class="programlisting">
 sudo rm -rf /old-root
 </pre></li><li class="listitem"><p>
-        It's also worth noting that this whole process can be automated.
+        It’s also worth noting that this whole process can be automated.
         This is especially useful for Cloud VMs, where provider do not
         provide NixOS. For instance,
         <a class="link" href="https://github.com/elitak/nixos-infect" target="_top">nixos-infect</a>
@@ -1160,7 +1160,7 @@ networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
     for booting, and try to realise the configuration in the running
     system (e.g., by restarting system services).
   </p><div class="warning"><h3 class="title">Warning</h3><p>
-      This command doesn't start/stop
+      This command doesn’t start/stop
       <a class="link" href="options.html#opt-systemd.user.services">user services</a>
       automatically. <code class="literal">nixos-rebuild</code> only runs a
       <code class="literal">daemon-reload</code> for each user with running user
@@ -1195,8 +1195,8 @@ networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 </pre><p>
     which causes the new configuration (and previous ones created using
     <code class="literal">-p test</code>) to show up in the GRUB submenu
-    <span class="quote">“<span class="quote">NixOS - Profile 'test'</span>”</span>. This can be useful to
-    separate test configurations from <span class="quote">“<span class="quote">stable</span>”</span>
+    <span class="quote">“<span class="quote">NixOS - Profile <span class="quote">‘<span class="quote">test</span>’</span></span>”</span>. This can be
+    useful to separate test configurations from <span class="quote">“<span class="quote">stable</span>”</span>
     configurations.
   </p><p>
     Finally, you can do
@@ -1424,7 +1424,7 @@ $ nix-build -A config.system.build.isoImage -I nixos-config=modules/installer/cd
    <code class="filename">/etc/nixos/configuration.nix</code>. As described in
    <a class="xref" href="index.html#sec-changing-config" title="Changing the Configuration"><em>Changing the Configuration</em></a>, changes to this file only take
    effect after you run <span class="command"><strong>nixos-rebuild</strong></span>.
-  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#sec-bootloader-external">External Bootloader Backends</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">Kubernetes</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-configuration-syntax"></a>Configuration Syntax</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-configuration-file">NixOS Configuration File</a></span></dt><dt><span class="section"><a href="index.html#sec-module-abstractions">Abstractions</a></span></dt><dt><span class="section"><a href="index.html#sec-modularity">Modularity</a></span></dt></dl></div><p>
+  </p><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#sec-bootloader-external">External Bootloader Backends</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-akkoma">Akkoma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">Kubernetes</a></span></dt></dl></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-configuration-syntax"></a>Configuration Syntax</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-configuration-file">NixOS Configuration File</a></span></dt><dt><span class="section"><a href="index.html#sec-module-abstractions">Abstractions</a></span></dt><dt><span class="section"><a href="index.html#sec-modularity">Modularity</a></span></dt></dl></div><p>
     The NixOS configuration file
     <code class="literal">/etc/nixos/configuration.nix</code> is actually a
     <span class="emphasis"><em>Nix expression</em></span>, which is the Nix package
@@ -2106,7 +2106,7 @@ users.users.alice = {
     <a class="xref" href="options.html#opt-users.users"><code class="option">users.users</code></a> and run nixos-rebuild, the user
     account will cease to exist. Also, imperative commands for managing
     users and groups, such as useradd, are no longer available.
-    Passwords may still be assigned by setting the user's
+    Passwords may still be assigned by setting the user’s
     <a class="link" href="options.html#opt-users.users._name_.hashedPassword">hashedPassword</a>
     option. A hashed password can be generated using
     <code class="literal">mkpasswd</code>.
@@ -2437,7 +2437,7 @@ hardware.opengl.driSupport32Bit = true;
     </p><p>
       To enable auto-login, you need to define your default window
       manager and desktop environment. If you wanted no desktop
-      environment and i3 as your your window manager, you'd define:
+      environment and i3 as your your window manager, you’d define:
     </p><pre class="programlisting">
 services.xserver.displayManager.defaultSession = "none+i3";
 </pre><p>
@@ -2462,8 +2462,8 @@ services.xserver.displayManager.autoLogin.user = "alice";
     </p><p>
       The second driver, <code class="literal">intel</code>, is specific to Intel
       GPUs, but not recommended by most distributions: it lacks several
-      modern features (for example, it doesn't support Glamor) and the
-      package hasn't been officially updated since 2015.
+      modern features (for example, it doesn’t support Glamor) and the
+      package hasn’t been officially updated since 2015.
     </p><p>
       The results vary depending on the hardware, so you may have to try
       both drivers. Use the option
@@ -2504,7 +2504,7 @@ services.xserver.videoDrivers = [ "nvidiaLegacy304" ];
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-x11--graphics-cards-amd"></a>Proprietary AMD drivers</h2></div></div></div><p>
       AMD provides a proprietary driver for its graphics cards that is
       not enabled by default because it’s not Free Software, is often
-      broken in nixpkgs and as of this writing doesn't offer more
+      broken in nixpkgs and as of this writing doesn’t offer more
       features or performance. If you still want to use it anyway, you
       need to explicitly set:
     </p><pre class="programlisting">
@@ -2546,7 +2546,7 @@ qt5.style = "gtk2";
     </p><p>
       Create a file called <code class="literal">us-greek</code> with the
       following content (under a directory called
-      <code class="literal">symbols</code>; it's an XKB peculiarity that will help
+      <code class="literal">symbols</code>; it’s an XKB peculiarity that will help
       with testing):
     </p><pre class="programlisting">
 xkb_symbols "us-greek"
@@ -2574,7 +2574,7 @@ services.xserver.extraLayouts.us-greek = {
       </p></div><p>
       Applying this customization requires rebuilding several packages,
       and a broken XKB file can lead to the X session crashing at login.
-      Therefore, you're strongly advised to <span class="strong"><strong>test
+      Therefore, you’re strongly advised to <span class="strong"><strong>test
       your layout before applying it</strong></span>:
     </p><pre class="programlisting">
 $ nix-shell -p xorg.xkbcomp
@@ -2632,8 +2632,8 @@ services.xserver.extraLayouts.media = {
       </p></div><p>
       Unfortunately, the Xorg server does not (currently) support
       setting a keymap directly but relies instead on XKB rules to
-      select the matching components (keycodes, types, ...) of a layout.
-      This means that components other than symbols won't be loaded by
+      select the matching components (keycodes, types, …) of a layout.
+      This means that components other than symbols won’t be loaded by
       default. As a workaround, you can set the keymap using
       <code class="literal">setxkbmap</code> at the start of the session with:
     </p><pre class="programlisting">
@@ -2641,7 +2641,7 @@ services.xserver.displayManager.sessionCommands = "setxkbmap -keycodes media";
 </pre><p>
       If you are manually starting the X server, you should set the
       argument <code class="literal">-xkbdir /etc/X11/xkb</code>, otherwise X
-      won't find your layout files. For example with
+      won’t find your layout files. For example with
       <code class="literal">xinit</code> run
     </p><pre class="programlisting">
 $ xinit -- -xkbdir /etc/X11/xkb
@@ -2656,9 +2656,10 @@ $ xinit -- -xkbdir /etc/X11/xkb
     display technology on NixOS, Wayland support is steadily improving.
     Where X11 separates the X Server and the window manager, on Wayland
     those are combined: a Wayland Compositor is like an X11 window
-    manager, but also embeds the Wayland 'Server' functionality. This
-    means it is sufficient to install a Wayland Compositor such as sway
-    without separately enabling a Wayland server:
+    manager, but also embeds the Wayland <span class="quote">“<span class="quote">Server</span>”</span>
+    functionality. This means it is sufficient to install a Wayland
+    Compositor such as sway without separately enabling a Wayland
+    server:
   </p><pre class="programlisting">
 programs.sway.enable = true;
 </pre><p>
@@ -2912,8 +2913,8 @@ services.picom = {
       instead of simply adding <code class="literal">pkgs.xfce.thunar</code> to
       <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>.
     </p><p>
-      If you'd like to add extra plugins to Thunar, add them to
-      <a class="xref" href="options.html#opt-programs.thunar.plugins"><code class="option">programs.thunar.plugins</code></a>. You shouldn't just
+      If you’d like to add extra plugins to Thunar, add them to
+      <a class="xref" href="options.html#opt-programs.thunar.plugins"><code class="option">programs.thunar.plugins</code></a>. You shouldn’t just
       add them to <a class="xref" href="options.html#opt-environment.systemPackages"><code class="option">environment.systemPackages</code></a>.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-xfce-troubleshooting"></a>Troubleshooting</h2></div></div></div><p>
       Even after enabling udisks2, volume management might not work.
@@ -2924,9 +2925,10 @@ services.picom = {
 Thunar:2410): GVFS-RemoteVolumeMonitor-WARNING **: remote volume monitor with dbus name org.gtk.Private.UDisks2VolumeMonitor is not supported
 </pre><p>
       This is caused by some needed GNOME services not running. This is
-      all fixed by enabling "Launch GNOME services on startup"
-      in the Advanced tab of the Session and Startup settings panel.
-      Alternatively, you can run this command to do the same thing.
+      all fixed by enabling <span class="quote">“<span class="quote">Launch GNOME services on
+      startup</span>”</span> in the Advanced tab of the Session and Startup
+      settings panel. Alternatively, you can run this command to do the
+      same thing.
     </p><pre class="programlisting">
 $ xfconf-query -c xfce4-session -p /compat/LaunchGNOME -s true
 </pre><p>
@@ -3191,7 +3193,7 @@ services.udev.initrdRules = ''
         <code class="literal">services.udev.extraRules</code> option. This is to
         avoid race conditions with other programs controlling the
         interface.
-      </p></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-kernel-config"></a>Linux Kernel</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-linux-config-customizing">Customize your kernel</a></span></dt><dt><span class="section"><a href="index.html#sec-linux-config-developing-modules">Developing kernel modules</a></span></dt><dt><span class="section"><a href="index.html#sec-linux-zfs">ZFS</a></span></dt></dl></div><p>
+      </p></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-kernel-config"></a>Linux Kernel</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#sec-linux-config-customizing">Building a custom kernel</a></span></dt><dt><span class="section"><a href="index.html#sec-linux-config-developing-modules">Developing kernel modules</a></span></dt><dt><span class="section"><a href="index.html#sec-linux-zfs">ZFS</a></span></dt></dl></div><p>
     You can override the Linux kernel and associated packages using the
     option <code class="literal">boot.kernelPackages</code>. For instance, this
     selects the Linux 3.10 kernel:
@@ -3267,55 +3269,65 @@ boot.kernel.sysctl."net.ipv4.tcp_keepalive_time" = 120;
 </pre><p>
     sets the kernel’s TCP keepalive time to 120 seconds. To see the
     available parameters, run <code class="literal">sysctl -a</code>.
-  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-linux-config-customizing"></a>Customize your kernel</h2></div></div></div><p>
-      The first step before compiling the kernel is to generate an
-      appropriate <code class="literal">.config</code> configuration. Either you
-      pass your own config via the <code class="literal">configfile</code> setting
-      of <code class="literal">linuxKernel.manualConfig</code>:
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-linux-config-customizing"></a>Building a custom kernel</h2></div></div></div><p>
+      You can customize the default kernel configuration by overriding
+      the arguments for your kernel package:
     </p><pre class="programlisting">
-custom-kernel = let base_kernel = linuxKernel.kernels.linux_4_9;
-  in super.linuxKernel.manualConfig {
-    inherit (super) stdenv hostPlatform;
-    inherit (base_kernel) src;
-    version = "${base_kernel.version}-custom";
-
-    configfile = /home/me/my_kernel_config;
-    allowImportFromDerivation = true;
-};
-</pre><p>
-      You can edit the config with this snippet (by default
-      <code class="literal">make menuconfig</code> won't work out of the box on
-      nixos):
-    </p><pre class="programlisting">
-nix-shell -E 'with import &lt;nixpkgs&gt; {}; kernelToOverride.overrideAttrs (o: {nativeBuildInputs=o.nativeBuildInputs ++ [ pkg-config ncurses ];})'
-</pre><p>
-      or you can let nixpkgs generate the configuration. Nixpkgs
-      generates it via answering the interactive kernel utility
-      <code class="literal">make config</code>. The answers depend on parameters
-      passed to
-      <code class="literal">pkgs/os-specific/linux/kernel/generic.nix</code>
-      (which you can influence by overriding
-      <code class="literal">extraConfig, autoModules, modDirVersion, preferBuiltin, extraConfig</code>).
-    </p><pre class="programlisting">
-mptcp93.override ({
-  name="mptcp-local";
-
+pkgs.linux_latest.override {
   ignoreConfigErrors = true;
   autoModules = false;
   kernelPreferBuiltin = true;
-
-  enableParallelBuilding = true;
-
-  extraConfig = ''
-    DEBUG_KERNEL y
-    FRAME_POINTER y
-    KGDB y
-    KGDB_SERIAL_CONSOLE y
-    DEBUG_INFO y
-  '';
-});
+  extraStructuredConfig = with lib.kernel; {
+    DEBUG_KERNEL = yes;
+    FRAME_POINTER = yes;
+    KGDB = yes;
+    KGDB_SERIAL_CONSOLE = yes;
+    DEBUG_INFO = yes;
+  };
+}
+</pre><p>
+      See <code class="literal">pkgs/os-specific/linux/kernel/generic.nix</code>
+      for details on how these arguments affect the generated
+      configuration. You can also build a custom version of Linux by
+      calling <code class="literal">pkgs.buildLinux</code> directly, which
+      requires the <code class="literal">src</code> and <code class="literal">version</code>
+      arguments to be specified.
+    </p><p>
+      To use your custom kernel package in your NixOS configuration, set
+    </p><pre class="programlisting">
+boot.kernelPackages = pkgs.linuxPackagesFor yourCustomKernel;
+</pre><p>
+      Note that this method will use the common configuration defined in
+      <code class="literal">pkgs/os-specific/linux/kernel/common-config.nix</code>,
+      which is suitable for a NixOS system.
+    </p><p>
+      If you already have a generated configuration file, you can build
+      a kernel that uses it with
+      <code class="literal">pkgs.linuxManualConfig</code>:
+    </p><pre class="programlisting">
+let
+  baseKernel = pkgs.linux_latest;
+in pkgs.linuxManualConfig {
+  inherit (baseKernel) src modDirVersion;
+  version = "${baseKernel.version}-custom";
+  configfile = ./my_kernel_config;
+  allowImportFromDerivation = true;
+}
+</pre><div class="note"><h3 class="title">Note</h3><p>
+        The build will fail if <code class="literal">modDirVersion</code> does not
+        match the source’s <code class="literal">kernel.release</code> file, so
+        <code class="literal">modDirVersion</code> should remain tied to
+        <code class="literal">src</code>.
+      </p></div><p>
+      To edit the <code class="literal">.config</code> file for Linux X.Y, proceed
+      as follows:
+    </p><pre class="programlisting">
+$ nix-shell '&lt;nixpkgs&gt;' -A linuxKernel.kernels.linux_X_Y.configEnv
+$ unpackPhase
+$ cd linux-*
+$ make nconfig
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-linux-config-developing-modules"></a>Developing kernel modules</h2></div></div></div><p>
-      When developing kernel modules it's often convenient to run
+      When developing kernel modules it’s often convenient to run
       edit-compile-run loop as quickly as possible. See below snippet as
       an example of developing <code class="literal">mellanox</code> drivers.
     </p><pre class="programlisting">
@@ -4558,7 +4570,311 @@ services.discourse = {
 };
 </pre><p>
 
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-meilisearch"></a>Meilisearch</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#quickstart">Quickstart</a></span></dt><dt><span class="section"><a href="index.html#usage">Usage</a></span></dt><dt><span class="section"><a href="index.html#defaults">Defaults</a></span></dt><dt><span class="section"><a href="index.html#missing">Missing</a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-akkoma"></a>Akkoma</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#modules-services-akkoma-service-configuration">Service configuration</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-user-management">User management</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-proxy-configuration">Proxy configuration</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-frontend-management">Frontend management</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-federation-policies">Federation policies</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-upload-filters">Upload filters</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-migration-pleroma">Migration from Pleroma</a></span></dt><dt><span class="section"><a href="index.html#modules-services-akkoma-advanced-deployment">Advanced deployment options</a></span></dt></dl></div><p>
+    <a class="link" href="https://akkoma.dev/" target="_top">Akkoma</a> is a
+    lightweight ActivityPub microblogging server forked from Pleroma.
+  </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-service-configuration"></a>Service configuration</h2></div></div></div><p>
+      The Elixir configuration file required by Akkoma is generated
+      automatically from
+      <a class="link" href="options.html#opt-services.akkoma.config" target="_top"><code class="option">services.akkoma.config</code></a>.
+      Secrets must be included from external files outside of the Nix
+      store by setting the configuration option to an attribute set
+      containing the attribute <code class="option">_secret</code> – a string
+      pointing to the file containing the actual value of the option.
+    </p><p>
+      For the mandatory configuration settings these secrets will be
+      generated automatically if the referenced file does not exist
+      during startup, unless disabled through
+      <a class="link" href="options.html#opt-services.akkoma.initSecrets" target="_top"><code class="option">services.akkoma.initSecrets</code></a>.
+    </p><p>
+      The following configuration binds Akkoma to the Unix socket
+      <code class="literal">/run/akkoma/socket</code>, expecting to be run behind
+      a HTTP proxy on <code class="literal">fediverse.example.com</code>.
+    </p><pre class="programlisting">
+services.akkoma.enable = true;
+services.akkoma.config = {
+  ":pleroma" = {
+    ":instance" = {
+      name = "My Akkoma instance";
+      description = "More detailed description";
+      email = "admin@example.com";
+      registration_open = false;
+    };
+
+    "Pleroma.Web.Endpoint" = {
+      url.host = "fediverse.example.com";
+    };
+  };
+};
+</pre><p>
+      Please refer to the
+      <a class="link" href="https://docs.akkoma.dev/stable/configuration/cheatsheet/" target="_top">configuration
+      cheat sheet</a> for additional configuration options.
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-user-management"></a>User management</h2></div></div></div><p>
+      After the Akkoma service is running, the administration utility
+      can be used to
+      <a class="link" href="https://docs.akkoma.dev/stable/administration/CLI_tasks/user/" target="_top">manage
+      users</a>. In particular an administrative user can be created
+      with
+    </p><pre class="programlisting">
+$ pleroma_ctl user new &lt;nickname&gt; &lt;email&gt; --admin --moderator --password &lt;password&gt;
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-proxy-configuration"></a>Proxy configuration</h2></div></div></div><p>
+      Although it is possible to expose Akkoma directly, it is common
+      practice to operate it behind an HTTP reverse proxy such as nginx.
+    </p><pre class="programlisting">
+services.akkoma.nginx = {
+  enableACME = true;
+  forceSSL = true;
+};
+
+services.nginx = {
+  enable = true;
+
+  clientMaxBodySize = "16m";
+  recommendedTlsSettings = true;
+  recommendedOptimisation = true;
+  recommendedGzipSettings = true;
+};
+</pre><p>
+      Please refer to <a class="xref" href="index.html#module-security-acme" title="SSL/TLS Certificates with ACME"><em>SSL/TLS Certificates with ACME</em></a> for
+      details on how to provision an SSL/TLS certificate.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="modules-services-akkoma-media-proxy"></a>Media proxy</h3></div></div></div><p>
+        Without the media proxy function, Akkoma does not store any
+        remote media like pictures or video locally, and clients have to
+        fetch them directly from the source server.
+      </p><pre class="programlisting">
+# Enable nginx slice module distributed with Tengine
+services.nginx.package = pkgs.tengine;
+
+# Enable media proxy
+services.akkoma.config.":pleroma".":media_proxy" = {
+  enabled = true;
+  proxy_opts.redirect_on_failure = true;
+};
+
+# Adjust the persistent cache size as needed:
+#  Assuming an average object size of 128 KiB, around 1 MiB
+#  of memory is required for the key zone per GiB of cache.
+# Ensure that the cache directory exists and is writable by nginx.
+services.nginx.commonHttpConfig = ''
+  proxy_cache_path /var/cache/nginx/cache/akkoma-media-cache
+    levels= keys_zone=akkoma_media_cache:16m max_size=16g
+    inactive=1y use_temp_path=off;
+'';
+
+services.akkoma.nginx = {
+  locations."/proxy" = {
+    proxyPass = "http://unix:/run/akkoma/socket";
+
+    extraConfig = ''
+      proxy_cache akkoma_media_cache;
+
+      # Cache objects in slices of 1 MiB
+      slice 1m;
+      proxy_cache_key $host$uri$is_args$args$slice_range;
+      proxy_set_header Range $slice_range;
+
+      # Decouple proxy and upstream responses
+      proxy_buffering on;
+      proxy_cache_lock on;
+      proxy_ignore_client_abort on;
+
+      # Default cache times for various responses
+      proxy_cache_valid 200 1y;
+      proxy_cache_valid 206 301 304 1h;
+
+      # Allow serving of stale items
+      proxy_cache_use_stale error timeout invalid_header updating;
+    '';
+  };
+};
+</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="modules-services-akkoma-prefetch-remote-media"></a>Prefetch remote media</h4></div></div></div><p>
+          The following example enables the
+          <code class="literal">MediaProxyWarmingPolicy</code> MRF policy which
+          automatically fetches all media associated with a post through
+          the media proxy, as soon as the post is received by the
+          instance.
+        </p><pre class="programlisting">
+services.akkoma.config.":pleroma".":mrf".policies =
+  map (pkgs.formats.elixirConf { }).lib.mkRaw [
+    "Pleroma.Web.ActivityPub.MRF.MediaProxyWarmingPolicy"
+];
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="modules-services-akkoma-media-previews"></a>Media previews</h4></div></div></div><p>
+          Akkoma can generate previews for media.
+        </p><pre class="programlisting">
+services.akkoma.config.":pleroma".":media_preview_proxy" = {
+  enabled = true;
+  thumbnail_max_width = 1920;
+  thumbnail_max_height = 1080;
+};
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-frontend-management"></a>Frontend management</h2></div></div></div><p>
+      Akkoma will be deployed with the <code class="literal">pleroma-fe</code> and
+      <code class="literal">admin-fe</code> frontends by default. These can be
+      modified by setting
+      <a class="link" href="options.html#opt-services.akkoma.frontends" target="_top"><code class="option">services.akkoma.frontends</code></a>.
+    </p><p>
+      The following example overrides the primary frontend’s default
+      configuration using a custom derivation.
+    </p><pre class="programlisting">
+services.akkoma.frontends.primary.package = pkgs.runCommand "pleroma-fe" {
+  config = builtins.toJSON {
+    expertLevel = 1;
+    collapseMessageWithSubject = false;
+    stopGifs = false;
+    replyVisibility = "following";
+    webPushHideIfCW = true;
+    hideScopeNotice = true;
+    renderMisskeyMarkdown = false;
+    hideSiteFavicon = true;
+    postContentType = "text/markdown";
+    showNavShortcuts = false;
+  };
+  nativeBuildInputs = with pkgs; [ jq xorg.lndir ];
+  passAsFile = [ "config" ];
+} ''
+  mkdir $out
+  lndir ${pkgs.akkoma-frontends.pleroma-fe} $out
+
+  rm $out/static/config.json
+  jq -s add ${pkgs.akkoma-frontends.pleroma-fe}/static/config.json ${config} \
+    &gt;$out/static/config.json
+'';
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-federation-policies"></a>Federation policies</h2></div></div></div><p>
+      Akkoma comes with a number of modules to police federation with
+      other ActivityPub instances. The most valuable for typical users
+      is the
+      <a class="link" href="https://docs.akkoma.dev/stable/configuration/cheatsheet/#mrf_simple" target="_top"><code class="literal">:mrf_simple</code></a>
+      module which allows limiting federation based on instance
+      hostnames.
+    </p><p>
+      This configuration snippet provides an example on how these can be
+      used. Choosing an adequate federation policy is not trivial and
+      entails finding a balance between connectivity to the rest of the
+      fediverse and providing a pleasant experience to the users of an
+      instance.
+    </p><pre class="programlisting">
+services.akkoma.config.":pleroma" = with (pkgs.formats.elixirConf { }).lib; {
+  ":mrf".policies = map mkRaw [
+    "Pleroma.Web.ActivityPub.MRF.SimplePolicy"
+  ];
+
+  ":mrf_simple" = {
+    # Tag all media as sensitive
+    media_nsfw = mkMap {
+      "nsfw.weird.kinky" = "Untagged NSFW content";
+    };
+
+    # Reject all activities except deletes
+    reject = mkMap {
+      "kiwifarms.cc" = "Persistent harassment of users, no moderation";
+    };
+
+    # Force posts to be visible by followers only
+    followers_only = mkMap {
+      "beta.birdsite.live" = "Avoid polluting timelines with Twitter posts";
+    };
+  };
+};
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-upload-filters"></a>Upload filters</h2></div></div></div><p>
+      This example strips GPS and location metadata from uploads,
+      deduplicates them and anonymises the the file name.
+    </p><pre class="programlisting">
+services.akkoma.config.":pleroma"."Pleroma.Upload".filters =
+  map (pkgs.formats.elixirConf { }).lib.mkRaw [
+    "Pleroma.Upload.Filter.Exiftool"
+    "Pleroma.Upload.Filter.Dedupe"
+    "Pleroma.Upload.Filter.AnonymizeFilename"
+  ];
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-migration-pleroma"></a>Migration from Pleroma</h2></div></div></div><p>
+      Pleroma instances can be migrated to Akkoma either by copying the
+      database and upload data or by pointing Akkoma to the existing
+      data. The necessary database migrations are run automatically
+      during startup of the service.
+    </p><p>
+      The configuration has to be copy‐edited manually.
+    </p><p>
+      Depending on the size of the database, the initial migration may
+      take a long time and exceed the startup timeout of the system
+      manager. To work around this issue one may adjust the startup
+      timeout
+      <code class="option">systemd.services.akkoma.serviceConfig.TimeoutStartSec</code>
+      or simply run the migrations manually:
+    </p><pre class="programlisting">
+pleroma_ctl migrate
+</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="modules-services-akkoma-migration-pleroma-copy"></a>Copying data</h3></div></div></div><p>
+        Copying the Pleroma data instead of re‐using it in place may
+        permit easier reversion to Pleroma, but allows the two data sets
+        to diverge.
+      </p><p>
+        First disable Pleroma and then copy its database and upload
+        data:
+      </p><pre class="programlisting">
+# Create a copy of the database
+nix-shell -p postgresql --run 'createdb -T pleroma akkoma'
+
+# Copy upload data
+mkdir /var/lib/akkoma
+cp -R --reflink=auto /var/lib/pleroma/uploads /var/lib/akkoma/
+</pre><p>
+        After the data has been copied, enable the Akkoma service and
+        verify that the migration has been successful. If no longer
+        required, the original data may then be deleted:
+      </p><pre class="programlisting">
+# Delete original database
+nix-shell -p postgresql --run 'dropdb pleroma'
+
+# Delete original Pleroma state
+rm -r /var/lib/pleroma
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="modules-services-akkoma-migration-pleroma-reuse"></a>Re‐using data</h3></div></div></div><p>
+        To re‐use the Pleroma data in place, disable Pleroma and enable
+        Akkoma, pointing it to the Pleroma database and upload
+        directory.
+      </p><pre class="programlisting">
+# Adjust these settings according to the database name and upload directory path used by Pleroma
+services.akkoma.config.":pleroma"."Pleroma.Repo".database = "pleroma";
+services.akkoma.config.":pleroma".":instance".upload_dir = "/var/lib/pleroma/uploads";
+</pre><p>
+        Please keep in mind that after the Akkoma service has been
+        started, any migrations applied by Akkoma have to be rolled back
+        before the database can be used again with Pleroma. This can be
+        achieved through <code class="literal">pleroma_ctl ecto.rollback</code>.
+        Refer to the
+        <a class="link" href="https://hexdocs.pm/ecto_sql/Mix.Tasks.Ecto.Rollback.html" target="_top">Ecto
+        SQL documentation</a> for details.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-advanced-deployment"></a>Advanced deployment options</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="modules-services-akkoma-confinement"></a>Confinement</h3></div></div></div><p>
+        The Akkoma systemd service may be confined to a chroot with
+      </p><pre class="programlisting">
+services.systemd.akkoma.confinement.enable = true;
+</pre><p>
+        Confinement of services is not generally supported in NixOS and
+        therefore disabled by default. Depending on the Akkoma
+        configuration, the default confinement settings may be
+        insufficient and lead to subtle errors at run time, requiring
+        adjustment:
+      </p><p>
+        Use
+        <a class="link" href="options.html#opt-systemd.services._name_.confinement.packages" target="_top"><code class="option">services.systemd.akkoma.confinement.packages</code></a>
+        to make packages available in the chroot.
+      </p><p>
+        <code class="option">services.systemd.akkoma.serviceConfig.BindPaths</code>
+        and
+        <code class="option">services.systemd.akkoma.serviceConfig.BindReadOnlyPaths</code>
+        permit access to outside paths through bind mounts. Refer to
+        <a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html#BindPaths=" target="_top"><span class="citerefentry"><span class="refentrytitle">systemd.exec</span>(5)</span></a>
+        for details.
+      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="modules-services-akkoma-distributed-deployment"></a>Distributed deployment</h3></div></div></div><p>
+        Being an Elixir application, Akkoma can be deployed in a
+        distributed fashion.
+      </p><p>
+        This requires setting
+        <a class="link" href="options.html#opt-services.akkoma.dist.address" target="_top"><code class="option">services.akkoma.dist.address</code></a>
+        and
+        <a class="link" href="options.html#opt-services.akkoma.dist.cookie" target="_top"><code class="option">services.akkoma.dist.cookie</code></a>.
+        The specifics depend strongly on the deployment environment. For
+        more information please check the relevant
+        <a class="link" href="https://www.erlang.org/doc/reference_manual/distributed.html" target="_top">Erlang
+        documentation</a>.
+      </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-meilisearch"></a>Meilisearch</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#quickstart">Quickstart</a></span></dt><dt><span class="section"><a href="index.html#usage">Usage</a></span></dt><dt><span class="section"><a href="index.html#defaults">Defaults</a></span></dt><dt><span class="section"><a href="index.html#missing">Missing</a></span></dt></dl></div><p>
     Meilisearch is a lightweight, fast and powerful search engine. Think
     elastic search with a much smaller footprint.
   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="quickstart"></a>Quickstart</h2></div></div></div><p>
@@ -7829,7 +8145,7 @@ i18n.inputMethod = {
     In some cases, it may be desirable to take advantage of
     commonly-used, predefined configurations provided by nixpkgs, but
     different from those that come as default. This is a role fulfilled
-    by NixOS's Profiles, which come as files living in
+    by NixOS’s Profiles, which come as files living in
     <code class="literal">&lt;nixpkgs/nixos/modules/profiles&gt;</code>. That is
     to say, expected usage is to add them to the imports list of your
     <code class="literal">/etc/configuration.nix</code> as such:
@@ -7980,8 +8296,8 @@ services.kubernetes = {
   flannel.enable = true;
 };
 </pre><p>
-    Another way is to assign cluster roles ("master" and/or
-    "node") to the host. This enables apiserver,
+    Another way is to assign cluster roles (<span class="quote">“<span class="quote">master</span>”</span> and/or
+    <span class="quote">“<span class="quote">node</span>”</span>) to the host. This enables apiserver,
     controllerManager, scheduler, addonManager, kube-proxy and etcd:
   </p><pre class="programlisting">
 services.kubernetes.roles = [ "master" ];
@@ -8127,7 +8443,7 @@ Jan 07 15:55:57 hagbard systemd[1]: Started PostgreSQL Server.
       Packages in Nixpkgs sometimes provide systemd units with them,
       usually in e.g <code class="literal">#pkg-out#/lib/systemd/</code>. Putting
       such a package in <code class="literal">environment.systemPackages</code>
-      doesn't make the service available to users or the system.
+      doesn’t make the service available to users or the system.
     </p><p>
       In order to enable a systemd <span class="emphasis"><em>system</em></span> service
       with provided upstream package, use (e.g):
@@ -8136,9 +8452,9 @@ systemd.packages = [ pkgs.packagekit ];
 </pre><p>
       Usually NixOS modules written by the community do the above, plus
       take care of other details. If a module was written for a service
-      you are interested in, you'd probably need only to use
+      you are interested in, you’d probably need only to use
       <code class="literal">services.#name#.enable = true;</code>. These services
-      are defined in Nixpkgs'
+      are defined in Nixpkgs’
       <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/modules" target="_top">
       <code class="literal">nixos/modules/</code> directory </a>. In case the
       service is simple enough, the above method should work, and start
@@ -8149,8 +8465,8 @@ systemd.packages = [ pkgs.packagekit ];
       unit file at <code class="literal">#pkg-out#/lib/systemd/user/</code>, using
       <a class="xref" href="options.html#opt-systemd.packages"><code class="option">systemd.packages</code></a> will make you able to
       start the service via <code class="literal">systemctl --user start</code>,
-      but it won't start automatically on login. However, You can
-      imperatively enable it by adding the package's attribute to
+      but it won’t start automatically on login. However, You can
+      imperatively enable it by adding the package’s attribute to
       <a class="xref" href="options.html#opt-systemd.packages"><code class="option">systemd.packages</code></a> and then do this (e.g):
     </p><pre class="programlisting">
 $ mkdir -p ~/.config/systemd/user/default.target.wants
@@ -8164,7 +8480,7 @@ $ systemctl --user enable syncthing.service
       command.
     </p><p>
       Using <code class="literal">systemctl --user enable syncthing.service</code>
-      instead of the above, will work, but it'll use the absolute path
+      instead of the above, will work, but it’ll use the absolute path
       of <code class="literal">syncthing.service</code> for the symlink, and this
       path is in <code class="literal">/nix/store/.../lib/systemd/user/</code>.
       Hence <a class="link" href="index.html#sec-nix-gc" title="Cleaning the Nix Store">garbage collection</a> will
@@ -8908,7 +9224,7 @@ $ ln -s /my/sources/nixpkgs ~/.nix-defexpr/nixpkgs
         This <code class="literal">imports</code> list enumerates the paths to
         other NixOS modules that should be included in the evaluation of
         the system configuration. A default set of modules is defined in
-        the file <code class="literal">modules/module-list.nix</code>. These don't
+        the file <code class="literal">modules/module-list.nix</code>. These don’t
         need to be added in the import list.
       </p></li><li class="listitem"><p>
         The attribute <code class="literal">options</code> is a nested set of
@@ -9191,7 +9507,7 @@ lib.mkOption {
             As an example, we will take the case of display managers.
             There is a central display manager module for generic
             display manager options and a module file per display
-            manager backend (sddm, gdm ...).
+            manager backend (sddm, gdm …).
           </p><p>
             There are two approaches we could take with this module
             structure:
@@ -9364,13 +9680,13 @@ services.xserver.displayManager.enable = mkOption {
             A free-form attribute set.
           </p><div class="warning"><h3 class="title">Warning</h3><p>
               This type will be deprecated in the future because it
-              doesn't recurse into attribute sets, silently drops
-              earlier attribute definitions, and doesn't discharge
+              doesn’t recurse into attribute sets, silently drops
+              earlier attribute definitions, and doesn’t discharge
               <code class="literal">lib.mkDefault</code>,
               <code class="literal">lib.mkIf</code> and co. For allowing arbitrary
               attribute sets, prefer
               <code class="literal">types.attrsOf types.anything</code> instead
-              which doesn't have these problems.
+              which doesn’t have these problems.
             </p></div></dd></dl></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-option-types-numeric"></a>Numeric types</h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">
             <code class="literal">types.int</code>
           </span></dt><dd><p>
@@ -9516,7 +9832,7 @@ services.xserver.displayManager.enable = mkOption {
                 <code class="literal">_module.args</code> should be used instead
                 for most arguments since it allows overriding.
                 <span class="emphasis"><em><code class="literal">specialArgs</code></em></span>
-                should only be used for arguments that can't go through
+                should only be used for arguments that can’t go through
                 the module fixed-point, because of infinite recursion or
                 other problems. An example is overriding the
                 <code class="literal">lib</code> argument, because
@@ -9537,7 +9853,7 @@ services.xserver.displayManager.enable = mkOption {
                 instead of requiring
                 <code class="literal">the-submodule.config.config = "value"</code>.
                 This is because only when modules
-                <span class="emphasis"><em>don't</em></span> set the
+                <span class="emphasis"><em>don’t</em></span> set the
                 <code class="literal">config</code> or <code class="literal">options</code>
                 keys, all keys are interpreted as option definitions in
                 the <code class="literal">config</code> section. Enabling this
@@ -9657,7 +9973,7 @@ services.xserver.displayManager.enable = mkOption {
             definitions cannot be merged.
           </p></dd><dt><span class="term">
           <code class="literal">types.oneOf</code> [
-          <span class="emphasis"><em><code class="literal">t1 t2</code></em></span> ... ]
+          <span class="emphasis"><em><code class="literal">t1 t2</code></em></span> … ]
         </span></dt><dd><p>
             Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type
             <span class="emphasis"><em><code class="literal">t2</code></em></span> and so forth,
@@ -10215,8 +10531,8 @@ $ nix-build nixos/release.nix -A manual.x86_64-linux
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-replace-modules"></a>Replace Modules</h2></div></div></div><p>
     Modules that are imported can also be disabled. The option
     declarations, config implementation and the imports of a disabled
-    module will be ignored, allowing another to take it's place. This
-    can be used to import a set of modules from another channel while
+    module will be ignored, allowing another to take its place. This can
+    be used to import a set of modules from another channel while
     keeping the rest of the system on a stable release.
   </p><p>
     <code class="literal">disabledModules</code> is a top level attribute like
@@ -10229,7 +10545,7 @@ $ nix-build nixos/release.nix -A manual.x86_64-linux
     This example will replace the existing postgresql module with the
     version defined in the nixos-unstable channel while keeping the rest
     of the modules and packages from the original nixos channel. This
-    only overrides the module definition, this won't use postgresql from
+    only overrides the module definition, this won’t use postgresql from
     nixos-unstable unless explicitly configured to do so.
   </p><pre class="programlisting">
 { config, lib, pkgs, ... }:
@@ -10248,7 +10564,7 @@ $ nix-build nixos/release.nix -A manual.x86_64-linux
 </pre><p>
     This example shows how to define a custom module as a replacement
     for an existing module. Importing this module will disable the
-    original module without having to know it's implementation details.
+    original module without having to know its implementation details.
   </p><pre class="programlisting">
 { config, lib, pkgs, ... }:
 
@@ -10357,10 +10673,10 @@ in
         INI, YAML and TOML. The following section explains the
         convention for these settings.
       </p></li><li class="listitem"><p>
-        Non-nix-representable ones: These can't be trivially mapped to a
+        Non-nix-representable ones: These can’t be trivially mapped to a
         subset of Nix syntax. Most generic programming languages are in
         this group, e.g. bash, since the statement
-        <code class="literal">if true; then echo hi; fi</code> doesn't have a
+        <code class="literal">if true; then echo hi; fi</code> doesn’t have a
         trivial representation in Nix.
       </p><p>
         Currently there are no fixed conventions for these, but it is
@@ -10375,8 +10691,7 @@ in
         <code class="literal">extraConfig</code> option of type
         <code class="literal">lines</code> to allow arbitrary text after the
         autogenerated part of the file.
-      </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-settings-nix-representable"></a>Nix-representable Formats (JSON, YAML, TOML, INI,
-    ...)</h3></div></div></div><p>
+      </p></li></ul></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-settings-nix-representable"></a>Nix-representable Formats (JSON, YAML, TOML, INI, …)</h3></div></div></div><p>
       By convention, formats like this are handled with a generic
       <code class="literal">settings</code> option, representing the full program
       configuration as a Nix value. The type of this option should
@@ -11019,7 +11334,7 @@ $ cd /path/to/nixpkgs/nixos/doc/manual
 $ nix-shell
 nix-shell$ make
 </pre><p>
-      Once you are done making modifications to the manual, it's
+      Once you are done making modifications to the manual, it’s
       important to build it before committing. You can do that as
       follows:
     </p><pre class="programlisting">
@@ -11262,7 +11577,7 @@ start_all()
           <code class="literal">get_screen_text_variants</code>
         </span></dt><dd><p>
             Return a list of different interpretations of what is
-            currently visible on the machine's screen using optical
+            currently visible on the machine’s screen using optical
             character recognition. The number and order of the
             interpretations is not specified and is subject to change,
             but if no exception is raised at least one will be returned.
@@ -11274,7 +11589,7 @@ start_all()
           <code class="literal">get_screen_text</code>
         </span></dt><dd><p>
             Return a textual representation of what is currently visible
-            on the machine's screen using optical character recognition.
+            on the machine’s screen using optical character recognition.
           </p><div class="note"><h3 class="title">Note</h3><p>
               This requires
               <a class="link" href="index.html#test-opt-enableOCR"><code class="literal">enableOCR</code></a>
@@ -11469,8 +11784,8 @@ machine.wait_for_unit("xautolock.service", "x-session-user")
       <code class="literal">wait_for_unit</code>, <code class="literal">start_job</code> and
       <code class="literal">stop_job</code>.
     </p><p>
-      For faster dev cycles it's also possible to disable the
-      code-linters (this shouldn't be committed though):
+      For faster dev cycles it’s also possible to disable the
+      code-linters (this shouldn’t be committed though):
     </p><pre class="programlisting">
 {
   skipLint = true;
@@ -11487,7 +11802,7 @@ machine.wait_for_unit("xautolock.service", "x-session-user")
 </pre><p>
       This will produce a Nix warning at evaluation time. To fully
       disable the linter, wrap the test script in comment directives to
-      disable the Black linter directly (again, don't commit this within
+      disable the Black linter directly (again, don’t commit this within
       the Nixpkgs repository):
     </p><pre class="programlisting">
   testScript =
@@ -11527,21 +11842,21 @@ with foo_running:
 </pre><p>
       <code class="literal">polling_condition</code> takes the following
       (optional) arguments:
-    </p><p>
-      <code class="literal">seconds_interval</code>
-    </p><p>
-      : specifies how often the condition should be polled:
-    </p><pre class="programlisting">
+    </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          <code class="literal">seconds_interval</code>
+        </span></dt><dd><p>
+            specifies how often the condition should be polled:
+          </p></dd></dl></div><pre class="programlisting">
 @polling_condition(seconds_interval=10)
 def foo_running():
     machine.succeed("pgrep -x foo")
-</pre><p>
-      <code class="literal">description</code>
-    </p><p>
-      : is used in the log when the condition is checked. If this is not
-      provided, the description is pulled from the docstring of the
-      function. These two are therefore equivalent:
-    </p><pre class="programlisting">
+</pre><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+          <code class="literal">description</code>
+        </span></dt><dd><p>
+            is used in the log when the condition is checked. If this is
+            not provided, the description is pulled from the docstring
+            of the function. These two are therefore equivalent:
+          </p></dd></dl></div><pre class="programlisting">
 @polling_condition
 def foo_running():
     "check that foo is running"
@@ -11601,8 +11916,7 @@ using the program in the test derivation's <code class="literal">.driverInteract
 </p><p><span class="emphasis"><em>Type:</em></span> submodule</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">{ }</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/meta.nix" target="_top">nixos/lib/testing/meta.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-meta.broken"></a><a class="term" href="index.html#test-opt-meta.broken"><code class="option">meta.broken</code></a></span></dt><dd><p>Sets the <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#var-meta-broken" target="_top"><code class="literal">meta.broken</code></a> attribute on the <a class="link" href="index.html#test-opt-test"><code class="option">test</code></a> derivation.
 </p><p><span class="emphasis"><em>Type:</em></span> boolean</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">false</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/meta.nix" target="_top">nixos/lib/testing/meta.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-meta.maintainers"></a><a class="term" href="index.html#test-opt-meta.maintainers"><code class="option">meta.maintainers</code></a></span></dt><dd><p>The <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#var-meta-maintainers" target="_top">list of maintainers</a> for this test.
 </p><p><span class="emphasis"><em>Type:</em></span> list of raw value</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/meta.nix" target="_top">nixos/lib/testing/meta.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-meta.timeout"></a><a class="term" href="index.html#test-opt-meta.timeout"><code class="option">meta.timeout</code></a></span></dt><dd><p>The <a class="link" href="index.html#test-opt-test"><code class="option">test</code></a>'s <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#var-meta-timeout" target="_top"><code class="literal">meta.timeout</code></a> in seconds.
-</p><p><span class="emphasis"><em>Type:</em></span> null or signed integer</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">null</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/meta.nix" target="_top">nixos/lib/testing/meta.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-minimal"></a><a class="term" href="index.html#test-opt-minimal"><code class="option">minimal</code></a></span></dt><dd><p>Enable to configure all <a class="link" href="index.html#test-opt-nodes"><code class="option">nodes</code></a> to run with a minimal kernel.
-</p><p><span class="emphasis"><em>Type:</em></span> boolean</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">false</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">nixos/lib/testing/nodes.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-name"></a><a class="term" href="index.html#test-opt-name"><code class="option">name</code></a></span></dt><dd><p>The name of the test.</p><p>This is used in the derivation names of the <a class="link" href="index.html#test-opt-driver"><code class="option">driver</code></a> and <a class="link" href="index.html#test-opt-test"><code class="option">test</code></a> runner.
+</p><p><span class="emphasis"><em>Type:</em></span> null or signed integer</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">null</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/meta.nix" target="_top">nixos/lib/testing/meta.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-name"></a><a class="term" href="index.html#test-opt-name"><code class="option">name</code></a></span></dt><dd><p>The name of the test.</p><p>This is used in the derivation names of the <a class="link" href="index.html#test-opt-driver"><code class="option">driver</code></a> and <a class="link" href="index.html#test-opt-test"><code class="option">test</code></a> runner.
 </p><p><span class="emphasis"><em>Type:</em></span> string</p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/name.nix" target="_top">nixos/lib/testing/name.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-node.specialArgs"></a><a class="term" href="index.html#test-opt-node.specialArgs"><code class="option">node.specialArgs</code></a></span></dt><dd><p>An attribute set of arbitrary values that will be made available as module arguments during the resolution of module <code class="literal">imports</code>.</p><p>Note that it is not possible to override these from within the NixOS configurations. If you argument is not relevant to <code class="literal">imports</code>, consider setting <code class="option">defaults._module.args.&lt;name&gt;</code> instead.
 </p><p><span class="emphasis"><em>Type:</em></span> lazy attribute set of raw value</p><p><span class="emphasis"><em>Default:</em></span> <code class="literal">{ }</code></p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">nixos/lib/testing/nodes.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-nodes"></a><a class="term" href="index.html#test-opt-nodes"><code class="option">nodes</code></a></span></dt><dd><p>An attribute set of NixOS configuration modules.</p><p>The configurations are augmented by the <a class="link" href="index.html#test-opt-defaults"><code class="literal">defaults</code></a> option.</p><p>They are assigned network addresses according to the <code class="literal">nixos/lib/testing/network.nix</code> module.</p><p>A few special options are available, that aren't in a plain NixOS configuration. See <a class="link" href="index.html#sec-nixos-test-nodes" title="Configuring the nodes">Configuring the nodes</a>
 </p><p><span class="emphasis"><em>Type:</em></span> lazy attribute set of module</p><p><span class="emphasis"><em>Declared by:</em></span></p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">nixos/lib/testing/nodes.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="test-opt-passthru"></a><a class="term" href="index.html#test-opt-passthru"><code class="option">passthru</code></a></span></dt><dd><p>Attributes to add to the returned derivations,
