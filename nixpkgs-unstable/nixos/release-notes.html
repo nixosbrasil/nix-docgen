@@ -228,6 +228,11 @@
           variable templates. This is now extensively documented in the
           NixOS manual.
         </p></li><li class="listitem"><p>
+          <code class="literal">services.grafana</code> listens only on localhost
+          by default again. This was changed to upstreams default of
+          <code class="literal">0.0.0.0</code> by accident in the freeform setting
+          conversion.
+        </p></li><li class="listitem"><p>
           A new <code class="literal">virtualisation.rosetta</code> module was
           added to allow running <code class="literal">x86_64</code> binaries
           through
@@ -246,6 +251,11 @@
           <code class="literal">services.nginx.virtualHosts</code> now allows one
           to add exceptions with the <code class="literal">locations</code>
           option.
+        </p></li><li class="listitem"><p>
+          A new option <code class="literal">recommendedBrotliSettings</code> has
+          been added to <code class="literal">services.nginx</code>. Learn more
+          about compression in Brotli format
+          <a class="link" href="https://github.com/google/ngx_brotli/blob/master/README.md" target="_top">here</a>.
         </p></li><li class="listitem"><p>
           Resilio sync secret keys can now be provided using a secrets
           file at runtime, preventing these secrets from ending up in
