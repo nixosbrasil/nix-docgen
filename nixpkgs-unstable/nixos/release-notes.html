@@ -44,6 +44,11 @@
           web GUI client of Project V which supports V2Ray, Xray, SS,
           SSR, Trojan and Pingtunnel. Available as
           <a class="link" href="options.html#opt-services.v2raya.enable" target="_top">services.v2raya</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.netfilter.org/projects/ulogd/index.html" target="_top">ulogd</a>,
+          a userspace logging daemon for netfilter/iptables related
+          logging. Available as
+          <a class="link" href="options.html#opt-services.ulogd.enable" target="_top">services.ulogd</a>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">carnix</code> and <code class="literal">cratesIO</code> has
           been removed due to being unmaintained, use alternatives such
@@ -256,6 +261,18 @@
           been added to <code class="literal">services.nginx</code>. Learn more
           about compression in Brotli format
           <a class="link" href="https://github.com/google/ngx_brotli/blob/master/README.md" target="_top">here</a>.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://garagehq.deuxfleurs.fr/" target="_top">Garage</a>
+          version is based on
+          <a class="link" href="options.html#opt-system.stateVersion" target="_top">system.stateVersion</a>,
+          existing installations will keep using version 0.7. New
+          installations will use version 0.8. In order to upgrade a
+          Garage cluster, please follow
+          <a class="link" href="https://garagehq.deuxfleurs.fr/documentation/cookbook/upgrading/" target="_top">upstream
+          instructions</a> and force
+          <a class="link" href="options.html#opt-services.garage.package" target="_top">services.garage.package</a>
+          or upgrade accordingly
+          <a class="link" href="options.html#opt-system.stateVersion" target="_top">system.stateVersion</a>.
         </p></li><li class="listitem"><p>
           Resilio sync secret keys can now be provided using a secrets
           file at runtime, preventing these secrets from ending up in
