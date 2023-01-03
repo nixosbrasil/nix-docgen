@@ -6231,7 +6231,7 @@ Run 'nixos-help' for the NixOS manual.
 
 nixos login:
 </pre><div class="blockquote"><blockquote class="blockquote"><p>
-      Note: When you need to stop the VM, type <code class="literal">Ctrl</code>-<code class="literal">a</code> + <code class="literal">c</code> to open the <code class="literal">qemu</code> prompt and then type <code class="literal">quit</code> followed by <code class="literal">Enter</code>
+      Note: When you need to stop the VM, type <code class="literal">Ctrl</code>-<code class="literal">a</code> + <code class="literal">c</code> to open the <code class="literal">qemu</code> prompt and then type <code class="literal">system_powerdown</code> followed by <code class="literal">Enter</code>, or run <code class="literal">shutdown now</code> as the <code class="literal">builder</code> user (e.g. <code class="literal">ssh -i keys/builder_ed25519 builder@localhost shutdown now</code>)
      </p></blockquote></div><p>
      To delegate builds to the remote builder, add the following options to your <code class="literal">nix.conf</code> file:
     </p><pre class="programlisting">
