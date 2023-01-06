@@ -773,7 +773,7 @@ setAttrByPath ["a" "b"] 3
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L78" target="_top">lib/attrsets.nix:78</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getAttrFromPath"></a><code class="function">lib.attrsets.getAttrFromPath</code></h4></div><div><h5 class="subtitle"><code class="literal">getAttrFromPath :: [String] -&gt; AttrSet -&gt; Any</code>
       </h5></div></div></div><p>
-       Like `attrByPath', but without a default value. If it doesn't find the path it will throw an error.
+       Like `attrByPath`, but without a default value. If it doesn't find the path it will throw an error.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">attrPath</code>
         </span></dt><dd><p>
@@ -887,7 +887,7 @@ getAttrs [ "a" "b" ] { a = 1; b = 2; c = 3; }
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L271" target="_top">lib/attrsets.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.catAttrs"></a><code class="function">lib.attrsets.catAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">catAttrs :: String -&gt; [AttrSet] -&gt; [Any]</code>
       </h5></div></div></div><p>
-       Collect each attribute named `attr' from a list of attribute sets. Sets that don't contain the named attribute are ignored.
+       Collect each attribute named `attr` from a list of attribute sets. Sets that don't contain the named attribute are ignored.
       </p><div class="example"><a id="id-1.3.5.3.4.11.4"></a><p class="title"><strong>Example 12. <code class="function">lib.attrsets.catAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 catAttrs "a" [{a = 1;} {b = 0;} {a = 2;}]
 =&gt; [1 2]
@@ -951,7 +951,7 @@ foldAttrs (item: acc: [item] ++ acc) [] [{ a = 2; } { a = 3; }]
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L346" target="_top">lib/attrsets.nix:346</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.collect"></a><code class="function">lib.attrsets.collect</code></h4></div><div><h5 class="subtitle"><code class="literal">collect :: (AttrSet -&gt; Bool) -&gt; AttrSet -&gt; [x]</code>
       </h5></div></div></div><p>
-       Recursively collect sets that verify a given predicate named `pred' from the set `attrs'. The recursion is stopped when the predicate is verified.
+       Recursively collect sets that verify a given predicate named `pred` from the set `attrs`. The recursion is stopped when the predicate is verified.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">pred</code>
         </span></dt><dd><p>
@@ -1016,7 +1016,7 @@ mapAttrs (name: value: name + "-" + value)
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L437" target="_top">lib/attrsets.nix:437</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrs-prime"></a><code class="function">lib.attrsets.mapAttrs'</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrs' :: (String -&gt; Any -&gt; { name = String; value = Any }) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
-       Like `mapAttrs', but allows the name of each attribute to be changed in addition to the value. The applied function should return both the new name and value as a `nameValuePair'.
+       Like `mapAttrs`, but allows the name of each attribute to be changed in addition to the value. The applied function should return both the new name and value as a `nameValuePair`.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">f</code>
         </span></dt><dd><p>
@@ -1052,7 +1052,7 @@ mapAttrsToList (name: value: name + value)
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L474" target="_top">lib/attrsets.nix:474</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrsRecursive"></a><code class="function">lib.attrsets.mapAttrsRecursive</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrsRecursive :: ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
-       Like `mapAttrs', except that it recursively applies itself to attribute sets. Also, the first argument of the argument function is a *list* of the names of the containing attributes.
+       Like `mapAttrs`, except that it recursively applies itself to attribute sets. Also, the first argument of the argument function is a *list* of the names of the containing attributes.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">f</code>
         </span></dt><dd><p>
@@ -1070,7 +1070,7 @@ mapAttrsRecursive (path: value: concatStringsSep "-" (path ++ [value]))
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L494" target="_top">lib/attrsets.nix:494</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrsRecursiveCond"></a><code class="function">lib.attrsets.mapAttrsRecursiveCond</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrsRecursiveCond :: (AttrSet -&gt; Bool) -&gt; ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
-       Like `mapAttrsRecursive', but it takes an additional predicate function that tells it whether to recurse into an attribute set. If it returns false, `mapAttrsRecursiveCond' does not recurse, but does apply the map function. If it returns true, it does recurse, and does not apply the map function.
+       Like `mapAttrsRecursive`, but it takes an additional predicate function that tells it whether to recurse into an attribute set. If it returns false, `mapAttrsRecursiveCond` does not recurse, but does apply the map function. If it returns true, it does recurse, and does not apply the map function.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">cond</code>
         </span></dt><dd><p>
@@ -1190,7 +1190,7 @@ zipAttrsWith (name: values: values) [{a = "x";} {a = "y"; b = "z";}]
       </h5></div></div></div><p>
        Merge sets of attributes and combine each attribute value in to a list.
       </p><p>
-       Like `lib.attrsets.zipAttrsWith' with `(name: values: values)' as the function.
+       Like `lib.attrsets.zipAttrsWith` with `(name: values: values)` as the function.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">sets</code>
         </span></dt><dd><p>
@@ -3212,7 +3212,7 @@ count (x: x == 3) [ 3 2 3 4 6 ]
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L239" target="_top">lib/lists.nix:239</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.optional"></a><code class="function">lib.lists.optional</code></h4></div><div><h5 class="subtitle"><code class="literal">optional :: bool -&gt; a -&gt; [a]</code>
       </h5></div></div></div><p>
-       Return a singleton list or an empty list, depending on a boolean value. Useful when building lists with optional elements (e.g. `++ optional (system == "i686-linux") firefox').
+       Return a singleton list or an empty list, depending on a boolean value. Useful when building lists with optional elements (e.g. `++ optional (system == "i686-linux") firefox`).
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">cond</code>
         </span></dt><dd><p>
@@ -3261,7 +3261,7 @@ toList "hi"
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L284" target="_top">lib/lists.nix:284</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.range"></a><code class="function">lib.lists.range</code></h4></div><div><h5 class="subtitle"><code class="literal">range :: int -&gt; int -&gt; [int]</code>
       </h5></div></div></div><p>
-       Return a list of integers from `first' up to and including `last'.
+       Return a list of integers from `first` up to and including `last`.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">first</code>
         </span></dt><dd><p>
@@ -3286,7 +3286,7 @@ partition (x: x &gt; 2) [ 5 1 2 3 4 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.partition"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L315" target="_top">lib/lists.nix:315</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.groupBy-prime"></a><code class="function">lib.lists.groupBy'</code></h4></div></div></div><p>
-       Splits the elements of a list into many lists, using the return value of a predicate. Predicate should return a string which becomes keys of attrset `groupBy' returns.
+       Splits the elements of a list into many lists, using the return value of a predicate. Predicate should return a string which becomes keys of attrset `groupBy` returns.
       </p><p>
        `groupBy'` allows to customise the combining function and initial value
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
