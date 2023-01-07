@@ -1242,7 +1242,7 @@ $ ssh -p 2222 localhost
     been built. These channels are:
   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
         <span class="emphasis"><em>Stable channels</em></span>, such as
-        <a class="link" href="https://nixos.org/channels/nixos-22.05" target="_top"><code class="literal">nixos-22.11</code></a>.
+        <a class="link" href="https://nixos.org/channels/nixos-22.11" target="_top"><code class="literal">nixos-22.11</code></a>.
         These only get conservative bug fixes and package upgrades. For
         instance, a channel update may cause the Linux kernel on your
         system to be upgraded from 4.19.34 to 4.19.38 (a minor bug fix),
@@ -1257,7 +1257,7 @@ $ ssh -p 2222 localhost
         recommended for production systems.
       </p></li><li class="listitem"><p>
         <span class="emphasis"><em>Small channels</em></span>, such as
-        <a class="link" href="https://nixos.org/channels/nixos-22.05-small" target="_top"><code class="literal">nixos-22.11-small</code></a>
+        <a class="link" href="https://nixos.org/channels/nixos-22.11-small" target="_top"><code class="literal">nixos-22.11-small</code></a>
         or
         <a class="link" href="https://nixos.org/channels/nixos-unstable-small" target="_top"><code class="literal">nixos-unstable-small</code></a>.
         These are identical to the stable and unstable channels
@@ -9503,7 +9503,8 @@ lib.mkOption {
   example = true;
   description = lib.mdDoc "Whether to enable magic.";
 }
-</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-option-declarations-util-mkPackageOption"></a><code class="literal">mkPackageOption</code></h5></div></div></div><p>
+</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-option-declarations-util-mkPackageOption"></a><code class="literal">mkPackageOption</code>,
+        <code class="literal">mkPackageOptionMD</code></h5></div></div></div><p>
           Usage:
         </p><pre class="programlisting">
 mkPackageOption pkgs "name" { default = [ "path" "in" "pkgs" ]; example = "literal example"; }
@@ -9529,6 +9530,14 @@ mkPackageOption pkgs "name" { default = [ "path" "in" "pkgs" ]; example = "liter
         </p><p>
           You can omit the default path if the name of the option is
           also attribute path in nixpkgs.
+        </p><p>
+          During the transition to CommonMark documentation
+          <code class="literal">mkPackageOption</code> creates an option with a
+          DocBook description attribute, once the transition is
+          completed it will create a CommonMark description instead.
+          <code class="literal">mkPackageOptionMD</code> always creates an option
+          with a CommonMark description attribute and will be removed
+          some time after the transition is completed.
         </p><a id="ex-options-declarations-util-mkPackageOption"></a><p>
           Examples:
         </p><a id="ex-options-declarations-util-mkPackageOption-hello"></a><pre class="programlisting">

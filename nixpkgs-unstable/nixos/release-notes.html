@@ -67,6 +67,12 @@
           to off (not inhibiting sleep), available as
           <a class="link" href="options.html#opt-services.borgbackup.jobs._name_.inhibitsSleep"><code class="literal">services.borgbackup.jobs.&lt;name&gt;.inhibitsSleep</code></a>.
         </p></li><li class="listitem"><p>
+          <code class="literal">podman</code> now uses the
+          <code class="literal">netavark</code> network stack. Users will need to
+          delete all of their local containers, images, volumes, etc, by
+          running <code class="literal">podman system reset --force</code> once
+          before upgrading their systems.
+        </p></li><li class="listitem"><p>
           The EC2 image module no longer fetches instance metadata in
           stage-1. This results in a significantly smaller initramfs,
           since network drivers no longer need to be included, and
