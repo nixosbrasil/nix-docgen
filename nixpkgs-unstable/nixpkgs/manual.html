@@ -5330,7 +5330,7 @@ meta = with lib; {
        </p></li></ul></div><p>
       For details, see <a class="link" href="#sec-meta-license" title="Licenses">Licenses</a>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-maintainers"></a><code class="literal">maintainers</code></h3></div></div></div><p>
-      A list of the maintainers of this Nix expression. Maintainers are defined in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/maintainers/maintainer-list.nix" target="_top"><code class="literal">nixpkgs/maintainers/maintainer-list.nix</code></a>. There is no restriction to becoming a maintainer, just add yourself to that list in a separate commit titled “maintainers: add alice”, and reference maintainers with <code class="literal">maintainers = with lib.maintainers; [ alice bob ]</code>.
+      A list of the maintainers of this Nix expression. Maintainers are defined in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/maintainers/maintainer-list.nix" target="_top"><code class="literal">nixpkgs/maintainers/maintainer-list.nix</code></a>. There is no restriction to becoming a maintainer, just add yourself to that list in a separate commit titled “maintainers: add alice” in the same pull request, and reference maintainers with <code class="literal">maintainers = with lib.maintainers; [ alice bob ]</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-mainProgram"></a><code class="literal">mainProgram</code></h3></div></div></div><p>
       The name of the main binary for the package. This effects the binary <code class="literal">nix run</code> executes and falls back to the name of the package. Example: <code class="literal">"rg"</code>
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-priority"></a><code class="literal">priority</code></h3></div></div></div><p>
@@ -15648,7 +15648,7 @@ $ nix-shell
        This syntax is taken from <a class="link" href="https://myst-parser.readthedocs.io/en/latest/using/syntax.html#targets-and-cross-referencing" target="_top">MyST</a>.
       </p></li><li class="listitem"><p>
        <a id="ssec-contributing-markup-inline-roles"></a>
-       If you want to link to a man page, you can use <code class="literal">{manpage}`nix.conf(5)`</code>, which will turn into <a class="link" href="https://nixos.org/manual/nix/stable/#sec-conf-file" target="_top"><span class="citerefentry"><span class="refentrytitle">nix.conf</span>(5)</span></a>. The references will turn into links when a mapping exists in <code class="filename">doc/build-aux/pandoc-filters/link-unix-man-references.lua</code>.
+       If you want to link to a man page, you can use <code class="literal">{manpage}`nix.conf(5)`</code>, which will turn into <a class="link" href="https://nixos.org/manual/nix/stable/#sec-conf-file" target="_top"><span class="citerefentry"><span class="refentrytitle">nix.conf</span>(5)</span></a>. The references will turn into links when a mapping exists in <code class="filename">doc/manpage-urls.json</code>.
       </p><p>
        A few markups for other kinds of literals are also available:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
