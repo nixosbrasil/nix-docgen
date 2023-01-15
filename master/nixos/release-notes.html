@@ -139,6 +139,14 @@
           need to explicitly set this option to <code class="literal">true</code>,
           or configure your firewall.
         </p></li><li class="listitem"><p>
+          <code class="literal">llvmPackages_rocm.llvm</code> will not contain
+          <code class="literal">clang</code> or <code class="literal">compiler-rt</code>.
+          <code class="literal">llvmPackages_rocm.clang</code> will not contain
+          <code class="literal">llvm</code>.
+          <code class="literal">llvmPackages_rocm.clangNoCompilerRt</code> has
+          been removed in favor of using
+          <code class="literal">llvmPackages_rocm.clang-unwrapped</code>.
+        </p></li><li class="listitem"><p>
           The Nginx module now validates the syntax of config files at
           build time. For more complex configurations (using
           <code class="literal">include</code> with out-of-store files notably)
@@ -177,6 +185,11 @@
           The <code class="literal">nix.readOnlyStore</code> option has been
           renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
+        </p></li><li class="listitem"><p>
+          Deprecated <code class="literal">xlibsWrapper</code> transitional
+          package has been removed in favour of direct use of its
+          constitutents: <code class="literal">xorg.libX11</code>,
+          <code class="literal">freetype</code> and others.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">vim_configurable</code> has been renamed to
           <code class="literal">vim-full</code> to avoid confusion:
@@ -308,6 +321,10 @@
           <a class="link" href="options.html#opt-services.garage.package" target="_top">services.garage.package</a>
           or upgrade accordingly
           <a class="link" href="options.html#opt-system.stateVersion" target="_top">system.stateVersion</a>.
+        </p></li><li class="listitem"><p>
+          <code class="literal">hip</code> has been separated into
+          <code class="literal">hip</code>, <code class="literal">hip-common</code> and
+          <code class="literal">hipcc</code>.
         </p></li><li class="listitem"><p>
           Resilio sync secret keys can now be provided using a secrets
           file at runtime, preventing these secrets from ending up in
