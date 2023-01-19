@@ -9522,9 +9522,9 @@ done
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-go-excludedPackages"></a><code class="literal">excludedPackages</code></h4></div></div></div><p>
        Specified as a string or list of strings. Causes the builder to skip building child packages that match any of the provided values. If <code class="literal">excludedPackages</code> is not specified, all child packages will be built.
       </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="haskell"></a>Haskell</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#haskell-available-packages">Available packages</a></span></dt><dt><span class="section"><a href="#haskell-mkderivation"><code class="literal">haskellPackages.mkDerivation</code></a></span></dt><dt><span class="section"><a href="#haskell-development-environments">Development environments</a></span></dt><dt><span class="section"><a href="#haskell-overriding-haskell-packages">Overriding Haskell packages</a></span></dt><dt><span class="section"><a href="#haskell-faq">F.A.Q.</a></span></dt></dl></div><p>
-     The Haskell infrastructure in nixpkgs has two main purposes: The primary purpose is to provide a Haskell compiler and build tools as well as infrastructure for packaging Haskell-based packages.
+     The Haskell infrastructure in Nixpkgs has two main purposes: The primary purpose is to provide a Haskell compiler and build tools as well as infrastructure for packaging Haskell-based packages.
     </p><p>
-     The secondary purpose is to provide support for Haskell development environment including prebuilt Haskell libraries. However, in this area sacrifices have been made due to self-imposed restrictions in nixpkgs, to lessen the maintenance effort and improve performance. (More details in the subsection <a class="link" href="#haskell-limitations" title="Limitations">Limitations.</a>)
+     The secondary purpose is to provide support for Haskell development environments including prebuilt Haskell libraries. However, in this area sacrifices have been made due to self-imposed restrictions in Nixpkgs, to lessen the maintenance effort and to improve performance. (More details in the subsection <a class="link" href="#haskell-limitations" title="Limitations">Limitations.</a>)
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-available-packages"></a>Available packages</h3></div></div></div><p>
       The compiler and most build tools are exposed at the top level:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
@@ -9532,11 +9532,11 @@ done
        </p></li><li class="listitem"><p>
         Language specific tools: <code class="literal">cabal-install</code>, <code class="literal">stack</code>, <code class="literal">hpack</code>, …
        </p></li></ul></div><p>
-      Many “normal” user facing packages written in Haskell, like <code class="literal">niv</code> or <code class="literal">cachix</code>, are also exposed at the top level, so there is nothing haskell specific to installing and using them.
+      Many “normal” user facing packages written in Haskell, like <code class="literal">niv</code> or <code class="literal">cachix</code>, are also exposed at the top level, and there is nothing Haskell specific to installing and using them.
      </p><p>
-      All of these packages originally are defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> below)
+      All of these packages are originally defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> below)
      </p><p>
-      The <code class="literal">haskellPackages</code> set includes at least one version of every package from Hackage as well as some manually injected packages. This amounts to a lot of packages, so it is hidden from <code class="literal">nix-env -qa</code> by default for performance reasons. You can still list all packages in the set like this, though:
+      The <code class="literal">haskellPackages</code> set includes at least one version of every package from Hackage as well as some manually injected packages. This amounts to a lot of packages, so it is hidden from <code class="literal">nix-env -qa</code> by default for performance reasons. You can still list all packages in the set like this:
      </p><pre class="programlisting">
 $ nix-env -f '&lt;nixpkgs&gt;' -qaP -A haskellPackages
 haskellPackages.a50                                                         a50-0.5
@@ -9546,13 +9546,13 @@ haskellPackages.abacate                                                     abac
 haskellPackages.abc-puzzle                                                  abc-puzzle-0.2.1
 …
 </pre><p>
-      Also the default set <code class="literal">haskellPackages</code> is included on <a class="link" href="https://search.nixos.org" target="_top">search.nixos.org</a>.
+      Also, the <code class="literal">haskellPackages</code> set is included on <a class="link" href="https://search.nixos.org" target="_top">search.nixos.org</a>.
      </p><p>
-      The attribute names in <code class="literal">haskellPackages</code> always correspond with their name on Hackage. Since Hackage allows names that are not valid Nix without extra escaping, you sometimes need to extra care when handling attribute names like <code class="literal">3dmodels</code>.
+      The attribute names in <code class="literal">haskellPackages</code> always correspond with their name on Hackage. Since Hackage allows names that are not valid Nix without escaping, you need to take care when handling attribute names like <code class="literal">3dmodels</code>.
      </p><p>
-      For packages that are part of <a class="link" href="https://www.stackage.org" target="_top">Stackage</a>, we use the version prescribed by a Stackage solver (usually the current LTS one) as the default version. For all other packages we use the latest version from Hackage. See <a class="link" href="#haskell-available-versions" title="Available package versions">below</a> to learn which versions exactly are provided.
+      For packages that are part of <a class="link" href="https://www.stackage.org" target="_top">Stackage</a>, we use the version prescribed by a Stackage solver (usually the current LTS one) as the default version. For all other packages we use the latest version from Hackage. See <a class="link" href="#haskell-available-versions" title="Available package versions">below</a> to learn which versions are provided exactly.
      </p><p>
-      Roughly half of the 16K packages contained in <code class="literal">haskellPackages</code> don’t actually build and are marked as broken semi-automatically. Most of those packages are deprecated or unmaintained, but sometimes packages that should, don’t build. Very often fixing them is not a lot of work.
+      Roughly half of the 16K packages contained in <code class="literal">haskellPackages</code> don’t actually build and are marked as broken semi-automatically. Most of those packages are deprecated or unmaintained, but sometimes packages that should build, do not build. Very often fixing them is not a lot of work.
      </p><p>
       <code class="literal">haskellPackages</code> is built with our default compiler, but we also provide other releases of GHC and package sets built with them. You can list all available compilers like this:
      </p><pre class="programlisting">
@@ -9589,7 +9589,7 @@ haskell.compiler.native-bignum.ghc944    ghc-native-bignum-9.4.4
 haskell.compiler.native-bignum.ghcHEAD   ghc-native-bignum-9.7.20221224
 haskell.compiler.ghcjs                   ghcjs-8.10.7
 </pre><p>
-      Every of those compilers has a corresponding attribute set built completely using it. However, the non-standard package sets are not tested regularly and have less working packages as a result. The corresponding package set for GHC 9.4.4 is <code class="literal">haskell.packages.ghc944</code> (in fact <code class="literal">haskellPackages</code> is just an alias for <code class="literal">haskell.packages.ghc924</code>):
+      Each of those compiler versions has a corresponding attribute set built using it. However, the non-standard package sets are not tested regularly and, as a result, contain fewer working packages. The corresponding package set for GHC 9.4.4 is <code class="literal">haskell.packages.ghc944</code>. In fact <code class="literal">haskellPackages</code> is just an alias for <code class="literal">haskell.packages.ghc924</code>:
      </p><pre class="programlisting">
 $ nix-env -f '&lt;nixpkgs&gt;' -qaP -A haskell.packages.ghc924
 haskell.packages.ghc924.a50                                                         a50-0.5

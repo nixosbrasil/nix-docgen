@@ -277,6 +277,16 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-structuredAttrsByDefault"></a><a class="term" href="#opt-structuredAttrsByDefault">
+       <code class="option">structuredAttrsByDefault</code>
+      </a></span></dt><dd><p>
+        Whether to set <code class="literal">__structuredAttrs</code> to true by default while building nixpkgs packages. Changing the default may cause a mass rebuild.
+       </p><p>
+        <span class="emphasis"><em>Type:</em></span> boolean
+       </p><p>
+        <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
+       </p><p>
+        <span class="emphasis"><em>Declared by:</em></span>
        </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-warnUndeclaredOptions"></a><a class="term" href="#opt-warnUndeclaredOptions">
        <code class="option">warnUndeclaredOptions</code>
       </a></span></dt><dd><p>
@@ -5005,7 +5015,7 @@ doInstallCheck = true;
         Hook executed at the start of the distribution phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-postDist"></a><code class="literal">postDist</code></h5></div></div></div><p>
         Hook executed at the end of the distribution phase.
-       </p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-stdenv-functions"></a>Shell functions and utilities</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#fun-makeWrapper"><code class="literal">makeWrapper</code> &lt;executable&gt; &lt;wrapperfile&gt; &lt;args&gt;</a></span></dt><dt><span class="section"><a href="#fun-remove-references-to"><code class="literal">remove-references-to -t</code> &lt;storepath&gt; [ <code class="literal">-t</code> &lt;storepath&gt; … ] &lt;file&gt; …</a></span></dt><dt><span class="section"><a href="#fun-substitute"><code class="literal">substitute</code> &lt;infile&gt; &lt;outfile&gt; &lt;subs&gt;</a></span></dt><dt><span class="section"><a href="#fun-substituteInPlace"><code class="literal">substituteInPlace</code> &lt;multiple files&gt; &lt;subs&gt;</a></span></dt><dt><span class="section"><a href="#fun-substituteAll"><code class="literal">substituteAll</code> &lt;infile&gt; &lt;outfile&gt;</a></span></dt><dt><span class="section"><a href="#fun-substituteAllInPlace"><code class="literal">substituteAllInPlace</code> &lt;file&gt;</a></span></dt><dt><span class="section"><a href="#fun-stripHash"><code class="literal">stripHash</code> &lt;path&gt;</a></span></dt><dt><span class="section"><a href="#fun-wrapProgram"><code class="literal">wrapProgram</code> &lt;executable&gt; &lt;makeWrapperArgs&gt;</a></span></dt></dl></div><p>
+       </p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-stdenv-functions"></a>Shell functions and utilities</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#fun-makeWrapper"><code class="literal">makeWrapper</code> &lt;executable&gt; &lt;wrapperfile&gt; &lt;args&gt;</a></span></dt><dt><span class="section"><a href="#fun-remove-references-to"><code class="literal">remove-references-to -t</code> &lt;storepath&gt; [ <code class="literal">-t</code> &lt;storepath&gt; … ] &lt;file&gt; …</a></span></dt><dt><span class="section"><a href="#fun-substitute"><code class="literal">substitute</code> &lt;infile&gt; &lt;outfile&gt; &lt;subs&gt;</a></span></dt><dt><span class="section"><a href="#fun-substituteInPlace"><code class="literal">substituteInPlace</code> &lt;multiple files&gt; &lt;subs&gt;</a></span></dt><dt><span class="section"><a href="#fun-substituteAll"><code class="literal">substituteAll</code> &lt;infile&gt; &lt;outfile&gt;</a></span></dt><dt><span class="section"><a href="#fun-substituteAllInPlace"><code class="literal">substituteAllInPlace</code> &lt;file&gt;</a></span></dt><dt><span class="section"><a href="#fun-stripHash"><code class="literal">stripHash</code> &lt;path&gt;</a></span></dt><dt><span class="section"><a href="#fun-wrapProgram"><code class="literal">wrapProgram</code> &lt;executable&gt; &lt;makeWrapperArgs&gt;</a></span></dt><dt><span class="section"><a href="#fun-prependToVar"><code class="literal">prependToVar</code> &lt;variableName&gt; &lt;elements…&gt;</a></span></dt><dt><span class="section"><a href="#fun-appendToVar"><code class="literal">appendToVar</code> &lt;variableName&gt; &lt;elements…&gt;</a></span></dt></dl></div><p>
      The standard environment provides a number of useful functions.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="fun-makeWrapper"></a><code class="literal">makeWrapper</code> &lt;executable&gt; &lt;wrapperfile&gt; &lt;args&gt;</h3></div></div></div><p>
       Constructs a wrapper for a program with various possible arguments. It is defined as part of 2 setup-hooks named <code class="literal">makeWrapper</code> and <code class="literal">makeBinaryWrapper</code> that implement the same bash functions. Hence, to use it you have to add <code class="literal">makeWrapper</code> to your <code class="literal">nativeBuildInputs</code>. Here’s an example usage:
@@ -5091,7 +5101,25 @@ someVar=$(stripHash $name)
       Convenience function for <code class="literal">makeWrapper</code> that replaces <code class="literal">&lt;\executable\&gt;</code> with a wrapper that executes the original program. It takes all the same arguments as <code class="literal">makeWrapper</code>, except for <code class="literal">--inherit-argv0</code> (used by the <code class="literal">makeBinaryWrapper</code> implementation) and <code class="literal">--argv0</code> (used by both <code class="literal">makeWrapper</code> and <code class="literal">makeBinaryWrapper</code> wrapper implementations).
      </p><p>
       If you will apply it multiple times, it will overwrite the wrapper file and you will end up with double wrapping, which should be avoided.
-     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-setup-hooks"></a>Package setup hooks</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#move-docs.sh"><code class="literal">move-docs.sh</code></a></span></dt><dt><span class="section"><a href="#compress-man-pages.sh"><code class="literal">compress-man-pages.sh</code></a></span></dt><dt><span class="section"><a href="#strip.sh"><code class="literal">strip.sh</code></a></span></dt><dt><span class="section"><a href="#patch-shebangs.sh"><code class="literal">patch-shebangs.sh</code></a></span></dt><dt><span class="section"><a href="#audit-tmpdir.sh"><code class="literal">audit-tmpdir.sh</code></a></span></dt><dt><span class="section"><a href="#multiple-outputs.sh"><code class="literal">multiple-outputs.sh</code></a></span></dt><dt><span class="section"><a href="#move-sbin.sh"><code class="literal">move-sbin.sh</code></a></span></dt><dt><span class="section"><a href="#move-lib64.sh"><code class="literal">move-lib64.sh</code></a></span></dt><dt><span class="section"><a href="#move-systemd-user-units.sh"><code class="literal">move-systemd-user-units.sh</code></a></span></dt><dt><span class="section"><a href="#set-source-date-epoch-to-latest.sh"><code class="literal">set-source-date-epoch-to-latest.sh</code></a></span></dt><dt><span class="section"><a href="#bintools-wrapper">Bintools Wrapper and hook</a></span></dt><dt><span class="section"><a href="#cc-wrapper">CC Wrapper and hook</a></span></dt><dt><span class="section"><a href="#id-1.4.2.9.22">Other hooks</a></span></dt><dt><span class="section"><a href="#compiler-linker-wrapper-hooks">Compiler and Linker wrapper hooks</a></span></dt></dl></div><p>
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="fun-prependToVar"></a><code class="literal">prependToVar</code> &lt;variableName&gt; &lt;elements…&gt;</h3></div></div></div><p>
+      Prepend elements to a variable.
+     </p><p>
+      Example:
+     </p><pre class="programlisting">
+$ configureFlags="--disable-static"
+$ prependToVar configureFlags --disable-dependency-tracking --enable-foo
+$ echo $configureFlags
+--disable-dependency-tracking --enable-foo --disable-static
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="fun-appendToVar"></a><code class="literal">appendToVar</code> &lt;variableName&gt; &lt;elements…&gt;</h3></div></div></div><p>
+      Append elements to a variable.
+     </p><p>
+      Example:
+     </p><pre class="programlisting">
+$ configureFlags="--disable-static"
+$ appendToVar configureFlags --disable-dependency-tracking --enable-foo
+$ echo $configureFlags
+--disable-static --disable-dependency-tracking --enable-foo
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-setup-hooks"></a>Package setup hooks</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#move-docs.sh"><code class="literal">move-docs.sh</code></a></span></dt><dt><span class="section"><a href="#compress-man-pages.sh"><code class="literal">compress-man-pages.sh</code></a></span></dt><dt><span class="section"><a href="#strip.sh"><code class="literal">strip.sh</code></a></span></dt><dt><span class="section"><a href="#patch-shebangs.sh"><code class="literal">patch-shebangs.sh</code></a></span></dt><dt><span class="section"><a href="#audit-tmpdir.sh"><code class="literal">audit-tmpdir.sh</code></a></span></dt><dt><span class="section"><a href="#multiple-outputs.sh"><code class="literal">multiple-outputs.sh</code></a></span></dt><dt><span class="section"><a href="#move-sbin.sh"><code class="literal">move-sbin.sh</code></a></span></dt><dt><span class="section"><a href="#move-lib64.sh"><code class="literal">move-lib64.sh</code></a></span></dt><dt><span class="section"><a href="#move-systemd-user-units.sh"><code class="literal">move-systemd-user-units.sh</code></a></span></dt><dt><span class="section"><a href="#set-source-date-epoch-to-latest.sh"><code class="literal">set-source-date-epoch-to-latest.sh</code></a></span></dt><dt><span class="section"><a href="#bintools-wrapper">Bintools Wrapper and hook</a></span></dt><dt><span class="section"><a href="#cc-wrapper">CC Wrapper and hook</a></span></dt><dt><span class="section"><a href="#id-1.4.2.9.22">Other hooks</a></span></dt><dt><span class="section"><a href="#compiler-linker-wrapper-hooks">Compiler and Linker wrapper hooks</a></span></dt></dl></div><p>
      Nix itself considers a build-time dependency as merely something that should previously be built and accessible at build time—packages themselves are on their own to perform any additional setup. In most cases, that is fine, and the downstream derivation can deal with its own dependencies. But for a few common tasks, that would result in almost every package doing the same sort of setup work—depending not on the package itself, but entirely on which dependencies were used.
     </p><p>
      In order to alleviate this burden, the setup hook mechanism was written, where any package can include a shell script that [by convention rather than enforcement by Nix], any downstream reverse-dependency will source as part of its build process. That allows the downstream dependency to merely specify its dependencies, and lets those dependencies effectively initialize themselves. No boilerplate mirroring the list of dependencies is needed.
@@ -9493,9 +9521,726 @@ done
        Specified as a string or list of strings. Limits the builder from building child packages that have not been listed. If <code class="literal">subPackages</code> is not specified, all child packages will be built.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-go-excludedPackages"></a><code class="literal">excludedPackages</code></h4></div></div></div><p>
        Specified as a string or list of strings. Causes the builder to skip building child packages that match any of the provided values. If <code class="literal">excludedPackages</code> is not specified, all child packages will be built.
-      </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="haskell"></a>Haskell</h2></div></div></div><p>
-     The documentation for the Haskell infrastructure is published at <a class="link" href="https://haskell4nix.readthedocs.io/" target="_top">https://haskell4nix.readthedocs.io/</a>. The source code for that site lives in the <code class="literal">doc/</code> sub-directory of the <a class="link" href="https://github.com/NixOS/cabal2nix" target="_top"><code class="literal">cabal2nix</code> Git repository</a> and changes can be submitted there.
-    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-hy"></a>Hy</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-hy-installation">Installation</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-hy-installation"></a>Installation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="installation-without-packages"></a>Installation without packages</h4></div></div></div><p>
+      </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="haskell"></a>Haskell</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#haskell-available-packages">Available packages</a></span></dt><dt><span class="section"><a href="#haskell-mkderivation"><code class="literal">haskellPackages.mkDerivation</code></a></span></dt><dt><span class="section"><a href="#haskell-development-environments">Development environments</a></span></dt><dt><span class="section"><a href="#haskell-overriding-haskell-packages">Overriding Haskell packages</a></span></dt><dt><span class="section"><a href="#haskell-faq">F.A.Q.</a></span></dt></dl></div><p>
+     The Haskell infrastructure in nixpkgs has two main purposes: The primary purpose is to provide a Haskell compiler and build tools as well as infrastructure for packaging Haskell-based packages.
+    </p><p>
+     The secondary purpose is to provide support for Haskell development environment including prebuilt Haskell libraries. However, in this area sacrifices have been made due to self-imposed restrictions in nixpkgs, to lessen the maintenance effort and improve performance. (More details in the subsection <a class="link" href="#haskell-limitations" title="Limitations">Limitations.</a>)
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-available-packages"></a>Available packages</h3></div></div></div><p>
+      The compiler and most build tools are exposed at the top level:
+     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <code class="literal">ghc</code> is the default version of GHC
+       </p></li><li class="listitem"><p>
+        Language specific tools: <code class="literal">cabal-install</code>, <code class="literal">stack</code>, <code class="literal">hpack</code>, …
+       </p></li></ul></div><p>
+      Many “normal” user facing packages written in Haskell, like <code class="literal">niv</code> or <code class="literal">cachix</code>, are also exposed at the top level, so there is nothing haskell specific to installing and using them.
+     </p><p>
+      All of these packages originally are defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> below)
+     </p><p>
+      The <code class="literal">haskellPackages</code> set includes at least one version of every package from Hackage as well as some manually injected packages. This amounts to a lot of packages, so it is hidden from <code class="literal">nix-env -qa</code> by default for performance reasons. You can still list all packages in the set like this, though:
+     </p><pre class="programlisting">
+$ nix-env -f '&lt;nixpkgs&gt;' -qaP -A haskellPackages
+haskellPackages.a50                                                         a50-0.5
+haskellPackages.AAI                                                         AAI-0.2.0.1
+haskellPackages.aasam                                                       aasam-0.2.0.0
+haskellPackages.abacate                                                     abacate-0.0.0.0
+haskellPackages.abc-puzzle                                                  abc-puzzle-0.2.1
+…
+</pre><p>
+      Also the default set <code class="literal">haskellPackages</code> is included on <a class="link" href="https://search.nixos.org" target="_top">search.nixos.org</a>.
+     </p><p>
+      The attribute names in <code class="literal">haskellPackages</code> always correspond with their name on Hackage. Since Hackage allows names that are not valid Nix without extra escaping, you sometimes need to extra care when handling attribute names like <code class="literal">3dmodels</code>.
+     </p><p>
+      For packages that are part of <a class="link" href="https://www.stackage.org" target="_top">Stackage</a>, we use the version prescribed by a Stackage solver (usually the current LTS one) as the default version. For all other packages we use the latest version from Hackage. See <a class="link" href="#haskell-available-versions" title="Available package versions">below</a> to learn which versions exactly are provided.
+     </p><p>
+      Roughly half of the 16K packages contained in <code class="literal">haskellPackages</code> don’t actually build and are marked as broken semi-automatically. Most of those packages are deprecated or unmaintained, but sometimes packages that should, don’t build. Very often fixing them is not a lot of work.
+     </p><p>
+      <code class="literal">haskellPackages</code> is built with our default compiler, but we also provide other releases of GHC and package sets built with them. You can list all available compilers like this:
+     </p><pre class="programlisting">
+$ nix-env -f '&lt;nixpkgs&gt;' -qaP -A haskell.compiler
+haskell.compiler.ghc810                  ghc-8.10.7
+haskell.compiler.ghc88                   ghc-8.8.4
+haskell.compiler.ghc90                   ghc-9.0.2
+haskell.compiler.ghc92                   ghc-9.2.4
+haskell.compiler.ghc925                  ghc-9.2.5
+haskell.compiler.ghc942                  ghc-9.4.2
+haskell.compiler.ghc943                  ghc-9.4.3
+haskell.compiler.ghc94                   ghc-9.4.4
+haskell.compiler.ghcHEAD                 ghc-9.7.20221224
+haskell.compiler.ghc8102Binary           ghc-binary-8.10.2
+haskell.compiler.ghc8102BinaryMinimal    ghc-binary-8.10.2
+haskell.compiler.ghc8107BinaryMinimal    ghc-binary-8.10.7
+haskell.compiler.ghc8107Binary           ghc-binary-8.10.7
+haskell.compiler.ghc865Binary            ghc-binary-8.6.5
+haskell.compiler.ghc924Binary            ghc-binary-9.2.4
+haskell.compiler.ghc924BinaryMinimal     ghc-binary-9.2.4
+haskell.compiler.integer-simple.ghc810   ghc-integer-simple-8.10.7
+haskell.compiler.integer-simple.ghc8107  ghc-integer-simple-8.10.7
+haskell.compiler.integer-simple.ghc884   ghc-integer-simple-8.8.4
+haskell.compiler.integer-simple.ghc88    ghc-integer-simple-8.8.4
+haskell.compiler.native-bignum.ghc90     ghc-native-bignum-9.0.2
+haskell.compiler.native-bignum.ghc902    ghc-native-bignum-9.0.2
+haskell.compiler.native-bignum.ghc92     ghc-native-bignum-9.2.4
+haskell.compiler.native-bignum.ghc924    ghc-native-bignum-9.2.4
+haskell.compiler.native-bignum.ghc925    ghc-native-bignum-9.2.5
+haskell.compiler.native-bignum.ghc942    ghc-native-bignum-9.4.2
+haskell.compiler.native-bignum.ghc943    ghc-native-bignum-9.4.3
+haskell.compiler.native-bignum.ghc94     ghc-native-bignum-9.4.4
+haskell.compiler.native-bignum.ghc944    ghc-native-bignum-9.4.4
+haskell.compiler.native-bignum.ghcHEAD   ghc-native-bignum-9.7.20221224
+haskell.compiler.ghcjs                   ghcjs-8.10.7
+</pre><p>
+      Every of those compilers has a corresponding attribute set built completely using it. However, the non-standard package sets are not tested regularly and have less working packages as a result. The corresponding package set for GHC 9.4.4 is <code class="literal">haskell.packages.ghc944</code> (in fact <code class="literal">haskellPackages</code> is just an alias for <code class="literal">haskell.packages.ghc924</code>):
+     </p><pre class="programlisting">
+$ nix-env -f '&lt;nixpkgs&gt;' -qaP -A haskell.packages.ghc924
+haskell.packages.ghc924.a50                                                         a50-0.5
+haskell.packages.ghc924.AAI                                                         AAI-0.2.0.1
+haskell.packages.ghc924.aasam                                                       aasam-0.2.0.0
+haskell.packages.ghc924.abacate                                                     abacate-0.0.0.0
+haskell.packages.ghc924.abc-puzzle                                                  abc-puzzle-0.2.1
+…
+</pre><p>
+      Every package set also re-exposes the GHC used to build its packages as <code class="literal">haskell.packages.*.ghc</code>.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-available-versions"></a>Available package versions</h4></div></div></div><p>
+       We aim for a “blessed” package set which only contains one version of each package, like Stackage (and based on it) but with more packages. Normally in nixpkgs the number of building Haskell packages is roughly two to three times the size of Stackage. For choosing the version to use for a certain package we use the following rules:
+      </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+         By default, for every package <code class="literal">haskellPackages.foo</code> is the newest version found on Hackage (at the time of the last update of our package set).
+        </p></li><li class="listitem"><p>
+         If the Stackage snapshot that we use (usually the newest LTS snapshot) contains a package, we use the Stackage version as default version for that package.
+        </p></li><li class="listitem"><p>
+         For some packages, which are not on Stackage, we have manual overrides to set the default version to a version older than the newest on Hackage. We do this to get them or their reverse dependencies to compile in our package set.
+        </p></li><li class="listitem"><p>
+         For all packages, for which the newest Hackage version is not the default version, there will also be a <code class="literal">haskellPackages.foo_x_y_z</code> package with the newest version.
+        </p></li><li class="listitem"><p>
+         For some packages, we also manually add other <code class="literal">haskellPackages.foo_x_y_z</code> versions, if they are required for a certain build.
+        </p></li></ol></div><p>
+       Relying on <code class="literal">haskellPackages.foo_x_y_z</code> attributes in derivations outside nixpkgs is discouraged because they may change or disappear with every package set update.
+      </p><p>
+       All <code class="literal">haskell.packages.*</code> package sets use the same package descriptions and the same sets of versions by default. There are however GHC version specific override <code class="literal">.nix</code> files to loosen this a bit.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.17.4.18"></a>Dependency resolution</h4></div></div></div><p>
+       Normally when you build Haskell packages with <code class="literal">cabal-install</code>, <code class="literal">cabal-install</code> does dependency resolution. It will look at all Haskell package versions known on Hackage and tries to pick for every (transitive) dependency of your build exactly one version. Those versions need to satisfy all the version constraints given in the <code class="literal">.cabal</code> file of your package and all its dependencies.
+      </p><p>
+       The <a class="link" href="#haskell-mkderivation" title="haskellPackages.mkDerivation">Haskell builder in nixpkgs</a> does no such thing. It will simply take as input packages with names off the desired dependencies and just check whether they fulfill the version bounds and (by default, see <code class="literal">jailbreak</code>) fail if they don’t.
+      </p><p>
+       The package resolution is done by the <code class="literal">haskellPackages.callPackage</code> function which will, e.g., use <code class="literal">haskellPackages.aeson</code> for a package input of name <code class="literal">aeson</code>. While this is the default behavior, it is possible to override the dependencies for a specific package, see <a class="link" href="#haskell-overriding-haskell-packages" title="Overriding Haskell packages"><code class="literal">override</code> and <code class="literal">overrideScope</code></a>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-limitations"></a>Limitations</h4></div></div></div><p>
+       Our main objective with <code class="literal">haskellPackages</code> is to package Haskell software in nixpkgs. This entails some limitations, partially due to self-imposed restrictions of nixpkgs, partially in the name of maintainability:
+      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         Only the packages built with the default compiler see extensive testing of the whole package set. For other GHC versions only a few essential packages are tested and cached.
+        </p></li><li class="listitem"><p>
+         As described above we only build one version of most packages.
+        </p></li></ul></div><p>
+       The experience using an older or newer packaged compiler or using different versions may be worse, because builds will not be cached on <code class="literal">cache.nixos.org</code> or may fail.
+      </p><p>
+       Thus, to get the best experience, make sure that your project can be compiled using the default compiler of nixpkgs and recent versions of its dependencies.
+      </p><p>
+       A result of this setup is, that getting a valid build plan for a given package can sometimes be quite painful, and in fact this is where most of the maintenance work for <code class="literal">haskellPackages</code> is required. Besides that, it is not possible to get the dependencies of a legacy project from nixpkgs or to use a specific stack solver for compiling a project.
+      </p><p>
+       Even though we couldn‘t use them directly in nixpkgs, it would be desirable to have tooling to generate working Nix package sets from build plans generated by <code class="literal">cabal-install</code> or a specific Stackage snapshot via import-from-derivation. Sadly we currently don’t have tooling for this. For this you might be interested in the alternative <a class="link" href="https://input-output-hk.github.io/haskell.nix/index.html" target="_top">haskell.nix</a> framework, which, be warned, is completely incompatible with packages from <code class="literal">haskellPackages</code>.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-mkderivation"></a><code class="literal">haskellPackages.mkDerivation</code></h3></div></div></div><p>
+      Every haskell package set has its own haskell-aware <code class="literal">mkDerivation</code> which is used to build its packages. Generally you won’t have to interact with this builder since <a class="link" href="https://github.com/nixos/cabal2nix" target="_top">cabal2nix</a> can generate packages using it for an arbitrary cabal package definition. Still it is useful to know the parameters it takes when you need to <a class="link" href="#haskell-overriding-haskell-packages" title="Overriding Haskell packages">override</a> a generated Nix expression.
+     </p><p>
+      <code class="literal">haskellPackages.mkDerivation</code> is a wrapper around <code class="literal">stdenv.mkDerivation</code> which re-defines the default phases to be haskell aware and handles dependency specification, test suites, benchmarks etc. by compiling and invoking the package’s <code class="literal">Setup.hs</code>. It does <span class="emphasis"><em>not</em></span> use or invoke the <code class="literal">cabal-install</code> binary, but uses the underlying <code class="literal">Cabal</code> library instead.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.17.5.4"></a>General arguments</h4></div></div></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+         <code class="literal">pname</code>
+        </span></dt><dd><p>
+          Package name, assumed to be the same as on Hackage (if applicable)
+         </p></dd><dt><span class="term">
+         <code class="literal">version</code>
+        </span></dt><dd><p>
+          Packaged version, assumed to be the same as on Hackage (if applicable)
+         </p></dd><dt><span class="term">
+         <code class="literal">src</code>
+        </span></dt><dd><p>
+          Source of the package. If omitted, fetch package corresponding to <code class="literal">pname</code> and <code class="literal">version</code> from Hackage.
+         </p></dd><dt><span class="term">
+         <code class="literal">sha256</code>
+        </span></dt><dd><p>
+          Hash to use for the default case of <code class="literal">src</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">revision</code>
+        </span></dt><dd><p>
+          Revision number of the updated cabal file to fetch from Hackage. If <code class="literal">null</code> (which is the default value), the one included in <code class="literal">src</code> is used.
+         </p></dd><dt><span class="term">
+         <code class="literal">editedCabalFile</code>
+        </span></dt><dd><p>
+          <code class="literal">sha256</code> hash of the cabal file identified by <code class="literal">revision</code> or <code class="literal">null</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">configureFlags</code>
+        </span></dt><dd><p>
+          Extra flags passed when executing the <code class="literal">configure</code> command of <code class="literal">Setup.hs</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">buildFlags</code>
+        </span></dt><dd><p>
+          Extra flags passed when executing the <code class="literal">build</code> command of <code class="literal">Setup.hs</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">haddockFlags</code>
+        </span></dt><dd><p>
+          Extra flags passed to <code class="literal">Setup.hs haddock</code> when building the documentation.
+         </p></dd><dt><span class="term">
+         <code class="literal">doCheck</code>
+        </span></dt><dd><p>
+          Whether to execute the package’s test suite if it has one. Defaults to <code class="literal">true</code> unless cross-compiling.
+         </p></dd><dt><span class="term">
+         <code class="literal">doBenchmark</code>
+        </span></dt><dd><p>
+          Whether to execute the package’s benchmark if it has one. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">doHoogle</code>
+        </span></dt><dd><p>
+          Whether to generate an index file for <a class="link" href="https://wiki.haskell.org/Hoogle" target="_top">hoogle</a> as part of <code class="literal">haddockPhase</code> by passing the <a class="link" href="https://haskell-haddock.readthedocs.io/en/latest/invoking.html#cmdoption-hoogle" target="_top"><code class="literal">--hoogle</code> option</a>. Defaults to <code class="literal">true</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">doHaddockQuickjump</code>
+        </span></dt><dd><p>
+          Whether to generate an index for interactive navigation of the HTML documentation. Defaults to <code class="literal">true</code> if supported.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableLibraryProfiling</code>
+        </span></dt><dd><p>
+          Whether to enable <a class="link" href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html" target="_top">profiling</a> for libraries contained in the package. Enabled by default if supported.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableExecutableProfiling</code>
+        </span></dt><dd><p>
+          Whether to enable <a class="link" href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html" target="_top">profiling</a> for executables contained in the package. Disabled by default.
+         </p></dd><dt><span class="term">
+         <code class="literal">profilingDetail</code>
+        </span></dt><dd><p>
+          <a class="link" href="https://cabal.readthedocs.io/en/latest/cabal-project.html#cfg-field-profiling-detail" target="_top">Profiling detail level</a> to set. Defaults to <code class="literal">exported-functions</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableSharedExecutables</code>
+        </span></dt><dd><p>
+          Whether to link executables dynamically. By default, executables are linked statically.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableSharedLibraries</code>
+        </span></dt><dd><p>
+          Whether to build shared Haskell libraries. This is enabled by default unless we are using <code class="literal">pkgsStatic</code> or shared libraries have been disabled in GHC.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableStaticLibraries</code>
+        </span></dt><dd><p>
+          Whether to build static libraries. Enabled by default if supported.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableDeadCodeElimination</code>
+        </span></dt><dd><p>
+          Whether to enable linker based dead code elimination in GHC. Enabled by default if supported.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableHsc2hsViaAsm</code>
+        </span></dt><dd><p>
+          Whether to pass <code class="literal">--via-asm</code> to <code class="literal">hsc2hs</code>. Enabled by default only on Windows.
+         </p></dd><dt><span class="term">
+         <code class="literal">hyperlinkSource</code>
+        </span></dt><dd><p>
+          Whether to render the source as well as part of the haddock documentation by passing the <a class="link" href="https://haskell-haddock.readthedocs.io/en/latest/invoking.html#cmdoption-hyperlinked-source" target="_top"><code class="literal">--hyperlinked-source</code> flag</a>. Defaults to <code class="literal">true</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">isExecutable</code>
+        </span></dt><dd><p>
+          Whether the package contains an executable.
+         </p></dd><dt><span class="term">
+         <code class="literal">isLibrary</code>
+        </span></dt><dd><p>
+          Whether the package contains a library.
+         </p></dd><dt><span class="term">
+         <code class="literal">jailbreak</code>
+        </span></dt><dd><p>
+          Whether to execute <a class="link" href="https://github.com/NixOS/jailbreak-cabal/" target="_top">jailbreak-cabal</a> before <code class="literal">configurePhase</code> to lift any version constraints in the cabal file. Note that this can’t lift version bounds if they are conditional, i.e. if a dependency is hidden behind a flag.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableParallelBuilding</code>
+        </span></dt><dd><p>
+          Whether to use the <code class="literal">-j</code> flag to make GHC/Cabal start multiple jobs in parallel.
+         </p></dd><dt><span class="term">
+         <code class="literal">maxBuildCores</code>
+        </span></dt><dd><p>
+          Upper limit of jobs to use in parallel for compilation regardless of <code class="literal">$NIX_BUILD_CORES</code>. Defaults to 16 as Haskell compilation with GHC currently sees a <a class="link" href="https://gitlab.haskell.org/ghc/ghc/-/issues/9221" target="_top">performance regression</a> if too many parallel jobs are used.
+         </p></dd><dt><span class="term">
+         <code class="literal">doCoverage</code>
+        </span></dt><dd><p>
+          Whether to generate and install files needed for <a class="link" href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html#observing-code-coverage" target="_top">HPC</a>. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">doHaddock</code>
+        </span></dt><dd><p>
+          Whether to build (HTML) documentation using <a class="link" href="https://www.haskell.org/haddock/" target="_top">haddock</a>. Defaults to <code class="literal">true</code> if supported.
+         </p></dd><dt><span class="term">
+         <code class="literal">testTarget</code>
+        </span></dt><dd><p>
+          Name of the test suite to build and run. If unset, all test suites will be executed.
+         </p></dd><dt><span class="term">
+         <code class="literal">preCompileBuildDriver</code>
+        </span></dt><dd><p>
+          Shell code to run before compiling <code class="literal">Setup.hs</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">postCompileBuildDriver</code>
+        </span></dt><dd><p>
+          Shell code to run after compiling <code class="literal">Setup.hs</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">preHaddock</code>
+        </span></dt><dd><p>
+          Shell code to run before building documentation using haddock.
+         </p></dd><dt><span class="term">
+         <code class="literal">postHaddock</code>
+        </span></dt><dd><p>
+          Shell code to run after building documentation using haddock.
+         </p></dd><dt><span class="term">
+         <code class="literal">coreSetup</code>
+        </span></dt><dd><p>
+          Whether to only allow core libraries to be used while building <code class="literal">Setup.hs</code>. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">useCpphs</code>
+        </span></dt><dd><p>
+          Whether to enable the <a class="link" href="https://Hackage.haskell.org/package/cpphs" target="_top">cpphs</a> preprocessor. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableSeparateBinOutput</code>
+        </span></dt><dd><p>
+          Whether to install executables to a separate <code class="literal">bin</code> output. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableSeparateDataOutput</code>
+        </span></dt><dd><p>
+          Whether to install data files shipped with the package to a separate <code class="literal">data</code> output. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableSeparateDocOutput</code>
+        </span></dt><dd><p>
+          Whether to install documentation to a separate <code class="literal">doc</code> output. Is automatically enabled if <code class="literal">doHaddock</code> is <code class="literal">true</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">allowInconsistentDependencies</code>
+        </span></dt><dd><p>
+          If enabled, allow multiple versions of the same Haskell package in the dependency tree at configure time. Often in such a situation compilation would later fail because of type mismatches. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">enableLibraryForGhci</code>
+        </span></dt><dd><p>
+          Build and install a special object file for GHCi. This improves performance when loading the library in the REPL, but requires extra build time and disk space. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">buildTarget</code>
+        </span></dt><dd><p>
+          Name of the executable or library to build and install. If unset, all available targets are built and installed.
+         </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-derivation-deps"></a>Specifying dependencies</h4></div></div></div><p>
+       Since <code class="literal">haskellPackages.mkDerivation</code> is intended to be generated from cabal files, it reflects cabal’s way of specifying dependencies. For one, dependencies are grouped by what part of the package they belong to. This helps to reduce the dependency closure of a derivation, for example benchmark dependencies are not included if <code class="literal">doBenchmark == false</code>.
+      </p><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+         <code class="literal">setup*Depends</code>
+        </span></dt><dd><p>
+          dependencies necessary to compile <code class="literal">Setup.hs</code>
+         </p></dd><dt><span class="term">
+         <code class="literal">library*Depends</code>
+        </span></dt><dd><p>
+          dependencies of a library contained in the package
+         </p></dd><dt><span class="term">
+         <code class="literal">executable*Depends</code>
+        </span></dt><dd><p>
+          dependencies of an executable contained in the package
+         </p></dd><dt><span class="term">
+         <code class="literal">test*Depends</code>
+        </span></dt><dd><p>
+          dependencies of a test suite contained in the package
+         </p></dd><dt><span class="term">
+         <code class="literal">benchmark*Depends</code>
+        </span></dt><dd><p>
+          dependencies of a benchmark contained in the package
+         </p></dd></dl></div><p>
+       The other categorization relates to the way the package depends on the dependency:
+      </p><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+         <code class="literal">*ToolDepends</code>
+        </span></dt><dd><p>
+          Tools we need to run as part of the build process. They are added to the derivation’s <code class="literal">nativeBuildInputs</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">*HaskellDepends</code>
+        </span></dt><dd><p>
+          Haskell libraries the package depends on. They are added to <code class="literal">propagatedBuildInputs</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">*SystemDepends</code>
+        </span></dt><dd><p>
+          Non-Haskell libraries the package depends on. They are added to <code class="literal">buildInputs</code>
+         </p></dd><dt><span class="term">
+         <code class="literal">*PkgconfigDepends</code>
+        </span></dt><dd><p>
+          <code class="literal">*SystemDepends</code> which are discovered using <code class="literal">pkg-config</code>. They are added to <code class="literal">buildInputs</code> and it is additionally ensured that <code class="literal">pkg-config</code> is available at build time.
+         </p></dd><dt><span class="term">
+         <code class="literal">*FrameworkDepends</code>
+        </span></dt><dd><p>
+          Apple SDK Framework which the package depends on when compiling it on Darwin.
+         </p></dd></dl></div><p>
+       Using these two distinctions, you should be able to categorize most of the dependency specifications that are available: <code class="literal">benchmarkFrameworkDepends</code>, <code class="literal">benchmarkHaskellDepends</code>, <code class="literal">benchmarkPkgconfigDepends</code>, <code class="literal">benchmarkSystemDepends</code>, <code class="literal">benchmarkToolDepends</code>, <code class="literal">executableFrameworkDepends</code>, <code class="literal">executableHaskellDepends</code>, <code class="literal">executablePkgconfigDepends</code>, <code class="literal">executableSystemDepends</code>, <code class="literal">executableToolDepends</code>, <code class="literal">libraryFrameworkDepends</code>, <code class="literal">libraryHaskellDepends</code>, <code class="literal">libraryPkgconfigDepends</code>, <code class="literal">librarySystemDepends</code>, <code class="literal">libraryToolDepends</code>, <code class="literal">setupHaskellDepends</code>, <code class="literal">testFrameworkDepends</code>, <code class="literal">testHaskellDepends</code>, <code class="literal">testPkgconfigDepends</code>, <code class="literal">testSystemDepends</code> and <code class="literal">testToolDepends</code>.
+      </p><p>
+       That only leaves the following extra ways for specifying dependencies:
+      </p><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+         <code class="literal">buildDepends</code>
+        </span></dt><dd><p>
+          Allows specifying Haskell dependencies which are added to <code class="literal">propagatedBuildInputs</code> unconditionally.
+         </p></dd><dt><span class="term">
+         <code class="literal">buildTools</code>
+        </span></dt><dd><p>
+          Like <code class="literal">*ToolDepends</code>, but are added to <code class="literal">nativeBuildInputs</code> unconditionally.
+         </p></dd><dt><span class="term">
+         <code class="literal">extraLibraries</code>
+        </span></dt><dd><p>
+          Like <code class="literal">*SystemDepends</code>, but are added to <code class="literal">buildInputs</code> unconditionally.
+         </p></dd><dt><span class="term">
+         <code class="literal">pkg-configDepends</code>
+        </span></dt><dd><p>
+          Like <code class="literal">*PkgconfigDepends</code>, but are added to <code class="literal">buildInputs</code> unconditionally.
+         </p></dd><dt><span class="term">
+         <code class="literal">testDepends</code>
+        </span></dt><dd><p>
+          Deprecated, use either <code class="literal">testHaskellDepends</code> or <code class="literal">testSystemDepends</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">benchmarkDepends</code>
+        </span></dt><dd><p>
+          Deprecated, use either <code class="literal">benchmarkHaskellDepends</code> or <code class="literal">benchmarkSystemDepends</code>.
+         </p></dd></dl></div><p>
+       The dependency specification methods in this list which are unconditional are especially useful when writing <a class="link" href="#haskell-overriding-haskell-packages" title="Overriding Haskell packages">overrides</a> when you want to make sure that they are definitely included. However, it is recommended to use the more accurate ones listed above when possible.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.17.5.6"></a>Meta attributes</h4></div></div></div><p>
+       <code class="literal">haskellPackages.mkDerivation</code> accepts the following attributes as direct arguments which are transparently set in <code class="literal">meta</code> of the resulting derivation. See the <a class="link" href="#chap-meta" title="Meta-attributes">Meta-attributes section</a> for their documentation.
+      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         These attributes are populated with a default value if omitted:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+           <code class="literal">homepage</code>: defaults to the Hackage page for <code class="literal">pname</code>.
+          </p></li><li class="listitem"><p>
+           <code class="literal">platforms</code>: defaults to <code class="literal">lib.platforms.all</code> (since GHC can cross-compile)
+          </p></li></ul></div></li><li class="listitem"><p>
+         These attributes are only set if given:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+           <code class="literal">description</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">license</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">changelog</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">maintainers</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">broken</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">hydraPlatforms</code>
+          </p></li></ul></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-development-environments"></a>Development environments</h3></div></div></div><p>
+      In addition to building and installing Haskell software, nixpkgs can also provide development environments for Haskell projects. This has the obvious advantage that you benefit from <code class="literal">cache.nixos.org</code> and no longer need to compile all project dependencies yourself. While it is often very useful, this is not the primary use case of our package set. Have a look at the section <a class="link" href="#haskell-available-versions" title="Available package versions">available package versions</a> to learn which versions of packages we provide and the section <a class="link" href="#haskell-limitations" title="Limitations">limitations</a>, to judge whether a <code class="literal">haskellPackages</code> based development environment for your project is feasible.
+     </p><p>
+      By default, every derivation built using <a class="link" href="#haskell-mkderivation" title="haskellPackages.mkDerivation"><code class="literal">haskellPackages.mkDerivation</code></a> exposes an environment suitable for building it interactively as the <code class="literal">env</code> attribute. For example, if you have a local checkout of <code class="literal">random</code>, you can enter a development environment for it like this (if the dependencies in the development and packaged version match):
+     </p><pre class="programlisting">
+$ cd ~/src/random
+$ nix-shell -A haskellPackages.random.env '&lt;nixpkgs&gt;'
+[nix-shell:~/src/random]$ ghc-pkg list
+/nix/store/a8hhl54xlzfizrhcf03c1l3f6l9l8qwv-ghc-9.2.4-with-packages/lib/ghc-9.2.4/package.conf.d
+    Cabal-3.6.3.0
+    array-0.5.4.0
+    base-4.16.3.0
+    binary-0.8.9.0
+    …
+    ghc-9.2.4
+    …
+</pre><p>
+      As you can see, the environment contains a GHC which is set up so it finds all dependencies of <code class="literal">random</code>. Note that this environment does not mirror the environment used to build the package, but is intended as a convenient tool for development and simple debugging. <code class="literal">env</code> relies on the <code class="literal">ghcWithPackages</code> wrapper which automatically injects a pre-populated package-db into every GHC invocation. In contrast, using <code class="literal">nix-shell -A haskellPackages.random</code> will not result in an environment in which the dependencies are in GHCs package database. Instead, the Haskell builder will pass in all dependencies explicitly via configure flags.
+     </p><p>
+      <code class="literal">env</code> mirrors the normal derivation environment in one aspect: It does not include familiar development tools like <code class="literal">cabal-install</code>, since we rely on plain <code class="literal">Setup.hs</code> to build all packages. However, <code class="literal">cabal-install</code> will work as expected if in <code class="literal">PATH</code> (e.g. when installed globally and using a <code class="literal">nix-shell</code> without <code class="literal">--pure</code>). A declarative and pure way of adding arbitrary development tools is provided via <a class="link" href="#haskell-shellFor" title="shellFor"><code class="literal">shellFor</code></a>.
+     </p><p>
+      When using <code class="literal">cabal-install</code> for dependency resolution you need to be a bit careful to achieve build purity. <code class="literal">cabal-install</code> will find and use all dependencies installed from the packages <code class="literal">env</code> via Nix, but it will also consult Hackage to potentially download and compile dependencies if it can‘t find a valid build plan locally. To prevent this you can either never run <code class="literal">cabal update</code>, remove the cabal database from your <code class="literal">~/.cabal</code> folder or run <code class="literal">cabal</code> with <code class="literal">--offline</code>. Note though, that for some usecases <code class="literal">cabal2nix</code> needs the local Hackage db.
+     </p><p>
+      Often you won’t work on a package that is already part of <code class="literal">haskellPackages</code> or Hackage, so we first need to write a Nix expression to obtain the development environment from. Luckily, we can generate one very easily from an already existing cabal file using <code class="literal">cabal2nix</code>:
+     </p><pre class="programlisting">
+$ ls
+my-project.cabal src …
+$ cabal2nix ./. &gt; my-project.nix
+</pre><p>
+      The generated Nix expression evaluates to a function ready to be <code class="literal">callPackage</code>-ed. For now, we can add a minimal <code class="literal">default.nix</code> which does just that:
+     </p><pre class="programlisting">
+# Retrieve nixpkgs impurely from NIX_PATH for now, you can pin it instead, of course.
+{ pkgs ? import &lt;nixpkgs&gt; {} }:
+
+# use the nixpkgs default haskell package set
+pkgs.haskellPackages.callPackage ./my-project.nix { }
+</pre><p>
+      Using <code class="literal">nix-build default.nix</code> we can now build our project, but we can also enter a shell with all the package’s dependencies available using <code class="literal">nix-shell -A env default.nix</code>. If you have <code class="literal">cabal-install</code> installed globally, it’ll work inside the shell as expected.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-shellFor"></a>shellFor</h4></div></div></div><p>
+       Having to install tools globally is obviously not great, especially if you want to provide a batteries-included <code class="literal">shell.nix</code> with your project. Luckily there’s a proper tool for making development environments out of packages’ build environments: <code class="literal">shellFor</code>, a function exposed by every haskell package set. It takes the following arguments and returns a derivation which is suitable as a development environment inside <code class="literal">nix-shell</code>:
+      </p><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+         <code class="literal">packages</code>
+        </span></dt><dd><p>
+          This argument is used to select the packages for which to build the development environment. This should be a function which takes a haskell package set and returns a list of packages. <code class="literal">shellFor</code> will pass the used package set to this function and include all dependencies of the returned package in the build environment. This means you can reuse Nix expressions of packages included in nixpkgs, but also use local Nix expressions like this: <code class="literal">hpkgs: [ (hpkgs.callPackage ./my-project.nix { }) ]</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">nativeBuildInputs</code>
+        </span></dt><dd><p>
+          Expects a list of derivations to add as build tools to the build environment. This is the place to add packages like <code class="literal">cabal-install</code>, <code class="literal">doctest</code> or <code class="literal">hlint</code>. Defaults to <code class="literal">[]</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">buildInputs</code>
+        </span></dt><dd><p>
+          Expects a list of derivations to add as library dependencies, like <code class="literal">openssl</code>. This is rarely necessary as the haskell package expressions usually track system dependencies as well. Defaults to <code class="literal">[]</code>. (see also <a class="link" href="#haskell-derivation-deps" title="Specifying dependencies">derivation dependencies</a>)
+         </p></dd><dt><span class="term">
+         <code class="literal">withHoogle</code>
+        </span></dt><dd><p>
+          If this is true, <code class="literal">hoogle</code> will be added to <code class="literal">nativeBuildInputs</code>. Additionally, its database will be populated with all included dependencies, so you’ll be able search through the documentation of your dependencies. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">genericBuilderArgsModifier</code>
+        </span></dt><dd><p>
+          This argument accepts a function allowing you to modify the arguments passed to <code class="literal">mkDerivation</code> in order to create the development environment. For example, <code class="literal">args: { doCheck = false; }</code> would cause the environment to not include any test dependencies. Defaults to <code class="literal">lib.id</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">doBenchmark</code>
+        </span></dt><dd><p>
+          This is a shortcut for enabling <code class="literal">doBenchmark</code> via <code class="literal">genericBuilderArgsModifier</code>. Setting it to <code class="literal">true</code> will cause the development environment to include all benchmark dependencies which would be excluded by default. Defaults to <code class="literal">false</code>.
+         </p></dd></dl></div><p>
+       One neat property of <code class="literal">shellFor</code> is that it allows you to work on multiple packages using the same environment in conjunction with <a class="link" href="https://cabal.readthedocs.io/en/latest/cabal-project.html" target="_top">cabal.project files</a>. Say our example above depends on <code class="literal">distribution-nixpkgs</code> and we have a project file set up for both, we can add the following <code class="literal">shell.nix</code> expression:
+      </p><pre class="programlisting">
+{ pkgs ? import &lt;nixpkgs&gt; {} }:
+
+pkgs.haskellPackages.shellFor {
+  packages = hpkgs: [
+    # reuse the nixpkgs for this package
+    hpkgs.distribution-nixpkgs
+    # call our generated Nix expression manually
+    (hpkgs.callPackage ./my-project/my-project.nix { })
+  ];
+
+  # development tools we use
+  nativeBuildInputs = [
+    pkgs.cabal-install
+    pkgs.haskellPackages.doctest
+    pkgs.cabal2nix
+  ];
+
+  # Extra arguments are added to mkDerivation's arguments as-is.
+  # Since it adds all passed arguments to the shell environment,
+  # we can use this to set the environment variable the `Paths_`
+  # module of distribution-nixpkgs uses to search for bundled
+  # files.
+  # See also: https://cabal.readthedocs.io/en/latest/cabal-package.html#accessing-data-files-from-package-code
+  distribution_nixpkgs_datadir = toString ./distribution-nixpkgs;
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-language-server"></a>haskell-language-server</h4></div></div></div><p>
+       To use HLS in short: Install <code class="literal">pkgs.haskell-language-server</code> e.g. in <code class="literal">nativeBuildInputs</code> in <code class="literal">shellFor</code> and use the <code class="literal">haskell-language-server-wrapper</code> command to run it. See the <a class="link" href="https://haskell-language-server.readthedocs.io/en/latest/configuration.html#configuring-your-editor" target="_top">HLS user guide</a> on how to configure your text editor to use HLS and how to test your setup.
+      </p><p>
+       HLS needs to be compiled with the GHC version of the project you use it on.
+      </p><p>
+       <code class="literal">pkgs.haskell-language-server</code> provides <code class="literal">haskell-language-server-wrapper</code>, <code class="literal">haskell-language-server</code> and <code class="literal">haskell-language-server-x.x.x</code> binaries, where <code class="literal">x.x.x</code> is the GHC version for which it is compiled. By default, it only includes binaries for the current GHC version, to reduce closure size. The closure size is large, because HLS needs to be dynamically linked to work reliably. You can override the list of supported GHC versions with e.g.
+      </p><pre class="programlisting">
+pkgs.haskell-language-server.override { supportedGhcVersions = [ "90" "94" ]; }
+</pre><p>
+       Where all strings <code class="literal">version</code> are allowed such that <code class="literal">haskell.packages.ghc${version}</code> is an existing package set.
+      </p><p>
+       When you run <code class="literal">haskell-language-server-wrapper</code> it will detect the GHC version used by the project you are working on (by asking e.g. cabal or stack) and pick the appropriate versioned binary from your path.
+      </p><p>
+       Be careful when installing HLS globally and using a pinned nixpkgs for a Haskell project in a <code class="literal">nix-shell</code>. If the nixpkgs versions deviate to much (e.g., use different <code class="literal">glibc</code> versions) the <code class="literal">haskell-language-server-?.?.?</code> executable will try to detect these situations and refuse to start. It is recommended to obtain HLS via <code class="literal">nix-shell</code> from the nixpkgs version pinned in there instead.
+      </p><p>
+       The top level <code class="literal">pkgs.haskell-language-server</code> attribute is just a convenience wrapper to make it possible to install HLS for multiple GHC versions at the same time. If you know, that you only use one GHC version, e.g., in a project specific <code class="literal">nix-shell</code> you can simply use <code class="literal">pkgs.haskellPackages.haskell-language-server</code> or <code class="literal">pkgs.haskell.packages.*.haskell-language-server</code> from the package set you use.
+      </p><p>
+       If you use <code class="literal">nix-shell</code> for your development environments remember to start your editor in that environment. You may want to use something like <code class="literal">direnv</code> and/or an editor plugin to achieve this.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-overriding-haskell-packages"></a>Overriding Haskell packages</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.17.7.2"></a>Overriding a single package</h4></div></div></div><p>
+       Like many language specific subsystems in nixpkgs, the Haskell infrastructure also has its own quirks when it comes to overriding. Overriding of the <span class="emphasis"><em>inputs</em></span> to a package at least follows the standard procedure. For example, imagine you need to build <code class="literal">nix-tree</code> with a more recent version of <code class="literal">brick</code> than the default one provided by <code class="literal">haskellPackages</code>:
+      </p><pre class="programlisting">
+haskellPackages.nix-tree.override {
+  brick = haskellPackages.brick_0_67;
+}
+</pre><p>
+       The custom interface comes into play when you want to override the arguments passed to <code class="literal">haskellPackages.mkDerivation</code>. For this, the function <code class="literal">overrideCabal</code> from <code class="literal">haskell.lib.compose</code> is used. E.g., if you want to install a man page that is distributed with the package, you can do something like this:
+      </p><pre class="programlisting">
+haskell.lib.compose.overrideCabal (drv: {
+  postInstall = ''
+    ${drv.postInstall or ""}
+    install -Dm644 man/pnbackup.1 -t $out/share/man/man1
+  '';
+}) haskellPackages.pnbackup
+</pre><p>
+       <code class="literal">overrideCabal</code> takes two arguments:
+      </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+         A function which receives all arguments passed to <code class="literal">haskellPackages.mkDerivation</code> before and returns a set of arguments to replace (or add) with a new value.
+        </p></li><li class="listitem"><p>
+         The Haskell derivation to override.
+        </p></li></ol></div><p>
+       The arguments are ordered so that you can easily create helper functions by making use of currying:
+      </p><pre class="programlisting">
+let
+  installManPage = haskell.lib.compose.overrideCabal (drv: {
+    postInstall = ''
+      ${drv.postInstall or ""}
+      install -Dm644 man/${drv.pname}.1 -t "$out/share/man/man1"
+    '';
+  });
+in
+
+installManPage haskellPackages.pnbackup
+</pre><p>
+       In fact, <code class="literal">haskell.lib.compose</code> already provides lots of useful helpers for common tasks, detailed in the next section. They are also structured in such a way that they can be combined using <code class="literal">lib.pipe</code>:
+      </p><pre class="programlisting">
+lib.pipe my-haskell-package [
+  # lift version bounds on dependencies
+  haskell.lib.compose.doJailbreak
+  # disable building the haddock documentation
+  haskell.lib.compose.dontHaddock
+  # pass extra package flag to Cabal's configure step
+  (haskell.lib.compose.enableCabalFlag "myflag")
+]
+</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.17.7.2.12"></a><code class="literal">haskell.lib.compose</code></h5></div></div></div><p>
+        The base interface for all overriding is the following function:
+       </p><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+          <code class="literal">overrideCabal f drv</code>
+         </span></dt><dd><p>
+           Takes the arguments passed to obtain <code class="literal">drv</code> to <code class="literal">f</code> and uses the resulting attribute set to update the argument set. Then a recomputed version of <code class="literal">drv</code> using the new argument set is returned.
+          </p></dd></dl></div><p>
+        All other helper functions are implemented in terms of <code class="literal">overrideCabal</code> and make common overrides shorter and more complicate ones trivial. The simple overrides which only change a single argument are only described very briefly in the following overview. Refer to the <a class="link" href="#haskell-mkderivation" title="haskellPackages.mkDerivation">documentation of <code class="literal">haskellPackages.mkDerivation</code></a> for a more detailed description of the effects of the respective arguments.
+       </p><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="id-1.5.8.17.7.2.12.5"></a>Packaging Helpers</h6></div></div></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">overrideSrc { src, version } drv</code>
+          </span></dt><dd><p>
+            Replace the source used for building <code class="literal">drv</code> with the path or derivation given as <code class="literal">src</code>. The <code class="literal">version</code> attribute is optional. Prefer this function over overriding <code class="literal">src</code> via <code class="literal">overrideCabal</code>, since it also automatically takes care of removing any Hackage revisions.
+           </p></dd></dl></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">justStaticExecutables drv</code>
+          </span></dt><dd><p>
+            Only build and install the executables produced by <code class="literal">drv</code>, removing everything that may refer to other Haskell packages’ store paths (like libraries and documentation). This dramatically reduces the closure size of the resulting derivation. Note that the executables are only statically linked against their Haskell dependencies, but will still link dynamically against libc, GMP and other system library dependencies. If dependencies use their Cabal-generated <code class="literal">Paths_*</code> module, this may not work as well if GHC’s dead code elimination is unable to remove the references to the dependency’s store path that module contains.
+           </p></dd><dt><span class="term">
+           <code class="literal">enableSeparateBinOutput drv</code>
+          </span></dt><dd><p>
+            Install executables produced by <code class="literal">drv</code> to a separate <code class="literal">bin</code> output. This has a similar effect as <code class="literal">justStaticExecutables</code>, but preserves the libraries and documentation in the <code class="literal">out</code> output alongside the <code class="literal">bin</code> output with a much smaller closure size.
+           </p></dd><dt><span class="term">
+           <code class="literal">markBroken drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">broken</code> flag to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">markUnbroken drv</code>, <code class="literal">unmarkBroken drv</code>
+          </span></dt><dd><p>
+            Set the <code class="literal">broken</code> flag to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">doDistribute drv</code>
+          </span></dt><dd><p>
+            Updates <code class="literal">hydraPlatforms</code> so that Hydra will build <code class="literal">drv</code>. This is sometimes necessary when working with versioned packages in <code class="literal">haskellPackages</code> which are not built by default.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontDistribute drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">hydraPlatforms</code> to <code class="literal">[]</code>, causing Hydra to skip this package altogether. Useful if it fails to evaluate cleanly and is causing noise in the evaluation errors tab on Hydra.
+           </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="id-1.5.8.17.7.2.12.6"></a>Development Helpers</h6></div></div></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">sdistTarball drv</code>
+          </span></dt><dd><p>
+            Create a source distribution tarball like those found on Hackage instead of building the package <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">documentationTarball drv</code>
+          </span></dt><dd><p>
+            Create a documentation tarball suitable for uploading to Hackage instead of building the package <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">buildFromSdist drv</code>
+          </span></dt><dd><p>
+            Uses <code class="literal">sdistTarball drv</code> as the source to compile <code class="literal">drv</code>. This helps to catch packaging bugs when building from a local directory, e.g. when required files are missing from <code class="literal">extra-source-files</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">failOnAllWarnings drv</code>
+          </span></dt><dd><p>
+            Enables all warnings GHC supports and makes it fail the build if any of them are emitted.
+           </p></dd></dl></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">enableDWARFDebugging drv</code>
+          </span></dt><dd><p>
+            Compiles the package with additional debug symbols enabled, useful for debugging with e.g. <code class="literal">gdb</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">doStrip drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">doStrip</code> to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontStrip drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">doStrip</code> to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="id-1.5.8.17.7.2.12.7"></a>Trivial Helpers</h6></div></div></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">doJailbreak drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">jailbreak</code> argument to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontJailbreak drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">jailbreak</code> argument to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">doHaddock drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">doHaddock</code> to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontHaddock drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">doHaddock</code> to <code class="literal">false</code> for <code class="literal">drv</code>. Useful if the build of a package is failing because of e.g. a syntax error in the Haddock documentation.
+           </p></dd><dt><span class="term">
+           <code class="literal">doHyperlinkSource drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">hyperlinkSource</code> to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontHyperlinkSource drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">hyperlinkSource</code> to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">doCheck drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">doCheck</code> to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontCheck drv</code>
+          </span></dt><dd><p>
+            Sets <code class="literal">doCheck</code> to <code class="literal">false</code> for <code class="literal">drv</code>. Useful if a package has a broken, flaky or otherwise problematic test suite breaking the build.
+           </p></dd></dl></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">appendConfigureFlags list drv</code>
+          </span></dt><dd><p>
+            Adds the strings in <code class="literal">list</code> to the <code class="literal">configureFlags</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">enableCabalFlag flag drv</code>
+          </span></dt><dd><p>
+            Makes sure that the Cabal flag <code class="literal">flag</code> is enabled in Cabal’s configure step.
+           </p></dd><dt><span class="term">
+           <code class="literal">disableCabalFlag flag drv</code>
+          </span></dt><dd><p>
+            Makes sure that the Cabal flag <code class="literal">flag</code> is disabled in Cabal’s configure step.
+           </p></dd><dt><span class="term">
+           <code class="literal">appendBuildflags list drv</code>
+          </span></dt><dd><p>
+            Adds the strings in <code class="literal">list</code> to the <code class="literal">buildFlags</code> argument for <code class="literal">drv</code>.
+           </p></dd></dl></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">appendPatches list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations or paths to the <code class="literal">patches</code> argument for <code class="literal">drv</code>.
+           </p></dd></dl></div><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+           <code class="literal">addBuildTools list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations to the <code class="literal">buildTools</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">addExtraLibraries list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations to the <code class="literal">extraLibraries</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">addBuildDepends list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations to the <code class="literal">buildDepends</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">addTestToolDepends list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations to the <code class="literal">testToolDepends</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">addPkgconfigDepends list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations to the <code class="literal">pkg-configDepends</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">addSetupDepends list drv</code>
+          </span></dt><dd><p>
+            Adds the <code class="literal">list</code> of derivations to the <code class="literal">setupHaskellDepends</code> argument for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">doBenchmark drv</code>
+          </span></dt><dd><p>
+            Set <code class="literal">doBenchmark</code> to <code class="literal">true</code> for <code class="literal">drv</code>. Useful if your development environment is missing the dependencies necessary for compiling the benchmark component.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontBenchmark drv</code>
+          </span></dt><dd><p>
+            Set <code class="literal">doBenchmark</code> to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">setBuildTargets list drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">buildTarget</code> argument for <code class="literal">drv</code> so that the targets specified in <code class="literal">list</code> are built.
+           </p></dd><dt><span class="term">
+           <code class="literal">doCoverage drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">doCoverage</code> argument to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">dontCoverage drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">doCoverage</code> argument to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd></dl></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.17.7.2.13"></a>Library functions in the Haskell package sets</h5></div></div></div><p>
+        Some library functions depend on packages from the Haskell package sets. Thus they are exposed from those instead of from <code class="literal">haskell.lib.compose</code> which can only access what is passed directly to it. When using the functions below, make sure that you are obtaining them from the same package set (<code class="literal">haskellPackages</code>, <code class="literal">haskell.packages.ghc944</code> etc.) as the packages you are working with or – even better – from the <code class="literal">self</code>/<code class="literal">final</code> fix point of your overlay to <code class="literal">haskellPackages</code>.
+       </p><p>
+        Note: Some functions like <code class="literal">shellFor</code> that are not intended for overriding per se, are omitted in this section.
+
+       </p><div class="variablelist"><dl class="variablelist compact"><dt><span class="term">
+          <code class="literal">cabalSdist { src, name ? ... }</code>
+         </span></dt><dd><p>
+           Generates the Cabal sdist tarball for <code class="literal">src</code>, suitable for uploading to Hackage. Contrary to <code class="literal">haskell.lib.compose.sdistTarball</code>, it uses <code class="literal">cabal-install</code> over <code class="literal">Setup.hs</code>, so it is usually faster: No build dependencies need to be downloaded, and we can skip compiling <code class="literal">Setup.hs</code>.
+          </p></dd><dt><span class="term">
+          <code class="literal">buildFromCabalSdist drv</code>
+         </span></dt><dd><p>
+           Build <code class="literal">drv</code>, but run its <code class="literal">src</code> attribute through <code class="literal">cabalSdist</code> first. Useful for catching files necessary for compilation that are missing from the sdist.
+          </p></dd><dt><span class="term">
+          <code class="literal">generateOptparseApplicativeCompletions list drv</code>
+         </span></dt><dd><p>
+           Generate and install shell completion files for the installed executables whose names are given via <code class="literal">list</code>. The executables need to be using <code class="literal">optparse-applicative</code> for <a class="link" href="https://github.com/pcapriotti/optparse-applicative/blob/7726b63796aa5d0df82e926d467f039b78ca09e2/README.md#bash-zsh-and-fish-completions" target="_top">this to work</a>. Note that this feature is automatically disabled when cross-compiling, since it requires executing the binaries in question.
+          </p></dd></dl></div></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-faq"></a>F.A.Q.</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.17.8.2"></a>Why is topic X not covered in this section? Why is section Y missing?</h4></div></div></div><p>
+       We have been working on <a class="link" href="https://github.com/NixOS/nixpkgs/issues/121403" target="_top">moving the nixpkgs Haskell documentation back into the nixpkgs manual</a>. Since this process has not been completed yet, you may find some topics missing here covered in the old <a class="link" href="https://haskell4nix.readthedocs.io/" target="_top">haskell4nix docs</a>.
+      </p><p>
+       If you feel any important topic is not documented at all, feel free to comment on the issue linked above.
+      </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-hy"></a>Hy</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-hy-installation">Installation</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-hy-installation"></a>Installation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="installation-without-packages"></a>Installation without packages</h4></div></div></div><p>
        You can install <code class="literal">hy</code> via nix-env or by adding it to <code class="literal">configuration.nix</code> by referring to it as a <code class="literal">hy</code> attribute. This kind of installation adds <code class="literal">hy</code> to your environment and it successfully works with <code class="literal">python3</code>.
       </p><div class="caution"><h3 class="title">Caution</h3><p>
         Packages that are installed with your python derivation, are not accessible by <code class="literal">hy</code> this way.
@@ -9991,9 +10736,10 @@ buildNpmPackage rec {
     hash = "sha256-BR+ZGkBBfd0dSQqAvujsbgsEPFYw/ThrylxUbOksYxM=";
   };
 
-  patches = [ ./remove-prepack-script.patch ];
-
   npmDepsHash = "sha256-tuEfyePwlOy2/mOPdXbqJskO6IowvAP4DWg8xSZwbJw=";
+
+  # The prepack script runs the build script, which we'd rather do in the build phase.
+  npmPackFlags = [ "--ignore-scripts" ];
 
   NODE_OPTIONS = "--openssl-legacy-provider";
 
@@ -12280,13 +13026,11 @@ $ maintainers/scripts/update-python-libraries --target minor --commit --use-pkgs
               Bump default CPython interpreter to latest stable.
             </td></tr></tbody></table></div><p>
       In practice, this means that the Python community will have had a stable interpreter for ~2 months before attempting to update the package set. And this will allow for ~7 months for Python applications to support the latest interpreter.
-     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-qt"></a>Qt</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#qt-default-nix">Nix expression for a Qt package (default.nix)</a></span></dt><dt><span class="section"><a href="#qt-runtime-dependencies">Locating runtime dependencies</a></span></dt><dt><span class="section"><a href="#adding-a-library-to-nixpkgs">Adding a library to Nixpkgs</a></span></dt><dt><span class="section"><a href="#adding-an-application-to-nixpkgs">Adding an application to Nixpkgs</a></span></dt></dl></div><p>
-     Writing Nix expressions for Qt libraries and applications is largely similar as for other C++ software. This section assumes some knowledge of the latter. There are two problems that the Nixpkgs Qt infrastructure addresses, which are not shared by other C++ software:
-    </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
-       There are usually multiple supported versions of Qt in Nixpkgs. All of a package’s dependencies must be built with the same version of Qt. This is similar to the version constraints imposed on interpreted languages like Python.
-      </p></li><li class="listitem"><p>
-       Qt makes extensive use of runtime dependency detection. Runtime dependencies are made into build dependencies through wrappers.
-      </p></li></ol></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)</h3></div></div></div><pre class="programlisting">
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-qt"></a>Qt</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#qt-default-nix">Nix expression for a Qt package (default.nix)</a></span></dt><dt><span class="section"><a href="#qt-runtime-dependencies">Locating runtime dependencies</a></span></dt></dl></div><p>
+     Writing Nix expressions for Qt libraries and applications is largely similar as for other C++ software. This section assumes some knowledge of the latter.
+    </p><p>
+     The major caveat with Qt applications is that Qt uses a plugin system to load additional modules at runtime, from a list of well-known locations. In Nixpkgs, we patch QtCore to instead use an environment variable, and wrap Qt applications to set it to the right paths. This effectively makes the runtime dependencies pure and explicit at build-time, at the cost of introducing an extra indirection.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)</h3></div></div></div><pre class="programlisting">
     { stdenv, lib, qtbase, wrapQtAppsHook }: <a id="qt-default-nix-co-1"></a><span><img src="images/callouts/1.svg" alt="1" border="0" /></span>
 
     stdenv.mkDerivation {
@@ -12336,51 +13080,7 @@ stdenv.mkDerivation {
 }
 </pre><div class="note"><h3 class="title">Note</h3><p>
        <code class="literal">wrapQtAppsHook</code> ignores files that are non-ELF executables. This means that scripts won’t be automatically wrapped so you’ll need to manually wrap them as previously mentioned. An example of when you’d always need to do this is with Python applications that use PyQt.
-      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="adding-a-library-to-nixpkgs"></a>Adding a library to Nixpkgs</h3></div></div></div><p>
-      Add Qt libraries to <code class="literal">qt5-packages.nix</code> to make them available for every supported Qt version.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="qt-library-all-packages-nix"></a>Example adding a Qt library</h4></div></div></div><p>
-       The following represents the contents of <code class="literal">qt5-packages.nix</code>.
-      </p><pre class="programlisting">
-{
-  # ...
-
-  mylib = callPackage ../path/to/mylib {};
-
-  # ...
-}
-</pre><p>
-       Libraries are built with every available version of Qt. Use the <code class="literal">meta.broken</code> attribute to disable the package for unsupported Qt versions:
-      </p><pre class="programlisting">
-{ stdenv, lib, qtbase }:
-
-stdenv.mkDerivation {
-  # ...
-  # Disable this library with Qt &lt; 5.9.0
-  meta.broken = lib.versionOlder qtbase.version "5.9.0";
-}
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="adding-an-application-to-nixpkgs"></a>Adding an application to Nixpkgs</h3></div></div></div><p>
-      Add Qt applications to <code class="literal">qt5-packages.nix</code>. Add an alias to <code class="literal">all-packages.nix</code> to select the Qt 5 version used for the application.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="qt-application-all-packages-nix"></a>Example adding a Qt application</h4></div></div></div><p>
-       The following represents the contents of <code class="literal">qt5-packages.nix</code>.
-      </p><pre class="programlisting">
-{
-  # ...
-
-  myapp = callPackage ../path/to/myapp {};
-
-  # ...
-}
-</pre><p>
-       The following represents the contents of <code class="literal">all-packages.nix</code>.
-      </p><pre class="programlisting">
-{
-  # ...
-
-  myapp = libsForQt5.myapp;
-
-  # ...
-}
-</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="r"></a>R</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#installation">Installation</a></span></dt><dt><span class="section"><a href="#rstudio">RStudio</a></span></dt><dt><span class="section"><a href="#updating-the-package-set">Updating the package set</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="installation"></a>Installation</h3></div></div></div><p>
+      </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="r"></a>R</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#installation">Installation</a></span></dt><dt><span class="section"><a href="#rstudio">RStudio</a></span></dt><dt><span class="section"><a href="#updating-the-package-set">Updating the package set</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="installation"></a>Installation</h3></div></div></div><p>
       Define an environment for R that contains all the libraries that you’d like to use by adding the following snippet to your $HOME/.config/nixpkgs/config.nix file:
      </p><pre class="programlisting">
 {
