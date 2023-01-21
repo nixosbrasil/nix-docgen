@@ -177,6 +177,13 @@
           implementation, and probably use ext4 and perform the mount in
           stage-2.
         </p></li><li class="listitem"><p>
+          <code class="literal">teleport</code> has been upgraded to major version
+          11. Please see upstream
+          <a class="link" href="https://goteleport.com/docs/setup/operations/upgrading/" target="_top">upgrade
+          instructions</a> and
+          <a class="link" href="https://goteleport.com/docs/changelog/#1100" target="_top">release
+          notes</a>.
+        </p></li><li class="listitem"><p>
           The EC2 image module previously detected and activated
           swap-formatted instance store devices and partitions in
           stage-1 (initramfs). This behaviour has been removed. Users
@@ -263,6 +270,13 @@
           PHP is deprecated. Same applies to <code class="literal">acl</code>
           which now also accepts structured settings.
         </p></li><li class="listitem"><p>
+          The <code class="literal">wordpress</code> service now takes
+          configuration via the
+          <code class="literal">services.wordpress.sites.&lt;name&gt;.settings</code>
+          attribute set, <code class="literal">extraConfig</code> is still
+          available to append additional text to
+          <code class="literal">wp-config.php</code>.
+        </p></li><li class="listitem"><p>
           To reduce closure size in
           <code class="literal">nixos/modules/profiles/minimal.nix</code> profile
           disabled installation documentations and manuals. Also
@@ -329,6 +343,19 @@
           configuring a Message Of The Day that can be updated
           dynamically.
         </p></li><li class="listitem"><p>
+          The <code class="literal">root</code> package is now built with the
+          <code class="literal">"-Dgnuinstall=ON"</code> CMake flag,
+          making the output conform the <code class="literal">bin</code>
+          <code class="literal">lib</code> <code class="literal">share</code> layout. In
+          this layout, <code class="literal">tutorials</code> is under
+          <code class="literal">share/doc/ROOT/</code>; <code class="literal">cmake</code>,
+          <code class="literal">font</code>, <code class="literal">icons</code>,
+          <code class="literal">js</code> and <code class="literal">macro</code> under
+          <code class="literal">share/root</code>;
+          <code class="literal">Makefile.comp</code> and
+          <code class="literal">Makefile.config</code> under
+          <code class="literal">etc/root</code>.
+        </p></li><li class="listitem"><p>
           Enabling global redirect in
           <code class="literal">services.nginx.virtualHosts</code> now allows one
           to add exceptions with the <code class="literal">locations</code>
@@ -390,6 +417,10 @@
           <code class="literal">nixos-version</code> now accepts
           <code class="literal">--configuration-revision</code> to display more
           information about the current generation revision
+        </p></li><li class="listitem"><p>
+          The option
+          <code class="literal">services.nomad.extraSettingsPlugins</code> has
+          been fixed to allow more than one plugin in the path.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also
