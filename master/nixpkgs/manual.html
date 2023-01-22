@@ -4904,7 +4904,9 @@ doCheck = true;
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-checkFlags"></a><code class="literal">checkFlags</code> / <code class="literal">checkFlagsArray</code></h5></div></div></div><p>
         A list of strings passed as additional flags to <code class="literal">make</code>. Like <code class="literal">makeFlags</code> and <code class="literal">makeFlagsArray</code>, but only used by the check phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-checkInputs"></a><code class="literal">checkInputs</code></h5></div></div></div><p>
-        A list of dependencies used by the phase. This gets included in <code class="literal">nativeBuildInputs</code> when <code class="literal">doCheck</code> is set.
+        A list of host dependencies used by the phase, usually libraries linked into executables built during tests. This gets included in <code class="literal">buildInputs</code> when <code class="literal">doCheck</code> is set.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-nativeCheckInputs"></a><code class="literal">nativeCheckInputs</code></h5></div></div></div><p>
+        A list of native dependencies used by the phase, notably tools needed on <code class="literal">$PATH</code>. This gets included in <code class="literal">nativeBuildInputs</code> when <code class="literal">doCheck</code> is set.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-preCheck"></a><code class="literal">preCheck</code></h5></div></div></div><p>
         Hook executed at the start of the check phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-postCheck"></a><code class="literal">postCheck</code></h5></div></div></div><p>
@@ -4994,7 +4996,9 @@ doInstallCheck = true;
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-installCheckFlags"></a><code class="literal">installCheckFlags</code> / <code class="literal">installCheckFlagsArray</code></h5></div></div></div><p>
         A list of strings passed as additional flags to <code class="literal">make</code>. Like <code class="literal">makeFlags</code> and <code class="literal">makeFlagsArray</code>, but only used by the installCheck phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-installCheckInputs"></a><code class="literal">installCheckInputs</code></h5></div></div></div><p>
-        A list of dependencies used by the phase. This gets included in <code class="literal">nativeBuildInputs</code> when <code class="literal">doInstallCheck</code> is set.
+        A list of host dependencies used by the phase, usually libraries linked into executables built during tests. This gets included in <code class="literal">buildInputs</code> when <code class="literal">doInstallCheck</code> is set.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-nativeInstallCheckInputs"></a><code class="literal">nativeInstallCheckInputs</code></h5></div></div></div><p>
+        A list of native dependencies used by the phase, notably tools needed on <code class="literal">$PATH</code>. This gets included in <code class="literal">nativeBuildInputs</code> when <code class="literal">doInstallCheck</code> is set.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-preInstallCheck"></a><code class="literal">preInstallCheck</code></h5></div></div></div><p>
         Hook executed at the start of the installCheck phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-postInstallCheck"></a><code class="literal">postInstallCheck</code></h5></div></div></div><p>
@@ -5720,7 +5724,7 @@ depsBuildBuild = [ buildPackages.stdenv.cc ];
 </pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="cross-testsuite-runs-host-code"></a>My package’s testsuite needs to run host platform code.</h4></div></div></div><p>
        Add the following to your <code class="literal">mkDerivation</code> invocation.
       </p><pre class="programlisting">
-doCheck = stdenv.hostPlatform == stdenv.buildPlatform;
+doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 </pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="cross-meson-runs-host-code"></a>Package using Meson needs to run binaries for the host platform during build.</h4></div></div></div><p>
        Add <code class="literal">mesonEmulatorHook</code> to <code class="literal">nativeBuildInputs</code> conditionally on if the target binaries can be executed.
       </p><p>
@@ -7282,7 +7286,7 @@ stdenv.mkDerivation {
 
   # ...
 
-  checkInputs = [
+  nativeCheckInputs = [
     postgresql
     postgresqlTestHook
   ];
@@ -12051,7 +12055,7 @@ with import &lt;nixpkgs&gt; {};
        </p><p>
         So, what did we do here? Well, we took the Nix expression that we used earlier to build a Python environment, and said that we wanted to include our own version of <code class="literal">toolz</code>, named <code class="literal">my_toolz</code>. To introduce our own package in the scope of <code class="literal">withPackages</code> we used a <code class="literal">let</code> expression. You can see that we used <code class="literal">ps.numpy</code> to select numpy from the nixpkgs package set (<code class="literal">ps</code>). We did not take <code class="literal">toolz</code> from the Nixpkgs package set this time, but instead took our own version that we introduced with the <code class="literal">let</code> expression.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="handling-dependencies"></a>Handling dependencies</h5></div></div></div><p>
-        Our example, <code class="literal">toolz</code>, does not have any dependencies on other Python packages or system libraries. According to the manual, <code class="literal">buildPythonPackage</code> uses the arguments <code class="literal">buildInputs</code> and <code class="literal">propagatedBuildInputs</code> to specify dependencies. If something is exclusively a build-time dependency, then the dependency should be included in <code class="literal">buildInputs</code>, but if it is (also) a runtime dependency, then it should be added to <code class="literal">propagatedBuildInputs</code>. Test dependencies are considered build-time dependencies and passed to <code class="literal">checkInputs</code>.
+        Our example, <code class="literal">toolz</code>, does not have any dependencies on other Python packages or system libraries. According to the manual, <code class="literal">buildPythonPackage</code> uses the arguments <code class="literal">buildInputs</code> and <code class="literal">propagatedBuildInputs</code> to specify dependencies. If something is exclusively a build-time dependency, then the dependency should be included in <code class="literal">buildInputs</code>, but if it is (also) a runtime dependency, then it should be added to <code class="literal">propagatedBuildInputs</code>. Test dependencies are considered build-time dependencies and passed to <code class="literal">nativeCheckInputs</code>.
        </p><p>
         The following example shows which arguments are given to <code class="literal">buildPythonPackage</code> in order to build <a class="link" href="https://github.com/blaze/datashape" target="_top"><code class="literal">datashape</code></a>.
        </p><pre class="programlisting">
@@ -12066,7 +12070,7 @@ buildPythonPackage rec {
     hash = "sha256-FLLvdm1MllKrgTGC6Gb0k0deZeVYvtCCLji/B7uhong=";
   };
 
-  checkInputs = [ pytest ];
+  nativeCheckInputs = [ pytest ];
   propagatedBuildInputs = [ numpy multipledispatch python-dateutil ];
 
   meta = with lib; {
@@ -12077,7 +12081,7 @@ buildPythonPackage rec {
   };
 }
 </pre><p>
-        We can see several runtime dependencies, <code class="literal">numpy</code>, <code class="literal">multipledispatch</code>, and <code class="literal">python-dateutil</code>. Furthermore, we have one <code class="literal">checkInputs</code>, i.e. <code class="literal">pytest</code>. <code class="literal">pytest</code> is a test runner and is only used during the <code class="literal">checkPhase</code> and is therefore not added to <code class="literal">propagatedBuildInputs</code>.
+        We can see several runtime dependencies, <code class="literal">numpy</code>, <code class="literal">multipledispatch</code>, and <code class="literal">python-dateutil</code>. Furthermore, we have one <code class="literal">nativeCheckInputs</code>, i.e. <code class="literal">pytest</code>. <code class="literal">pytest</code> is a test runner and is only used during the <code class="literal">checkPhase</code> and is therefore not added to <code class="literal">propagatedBuildInputs</code>.
        </p><p>
         In the previous case we had only dependencies on other Python packages to consider. Occasionally you have also system libraries to consider. E.g., <code class="literal">lxml</code> provides Python bindings to <code class="literal">libxml2</code> and <code class="literal">libxslt</code>. These libraries are only required when building the bindings and are therefore added as <code class="literal">buildInputs</code>.
        </p><pre class="programlisting">
@@ -12147,7 +12151,7 @@ buildPythonPackage rec {
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-pytest"></a>Using pytest</h5></div></div></div><p>
         Pytest is the most common test runner for python repositories. A trivial test run would be:
        </p><pre class="programlisting">
-  checkInputs = [ pytest ];
+  nativeCheckInputs = [ pytest ];
   checkPhase = ''
     runHook preCheck
 
@@ -12160,7 +12164,7 @@ buildPythonPackage rec {
        </p><p>
         To filter tests using pytest, one can do the following:
        </p><pre class="programlisting">
-  checkInputs = [ pytest ];
+  nativeCheckInputs = [ pytest ];
   # avoid tests which need additional data or touch network
   checkPhase = ''
     runHook preCheck
@@ -12180,7 +12184,7 @@ buildPythonPackage rec {
        </p><p>
         Using the example above, the analogous <code class="literal">pytestCheckHook</code> usage would be:
        </p><pre class="programlisting">
-  checkInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   # requires additional data
   pytestFlagsArray = [ "tests/" "--ignore=tests/integration" ];
@@ -12262,7 +12266,7 @@ pkg3
        </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="using-unittestcheckhook"></a>Using unittestCheckHook</h4></div></div></div><p>
        <code class="literal">unittestCheckHook</code> is a hook which will substitute the setuptools <code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">python -m unittest discover</code>:
       </p><pre class="programlisting">
-  checkInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [ unittestCheckHook ];
 
   unittestFlags = [ "-s" "tests" "-v" ];
 </pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-sphinxhook"></a>Using sphinxHook</h5></div></div></div><p>
@@ -12438,7 +12442,7 @@ buildPythonPackage rec {
     rm testing/test_argcomplete.py
   '';
 
-  checkInputs = [ hypothesis ];
+  nativeCheckInputs = [ hypothesis ];
   nativeBuildInputs = [ setuptools-scm ];
   propagatedBuildInputs = [ attrs py setuptools six pluggy ];
 
@@ -12458,7 +12462,7 @@ buildPythonPackage rec {
          </p></li><li class="listitem"><p>
           In the <code class="literal">installCheck</code> phase, <code class="literal">${python.interpreter} setup.py test</code> is run.
          </p></li></ul></div><p>
-        By default tests are run because <code class="literal">doCheck = true</code>. Test dependencies, like e.g. the test runner, should be added to <code class="literal">checkInputs</code>.
+        By default tests are run because <code class="literal">doCheck = true</code>. Test dependencies, like e.g. the test runner, should be added to <code class="literal">nativeCheckInputs</code>.
        </p><p>
         By default <code class="literal">meta.platforms</code> is set to the same value as the interpreter unless overridden otherwise.
        </p><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="buildpythonpackage-parameters"></a><code class="literal">buildPythonPackage</code> parameters</h6></div></div></div><p>
@@ -12498,7 +12502,7 @@ buildPythonPackage rec {
           </p></li><li class="listitem"><p>
            <code class="literal">buildInputs ? []</code>: Build and/or run-time dependencies that need to be compiled for the host machine. Typically non-Python libraries which are being linked.
           </p></li><li class="listitem"><p>
-           <code class="literal">checkInputs ? []</code>: Dependencies needed for running the <code class="literal">checkPhase</code>. These are added to <code class="literal">nativeBuildInputs</code> when <code class="literal">doCheck = true</code>. Items listed in <code class="literal">tests_require</code> go here.
+           <code class="literal">nativeCheckInputs ? []</code>: Dependencies needed for running the <code class="literal">checkPhase</code>. These are added to <code class="literal">nativeBuildInputs</code> when <code class="literal">doCheck = true</code>. Items listed in <code class="literal">tests_require</code> go here.
           </p></li><li class="listitem"><p>
            <code class="literal">propagatedBuildInputs ? []</code>: Aside from propagating dependencies, <code class="literal">buildPythonPackage</code> also injects code into and wraps executables with the paths included in this list. Items listed in <code class="literal">install_requires</code> go here.
           </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h6 class="title"><a id="overriding-python-packages"></a>Overriding Python packages</h6></div></div></div><p>
@@ -12718,7 +12722,7 @@ nix-shell -p pythonPackages.pyramid zlib libjpeg git
 buildPythonPackage {
   # ...
   # assumes the tests are located in tests
-  checkInputs = [ pytest ];
+  nativeCheckInputs = [ pytest ];
   checkPhase = ''
     runHook preCheck
 
@@ -12974,7 +12978,7 @@ final: prev: {
         </p></li><li class="listitem"><p>
          <code class="literal">install_requires</code> corresponds to <code class="literal">propagatedBuildInputs</code>
         </p></li><li class="listitem"><p>
-         <code class="literal">tests_require</code> corresponds to <code class="literal">checkInputs</code>
+         <code class="literal">tests_require</code> corresponds to <code class="literal">nativeCheckInputs</code>
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="contributing"></a>Contributing</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="contributing-guidelines"></a>Contributing guidelines</h4></div></div></div><p>
        The following rules are desired to be respected:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
@@ -16350,7 +16354,7 @@ $ nix-shell
        This syntax is taken from <a class="link" href="https://myst-parser.readthedocs.io/en/latest/using/syntax.html#targets-and-cross-referencing" target="_top">MyST</a>.
       </p></li><li class="listitem"><p>
        <a id="ssec-contributing-markup-inline-roles"></a>
-       If you want to link to a man page, you can use <code class="literal">{manpage}`nix.conf(5)`</code>, which will turn into <a class="link" href="https://nixos.org/manual/nix/stable/#sec-conf-file" target="_top"><span class="citerefentry"><span class="refentrytitle">nix.conf</span>(5)</span></a>. The references will turn into links when a mapping exists in <code class="filename">doc/manpage-urls.json</code>.
+       If you want to link to a man page, you can use <code class="literal">{manpage}`nix.conf(5)`</code>, which will turn into <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/conf-file.html" target="_top"><span class="citerefentry"><span class="refentrytitle">nix.conf</span>(5)</span></a>. The references will turn into links when a mapping exists in <code class="filename">doc/manpage-urls.json</code>.
       </p><p>
        A few markups for other kinds of literals are also available:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
