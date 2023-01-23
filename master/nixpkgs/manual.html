@@ -7874,7 +7874,7 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
 </pre><p>
           You will need to run the build process once to fix the hash to correspond to your new git src.
          </p></div><div class="simplesect"><div class="titlepage"><div><div><h6 class="title"><a id="fixed-output-derivation"></a>FOD</h6></div></div></div><p>
-          A fixed output derivation will download mix dependencies from the internet. To ensure reproducibility, a hash will be supplied. Note that mix is relatively reproducible. An FOD generating a different hash on each run hasn’t been observed (as opposed to npm where the chances are relatively high). See <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/beam-modules/elixir_ls.nix" target="_top">elixir_ls</a> for a usage example of FOD.
+          A fixed output derivation will download mix dependencies from the internet. To ensure reproducibility, a hash will be supplied. Note that mix is relatively reproducible. An FOD generating a different hash on each run hasn’t been observed (as opposed to npm where the chances are relatively high). See <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/beam-modules/elixir-ls/default.nix" target="_top">elixir_ls</a> for a usage example of FOD.
          </p><p>
           Practical steps
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
