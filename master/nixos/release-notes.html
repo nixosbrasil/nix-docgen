@@ -36,6 +36,10 @@
           Available as
           <a class="link" href="options.html#opt-services.printing.cups-pdf.enable">services.printing.cups-pdf</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.magicbug.co.uk/cloudlog/" target="_top">Cloudlog</a>,
+          a web-based Amateur Radio logging application. Available as
+          <a class="link" href="options.html#opt-services.cloudlog.enable">services.cloudlog</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/junegunn/fzf" target="_top">fzf</a>,
           a command line fuzzyfinder. Available as
           <a class="link" href="options.html#opt-programs.fzf.fuzzyCompletion">programs.fzf</a>.
@@ -234,6 +238,12 @@
           <code class="literal">/var/lib/mastodon/secrets/db-password</code> has
           been changed to <code class="literal">null</code>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">--target-host</code> and
+          <code class="literal">--build-host</code> options of
+          <code class="literal">nixos-rebuild</code> no longer treat the
+          <code class="literal">localhost</code> value specially – to build
+          on/deploy to local machine, omit the relevant flag.
+        </p></li><li class="listitem"><p>
           The <code class="literal">nix.readOnlyStore</code> option has been
           renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
           that it configures the NixOS boot process, not the Nix daemon.
@@ -242,6 +252,10 @@
           package has been removed in favour of direct use of its
           constitutents: <code class="literal">xorg.libX11</code>,
           <code class="literal">freetype</code> and others.
+        </p></li><li class="listitem"><p>
+          .NET 5.0 was removed due to being end-of-life, use a newer,
+          supported .NET version -
+          https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">vim_configurable</code> has been renamed to
           <code class="literal">vim-full</code> to avoid confusion:
@@ -346,6 +360,10 @@
           <code class="literal">services.chronyd</code> is now started with
           additional systemd sandbox/hardening options for better
           security.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.dhcpcd</code> service now don’t solicit
+          or accept IPv6 Router Advertisements on interfaces that use
+          static IPv6 addresses.
         </p></li><li class="listitem"><p>
           The module <code class="literal">services.headscale</code> was
           refactored to be compliant with
