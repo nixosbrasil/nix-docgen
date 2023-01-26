@@ -234,6 +234,12 @@
           <code class="literal">/var/lib/mastodon/secrets/db-password</code> has
           been changed to <code class="literal">null</code>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">--target-host</code> and
+          <code class="literal">--build-host</code> options of
+          <code class="literal">nixos-rebuild</code> no longer treat the
+          <code class="literal">localhost</code> value specially – to build
+          on/deploy to local machine, omit the relevant flag.
+        </p></li><li class="listitem"><p>
           The <code class="literal">nix.readOnlyStore</code> option has been
           renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify
           that it configures the NixOS boot process, not the Nix daemon.

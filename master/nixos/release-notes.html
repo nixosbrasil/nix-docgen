@@ -195,6 +195,11 @@
           <code class="literal">extraConfig</code> options under
           <code class="literal">i18n.inputMethod.kime</code> instead.
         </p></li><li class="listitem"><p>
+          <code class="literal">tut</code> has been updated from 1.0.34 to 2.0.0,
+          and now uses the TOML format for the configuration file
+          instead of INI. Additional information can be found
+          <a class="link" href="https://github.com/RasmusLindroth/tut/releases/tag/2.0.0" target="_top">here</a>.
+        </p></li><li class="listitem"><p>
           <code class="literal">llvmPackages_rocm.llvm</code> will not contain
           <code class="literal">clang</code> or <code class="literal">compiler-rt</code>.
           <code class="literal">llvmPackages_rocm.clang</code> will not contain
@@ -482,6 +487,12 @@
           The option
           <code class="literal">services.nomad.extraSettingsPlugins</code> has
           been fixed to allow more than one plugin in the path.
+        </p></li><li class="listitem"><p>
+          A new option was added to the virtualisation module that
+          enables specifying explicitly named network interfaces in QEMU
+          VMs. The existing <code class="literal">virtualisation.vlans</code> is
+          still supported for cases where the name of the network
+          interface is irrelevant.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also
