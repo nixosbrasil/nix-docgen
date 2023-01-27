@@ -36,6 +36,10 @@
           Available as
           <a class="link" href="options.html#opt-services.printing.cups-pdf.enable">services.printing.cups-pdf</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://www.magicbug.co.uk/cloudlog/" target="_top">Cloudlog</a>,
+          a web-based Amateur Radio logging application. Available as
+          <a class="link" href="options.html#opt-services.cloudlog.enable">services.cloudlog</a>.
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://github.com/junegunn/fzf" target="_top">fzf</a>,
           a command line fuzzyfinder. Available as
           <a class="link" href="options.html#opt-programs.fzf.fuzzyCompletion">programs.fzf</a>.
@@ -191,6 +195,11 @@
           <code class="literal">extraConfig</code> options under
           <code class="literal">i18n.inputMethod.kime</code> instead.
         </p></li><li class="listitem"><p>
+          <code class="literal">tut</code> has been updated from 1.0.34 to 2.0.0,
+          and now uses the TOML format for the configuration file
+          instead of INI. Additional information can be found
+          <a class="link" href="https://github.com/RasmusLindroth/tut/releases/tag/2.0.0" target="_top">here</a>.
+        </p></li><li class="listitem"><p>
           <code class="literal">llvmPackages_rocm.llvm</code> will not contain
           <code class="literal">clang</code> or <code class="literal">compiler-rt</code>.
           <code class="literal">llvmPackages_rocm.clang</code> will not contain
@@ -248,6 +257,10 @@
           package has been removed in favour of direct use of its
           constitutents: <code class="literal">xorg.libX11</code>,
           <code class="literal">freetype</code> and others.
+        </p></li><li class="listitem"><p>
+          .NET 5.0 was removed due to being end-of-life, use a newer,
+          supported .NET version -
+          https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">vim_configurable</code> has been renamed to
           <code class="literal">vim-full</code> to avoid confusion:
@@ -352,6 +365,10 @@
           <code class="literal">services.chronyd</code> is now started with
           additional systemd sandbox/hardening options for better
           security.
+        </p></li><li class="listitem"><p>
+          <code class="literal">services.dhcpcd</code> service now don’t solicit
+          or accept IPv6 Router Advertisements on interfaces that use
+          static IPv6 addresses.
         </p></li><li class="listitem"><p>
           The module <code class="literal">services.headscale</code> was
           refactored to be compliant with
@@ -470,6 +487,12 @@
           The option
           <code class="literal">services.nomad.extraSettingsPlugins</code> has
           been fixed to allow more than one plugin in the path.
+        </p></li><li class="listitem"><p>
+          A new option was added to the virtualisation module that
+          enables specifying explicitly named network interfaces in QEMU
+          VMs. The existing <code class="literal">virtualisation.vlans</code> is
+          still supported for cases where the name of the network
+          interface is irrelevant.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also

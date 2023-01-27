@@ -4892,7 +4892,7 @@ preBuild = ''
        </p><p>
         Before and after running <code class="literal">make</code>, the hooks <code class="literal">preBuild</code> and <code class="literal">postBuild</code> are called, respectively.
        </p></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-check-phase"></a>The check phase</h3></div></div></div><p>
-      The check phase checks whether the package was built correctly by running its test suite. The default <code class="literal">checkPhase</code> calls <code class="literal">make check</code>, but only if the <code class="literal">doCheck</code> variable is enabled.
+      The check phase checks whether the package was built correctly by running its test suite. The default <code class="literal">checkPhase</code> calls <code class="literal">make $checkTarget</code>, but only if the <code class="literal">doCheck</code> variable is enabled (see below).
      </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="variables-controlling-the-check-phase"></a>Variables controlling the check phase</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-doCheck"></a><code class="literal">doCheck</code></h5></div></div></div><p>
         Controls whether the check phase is executed. By default it is skipped, but if <code class="literal">doCheck</code> is set to true, the check phase is usually executed. Thus you should set
        </p><pre class="programlisting">
@@ -4902,7 +4902,7 @@ doCheck = true;
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="makeflags-makeflagsarray-makefile"></a><code class="literal">makeFlags</code> / <code class="literal">makeFlagsArray</code> / <code class="literal">makefile</code></h5></div></div></div><p>
         See the <a class="link" href="#var-stdenv-makeFlags" title="makeFlags">build phase</a> for details.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-checkTarget"></a><code class="literal">checkTarget</code></h5></div></div></div><p>
-        The make target that runs the tests. Defaults to <code class="literal">check</code>.
+        The make target that runs the tests. Defaults to <code class="literal">check</code> if it exists, otherwise <code class="literal">test</code>; if neither is found, do nothing.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-checkFlags"></a><code class="literal">checkFlags</code> / <code class="literal">checkFlagsArray</code></h5></div></div></div><p>
         A list of strings passed as additional flags to <code class="literal">make</code>. Like <code class="literal">makeFlags</code> and <code class="literal">makeFlagsArray</code>, but only used by the check phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-checkInputs"></a><code class="literal">checkInputs</code></h5></div></div></div><p>
