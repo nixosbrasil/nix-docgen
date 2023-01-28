@@ -348,6 +348,14 @@
           The minimal ISO image now uses the
           <code class="literal">nixos/modules/profiles/minimal.nix</code> profile.
         </p></li><li class="listitem"><p>
+          The <code class="literal">ghcWithPackages</code> and
+          <code class="literal">ghcWithHoogle</code> wrappers will now also
+          symlink GHC’s and all included libraries’ documentation to
+          <code class="literal">$out/share/doc</code> for convenience. If
+          undesired, the old behavior can be restored by overriding the
+          builders with
+          <code class="literal">{ installDocumentation = false; }</code>.
+        </p></li><li class="listitem"><p>
           <code class="literal">mastodon</code> now supports connection to a
           remote <code class="literal">PostgreSQL</code> database.
         </p></li><li class="listitem"><p>

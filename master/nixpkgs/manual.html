@@ -6594,7 +6594,7 @@ hello        latest   de2bf4786de6   About a minute ago   25.2MB
      </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
         <code class="literal">architecture</code> is <span class="emphasis"><em>optional</em></span> and used to specify the image architecture, this is useful for multi-architecture builds that don’t need cross compiling. If not specified it will default to <code class="literal">hostPlatform</code>.
        </span></dt><dd><p>
-         Run-time configuration of the container. A full list of the options are available at in the <a class="link" href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions" target="_top">Docker Image Specification v1.2.0</a>.
+         Run-time configuration of the container. A full list of the options available is in the <a class="link" href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md#image-json-field-descriptions" target="_top">Docker Image Specification v1.2.0</a>.
         </p><p>
          <span class="emphasis"><em>Default:</em></span> <code class="literal">{}</code>
         </p></dd><dt><span class="term">
@@ -11516,6 +11516,8 @@ buildDunePackage rec {
 }
 </pre><p>
       Note about <code class="literal">minimalOCamlVersion</code>. A deprecated version of this argument was spelled <code class="literal">minimumOCamlVersion</code>; setting the old attribute wrongly modifies the derivation hash and is therefore inappropriate. As a technical dept, currently packaged libraries may still use the old spelling: maintainers are invited to fix this when updating packages. Massive renaming is strongly discouraged as it would be challenging to review, difficult to test, and will cause unnecessary rebuild.
+     </p><p>
+      The build will automatically fail if two distinct versions of the same library are added to <code class="literal">buildInputs</code> (which usually happens transitively because of <code class="literal">propagatedBuildInputs</code>). Set <code class="literal">dontDetectOcamlConflicts</code> to true to disable this behavior.
      </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-octave"></a>Octave</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-octave-introduction">Introduction</a></span></dt><dt><span class="section"><a href="#ssec-octave-structure">Structure</a></span></dt><dt><span class="section"><a href="#ssec-octave-packaging">Packaging Octave Packages</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-octave-introduction"></a>Introduction</h3></div></div></div><p>
       Octave is a modular scientific programming language and environment. A majority of the packages supported by Octave from their <a class="link" href="https://octave.sourceforge.io/packages.php" target="_top">website</a> are packaged in nixpkgs.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-octave-structure"></a>Structure</h3></div></div></div><p>

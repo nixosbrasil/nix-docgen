@@ -12552,7 +12552,37 @@ $ ./result/bin/nixos-test-driver
     script and drops you back into the test driver command line upon its
     completion. This allows you to inspect the state of the VMs after
     the test (e.g. to debug the test script).
-  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-nixos-test-reuse-vm-state"></a>Reuse VM state</h3></div></div></div><p>
+  </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-nixos-test-shell-access"></a>Shell access in interactive mode</h3></div></div></div><p>
+      The function
+      <code class="literal">&lt;yourmachine&gt;.shell_interact()</code> grants
+      access to a shell running inside a virtual machine. To use it,
+      replace <code class="literal">&lt;yourmachine&gt;</code> with the name of a
+      virtual machine defined in the test, for example:
+      <code class="literal">machine.shell_interact()</code>. Keep in mind that
+      this shell may not display everything correctly as it is running
+      within an interactive Python REPL, and logging output from the
+      virtual machine may overwrite input and output from the guest
+      shell:
+    </p><pre class="programlisting">
+&gt;&gt;&gt; machine.shell_interact()
+machine: Terminal is ready (there is no initial prompt):
+$ hostname
+machine
+</pre><p>
+      As an alternative, you can proxy the guest shell to a local TCP
+      server by first starting a TCP server in a terminal using the
+      command:
+    </p><pre class="programlisting">
+$ socat 'READLINE,PROMPT=$ ' tcp-listen:4444,reuseaddr`
+</pre><p>
+      In the terminal where the test driver is running, connect to this
+      server by using:
+    </p><pre class="programlisting">
+&gt;&gt;&gt; machine.shell_interact("tcp:127.0.0.1:4444")
+</pre><p>
+      Once the connection is established, you can enter commands in the
+      socat terminal where socat is running.
+    </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-nixos-test-reuse-vm-state"></a>Reuse VM state</h3></div></div></div><p>
       You can re-use the VM states coming from a previous run by setting
       the <code class="literal">--keep-vm-state</code> flag.
     </p><pre class="programlisting">
