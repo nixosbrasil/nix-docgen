@@ -200,6 +200,11 @@
           instead of INI. Additional information can be found
           <a class="link" href="https://github.com/RasmusLindroth/tut/releases/tag/2.0.0" target="_top">here</a>.
         </p></li><li class="listitem"><p>
+          The <code class="literal">wordpress</code> derivation no longer contains
+          any builtin plugins or themes. If you need them you have to
+          add them back to prevent your site from breaking. You can find
+          them in <code class="literal">wordpressPackages.{plugins,themes}</code>.
+        </p></li><li class="listitem"><p>
           <code class="literal">llvmPackages_rocm.llvm</code> will not contain
           <code class="literal">clang</code> or <code class="literal">compiler-rt</code>.
           <code class="literal">llvmPackages_rocm.clang</code> will not contain
@@ -234,6 +239,14 @@
           under 10 packages in nixpkgs, largely unmaintained upstream as
           well, however, out-of-tree package expressions may need to be
           updated manually.
+        </p></li><li class="listitem"><p>
+          The
+          <a class="link" href="options.html#opt-services.wordpress.sites._name_.plugins">services.wordpress.sites.&lt;name&gt;.plugins</a>
+          and
+          <a class="link" href="options.html#opt-services.wordpress.sites._name_.themes">services.wordpress.sites.&lt;name&gt;.themes</a>
+          options have been converted from sets to attribute sets to
+          allow for consumers to specify explicit install paths via
+          attribute name.
         </p></li><li class="listitem"><p>
           In <code class="literal">mastodon</code> it is now necessary to specify
           location of file with <code class="literal">PostgreSQL</code> database

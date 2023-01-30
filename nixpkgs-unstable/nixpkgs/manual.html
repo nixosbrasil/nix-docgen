@@ -12271,13 +12271,13 @@ pkg3
         In general you should always use <code class="literal">pythonRelaxDeps</code>, because <code class="literal">pythonRemoveDeps</code> will convert build errors into runtime errors. However <code class="literal">pythonRemoveDeps</code> may still be useful in exceptional cases, and also to remove dependencies wrongly declared by upstream (for example, declaring <code class="literal">black</code> as a runtime dependency instead of a dev dependency).
        </p><p>
         Keep in mind that while the examples above are done with <code class="literal">requirements.txt</code>, <code class="literal">pythonRelaxDepsHook</code> works by modifying the resulting wheel file, so it should work in any of the formats supported by <code class="literal">buildPythonPackage</code> currently, with the exception of <code class="literal">other</code> (see <code class="literal">format</code> in <a class="link" href="#buildpythonpackage-parameters" title="buildPythonPackage parameters"><code class="literal">buildPythonPackage</code> parameters</a> for more details).
-       </p></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="using-unittestcheckhook"></a>Using unittestCheckHook</h4></div></div></div><p>
-       <code class="literal">unittestCheckHook</code> is a hook which will substitute the setuptools <code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">python -m unittest discover</code>:
-      </p><pre class="programlisting">
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-unittestcheckhook"></a>Using unittestCheckHook</h5></div></div></div><p>
+        <code class="literal">unittestCheckHook</code> is a hook which will substitute the setuptools <code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">python -m unittest discover</code>:
+       </p><pre class="programlisting">
   nativeCheckInputs = [ unittestCheckHook ];
 
-  unittestFlags = [ "-s" "tests" "-v" ];
-</pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-sphinxhook"></a>Using sphinxHook</h5></div></div></div><p>
+  unittestFlagsArray = [ "-s" "tests" "-v" ];
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="using-sphinxhook"></a>Using sphinxHook</h5></div></div></div><p>
         The <code class="literal">sphinxHook</code> is a helpful tool to build documentation and manpages using the popular Sphinx documentation generator. It is setup to automatically find common documentation source paths and render them using the default <code class="literal">html</code> style.
        </p><pre class="programlisting">
   outputs = [
