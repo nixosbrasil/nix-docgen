@@ -469,6 +469,10 @@
           <code class="literal">hip</code>, <code class="literal">hip-common</code> and
           <code class="literal">hipcc</code>.
         </p></li><li class="listitem"><p>
+          <code class="literal">services.nginx.recommendedProxySettings</code> now
+          removes the <code class="literal">Connection</code> header preventing
+          clients from closing backend connections.
+        </p></li><li class="listitem"><p>
           Resilio sync secret keys can now be provided using a secrets
           file at runtime, preventing these secrets from ending up in
           the Nix store.
@@ -508,12 +512,6 @@
           The option
           <code class="literal">services.nomad.extraSettingsPlugins</code> has
           been fixed to allow more than one plugin in the path.
-        </p></li><li class="listitem"><p>
-          A new option was added to the virtualisation module that
-          enables specifying explicitly named network interfaces in QEMU
-          VMs. The existing <code class="literal">virtualisation.vlans</code> is
-          still supported for cases where the name of the network
-          interface is irrelevant.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also

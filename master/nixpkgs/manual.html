@@ -163,21 +163,25 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowAliases"></a><a class="term" href="#opt-allowAliases">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowAliases"></a><a class="term" href="#opt-allowAliases">
        <code class="option">allowAliases</code>
       </a></span></dt><dd><p>
         Whether to expose old attribute names for compatibility.
        </p><p>
         The recommended setting is to enable this, as it improves backward compatibity, easing updates.
        </p><p>
-        The only reason to disable aliases is for continuous integration purposes. For instance, Nixpkgs should not depend on aliases in its internal code. Projects that aren't Nixpkgs should be cautious of instantly removing all usages of aliases, as migrating too soon can break compatibility with the stable Nixpkgs releases.
+        The only reason to disable aliases is for continuous integration purposes. For instance, Nixpkgs should not depend on aliases in its internal code. Projects that aren’t Nixpkgs should be cautious of instantly removing all usages of aliases, as migrating too soon can break compatibility with the stable Nixpkgs releases.
        </p><p>
         <span class="emphasis"><em>Type:</em></span> boolean
        </p><p>
         <span class="emphasis"><em>Default:</em></span> <code class="literal">true</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowBroken"></a><a class="term" href="#opt-allowBroken">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowBroken"></a><a class="term" href="#opt-allowBroken">
        <code class="option">allowBroken</code>
       </a></span></dt><dd><p>
         Whether to allow broken packages.
@@ -189,7 +193,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false || builtins.getEnv "NIXPKGS_ALLOW_BROKEN" == "1"</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowUnfree"></a><a class="term" href="#opt-allowUnfree">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowUnfree"></a><a class="term" href="#opt-allowUnfree">
        <code class="option">allowUnfree</code>
       </a></span></dt><dd><p>
         Whether to allow unfree packages.
@@ -201,7 +207,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowUnsupportedSystem"></a><a class="term" href="#opt-allowUnsupportedSystem">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-allowUnsupportedSystem"></a><a class="term" href="#opt-allowUnsupportedSystem">
        <code class="option">allowUnsupportedSystem</code>
       </a></span></dt><dd><p>
         Whether to allow unsupported packages.
@@ -213,7 +221,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false || builtins.getEnv "NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM" == "1"</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-checkMeta"></a><a class="term" href="#opt-checkMeta">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-checkMeta"></a><a class="term" href="#opt-checkMeta">
        <code class="option">checkMeta</code>
       </a></span></dt><dd><p>
         Whether to check that the `meta` attribute of derivations are correct during evaluation time.
@@ -223,7 +233,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-configurePlatformsByDefault"></a><a class="term" href="#opt-configurePlatformsByDefault">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-configurePlatformsByDefault"></a><a class="term" href="#opt-configurePlatformsByDefault">
        <code class="option">configurePlatformsByDefault</code>
       </a></span></dt><dd><p>
         Whether to set <code class="literal">configurePlatforms</code> to <code class="literal">["build" "host"]</code> by default while building nixpkgs packages. Changing the default may cause a mass rebuild.
@@ -233,7 +245,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-contentAddressedByDefault"></a><a class="term" href="#opt-contentAddressedByDefault">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-contentAddressedByDefault"></a><a class="term" href="#opt-contentAddressedByDefault">
        <code class="option">contentAddressedByDefault</code>
       </a></span></dt><dd><p>
         Whether to set <code class="literal">__contentAddressed</code> to true by default while building nixpkgs packages. Changing the default may cause a mass rebuild.
@@ -243,7 +257,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-doCheckByDefault"></a><a class="term" href="#opt-doCheckByDefault">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-doCheckByDefault"></a><a class="term" href="#opt-doCheckByDefault">
        <code class="option">doCheckByDefault</code>
       </a></span></dt><dd><p>
         Whether to run <code class="literal">checkPhase</code> by default while building nixpkgs packages. Changing the default may cause a mass rebuild.
@@ -253,7 +269,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-showDerivationWarnings"></a><a class="term" href="#opt-showDerivationWarnings">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-showDerivationWarnings"></a><a class="term" href="#opt-showDerivationWarnings">
        <code class="option">showDerivationWarnings</code>
       </a></span></dt><dd><p>
         Which warnings to display for potentially dangerous or deprecated values passed into <code class="literal">stdenv.mkDerivation</code>.
@@ -262,12 +280,14 @@ $ export NIXPKGS_ALLOW_INSECURE=1
        </p><p>
         This is not a stable interface; warnings may be added, changed or removed without prior notice.
        </p><p>
-        <span class="emphasis"><em>Type:</em></span> list of value "maintainerless" (singular enum)
+        <span class="emphasis"><em>Type:</em></span> list of value “maintainerless” (singular enum)
        </p><p>
         <span class="emphasis"><em>Default:</em></span> <code class="literal">[ ]</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-strictDepsByDefault"></a><a class="term" href="#opt-strictDepsByDefault">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-strictDepsByDefault"></a><a class="term" href="#opt-strictDepsByDefault">
        <code class="option">strictDepsByDefault</code>
       </a></span></dt><dd><p>
         Whether to set <code class="literal">strictDeps</code> to true by default while building nixpkgs packages. Changing the default may cause a mass rebuild.
@@ -277,7 +297,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-structuredAttrsByDefault"></a><a class="term" href="#opt-structuredAttrsByDefault">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-structuredAttrsByDefault"></a><a class="term" href="#opt-structuredAttrsByDefault">
        <code class="option">structuredAttrsByDefault</code>
       </a></span></dt><dd><p>
         Whether to set <code class="literal">__structuredAttrs</code> to true by default while building nixpkgs packages. Changing the default may cause a mass rebuild.
@@ -287,7 +309,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-warnUndeclaredOptions"></a><a class="term" href="#opt-warnUndeclaredOptions">
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd><dt><span class="term"><a id="opt-warnUndeclaredOptions"></a><a class="term" href="#opt-warnUndeclaredOptions">
        <code class="option">warnUndeclaredOptions</code>
       </a></span></dt><dd><p>
         Whether to warn when <code class="literal">config</code> contains an unrecognized attribute.
@@ -297,7 +321,9 @@ $ export NIXPKGS_ALLOW_INSECURE=1
         <span class="emphasis"><em>Default:</em></span> <code class="literal">false</code>
        </p><p>
         <span class="emphasis"><em>Declared by:</em></span>
-       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">pkgs/top-level/config.nix</a></code></td></tr></table></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-declarative-package-management"></a>Declarative Package Management</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-building-environment">Build an environment</a></span></dt><dt><span class="section"><a href="#sec-getting-documentation">Getting documentation</a></span></dt><dt><span class="section"><a href="#sec-gnu-info-setup">GNU info setup</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-building-environment"></a>Build an environment</h3></div></div></div><p>
+       </p><table border="0" summary="Simple list" class="simplelist"><tr><td><code class="filename"><a class="filename" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code></td></tr></table></dd></dl></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-declarative-package-management"></a>Declarative Package Management</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-building-environment">Build an environment</a></span></dt><dt><span class="section"><a href="#sec-getting-documentation">Getting documentation</a></span></dt><dt><span class="section"><a href="#sec-gnu-info-setup">GNU info setup</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-building-environment"></a>Build an environment</h3></div></div></div><p>
       Using <code class="literal">packageOverrides</code>, it is possible to manage packages declaratively. This means that we can list all of our desired packages within a declarative Nix expression. For example, to have <code class="literal">aspell</code>, <code class="literal">bc</code>, <code class="literal">ffmpeg</code>, <code class="literal">coreutils</code>, <code class="literal">gdb</code>, <code class="literal">nixUnstable</code>, <code class="literal">emscripten</code>, <code class="literal">jq</code>, <code class="literal">nox</code>, and <code class="literal">silver-searcher</code>, we could use the following in <code class="literal">~/.config/nixpkgs/config.nix</code>:
      </p><pre class="programlisting">
 {
@@ -6144,9 +6170,18 @@ writeDirectReferencesToFile (writeScriptBin "hi" ''${hello}/bin/hello'')
 /nix/store/&lt;hash&gt;-hello-2.10
 </pre><p>
      but none of <code class="literal">hello</code>’s dependencies because those are not referenced directly by <code class="literal">hi</code>’s output.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-testers"></a>Testers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#tester-testVersion"><code class="literal">testVersion</code></a></span></dt><dt><span class="section"><a href="#tester-testBuildFailure"><code class="literal">testBuildFailure</code></a></span></dt><dt><span class="section"><a href="#tester-equalContents"><code class="literal">testEqualContents</code></a></span></dt><dt><span class="section"><a href="#tester-testEqualDerivation"><code class="literal">testEqualDerivation</code></a></span></dt><dt><span class="section"><a href="#tester-invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a></span></dt><dt><span class="section"><a href="#tester-nixosTest"><code class="literal">nixosTest</code></a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-testers"></a>Testers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#tester-hasPkgConfigModule"><code class="literal">hasPkgConfigModule</code></a></span></dt><dt><span class="section"><a href="#tester-testVersion"><code class="literal">testVersion</code></a></span></dt><dt><span class="section"><a href="#tester-testBuildFailure"><code class="literal">testBuildFailure</code></a></span></dt><dt><span class="section"><a href="#tester-equalContents"><code class="literal">testEqualContents</code></a></span></dt><dt><span class="section"><a href="#tester-testEqualDerivation"><code class="literal">testEqualDerivation</code></a></span></dt><dt><span class="section"><a href="#tester-invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a></span></dt><dt><span class="section"><a href="#tester-nixosTest"><code class="literal">nixosTest</code></a></span></dt></dl></div><p>
     This chapter describes several testing builders which are available in the <code class="literal">testers</code> namespace.
-   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testVersion"></a><code class="literal">testVersion</code></h2></div></div></div><p>
+   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-hasPkgConfigModule"></a><code class="literal">hasPkgConfigModule</code></h2></div></div></div><p>
+     Checks whether a package exposes a certain <code class="literal">pkg-config</code> module.
+    </p><p>
+     Example:
+    </p><pre class="programlisting">
+passthru.tests.pkg-config = testers.hasPkgConfigModule {
+  package = finalAttrs.finalPackage;
+  moduleName = "libfoo";
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-testVersion"></a><code class="literal">testVersion</code></h2></div></div></div><p>
      Checks the command output contains the specified version
     </p><p>
      Although simplistic, this test assures that the main program can run. While there’s no substitute for a real test case, it does catch dynamic linking errors and such. It also provides some protection against accidentally building the wrong version, for example when using an <span class="quote">“<span class="quote">old</span>”</span> hash in a fixed-output derivation.
@@ -6263,7 +6298,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
   rev = "9d9dbe6ed05854e03811c361a3380e09183f4f4a";
   hash = "sha256-7DszvbCNTjpzGRmpIVAWXk20P0/XTrWZ79KSOGLrUWY=";
 };
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-nixosTest"></a><code class="literal">nixosTest</code></h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#id-1.5.4.8.6">Parameter</a></span></dt><dt><span class="section"><a href="#id-1.5.4.8.7">Result</a></span></dt></dl></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-nixosTest"></a><code class="literal">nixosTest</code></h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#id-1.5.4.9.6">Parameter</a></span></dt><dt><span class="section"><a href="#id-1.5.4.9.7">Result</a></span></dt></dl></div><p>
      Run a NixOS VM network test using this evaluation of Nixpkgs.
     </p><p>
      NOTE: This function is primarily for external use. NixOS itself uses <code class="literal">make-test-python.nix</code> directly. Packages defined in Nixpkgs <a class="link" href="#ssec-nixos-tests-linking" title="Linking NixOS module tests to a package">reuse NixOS tests via <code class="literal">nixosTests</code>, plural</a>.
@@ -6271,7 +6306,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
      It is mostly equivalent to the function <code class="literal">import ./make-test-python.nix</code> from the <a class="link" href="https://nixos.org/nixos/manual/index.html#sec-nixos-tests" target="_top">NixOS manual</a>, except that the current application of Nixpkgs (<code class="literal">pkgs</code>) will be used, instead of letting NixOS invoke Nixpkgs anew.
     </p><p>
      If a test machine needs to set NixOS options under <code class="literal">nixpkgs</code>, it must set only the <code class="literal">nixpkgs.pkgs</code> option.
-    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.8.6"></a>Parameter</h3></div></div></div><p>
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.9.6"></a>Parameter</h3></div></div></div><p>
       A <a class="link" href="https://nixos.org/nixos/manual/index.html#sec-nixos-tests" target="_top">NixOS VM test network</a>, or path to it. Example:
      </p><pre class="programlisting">
 {
@@ -6289,7 +6324,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
     machine1.succeed("hello | foo-send")
   '';
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.8.7"></a>Result</h3></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.4.9.7"></a>Result</h3></div></div></div><p>
       A derivation that runs the VM test.
      </p><p>
       Notable attributes:
@@ -7353,7 +7388,7 @@ stdenv.mkDerivation {
      Overrides the configure, build, and install phases. This will run the “waf” script used by many projects. If <code class="literal">wafPath</code> (default <code class="literal">./waf</code>) doesn’t exist, it will copy the version of waf available in Nixpkgs. <code class="literal">wafFlags</code> can be used to pass flags to the waf script.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="xcbuildhook"></a>xcbuildHook</h2></div></div></div><p>
      Overrides the build and install phases to run the <span class="quote">“<span class="quote">xcbuild</span>”</span> command. This hook is needed when a project only comes with build files for the XCode build system. You can disable this behavior by setting buildPhase and configurePhase to a custom value. xcbuildFlags controls flags passed only to xcbuild.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#sec-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
     The <a class="link" href="#chap-stdenv" title="The Standard Environment">standard build environment</a> makes it easy to build typical Autotools-based packages with very little code. Any other kind of package can be accommodated by overriding the appropriate phases of <code class="literal">stdenv</code>. However, there are specialised functions in Nixpkgs to easily build packages for other programming languages, such as Perl or Haskell. These are described in this chapter.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="agda"></a>Agda</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#how-to-use-agda">How to use Agda</a></span></dt><dt><span class="section"><a href="#compiling-agda">Compiling Agda</a></span></dt><dt><span class="section"><a href="#writing-agda-packages">Writing Agda packages</a></span></dt><dt><span class="section"><a href="#maintaining-the-agda-package-set-on-nixpkgs">Maintaining the Agda package set on Nixpkgs</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="how-to-use-agda"></a>How to use Agda</h3></div></div></div><p>
       Agda is available as the <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=agda&amp;from=0&amp;size=30&amp;sort=relevance&amp;query=agda" target="_top">agda</a> package.
@@ -11810,7 +11845,17 @@ php.override {
     };
   };
 }
-</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="python"></a>Python</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#user-guide">User Guide</a></span></dt><dt><span class="section"><a href="#reference">Reference</a></span></dt><dt><span class="section"><a href="#faq">FAQ</a></span></dt><dt><span class="section"><a href="#contributing">Contributing</a></span></dt><dt><span class="section"><a href="#id-1.5.8.30.6">Package set maintenance</a></span></dt><dt><span class="section"><a href="#id-1.5.8.30.7">CPython Update Schedule</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="user-guide"></a>User Guide</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="using-python"></a>Using Python</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="overview"></a>Overview</h5></div></div></div><p>
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkg-config"></a>pkg-config</h2></div></div></div><p>
+     <span class="emphasis"><em>pkg-config</em></span> is a unified interface for declaring and querying built C/C++ libraries.
+    </p><p>
+     Nixpkgs provides a couple of facilities for working with this tool.
+    </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+       A <a class="link" href="#setup-hook-pkg-config" title="pkg-config">setup hook</a> bundled with in the <code class="literal">pkg-config</code> package, to bring a derivation’s declared build inputs into the environment.
+      </p></li><li class="listitem"><p>
+       The <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#validatepkgconfig" target="_top"><code class="literal">validatePkgConfig</code> setup hook</a>, for packages that provide pkg-config modules.
+      </p></li><li class="listitem"><p>
+       The <code class="literal">defaultPkgConfigPackages</code> package set: a set of aliases, named after the modules they provide. This is meant to be used by language-to-nix integrations. Hand-written packages should use the normal Nixpkgs attribute name instead.
+      </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="python"></a>Python</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#user-guide">User Guide</a></span></dt><dt><span class="section"><a href="#reference">Reference</a></span></dt><dt><span class="section"><a href="#faq">FAQ</a></span></dt><dt><span class="section"><a href="#contributing">Contributing</a></span></dt><dt><span class="section"><a href="#id-1.5.8.31.6">Package set maintenance</a></span></dt><dt><span class="section"><a href="#id-1.5.8.31.7">CPython Update Schedule</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="user-guide"></a>User Guide</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="using-python"></a>Using Python</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="overview"></a>Overview</h5></div></div></div><p>
         Several versions of the Python interpreter are available on Nix, as well as a high amount of packages. The attribute <code class="literal">python3</code> refers to the default interpreter, which is currently CPython 3.10. The attribute <code class="literal">python</code> refers to CPython 2.7 for backwards-compatibility. It is also possible to refer to specific versions, e.g. <code class="literal">python39</code> refers to CPython 3.9, and <code class="literal">pypy</code> refers to the default PyPy interpreter.
        </p><p>
         Python is used a lot, and in different ways. This affects also how it is packaged. In the case of Python on Nix, an important distinction is made between whether the package is considered primarily an application, or whether it should be used as a library, i.e., of primary interest are the modules in <code class="literal">site-packages</code> that should be importable.
@@ -12536,7 +12581,7 @@ with import &lt;nixpkgs&gt; {};
   in pkgs.python3.override {inherit packageOverrides; self = python;};
 
 in python.withPackages(ps: [ps.blaze])).env
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.30.3.4.9"></a>Optional extra dependencies</h5></div></div></div><p>
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.31.3.4.9"></a>Optional extra dependencies</h5></div></div></div><p>
         Some packages define optional dependencies for additional features. With <code class="literal">setuptools</code> this is called <code class="literal">extras_require</code> and <code class="literal">flit</code> calls it <code class="literal">extras-require</code>, while PEP 621 calls these <code class="literal">optional-dependencies</code>. A method for supporting this is by declaring the extras of a package in its <code class="literal">passthru</code>, e.g. in case of the package <code class="literal">dask</code>
        </p><pre class="programlisting">
 passthru.optional-dependencies = {
@@ -13008,9 +13053,9 @@ final: prev: {
          Packages from sources such as GitHub and GitLab that do not exist on PyPI should not use a name that is already used on PyPI. When possible, they should use the package repository name prefixed with the owner (e.g. organization) name and using a <code class="literal">-</code> as delimiter.
         </p></li><li class="listitem"><p>
          Attribute names in <code class="literal">python-packages.nix</code> should be sorted alphanumerically to avoid merge conflicts and ease locating attributes.
-        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.30.6"></a>Package set maintenance</h3></div></div></div><p>
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.31.6"></a>Package set maintenance</h3></div></div></div><p>
       The whole Python package set has a lot of packages that do not see regular updates, because they either are a very fragile component in the Python ecosystem, like for example the <code class="literal">hypothesis</code> package, or packages that have no maintainer, so maintenance falls back to the package set maintainers.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.30.6.3"></a>Updating packages in bulk</h4></div></div></div><p>
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.31.6.3"></a>Updating packages in bulk</h4></div></div></div><p>
        There is a tool to update alot of python libraries in bulk, it exists at <code class="literal">maintainers/scripts/update-python-libraries</code> with this repository.
       </p><p>
        It can quickly update minor or major versions for all packages selected and create update commits, and supports the <code class="literal">fetchPypi</code>, <code class="literal">fetchurl</code> and <code class="literal">fetchFromGitHub</code> fetchers. When updating lots of packages that are hosted on GitHub, exporting a <code class="literal">GITHUB_API_TOKEN</code> is highly recommended.
@@ -13022,7 +13067,7 @@ final: prev: {
        An exemplary call to update all python libraries between minor versions would be:
       </p><pre class="programlisting">
 $ maintainers/scripts/update-python-libraries --target minor --commit --use-pkgs-prefix pkgs/development/python-modules/**/default.nix
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.30.7"></a>CPython Update Schedule</h3></div></div></div><p>
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.31.7"></a>CPython Update Schedule</h3></div></div></div><p>
       With <a class="link" href="https://www.python.org/dev/peps/pep-0602/" target="_top">PEP 602</a>, CPython now follows a yearly release cadence. In nixpkgs, all supported interpreters are made available, but only the most recent two interpreters package sets are built; this is a compromise between being the latest interpreter, and what the majority of the Python packages support.
      </p><p>
       New CPython interpreters are released in October. Generally, it takes some time for the majority of active Python projects to support the latest stable interpreter. To help ease the migration for Nixpkgs users between Python interpreters the schedule below will be used:
@@ -13342,7 +13387,7 @@ $ nix-shell --run 'ruby -rpg -e "puts PG.library_version"'
 100007
 </pre><p>
        Of course for this use-case one could also use overlays since the configuration for <code class="literal">pg</code> depends on the <code class="literal">postgresql</code> alias, but for demonstration purposes this has to suffice.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.33.3.4"></a>Platform-specific gems</h4></div></div></div><p>
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.34.3.4"></a>Platform-specific gems</h4></div></div></div><p>
        Right now, bundix has some issues with pre-built, platform-specific gems: <a class="link" href="https://github.com/nix-community/bundix/pull/68" target="_top">bundix PR #68</a>. Until this is solved, you can tell bundler to not use platform-specific gems and instead build them from source each time:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          globally (will be set in <code class="literal">~/.config/.bundle/config</code>):
@@ -14182,7 +14227,7 @@ titaniumenv.buildApp {
       When <code class="literal">enableWirelessDistribution</code> has been enabled, you must also provide the path of the PHP script (<code class="literal">installURL</code>) (that is included with the iOS build environment) to enable wireless ad-hoc installations.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="emulating-or-simulating-the-app"></a>Emulating or simulating the app</h3></div></div></div><p>
       It is also possible to simulate the correspond iOS simulator build by using <code class="literal">xcodeenv.simulateApp {}</code> and emulate an Android APK by using <code class="literal">androidenv.emulateApp {}</code>.
-     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="vim"></a>Vim</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#custom-configuration">Custom configuration</a></span></dt><dt><span class="section"><a href="#managing-plugins-with-vim-packages">Managing plugins with Vim packages</a></span></dt><dt><span class="section"><a href="#managing-plugins-with-vim-plug">Managing plugins with vim-plug</a></span></dt><dt><span class="section"><a href="#adding-new-plugins-to-nixpkgs">Adding new plugins to nixpkgs</a></span></dt><dt><span class="section"><a href="#updating-plugins-in-nixpkgs">Updating plugins in nixpkgs</a></span></dt><dt><span class="section"><a href="#id-1.5.8.37.13">How to maintain an out-of-tree overlay of vim plugins ?</a></span></dt></dl></div><p>
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="vim"></a>Vim</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#custom-configuration">Custom configuration</a></span></dt><dt><span class="section"><a href="#managing-plugins-with-vim-packages">Managing plugins with Vim packages</a></span></dt><dt><span class="section"><a href="#managing-plugins-with-vim-plug">Managing plugins with vim-plug</a></span></dt><dt><span class="section"><a href="#adding-new-plugins-to-nixpkgs">Adding new plugins to nixpkgs</a></span></dt><dt><span class="section"><a href="#updating-plugins-in-nixpkgs">Updating plugins in nixpkgs</a></span></dt><dt><span class="section"><a href="#id-1.5.8.38.13">How to maintain an out-of-tree overlay of vim plugins ?</a></span></dt></dl></div><p>
      Both Neovim and Vim can be configured to include your favorite plugins and additional libraries.
     </p><p>
      Loading can be deferred; see examples.
@@ -14318,7 +14363,7 @@ in
 }
 </pre><p>
        If your package requires building specific parts, use instead <code class="literal">pkgs.vimUtils.buildVimPlugin</code>.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.37.9.10"></a>Specificities for some plugins</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.37.9.10.2"></a>Treesitter</h5></div></div></div><p>
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.8.38.9.10"></a>Specificities for some plugins</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="id-1.5.8.38.9.10.2"></a>Treesitter</h5></div></div></div><p>
         By default <code class="literal">nvim-treesitter</code> encourages you to download, compile and install the required Treesitter grammars at run time with <code class="literal">:TSInstall</code>. This works poorly on NixOS. Instead, to install the <code class="literal">nvim-treesitter</code> plugins with a set of precompiled grammars, you can use <code class="literal">nvim-treesitter.withPlugins</code> function:
        </p><pre class="programlisting">
 (pkgs.neovim.override {
@@ -14372,7 +14417,7 @@ GITHUB_API_TOKEN=my_token ./pkgs/applications/editors/vim/plugins/update.py
       Alternatively, set the number of processes to a lower count to avoid rate-limiting.
      </p><pre class="programlisting">
 ./pkgs/applications/editors/vim/plugins/update.py --proc 1
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.37.13"></a>How to maintain an out-of-tree overlay of vim plugins ?</h3></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.38.13"></a>How to maintain an out-of-tree overlay of vim plugins ?</h3></div></div></div><p>
       You can use the updater script to generate basic packages out of a custom vim plugin list:
      </p><pre class="programlisting">
 pkgs/applications/editors/vim/plugins/update.py -i vim-plugin-names -o generated.nix --no-commit
@@ -16343,7 +16388,7 @@ $ nix-shell
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-contributing-markup"></a>Syntax</h2></div></div></div><p>
      As per <a class="link" href="https://github.com/NixOS/rfcs/pull/72" target="_top">RFC 0072</a>, all new documentation content should be written in <a class="link" href="https://commonmark.org/" target="_top">CommonMark</a> Markdown dialect.
     </p><p>
-     Additional syntax extensions are available, though not all extensions can be used in NixOS option documentation. The following extensions are currently used:
+     Additional syntax extensions are available, all of which can be used in NixOS option documentation. The following extensions are currently used:
     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
        <a id="ssec-contributing-markup-anchors"></a>
        Explicitly defined <span class="strong"><strong>anchors</strong></span> on headings, to allow linking to sections. These should be always used, to ensure the anchors can be linked even when the heading text changes, and to prevent conflicts between <a class="link" href="https://github.com/jgm/commonmark-hs/blob/master/commonmark-extensions/test/auto_identifiers.md" target="_top">automatically assigned identifiers</a>.
@@ -16351,7 +16396,9 @@ $ nix-shell
        It uses the widely compatible <a class="link" href="https://github.com/jgm/commonmark-hs/blob/master/commonmark-extensions/test/attributes.md" target="_top">header attributes</a> syntax:
       </p><pre class="programlisting">
 ## Syntax {#sec-contributing-markup}
-</pre></li><li class="listitem"><p>
+</pre><div class="note"><h3 class="title">Note</h3><p>
+        NixOS option documentation does not support headings in general.
+       </p></div></li><li class="listitem"><p>
        <a id="ssec-contributing-markup-anchors-inline"></a>
        <span class="strong"><strong>Inline anchors</strong></span>, which allow linking arbitrary place in the text (e.g. individual list items, sentences…).
       </p><p>
@@ -16382,9 +16429,7 @@ $ nix-shell
        These literal kinds are used mostly in NixOS option documentation.
       </p><p>
        This syntax is taken from <a class="link" href="https://myst-parser.readthedocs.io/en/latest/syntax/syntax.html#roles-an-in-line-extension-point" target="_top">MyST</a>. Though, the feature originates from <a class="link" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-manpage" target="_top">reStructuredText</a> with slightly different syntax.
-      </p><div class="note"><h3 class="title">Note</h3><p>
-        Inline roles are available for option documentation.
-       </p></div></li><li class="listitem"><p>
+      </p></li><li class="listitem"><p>
        <a id="ssec-contributing-markup-admonitions"></a>
        <span class="strong"><strong>Admonitions</strong></span>, set off from the text to bring attention to something.
       </p><p>
@@ -16409,9 +16454,7 @@ This is a warning
          <a class="link" href="https://tdg.docbook.org/tdg/5.0/tip.html" target="_top"><code class="literal">tip</code></a>
         </p></li><li class="listitem"><p>
          <a class="link" href="https://tdg.docbook.org/tdg/5.0/warning.html" target="_top"><code class="literal">warning</code></a>
-        </p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>
-        Admonitions are available for option documentation.
-       </p></div></li><li class="listitem"><p>
+        </p></li></ul></div></li><li class="listitem"><p>
        <a id="ssec-contributing-markup-definition-lists"></a>
        <a class="link" href="https://github.com/jgm/commonmark-hs/blob/master/commonmark-extensions/test/definition_lists.md" target="_top"><span class="strong"><strong>Definition lists</strong></span></a>, for defining a group of terms:
       </p><pre class="programlisting">
