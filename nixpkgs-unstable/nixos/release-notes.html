@@ -131,6 +131,15 @@
           The <code class="literal">git-bug-migration</code> package can be used
           to upgrade existing repositories.
         </p></li><li class="listitem"><p>
+          The <code class="literal">services.kubo.settings</code> option is now no
+          longer stateful. If you changed any of the options in
+          <code class="literal">services.kubo.settings</code> in the past and then
+          removed them from your NixOS configuration again, those
+          changes are still in your Kubo configuration file but will now
+          be reset to the default. If you’re unsure, you may want to
+          make a backup of your configuration file (probably
+          /var/lib/ipfs/config) and compare after the update.
+        </p></li><li class="listitem"><p>
           The EC2 image module no longer fetches instance metadata in
           stage-1. This results in a significantly smaller initramfs,
           since network drivers no longer need to be included, and
@@ -234,6 +243,9 @@
           stage-1 (initramfs). This behaviour has been removed. Users
           relying on this should provide their own implementation.
         </p></li><li class="listitem"><p>
+          Calling <code class="literal">makeSetupHook</code> without passing a
+          <code class="literal">name</code> argument is deprecated.
+        </p></li><li class="listitem"><p>
           Qt 5.12 and 5.14 have been removed, as the corresponding
           branches have been EOL upstream for a long time. This affected
           under 10 packages in nixpkgs, largely unmaintained upstream as
@@ -274,6 +286,14 @@
           .NET 5.0 was removed due to being end-of-life, use a newer,
           supported .NET version -
           https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
+        </p></li><li class="listitem"><p>
+          The iputils package, which is installed by default, no longer
+          provides the <code class="literal">ninfod</code>,
+          <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools.
+          See
+          <a class="link" href="https://github.com/iputils/iputils/releases/tag/20221126" target="_top">upstream’s
+          release notes</a> for more details and available
+          replacements.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">vim_configurable</code> has been renamed to
           <code class="literal">vim-full</code> to avoid confusion:
@@ -453,6 +473,19 @@
           about compression in Brotli format
           <a class="link" href="https://github.com/google/ngx_brotli/blob/master/README.md" target="_top">here</a>.
         </p></li><li class="listitem"><p>
+          Updated recommended settings in
+          <code class="literal">services.nginx.recommendedGzipSettings</code>:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              Enables gzip compression for only certain proxied
+              requests.
+            </p></li><li class="listitem"><p>
+              Allow checking and loading of precompressed files.
+            </p></li><li class="listitem"><p>
+              Updated gzip mime-types.
+            </p></li><li class="listitem"><p>
+              Increased the minimum length of a response that will be
+              gzipped.
+            </p></li></ul></div></li><li class="listitem"><p>
           <a class="link" href="https://garagehq.deuxfleurs.fr/" target="_top">Garage</a>
           version is based on
           <a class="link" href="options.html#opt-system.stateVersion" target="_top">system.stateVersion</a>,

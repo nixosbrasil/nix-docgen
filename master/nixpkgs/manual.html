@@ -11882,7 +11882,7 @@ php.override {
        </p><p>
         In the following examples we will start by creating a simple, ad-hoc environment with a nix-shell that has <code class="literal">numpy</code> and <code class="literal">toolz</code> in Python 3.9; then we will create a re-usable environment in a single-file Python script; then we will create a full Python environment for development with this same environment.
        </p><p>
-        Philosphically, this should be familiar to users who are used to a <code class="literal">venv</code> style of development: individual projects create their own Python environments without impacting the global environment or each other.
+        Philosophically, this should be familiar to users who are used to a <code class="literal">venv</code> style of development: individual projects create their own Python environments without impacting the global environment or each other.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="ad-hoc-temporary-python-environment-with-nix-shell"></a>Ad-hoc temporary Python environment with <code class="literal">nix-shell</code></h5></div></div></div><p>
         The simplest way to start playing with the way nix wraps and sets up Python environments is with <code class="literal">nix-shell</code> at the cmdline. These environments create a temporary shell session with a Python and a <span class="emphasis"><em>precise</em></span> list of packages (plus their runtime dependencies), with no other Python packages in the Python interpreter’s scope.
        </p><p>
