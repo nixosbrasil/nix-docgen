@@ -353,6 +353,13 @@
           option documentation that has not been migrated until then
           will no longer render properly or cause errors.
         </p></li><li class="listitem"><p>
+          NixOS now defaults to using nsncd (a non-caching
+          reimplementation in Rust) as NSS lookup dispatcher, instead of
+          the buggy and deprecated glibc-provided nscd. If you need to
+          switch back, set
+          <code class="literal">services.nscd.enableNsncd = false</code>, but
+          please open an issue in nixpkgs so your issue can be fixed.
+        </p></li><li class="listitem"><p>
           The <code class="literal">dnsmasq</code> service now takes configuration
           via the <code class="literal">services.dnsmasq.settings</code> attribute
           set. The option
