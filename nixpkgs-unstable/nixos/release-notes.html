@@ -67,6 +67,11 @@
           Available as
           <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
         </p></li><li class="listitem"><p>
+          <a class="link" href="https://dm3mat.darc.de/qdmr/" target="_top">QDMR</a>, a
+          gui application and command line tool for programming cheap
+          DMR radios
+          <a class="link" href="options.html#opt-programs.qdmr.enable">programs.qdmr</a>
+        </p></li><li class="listitem"><p>
           <a class="link" href="https://v2raya.org" target="_top">v2rayA</a>, a Linux
           web GUI client of Project V which supports V2Ray, Xray, SS,
           SSR, Trojan and Pingtunnel. Available as
@@ -113,7 +118,19 @@
           <code class="literal">doInstallCheck</code> is set. (Note that this
           change will not cause breakage to derivations with
           <code class="literal">strictDeps</code> unset, which are most packages
-          except python, rust and go packages).
+          except python, rust, ocaml and go packages).
+        </p></li><li class="listitem"><p>
+          <code class="literal">buildDunePackage</code> now defaults to
+          <code class="literal">strictDeps = true</code> which means that any
+          library should go into <code class="literal">buildInputs</code> or
+          <code class="literal">checkInputs</code>. Any executable that is run on
+          the building machine should go into
+          <code class="literal">nativeBuildInputs</code> or
+          <code class="literal">nativeCheckInputs</code> respectively. Example of
+          executables are <code class="literal">ocaml</code>,
+          <code class="literal">findlib</code> and <code class="literal">menhir</code>. PPXs
+          are libraries which are built by dune and should therefore not
+          go into <code class="literal">nativeBuildInputs</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">borgbackup</code> module now has an option for
           inhibiting system sleep while backups are running, defaulting
@@ -347,6 +364,13 @@
           next release and CommonMark will become the default. DocBook
           option documentation that has not been migrated until then
           will no longer render properly or cause errors.
+        </p></li><li class="listitem"><p>
+          NixOS now defaults to using nsncd (a non-caching
+          reimplementation in Rust) as NSS lookup dispatcher, instead of
+          the buggy and deprecated glibc-provided nscd. If you need to
+          switch back, set
+          <code class="literal">services.nscd.enableNsncd = false</code>, but
+          please open an issue in nixpkgs so your issue can be fixed.
         </p></li><li class="listitem"><p>
           The <code class="literal">dnsmasq</code> service now takes configuration
           via the <code class="literal">services.dnsmasq.settings</code> attribute

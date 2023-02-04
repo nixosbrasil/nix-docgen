@@ -118,7 +118,19 @@
           <code class="literal">doInstallCheck</code> is set. (Note that this
           change will not cause breakage to derivations with
           <code class="literal">strictDeps</code> unset, which are most packages
-          except python, rust and go packages).
+          except python, rust, ocaml and go packages).
+        </p></li><li class="listitem"><p>
+          <code class="literal">buildDunePackage</code> now defaults to
+          <code class="literal">strictDeps = true</code> which means that any
+          library should go into <code class="literal">buildInputs</code> or
+          <code class="literal">checkInputs</code>. Any executable that is run on
+          the building machine should go into
+          <code class="literal">nativeBuildInputs</code> or
+          <code class="literal">nativeCheckInputs</code> respectively. Example of
+          executables are <code class="literal">ocaml</code>,
+          <code class="literal">findlib</code> and <code class="literal">menhir</code>. PPXs
+          are libraries which are built by dune and should therefore not
+          go into <code class="literal">nativeBuildInputs</code>.
         </p></li><li class="listitem"><p>
           <code class="literal">borgbackup</code> module now has an option for
           inhibiting system sleep while backups are running, defaulting
@@ -447,6 +459,10 @@
           by default again. This was changed to upstreams default of
           <code class="literal">0.0.0.0</code> by accident in the freeform setting
           conversion.
+        </p></li><li class="listitem"><p>
+          Grafana Tempo has been updated to version 2.0. See the
+          <a class="link" href="https://grafana.com/docs/tempo/latest/release-notes/v2-0/#upgrade-considerations" target="_top">upstream
+          upgrade guide</a> for migration instructions.
         </p></li><li class="listitem"><p>
           A new <code class="literal">virtualisation.rosetta</code> module was
           added to allow running <code class="literal">x86_64</code> binaries
