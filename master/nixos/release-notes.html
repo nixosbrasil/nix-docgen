@@ -68,8 +68,8 @@
           <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
         </p></li><li class="listitem"><p>
           <a class="link" href="https://dm3mat.darc.de/qdmr/" target="_top">QDMR</a>, a
-          gui application and command line tool for programming cheap
-          DMR radios
+          GUI application and command line tool for programming DMR
+          radios
           <a class="link" href="options.html#opt-programs.qdmr.enable">programs.qdmr</a>
         </p></li><li class="listitem"><p>
           <a class="link" href="https://v2raya.org" target="_top">v2rayA</a>, a Linux
@@ -90,6 +90,12 @@
           <a class="link" href="https://github.com/languitar/autosuspend" target="_top">autosuspend</a>,
           a python daemon that suspends a system if certain conditions
           are met, or not met.
+        </p></li><li class="listitem"><p>
+          <a class="link" href="https://github.com/parvardegr/sharing" target="_top">sharing</a>,
+          a command-line tool to share directories and files from the
+          CLI to iOS and Android devices without the need of an extra
+          client app. Available as
+          <a class="link" href="options.html#opt-programs.sharing.enable">programs.sharing</a>.
         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
           <code class="literal">carnix</code> and <code class="literal">cratesIO</code> has
           been removed due to being unmaintained, use alternatives such
@@ -277,6 +283,13 @@
           allow for consumers to specify explicit install paths via
           attribute name.
         </p></li><li class="listitem"><p>
+          Nebula now runs as a system user and group created for each
+          nebula network, using the <code class="literal">CAP_NET_ADMIN</code>
+          ambient capability on launch rather than starting as root.
+          Ensure that any files each Nebula instance needs to access are
+          owned by the correct user and group, by default
+          <code class="literal">nebula-${networkName}</code>.
+        </p></li><li class="listitem"><p>
           In <code class="literal">mastodon</code> it is now necessary to specify
           location of file with <code class="literal">PostgreSQL</code> database
           password. In
@@ -334,19 +347,40 @@
         </p></li><li class="listitem"><p>
           A few openssh options have been moved from extraConfig to the
           new freeform option <code class="literal">settings</code> and renamed as
-          follow:
-          <code class="literal">services.openssh.kbdInteractiveAuthentication</code>
-          to
-          <code class="literal">services.openssh.settings.KbdInteractiveAuthentication</code>,
-          <code class="literal">services.openssh.passwordAuthentication</code> to
-          <code class="literal">services.openssh.settings.PasswordAuthentication</code>,
-          <code class="literal">services.openssh.useDns</code> to
-          <code class="literal">services.openssh.settings.UseDns</code>,
-          <code class="literal">services.openssh.permitRootLogin</code> to
-          <code class="literal">services.openssh.settings.PermitRootLogin</code>,
-          <code class="literal">services.openssh.logLevel</code> to
-          <code class="literal">services.openssh.settings.LogLevel</code>.
-        </p></li><li class="listitem"><p>
+          follows:
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+              <code class="literal">services.openssh.forwardX11</code> to
+              <code class="literal">services.openssh.settings.X11Forwarding</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.kbdInteractiveAuthentication</code>
+              -&gt;
+              <code class="literal">services.openssh.settings.KbdInteractiveAuthentication</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.passwordAuthentication</code>
+              to
+              <code class="literal">services.openssh.settings.PasswordAuthentication</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.useDns</code> to
+              <code class="literal">services.openssh.settings.UseDns</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.permitRootLogin</code> to
+              <code class="literal">services.openssh.settings.PermitRootLogin</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.logLevel</code> to
+              <code class="literal">services.openssh.settings.LogLevel</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.kexAlgorithms</code> to
+              <code class="literal">services.openssh.settings.KexAlgorithms</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.macs</code> to
+              <code class="literal">services.openssh.settings.Macs</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.cyphers</code> to
+              <code class="literal">services.openssh.settings.Cyphers</code>
+            </p></li><li class="listitem"><p>
+              <code class="literal">services.openssh.gatewayPorts</code> to
+              <code class="literal">services.openssh.settings.GatewayPorts</code>
+            </p></li></ul></div></li><li class="listitem"><p>
           <code class="literal">services.mastodon</code> gained a tootctl wrapped
           named <code class="literal">mastodon-tootctl</code> similar to
           <code class="literal">nextcloud-occ</code> which can be executed from
@@ -526,6 +560,15 @@
           or upgrade accordingly
           <a class="link" href="options.html#opt-system.stateVersion" target="_top">system.stateVersion</a>.
         </p></li><li class="listitem"><p>
+          Nebula now supports the
+          <code class="literal">services.nebula.networks.&lt;name&gt;.isRelay</code>
+          and
+          <code class="literal">services.nebula.networks.&lt;name&gt;.relays</code>
+          configuration options for setting up or allowing traffic
+          relaying. See the
+          <a class="link" href="https://www.defined.net/blog/announcing-relay-support-in-nebula/" target="_top">announcement</a>
+          for more details about relays.
+        </p></li><li class="listitem"><p>
           <code class="literal">hip</code> has been separated into
           <code class="literal">hip</code>, <code class="literal">hip-common</code> and
           <code class="literal">hipcc</code>.
@@ -546,6 +589,11 @@
           arbitrary daemon settings to be configured in a structured
           manner
           (<a class="link" href="options.html#opt-services.fwupd.daemonSettings"><code class="literal">services.fwupd.daemonSettings</code></a>).
+        </p></li><li class="listitem"><p>
+          The <code class="literal">zramSwap</code> is now implemented with
+          <code class="literal">zram-generator</code>, and the option
+          <code class="literal">zramSwap.numDevices</code> for using ZRAM devices
+          as general purpose ephemeral block devices has been removed.
         </p></li><li class="listitem"><p>
           The <code class="literal">unifi-poller</code> package and corresponding
           NixOS module have been renamed to <code class="literal">unpoller</code>
@@ -576,6 +624,10 @@
           The option
           <code class="literal">services.nomad.extraSettingsPlugins</code> has
           been fixed to allow more than one plugin in the path.
+        </p></li><li class="listitem"><p>
+          The option
+          <code class="literal">services.prometheus.exporters.pihole.interval</code>
+          does not exist anymore and has been removed.
         </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
     The NixOS release team is happy to announce a new version of NixOS
     22.11. NixOS is a Linux distribution, whose set of packages can also
