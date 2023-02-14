@@ -3841,7 +3841,7 @@ trace: { fn = "id"; from = { a.b = {…}; }; to = { a.b = {…}; }; }
 isOption 1             // =&gt; false
 isOption (mkOption {}) // =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.options.isOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L50" target="_top">lib/options.nix:50</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L53" target="_top">lib/options.nix:53</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkOption"></a><code class="function">lib.options.mkOption</code></h4></div></div></div><p>
        Creates an Option attribute set. mkOption accepts an attribute set with the following keys:
       </p><p>
@@ -3894,7 +3894,7 @@ isOption (mkOption {}) // =&gt; true
 mkOption { }  // =&gt; { _type = "option"; }
 mkOption { default = "foo"; } // =&gt; { _type = "option"; default = "foo"; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L60" target="_top">lib/options.nix:60</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L63" target="_top">lib/options.nix:63</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkEnableOption"></a><code class="function">lib.options.mkEnableOption</code></h4></div></div></div><p>
        Creates an Option attribute set for a boolean value option i.e an option to be toggled on or off:
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3905,7 +3905,7 @@ mkOption { default = "foo"; } // =&gt; { _type = "option"; default = "foo"; }
 mkEnableOption "foo"
 =&gt; { _type = "option"; default = false; description = "Whether to enable foo."; example = true; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkEnableOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L92" target="_top">lib/options.nix:92</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L95" target="_top">lib/options.nix:95</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkPackageOption"></a><code class="function">lib.options.mkPackageOption</code></h4></div><div><h5 class="subtitle"><code class="literal">mkPackageOption :: pkgs -&gt; string -&gt; { default :: [string]; example :: null | string | [string]; } -&gt; option</code>
       </h5></div></div></div><p>
        Creates an Option attribute set for an option that specifies the package a module should use for some purpose.
@@ -3950,7 +3950,7 @@ example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])"
 }
 =&gt; { _type = "option"; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = "The GHC package to use."; example = { ... }; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkPackageOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L130" target="_top">lib/options.nix:130</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L133" target="_top">lib/options.nix:133</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkPackageOptionMD"></a><code class="function">lib.options.mkPackageOptionMD</code></h4></div></div></div><p>
        Like mkPackageOption, but emit an mdDoc description instead of DocBook.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3966,7 +3966,7 @@ example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mkPackageOptionMD"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L148" target="_top">lib/options.nix:148</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L151" target="_top">lib/options.nix:151</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mkSinkUndeclaredOptions"></a><code class="function">lib.options.mkSinkUndeclaredOptions</code></h4></div></div></div><p>
        This option accepts anything, but it does not produce any result.
       </p><p>
@@ -3976,7 +3976,7 @@ example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mkSinkUndeclaredOptions"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L157" target="_top">lib/options.nix:157</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L160" target="_top">lib/options.nix:160</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mergeEqualOption"></a><code class="function">lib.options.mergeEqualOption</code></h4></div></div></div><p>
        "Merge" option definitions by checking that they all have the same value.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3988,7 +3988,7 @@ example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mergeEqualOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L190" target="_top">lib/options.nix:190</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L193" target="_top">lib/options.nix:193</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getValues"></a><code class="function">lib.options.getValues</code></h4></div><div><h5 class="subtitle"><code class="literal">getValues :: [ { value :: a; } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "value" keys of the given list.
@@ -3996,7 +3996,7 @@ example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])"
 getValues [ { value = 1; } { value = 2; } ] // =&gt; [ 1 2 ]
 getValues [ ]                               // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getValues"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L210" target="_top">lib/options.nix:210</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L213" target="_top">lib/options.nix:213</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getFiles"></a><code class="function">lib.options.getFiles</code></h4></div><div><h5 class="subtitle"><code class="literal">getFiles :: [ { file :: a; } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "file" keys of the given list
@@ -4004,7 +4004,7 @@ getValues [ ]                               // =&gt; [ ]
 getFiles [ { file = "file1"; } { file = "file2"; } ] // =&gt; [ "file1" "file2" ]
 getFiles [ ]                                         // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getFiles"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L220" target="_top">lib/options.nix:220</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L223" target="_top">lib/options.nix:223</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.scrubOptionValue"></a><code class="function">lib.options.scrubOptionValue</code></h4></div></div></div><p>
        This function recursively removes all derivation attributes from `x` except for the `name` attribute.
       </p><p>
@@ -4016,7 +4016,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.scrubOptionValue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L278" target="_top">lib/options.nix:278</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L281" target="_top">lib/options.nix:281</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.renderOptionValue"></a><code class="function">lib.options.renderOptionValue</code></h4></div></div></div><p>
        Ensures that the given option value (default or example) is a `_type`d string by rendering Nix values to `literalExpression`s.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4024,7 +4024,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.renderOptionValue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L289" target="_top">lib/options.nix:289</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L292" target="_top">lib/options.nix:292</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalExpression"></a><code class="function">lib.options.literalExpression</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given string to be rendered verbatim in the documentation as Nix code. This is necessary for complex values, e.g. functions, or values that depend on other values or packages.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4032,7 +4032,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalExpression"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L302" target="_top">lib/options.nix:302</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L305" target="_top">lib/options.nix:305</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalDocBook"></a><code class="function">lib.options.literalDocBook</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given DocBook text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4040,7 +4040,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalDocBook"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L313" target="_top">lib/options.nix:313</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L316" target="_top">lib/options.nix:316</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.mdDoc"></a><code class="function">lib.options.mdDoc</code></h4></div></div></div><p>
        Transition marker for documentation that's already migrated to markdown syntax.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4048,7 +4048,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.mdDoc"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L323" target="_top">lib/options.nix:323</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L326" target="_top">lib/options.nix:326</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.literalMD"></a><code class="function">lib.options.literalMD</code></h4></div></div></div><p>
        For use in the `defaultText` and `example` option attributes. Causes the given MD text to be inserted verbatim in the documentation, for when a `literalExpression` would be too hard to read.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4056,7 +4056,7 @@ getFiles [ ]                                         // =&gt; [ ]
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.options.literalMD"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L331" target="_top">lib/options.nix:331</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L334" target="_top">lib/options.nix:334</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.showOption"></a><code class="function">lib.options.showOption</code></h4></div></div></div><p>
        Convert an option, described as a list of the option parts in to a safe, human readable version.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4074,7 +4074,7 @@ Placeholders will not be quoted as they are not actual values:
 Unlike attributes, options can also start with numbers:
 (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.2bwm.enable"
 </pre></div></div><br class="example-break" /><p><a id="lib.options.showOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L351" target="_top">lib/options.nix:351</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L354" target="_top">lib/options.nix:354</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-path"></a>lib.path: path functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.path.append"></a><code class="function">lib.path.append</code></h4></div><div><h5 class="subtitle"><code class="literal">append :: Path -&gt; String -&gt; Path</code>
       </h5></div></div></div><p>
        Append a subpath string to a path.
@@ -4640,51 +4640,122 @@ genericBuild
        The <code class="literal">patch</code> command.
       </p></li></ul></div><p>
      On Linux, <code class="literal">stdenv</code> also includes the <code class="literal">patchelf</code> utility.
-    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-stdenv-dependencies"></a>Specifying dependencies</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#variables-specifying-dependencies">Variables specifying dependencies</a></span></dt></dl></div><p>
-     As described in the Nix manual, almost any <code class="literal">*.drv</code> store path in a derivation’s attribute set will induce a dependency on that derivation. <code class="literal">mkDerivation</code>, however, takes a few attributes intended to include all the dependencies of a package. This is done both for structure and consistency, but also so that certain other setup can take place. For example, certain dependencies need their bin directories added to the <code class="literal">PATH</code>. That is built-in, but other setup is done via a pluggable mechanism that works in conjunction with these dependency attributes. See <a class="xref" href="#ssec-setup-hooks" title="Package setup hooks">the section called “Package setup hooks”</a> for details.
-    </p><p>
-     Dependencies can be broken down along three axes: their host and target platforms relative to the new derivation’s, and whether they are propagated. The platform distinctions are motivated by cross compilation; see <a class="xref" href="#chap-cross" title="Cross-compilation"><em>Cross-compilation</em></a> for exactly what each platform means.
-     <a href="#ftn.id-1.4.2.5.3.2" class="footnote" id="id-1.4.2.5.3.2"><sup class="footnote">[1]</sup></a>
-     But even if one is not cross compiling, the platforms imply whether or not the dependency is needed at run-time or build-time, a concept that makes perfect sense outside of cross compilation. By default, the run-time/build-time distinction is just a hint for mental clarity, but with <code class="literal">strictDeps</code> set it is mostly enforced even in the native case.
-    </p><p>
-     The extension of <code class="literal">PATH</code> with dependencies, alluded to above, proceeds according to the relative platforms alone. The process is carried out only for dependencies whose host platform matches the new derivation’s build platform i.e. dependencies which run on the platform where the new derivation will be built.
-     <a href="#ftn.id-1.4.2.5.4.2" class="footnote" id="id-1.4.2.5.4.2"><sup class="footnote">[2]</sup></a>
-     For each dependency &lt;dep&gt; of those dependencies, <code class="literal">dep/bin</code>, if present, is added to the <code class="literal">PATH</code> environment variable.
-    </p><p>
-     A dependency is said to be <span class="strong"><strong>propagated</strong></span> when some of its other-transitive (non-immediate) downstream dependencies also need it as an immediate dependency.
-     <a href="#ftn.id-1.4.2.5.5.2" class="footnote" id="id-1.4.2.5.5.2"><sup class="footnote">[3]</sup></a>
-    </p><p>
-     It is important to note that dependencies are not necessarily propagated as the same sort of dependency that they were before, but rather as the corresponding sort so that the platform rules still line up. To determine the exact rules for dependency propagation, we start by assigning to each dependency a couple of ternary numbers (<code class="literal">-1</code> for <code class="literal">build</code>, <code class="literal">0</code> for <code class="literal">host</code>, and <code class="literal">1</code> for <code class="literal">target</code>) representing its <a class="link" href="#possible-dependency-types" title="Possible dependency types">dependency type</a>, which captures how its host and target platforms are each <span class="quote">“<span class="quote">offset</span>”</span> from the depending derivation’s host and target platforms. The following table summarize the different combinations that can be obtained:
-    </p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col align="left" /><col align="left" /><col align="left" /></colgroup><thead><tr><th align="left"><code class="literal">host → target</code>
-        </th><th align="left">
-              attribute name
-            </th><th align="left">
-              offset
-            </th></tr></thead><tbody><tr><td align="left"><code class="literal">build --&gt; build</code>
-        </td><td align="left"><code class="literal">depsBuildBuild</code>
-        </td><td align="left"><code class="literal">-1, -1</code>
-        </td></tr><tr><td align="left"><code class="literal">build --&gt; host</code>
-        </td><td align="left"><code class="literal">nativeBuildInputs</code>
-        </td><td align="left"><code class="literal">-1, 0</code>
-        </td></tr><tr><td align="left"><code class="literal">build --&gt; target</code>
-        </td><td align="left"><code class="literal">depsBuildTarget</code>
-        </td><td align="left"><code class="literal">-1, 1</code>
-        </td></tr><tr><td align="left"><code class="literal">host --&gt; host</code>
-        </td><td align="left"><code class="literal">depsHostHost</code>
-        </td><td align="left"><code class="literal">0, 0</code>
-        </td></tr><tr><td align="left"><code class="literal">host --&gt; target</code>
-        </td><td align="left"><code class="literal">buildInputs</code>
-        </td><td align="left"><code class="literal">0, 1</code>
-        </td></tr><tr><td align="left"><code class="literal">target --&gt; target</code>
-        </td><td align="left"><code class="literal">depsTargetTarget</code>
-        </td><td align="left"><code class="literal">1, 1</code>
-        </td></tr></tbody></table></div><p>
-     Algorithmically, we traverse propagated inputs, accumulating every propagated dependency’s propagated dependencies and adjusting them to account for the “shift in perspective” described by the current dependency’s platform offsets. This results is sort of a transitive closure of the dependency relation, with the offsets being approximately summed when two dependency links are combined. We also prune transitive dependencies whose combined offsets go out-of-bounds, which can be viewed as a filter over that transitive closure removing dependencies that are blatantly absurd.
-    </p><p>
-     We can define the process precisely with <a class="link" href="https://en.wikipedia.org/wiki/Natural_deduction" target="_top">Natural Deduction</a> using the inference rules. This probably seems a bit obtuse, but so is the bash code that actually implements it!
-     <a href="#ftn.id-1.4.2.5.9.2" class="footnote" id="id-1.4.2.5.9.2"><sup class="footnote">[4]</sup></a>
-     They’re confusing in very different ways so… hopefully if something doesn’t make sense in one presentation, it will in the other!
-    </p><pre class="programlisting">
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-stdenv-dependencies"></a>Specifying dependencies</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-stdenv-dependencies-overview">Overview</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-dependencies-reference">Reference</a></span></dt></dl></div><p>
+     Build systems often require more dependencies than just what <code class="literal">stdenv</code> provides. This section describes attributes accepted by <code class="literal">stdenv.mkDerivation</code> that can be used to make these dependencies available to the build system.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-stdenv-dependencies-overview"></a>Overview</h3></div></div></div><p>
+      A full reference of the different kinds of dependencies is provided in <a class="xref" href="#ssec-stdenv-dependencies-reference" title="Reference">the section called “Reference”</a>, but here is an overview of the most common ones. It should cover most use cases.
+     </p><p>
+      Add dependencies to <code class="literal">nativeBuildInputs</code> if they are executed during the build:
+     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        those which are needed on <code class="literal">$PATH</code> during the build, for example <code class="literal">cmake</code> and <code class="literal">pkg-config</code>
+       </p></li><li class="listitem"><p>
+        <a class="link" href="#ssec-setup-hooks" title="Package setup hooks">setup hooks</a>, for example <a class="link" href="#fun-makeWrapper" title="makeWrapper &lt;executable&gt; &lt;wrapperfile&gt; &lt;args&gt;"><code class="literal">makeWrapper</code></a>
+       </p></li><li class="listitem"><p>
+        interpreters needed by <a class="link" href="#patch-shebangs.sh" title="patch-shebangs.sh"><code class="literal">patchShebangs</code></a> for build scripts (with the <code class="literal">--build</code> flag), which can be the case for e.g. <code class="literal">perl</code>
+       </p></li></ul></div><p>
+      Add dependencies to <code class="literal">buildInputs</code> if they will end up copied or linked into the final output or otherwise used at runtime:
+     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        libraries used by compilers, for example <code class="literal">zlib</code>,
+       </p></li><li class="listitem"><p>
+        interpreters needed by <a class="link" href="#patch-shebangs.sh" title="patch-shebangs.sh"><code class="literal">patchShebangs</code></a> for scripts which are installed, which can be the case for e.g. <code class="literal">perl</code>
+       </p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>
+       These criteria are independent.
+      </p><p>
+       For example, software using Wayland usually needs the <code class="literal">wayland</code> library at runtime, so <code class="literal">wayland</code> should be added to <code class="literal">buildInputs</code>. But it also executes the <code class="literal">wayland-scanner</code> program as part of the build to generate code, so <code class="literal">wayland</code> should also be added to <code class="literal">nativeBuildInputs</code>.
+      </p></div><p>
+      Dependencies needed only to run tests are similarly classified between native (executed during build) and non-native (executed at runtime):
+     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <code class="literal">nativeCheckInputs</code> for test tools needed on <code class="literal">$PATH</code> (such as <code class="literal">ctest</code>) and <a class="link" href="#ssec-setup-hooks" title="Package setup hooks">setup hooks</a> (for example <a class="link" href="#python" title="Python"><code class="literal">pytestCheckHook</code></a>)
+       </p></li><li class="listitem"><p>
+        <code class="literal">checkInputs</code> for libraries linked into test executables (for example the <code class="literal">qcheck</code> OCaml package)
+       </p></li></ul></div><p>
+      These dependencies are only injected when <a class="link" href="#var-stdenv-doCheck" title="doCheck"><code class="literal">doCheck</code></a> is set to <code class="literal">true</code>.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="ssec-stdenv-dependencies-overview-example"></a>Example</h4></div></div></div><p>
+       Consider for example this simplified derivation for <code class="literal">solo5</code>, a sandboxing tool:
+      </p><pre class="programlisting">
+stdenv.mkDerivation rec {
+  pname = "solo5";
+  version = "0.7.5";
+
+  src = fetchurl {
+    url = "https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz";
+    sha256 = "sha256-viwrS9lnaU8sTGuzK/+L/PlMM/xRRtgVuK5pixVeDEw=";
+  };
+
+  nativeBuildInputs = [ makeWrapper pkg-config ];
+  buildInputs = [ libseccomp ];
+
+  postInstall = ''
+    substituteInPlace $out/bin/solo5-virtio-mkimage \
+      --replace "/usr/lib/syslinux" "${syslinux}/share/syslinux" \
+      --replace "/usr/share/syslinux" "${syslinux}/share/syslinux" \
+      --replace "cp " "cp --no-preserve=mode "
+
+    wrapProgram $out/bin/solo5-virtio-mkimage \
+      --prefix PATH : ${lib.makeBinPath [ dosfstools mtools parted syslinux ]}
+  '';
+
+  doCheck = true;
+  nativeCheckInputs = [ util-linux qemu ];
+  checkPhase = '' [elided] '';
+}
+</pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">makeWrapper</code> is a setup hook, i.e., a shell script sourced by the generic builder of <code class="literal">stdenv</code>. It is thus executed during the build and must be added to <code class="literal">nativeBuildInputs</code>.
+        </p></li><li class="listitem"><p>
+         <code class="literal">pkg-config</code> is a build tool which the configure script of <code class="literal">solo5</code> expects to be on <code class="literal">$PATH</code> during the build: therefore, it must be added to <code class="literal">nativeBuildInputs</code>.
+        </p></li><li class="listitem"><p>
+         <code class="literal">libseccomp</code> is a library linked into <code class="literal">$out/bin/solo5-elftool</code>. As it is used at runtime, it must be added to <code class="literal">buildInputs</code>.
+        </p></li><li class="listitem"><p>
+         Tests need <code class="literal">qemu</code> and <code class="literal">getopt</code> (from <code class="literal">util-linux</code>) on <code class="literal">$PATH</code>, these must be added to <code class="literal">nativeCheckInputs</code>.
+        </p></li><li class="listitem"><p>
+         Some dependencies are injected directly in the shell code of phases: <code class="literal">syslinux</code>, <code class="literal">dosfstools</code>, <code class="literal">mtools</code>, and <code class="literal">parted</code>. In this specific case, they will end up in the output of the derivation (<code class="literal">$out</code> here). As Nix marks dependencies whose absolute path is present in the output as runtime dependencies, adding them to <code class="literal">buildInputs</code> is not required.
+        </p></li></ul></div><p>
+       For more complex cases, like libraries linked into an executable which is then executed as part of the build system, see <a class="xref" href="#ssec-stdenv-dependencies-reference" title="Reference">the section called “Reference”</a>.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-stdenv-dependencies-reference"></a>Reference</h3></div></div></div><p>
+      As described in the Nix manual, almost any <code class="literal">*.drv</code> store path in a derivation’s attribute set will induce a dependency on that derivation. <code class="literal">mkDerivation</code>, however, takes a few attributes intended to include all the dependencies of a package. This is done both for structure and consistency, but also so that certain other setup can take place. For example, certain dependencies need their bin directories added to the <code class="literal">PATH</code>. That is built-in, but other setup is done via a pluggable mechanism that works in conjunction with these dependency attributes. See <a class="xref" href="#ssec-setup-hooks" title="Package setup hooks">the section called “Package setup hooks”</a> for details.
+     </p><p>
+      Dependencies can be broken down along three axes: their host and target platforms relative to the new derivation’s, and whether they are propagated. The platform distinctions are motivated by cross compilation; see <a class="xref" href="#chap-cross" title="Cross-compilation"><em>Cross-compilation</em></a> for exactly what each platform means.
+      <a href="#ftn.id-1.4.2.5.4.3.2" class="footnote" id="id-1.4.2.5.4.3.2"><sup class="footnote">[1]</sup></a>
+      But even if one is not cross compiling, the platforms imply whether or not the dependency is needed at run-time or build-time, a concept that makes perfect sense outside of cross compilation. By default, the run-time/build-time distinction is just a hint for mental clarity, but with <code class="literal">strictDeps</code> set it is mostly enforced even in the native case.
+     </p><p>
+      The extension of <code class="literal">PATH</code> with dependencies, alluded to above, proceeds according to the relative platforms alone. The process is carried out only for dependencies whose host platform matches the new derivation’s build platform i.e. dependencies which run on the platform where the new derivation will be built.
+      <a href="#ftn.id-1.4.2.5.4.4.2" class="footnote" id="id-1.4.2.5.4.4.2"><sup class="footnote">[2]</sup></a>
+      For each dependency &lt;dep&gt; of those dependencies, <code class="literal">dep/bin</code>, if present, is added to the <code class="literal">PATH</code> environment variable.
+     </p><p>
+      A dependency is said to be <span class="strong"><strong>propagated</strong></span> when some of its other-transitive (non-immediate) downstream dependencies also need it as an immediate dependency.
+      <a href="#ftn.id-1.4.2.5.4.5.2" class="footnote" id="id-1.4.2.5.4.5.2"><sup class="footnote">[3]</sup></a>
+     </p><p>
+      It is important to note that dependencies are not necessarily propagated as the same sort of dependency that they were before, but rather as the corresponding sort so that the platform rules still line up. To determine the exact rules for dependency propagation, we start by assigning to each dependency a couple of ternary numbers (<code class="literal">-1</code> for <code class="literal">build</code>, <code class="literal">0</code> for <code class="literal">host</code>, and <code class="literal">1</code> for <code class="literal">target</code>) representing its <a class="link" href="#possible-dependency-types" title="Possible dependency types">dependency type</a>, which captures how its host and target platforms are each <span class="quote">“<span class="quote">offset</span>”</span> from the depending derivation’s host and target platforms. The following table summarize the different combinations that can be obtained:
+     </p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col align="left" /><col align="left" /><col align="left" /></colgroup><thead><tr><th align="left"><code class="literal">host → target</code>
+         </th><th align="left">
+                attribute name
+              </th><th align="left">
+                offset
+              </th></tr></thead><tbody><tr><td align="left"><code class="literal">build --&gt; build</code>
+         </td><td align="left"><code class="literal">depsBuildBuild</code>
+         </td><td align="left"><code class="literal">-1, -1</code>
+         </td></tr><tr><td align="left"><code class="literal">build --&gt; host</code>
+         </td><td align="left"><code class="literal">nativeBuildInputs</code>
+         </td><td align="left"><code class="literal">-1, 0</code>
+         </td></tr><tr><td align="left"><code class="literal">build --&gt; target</code>
+         </td><td align="left"><code class="literal">depsBuildTarget</code>
+         </td><td align="left"><code class="literal">-1, 1</code>
+         </td></tr><tr><td align="left"><code class="literal">host --&gt; host</code>
+         </td><td align="left"><code class="literal">depsHostHost</code>
+         </td><td align="left"><code class="literal">0, 0</code>
+         </td></tr><tr><td align="left"><code class="literal">host --&gt; target</code>
+         </td><td align="left"><code class="literal">buildInputs</code>
+         </td><td align="left"><code class="literal">0, 1</code>
+         </td></tr><tr><td align="left"><code class="literal">target --&gt; target</code>
+         </td><td align="left"><code class="literal">depsTargetTarget</code>
+         </td><td align="left"><code class="literal">1, 1</code>
+         </td></tr></tbody></table></div><p>
+      Algorithmically, we traverse propagated inputs, accumulating every propagated dependency’s propagated dependencies and adjusting them to account for the “shift in perspective” described by the current dependency’s platform offsets. This results is sort of a transitive closure of the dependency relation, with the offsets being approximately summed when two dependency links are combined. We also prune transitive dependencies whose combined offsets go out-of-bounds, which can be viewed as a filter over that transitive closure removing dependencies that are blatantly absurd.
+     </p><p>
+      We can define the process precisely with <a class="link" href="https://en.wikipedia.org/wiki/Natural_deduction" target="_top">Natural Deduction</a> using the inference rules. This probably seems a bit obtuse, but so is the bash code that actually implements it!
+      <a href="#ftn.id-1.4.2.5.4.9.2" class="footnote" id="id-1.4.2.5.4.9.2"><sup class="footnote">[4]</sup></a>
+      They’re confusing in very different ways so… hopefully if something doesn’t make sense in one presentation, it will in the other!
+     </p><pre class="programlisting">
 let mapOffset(h, t, i) = i + (if i &lt;= 0 then h else t - 1)
 
 propagated-dep(h0, t0, A, B)
@@ -4711,53 +4782,53 @@ propagated-dep(h, t, A, B)
 ----------------------------- Propagated dependencies count as dependencies
 dep(h, t, A, B)
 </pre><p>
-     Some explanation of this monstrosity is in order. In the common case, the target offset of a dependency is the successor to the target offset: <code class="literal">t = h + 1</code>. That means that:
-    </p><pre class="programlisting">
+      Some explanation of this monstrosity is in order. In the common case, the target offset of a dependency is the successor to the target offset: <code class="literal">t = h + 1</code>. That means that:
+     </p><pre class="programlisting">
 let f(h, t, i) = i + (if i &lt;= 0 then h else t - 1)
 let f(h, h + 1, i) = i + (if i &lt;= 0 then h else (h + 1) - 1)
 let f(h, h + 1, i) = i + (if i &lt;= 0 then h else h)
 let f(h, h + 1, i) = i + h
 </pre><p>
-     This is where “sum-like” comes in from above: We can just sum all of the host offsets to get the host offset of the transitive dependency. The target offset is the transitive dependency is simply the host offset + 1, just as it was with the dependencies composed to make this transitive one; it can be ignored as it doesn’t add any new information.
-    </p><p>
-     Because of the bounds checks, the uncommon cases are <code class="literal">h = t</code> and <code class="literal">h + 2 = t</code>. In the former case, the motivation for <code class="literal">mapOffset</code> is that since its host and target platforms are the same, no transitive dependency of it should be able to “discover” an offset greater than its reduced target offsets. <code class="literal">mapOffset</code> effectively “squashes” all its transitive dependencies’ offsets so that none will ever be greater than the target offset of the original <code class="literal">h = t</code> package. In the other case, <code class="literal">h + 1</code> is skipped over between the host and target offsets. Instead of squashing the offsets, we need to “rip” them apart so no transitive dependencies’ offset is that one.
-    </p><p>
-     Overall, the unifying theme here is that propagation shouldn’t be introducing transitive dependencies involving platforms the depending package is unaware of. [One can imagine the dependending package asking for dependencies with the platforms it knows about; other platforms it doesn’t know how to ask for. The platform description in that scenario is a kind of unforagable capability.] The offset bounds checking and definition of <code class="literal">mapOffset</code> together ensure that this is the case. Discovering a new offset is discovering a new platform, and since those platforms weren’t in the derivation “spec” of the needing package, they cannot be relevant. From a capability perspective, we can imagine that the host and target platforms of a package are the capabilities a package requires, and the depending package must provide the capability to the dependency.
-    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="variables-specifying-dependencies"></a>Variables specifying dependencies</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsBuildBuild"></a><code class="literal">depsBuildBuild</code></h4></div></div></div><p>
-       A list of dependencies whose host and target platforms are the new derivation’s build platform. These are programs and libraries used at build time that produce programs and libraries also used at build time. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it in <code class="literal">nativeBuildInputs</code> instead. The most common use of this <code class="literal">buildPackages.stdenv.cc</code>, the default C compiler for this role. That example crops up more than one might think in old commonly used C libraries.
-      </p><p>
-       Since these packages are able to be run at build-time, they are always added to the <code class="literal">PATH</code>, as described above. But since these packages are only guaranteed to be able to run then, they shouldn’t persist as run-time dependencies. This isn’t currently enforced, but could be in the future.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-nativeBuildInputs"></a><code class="literal">nativeBuildInputs</code></h4></div></div></div><p>
-       A list of dependencies whose host platform is the new derivation’s build platform, and target platform is the new derivation’s host platform. These are programs and libraries used at build-time that, if they are a compiler or similar tool, produce code to run at run-time—i.e. tools used to build the new derivation. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it here, rather than in <code class="literal">depsBuildBuild</code> or <code class="literal">depsBuildTarget</code>. This could be called <code class="literal">depsBuildHost</code> but <code class="literal">nativeBuildInputs</code> is used for historical continuity.
-      </p><p>
-       Since these packages are able to be run at build-time, they are added to the <code class="literal">PATH</code>, as described above. But since these packages are only guaranteed to be able to run then, they shouldn’t persist as run-time dependencies. This isn’t currently enforced, but could be in the future.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsBuildTarget"></a><code class="literal">depsBuildTarget</code></h4></div></div></div><p>
-       A list of dependencies whose host platform is the new derivation’s build platform, and target platform is the new derivation’s target platform. These are programs used at build time that produce code to run with code produced by the depending package. Most commonly, these are tools used to build the runtime or standard library that the currently-being-built compiler will inject into any code it compiles. In many cases, the currently-being-built-compiler is itself employed for that task, but when that compiler won’t run (i.e. its build and host platform differ) this is not possible. Other times, the compiler relies on some other tool, like binutils, that is always built separately so that the dependency is unconditional.
-      </p><p>
-       This is a somewhat confusing concept to wrap one’s head around, and for good reason. As the only dependency type where the platform offsets, <code class="literal">-1</code> and <code class="literal">1</code>, are not adjacent integers, it requires thinking of a bootstrapping stage <span class="emphasis"><em>two</em></span> away from the current one. It and its use-case go hand in hand and are both considered poor form: try to not need this sort of dependency, and try to avoid building standard libraries and runtimes in the same derivation as the compiler produces code using them. Instead strive to build those like a normal library, using the newly-built compiler just as a normal library would. In short, do not use this attribute unless you are packaging a compiler and are sure it is needed.
-      </p><p>
-       Since these packages are able to run at build time, they are added to the <code class="literal">PATH</code>, as described above. But since these packages are only guaranteed to be able to run then, they shouldn’t persist as run-time dependencies. This isn’t currently enforced, but could be in the future.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsHostHost"></a><code class="literal">depsHostHost</code></h4></div></div></div><p>
-       A list of dependencies whose host and target platforms match the new derivation’s host platform. In practice, this would usually be tools used by compilers for macros or a metaprogramming system, or libraries used by the macros or metaprogramming code itself. It’s always preferable to use a <code class="literal">depsBuildBuild</code> dependency in the derivation being built over a <code class="literal">depsHostHost</code> on the tool doing the building for this purpose.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-buildInputs"></a><code class="literal">buildInputs</code></h4></div></div></div><p>
-       A list of dependencies whose host platform and target platform match the new derivation’s. This would be called <code class="literal">depsHostTarget</code> but for historical continuity. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it here, rather than in <code class="literal">depsBuildBuild</code>.
-      </p><p>
-       These are often programs and libraries used by the new derivation at <span class="emphasis"><em>run</em></span>-time, but that isn’t always the case. For example, the machine code in a statically-linked library is only used at run-time, but the derivation containing the library is only needed at build-time. Even in the dynamic case, the library may also be needed at build-time to appease the linker.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsTargetTarget"></a><code class="literal">depsTargetTarget</code></h4></div></div></div><p>
-       A list of dependencies whose host platform matches the new derivation’s target platform. These are packages that run on the target platform, e.g. the standard library or run-time deps of standard library that a compiler insists on knowing about. It’s poor form in almost all cases for a package to depend on another from a future stage [future stage corresponding to positive offset]. Do not use this attribute unless you are packaging a compiler and are sure it is needed.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsBuildBuildPropagated"></a><code class="literal">depsBuildBuildPropagated</code></h4></div></div></div><p>
-       The propagated equivalent of <code class="literal">depsBuildBuild</code>. This perhaps never ought to be used, but it is included for consistency [see below for the others].
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-propagatedNativeBuildInputs"></a><code class="literal">propagatedNativeBuildInputs</code></h4></div></div></div><p>
-       The propagated equivalent of <code class="literal">nativeBuildInputs</code>. This would be called <code class="literal">depsBuildHostPropagated</code> but for historical continuity. For example, if package <code class="literal">Y</code> has <code class="literal">propagatedNativeBuildInputs = [X]</code>, and package <code class="literal">Z</code> has <code class="literal">buildInputs = [Y]</code>, then package <code class="literal">Z</code> will be built as if it included package <code class="literal">X</code> in its <code class="literal">nativeBuildInputs</code>. If instead, package <code class="literal">Z</code> has <code class="literal">nativeBuildInputs = [Y]</code>, then <code class="literal">Z</code> will be built as if it included <code class="literal">X</code> in the <code class="literal">depsBuildBuild</code> of package <code class="literal">Z</code>, because of the sum of the two <code class="literal">-1</code> host offsets.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsBuildTargetPropagated"></a><code class="literal">depsBuildTargetPropagated</code></h4></div></div></div><p>
-       The propagated equivalent of <code class="literal">depsBuildTarget</code>. This is prefixed for the same reason of alerting potential users.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsHostHostPropagated"></a><code class="literal">depsHostHostPropagated</code></h4></div></div></div><p>
-       The propagated equivalent of <code class="literal">depsHostHost</code>.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-propagatedBuildInputs"></a><code class="literal">propagatedBuildInputs</code></h4></div></div></div><p>
-       The propagated equivalent of <code class="literal">buildInputs</code>. This would be called <code class="literal">depsHostTargetPropagated</code> but for historical continuity.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-depsTargetTargetPropagated"></a><code class="literal">depsTargetTargetPropagated</code></h4></div></div></div><p>
-       The propagated equivalent of <code class="literal">depsTargetTarget</code>. This is prefixed for the same reason of alerting potential users.
-      </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-stdenv-attributes"></a>Attributes</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#variables-affecting-stdenv-initialisation">Variables affecting <code class="literal">stdenv</code> initialisation</a></span></dt><dt><span class="section"><a href="#attributes-affecting-build-properties">Attributes affecting build properties</a></span></dt><dt><span class="section"><a href="#special-variables">Special variables</a></span></dt><dt><span class="section"><a href="#mkderivation-recursive-attributes">Recursive attributes in <code class="literal">mkDerivation</code></a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="variables-affecting-stdenv-initialisation"></a>Variables affecting <code class="literal">stdenv</code> initialisation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-NIX_DEBUG"></a><code class="literal">NIX_DEBUG</code></h4></div></div></div><p>
+      This is where “sum-like” comes in from above: We can just sum all of the host offsets to get the host offset of the transitive dependency. The target offset is the transitive dependency is simply the host offset + 1, just as it was with the dependencies composed to make this transitive one; it can be ignored as it doesn’t add any new information.
+     </p><p>
+      Because of the bounds checks, the uncommon cases are <code class="literal">h = t</code> and <code class="literal">h + 2 = t</code>. In the former case, the motivation for <code class="literal">mapOffset</code> is that since its host and target platforms are the same, no transitive dependency of it should be able to “discover” an offset greater than its reduced target offsets. <code class="literal">mapOffset</code> effectively “squashes” all its transitive dependencies’ offsets so that none will ever be greater than the target offset of the original <code class="literal">h = t</code> package. In the other case, <code class="literal">h + 1</code> is skipped over between the host and target offsets. Instead of squashing the offsets, we need to “rip” them apart so no transitive dependencies’ offset is that one.
+     </p><p>
+      Overall, the unifying theme here is that propagation shouldn’t be introducing transitive dependencies involving platforms the depending package is unaware of. [One can imagine the dependending package asking for dependencies with the platforms it knows about; other platforms it doesn’t know how to ask for. The platform description in that scenario is a kind of unforagable capability.] The offset bounds checking and definition of <code class="literal">mapOffset</code> together ensure that this is the case. Discovering a new offset is discovering a new platform, and since those platforms weren’t in the derivation “spec” of the needing package, they cannot be relevant. From a capability perspective, we can imagine that the host and target platforms of a package are the capabilities a package requires, and the depending package must provide the capability to the dependency.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="variables-specifying-dependencies"></a>Variables specifying dependencies</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsBuildBuild"></a><code class="literal">depsBuildBuild</code></h5></div></div></div><p>
+        A list of dependencies whose host and target platforms are the new derivation’s build platform. These are programs and libraries used at build time that produce programs and libraries also used at build time. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it in <code class="literal">nativeBuildInputs</code> instead. The most common use of this <code class="literal">buildPackages.stdenv.cc</code>, the default C compiler for this role. That example crops up more than one might think in old commonly used C libraries.
+       </p><p>
+        Since these packages are able to be run at build-time, they are always added to the <code class="literal">PATH</code>, as described above. But since these packages are only guaranteed to be able to run then, they shouldn’t persist as run-time dependencies. This isn’t currently enforced, but could be in the future.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-nativeBuildInputs"></a><code class="literal">nativeBuildInputs</code></h5></div></div></div><p>
+        A list of dependencies whose host platform is the new derivation’s build platform, and target platform is the new derivation’s host platform. These are programs and libraries used at build-time that, if they are a compiler or similar tool, produce code to run at run-time—i.e. tools used to build the new derivation. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it here, rather than in <code class="literal">depsBuildBuild</code> or <code class="literal">depsBuildTarget</code>. This could be called <code class="literal">depsBuildHost</code> but <code class="literal">nativeBuildInputs</code> is used for historical continuity.
+       </p><p>
+        Since these packages are able to be run at build-time, they are added to the <code class="literal">PATH</code>, as described above. But since these packages are only guaranteed to be able to run then, they shouldn’t persist as run-time dependencies. This isn’t currently enforced, but could be in the future.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsBuildTarget"></a><code class="literal">depsBuildTarget</code></h5></div></div></div><p>
+        A list of dependencies whose host platform is the new derivation’s build platform, and target platform is the new derivation’s target platform. These are programs used at build time that produce code to run with code produced by the depending package. Most commonly, these are tools used to build the runtime or standard library that the currently-being-built compiler will inject into any code it compiles. In many cases, the currently-being-built-compiler is itself employed for that task, but when that compiler won’t run (i.e. its build and host platform differ) this is not possible. Other times, the compiler relies on some other tool, like binutils, that is always built separately so that the dependency is unconditional.
+       </p><p>
+        This is a somewhat confusing concept to wrap one’s head around, and for good reason. As the only dependency type where the platform offsets, <code class="literal">-1</code> and <code class="literal">1</code>, are not adjacent integers, it requires thinking of a bootstrapping stage <span class="emphasis"><em>two</em></span> away from the current one. It and its use-case go hand in hand and are both considered poor form: try to not need this sort of dependency, and try to avoid building standard libraries and runtimes in the same derivation as the compiler produces code using them. Instead strive to build those like a normal library, using the newly-built compiler just as a normal library would. In short, do not use this attribute unless you are packaging a compiler and are sure it is needed.
+       </p><p>
+        Since these packages are able to run at build time, they are added to the <code class="literal">PATH</code>, as described above. But since these packages are only guaranteed to be able to run then, they shouldn’t persist as run-time dependencies. This isn’t currently enforced, but could be in the future.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsHostHost"></a><code class="literal">depsHostHost</code></h5></div></div></div><p>
+        A list of dependencies whose host and target platforms match the new derivation’s host platform. In practice, this would usually be tools used by compilers for macros or a metaprogramming system, or libraries used by the macros or metaprogramming code itself. It’s always preferable to use a <code class="literal">depsBuildBuild</code> dependency in the derivation being built over a <code class="literal">depsHostHost</code> on the tool doing the building for this purpose.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-buildInputs"></a><code class="literal">buildInputs</code></h5></div></div></div><p>
+        A list of dependencies whose host platform and target platform match the new derivation’s. This would be called <code class="literal">depsHostTarget</code> but for historical continuity. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it here, rather than in <code class="literal">depsBuildBuild</code>.
+       </p><p>
+        These are often programs and libraries used by the new derivation at <span class="emphasis"><em>run</em></span>-time, but that isn’t always the case. For example, the machine code in a statically-linked library is only used at run-time, but the derivation containing the library is only needed at build-time. Even in the dynamic case, the library may also be needed at build-time to appease the linker.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsTargetTarget"></a><code class="literal">depsTargetTarget</code></h5></div></div></div><p>
+        A list of dependencies whose host platform matches the new derivation’s target platform. These are packages that run on the target platform, e.g. the standard library or run-time deps of standard library that a compiler insists on knowing about. It’s poor form in almost all cases for a package to depend on another from a future stage [future stage corresponding to positive offset]. Do not use this attribute unless you are packaging a compiler and are sure it is needed.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsBuildBuildPropagated"></a><code class="literal">depsBuildBuildPropagated</code></h5></div></div></div><p>
+        The propagated equivalent of <code class="literal">depsBuildBuild</code>. This perhaps never ought to be used, but it is included for consistency [see below for the others].
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-propagatedNativeBuildInputs"></a><code class="literal">propagatedNativeBuildInputs</code></h5></div></div></div><p>
+        The propagated equivalent of <code class="literal">nativeBuildInputs</code>. This would be called <code class="literal">depsBuildHostPropagated</code> but for historical continuity. For example, if package <code class="literal">Y</code> has <code class="literal">propagatedNativeBuildInputs = [X]</code>, and package <code class="literal">Z</code> has <code class="literal">buildInputs = [Y]</code>, then package <code class="literal">Z</code> will be built as if it included package <code class="literal">X</code> in its <code class="literal">nativeBuildInputs</code>. If instead, package <code class="literal">Z</code> has <code class="literal">nativeBuildInputs = [Y]</code>, then <code class="literal">Z</code> will be built as if it included <code class="literal">X</code> in the <code class="literal">depsBuildBuild</code> of package <code class="literal">Z</code>, because of the sum of the two <code class="literal">-1</code> host offsets.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsBuildTargetPropagated"></a><code class="literal">depsBuildTargetPropagated</code></h5></div></div></div><p>
+        The propagated equivalent of <code class="literal">depsBuildTarget</code>. This is prefixed for the same reason of alerting potential users.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsHostHostPropagated"></a><code class="literal">depsHostHostPropagated</code></h5></div></div></div><p>
+        The propagated equivalent of <code class="literal">depsHostHost</code>.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-propagatedBuildInputs"></a><code class="literal">propagatedBuildInputs</code></h5></div></div></div><p>
+        The propagated equivalent of <code class="literal">buildInputs</code>. This would be called <code class="literal">depsHostTargetPropagated</code> but for historical continuity.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsTargetTargetPropagated"></a><code class="literal">depsTargetTargetPropagated</code></h5></div></div></div><p>
+        The propagated equivalent of <code class="literal">depsTargetTarget</code>. This is prefixed for the same reason of alerting potential users.
+       </p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="ssec-stdenv-attributes"></a>Attributes</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#variables-affecting-stdenv-initialisation">Variables affecting <code class="literal">stdenv</code> initialisation</a></span></dt><dt><span class="section"><a href="#attributes-affecting-build-properties">Attributes affecting build properties</a></span></dt><dt><span class="section"><a href="#special-variables">Special variables</a></span></dt><dt><span class="section"><a href="#mkderivation-recursive-attributes">Recursive attributes in <code class="literal">mkDerivation</code></a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="variables-affecting-stdenv-initialisation"></a>Variables affecting <code class="literal">stdenv</code> initialisation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-NIX_DEBUG"></a><code class="literal">NIX_DEBUG</code></h4></div></div></div><p>
        A number between 0 and 7 indicating how much information to log. If set to 1 or higher, <code class="literal">stdenv</code> will print moderate debugging information during the build. In particular, the <code class="literal">gcc</code> and <code class="literal">ld</code> wrapper scripts will print out the complete command line passed to the wrapped tools. If set to 6 or higher, the <code class="literal">stdenv</code> setup script will be run with <code class="literal">set -x</code> tracing. If set to 7 or higher, the <code class="literal">gcc</code> and <code class="literal">ld</code> wrapper scripts will also be run with <code class="literal">set -x</code> tracing.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="attributes-affecting-build-properties"></a>Attributes affecting build properties</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-stdenv-enableParallelBuilding"></a><code class="literal">enableParallelBuilding</code></h4></div></div></div><p>
        If set to <code class="literal">true</code>, <code class="literal">stdenv</code> will pass specific flags to <code class="literal">make</code> and other build tools to enable parallel building with up to <code class="literal">build-cores</code> workers.
@@ -5393,15 +5464,15 @@ intel_drv.so: undefined symbol: vgaHWFreeHWRec
        Adds the <code class="literal">-fPIE</code> compiler and <code class="literal">-pie</code> linker options. Position Independent Executables are needed to take advantage of Address Space Layout Randomization, supported by modern kernel versions. While ASLR can already be enforced for data areas in the stack and heap (brk and mmap), the code areas must be compiled as position-independent. Shared libraries already do this with the <code class="literal">pic</code> flag, so they gain ASLR automatically, but binary .text regions need to be build with <code class="literal">pie</code> to gain ASLR. When this happens, ROP attacks are much harder since there are no static locations to bounce off of during a memory corruption attack.
       </p><p>
        Static libraries need to be compiled with <code class="literal">-fPIE</code> so that executables can link them in with the <code class="literal">-pie</code> linker option. If the libraries lack <code class="literal">-fPIE</code>, you will get the error <code class="literal">recompile with -fPIE</code>.
-      </p></div></div></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.id-1.4.2.5.3.2" class="footnote"><p><a href="#id-1.4.2.5.3.2" class="para"><sup class="para">[1] </sup></a>
-       The build platform is ignored because it is a mere implementation detail of the package satisfying the dependency: As a general programming principle, dependencies are always <span class="emphasis"><em>specified</em></span> as interfaces, not concrete implementation.
-      </p></div><div id="ftn.id-1.4.2.5.4.2" class="footnote"><p><a href="#id-1.4.2.5.4.2" class="para"><sup class="para">[2] </sup></a>
-       Currently, this means for native builds all dependencies are put on the <code class="literal">PATH</code>. But in the future that may not be the case for sake of matching cross: the platforms would be assumed to be unique for native and cross builds alike, so only the <code class="literal">depsBuild*</code> and <code class="literal">nativeBuildInputs</code> would be added to the <code class="literal">PATH</code>.
-      </p></div><div id="ftn.id-1.4.2.5.5.2" class="footnote"><p><a href="#id-1.4.2.5.5.2" class="para"><sup class="para">[3] </sup></a>
-       Nix itself already takes a package’s transitive dependencies into account, but this propagation ensures nixpkgs-specific infrastructure like <a class="link" href="#ssec-setup-hooks" title="Package setup hooks">setup hooks</a> also are run as if it were a propagated dependency.
-      </p></div><div id="ftn.id-1.4.2.5.9.2" class="footnote"><p><a href="#id-1.4.2.5.9.2" class="para"><sup class="para">[4] </sup></a>
-       The <code class="literal">findInputs</code> function, currently residing in <code class="literal">pkgs/stdenv/generic/setup.sh</code>, implements the propagation logic.
-      </p></div><div id="ftn.id-1.4.2.7.10.3.11.2.2" class="footnote"><p><a href="#id-1.4.2.7.10.3.11.2.2" class="para"><sup class="para">[5] </sup></a>
+      </p></div></div></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.id-1.4.2.5.4.3.2" class="footnote"><p><a href="#id-1.4.2.5.4.3.2" class="para"><sup class="para">[1] </sup></a>
+        The build platform is ignored because it is a mere implementation detail of the package satisfying the dependency: As a general programming principle, dependencies are always <span class="emphasis"><em>specified</em></span> as interfaces, not concrete implementation.
+       </p></div><div id="ftn.id-1.4.2.5.4.4.2" class="footnote"><p><a href="#id-1.4.2.5.4.4.2" class="para"><sup class="para">[2] </sup></a>
+        Currently, this means for native builds all dependencies are put on the <code class="literal">PATH</code>. But in the future that may not be the case for sake of matching cross: the platforms would be assumed to be unique for native and cross builds alike, so only the <code class="literal">depsBuild*</code> and <code class="literal">nativeBuildInputs</code> would be added to the <code class="literal">PATH</code>.
+       </p></div><div id="ftn.id-1.4.2.5.4.5.2" class="footnote"><p><a href="#id-1.4.2.5.4.5.2" class="para"><sup class="para">[3] </sup></a>
+        Nix itself already takes a package’s transitive dependencies into account, but this propagation ensures nixpkgs-specific infrastructure like <a class="link" href="#ssec-setup-hooks" title="Package setup hooks">setup hooks</a> also are run as if it were a propagated dependency.
+       </p></div><div id="ftn.id-1.4.2.5.4.9.2" class="footnote"><p><a href="#id-1.4.2.5.4.9.2" class="para"><sup class="para">[4] </sup></a>
+        The <code class="literal">findInputs</code> function, currently residing in <code class="literal">pkgs/stdenv/generic/setup.sh</code>, implements the propagation logic.
+       </p></div><div id="ftn.id-1.4.2.7.10.3.11.2.2" class="footnote"><p><a href="#id-1.4.2.7.10.3.11.2.2" class="para"><sup class="para">[5] </sup></a>
           It clears the <code class="literal">sys_lib_*search_path</code> variables in the Libtool script to prevent Libtool from using libraries in <code class="literal">/usr/lib</code> and such.
          </p></div><div id="ftn.id-1.4.2.7.10.3.13.2.4" class="footnote"><p><a href="#id-1.4.2.7.10.3.13.2.4" class="para"><sup class="para">[6] </sup></a>
           Eventually these will be passed building natively as well, to improve determinism: build-time guessing, as is done today, is a risk of impurity.
@@ -6537,7 +6608,7 @@ builders-use-substitutes = true
      … and then restart your Nix daemon to apply the change:
     </p><pre class="programlisting">
 $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
-</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt><dt><span class="section"><a href="#sec-make-disk-image"><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></a></span></dt></dl></div><p>
+</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt><dt><span class="section"><a href="#sec-make-disk-image"><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></a></span></dt><dt><span class="section"><a href="#sec-pkgs-binary-cache">pkgs.mkBinaryCache</a></span></dt></dl></div><p>
     This chapter describes tools for creating various types of images.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-appimageTools"></a>pkgs.appimageTools</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-pkgs-appimageTools-formats">AppImage formats</a></span></dt><dt><span class="section"><a href="#ssec-pkgs-appimageTools-wrapping">Wrapping</a></span></dt></dl></div><p>
      <code class="literal">pkgs.appimageTools</code> is a set of functions for extracting and wrapping <a class="link" href="https://appimage.org/" target="_top">AppImage</a> files. They are meant to be used if traditional packaging from source is infeasible, or it would take too long. To quickly run an AppImage file, <code class="literal">pkgs.appimage-run</code> can be used as well.
@@ -7283,6 +7354,41 @@ in
     additionalSpace = "0M"; # Defaults to 512M.
     copyChannel = false;
   }
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-binary-cache"></a>pkgs.mkBinaryCache</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#id-1.5.6.9.5">Example</a></span></dt></dl></div><p>
+     <code class="literal">pkgs.mkBinaryCache</code> is a function for creating Nix flat-file binary caches. Such a cache exists as a directory on disk, and can be used as a Nix substituter by passing <code class="literal">--substituter file:///path/to/cache</code> to Nix commands.
+    </p><p>
+     Nix packages are most commonly shared between machines using <a class="link" href="https://nixos.org/manual/nix/stable/package-management/sharing-packages.html" target="_top">HTTP, SSH, or S3</a>, but a flat-file binary cache can still be useful in some situations. For example, you can copy it directly to another machine, or make it available on a network file system. It can also be a convenient way to make some Nix packages available inside a container via bind-mounting.
+    </p><p>
+     Note that this function is meant for advanced use-cases. The more idiomatic way to work with flat-file binary caches is via the <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/nix-copy-closure.html" target="_top">nix-copy-closure</a> command. You may also want to consider <a class="link" href="#sec-pkgs-dockerTools" title="pkgs.dockerTools">dockerTools</a> for your containerization needs.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.6.9.5"></a>Example</h3></div></div></div><p>
+      The following derivation will construct a flat-file binary cache containing the closure of <code class="literal">hello</code>.
+     </p><pre class="programlisting">
+mkBinaryCache {
+  rootPaths = [hello];
+}
+</pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <code class="literal">rootPaths</code> specifies a list of root derivations. The transitive closure of these derivations’ outputs will be copied into the cache.
+       </p></li></ul></div><p>
+      Here’s an example of building and using the cache.
+     </p><p>
+      Build the cache on one machine, <code class="literal">host1</code>:
+     </p><pre class="programlisting">
+nix-build -E 'with import &lt;nixpkgs&gt; {}; mkBinaryCache { rootPaths = [hello]; }'
+</pre><pre class="programlisting">
+/nix/store/cc0562q828rnjqjyfj23d5q162gb424g-binary-cache
+</pre><p>
+      Copy the resulting directory to the other machine, <code class="literal">host2</code>:
+     </p><pre class="programlisting">
+scp result host2:/tmp/hello-cache
+</pre><p>
+      Substitute the derivation using the flat-file binary cache on the other machine, <code class="literal">host2</code>:
+     </p><pre class="programlisting">
+nix-build -A hello '&lt;nixpkgs&gt;' \
+  --option require-sigs false \
+  --option trusted-substituters file:///tmp/hello-cache \
+  --option substituters file:///tmp/hello-cache
+</pre><pre class="programlisting">
+/nix/store/gl5a41azbpsadfkfmbilh9yk40dh5dl0-hello-2.12.1
 </pre></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-hooks"></a>Hooks reference</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#setup-hook-autoconf">Autoconf</a></span></dt><dt><span class="section"><a href="#setup-hook-automake">Automake</a></span></dt><dt><span class="section"><a href="#setup-hook-autopatchelfhook">autoPatchelfHook</a></span></dt><dt><span class="section"><a href="#breakpointhook">breakpointHook</a></span></dt><dt><span class="section"><a href="#cmake">cmake</a></span></dt><dt><span class="section"><a href="#setup-hook-gdk-pixbuf">gdk-pixbuf</a></span></dt><dt><span class="section"><a href="#ghc">GHC</a></span></dt><dt><span class="section"><a href="#gnome-platform">GNOME platform</a></span></dt><dt><span class="section"><a href="#installshellfiles"><code class="literal">installShellFiles</code></a></span></dt><dt><span class="section"><a href="#libiconv-libintl">libiconv, libintl</a></span></dt><dt><span class="section"><a href="#setup-hook-libxml2">libxml2</a></span></dt><dt><span class="section"><a href="#meson">Meson</a></span></dt><dt><span class="section"><a href="#ninja">ninja</a></span></dt><dt><span class="section"><a href="#sec-patchRcPathHooks"><code class="literal">patchRcPath</code> hooks</a></span></dt><dt><span class="section"><a href="#setup-hook-perl">Perl</a></span></dt><dt><span class="section"><a href="#setup-hook-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#sec-postgresqlTestHook"><code class="literal">postgresqlTestHook</code></a></span></dt><dt><span class="section"><a href="#setup-hook-python">Python</a></span></dt><dt><span class="section"><a href="#qt-4">Qt 4</a></span></dt><dt><span class="section"><a href="#scons">scons</a></span></dt><dt><span class="section"><a href="#tetex-tex-live">teTeX / TeX Live</a></span></dt><dt><span class="section"><a href="#unzip">unzip</a></span></dt><dt><span class="section"><a href="#validatepkgconfig">validatePkgConfig</a></span></dt><dt><span class="section"><a href="#wafhook">wafHook</a></span></dt><dt><span class="section"><a href="#xcbuildhook">xcbuildHook</a></span></dt></dl></div><p>
     Nixpkgs has several hook packages that augment the stdenv phases.
    </p><p>
@@ -7307,7 +7413,9 @@ in
 nativeBuildInputs = [ breakpointHook ];
 </pre><p>
      When a build failure happens there will be an instruction printed that shows how to attach with <code class="literal">cntr</code> to the build sandbox.
-    </p><div class="note"><h3 class="title">Caution with remote builds</h3><p>
+    </p><div class="note"><h3 class="title">Note</h3><p>
+      Caution with remote builds
+     </p><p>
       This won’t work with remote builds as the build environment is on a different machine and can’t be accessed by <code class="literal">cntr</code>. Remote builds can be turned off by setting <code class="literal">--option builders ''</code> for <code class="literal">nix-build</code> or <code class="literal">--builders ''</code> for <code class="literal">nix build</code>.
      </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="cmake"></a>cmake</h2></div></div></div><p>
      Overrides the default configure phase to run the CMake command. By default, we use the Make generator of CMake. In addition, dependencies are added automatically to <code class="literal">CMAKE_PREFIX_PATH</code> so that packages are correctly detected by CMake. Some additional flags are passed in to give similar behavior to configure-based packages. You can disable this hook’s behavior by setting <code class="literal">configurePhase</code> to a custom value, or by setting <code class="literal">dontUseCmakeConfigure</code>. <code class="literal">cmakeFlags</code> controls flags passed only to CMake. By default, parallel building is enabled as CMake supports parallel building almost everywhere. When Ninja is also in use, CMake will detect that and use the ninja generator.

@@ -90,6 +90,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  Calling <code class="literal">makeSetupHook</code> without passing a <code class="literal">name</code> argument is deprecated.
 </p></li><li class="listitem"><p>
+ The <code class="literal">cosmoc</code> package has been removed. The upstream scripts in <code class="literal">cosmocc</code> should be used instead.
+</p></li><li class="listitem"><p>
  Qt 5.12 and 5.14 have been removed, as the corresponding branches have been EOL upstream for a long time. This affected under 10 packages in nixpkgs, largely unmaintained upstream as well, however, out-of-tree package expressions may need to be updated manually.
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.wordpress.sites._name_.plugins">services.wordpress.sites.&lt;name&gt;.plugins</a> and <a class="link" href="options.html#opt-services.wordpress.sites._name_.themes">services.wordpress.sites.&lt;name&gt;.themes</a> options have been converted from sets to attribute sets to allow for consumers to specify explicit install paths via attribute name.
