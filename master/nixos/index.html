@@ -4359,14 +4359,14 @@ services.akkoma.config.":pleroma".":media_preview_proxy" = {
   thumbnail_max_height = 1080;
 };
 </pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-frontend-management"></a>Frontend management</h2></div></div></div><p>
- Akkoma will be deployed with the <code class="literal">pleroma-fe</code> and <code class="literal">admin-fe</code> frontends by default. These can be
+ Akkoma will be deployed with the <code class="literal">akkoma-fe</code> and <code class="literal">admin-fe</code> frontends by default. These can be
 modified by setting
 <a class="link" href="options.html#opt-services.akkoma.frontends" target="_top"><code class="option">services.akkoma.frontends</code></a>.
 </p><p>
  The following example overrides the primary frontend’s default configuration using a custom
 derivation.
 </p><pre class="programlisting">
-services.akkoma.frontends.primary.package = pkgs.runCommand "pleroma-fe" {
+services.akkoma.frontends.primary.package = pkgs.runCommand "akkoma-fe" {
   config = builtins.toJSON {
     expertLevel = 1;
     collapseMessageWithSubject = false;
@@ -4383,10 +4383,10 @@ services.akkoma.frontends.primary.package = pkgs.runCommand "pleroma-fe" {
   passAsFile = [ "config" ];
 } ''
   mkdir $out
-  lndir ${pkgs.akkoma-frontends.pleroma-fe} $out
+  lndir ${pkgs.akkoma-frontends.akkoma-fe} $out
 
   rm $out/static/config.json
-  jq -s add ${pkgs.akkoma-frontends.pleroma-fe}/static/config.json ${config} \
+  jq -s add ${pkgs.akkoma-frontends.akkoma-fe}/static/config.json ${config} \
     &gt;$out/static/config.json
 '';
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="modules-services-akkoma-federation-policies"></a>Federation policies</h2></div></div></div><p>
