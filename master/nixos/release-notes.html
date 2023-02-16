@@ -31,6 +31,8 @@
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/h2non/imaginary" target="_top">imaginary</a>, a microservice for high-level image processing that Nextcloud can use to generate previews. Available as <a class="link" href="options.html#opt-services.imaginary.enable">services.imaginary</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://opensearch.org" target="_top">opensearch</a>, a search server alternative to Elasticsearch. Available as <a class="link" href="options.html#opt-services.opensearch.enable" target="_top">services.opensearch</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/slurdge/goeland" target="_top">goeland</a>, an alternative to rss2email written in golang with many filters. Available as <a class="link" href="options.html#opt-services.goeland.enable">services.goeland</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/ellie/atuin" target="_top">atuin</a>, a sync server for shell history. Available as <a class="link" href="options.html#opt-services.atuin.enable">services.atuin</a>.
@@ -56,6 +58,8 @@
  <code class="literal">buildDunePackage</code> now defaults to <code class="literal">strictDeps = true</code> which means that any library should go into <code class="literal">buildInputs</code> or <code class="literal">checkInputs</code>. Any executable that is run on the building machine should go into <code class="literal">nativeBuildInputs</code> or <code class="literal">nativeCheckInputs</code> respectively. Example of executables are <code class="literal">ocaml</code>, <code class="literal">findlib</code> and <code class="literal">menhir</code>. PPXs are libraries which are built by dune and should therefore not go into <code class="literal">nativeBuildInputs</code>.
 </p></li><li class="listitem"><p>
  <code class="literal">borgbackup</code> module now has an option for inhibiting system sleep while backups are running, defaulting to off (not inhibiting sleep), available as <a class="link" href="options.html#opt-services.borgbackup.jobs._name_.inhibitsSleep"><code class="literal">services.borgbackup.jobs.&lt;name&gt;.inhibitsSleep</code></a>.
+</p></li><li class="listitem"><p>
+ The <code class="literal">ssh</code> client tool now disables the <code class="literal">~C</code> escape sequence by default. This can be re-enabled by setting <code class="literal">EnableEscapeCommandline yes</code>
 </p></li><li class="listitem"><p>
  <code class="literal">podman</code> now uses the <code class="literal">netavark</code> network stack. Users will need to delete all of their local containers, images, volumes, etc, by running <code class="literal">podman system reset --force</code> once before upgrading their systems.
 </p></li><li class="listitem"><p>
