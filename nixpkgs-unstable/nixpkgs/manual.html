@@ -12045,7 +12045,7 @@ php.override {
     </p><p>
      Nixpkgs provides a couple of facilities for working with this tool.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.8.30.4"></a>Writing packages providing pkg-config modules</h3></div></div></div><p>
-      Packages should set <code class="literal">meta.pkgConfigProvides</code> with the list of package config modules they provide. They should also use <code class="literal">testers.testMetaPkgConfig</code> to check that the final built package matches that list. Additionally, the <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#validatepkgconfig" target="_top"><code class="literal">validatePkgConfig</code> setup hook</a>, will do extra checks on to-be-installed pkg-config modules.
+      Packages should set <code class="literal">meta.pkgConfigModules</code> with the list of package config modules they provide. They should also use <code class="literal">testers.testMetaPkgConfig</code> to check that the final built package matches that list. Additionally, the <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#validatepkgconfig" target="_top"><code class="literal">validatePkgConfig</code> setup hook</a>, will do extra checks on to-be-installed pkg-config modules.
      </p><p>
       A good example of all these things is zlib:
      </p><pre class="programlisting">

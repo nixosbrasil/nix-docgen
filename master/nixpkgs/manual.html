@@ -4535,7 +4535,7 @@ gitignoreFilterRecursiveSource = filter: patterns: root:
 gitignoreRecursiveSource = gitignoreFilterSourcePure (_: _: true);
 </pre></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="id-1.4"></a>Standard environment</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-stdenv">The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">Platform Notes</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-stdenv"></a>The Standard Environment</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-using-stdenv">Using <code class="literal">stdenv</code></a></span></dt><dt><span class="section"><a href="#sec-tools-of-stdenv">Tools provided by <code class="literal">stdenv</code></a></span></dt><dt><span class="section"><a href="#ssec-stdenv-dependencies">Specifying dependencies</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-attributes">Attributes</a></span></dt><dt><span class="section"><a href="#sec-stdenv-phases">Phases</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-functions">Shell functions and utilities</a></span></dt><dt><span class="section"><a href="#ssec-setup-hooks">Package setup hooks</a></span></dt><dt><span class="section"><a href="#sec-purity-in-nixpkgs">Purity in Nixpkgs</a></span></dt><dt><span class="section"><a href="#sec-hardening-in-nixpkgs">Hardening in Nixpkgs</a></span></dt></dl></div><p>
     The standard build environment in the Nix Packages collection provides an environment for building Unix packages that does a lot of common build tasks automatically. In fact, for Unix packages that use the standard <code class="literal">./configure; make; make install</code> build interface, you don’t need to write a build script at all; the standard environment does everything automatically. If <code class="literal">stdenv</code> doesn’t do what you need automatically, you can easily customise or override the various build phases.
-   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-using-stdenv"></a>Using <code class="literal">stdenv</code></h2></div></div></div><p>
+   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-using-stdenv"></a>Using <code class="literal">stdenv</code></h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-building-stdenv-package-in-nix-shell">Building a <code class="literal">stdenv</code> package in <code class="literal">nix-shell</code></a></span></dt></dl></div><p>
      To build a package with the standard environment, you use the function <code class="literal">stdenv.mkDerivation</code>, instead of the primitive built-in function <code class="literal">derivation</code>, e.g.
     </p><pre class="programlisting">
 stdenv.mkDerivation {
@@ -4612,7 +4612,22 @@ installPhase() {
 }
 
 genericBuild
-</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-tools-of-stdenv"></a>Tools provided by <code class="literal">stdenv</code></h2></div></div></div><p>
+</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-building-stdenv-package-in-nix-shell"></a>Building a <code class="literal">stdenv</code> package in <code class="literal">nix-shell</code></h3></div></div></div><p>
+      To build a <code class="literal">stdenv</code> package in a <a class="link" href="https://nixos.org/manual/nix/unstable/command-ref/nix-shell.html" target="_top"><code class="literal">nix-shell</code></a>, use
+     </p><pre class="programlisting">
+nix-shell '&lt;nixpkgs&gt;' -A some_package
+eval ${unpackPhase:-unpackPhase}
+cd $sourceRoot
+eval ${patchPhase:-patchPhase}
+eval ${configurePhase:-configurePhase}
+eval ${buildPhase:-buildPhase}
+</pre><p>
+      To modify a <a class="link" href="#sec-stdenv-phases" title="Phases">phase</a>, first print it with
+     </p><pre class="programlisting">
+type buildPhase
+</pre><p>
+      then change it in a text editor, and paste it back to the terminal.
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-tools-of-stdenv"></a>Tools provided by <code class="literal">stdenv</code></h2></div></div></div><p>
      The standard environment provides the following packages:
     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
        The GNU C Compiler, configured with C and C++ support.
