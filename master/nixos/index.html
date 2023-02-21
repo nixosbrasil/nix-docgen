@@ -6955,7 +6955,7 @@ hosting server.
  Initialize the repository on the server. Eg.
 </p><pre class="programlisting">
 sudo borg init --encryption=repokey-blake2  \
-    -rsh "ssh -i /run/keys/id_ed25519_borgbase" \
+    --rsh "ssh -i /run/keys/id_ed25519_borgbase" \
     zzz2aaaaa@zzz2aaaaa.repo.borgbase.com:repo
 </pre></li><li class="listitem"><p>
  Add it to your NixOS configuration, e.g.
