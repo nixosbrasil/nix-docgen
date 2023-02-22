@@ -4058,23 +4058,21 @@ getFiles [ ]                                         // =&gt; [ ]
          </p></dd></dl></div><p><a id="lib.options.literalMD"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L334" target="_top">lib/options.nix:334</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.showOption"></a><code class="function">lib.options.showOption</code></h4></div></div></div><p>
-       Convert an option, described as a list of the option parts in to a safe, human readable version.
+       Convert an option, described as a list of the option parts to a human-readable version.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">parts</code>
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><div class="example"><a id="id-1.3.5.3.10.17.4"></a><p class="title"><strong>Example 169. <code class="function">lib.options.showOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 (showOption ["foo" "bar" "baz"]) == "foo.bar.baz"
-(showOption ["foo" "bar.baz" "tux"]) == "foo.bar.baz.tux"
+(showOption ["foo" "bar.baz" "tux"]) == "foo.\"bar.baz\".tux"
+(showOption ["windowManager" "2bwm" "enable"]) == "windowManager.\"2bwm\".enable"
 
 Placeholders will not be quoted as they are not actual values:
 (showOption ["foo" "*" "bar"]) == "foo.*.bar"
 (showOption ["foo" "&lt;name&gt;" "bar"]) == "foo.&lt;name&gt;.bar"
-
-Unlike attributes, options can also start with numbers:
-(showOption ["windowManager" "2bwm" "enable"]) == "windowManager.2bwm.enable"
 </pre></div></div><br class="example-break" /><p><a id="lib.options.showOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L354" target="_top">lib/options.nix:354</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L352" target="_top">lib/options.nix:352</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-path"></a>lib.path: path functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.path.append"></a><code class="function">lib.path.append</code></h4></div><div><h5 class="subtitle"><code class="literal">append :: Path -&gt; String -&gt; Path</code>
       </h5></div></div></div><p>
        Append a subpath string to a path.
