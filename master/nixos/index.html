@@ -377,7 +377,7 @@ installing NixOS, the <a class="xref" href="options.html#opt-boot.loader.grub.us
 option can be set to <code class="literal">true</code> to automatically add them to the grub
 menu.
 </p></dd><dt><span class="term">UEFI systems</span></dt><dd><p>
- You must select a boot-loader, either system-boot or GRUB. The recommended
+ You must select a boot-loader, either systemd-boot or GRUB. The recommended
 option is systemd-boot: set the option <a class="xref" href="options.html#opt-boot.loader.systemd-boot.enable"><code class="option">boot.loader.systemd-boot.enable</code></a>
 to <code class="literal">true</code>. <code class="literal">nixos-generate-config</code> should do this automatically
 for new configurations when booted in UEFI mode.
@@ -390,10 +390,10 @@ as well.
  If you want to use GRUB, set <a class="xref" href="options.html#opt-boot.loader.grub.device"><code class="option">boot.loader.grub.device</code></a> to <code class="literal">nodev</code> and
 <a class="xref" href="options.html#opt-boot.loader.grub.efiSupport"><code class="option">boot.loader.grub.efiSupport</code></a> to <code class="literal">true</code>.
 </p><p>
- With system-boot, you should not need any special configuration to detect
+ With systemd-boot, you should not need any special configuration to detect
 other installed systems. With GRUB, set <a class="xref" href="options.html#opt-boot.loader.grub.useOSProber"><code class="option">boot.loader.grub.useOSProber</code></a>
-to <code class="literal">true</code>, but this will only detect windows partitions, not other linux
-distributions. If you dual boot another linux distribution, use system-boot
+to <code class="literal">true</code>, but this will only detect windows partitions, not other Linux
+distributions. If you dual boot another Linux distribution, use systemd-boot
 instead.
 </p></dd></dl></div><p>
  If you need to configure networking for your machine the
