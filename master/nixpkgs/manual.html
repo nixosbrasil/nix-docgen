@@ -6534,7 +6534,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
         <code class="literal">nodes</code>: the evaluated NixOS configurations. Useful for debugging and exploring the configuration.
        </p></li><li class="listitem"><p>
         <code class="literal">driverInteractive</code>: a script that launches an interactive Python session in the context of the <code class="literal">testScript</code>.
-       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt></dl></div><p>
+       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs.makeSetupHook">pkgs.makeSetupHook</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt></dl></div><p>
     This chapter describes several special builders.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-fhs-environments"></a>buildFHSUserEnv</h2></div></div></div><p>
      <code class="literal">buildFHSUserEnv</code> provides a way to build and run FHS-compatible lightweight sandboxes. It creates an isolated root with bound <code class="literal">/nix/store</code>, so its footprint in terms of disk space needed is quite small. This allows one to run software which is hard or unfeasible to patch for NixOS – 3rd-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checking and/or external self-updated binaries. It uses Linux namespaces feature to create temporary lightweight environments which are destroyed after all child processes exit, without root user rights requirement. Accepted arguments are:
@@ -6581,7 +6581,38 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
      Running <code class="literal">nix-shell</code> would then drop you into a shell with these libraries and binaries available. You can use this to run closed-source applications which expect FHS structure without hassles: simply change <code class="literal">runScript</code> to the application path, e.g. <code class="literal">./bin/start.sh</code> – relative paths are supported.
     </p><p>
      Additionally, the FHS builder links all relocated gsettings-schemas (the glib setup-hook moves them to <code class="literal">share/gsettings-schemas/${name}/glib-2.0/schemas</code>) to their standard FHS location. This means you don’t need to wrap binaries with <code class="literal">wrapGAppsHook</code>.
-    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-mkShell"></a>pkgs.mkShell</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-mkShell-usage">Usage</a></span></dt><dt><span class="section"><a href="#id-1.5.5.4.4">Attributes</a></span></dt><dt><span class="section"><a href="#id-1.5.5.4.5">Building the shell</a></span></dt></dl></div><p>
+    </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs.makeSetupHook"></a>pkgs.makeSetupHook</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-pkgs.makeSetupHook-usage">Usage</a></span></dt><dt><span class="section"><a href="#id-1.5.5.4.4">Attributes</a></span></dt></dl></div><p>
+     <code class="literal">pkgs.makeSetupHook</code> is a builder that produces hooks that go in to <code class="literal">nativeBuildInputs</code>
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-pkgs.makeSetupHook-usage"></a>Usage</h3></div></div></div><pre class="programlisting">
+pkgs.makeSetupHook {
+  name = "something-hook";
+  propagatedBuildInputs = [ pkgs.commandsomething ];
+  depsTargetTargetPropagated = [ pkgs.libsomething ];
+} ./script.sh
+</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.4.3.3"></a>setup hook that depends on the hello package and runs hello and @shell@ is substituted with path to bash</h4></div></div></div><pre class="programlisting">
+pkgs.makeSetupHook {
+    name = "run-hello-hook";
+    propagatedBuildInputs = [ pkgs.hello ];
+    substitutions = { shell = "${pkgs.bash}/bin/bash"; };
+    passthru.tests.greeting = callPackage ./test { };
+    meta.platforms = lib.platforms.linux;
+} (writeScript "run-hello-hook.sh" ''
+    #!@shell@
+    hello
+'')
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.4.4"></a>Attributes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <code class="literal">name</code> Set the name of the hook.
+       </p></li><li class="listitem"><p>
+        <code class="literal">propagatedBuildInputs</code> Runtime dependencies (such as binaries) of the hook.
+       </p></li><li class="listitem"><p>
+        <code class="literal">depsTargetTargetPropagated</code> Non-binary dependencies.
+       </p></li><li class="listitem"><p>
+        <code class="literal">meta</code>
+       </p></li><li class="listitem"><p>
+        <code class="literal">passthru</code>
+       </p></li><li class="listitem"><p>
+        <code class="literal">substitutions</code> Variables for <code class="literal">substituteAll</code>
+       </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-mkShell"></a>pkgs.mkShell</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-mkShell-usage">Usage</a></span></dt><dt><span class="section"><a href="#id-1.5.5.5.4">Attributes</a></span></dt><dt><span class="section"><a href="#id-1.5.5.5.5">Building the shell</a></span></dt></dl></div><p>
      <code class="literal">pkgs.mkShell</code> is a specialized <code class="literal">stdenv.mkDerivation</code> that removes some repetition when using it with <code class="literal">nix-shell</code> (or <code class="literal">nix develop</code>).
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-pkgs-mkShell-usage"></a>Usage</h3></div></div></div><p>
       Here is a common usage example:
@@ -6596,7 +6627,7 @@ pkgs.mkShell {
     export DEBUG=1
   '';
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.4.4"></a>Attributes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.5.4"></a>Attributes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         <code class="literal">name</code> (default: <code class="literal">nix-shell</code>). Set the name of the derivation.
        </p></li><li class="listitem"><p>
         <code class="literal">packages</code> (default: <code class="literal">[]</code>). Add executable packages to the <code class="literal">nix-shell</code> environment.
@@ -6606,7 +6637,7 @@ pkgs.mkShell {
         <code class="literal">shellHook</code> (default: <code class="literal">""</code>). Bash statements that are executed by <code class="literal">nix-shell</code>.
        </p></li></ul></div><p>
       … all the attributes of <code class="literal">stdenv.mkDerivation</code>.
-     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.4.5"></a>Building the shell</h3></div></div></div><p>
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.5.5.5.5"></a>Building the shell</h3></div></div></div><p>
       This derivation output will contain a text file that contains a reference to all the build inputs. This is useful in CI where we want to make sure that every derivation, and its dependencies, build properly. Or when creating a GC root so that the build dependencies don’t get garbage-collected.
      </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-darwin-builder"></a>darwin.builder</h2></div></div></div><p>
      <code class="literal">darwin.builder</code> provides a way to bootstrap a Linux builder on a macOS machine.
@@ -13326,6 +13357,8 @@ final: prev: {
        It can quickly update minor or major versions for all packages selected and create update commits, and supports the <code class="literal">fetchPypi</code>, <code class="literal">fetchurl</code> and <code class="literal">fetchFromGitHub</code> fetchers. When updating lots of packages that are hosted on GitHub, exporting a <code class="literal">GITHUB_API_TOKEN</code> is highly recommended.
       </p><p>
        Updating packages in bulk leads to lots of breakages, which is why a stabilization period on the <code class="literal">python-unstable</code> branch is required.
+      </p><p>
+       If a package is fragile and often breaks during these bulks updates, it may be reasonable to set <code class="literal">passthru.skipBulkUpdate = true</code> in the derivation. This decision should not be made on a whim and should always be supported by a qualifying comment.
       </p><p>
        Once the branch is sufficiently stable it should normally be merged into the <code class="literal">staging</code> branch.
       </p><p>

@@ -8712,11 +8712,24 @@ mkPackageOption pkgs "name" { default = [ "path" "in" "pkgs" ]; example = "liter
 </p><p>
  <span class="strong"><strong>Note</strong></span>: You shouldn’t necessarily make package options for all of your modules. You can always overwrite a specific package throughout nixpkgs by using <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#chap-overlays" target="_top">nixpkgs overlays</a>.
 </p><p>
- The default package is specified as a list of strings representing its attribute path in nixpkgs. Because of this, you need to pass nixpkgs itself as the first argument.
+ The package is specified in the third argument under <code class="literal">default</code> as a list of strings
+representing its attribute path in nixpkgs (or another package set).
+Because of this, you need to pass nixpkgs itself (or a subset) as the first argument.
 </p><p>
- The second argument is the name of the option, used in the description “The &lt;name&gt; package to use.”. You can also pass an example value, either a literal string or a package’s attribute path.
+ The second argument may be either a string or a list of strings.
+It provides the display name of the package in the description of the generated option
+(using only the last element if the passed value is a list)
+and serves as the fallback value for the <code class="literal">default</code> argument.
 </p><p>
- You can omit the default path if the name of the option is also attribute path in nixpkgs.
+ To include extra information in the description, pass <code class="literal">extraDescription</code> to
+append arbitrary text to the generated description.
+You can also pass an <code class="literal">example</code> value, either a literal string or an attribute path.
+</p><p>
+ The default argument can be omitted if the provided name is
+an attribute of pkgs (if name is a string) or a
+valid attribute path in pkgs (if name is a list).
+</p><p>
+ If you wish to explicitly provide no default, pass <code class="literal">null</code> as <code class="literal">default</code>.
 </p><p>
  During the transition to CommonMark documentation <code class="literal">mkPackageOption</code> creates an option with a DocBook description attribute, once the transition is completed it will create a CommonMark description instead. <code class="literal">mkPackageOptionMD</code> always creates an option with a CommonMark description attribute and will be removed some time after the transition is completed.
 </p><p>
@@ -8743,6 +8756,17 @@ lib.mkOption {
   defaultText = lib.literalExpression "pkgs.ghc";
   example = lib.literalExpression "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
   description = lib.mdDoc "The GHC package to use.";
+}
+</pre><a id="ex-options-declarations-util-mkPackageOption-extraDescription"></a><pre class="programlisting">
+mkPackageOption pkgs [ "python39Packages" "pytorch" ] {
+  extraDescription = "This is an example and doesn't actually do anything.";
+}
+# is like
+lib.mkOption {
+  type = lib.types.package;
+  default = pkgs.python39Packages.pytorch;
+  defaultText = lib.literalExpression "pkgs.python39Packages.pytorch";
+  description = "The pytorch package to use. This is an example and doesn't actually do anything.";
 }
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-eot"></a>Extensible Option Types</h3></div></div></div><p>
  Extensible option types is a feature that allow to extend certain types
