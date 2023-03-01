@@ -12806,7 +12806,7 @@ buildPythonPackage rec {
 </pre><p>
         The <code class="literal">buildPythonPackage</code> mainly does four things:
        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-          In the <code class="literal">buildPhase</code>, it calls <code class="literal">${python.interpreter} setup.py bdist_wheel</code> to build a wheel binary zipfile.
+          In the <code class="literal">buildPhase</code>, it calls <code class="literal">${python.pythonForBuild.interpreter} setup.py bdist_wheel</code> to build a wheel binary zipfile.
          </p></li><li class="listitem"><p>
           In the <code class="literal">installPhase</code>, it installs the wheel file using <code class="literal">pip install *.whl</code>.
          </p></li><li class="listitem"><p>
@@ -13158,7 +13158,7 @@ Permission denied
       </p><p>
        As workaround install it as an extra <code class="literal">preInstall</code> step:
       </p><pre class="programlisting">
-${python.interpreter} setup.py install_data --install-dir=$out --root=$out
+${python.pythonForBuild.interpreter} setup.py install_data --install-dir=$out --root=$out
 sed -i '/ = data\_files/d' setup.py
 </pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="rationale-of-non-existent-global-site-packages"></a>Rationale of non-existent global site-packages</h4></div></div></div><p>
        On most operating systems a global <code class="literal">site-packages</code> is maintained. This however becomes problematic if you want to run multiple Python versions or have multiple versions of certain libraries for your projects. Generally, you would solve such issues by creating virtual environments using <code class="literal">virtualenv</code>.
@@ -13357,6 +13357,8 @@ final: prev: {
        It can quickly update minor or major versions for all packages selected and create update commits, and supports the <code class="literal">fetchPypi</code>, <code class="literal">fetchurl</code> and <code class="literal">fetchFromGitHub</code> fetchers. When updating lots of packages that are hosted on GitHub, exporting a <code class="literal">GITHUB_API_TOKEN</code> is highly recommended.
       </p><p>
        Updating packages in bulk leads to lots of breakages, which is why a stabilization period on the <code class="literal">python-unstable</code> branch is required.
+      </p><p>
+       If a package is fragile and often breaks during these bulks updates, it may be reasonable to set <code class="literal">passthru.skipBulkUpdate = true</code> in the derivation. This decision should not be made on a whim and should always be supported by a qualifying comment.
       </p><p>
        Once the branch is sufficiently stable it should normally be merged into the <code class="literal">staging</code> branch.
       </p><p>
