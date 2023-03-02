@@ -125,6 +125,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
 <code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools. See
 <a class="link" href="https://github.com/iputils/iputils/releases/tag/20221126" target="_top">upstream’s release notes</a>
 for more details and available replacements.
+</p></li><li class="listitem"><p>
+ <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">vim_configurable</code> has been renamed to <code class="literal">vim-full</code> to avoid confusion: <code class="literal">vim-full</code>’s build-time features are configurable, but both <code class="literal">vim</code> and <code class="literal">vim-full</code> are <span class="emphasis"><em>customizable</em></span> (in the sense of user configuration, like vimrc).
 </p></li><li class="listitem"><p>
