@@ -131,6 +131,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
 for more details and available replacements.
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
+</p></li><li class="listitem"><p>
+ conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">vim_configurable</code> has been renamed to <code class="literal">vim-full</code> to avoid confusion: <code class="literal">vim-full</code>’s build-time features are configurable, but both <code class="literal">vim</code> and <code class="literal">vim-full</code> are <span class="emphasis"><em>customizable</em></span> (in the sense of user configuration, like vimrc).
 </p></li><li class="listitem"><p>
@@ -169,6 +171,8 @@ for more details and available replacements.
  DocBook option documentation support will be removed in the next release and CommonMark will become the default. DocBook option documentation that has not been migrated until then will no longer render properly or cause errors.
 </p></li><li class="listitem"><p>
  NixOS now defaults to using nsncd (a non-caching reimplementation in Rust) as NSS lookup dispatcher, instead of the buggy and deprecated glibc-provided nscd. If you need to switch back, set <code class="literal">services.nscd.enableNsncd = false</code>, but please open an issue in nixpkgs so your issue can be fixed.
+</p></li><li class="listitem"><p>
+ <code class="literal">services.borgmatic</code> now allows for multiple configurations, placed in <code class="literal">/etc/borgmatic.d/</code>, you can define them with <code class="literal">services.borgmatic.configurations</code>.
 </p></li><li class="listitem"><p>
  The <code class="literal">dnsmasq</code> service now takes configuration via the
 <code class="literal">services.dnsmasq.settings</code> attribute set. The option
