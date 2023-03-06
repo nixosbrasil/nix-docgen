@@ -4470,8 +4470,8 @@ to make packages available in the chroot.
  <code class="option">services.systemd.akkoma.serviceConfig.BindPaths</code> and
 <code class="option">services.systemd.akkoma.serviceConfig.BindReadOnlyPaths</code> permit access to outside paths
 through bind mounts. Refer to
-<a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html#BindPaths=" target="_top"><span class="citerefentry"><span class="refentrytitle">systemd.exec</span>(5)</span></a>
-for details.
+<a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html#BindPaths=" target="_top"><code class="literal">BindPaths=</code></a>
+of <a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd.exec.html" target="_top"><span class="citerefentry"><span class="refentrytitle">systemd.exec</span>(5)</span></a> for details.
 </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="modules-services-akkoma-distributed-deployment"></a>Distributed deployment</h3></div></div></div><p>
  Being an Elixir application, Akkoma can be deployed in a distributed fashion.
 </p><p>
