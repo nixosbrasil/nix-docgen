@@ -65,6 +65,10 @@
  <a class="link" href="https://github.com/parvardegr/sharing" target="_top">sharing</a>, a command-line tool to share directories and files from the CLI to iOS and Android devices without the need of an extra client app. Available as <a class="link" href="options.html#opt-programs.sharing.enable">programs.sharing</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/avahe-kellenberger/nimdow" target="_top">nimdow</a>, a window manager written in Nim, inspired by dwm.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://woodpecker-ci.org/" target="_top">woodpecker-agent</a>, a simple CI engine with great extensibility. Available as <a class="link" href="options.html#opt-services.woodpecker-agent.enable">services.woodpecker-agent</a>.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://woodpecker-ci.org/" target="_top">woodpecker-server</a>, a simple CI engine with great extensibility. Available as <a class="link" href="options.html#opt-services.woodpecker-server.enable">services.woodpecker-server</a>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">carnix</code> and <code class="literal">cratesIO</code> has been removed due to being unmaintained, use alternatives such as <a class="link" href="https://github.com/nix-community/naersk" target="_top">naersk</a> and <a class="link" href="https://github.com/kolloch/crate2nix" target="_top">crate2nix</a> instead.
 </p></li><li class="listitem"><p>
@@ -196,6 +200,8 @@ Same applies to <code class="literal">acl</code> which now also accepts structur
  The <code class="literal">wordpress</code> service now takes configuration via the <code class="literal">services.wordpress.sites.&lt;name&gt;.settings</code> attribute set, <code class="literal">extraConfig</code> is still available to append  additional text to <code class="literal">wp-config.php</code>.
 </p></li><li class="listitem"><p>
  To reduce closure size in <code class="literal">nixos/modules/profiles/minimal.nix</code> profile disabled installation documentations and manuals. Also disabled <code class="literal">logrotate</code> and <code class="literal">udisks2</code> services.
+</p></li><li class="listitem"><p>
+ To reduce closure size in <code class="literal">nixos/modules/installer/netboot/netboot-minimal.nix</code> profile disabled load linux firmwares, pre-installing the complete stdenv and <code class="literal">networking.wireless</code> service.
 </p></li><li class="listitem"><p>
  The minimal ISO image now uses the <code class="literal">nixos/modules/profiles/minimal.nix</code> profile.
 </p></li><li class="listitem"><p>
