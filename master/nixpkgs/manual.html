@@ -9774,9 +9774,7 @@ preFixup = ''
        </p></li><li class="listitem"><p>
         <a id="ssec-gnome-hooks-gobject-introspection"></a>
         <code class="literal">gobject-introspection</code> setup hook populates <code class="literal">GI_TYPELIB_PATH</code> variable with <code class="literal">lib/girepository-1.0</code> directories of dependencies, which is then added to wrapper by <code class="literal">wrapGAppsHook</code>. It also adds <code class="literal">share</code> directories of dependencies to <code class="literal">XDG_DATA_DIRS</code>, which is intended to promote GIR files but it also <a class="link" href="https://github.com/NixOS/nixpkgs/issues/32790" target="_top">pollutes the closures</a> of packages using <code class="literal">wrapGAppsHook</code>.
-       </p><div class="warning"><h3 class="title">Warning</h3><p>
-         The setup hook <a class="link" href="https://github.com/NixOS/nixpkgs/issues/56943" target="_top">currently</a> does not work in expressions with <code class="literal">strictDeps</code> enabled, like Python packages. In those cases, you will need to disable it with <code class="literal">strictDeps = false;</code>.
-        </p></div></li><li class="listitem"><p>
+       </p></li><li class="listitem"><p>
         <a id="ssec-gnome-hooks-gst-grl-plugins"></a>
         Setup hooks of <code class="literal">gst_all_1.gstreamer</code> and <code class="literal">grilo</code> will populate the <code class="literal">GST_PLUGIN_SYSTEM_PATH_1_0</code> and <code class="literal">GRL_PLUGIN_PATH</code> variables, respectively, which will then be added to the wrapper by <code class="literal">wrapGAppsHook</code>.
        </p></li></ul></div><p>
@@ -16514,7 +16512,7 @@ nix-shell -p nixpkgs-review --run "nixpkgs-review rev HEAD"
        Hydra builds for master and staging should not be used as testing platform, it’s a build farm for changes that have been already tested.
       </p></li><li class="listitem"><p>
        When changing the bootloader installation process, extra care must be taken. Grub installations cannot be rolled back, hence changes may break people’s installations forever. For any non-trivial change to the bootloader please file a PR asking for review, especially from @edolstra.
-      </p></li></ul></div><div class="figure"><a id="id-1.6.4.8.3"></a><p class="title"><strong>Figure 1. Staging workflow</strong></p><div class="figure-contents"><div class="mediaobject"><img src="media/24898f4454079e405fd3fe69e63907a5edc8a792.svg" alt="Staging workflow" /></div></div></div><br class="figure-break" /><p>
+      </p></li></ul></div><div class="figure"><a id="id-1.6.4.8.3"></a><p class="title"><strong>Figure 1. Staging workflow</strong></p><div class="figure-contents"><div class="mediaobject"><img src="media/7dbedf0d18e97ec72cabe993cdb09ae60202a5e5.svg" alt="Staging workflow" /></div></div></div><br class="figure-break" /><p>
      <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/.github/workflows/periodic-merge-6h.yml" target="_top">This GitHub Action</a> brings changes from <code class="literal">master</code> to <code class="literal">staging-next</code> and from <code class="literal">staging-next</code> to <code class="literal">staging</code> every 6 hours; these are the blue arrows in the diagram above. The purple arrows in the diagram above are done manually and much less frequently. You can get an idea of how often these merges occur by looking at the git history.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="submitting-changes-master-branch"></a>Master branch</h3></div></div></div><p>
       The <code class="literal">master</code> branch is the main development branch. It should only see non-breaking commits that do not cause mass rebuilds.
