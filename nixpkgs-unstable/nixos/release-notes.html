@@ -84,6 +84,8 @@
 </p></li><li class="listitem"><p>
  <code class="literal">git-bug</code> has been updated to at least version 0.8.0, which includes backwards incompatible changes. The <code class="literal">git-bug-migration</code> package can be used to upgrade existing repositories.
 </p></li><li class="listitem"><p>
+ <code class="literal">nushell</code> has been updated to at least version 0.77.0, which includes potential breaking changes in aliases. The old aliases are now available as <code class="literal">old-alias</code> but it is recommended you migrate to the new format. See <a class="link" href="https://www.nushell.sh/blog/2023-03-14-nushell_0_77.html#reworked-aliases-breaking-changes-kubouch" target="_top">Reworked aliases</a>.
+</p></li><li class="listitem"><p>
  <code class="literal">keepassx</code> and <code class="literal">keepassx2</code> have been removed, due to upstream <a class="link" href="https://www.keepassx.org/index.html%3Fp=636.html" target="_top">stopping development</a>. Consider <a class="link" href="https://keepassxc.org" target="_top">KeePassXC</a> as a maintained alternative.
 </p></li><li class="listitem"><p>
  The <code class="literal">services.kubo.settings</code> option is now no longer stateful. If you changed any of the options in <code class="literal">services.kubo.settings</code> in the past and then removed them from your NixOS configuration again, those changes are still in your Kubo configuration file but will now be reset to the default. If you’re unsure, you may want to make a backup of your configuration file (probably /var/lib/ipfs/config) and compare after the update.
@@ -104,6 +106,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
  Kime has been updated from 2.5.6 to 3.0.2 and the <code class="literal">i18n.inputMethod.kime.config</code> option has been removed. Users should use <code class="literal">daemonModules</code>, <code class="literal">iconColor</code>, and <code class="literal">extraConfig</code> options under <code class="literal">i18n.inputMethod.kime</code> instead.
 </p></li><li class="listitem"><p>
  <code class="literal">tut</code> has been updated from 1.0.34 to 2.0.0, and now uses the TOML format for the configuration file instead of INI. Additional information can be found <a class="link" href="https://github.com/RasmusLindroth/tut/releases/tag/2.0.0" target="_top">here</a>.
+</p></li><li class="listitem"><p>
+ <code class="literal">i3status-rust</code> has been updated from 0.22.0 to 0.30.5, and this brings many changes to its configuration format. Additional information can be found <a class="link" href="https://github.com/greshake/i3status-rust/blob/v0.30.0/NEWS.md" target="_top">here</a>.
 </p></li><li class="listitem"><p>
  The <code class="literal">wordpress</code> derivation no longer contains any builtin plugins or themes. If you need them you have to add them back to prevent your site from breaking. You can find them in <code class="literal">wordpressPackages.{plugins,themes}</code>.
 </p></li><li class="listitem"><p>
