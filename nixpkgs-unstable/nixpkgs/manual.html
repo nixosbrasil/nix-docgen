@@ -4784,11 +4784,11 @@ genericBuild
       To build a <code class="literal">stdenv</code> package in a <a class="link" href="https://nixos.org/manual/nix/unstable/command-ref/nix-shell.html" target="_top"><code class="literal">nix-shell</code></a>, use
      </p><pre class="programlisting">
 nix-shell '&lt;nixpkgs&gt;' -A some_package
-eval ${unpackPhase:-unpackPhase}
+eval "${unpackPhase:-unpackPhase}"
 cd $sourceRoot
-eval ${patchPhase:-patchPhase}
-eval ${configurePhase:-configurePhase}
-eval ${buildPhase:-buildPhase}
+eval "${patchPhase:-patchPhase}"
+eval "${configurePhase:-configurePhase}"
+eval "${buildPhase:-buildPhase}"
 </pre><p>
       To modify a <a class="link" href="#sec-stdenv-phases" title="Phases">phase</a>, first print it with
      </p><pre class="programlisting">
