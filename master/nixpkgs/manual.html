@@ -8329,7 +8329,7 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
 </pre><p>
           You will need to run the build process once to fix the hash to correspond to your new git src.
          </p></div><div class="simplesect"><div class="titlepage"><div><div><h6 class="title"><a id="fixed-output-derivation"></a>FOD</h6></div></div></div><p>
-          A fixed output derivation will download mix dependencies from the internet. To ensure reproducibility, a hash will be supplied. Note that mix is relatively reproducible. An FOD generating a different hash on each run hasn’t been observed (as opposed to npm where the chances are relatively high). See <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/beam-modules/elixir-ls/default.nix" target="_top">elixir_ls</a> for a usage example of FOD.
+          A fixed output derivation will download mix dependencies from the internet. To ensure reproducibility, a hash will be supplied. Note that mix is relatively reproducible. An FOD generating a different hash on each run hasn’t been observed (as opposed to npm where the chances are relatively high). See <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/beam-modules/elixir-ls/default.nix" target="_top">elixir-ls</a> for a usage example of FOD.
          </p><p>
           Practical steps
          </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
@@ -9432,7 +9432,7 @@ $ dotnet --info
        </p></li><li class="listitem"><p>
         <code class="literal">selfContainedBuild</code> allows to enable the <a class="link" href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_top">self-contained</a> build flag. By default, it is set to false and generated applications have a dependency on the selected dotnet runtime. If enabled, the dotnet runtime is bundled into the executable and the built app has no dependency on Dotnet.
        </p></li><li class="listitem"><p>
-        <code class="literal">dotnet-sdk</code> is useful in cases where you need to change what dotnet SDK is being used.
+        <code class="literal">dotnet-sdk</code> is useful in cases where you need to change what dotnet SDK is being used. You can also set this to the result of <code class="literal">dotnetSdkPackages.combinePackages</code>, if the project uses multiple SDKs to build.
        </p></li><li class="listitem"><p>
         <code class="literal">dotnet-runtime</code> is useful in cases where you need to change what dotnet runtime is being used. This can be either a regular dotnet runtime, or an aspnetcore.
        </p></li><li class="listitem"><p>

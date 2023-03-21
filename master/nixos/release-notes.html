@@ -42,6 +42,8 @@
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/slurdge/goeland" target="_top">goeland</a>, an alternative to rss2email written in golang with many filters. Available as <a class="link" href="options.html#opt-services.goeland.enable">services.goeland</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/google/alertmanager-irc-relay" target="_top">alertmanager-irc-relay</a>, a Prometheus Alertmanager IRC Relay. Available as <a class="link" href="options.html#opt-services.prometheus.alertmanagerIrcRelay.enable" target="_top">services.prometheus.alertmanagerIrcRelay</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/coqui-ai/TTS" target="_top">tts</a>, a battle-tested deep learning toolkit for Text-to-Speech. Mutiple servers may be configured below <a class="link" href="options.html#opt-services.tts.servers">services.tts.servers</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/ellie/atuin" target="_top">atuin</a>, a sync server for shell history. Available as <a class="link" href="options.html#opt-services.atuin.enable">services.atuin</a>.
@@ -71,6 +73,8 @@
  <a class="link" href="https://woodpecker-ci.org/" target="_top">woodpecker-agent</a>, a simple CI engine with great extensibility. Available as <a class="link" href="options.html#opt-services.woodpecker-agent.enable">services.woodpecker-agent</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://woodpecker-ci.org/" target="_top">woodpecker-server</a>, a simple CI engine with great extensibility. Available as <a class="link" href="options.html#opt-services.woodpecker-server.enable">services.woodpecker-server</a>.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/rharish101/ReGreet" target="_top">ReGreet</a>, a clean and customizable greeter for greetd. Available as <a class="link" href="options.html#opt-programs.regreet.enable">programs.regreet</a>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">carnix</code> and <code class="literal">cratesIO</code> has been removed due to being unmaintained, use alternatives such as <a class="link" href="https://github.com/nix-community/naersk" target="_top">naersk</a> and <a class="link" href="https://github.com/kolloch/crate2nix" target="_top">crate2nix</a> instead.
 </p></li><li class="listitem"><p>
@@ -155,6 +159,8 @@ for more details and available replacements.
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
 </p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
+</p></li><li class="listitem"><p>
+ The <code class="literal">baget</code> package and module was removed due to being unmaintained.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">vim_configurable</code> has been renamed to <code class="literal">vim-full</code> to avoid confusion: <code class="literal">vim-full</code>’s build-time features are configurable, but both <code class="literal">vim</code> and <code class="literal">vim-full</code> are <span class="emphasis"><em>customizable</em></span> (in the sense of user configuration, like vimrc).
 </p></li><li class="listitem"><p>
@@ -919,7 +925,7 @@ DNS-01 validation when using <code class="literal">enableACME</code> web server 
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/JustArchiNET/ArchiSteamFarm" target="_top">ArchiSteamFarm</a>, a C# application with primary purpose of idling Steam cards from multiple accounts simultaneously. Available as <a class="link" href="options.html#opt-services.archisteamfarm.enable">services.archisteamfarm</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://loic-sharma.github.io/BaGet/" target="_top">BaGet</a>, a lightweight NuGet and symbol server. Available at <a class="link" href="options.html#opt-services.baget.enable">services.baget</a>.
+ <a class="link" href="https://loic-sharma.github.io/BaGet/" target="_top">BaGet</a>, a lightweight NuGet and symbol server. Available at services.baget.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/xddxdd/bird-lg-go" target="_top">bird-lg</a>, a BGP looking glass for Bird Routing. Available as <a class="link" href="options.html#opt-services.bird-lg.package">services.bird-lg</a>.
 </p></li><li class="listitem"><p>

@@ -9432,7 +9432,7 @@ $ dotnet --info
        </p></li><li class="listitem"><p>
         <code class="literal">selfContainedBuild</code> allows to enable the <a class="link" href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_top">self-contained</a> build flag. By default, it is set to false and generated applications have a dependency on the selected dotnet runtime. If enabled, the dotnet runtime is bundled into the executable and the built app has no dependency on Dotnet.
        </p></li><li class="listitem"><p>
-        <code class="literal">dotnet-sdk</code> is useful in cases where you need to change what dotnet SDK is being used.
+        <code class="literal">dotnet-sdk</code> is useful in cases where you need to change what dotnet SDK is being used. You can also set this to the result of <code class="literal">dotnetSdkPackages.combinePackages</code>, if the project uses multiple SDKs to build.
        </p></li><li class="listitem"><p>
         <code class="literal">dotnet-runtime</code> is useful in cases where you need to change what dotnet runtime is being used. This can be either a regular dotnet runtime, or an aspnetcore.
        </p></li><li class="listitem"><p>
@@ -13892,7 +13892,7 @@ bundlerApp {
     wrapProgram $out/bin/r10k --prefix PATH : ${lib.makeBinPath [ git gnutar gzip ]}
   '';
 }
-</pre></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="rust"></a>Rust</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#compiling-rust-applications-with-cargo"><code class="literal">buildRustPackage</code>: Compiling Rust applications with Cargo</a></span></dt><dt><span class="section"><a href="#compiling-non-rust-packages-that-include-rust-code">Compiling non-Rust packages that include Rust code</a></span></dt><dt><span class="section"><a href="#setting-up-nix-shell">Setting Up <code class="literal">nix-shell</code></a></span></dt><dt><span class="section"><a href="#using-community-maintained-rust-toolchains">Using community maintained Rust toolchains</a></span></dt></dl></div><p>
+</pre></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="rust"></a>Rust</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#compiling-rust-applications-with-cargo"><code class="literal">buildRustPackage</code>: Compiling Rust applications with Cargo</a></span></dt><dt><span class="section"><a href="#compiling-rust-crates-using-nix-instead-of-cargo"><code class="literal">buildRustCrate</code>: Compiling Rust crates using Nix instead of Cargo</a></span></dt><dt><span class="section"><a href="#using-community-maintained-rust-toolchains">Using community maintained Rust toolchains</a></span></dt></dl></div><p>
      To install the rust compiler and cargo put
     </p><pre class="programlisting">
 environment.systemPackages = [
@@ -14157,32 +14157,32 @@ rustPlatform.buildRustPackage rec {
     ./add-Cargo.lock.patch
   ];
 }
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="compiling-non-rust-packages-that-include-rust-code"></a>Compiling non-Rust packages that include Rust code</h3></div></div></div><p>
-      Several non-Rust packages incorporate Rust code for performance- or security-sensitive parts. <code class="literal">rustPlatform</code> exposes several functions and hooks that can be used to integrate Cargo in non-Rust packages.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vendoring-of-dependencies"></a>Vendoring of dependencies</h4></div></div></div><p>
-       Since network access is not allowed in sandboxed builds, Rust crate dependencies need to be retrieved using a fetcher. <code class="literal">rustPlatform</code> provides the <code class="literal">fetchCargoTarball</code> fetcher, which vendors all dependencies of a crate. For example, given a source path <code class="literal">src</code> containing <code class="literal">Cargo.toml</code> and <code class="literal">Cargo.lock</code>, <code class="literal">fetchCargoTarball</code> can be used as follows:
-      </p><pre class="programlisting">
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="compiling-non-rust-packages-that-include-rust-code"></a>Compiling non-Rust packages that include Rust code</h4></div></div></div><p>
+       Several non-Rust packages incorporate Rust code for performance- or security-sensitive parts. <code class="literal">rustPlatform</code> exposes several functions and hooks that can be used to integrate Cargo in non-Rust packages.
+      </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="vendoring-of-dependencies"></a>Vendoring of dependencies</h5></div></div></div><p>
+        Since network access is not allowed in sandboxed builds, Rust crate dependencies need to be retrieved using a fetcher. <code class="literal">rustPlatform</code> provides the <code class="literal">fetchCargoTarball</code> fetcher, which vendors all dependencies of a crate. For example, given a source path <code class="literal">src</code> containing <code class="literal">Cargo.toml</code> and <code class="literal">Cargo.lock</code>, <code class="literal">fetchCargoTarball</code> can be used as follows:
+       </p><pre class="programlisting">
 cargoDeps = rustPlatform.fetchCargoTarball {
   inherit src;
   hash = "sha256-BoHIN/519Top1NUBjpB/oEMqi86Omt3zTQcXFWqrek0=";
 };
 </pre><p>
-       The <code class="literal">src</code> attribute is required, as well as a hash specified through one of the <code class="literal">hash</code> attribute. The following optional attributes can also be used:
-      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-         <code class="literal">name</code>: the name that is used for the dependencies tarball. If <code class="literal">name</code> is not specified, then the name <code class="literal">cargo-deps</code> will be used.
-        </p></li><li class="listitem"><p>
-         <code class="literal">sourceRoot</code>: when the <code class="literal">Cargo.lock</code>/<code class="literal">Cargo.toml</code> are in a subdirectory, <code class="literal">sourceRoot</code> specifies the relative path to these files.
-        </p></li><li class="listitem"><p>
-         <code class="literal">patches</code>: patches to apply before vendoring. This is useful when the <code class="literal">Cargo.lock</code>/<code class="literal">Cargo.toml</code> files need to be patched before vendoring.
-        </p></li></ul></div><p>
-       If a <code class="literal">Cargo.lock</code> file is available, you can alternatively use the <code class="literal">importCargoLock</code> function. In contrast to <code class="literal">fetchCargoTarball</code>, this function does not require a hash (unless git dependencies are used) and fetches every dependency as a separate fixed-output derivation. <code class="literal">importCargoLock</code> can be used as follows:
-      </p><pre class="programlisting">
+        The <code class="literal">src</code> attribute is required, as well as a hash specified through one of the <code class="literal">hash</code> attribute. The following optional attributes can also be used:
+       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">name</code>: the name that is used for the dependencies tarball. If <code class="literal">name</code> is not specified, then the name <code class="literal">cargo-deps</code> will be used.
+         </p></li><li class="listitem"><p>
+          <code class="literal">sourceRoot</code>: when the <code class="literal">Cargo.lock</code>/<code class="literal">Cargo.toml</code> are in a subdirectory, <code class="literal">sourceRoot</code> specifies the relative path to these files.
+         </p></li><li class="listitem"><p>
+          <code class="literal">patches</code>: patches to apply before vendoring. This is useful when the <code class="literal">Cargo.lock</code>/<code class="literal">Cargo.toml</code> files need to be patched before vendoring.
+         </p></li></ul></div><p>
+        If a <code class="literal">Cargo.lock</code> file is available, you can alternatively use the <code class="literal">importCargoLock</code> function. In contrast to <code class="literal">fetchCargoTarball</code>, this function does not require a hash (unless git dependencies are used) and fetches every dependency as a separate fixed-output derivation. <code class="literal">importCargoLock</code> can be used as follows:
+       </p><pre class="programlisting">
 cargoDeps = rustPlatform.importCargoLock {
   lockFile = ./Cargo.lock;
 };
 </pre><p>
-       If the <code class="literal">Cargo.lock</code> file includes git dependencies, then their output hashes need to be specified since they are not available through the lock file. For example:
-      </p><pre class="programlisting">
+        If the <code class="literal">Cargo.lock</code> file includes git dependencies, then their output hashes need to be specified since they are not available through the lock file. For example:
+       </p><pre class="programlisting">
 cargoDeps = rustPlatform.importCargoLock {
   lockFile = ./Cargo.lock;
   outputHashes = {
@@ -14190,24 +14190,24 @@ cargoDeps = rustPlatform.importCargoLock {
   };
 };
 </pre><p>
-       If you do not specify an output hash for a git dependency, building <code class="literal">cargoDeps</code> will fail and inform you of which crate needs to be added. To find the correct hash, you can first use <code class="literal">lib.fakeSha256</code> or <code class="literal">lib.fakeHash</code> as a stub hash. Building <code class="literal">cargoDeps</code> will then inform you of the correct hash.
-      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="hooks"></a>Hooks</h4></div></div></div><p>
-       <code class="literal">rustPlatform</code> provides the following hooks to automate Cargo builds:
-      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-         <code class="literal">cargoSetupHook</code>: configure Cargo to use dependencies vendored through <code class="literal">fetchCargoTarball</code>. This hook uses the <code class="literal">cargoDeps</code> environment variable to find the vendored dependencies. If a project already vendors its dependencies, the variable <code class="literal">cargoVendorDir</code> can be used instead. When the <code class="literal">Cargo.toml</code>/<code class="literal">Cargo.lock</code> files are not in <code class="literal">sourceRoot</code>, then the optional <code class="literal">cargoRoot</code> is used to specify the Cargo root directory relative to <code class="literal">sourceRoot</code>.
-        </p></li><li class="listitem"><p>
-         <code class="literal">cargoBuildHook</code>: use Cargo to build a crate. If the crate to be built is a crate in e.g. a Cargo workspace, the relative path to the crate to build can be set through the optional <code class="literal">buildAndTestSubdir</code> environment variable. Features can be specified with <code class="literal">cargoBuildNoDefaultFeatures</code> and <code class="literal">cargoBuildFeatures</code>. Additional Cargo build flags can be passed through <code class="literal">cargoBuildFlags</code>.
-        </p></li><li class="listitem"><p>
-         <code class="literal">maturinBuildHook</code>: use <a class="link" href="https://github.com/PyO3/maturin" target="_top">Maturin</a> to build a Python wheel. Similar to <code class="literal">cargoBuildHook</code>, the optional variable <code class="literal">buildAndTestSubdir</code> can be used to build a crate in a Cargo workspace. Additional Maturin flags can be passed through <code class="literal">maturinBuildFlags</code>.
-        </p></li><li class="listitem"><p>
-         <code class="literal">cargoCheckHook</code>: run tests using Cargo. The build type for checks can be set using <code class="literal">cargoCheckType</code>. Features can be specified with <code class="literal">cargoCheckNoDefaultFeatures</code> and <code class="literal">cargoCheckFeatures</code>. Additional flags can be passed to the tests using <code class="literal">checkFlags</code> and <code class="literal">checkFlagsArray</code>. By default, tests are run in parallel. This can be disabled by setting <code class="literal">dontUseCargoParallelTests</code>.
-        </p></li><li class="listitem"><p>
-         <code class="literal">cargoNextestHook</code>: run tests using <a class="link" href="https://github.com/nextest-rs/nextest" target="_top">cargo-nextest</a>. The same options for <code class="literal">cargoCheckHook</code> also applies to <code class="literal">cargoNextestHook</code>.
-        </p></li><li class="listitem"><p>
-         <code class="literal">cargoInstallHook</code>: install binaries and static/shared libraries that were built using <code class="literal">cargoBuildHook</code>.
-        </p></li><li class="listitem"><p>
-         <code class="literal">bindgenHook</code>: for crates which use <code class="literal">bindgen</code> as a build dependency, lets <code class="literal">bindgen</code> find <code class="literal">libclang</code> and <code class="literal">libclang</code> find the libraries in <code class="literal">buildInputs</code>.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="examples"></a>Examples</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="python-package-using-setuptools-rust"></a>Python package using <code class="literal">setuptools-rust</code></h5></div></div></div><p>
+        If you do not specify an output hash for a git dependency, building <code class="literal">cargoDeps</code> will fail and inform you of which crate needs to be added. To find the correct hash, you can first use <code class="literal">lib.fakeSha256</code> or <code class="literal">lib.fakeHash</code> as a stub hash. Building <code class="literal">cargoDeps</code> will then inform you of the correct hash.
+       </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="hooks"></a>Hooks</h5></div></div></div><p>
+        <code class="literal">rustPlatform</code> provides the following hooks to automate Cargo builds:
+       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+          <code class="literal">cargoSetupHook</code>: configure Cargo to use dependencies vendored through <code class="literal">fetchCargoTarball</code>. This hook uses the <code class="literal">cargoDeps</code> environment variable to find the vendored dependencies. If a project already vendors its dependencies, the variable <code class="literal">cargoVendorDir</code> can be used instead. When the <code class="literal">Cargo.toml</code>/<code class="literal">Cargo.lock</code> files are not in <code class="literal">sourceRoot</code>, then the optional <code class="literal">cargoRoot</code> is used to specify the Cargo root directory relative to <code class="literal">sourceRoot</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">cargoBuildHook</code>: use Cargo to build a crate. If the crate to be built is a crate in e.g. a Cargo workspace, the relative path to the crate to build can be set through the optional <code class="literal">buildAndTestSubdir</code> environment variable. Features can be specified with <code class="literal">cargoBuildNoDefaultFeatures</code> and <code class="literal">cargoBuildFeatures</code>. Additional Cargo build flags can be passed through <code class="literal">cargoBuildFlags</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">maturinBuildHook</code>: use <a class="link" href="https://github.com/PyO3/maturin" target="_top">Maturin</a> to build a Python wheel. Similar to <code class="literal">cargoBuildHook</code>, the optional variable <code class="literal">buildAndTestSubdir</code> can be used to build a crate in a Cargo workspace. Additional Maturin flags can be passed through <code class="literal">maturinBuildFlags</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">cargoCheckHook</code>: run tests using Cargo. The build type for checks can be set using <code class="literal">cargoCheckType</code>. Features can be specified with <code class="literal">cargoCheckNoDefaultFeatures</code> and <code class="literal">cargoCheckFeatures</code>. Additional flags can be passed to the tests using <code class="literal">checkFlags</code> and <code class="literal">checkFlagsArray</code>. By default, tests are run in parallel. This can be disabled by setting <code class="literal">dontUseCargoParallelTests</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">cargoNextestHook</code>: run tests using <a class="link" href="https://github.com/nextest-rs/nextest" target="_top">cargo-nextest</a>. The same options for <code class="literal">cargoCheckHook</code> also applies to <code class="literal">cargoNextestHook</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">cargoInstallHook</code>: install binaries and static/shared libraries that were built using <code class="literal">cargoBuildHook</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">bindgenHook</code>: for crates which use <code class="literal">bindgen</code> as a build dependency, lets <code class="literal">bindgen</code> find <code class="literal">libclang</code> and <code class="literal">libclang</code> find the libraries in <code class="literal">buildInputs</code>.
+         </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="examples"></a>Examples</h5></div></div></div><p></p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="python-package-using-setuptools-rust"></a>Python package using <code class="literal">setuptools-rust</code></h5></div></div></div><p>
         For Python packages using <code class="literal">setuptools-rust</code>, you can use <code class="literal">fetchCargoTarball</code> and <code class="literal">cargoSetupHook</code> to retrieve and set up Cargo dependencies. The build itself is then performed by <code class="literal">buildPythonPackage</code>.
        </p><p>
         The following example outlines how the <code class="literal">tokenizers</code> Python package is built. Since the Python package is in the <code class="literal">source/bindings/python</code> directory of the <code class="literal">tokenizers</code> project’s source archive, we use <code class="literal">sourceRoot</code> to point the tooling to this directory:
@@ -14308,17 +14308,83 @@ buildPythonPackage rec {
 
   # ...
 }
-</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="setting-up-nix-shell"></a>Setting Up <code class="literal">nix-shell</code></h3></div></div></div><p>
-      Oftentimes you want to develop code from within <code class="literal">nix-shell</code>. Unfortunately <code class="literal">buildRustCrate</code> does not support common <code class="literal">nix-shell</code> operations directly (see <a class="link" href="https://github.com/NixOS/nixpkgs/issues/37945" target="_top">this issue</a>) so we will use <code class="literal">stdenv.mkDerivation</code> instead.
-     </p><p>
-      Using the example <code class="literal">hello</code> project above, we want to do the following:
-     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-        Have access to <code class="literal">cargo</code> and <code class="literal">rustc</code>
-       </p></li><li class="listitem"><p>
-        Have the <code class="literal">openssl</code> library available to a crate through it’s <span class="emphasis"><em>normal</em></span> compilation mechanism (<code class="literal">pkg-config</code>).
-       </p></li></ul></div><p>
-      A typical <code class="literal">shell.nix</code> might look like:
-     </p><pre class="programlisting">
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="compiling-rust-crates-using-nix-instead-of-cargo"></a><code class="literal">buildRustCrate</code>: Compiling Rust crates using Nix instead of Cargo</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="simple-operation"></a>Simple operation</h4></div></div></div><p>
+       When run, <code class="literal">cargo build</code> produces a file called <code class="literal">Cargo.lock</code>, containing pinned versions of all dependencies. Nixpkgs contains a tool called <code class="literal">crate2Nix</code> (<code class="literal">nix-shell -p crate2nix</code>), which can be used to turn a <code class="literal">Cargo.lock</code> into a Nix expression. That Nix expression calls <code class="literal">rustc</code> directly (hence bypassing Cargo), and can be used to compile a crate and all its dependencies.
+      </p><p>
+       See <a class="link" href="https://github.com/kolloch/crate2nix#known-restrictions" target="_top"><code class="literal">crate2nix</code>’s documentation</a> for instructions on how to use it.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="handling-external-dependencies"></a>Handling external dependencies</h4></div></div></div><p>
+       Some crates require external libraries. For crates from <a class="link" href="https://crates.io" target="_top">crates.io</a>, such libraries can be specified in <code class="literal">defaultCrateOverrides</code> package in nixpkgs itself.
+      </p><p>
+       Starting from that file, one can add more overrides, to add features or build inputs by overriding the hello crate in a separate file.
+      </p><pre class="programlisting">
+with import &lt;nixpkgs&gt; {};
+((import ./hello.nix).hello {}).override {
+  crateOverrides = defaultCrateOverrides // {
+    hello = attrs: { buildInputs = [ openssl ]; };
+  };
+}
+</pre><p>
+       Here, <code class="literal">crateOverrides</code> is expected to be a attribute set, where the key is the crate name without version number and the value a function. The function gets all attributes passed to <code class="literal">buildRustCrate</code> as first argument and returns a set that contains all attribute that should be overwritten.
+      </p><p>
+       For more complicated cases, such as when parts of the crate’s derivation depend on the crate’s version, the <code class="literal">attrs</code> argument of the override above can be read, as in the following example, which patches the derivation:
+      </p><pre class="programlisting">
+with import &lt;nixpkgs&gt; {};
+((import ./hello.nix).hello {}).override {
+  crateOverrides = defaultCrateOverrides // {
+    hello = attrs: lib.optionalAttrs (lib.versionAtLeast attrs.version "1.0")  {
+      postPatch = ''
+        substituteInPlace lib/zoneinfo.rs \
+          --replace "/usr/share/zoneinfo" "${tzdata}/share/zoneinfo"
+      '';
+    };
+  };
+}
+</pre><p>
+       Another situation is when we want to override a nested dependency. This actually works in the exact same way, since the <code class="literal">crateOverrides</code> parameter is forwarded to the crate’s dependencies. For instance, to override the build inputs for crate <code class="literal">libc</code> in the example above, where <code class="literal">libc</code> is a dependency of the main crate, we could do:
+      </p><pre class="programlisting">
+with import &lt;nixpkgs&gt; {};
+((import hello.nix).hello {}).override {
+  crateOverrides = defaultCrateOverrides // {
+    libc = attrs: { buildInputs = []; };
+  };
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="options-and-phases-configuration"></a>Options and phases configuration</h4></div></div></div><p>
+       Actually, the overrides introduced in the previous section are more general. A number of other parameters can be overridden:
+      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+         The version of <code class="literal">rustc</code> used to compile the crate:
+        </p><pre class="programlisting">
+(hello {}).override { rust = pkgs.rust; };
+</pre></li><li class="listitem"><p>
+         Whether to build in release mode or debug mode (release mode by default):
+        </p><pre class="programlisting">
+(hello {}).override { release = false; };
+</pre></li><li class="listitem"><p>
+         Whether to print the commands sent to <code class="literal">rustc</code> when building (equivalent to <code class="literal">--verbose</code> in cargo:
+        </p><pre class="programlisting">
+(hello {}).override { verbose = false; };
+</pre></li><li class="listitem"><p>
+         Extra arguments to be passed to <code class="literal">rustc</code>:
+        </p><pre class="programlisting">
+(hello {}).override { extraRustcOpts = "-Z debuginfo=2"; };
+</pre></li><li class="listitem"><p>
+         Phases, just like in any other derivation, can be specified using the following attributes: <code class="literal">preUnpack</code>, <code class="literal">postUnpack</code>, <code class="literal">prePatch</code>, <code class="literal">patches</code>, <code class="literal">postPatch</code>, <code class="literal">preConfigure</code> (in the case of a Rust crate, this is run before calling the <span class="quote">“<span class="quote">build</span>”</span> script), <code class="literal">postConfigure</code> (after the <span class="quote">“<span class="quote">build</span>”</span> script),<code class="literal">preBuild</code>, <code class="literal">postBuild</code>, <code class="literal">preInstall</code> and <code class="literal">postInstall</code>. As an example, here is how to create a new module before running the build script:
+        </p><pre class="programlisting">
+(hello {}).override {
+  preConfigure = ''
+     echo "pub const PATH=\"${hi.out}\";" &gt;&gt; src/path.rs"
+  '';
+};
+</pre></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="setting-up-nix-shell"></a>Setting Up <code class="literal">nix-shell</code></h4></div></div></div><p>
+       Oftentimes you want to develop code from within <code class="literal">nix-shell</code>. Unfortunately <code class="literal">buildRustCrate</code> does not support common <code class="literal">nix-shell</code> operations directly (see <a class="link" href="https://github.com/NixOS/nixpkgs/issues/37945" target="_top">this issue</a>) so we will use <code class="literal">stdenv.mkDerivation</code> instead.
+      </p><p>
+       Using the example <code class="literal">hello</code> project above, we want to do the following:
+      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         Have access to <code class="literal">cargo</code> and <code class="literal">rustc</code>
+        </p></li><li class="listitem"><p>
+         Have the <code class="literal">openssl</code> library available to a crate through it’s <span class="emphasis"><em>normal</em></span> compilation mechanism (<code class="literal">pkg-config</code>).
+        </p></li></ul></div><p>
+       A typical <code class="literal">shell.nix</code> might look like:
+      </p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 
 stdenv.mkDerivation {
@@ -14338,12 +14404,12 @@ stdenv.mkDerivation {
   RUST_BACKTRACE = 1;
 }
 </pre><p>
-      You should now be able to run the following:
-     </p><pre class="programlisting">
+       You should now be able to run the following:
+      </p><pre class="programlisting">
 $ nix-shell --pure
 $ cargo build
 $ cargo test
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="using-community-maintained-rust-toolchains"></a>Using community maintained Rust toolchains</h3></div></div></div><div class="note"><h3 class="title">Note</h3><p>
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="using-community-maintained-rust-toolchains"></a>Using community maintained Rust toolchains</h3></div></div></div><div class="note"><h3 class="title">Note</h3><p>
        Note: The following projects cannot be used within nixpkgs since <a class="link" href="#ssec-import-from-derivation" title="Import From Derivation">IFD</a> is disallowed. To package things that require Rust nightly, <code class="literal">RUSTC_BOOTSTRAP = true;</code> can sometimes be used as a hack.
       </p></div><p>
       There are two community maintained approaches to Rust toolchain management:
