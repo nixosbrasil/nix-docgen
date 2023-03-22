@@ -246,13 +246,11 @@ will be converted into headscale’s YAML config format. This means that the con
 <a class="link" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml" target="_top">headscale’s example configuration</a>
 can be directly written as attribute-set in Nix within this option.
 </p></li></ul></div></li><li class="listitem"><p>
- <code class="literal">hardware.video.hidpi</code> now provides defaults that are consistent with <code class="literal">fontconfig</code>’s documentation:
-</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
- antialiasing and font hinting are disabled, as they have no visible effects at high pixel densities;
+ The <code class="literal">hardware.video.hidpi.enable</code> was renamed to <code class="literal">fonts.optimizeForVeryHighDPI</code> to be consistent with what it actually does.
+They disable by default: antialiasing, hinting and LCD filter for subpixel rendering. They can be overridden if you experience problems with font rendering.
+On Xorg, the default cursor is upscaled.
+Please see the documentation for the new option to decide if you want to keep it enabled.
 </p></li><li class="listitem"><p>
- subpixel order isn’t set: it was irrelevant with the above disabled, and the module <span class="emphasis"><em>cannot</em></span> know the correct
-setting for the user’s screen.
-</p></li></ul></div></li><li class="listitem"><p>
  <code class="literal">nixos/lib/make-disk-image.nix</code> can now mutate EFI variables, run user-provided EFI firmware or variable templates. This is now extensively documented in the NixOS manual.
 </p></li><li class="listitem"><p>
  <code class="literal">services.grafana</code> listens only on localhost by default again. This was changed to upstreams default of <code class="literal">0.0.0.0</code> by accident in the freeform setting conversion.
