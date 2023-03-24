@@ -54,6 +54,8 @@
 </p></li><li class="listitem"><p>
  <a class="link" href="https://dm3mat.darc.de/qdmr/" target="_top">QDMR</a>, a GUI application and command line tool for programming DMR radios <a class="link" href="options.html#opt-programs.qdmr.enable">programs.qdmr</a>
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/rvaiya/keyd" target="_top">keyd</a>, a key remapping daemon for linux. Available as <a class="link" href="options.html#opt-services.keyd.enable">services.keyd</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://v2raya.org" target="_top">v2rayA</a>, a Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel. Available as <a class="link" href="options.html#opt-services.v2raya.enable" target="_top">services.v2raya</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://www.netfilter.org/projects/ulogd/index.html" target="_top">ulogd</a>, a userspace logging daemon for netfilter/iptables related logging. Available as <a class="link" href="options.html#opt-services.ulogd.enable" target="_top">services.ulogd</a>.
@@ -149,6 +151,16 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  Deprecated <code class="literal">xlibsWrapper</code> transitional package has been removed in favour of direct use of its constitutents: <code class="literal">xorg.libX11</code>, <code class="literal">freetype</code> and others.
 </p></li><li class="listitem"><p>
+ The latest available version of Nextcloud is v26 (available as <code class="literal">pkgs.nextcloud26</code>) which uses PHP 8.2 as interpreter by default. The installation logic is as follows:
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+ If <code class="literal">system.stateVersion</code> is &gt;=23.05, <code class="literal">pkgs.nextcloud26</code> will be installed by default.
+</p></li><li class="listitem"><p>
+ If <code class="literal">system.stateVersion</code> is &gt;=22.11, <code class="literal">pkgs.nextcloud25</code> will be installed by default.
+</p></li><li class="listitem"><p>
+ Please note that an upgrade from v24 (or older) to v26 directly is not possible. Please upgrade to <code class="literal">nextcloud25</code> (or earlier) first. Nextcloud prohibits skipping major versions while upgrading. You can upgrade by declaring <a class="link" href="options.html#opt-services.nextcloud.package" target="_top"><code class="literal">services.nextcloud.package = pkgs.nextcloud25;</code></a>.
+</p></li><li class="listitem"><p>
+ It’s recommended to use the latest version available (i.e. v26) and to specify that using <code class="literal">services.nextcloud.package</code>.
+</p></li></ul></div></li><li class="listitem"><p>
  .NET 5.0 was removed due to being end-of-life, use a newer, supported .NET version - https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
 </p></li><li class="listitem"><p>
  The iputils package, which is installed by default, no longer provides the

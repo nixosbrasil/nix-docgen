@@ -8318,7 +8318,7 @@ android {
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="beam-structure"></a>Structure</h3></div></div></div><p>
       All BEAM-related expressions are available via the top-level <code class="literal">beam</code> attribute, which includes:
      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">interpreters</code>: a set of compilers running on the BEAM, including multiple Erlang/OTP versions (<code class="literal">beam.interpreters.erlangR22</code>, etc), Elixir (<code class="literal">beam.interpreters.elixir</code>) and LFE (Lisp Flavoured Erlang) (<code class="literal">beam.interpreters.lfe</code>).
+        <code class="literal">interpreters</code>: a set of compilers running on the BEAM, including multiple Erlang/OTP versions (<code class="literal">beam.interpreters.erlang_22</code>, etc), Elixir (<code class="literal">beam.interpreters.elixir</code>) and LFE (Lisp Flavoured Erlang) (<code class="literal">beam.interpreters.lfe</code>).
        </p></li><li class="listitem"><p>
         <code class="literal">packages</code>: a set of package builders (Mix and rebar3), each compiled with a specific Erlang/OTP version, e.g. <code class="literal">beam.packages.erlang22</code>.
        </p></li></ul></div><p>
@@ -8326,7 +8326,7 @@ android {
      </p><p>
       To create a package builder built with a custom Erlang version, use the lambda, <code class="literal">beam.packagesWith</code>, which accepts an Erlang/OTP derivation and produces a package builder similar to <code class="literal">beam.packages.erlang</code>.
      </p><p>
-      Many Erlang/OTP distributions available in <code class="literal">beam.interpreters</code> have versions with ODBC and/or Java enabled or without wx (no observer support). For example, there’s <code class="literal">beam.interpreters.erlangR22_odbc_javac</code>, which corresponds to <code class="literal">beam.interpreters.erlangR22</code> and <code class="literal">beam.interpreters.erlangR22_nox</code>, which corresponds to <code class="literal">beam.interpreters.erlangR22</code>.
+      Many Erlang/OTP distributions available in <code class="literal">beam.interpreters</code> have versions with ODBC and/or Java enabled or without wx (no observer support). For example, there’s <code class="literal">beam.interpreters.erlang_22_odbc_javac</code>, which corresponds to <code class="literal">beam.interpreters.erlang_22</code> and <code class="literal">beam.interpreters.erlang_22_nox</code>, which corresponds to <code class="literal">beam.interpreters.erlang_22</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="build-tools"></a>Build Tools</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="build-tools-rebar3"></a>Rebar3</h4></div></div></div><p>
        We provide a version of Rebar3, under <code class="literal">rebar3</code>. We also provide a helper to fetch Rebar3 dependencies from a lockfile under <code class="literal">fetchRebar3Deps</code>.
       </p><p>
@@ -8423,7 +8423,7 @@ $ nix-env -f "&lt;nixpkgs&gt;" -iA beamPackages.rebar3
 with import &lt;nixpkgs&gt; { };
 
 let
-  # beam.interpreters.erlangR23 is available if you need a particular version
+  # beam.interpreters.erlang_23 is available if you need a particular version
   packages = beam.packagesWith beam.interpreters.erlang;
 
   pname = "your_project";
@@ -8536,7 +8536,7 @@ in
 
 with pkgs;
 let
-  elixir = beam.packages.erlangR24.elixir_1_12;
+  elixir = beam.packages.erlang_24.elixir_1_12;
 in
 mkShell {
   buildInputs = [ elixir ];
