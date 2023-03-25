@@ -40,6 +40,8 @@
 </p></li><li class="listitem"><p>
  <a class="link" href="https://opensearch.org" target="_top">opensearch</a>, a search server alternative to Elasticsearch. Available as <a class="link" href="options.html#opt-services.opensearch.enable" target="_top">services.opensearch</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://www.authelia.com/" target="_top">authelia</a>, is an open-source authentication and authorization server. Available under <a class="link" href="options.html#opt-services.authelia.enable" target="_top">services.authelia</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/slurdge/goeland" target="_top">goeland</a>, an alternative to rss2email written in golang with many filters. Available as <a class="link" href="options.html#opt-services.goeland.enable">services.goeland</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/google/alertmanager-irc-relay" target="_top">alertmanager-irc-relay</a>, a Prometheus Alertmanager IRC Relay. Available as <a class="link" href="options.html#opt-services.prometheus.alertmanagerIrcRelay.enable" target="_top">services.prometheus.alertmanagerIrcRelay</a>.
@@ -144,6 +146,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
  <code class="literal">protonmail-bridge</code> package has been updated to v3.0 and the CLI executable is now named bridge instead of protonmail-bridge to be more in line with upstream.
 </p></li><li class="listitem"><p>
  Nebula now runs as a system user and group created for each nebula network, using the <code class="literal">CAP_NET_ADMIN</code> ambient capability on launch rather than starting as root. Ensure that any files each Nebula instance needs to access are owned by the correct user and group, by default <code class="literal">nebula-${networkName}</code>.
+</p></li><li class="listitem"><p>
+ The <code class="literal">i18n.inputMethod.fcitx</code> option has been replaced with <code class="literal">i18n.inputMethod.fcitx5</code> because fcitx 4 <code class="literal">pkgs.fcitx</code> has been removed.
 </p></li><li class="listitem"><p>
  In <code class="literal">mastodon</code> it is now necessary to specify location of file with <code class="literal">PostgreSQL</code> database password. In <code class="literal">services.mastodon.database.passwordFile</code> parameter default value <code class="literal">/var/lib/mastodon/secrets/db-password</code> has been changed to <code class="literal">null</code>.
 </p></li><li class="listitem"><p>
@@ -345,6 +349,8 @@ there are now two packages of Singularity/Apptainer:
  The option <code class="literal">services.prometheus.exporters.pihole.interval</code> does not exist anymore and has been removed.
 </p></li><li class="listitem"><p>
  <code class="literal">k3s</code> can now be configured with an EnvironmentFile for its systemd service, allowing secrets to be provided without ending up in the Nix Store.
+</p></li><li class="listitem"><p>
+ <code class="literal">boot.initrd.luks.device.&lt;name&gt;</code> has a new <code class="literal">tryEmptyPassphrase</code> option, this is useful for OEM’s who need to install an encrypted disk with a future settable passphrase
 </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
  The NixOS release team is happy to announce a new version of NixOS 22.11. NixOS is a Linux distribution, whose set of packages can also be used on other Linux systems and macOS.
 </p><p>

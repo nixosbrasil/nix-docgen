@@ -129,6 +129,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  The EC2 image module previously detected and activated swap-formatted instance store devices and partitions in stage-1 (initramfs). This behaviour has been removed. Users relying on this should provide their own implementation.
 </p></li><li class="listitem"><p>
+ <code class="literal">fail2ban</code> has been updated to 1.0.2, which has a few breaking changes compared to 0.11.2 (<a class="link" href="https://github.com/fail2ban/fail2ban/blob/1.0.1/ChangeLog" target="_top">changelog for 1.0.1</a>, <a class="link" href="https://github.com/fail2ban/fail2ban/blob/1.0.2/ChangeLog" target="_top">changelog for 1.0.2</a>)
+</p></li><li class="listitem"><p>
  Calling <code class="literal">makeSetupHook</code> without passing a <code class="literal">name</code> argument is deprecated.
 </p></li><li class="listitem"><p>
  <code class="literal">lib.systems.examples.ghcjs</code> and consequently <code class="literal">pkgsCross.ghcjs</code> now use the target triplet <code class="literal">javascript-unknown-ghcjs</code> instead of <code class="literal">js-unknown-ghcjs</code>. This has been done to match an <a class="link" href="https://gitlab.haskell.org/ghc/ghc/-/commit/6636b670233522f01d002c9b97827d00289dbf5c" target="_top">upstream decision</a> to follow Cabal’s platform naming more closely. Nixpkgs will also reject <code class="literal">js</code> as an architecture name.
@@ -172,6 +174,14 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li><li class="listitem"><p>
+ The catch-all <code class="literal">hardware.video.hidpi.enable</code> option was removed. Users on high density displays may want to:
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+ Set <code class="literal">services.xserver.upscaleDefaultCursor</code> to upscale the default X11 cursor for higher resolutions
+</p></li><li class="listitem"><p>
+ Adjust settings under <code class="literal">fonts.fontconfig</code> according to preference
+</p></li><li class="listitem"><p>
+ Adjust <code class="literal">console.font</code> according to preference, though the kernel will generally choose a reasonably sized font
+</p></li></ul></div></li><li class="listitem"><p>
  The <code class="literal">baget</code> package and module was removed due to being unmaintained.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">vim_configurable</code> has been renamed to <code class="literal">vim-full</code> to avoid confusion: <code class="literal">vim-full</code>’s build-time features are configurable, but both <code class="literal">vim</code> and <code class="literal">vim-full</code> are <span class="emphasis"><em>customizable</em></span> (in the sense of user configuration, like vimrc).
@@ -223,6 +233,8 @@ end of life.
 The <code class="literal">{aclUse,superUser,disableActions}</code> attributes have been renamed, <code class="literal">pluginsConfig</code> now also accepts an attribute set of booleans, passing plain PHP is deprecated.
 Same applies to <code class="literal">acl</code> which now also accepts structured settings.
 </p></li><li class="listitem"><p>
+ The <code class="literal">zsh</code> package changes the way to set environment variables on NixOS systems where <code class="literal">programs.zsh.enable</code> equals <code class="literal">false</code>.  It now sources <code class="literal">/etc/set-environment</code> when reading the system-level <code class="literal">zshenv</code> file.  Before, it sourced <code class="literal">/etc/profile</code> when reading the system-level <code class="literal">zprofile</code> file.
+</p></li><li class="listitem"><p>
  The <code class="literal">wordpress</code> service now takes configuration via the <code class="literal">services.wordpress.sites.&lt;name&gt;.settings</code> attribute set, <code class="literal">extraConfig</code> is still available to append  additional text to <code class="literal">wp-config.php</code>.
 </p></li><li class="listitem"><p>
  To reduce closure size in <code class="literal">nixos/modules/profiles/minimal.nix</code> profile disabled installation documentations and manuals. Also disabled <code class="literal">logrotate</code> and <code class="literal">udisks2</code> services.
@@ -258,11 +270,6 @@ will be converted into headscale’s YAML config format. This means that the con
 <a class="link" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml" target="_top">headscale’s example configuration</a>
 can be directly written as attribute-set in Nix within this option.
 </p></li></ul></div></li><li class="listitem"><p>
- The <code class="literal">hardware.video.hidpi.enable</code> was renamed to <code class="literal">fonts.optimizeForVeryHighDPI</code> to be consistent with what it actually does.
-They disable by default: antialiasing, hinting and LCD filter for subpixel rendering. They can be overridden if you experience problems with font rendering.
-On Xorg, the default cursor is upscaled.
-Please see the documentation for the new option to decide if you want to keep it enabled.
-</p></li><li class="listitem"><p>
  <code class="literal">nixos/lib/make-disk-image.nix</code> can now mutate EFI variables, run user-provided EFI firmware or variable templates. This is now extensively documented in the NixOS manual.
 </p></li><li class="listitem"><p>
  <code class="literal">services.grafana</code> listens only on localhost by default again. This was changed to upstreams default of <code class="literal">0.0.0.0</code> by accident in the freeform setting conversion.
@@ -338,6 +345,8 @@ there are now two packages of Singularity/Apptainer:
  The option <code class="literal">services.prometheus.exporters.pihole.interval</code> does not exist anymore and has been removed.
 </p></li><li class="listitem"><p>
  <code class="literal">k3s</code> can now be configured with an EnvironmentFile for its systemd service, allowing secrets to be provided without ending up in the Nix Store.
+</p></li><li class="listitem"><p>
+ <code class="literal">boot.initrd.luks.device.&lt;name&gt;</code> has a new <code class="literal">tryEmptyPassphrase</code> option, this is useful for OEM’s who need to install an encrypted disk with a future settable passphrase
 </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
  The NixOS release team is happy to announce a new version of NixOS 22.11. NixOS is a Linux distribution, whose set of packages can also be used on other Linux systems and macOS.
 </p><p>

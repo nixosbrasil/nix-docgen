@@ -7453,7 +7453,7 @@ programs.digitalbitbox = {
     udevRule51 = "something else";
   };
 };
-</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-input-methods"></a>Input Methods</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-input-methods-ibus">IBus</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-fcitx">Fcitx</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-nabi">Nabi</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-uim">Uim</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-hime">Hime</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-kime">Kime</a></span></dt></dl></div><p>
+</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-input-methods"></a>Input Methods</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-input-methods-ibus">IBus</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-fcitx">Fcitx5</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-nabi">Nabi</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-uim">Uim</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-hime">Hime</a></span></dt><dt><span class="section"><a href="index.html#module-services-input-methods-kime">Kime</a></span></dt></dl></div><p>
  Input methods are an operating system component that allows any data, such as
 keyboard strokes or mouse movements, to be received as input. In this way
 users can enter characters and symbols not found on their input devices.
@@ -7464,7 +7464,7 @@ than there are keys on the keyboard.
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
  IBus: The intelligent input bus.
 </p></li><li class="listitem"><p>
- Fcitx: A customizable lightweight input method.
+ Fcitx5: The next generation of fcitx, addons (including engines, dictionaries, skins) can be added using <code class="literal">i18n.inputMethod.fcitx5.addons</code>.
 </p></li><li class="listitem"><p>
  Nabi: A Korean input method based on XIM.
 </p></li><li class="listitem"><p>
@@ -7522,41 +7522,45 @@ where <code class="literal">&lt;path&gt;</code> is the path of either IBus or an
 application in the Nix store. The <code class="literal">glib</code> packages must
 match exactly. If they do not, uninstalling and reinstalling the
 application is a likely fix.
-</p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-input-methods-fcitx"></a>Fcitx</h2></div></div></div><p>
- Fcitx is an input method framework with extension support. It has three
+</p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-input-methods-fcitx"></a>Fcitx5</h2></div></div></div><p>
+ Fcitx5 is an input method framework with extension support. It has three
 built-in Input Method Engine, Pinyin, QuWei and Table-based input methods.
 </p><p>
  The following snippet can be used to configure Fcitx:
 </p><pre class="programlisting">
 i18n.inputMethod = {
-  enabled = "fcitx";
-  fcitx.engines = with pkgs.fcitx-engines; [ mozc hangul m17n ];
+  enabled = "fcitx5";
+  fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-hangul fcitx5-m17n ];
 };
 </pre><p>
- <code class="literal">i18n.inputMethod.fcitx.engines</code> is optional and can be
-used to add extra Fcitx engines.
+ <code class="literal">i18n.inputMethod.fcitx5.addons</code> is optional and can be
+used to add extra Fcitx5 addons.
 </p><p>
- Available extra Fcitx engines are:
+ Available extra Fcitx5 addons are:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
- Anthy (<code class="literal">fcitx-engines.anthy</code>): Anthy is a system for
+ Anthy (<code class="literal">fcitx5-anthy</code>): Anthy is a system for
 Japanese input method. It converts Hiragana text to Kana Kanji mixed text.
 </p></li><li class="listitem"><p>
- Chewing (<code class="literal">fcitx-engines.chewing</code>): Chewing is an
+ Chewing (<code class="literal">fcitx5-chewing</code>): Chewing is an
 intelligent Zhuyin input method. It is one of the most popular input
 methods among Traditional Chinese Unix users.
 </p></li><li class="listitem"><p>
- Hangul (<code class="literal">fcitx-engines.hangul</code>): Korean input method.
+ Hangul (<code class="literal">fcitx5-hangul</code>): Korean input method.
 </p></li><li class="listitem"><p>
- Unikey (<code class="literal">fcitx-engines.unikey</code>): Vietnamese input method.
+ Unikey (<code class="literal">fcitx5-unikey</code>): Vietnamese input method.
 </p></li><li class="listitem"><p>
- m17n (<code class="literal">fcitx-engines.m17n</code>): m17n is an input method that
+ m17n (<code class="literal">fcitx5-m17n</code>): m17n is an input method that
 uses input methods and corresponding icons in the m17n database.
 </p></li><li class="listitem"><p>
- mozc (<code class="literal">fcitx-engines.mozc</code>): A Japanese input method from
+ mozc (<code class="literal">fcitx5-mozc</code>): A Japanese input method from
 Google.
 </p></li><li class="listitem"><p>
- table-others (<code class="literal">fcitx-engines.table-others</code>): Various
+ table-others (<code class="literal">fcitx5-table-other</code>): Various
 table-based input methods.
+</p></li><li class="listitem"><p>
+ chinese-addons (<code class="literal">fcitx5-chinese-addons</code>): Various chinese input methods.
+</p></li><li class="listitem"><p>
+ rime (<code class="literal">fcitx5-rime</code>): RIME support for fcitx5.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-input-methods-nabi"></a>Nabi</h2></div></div></div><p>
  Nabi is an easy to use Korean X input method. It allows you to enter
 phonetic Korean characters (hangul) and pictographic Korean characters
