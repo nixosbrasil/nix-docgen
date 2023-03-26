@@ -14003,6 +14003,8 @@ rustPlatform.buildRustPackage rec {
 }
 </pre><p>
       <code class="literal">buildRustPackage</code> requires either the <code class="literal">cargoSha256</code> or the <code class="literal">cargoHash</code> attribute which is computed over all crate sources of this package. <code class="literal">cargoHash256</code> is used for traditional Nix SHA-256 hashes, such as the one in the example above. <code class="literal">cargoHash</code> should instead be used for <a class="link" href="https://www.w3.org/TR/SRI/" target="_top">SRI</a> hashes. For example:
+     </p><p>
+      Exception: If the application has cargo <code class="literal">git</code> dependencies, the <code class="literal">cargoHash</code>/<code class="literal">cargoSha256</code> approach will not work, and you will need to copy the <code class="literal">Cargo.lock</code> file of the application to nixpkgs and continue with the next section for specifying the options of the<code class="literal">cargoLock</code> section.
      </p><pre class="programlisting">
   cargoHash = "sha256-l1vL2ZdtDRxSGvP0X/l3nMw8+6WF67KPutJEzUROjg8=";
 </pre><p>
