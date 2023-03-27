@@ -7,14 +7,20 @@
  In addition to numerous new and upgraded packages, this release has the following highlights:
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  Core version changes:
-</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
  default linux: 5.15 -&gt; 6.1, all supported kernels available
+</p></li><li class="listitem"><p>
+ systemd has been updated to v253.1, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/216826" target="_top">the pull request</a> for more info.
+It’s recommended to use <code class="literal">nixos-rebuild boot</code> and <code class="literal">reboot</code>, rather than <code class="literal">nixos-rebuild switch</code> - since in some rare cases
+the switch of a live system might fail.
 </p></li></ul></div></li><li class="listitem"><p>
  Cinnamon has been updated to 5.6, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204" target="_top">the pull request</a> for what is changed.
 </p></li><li class="listitem"><p>
  KDE Plasma has been updated to v5.27, see <a class="link" href="https://kde.org/announcements/plasma/5/5.27.0/" target="_top">the release notes</a> for what is changed.
 </p></li><li class="listitem"><p>
  <code class="literal">nixos-rebuild</code> now supports an extra <code class="literal">--specialisation</code> option that can be used to change specialisation for <code class="literal">switch</code> and <code class="literal">test</code> commands.
+</p></li><li class="listitem"><p>
+ <code class="literal">libxcrypt</code>, the library providing the <code class="literal">crypt(3)</code> password hashing function, is now built without support for algorithms not flagged <a class="link" href="https://github.com/besser82/libxcrypt/blob/v4.4.33/lib/hashes.conf#L48" target="_top"><code class="literal">strong</code></a>. This affects the availability of password hashing algorithms used for system login (<code class="literal">login(1)</code>, <code class="literal">passwd(1)</code>), but also Apache2 Basic-Auth, Samba, OpenLDAP, Dovecot, and <a class="link" href="https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20libxcrypt&amp;type=code" target="_top">many other packages</a>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <a class="link" href="https://akkoma.social" target="_top">Akkoma</a>, an ActivityPub microblogging server. Available as <a class="link" href="options.html#opt-services.akkoma.enable" target="_top">services.akkoma</a>.
 </p></li><li class="listitem"><p>
@@ -178,6 +184,8 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li><li class="listitem"><p>
+ The <code class="literal">services.pipewire.config</code> options have been removed, as they have basically never worked correctly. All behavior defined by the default configuration can be overridden with drop-in files as necessary - see <a class="link" href="release-notes.html#sec-release-23.05-migration-pipewire" title="Pipewire configuration overrides">below</a> for details.
+</p></li><li class="listitem"><p>
  The catch-all <code class="literal">hardware.video.hidpi.enable</code> option was removed. Users on high density displays may want to:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
  Set <code class="literal">services.xserver.upscaleDefaultCursor</code> to upscale the default X11 cursor for higher resolutions
@@ -186,6 +194,8 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  Adjust <code class="literal">console.font</code> according to preference, though the kernel will generally choose a reasonably sized font
 </p></li></ul></div></li><li class="listitem"><p>
+ <code class="literal">services.pipewire.media-session</code> and the <code class="literal">pipewire-media-session</code> package have been removed, as they are no longer supported upstream. Users are encouraged to use <code class="literal">services.pipewire.wireplumber</code> instead.
+</p></li><li class="listitem"><p>
  The <code class="literal">baget</code> package and module was removed due to being unmaintained.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">vim_configurable</code> has been renamed to <code class="literal">vim-full</code> to avoid confusion: <code class="literal">vim-full</code>’s build-time features are configurable, but both <code class="literal">vim</code> and <code class="literal">vim-full</code> are <span class="emphasis"><em>customizable</em></span> (in the sense of user configuration, like vimrc).
@@ -251,6 +261,8 @@ Same applies to <code class="literal">acl</code> which now also accepts structur
 and all included libraries’ documentation to <code class="literal">$out/share/doc</code> for convenience.
 If undesired, the old behavior can be restored by overriding the builders with
 <code class="literal">{ installDocumentation = false; }</code>.
+</p></li><li class="listitem"><p>
+ The new option <code class="literal">networking.nftables.checkRuleset</code> controls whether the ruleset is checked for syntax or not during build.  It is <code class="literal">true</code> by default.  The check might fail because it is in a sandbox environment.  To circumvent this, the ruleset file can be edited using the <code class="literal">networking.nftables.preCheckRuleset</code> option.
 </p></li><li class="listitem"><p>
  <code class="literal">mastodon</code> now supports connection to a remote <code class="literal">PostgreSQL</code> database.
 </p></li><li class="listitem"><p>
@@ -351,7 +363,76 @@ there are now two packages of Singularity/Apptainer:
  <code class="literal">k3s</code> can now be configured with an EnvironmentFile for its systemd service, allowing secrets to be provided without ending up in the Nix Store.
 </p></li><li class="listitem"><p>
  <code class="literal">boot.initrd.luks.device.&lt;name&gt;</code> has a new <code class="literal">tryEmptyPassphrase</code> option, this is useful for OEM’s who need to install an encrypted disk with a future settable passphrase
-</p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
+</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-migration"></a>Detailed migration information</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-release-23.05-migration-pipewire"></a>Pipewire configuration overrides</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-why"></a>Why this change?</h5></div></div></div><p>
+ The Pipewire config semantics don’t really match the NixOS module semantics, so it’s extremely awkward to override the default config, especially when lists are involved. Vendoring the configuration files in nixpkgs also creates unnecessary maintenance overhead.
+</p><p>
+ Also, upstream added a lot of accomodations to allow doing most of the things you’d want to do with a config edit in better ways.
+</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-how"></a>Migrating your configuration</h5></div></div></div><p>
+ Compare your settings to <a class="link" href="https://gitlab.freedesktop.org/pipewire/pipewire/-/tree/master/src/daemon" target="_top">the defaults</a> and where your configuration differs from them.
+</p><p>
+ Then, create a drop-in JSON file in <code class="literal">/etc/pipewire/&lt;config file name&gt;.d/99-custom.conf</code> (the actual filename can be anything) and migrate your changes to it according to the following sections.
+</p><p>
+ Repeat for every file you’ve modified, changing the directory name accordingly.
+</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-simple"></a>Things you can just copy over</h5></div></div></div><p>
+ If you are:
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+ setting properties via <code class="literal">*.properties</code>
+</p></li><li class="listitem"><p>
+ loading a new module to <code class="literal">context.modules</code>
+</p></li><li class="listitem"><p>
+ creating new objects with <code class="literal">context.objects</code>
+</p></li><li class="listitem"><p>
+ declaring SPA libraries with <code class="literal">context.spa-libs</code>
+</p></li><li class="listitem"><p>
+ running custom commands with <code class="literal">context.exec</code>
+</p></li><li class="listitem"><p>
+ adding new rules with <code class="literal">*.rules</code>
+</p></li><li class="listitem"><p>
+ running custom PulseAudio commands with <code class="literal">pulse.cmd</code>
+</p></li></ul></div><p>
+ Simply move the definitions into the drop-in.
+</p><p>
+ Note that the use of <code class="literal">context.exec</code> is not recommended and other methods of running your thing are likely a better option.
+</p><pre class="programlisting">
+{
+  "context.properties": {
+    "your.property.name": "your.property.value"
+  },
+  "context.modules": [
+    { "name": "libpipewire-module-my-cool-thing" }
+  ],
+  "context.objects": [
+    { "factory": { ... } }
+  ],
+  "alsa.rules": [
+    { "matches: { ... }, "actions": { ... } }
+  ]
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-removing-modules"></a>Removing a module from <code class="literal">context.modules</code></h5></div></div></div><p>
+ Look for an option to disable it via <code class="literal">context.properties</code> (<code class="literal">"module.x11.bell": "false"</code> is likely the most common use case here).
+If one is not available, proceed to <a class="link" href="release-notes.html#sec-release-23.05-migration-pipewire" title="Pipewire configuration overrides">Nuclear option</a>.
+</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-modifying-modules"></a>Modifying a module’s parameters in <code class="literal">context.modules</code></h5></div></div></div><p>
+ For most modules (e.g. <code class="literal">libpipewire-module-rt</code>) it’s enough to load the module again with the new arguments, e.g.:
+</p><pre class="programlisting">
+{
+  "context.modules": [
+    {
+      "name": "libpipewire-module-rt",
+      "args": {
+        "rt.prio": 90
+      }
+    }
+  ]
+}
+</pre><p>
+ Note that <code class="literal">module-rt</code> specifically will generally use the highest values available by default, so setting limits on the <code class="literal">pipewire</code> systemd service is preferable to reloading.
+</p><p>
+ If reloading the module is not an option, proceed to <a class="link" href="release-notes.html#sec-release-23.05-migration-pipewire" title="Pipewire configuration overrides">Nuclear option</a>.
+</p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-nuclear"></a>Nuclear option</h5></div></div></div><p>
+ If all else fails, you can still manually copy the contents of the default configuration file
+from <code class="literal">${pkgs.pipewire.lib}/share/pipewire</code> to <code class="literal">/etc/pipewire</code> and edit it to fully override the default.
+However, this should be done only as a last resort. Please talk to the Pipewire maintainers if you ever need to do this.
+</p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-22.11"></a>Release 22.11 (“Raccoon”, 2022.11/30)</h2></div></div></div><p>
  The NixOS release team is happy to announce a new version of NixOS 22.11. NixOS is a Linux distribution, whose set of packages can also be used on other Linux systems and macOS.
 </p><p>
  This release is supported until the end of June 2023, handing over to NixOS 23.05.
