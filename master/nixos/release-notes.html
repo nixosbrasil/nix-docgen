@@ -149,7 +149,7 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.wordpress.sites._name_.plugins">services.wordpress.sites.&lt;name&gt;.plugins</a> and <a class="link" href="options.html#opt-services.wordpress.sites._name_.themes">services.wordpress.sites.&lt;name&gt;.themes</a> options have been converted from sets to attribute sets to allow for consumers to specify explicit install paths via attribute name.
 </p></li><li class="listitem"><p>
- <code class="literal">protonmail-bridge</code> package has been updated to v3.0 and the CLI executable is now named bridge instead of protonmail-bridge to be more in line with upstream.
+ <code class="literal">protonmail-bridge</code> package has been updated to major version 3.
 </p></li><li class="listitem"><p>
  Nebula now runs as a system user and group created for each nebula network, using the <code class="literal">CAP_NET_ADMIN</code> ambient capability on launch rather than starting as root. Ensure that any files each Nebula instance needs to access are owned by the correct user and group, by default <code class="literal">nebula-${networkName}</code>.
 </p></li><li class="listitem"><p>
@@ -345,8 +345,6 @@ there are now two packages of Singularity/Apptainer:
  The new option <code class="literal">programs.singularity.enableFakeroot</code>, if set to <code class="literal">true</code>, provides <code class="literal">--fakeroot</code> support for <code class="literal">apptainer</code> and <code class="literal">singularity</code>.
 </p></li><li class="listitem"><p>
  The <code class="literal">unifi-poller</code> package and corresponding NixOS module have been renamed to <code class="literal">unpoller</code> to match upstream.
-</p></li><li class="listitem"><p>
- <code class="literal">protonmail-bridge</code> package has been updated to v3.0 and the CLI executable is now named bridge instead of protonmail-bridge to be more in line with upstream.
 </p></li><li class="listitem"><p>
  The new option <code class="literal">services.tailscale.useRoutingFeatures</code> controls various settings for using Tailscale features like exit nodes and subnet routers. If you wish to use your machine as an exit node, you can set this setting to <code class="literal">server</code>, otherwise if you wish to use an exit node you can set this setting to <code class="literal">client</code>. The strict RPF warning has been removed as the RPF will be loosened automatically based on the value of this setting.
 </p></li><li class="listitem"><p>
