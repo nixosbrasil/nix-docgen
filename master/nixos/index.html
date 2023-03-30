@@ -6421,7 +6421,7 @@ $ flatpak install flathub org.freedesktop.Bustle
 $ flatpak run org.freedesktop.Bustle
 </pre><p>
  Again, GNOME Software offers graphical interface for these tasks.
-</p></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-postgresql"></a>PostgreSQL</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-postgres-configuring">Configuring</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-upgrading">Upgrading</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-options">Options</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-plugins">Plugins</a></span></dt></dl></div><p>
+</p></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-postgresql"></a>PostgreSQL</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-postgres-configuring">Configuring</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-upgrading">Upgrading</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-options">Options</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-plugins">Plugins</a></span></dt><dt><span class="section"><a href="index.html#module-services-postgres-jit">JIT (Just-In-Time compilation)</a></span></dt></dl></div><p>
  <span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/databases/postgresql.nix</code>
 </p><p>
  <span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="http://www.postgresql.org/docs/" target="_top">http://www.postgresql.org/docs/</a>
@@ -6558,7 +6558,38 @@ self: super: {
     };
   };
 }
-</pre></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-foundationdb"></a>FoundationDB</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-foundationdb-configuring">Configuring and basic setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-scaling">Scaling processes and backup agents</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-clustering">Clustering</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-connectivity">Client connectivity</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-authorization">Client authorization and TLS</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-disaster-recovery">Backups and Disaster Recovery</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-limitations">Known limitations</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-options">Options</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-full-docs">Full documentation</a></span></dt></dl></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-postgres-jit"></a>JIT (Just-In-Time compilation)</h2></div></div></div><p>
+ <a class="link" href="https://www.postgresql.org/docs/current/jit-reason.html" target="_top">JIT</a>-support in the PostgreSQL package
+is disabled by default because of the ~300MiB closure-size increase from the LLVM dependency. It
+can be optionally enabled in PostgreSQL with the following config option:
+</p><pre class="programlisting">
+{
+  services.postgresql.enableJIT = true;
+}
+</pre><p>
+ This makes sure that the <a class="link" href="https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-JIT" target="_top"><code class="literal">jit</code></a>-setting
+is set to <code class="literal">on</code> and a PostgreSQL package with JIT enabled is used. Further tweaking of the JIT compiler, e.g. setting a different
+query cost threshold via <a class="link" href="https://www.postgresql.org/docs/current/runtime-config-query.html#GUC-JIT-ABOVE-COST" target="_top"><code class="literal">jit_above_cost</code></a>
+can be done manually via <a class="link" href="options.html#opt-services.postgresql.settings"><code class="literal">services.postgresql.settings</code></a>.
+</p><p>
+ The attribute-names of JIT-enabled PostgreSQL packages are suffixed with <code class="literal">_jit</code>, i.e. for each <code class="literal">pkgs.postgresql</code>
+(and <code class="literal">pkgs.postgresql_&lt;major&gt;</code>) in <code class="literal">nixpkgs</code> there’s also a <code class="literal">pkgs.postgresql_jit</code> (and <code class="literal">pkgs.postgresql_&lt;major&gt;_jit</code>).
+Alternatively, a JIT-enabled variant can be derived from a given <code class="literal">postgresql</code> package via <code class="literal">postgresql.withJIT</code>.
+This is also useful if it’s not clear which attribute from <code class="literal">nixpkgs</code> was originally used (e.g. when working with
+<a class="link" href="options.html#opt-services.postgresql.package"><code class="literal">config.services.postgresql.package</code></a> or if the package was modified via an
+overlay) since all modifications are propagated to <code class="literal">withJIT</code>. I.e.
+</p><pre class="programlisting">
+with import &lt;nixpkgs&gt; {
+  overlays = [
+    (self: super: {
+      postgresql = super.postgresql.overrideAttrs (_: { pname = "foobar"; });
+    })
+  ];
+};
+postgresql.withJIT.pname
+</pre><p>
+ evaluates to <code class="literal">"foobar"</code>.
+</p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-foundationdb"></a>FoundationDB</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="index.html#module-services-foundationdb-configuring">Configuring and basic setup</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-scaling">Scaling processes and backup agents</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-clustering">Clustering</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-connectivity">Client connectivity</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-authorization">Client authorization and TLS</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-disaster-recovery">Backups and Disaster Recovery</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-limitations">Known limitations</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-options">Options</a></span></dt><dt><span class="section"><a href="index.html#module-services-foundationdb-full-docs">Full documentation</a></span></dt></dl></div><p>
  <span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/databases/foundationdb.nix</code>
 </p><p>
  <span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="https://apple.github.io/foundationdb/" target="_top">https://apple.github.io/foundationdb/</a>
