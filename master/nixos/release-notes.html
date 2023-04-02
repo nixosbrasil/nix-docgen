@@ -182,6 +182,8 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
 </p></li><li class="listitem"><p>
+ To enable the HTTP3 (QUIC) protocol for a nginx virtual host, set the <code class="literal">quic</code> attribute on it to true, e.g. <code class="literal">services.nginx.virtualHosts.&lt;name&gt;.quic = true;</code>.
+</p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li><li class="listitem"><p>
  The <code class="literal">services.pipewire.config</code> options have been removed, as they have basically never worked correctly. All behavior defined by the default configuration can be overridden with drop-in files as necessary - see <a class="link" href="release-notes.html#sec-release-23.05-migration-pipewire" title="Pipewire configuration overrides">below</a> for details.
@@ -287,6 +289,7 @@ Before upgrading, read the release notes for PeerTube:
 }
 </pre></li><li class="listitem"><p>
  <code class="literal">services.dhcpcd</code> service now don’t solicit or accept IPv6 Router Advertisements on interfaces that use static IPv6 addresses.
+If network uses both IPv6 Unique local addresses (ULA) and global IPv6 address auto-configuration with SLAAC, must add the parameter <code class="literal">networking.dhcpcd.IPv6rs = true;</code>.
 </p></li><li class="listitem"><p>
  The module <code class="literal">services.headscale</code> was refactored to be compliant with <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">RFC 0042</a>. To be precise, this means that the following things have changed:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
