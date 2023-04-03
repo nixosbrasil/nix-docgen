@@ -7872,7 +7872,7 @@ stdenv.mkDerivation {
      Overrides the configure, build, and install phases. This will run the “waf” script used by many projects. If <code class="literal">wafPath</code> (default <code class="literal">./waf</code>) doesn’t exist, it will copy the version of waf available in Nixpkgs. <code class="literal">wafFlags</code> can be used to pass flags to the waf script.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="xcbuildhook"></a>xcbuildHook</h2></div></div></div><p>
      Overrides the build and install phases to run the <span class="quote">“<span class="quote">xcbuild</span>”</span> command. This hook is needed when a project only comes with build files for the XCode build system. You can disable this behavior by setting buildPhase and configurePhase to a custom value. xcbuildFlags controls flags passed only to xcbuild.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#sec-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#swift">Swift</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#lisp">lisp-modules</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#sec-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#swift">Swift</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
     The <a class="link" href="#chap-stdenv" title="The Standard Environment">standard build environment</a> makes it easy to build typical Autotools-based packages with very little code. Any other kind of package can be accommodated by overriding the appropriate phases of <code class="literal">stdenv</code>. However, there are specialised functions in Nixpkgs to easily build packages for other programming languages, such as Perl or Haskell. These are described in this chapter.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="agda"></a>Agda</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#how-to-use-agda">How to use Agda</a></span></dt><dt><span class="section"><a href="#compiling-agda">Compiling Agda</a></span></dt><dt><span class="section"><a href="#writing-agda-packages">Writing Agda packages</a></span></dt><dt><span class="section"><a href="#maintaining-the-agda-package-set-on-nixpkgs">Maintaining the Agda package set on Nixpkgs</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="how-to-use-agda"></a>How to use Agda</h3></div></div></div><p>
       Agda is available as the <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=agda&amp;from=0&amp;size=30&amp;sort=relevance&amp;query=agda" target="_top">agda</a> package.
@@ -11426,7 +11426,204 @@ yarnPreBuild = ''
        <a class="link" href="https://github.com/serokell/nix-npm-buildpackage" target="_top">nix-npm-buildpackage</a> aims at building <code class="literal">node_modules</code> without code generation. It hasn’t reached v1 yet, the API might change. It supports both <code class="literal">package-lock.json</code> and yarn.lock.
       </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-nix-npm-buildpackage-pitfalls"></a>Pitfalls</h5></div></div></div><p>
         There are some <a class="link" href="https://github.com/serokell/nix-npm-buildpackage/issues/33" target="_top">problems with npm v7</a>.
-       </p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="users-guide-to-lua-infrastructure"></a>User’s Guide to Lua Infrastructure</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#using-lua">Using Lua</a></span></dt><dt><span class="section"><a href="#developing-with-lua">Developing with Lua</a></span></dt><dt><span class="section"><a href="#lua-reference">Lua Reference</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="using-lua"></a>Using Lua</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="overview-of-lua"></a>Overview of Lua</h4></div></div></div><p>
+       </p></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="lisp"></a>lisp-modules</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#lisp-overview">Overview</a></span></dt><dt><span class="section"><a href="#lisp-use-case-example">The 90% use case example</a></span></dt><dt><span class="section"><a href="#lisp-importing-packages-from-quicklisp">Importing packages from Quicklisp</a></span></dt><dt><span class="section"><a href="#lisp-defining-packages-inside">Defining packages manually inside Nixpkgs</a></span></dt><dt><span class="section"><a href="#lisp-defining-packages-outside">Defining packages manually outside Nixpkgs</a></span></dt><dt><span class="section"><a href="#lisp-overriding-package-attributes">Overriding package attributes</a></span></dt><dt><span class="section"><a href="#lisp-overriding-packages-in-scope">Overriding packages in scope</a></span></dt><dt><span class="section"><a href="#lisp-building-wrappers">Building Wrappers</a></span></dt><dt><span class="section"><a href="#lisp-adding-a-new-lisp">Adding a new Lisp</a></span></dt></dl></div><p>
+     This document describes the Nixpkgs infrastructure for building Common Lisp libraries that use ASDF (Another System Definition Facility). It lives in <code class="literal">pkgs/development/lisp-modules</code>.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-overview"></a>Overview</h3></div></div></div><p>
+      The main entry point of the API are the Common Lisp implementation packages (e.g. <code class="literal">abcl</code>, <code class="literal">ccl</code>, <code class="literal">clasp-common-lisp</code>, <code class="literal">clisp</code> <code class="literal">ecl</code>, <code class="literal">sbcl</code>) themselves. They have the <code class="literal">pkgs</code> and <code class="literal">withPackages</code> attributes, which can be used to discover available packages and to build wrappers, respectively.
+     </p><p>
+      The <code class="literal">pkgs</code> attribute set contains packages that were automatically imported from Quicklisp, and any other manually defined ones. Not every package works for all the CL implementations (e.g. <code class="literal">nyxt</code> only makes sense for <code class="literal">sbcl</code>).
+     </p><p>
+      The <code class="literal">withPackages</code> function is of primary utility. It is used to build runnable wrappers, with a pinned and pre-built ASDF FASL available in the <code class="literal">ASDF</code> environment variable, and <code class="literal">CL_SOURCE_REGISTRY</code>/<code class="literal">ASDF_OUTPUT_TRANSLATIONS</code> configured to find the desired systems on runtime.
+     </p><p>
+      With a few exceptions, the primary thing that the infrastructure does is to run <code class="literal">asdf:load-system</code> for each system specified in the <code class="literal">systems</code> argument to <code class="literal">build-asdf-system</code>, and save the FASLs to the Nix store. Then, it makes these FASLs available to wrappers. Any other use-cases, such as producing SBCL executables with <code class="literal">sb-ext:save-lisp-and-die</code>, are achieved via overriding the <code class="literal">buildPhase</code> etc.
+     </p><p>
+      In addition, Lisps have the <code class="literal">withOverrides</code> function, which can be used to substitute any package in the scope of their <code class="literal">pkgs</code>. This will be useful together with <code class="literal">overrideLispAttrs</code> when dealing with slashy ASDF systems, because they should stay in the main package and be build by specifying the <code class="literal">systems</code> argument to <code class="literal">build-asdf-system</code>.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-use-case-example"></a>The 90% use case example</h3></div></div></div><p>
+      The most common way to use the library is to run ad-hoc wrappers like this:
+     </p><p>
+      <code class="literal">nix-shell -p 'sbcl.withPackages (ps: with ps; [ alexandria ])'</code>
+     </p><p>
+      Then, in a shell:
+     </p><pre class="programlisting">
+$ result/bin/sbcl
+* (load (sb-ext:posix-getenv "ASDF"))
+* (asdf:load-system 'alexandria)
+</pre><p>
+      Also one can create a <code class="literal">pkgs.mkShell</code> environment in <code class="literal">shell.nix</code>/<code class="literal">flake.nix</code>:
+     </p><pre class="programlisting">
+let
+  sbcl' = sbcl.withPackages (ps: [ ps.alexandria ]);
+in mkShell {
+  buildInputs = [ sbcl' ];
+}
+</pre><p>
+      Such a Lisp can be now used e.g. to compile your sources:
+     </p><pre class="programlisting">
+buildPhase = ''
+  ${sbcl'}/bin/sbcl --load my-build-file.lisp
+''
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-importing-packages-from-quicklisp"></a>Importing packages from Quicklisp</h3></div></div></div><p>
+      The library is able to very quickly import all the packages distributed by Quicklisp by parsing its <code class="literal">releases.txt</code> and <code class="literal">systems.txt</code> files. These files are available from [http://beta.quicklisp.org/dist/quicklisp.txt].
+     </p><p>
+      The import process is implemented in the <code class="literal">import</code> directory as Common Lisp functions in the <code class="literal">org.lispbuilds.nix</code> ASDF system. To run the script, one can execute <code class="literal">ql-import.lisp</code>:
+     </p><pre class="programlisting">
+nix-shell --run 'sbcl --script ql-import.lisp'
+</pre><p>
+      The script will:
+     </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+        Download the latest Quicklisp <code class="literal">systems.txt</code> and <code class="literal">releases.txt</code> files
+       </p></li><li class="listitem"><p>
+        Generate an SQLite database of all QL systems in <code class="literal">packages.sqlite</code>
+       </p></li><li class="listitem"><p>
+        Generate an <code class="literal">imported.nix</code> file from the database
+       </p></li></ol></div><p>
+      The maintainer’s job there is to:
+     </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+        Re-run the <code class="literal">ql-import.lisp</code> script
+       </p></li><li class="listitem"><p>
+        Add missing native dependencies in <code class="literal">ql.nix</code>
+       </p></li><li class="listitem"><p>
+        For packages that still don’t build, package them manually in <code class="literal">packages.nix</code>
+       </p></li></ol></div><p>
+      Also, the <code class="literal">imported.nix</code> file <span class="strong"><strong>must not be edited manually</strong></span>! It should only be generated as described in this section.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-quicklisp-adding-native-dependencies"></a>Adding native dependencies</h4></div></div></div><p>
+       The Quicklisp files contain ASDF dependency data, but don’t include native library (CFFI) dependencies, and, in the case of ABCL, Java dependencies.
+      </p><p>
+       The <code class="literal">ql.nix</code> file contains a long list of overrides, where these dependencies can be added.
+      </p><p>
+       Packages defined in <code class="literal">packages.nix</code> contain these dependencies naturally.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-quicklisp-trusting"></a>Trusting <code class="literal">systems.txt</code> and <code class="literal">releases.txt</code></h4></div></div></div><p>
+       The previous implementation of <code class="literal">lisp-modules</code> didn’t fully trust the Quicklisp data, because there were times where the dependencies specified were not complete, and caused broken builds. It instead used a <code class="literal">nix-shell</code> environment to discover real dependencies by using the ASDF APIs.
+      </p><p>
+       The current implementation has chosen to trust this data, because it’s faster to parse a text file than to build each system to generate its Nix file, and because that way packages can be mass-imported. Because of that, there may come a day where some packages will break, due to bugs in Quicklisp. In that case, the fix could be a manual override in <code class="literal">packages.nix</code> and <code class="literal">ql.nix</code>.
+      </p><p>
+       A known fact is that Quicklisp doesn’t include dependencies on slashy systems in its data. This is an example of a situation where such fixes were used, e.g. to replace the <code class="literal">systems</code> attribute of the affected packages. (See the definition of <code class="literal">iolib</code>).
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-quicklisp-quirks"></a>Quirks</h4></div></div></div><p>
+       During Quicklisp import:
+      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">+</code> in names are converted to <code class="literal">_plus{_,}</code>: <code class="literal">cl+ssl</code>-&gt;<code class="literal">cl_plus_ssl</code>, <code class="literal">alexandria+</code>-&gt;<code class="literal">alexandria_plus</code>
+        </p></li><li class="listitem"><p>
+         <code class="literal">.</code> to <code class="literal">_dot_</code>: <code class="literal">iolib.base</code>-&gt;<code class="literal">iolib_dot_base</code>
+        </p></li><li class="listitem"><p>
+         names starting with a number have a <code class="literal">_</code> prepended (<code class="literal">3d-vectors</code>-&gt;<code class="literal">_3d-vectors</code>)
+        </p></li><li class="listitem"><p>
+         <code class="literal">_</code> in names is converted to <code class="literal">__</code> for reversibility
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-defining-packages-inside"></a>Defining packages manually inside Nixpkgs</h3></div></div></div><p>
+      New packages, that for some reason are not in Quicklisp, and so cannot be auto-imported, can be written in the <code class="literal">packages.nix</code> file.
+     </p><p>
+      In that file, use the <code class="literal">build-asdf-system</code> function, which is a wrapper around <code class="literal">mkDerivation</code> for building ASDF systems. Various other hacks are present, such as <code class="literal">build-with-compile-into-pwd</code> for systems which create files during compilation.
+     </p><p>
+      The <code class="literal">build-asdf-system</code> function is documented with comments in <code class="literal">nix-cl.nix</code>. Also, <code class="literal">packages.nix</code> is full of examples of how to use it.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-defining-packages-outside"></a>Defining packages manually outside Nixpkgs</h3></div></div></div><p>
+      Lisp derivations (<code class="literal">abcl</code>, <code class="literal">sbcl</code> etc.) also export the <code class="literal">buildASDFSystem</code> function, which is the same as <code class="literal">build-asdf-system</code>, except for the <code class="literal">lisp</code> argument which is set to the given CL implementation.
+     </p><p>
+      It can be used to define packages outside Nixpkgs, and, for example, add them into the package scope with <code class="literal">withOverrides</code> which will be discussed later on.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-including-external-pkg-in-scope"></a>Including an external package in scope</h4></div></div></div><p>
+       A package defined outside Nixpkgs using <code class="literal">buildASDFSystem</code> can be woven into the Nixpkgs-provided scope like this:
+      </p><pre class="programlisting">
+let
+  alexandria = sbcl.buildASDFSystem rec {
+    pname = "alexandria";
+    version = "1.4";
+    src = fetchFromGitLab {
+      domain = "gitlab.common-lisp.net";
+      owner = "alexandria";
+      repo = "alexandria";
+      rev = "v${version}";
+      hash = "sha256-1Hzxt65dZvgOFIljjjlSGgKYkj+YBLwJCACi5DZsKmQ=";
+    };
+  };
+  sbcl' = sbcl.withOverrides (self: super: {
+    inherit alexandria;
+  });
+in sbcl'.pkgs.alexandria
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-overriding-package-attributes"></a>Overriding package attributes</h3></div></div></div><p>
+      Packages export the <code class="literal">overrideLispAttrs</code> function, which can be used to build a new package with different parameters.
+     </p><p>
+      Example of overriding <code class="literal">alexandria</code>:
+     </p><pre class="programlisting">
+sbcl.pkgs.alexandria.overrideLispAttrs (oldAttrs: rec {
+  version = "1.4";
+  src = fetchFromGitLab {
+    domain = "gitlab.common-lisp.net";
+    owner = "alexandria";
+    repo = "alexandria";
+    rev = "v${version}";
+    hash = "sha256-1Hzxt65dZvgOFIljjjlSGgKYkj+YBLwJCACi5DZsKmQ=";
+  };
+})
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-overriding-packages-in-scope"></a>Overriding packages in scope</h3></div></div></div><p>
+      Packages can be woven into a new scope by using <code class="literal">withOverrides</code>:
+     </p><pre class="programlisting">
+let
+  sbcl' = sbcl.withOverrides (self: super: {
+    alexandria = super.alexandria.overrideLispAttrs (oldAttrs: rec {
+      pname = "alexandria";
+      version = "1.4";
+      src = fetchFromGitLab {
+        domain = "gitlab.common-lisp.net";
+        owner = "alexandria";
+        repo = "alexandria";
+        rev = "v${version}";
+        hash = "sha256-1Hzxt65dZvgOFIljjjlSGgKYkj+YBLwJCACi5DZsKmQ=";
+      };
+    });
+  });
+in builtins.elemAt sbcl'.pkgs.bordeaux-threads.lispLibs 0
+</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-dealing-with-slashy-systems"></a>Dealing with slashy systems</h4></div></div></div><p>
+       Slashy (secondary) systems should not exist in their own packages! Instead, they should be included in the parent package as an extra entry in the <code class="literal">systems</code> argument to the <code class="literal">build-asdf-system</code>/<code class="literal">buildASDFSystem</code> functions.
+      </p><p>
+       The reason is that ASDF searches for a secondary system in the <code class="literal">.asd</code> of the parent package. Thus, having them separate would cause either one of them not to load cleanly, because one will contains FASLs of itself but not the other, and vice versa.
+      </p><p>
+       To package slashy systems, use <code class="literal">overrideLispAttrs</code>, like so:
+      </p><pre class="programlisting">
+ecl.pkgs.alexandria.overrideLispAttrs (oldAttrs: {
+  systems = oldAttrs.systems ++ [ "alexandria/tests" ];
+  lispLibs = oldAttrs.lispLibs ++ [ ecl.pkgs.rt ];
+})
+</pre><p>
+       See the respective section on using <code class="literal">withOverrides</code> for how to weave it back into <code class="literal">ecl.pkgs</code>.
+      </p><p>
+       Note that sometimes the slashy systems might not only have more dependencies than the main one, but create a circular dependency between <code class="literal">.asd</code> files. Unfortunately, in this case an adhoc solution becomes necessary.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-building-wrappers"></a>Building Wrappers</h3></div></div></div><p>
+      Wrappers can be built using the <code class="literal">withPackages</code> function of Common Lisp implementations (<code class="literal">abcl</code>, <code class="literal">ecl</code>, <code class="literal">sbcl</code> etc.):
+     </p><pre class="programlisting">
+sbcl.withPackages (ps: [ ps.alexandria ps.bordeaux-threads ])
+</pre><p>
+      Such a wrapper can then be executed like this:
+     </p><pre class="programlisting">
+result/bin/sbcl
+</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-loading-asdf"></a>Loading ASDF</h4></div></div></div><p>
+       For best results, avoid calling <code class="literal">(require 'asdf)</code> When using the library-generated wrappers.
+      </p><p>
+       Use <code class="literal">(load (ext:getenv "ASDF"))</code> instead, supplying your implementation’s way of getting an environment variable for <code class="literal">ext:getenv</code>. This will load the (pre-compiled to FASL) Nixpkgs-provided version of ASDF.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="lisp-loading-systems"></a>Loading systems</h4></div></div></div><p>
+       There, you can simply use <code class="literal">asdf:load-system</code>. This works by setting the right values for the <code class="literal">CL_SOURCE_REGISTRY</code>/<code class="literal">ASDF_OUTPUT_TRANSLATIONS</code> environment variables, so that systems are found in the Nix store and pre-compiled FASLs are loaded.
+      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="lisp-adding-a-new-lisp"></a>Adding a new Lisp</h3></div></div></div><p>
+      The function <code class="literal">wrapLisp</code> is used to wrap Common Lisp implementations. It adds the <code class="literal">pkgs</code>, <code class="literal">withPackages</code>, <code class="literal">withOverrides</code> and <code class="literal">buildASDFSystem</code> attributes to the derivation.
+     </p><p>
+      <code class="literal">wrapLisp</code> takes these arguments:
+     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <code class="literal">pkg</code>: the Lisp package
+       </p></li><li class="listitem"><p>
+        <code class="literal">faslExt</code>: Implementation-specific extension for FASL files
+       </p></li><li class="listitem"><p>
+        <code class="literal">program</code>: The name of executable file in <code class="literal">${pkg}/bin/</code> (Default: <code class="literal">pkg.pname</code>)
+       </p></li><li class="listitem"><p>
+        <code class="literal">flags</code>: A list of flags to always pass to <code class="literal">program</code> (Default: <code class="literal">[]</code>)
+       </p></li><li class="listitem"><p>
+        <code class="literal">asdf</code>: The ASDF version to use (Default: <code class="literal">pkgs.asdf_3_3</code>)
+       </p></li><li class="listitem"><p>
+        <code class="literal">packageOverrides</code>: Package overrides config (Default: <code class="literal">(self: super: {})</code>)
+       </p></li></ul></div><p>
+      This example wraps CLISP:
+     </p><pre class="programlisting">
+wrapLisp {
+  pkg = clisp;
+  faslExt = "fas";
+  flags = ["-E" "UTF8"];
+}
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="users-guide-to-lua-infrastructure"></a>User’s Guide to Lua Infrastructure</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#using-lua">Using Lua</a></span></dt><dt><span class="section"><a href="#developing-with-lua">Developing with Lua</a></span></dt><dt><span class="section"><a href="#lua-reference">Lua Reference</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="using-lua"></a>Using Lua</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="overview-of-lua"></a>Overview of Lua</h4></div></div></div><p>
        Several versions of the Lua interpreter are available: luajit, lua 5.1, 5.2, 5.3. The attribute <code class="literal">lua</code> refers to the default interpreter, it is also possible to refer to specific versions, e.g. <code class="literal">lua5_2</code> refers to Lua 5.2.
       </p><p>
        Lua libraries are in separate sets, with one set per interpreter version.

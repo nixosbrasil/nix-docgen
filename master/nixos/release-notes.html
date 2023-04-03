@@ -42,6 +42,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/StevenBlack/hosts" target="_top">stevenblack-blocklist</a>, A unified hosts file with base extensions for blocking unwanted websites. Available as <a class="link" href="options.html#opt-networking.stevenblack.enable" target="_top">networking.stevenblack</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/BuddiesOfBudgie/budgie-desktop" target="_top">Budgie Desktop</a>, a familiar, modern desktop environment. Availabe as <a class="link" href="options.html#opt-services.xserver.desktopManager.budgie" target="_top">services.xserver.desktopManager.budgie</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/h2non/imaginary" target="_top">imaginary</a>, a microservice for high-level image processing that Nextcloud can use to generate previews. Available as <a class="link" href="options.html#opt-services.imaginary.enable">services.imaginary</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://opensearch.org" target="_top">opensearch</a>, a search server alternative to Elasticsearch. Available as <a class="link" href="options.html#opt-services.opensearch.enable" target="_top">services.opensearch</a>.
@@ -373,6 +375,8 @@ there are now two packages of Singularity/Apptainer:
  <code class="literal">k3s</code> can now be configured with an EnvironmentFile for its systemd service, allowing secrets to be provided without ending up in the Nix Store.
 </p></li><li class="listitem"><p>
  <code class="literal">boot.initrd.luks.device.&lt;name&gt;</code> has a new <code class="literal">tryEmptyPassphrase</code> option, this is useful for OEM’s who need to install an encrypted disk with a future settable passphrase
+</p></li><li class="listitem"><p>
+ Lisp gained a <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#lisp" target="_top">manual section</a>, documenting a new and backwards incompatible interface. The previous interface will be removed in a future release.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-migration"></a>Detailed migration information</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-release-23.05-migration-pipewire"></a>Pipewire configuration overrides</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-why"></a>Why this change?</h5></div></div></div><p>
  The Pipewire config semantics don’t really match the NixOS module semantics, so it’s extremely awkward to override the default config, especially when lists are involved. Vendoring the configuration files in nixpkgs also creates unnecessary maintenance overhead.
 </p><p>
