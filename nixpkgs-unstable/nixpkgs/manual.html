@@ -14288,7 +14288,7 @@ rustPlatform.buildRustPackage {
        Note that setting <code class="literal">cargoLock.lockFile</code> or <code class="literal">cargoLock.lockFileContents</code> doesn’t add a <code class="literal">Cargo.lock</code> to your <code class="literal">src</code>, and a <code class="literal">Cargo.lock</code> is still required to build a rust package. A simple fix is to use:
       </p><pre class="programlisting">
 postPatch = ''
-  cp ${./Cargo.lock} Cargo.lock
+  ln -s ${./Cargo.lock} Cargo.lock
 '';
 </pre><p>
        The output hash of each dependency that uses a git source must be specified in the <code class="literal">outputHashes</code> attribute. For example:
