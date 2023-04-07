@@ -121,6 +121,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.unifi-video.openFirewall">services.unifi-video.openFirewall</a> module option default value has been changed from <code class="literal">true</code> to <code class="literal">false</code>. You will need to explicitly set this option to <code class="literal">true</code>, or configure your firewall.
 </p></li><li class="listitem"><p>
+ The option <code class="literal">i18n.inputMethod.fcitx5.enableRimeData</code> has been removed. Default RIME data is now included in <code class="literal">fcitx5-rime</code> by default, and can be customized using <code class="literal">fcitx5-rime.override { rimeDataPkgs = [ pkgs.rime-data, package2, ... ]; }</code>
+</p></li><li class="listitem"><p>
  Kime has been updated from 2.5.6 to 3.0.2 and the <code class="literal">i18n.inputMethod.kime.config</code> option has been removed. Users should use <code class="literal">daemonModules</code>, <code class="literal">iconColor</code>, and <code class="literal">extraConfig</code> options under <code class="literal">i18n.inputMethod.kime</code> instead.
 </p></li><li class="listitem"><p>
  <code class="literal">tut</code> has been updated from 1.0.34 to 2.0.0, and now uses the TOML format for the configuration file instead of INI. Additional information can be found <a class="link" href="https://github.com/RasmusLindroth/tut/releases/tag/2.0.0" target="_top">here</a>.
@@ -236,6 +238,10 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  <code class="literal">services.openssh.gatewayPorts</code> to <code class="literal">services.openssh.settings.GatewayPorts</code>
 </p></li></ul></div></li><li class="listitem"><p>
+ <code class="literal">netbox</code> was updated to 3.4. NixOS’ <code class="literal">services.netbox.package</code> still defaults to 3.3 if <code class="literal">stateVersion</code> is earlier than 23.05. Please review upstream’s <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v3.4.0" target="_top">breaking changes</a>, and upgrade NetBox by changing <code class="literal">services.netbox.package</code>. Database migrations will be run automatically.
+</p></li><li class="listitem"><p>
+ <code class="literal">services.netbox</code> now support RFC42-style options, through <code class="literal">services.netbox.settings</code>.
+</p></li><li class="listitem"><p>
  <code class="literal">services.mastodon</code> gained a tootctl wrapped named <code class="literal">mastodon-tootctl</code> similar to <code class="literal">nextcloud-occ</code> which can be executed from any user and switches to the configured mastodon user with sudo and sources the environment variables.
 </p></li><li class="listitem"><p>
  DocBook option documentation, which has been deprecated since 22.11, will now cause a warning when documentation is built. Out-of-tree modules should migrate to using CommonMark documentation as outlined in <a class="xref" href="index.html#sec-option-declarations" title="Option Declarations">the section called “Option Declarations”</a> to silence this warning.
