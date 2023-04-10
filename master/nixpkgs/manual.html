@@ -15028,15 +15028,23 @@ nix-repl&gt; texlive.collection-[TAB]
 </pre></li><li class="listitem"><p>
         Note that the wrapper assumes that the result has a chance to be useful. For example, the core executables should be present, as well as some core data files. The supported way of ensuring this is by including some scheme, for example <code class="literal">scheme-basic</code>, into the combination.
        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-language-texlive-custom-packages"></a>Custom packages</h3></div></div></div><p>
-      You may find that you need to use an external TeX package. A derivation for such package has to provide contents of the <span class="quote">“<span class="quote">texmf</span>”</span> directory in its output and provide the <code class="literal">tlType</code> attribute. Here is a (very verbose) example:
+      You may find that you need to use an external TeX package. A derivation for such package has to provide the contents of the <span class="quote">“<span class="quote">texmf</span>”</span> directory in its output and provide the appropriate <code class="literal">tlType</code> attribute (one of <code class="literal">"run"</code>, <code class="literal">"bin"</code>, <code class="literal">"doc"</code>, <code class="literal">"source"</code>). Dependencies on other TeX packages can be listed in the attribute <code class="literal">tlDeps</code>.
+     </p><p>
+      Such derivation must then be listed in the attribute <code class="literal">pkgs</code> of an attribute set passed to <code class="literal">texlive.combine</code>, for instance by passing <code class="literal">extraPkgs = { pkgs = [ custom_package ]; };</code>. Within Nixpkgs, <code class="literal">pkgs</code> should be part of the derivation itself, allowing users to call <code class="literal">texlive.combine { inherit (texlive) scheme-small; inherit some_tex_package; }</code>.
+     </p><p>
+      Here is a (very verbose) example where the attribute <code class="literal">pkgs</code> is attached to the derivation itself, which requires creating a fixed point. See also the packages <code class="literal">auctex</code>, <code class="literal">eukleides</code>, <code class="literal">mftrace</code> for more examples.
      </p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 
 let
-  foiltex_run = stdenvNoCC.mkDerivation {
+  foiltex = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "latex-foiltex";
     version = "2.1.4b";
-    passthru.tlType = "run";
+    passthru = {
+      pkgs = [ finalAttrs.finalPackage ];
+      tlDeps = with texlive; [ latex ];
+      tlType = "run";
+    };
 
     srcs = [
       (fetchurl {
@@ -15088,8 +15096,7 @@ let
       maintainers = with maintainers; [ veprbl ];
       platforms = platforms.all;
     };
-  };
-  foiltex = { pkgs = [ foiltex_run ]; };
+  });
 
   latex_with_foiltex = texlive.combine {
     inherit (texlive) scheme-small;
