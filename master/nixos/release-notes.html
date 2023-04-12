@@ -268,6 +268,12 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  <code class="literal">services.borgmatic</code> now allows for multiple configurations, placed in <code class="literal">/etc/borgmatic.d/</code>, you can define them with <code class="literal">services.borgmatic.configurations</code>.
 </p></li><li class="listitem"><p>
+ <code class="literal">service.openafsServer</code> features a new backup server <code class="literal">pkgs.fabs</code> as a
+replacement for openafs’s own <code class="literal">buserver</code>. See
+<a class="link" href="https://github.com/openafs-contrib/fabs" target="_top">FABS</a> to check if this is an viable
+replacement. It stores backups as volume dump files and thus better integrates
+into contemporary backup solutions.
+</p></li><li class="listitem"><p>
  The <code class="literal">dnsmasq</code> service now takes configuration via the
 <code class="literal">services.dnsmasq.settings</code> attribute set. The option
 <code class="literal">services.dnsmasq.extraConfig</code> will be deprecated when NixOS 22.11 reaches

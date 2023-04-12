@@ -16574,7 +16574,7 @@ src = fetchFromGitHub {
   owner = "NixOS";
   repo = "nix";
   rev = "1f795f9f44607cc5bec70d1300150bfefcef2aae";
-  hash = "ha256-7D4m+saJjbSFP5hOwpQq2FGR2rr+psQMTcyb1ZvtXsQ=;
+  hash = "ha256-7D4m+saJjbSFP5hOwpQq2FGR2rr+psQMTcyb1ZvtXsQ=";
 }
 </pre></li></ul></div><p>
      When fetching from GitHub, commits must always be referenced by their full commit hash. This is because GitHub shares commit hashes among all forks and returns <code class="literal">404 Not Found</code> when a short commit hash is ambiguous. It already happens for some short, 6-character commit hashes in <code class="literal">nixpkgs</code>. It is a practical vector for a denial-of-service attack by pushing large amounts of auto generated commits into forks and was already <a class="link" href="https://blog.teddykatz.com/2019/11/12/github-actions-dos.html" target="_top">demonstrated against GitHub Actions Beta</a>.
