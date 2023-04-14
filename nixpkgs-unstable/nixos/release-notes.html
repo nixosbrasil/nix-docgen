@@ -13,8 +13,12 @@
  systemd has been updated to v253.1, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/216826" target="_top">the pull request</a> for more info.
 It’s recommended to use <code class="literal">nixos-rebuild boot</code> and <code class="literal">reboot</code>, rather than <code class="literal">nixos-rebuild switch</code> - since in some rare cases
 the switch of a live system might fail.
+</p></li><li class="listitem"><p>
+ glibc: 2.35 -&gt; 2.37
 </p></li></ul></div></li><li class="listitem"><p>
  Cinnamon has been updated to 5.6, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204" target="_top">the pull request</a> for what is changed.
+</p></li><li class="listitem"><p>
+ GNOME has been upgraded to version 44. Please see the <a class="link" href="https://release.gnome.org/44/" target="_top">release notes</a> for details.
 </p></li><li class="listitem"><p>
  KDE Plasma has been updated to v5.27, see <a class="link" href="https://kde.org/announcements/plasma/5/5.27.0/" target="_top">the release notes</a> for what is changed.
 </p></li><li class="listitem"><p>
@@ -226,7 +230,7 @@ for more details and available replacements.
 </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">vim_configurable</code> has been renamed to <code class="literal">vim-full</code> to avoid confusion: <code class="literal">vim-full</code>’s build-time features are configurable, but both <code class="literal">vim</code> and <code class="literal">vim-full</code> are <span class="emphasis"><em>customizable</em></span> (in the sense of user configuration, like vimrc).
 </p></li><li class="listitem"><p>
- Pantheon now defaults to Mutter 42 and GNOME settings daemon 42, all Pantheon packages are now tracking elementary OS 7 updates.
+ Pantheon now defaults to Mutter 43 and GNOME settings daemon 43, all Pantheon packages are now tracking elementary OS 7 updates.
 </p></li><li class="listitem"><p>
  The module for the application firewall <code class="literal">opensnitch</code> got the ability to configure rules. Available as <a class="link" href="options.html#opt-services.opensnitch.rules">services.opensnitch.rules</a>
 </p></li><li class="listitem"><p>
@@ -405,6 +409,9 @@ there are now two packages of Singularity/Apptainer:
  The option <code class="literal">services.nomad.extraSettingsPlugins</code> has been fixed to allow more than one plugin in the path.
 </p></li><li class="listitem"><p>
  The option <code class="literal">services.prometheus.exporters.pihole.interval</code> does not exist anymore and has been removed.
+</p></li><li class="listitem"><p>
+ The option <code class="literal">services.gpsd.device</code> has been replaced with
+<code class="literal">services.gpsd.devices</code>, which supports multiple devices.
 </p></li><li class="listitem"><p>
  <code class="literal">k3s</code> can now be configured with an EnvironmentFile for its systemd service, allowing secrets to be provided without ending up in the Nix Store.
 </p></li><li class="listitem"><p>

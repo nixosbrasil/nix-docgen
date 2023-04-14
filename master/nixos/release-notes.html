@@ -278,6 +278,8 @@ replacement for openafs’s own <code class="literal">buserver</code>. See
 replacement. It stores backups as volume dump files and thus better integrates
 into contemporary backup solutions.
 </p></li><li class="listitem"><p>
+ <code class="literal">services.maddy</code> now allows to configure users and their credentials using <code class="literal">services.maddy.ensureCredentials</code>.
+</p></li><li class="listitem"><p>
  The <code class="literal">dnsmasq</code> service now takes configuration via the
 <code class="literal">services.dnsmasq.settings</code> attribute set. The option
 <code class="literal">services.dnsmasq.extraConfig</code> will be deprecated when NixOS 22.11 reaches
@@ -336,6 +338,8 @@ will be converted into headscale’s YAML config format. This means that the con
 <a class="link" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml" target="_top">headscale’s example configuration</a>
 can be directly written as attribute-set in Nix within this option.
 </p></li></ul></div></li><li class="listitem"><p>
+ <code class="literal">services.kubo</code> now unmounts <code class="literal">ipfsMountDir</code> and <code class="literal">ipnsMountDir</code> even if it is killed unexpectedly when 'autoMount` is enabled.
+</p></li><li class="listitem"><p>
  <code class="literal">nixos/lib/make-disk-image.nix</code> can now mutate EFI variables, run user-provided EFI firmware or variable templates. This is now extensively documented in the NixOS manual.
 </p></li><li class="listitem"><p>
  <code class="literal">services.grafana</code> listens only on localhost by default again. This was changed to upstreams default of <code class="literal">0.0.0.0</code> by accident in the freeform setting conversion.

@@ -6747,7 +6747,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
         <code class="literal">nodes</code>: the evaluated NixOS configurations. Useful for debugging and exploring the configuration.
        </p></li><li class="listitem"><p>
         <code class="literal">driverInteractive</code>: a script that launches an interactive Python session in the context of the <code class="literal">testScript</code>.
-       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs.makeSetupHook">pkgs.makeSetupHook</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt></dl></div><p>
+       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs.makeSetupHook">pkgs.makeSetupHook</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt><dt><span class="section"><a href="#sec-vm-tools">vmTools</a></span></dt></dl></div><p>
     This chapter describes several special builders.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-fhs-environments"></a>buildFHSUserEnv</h2></div></div></div><p>
      <code class="literal">buildFHSUserEnv</code> provides a way to build and run FHS-compatible lightweight sandboxes. It creates an isolated root with bound <code class="literal">/nix/store</code>, so its footprint in terms of disk space needed is quite small. This allows one to run software which is hard or unfeasible to patch for NixOS – 3rd-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checking and/or external self-updated binaries. It uses Linux namespaces feature to create temporary lightweight environments which are destroyed after all child processes exit, without root user rights requirement. Accepted arguments are:
@@ -6970,6 +6970,134 @@ $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
       ];
 </pre><p>
       You may make any other changes to your VM in this attribute set. For example, you could enable Docker or X11 forwarding to your Darwin host.
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-vm-tools"></a>vmTools</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#vm-tools-createEmptyImage"><code class="literal">vmTools.createEmptyImage</code></a></span></dt><dt><span class="section"><a href="#vm-tools-runInLinuxVM"><code class="literal">vmTools.runInLinuxVM</code></a></span></dt><dt><span class="section"><a href="#vm-tools-extractFs"><code class="literal">vmTools.extractFs</code></a></span></dt><dt><span class="section"><a href="#vm-tools-extractMTDfs"><code class="literal">vmTools.extractMTDfs</code></a></span></dt><dt><span class="section"><a href="#vm-tools-runInLinuxImage"><code class="literal">vmTools.runInLinuxImage</code></a></span></dt><dt><span class="section"><a href="#vm-tools-makeImageTestScript"><code class="literal">vmTools.makeImageTestScript</code></a></span></dt><dt><span class="section"><a href="#vm-tools-diskImageFuns"><code class="literal">vmTools.diskImageFuns</code></a></span></dt><dt><span class="section"><a href="#vm-tools-diskImageExtraFuns"><code class="literal">vmTools.diskImageExtraFuns</code></a></span></dt><dt><span class="section"><a href="#vm-tools-diskImages"><code class="literal">vmTools.diskImages</code></a></span></dt></dl></div><p>
+     A set of VM related utilities, that help in building some packages in more advanced scenarios.
+    </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-createEmptyImage"></a><code class="literal">vmTools.createEmptyImage</code></h3></div></div></div><p>
+      A bash script fragment that produces a disk image at <code class="literal">destination</code>.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.3.3"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">size</code>. The disk size, in MiB.
+        </p></li><li class="listitem"><p>
+         <code class="literal">fullName</code>. Name that will be written to <code class="literal">${destination}/nix-support/full-name</code>.
+        </p></li><li class="listitem"><p>
+         <code class="literal">destination</code> (optional, default <code class="literal">$out</code>). Where to write the image files.
+        </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-runInLinuxVM"></a><code class="literal">vmTools.runInLinuxVM</code></h3></div></div></div><p>
+      Run a derivation in a Linux virtual machine (using Qemu/KVM). By default, there is no disk image; the root filesystem is a <code class="literal">tmpfs</code>, and the Nix store is shared with the host (via the <a class="link" href="https://wiki.qemu.org/Documentation/9p#9p_Protocol" target="_top">9P protocol</a>). Thus, any pure Nix derivation should run unmodified.
+     </p><p>
+      If the build fails and Nix is run with the <code class="literal">-K/--keep-failed</code> option, a script <code class="literal">run-vm</code> will be left behind in the temporary build directory that allows you to boot into the VM and debug it interactively.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.4.4"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">preVM</code> (optional). Shell command to be evaluated <span class="emphasis"><em>before</em></span> the VM is started (i.e., on the host).
+        </p></li><li class="listitem"><p>
+         <code class="literal">memSize</code> (optional, default <code class="literal">512</code>). The memory size of the VM in MiB.
+        </p></li><li class="listitem"><p>
+         <code class="literal">diskImage</code> (optional). A file system image to be attached to <code class="literal">/dev/sda</code>. Note that currently we expect the image to contain a filesystem, not a full disk image with a partition table etc.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.4.5"></a>Examples</h4></div></div></div><p>
+       Build the derivation hello inside a VM:
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+runInLinuxVM hello
+</pre><p>
+       Build inside a VM with extra memory:
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+runInLinuxVM (hello.overrideAttrs (_: { memSize = 1024; }))
+</pre><p>
+       Use VM with a disk image (implicitly sets <code class="literal">diskImage</code>, see <a class="link" href="#vm-tools-createEmptyImage" title="vmTools.createEmptyImage"><code class="literal">vmTools.createEmptyImage</code></a>):
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+runInLinuxVM (hello.overrideAttrs (_: {
+  preVM = createEmptyImage {
+    size = 1024;
+    fullName = "vm-image";
+  };
+}))
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-extractFs"></a><code class="literal">vmTools.extractFs</code></h3></div></div></div><p>
+      Takes a file, such as an ISO, and extracts its contents into the store.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.5.3"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">file</code>. Path to the file to be extracted. Note that currently we expect the image to contain a filesystem, not a full disk image with a partition table etc.
+        </p></li><li class="listitem"><p>
+         <code class="literal">fs</code> (optional). Filesystem of the contents of the file.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.5.4"></a>Examples</h4></div></div></div><p>
+       Extract the contents of an ISO file:
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+extractFs { file = ./image.iso; }
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-extractMTDfs"></a><code class="literal">vmTools.extractMTDfs</code></h3></div></div></div><p>
+      Like <a class="xref" href="#vm-tools-extractFs" title="vmTools.extractFs">the section called “<code class="literal">vmTools.extractFs</code>”</a>, but it makes use of a <a class="link" href="https://en.wikipedia.org/wiki/Memory_Technology_Device" target="_top">Memory Technology Device (MTD)</a>.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-runInLinuxImage"></a><code class="literal">vmTools.runInLinuxImage</code></h3></div></div></div><p>
+      Like <a class="xref" href="#vm-tools-runInLinuxVM" title="vmTools.runInLinuxVM">the section called “<code class="literal">vmTools.runInLinuxVM</code>”</a>, but instead of using <code class="literal">stdenv</code> from the Nix store, run the build using the tools provided by <code class="literal">/bin</code>, <code class="literal">/usr/bin</code>, etc. from the specified filesystem image, which typically is a filesystem containing a <a class="link" href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" target="_top">FHS</a>-based Linux distribution.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-makeImageTestScript"></a><code class="literal">vmTools.makeImageTestScript</code></h3></div></div></div><p>
+      Generate a script that can be used to run an interactive session in the given image.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.8.3"></a>Examples</h4></div></div></div><p>
+       Create a script for running a Fedora 27 VM:
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+makeImageTestScript diskImages.fedora27x86_64
+</pre><p>
+       Create a script for running an Ubuntu 20.04 VM:
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+makeImageTestScript diskImages.ubuntu2004x86_64
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-diskImageFuns"></a><code class="literal">vmTools.diskImageFuns</code></h3></div></div></div><p>
+      A set of functions that build a predefined set of minimal Linux distributions images.
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.9.3"></a>Images</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         Fedora
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+           <code class="literal">fedora26x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">fedora27x86_64</code>
+          </p></li></ul></div></li><li class="listitem"><p>
+         CentOS
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+           <code class="literal">centos6i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">centos6x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">centos7x86_64</code>
+          </p></li></ul></div></li><li class="listitem"><p>
+         Ubuntu
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+           <code class="literal">ubuntu1404i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu1404x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu1604i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu1604x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu1804i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu1804x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu2004i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu2004x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu2204i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">ubuntu2204x86_64</code>
+          </p></li></ul></div></li><li class="listitem"><p>
+         Debian
+        </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+           <code class="literal">debian10i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">debian10x86_64</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">debian11i386</code>
+          </p></li><li class="listitem"><p>
+           <code class="literal">debian11x86_64</code>
+          </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.9.4"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+         <code class="literal">size</code> (optional, defaults to <code class="literal">4096</code>). The size of the image, in MiB.
+        </p></li><li class="listitem"><p>
+         <code class="literal">extraPackages</code> (optional). A list names of additional packages from the distribution that should be included in the image.
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.5.5.7.9.5"></a>Examples</h4></div></div></div><p>
+       8GiB image containing Firefox in addition to the default packages:
+      </p><pre class="programlisting">
+{ pkgs }: with pkgs; with vmTools;
+diskImageFuns.ubuntu2004x86_64 { extraPackages = [ "firefox" ]; size = 8192; }
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-diskImageExtraFuns"></a><code class="literal">vmTools.diskImageExtraFuns</code></h3></div></div></div><p>
+      Shorthand for <code class="literal">vmTools.diskImageFuns.&lt;attr&gt; { extraPackages = ... }</code>.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-diskImages"></a><code class="literal">vmTools.diskImages</code></h3></div></div></div><p>
+      Shorthand for <code class="literal">vmTools.diskImageFuns.&lt;attr&gt; { }</code>.
      </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-images"></a>Images</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-ociTools">pkgs.ociTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-snapTools">pkgs.snapTools</a></span></dt><dt><span class="section"><a href="#sec-pkgs-portableService">pkgs.portableService</a></span></dt><dt><span class="section"><a href="#sec-make-disk-image"><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></a></span></dt><dt><span class="section"><a href="#sec-pkgs-binary-cache">pkgs.mkBinaryCache</a></span></dt></dl></div><p>
     This chapter describes tools for creating various types of images.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkgs-appimageTools"></a>pkgs.appimageTools</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-pkgs-appimageTools-formats">AppImage formats</a></span></dt><dt><span class="section"><a href="#ssec-pkgs-appimageTools-wrapping">Wrapping</a></span></dt></dl></div><p>
