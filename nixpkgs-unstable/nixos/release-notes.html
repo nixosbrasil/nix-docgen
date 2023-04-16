@@ -34,6 +34,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/alexivkin/CUPS-PDF-to-PDF" target="_top">cups-pdf-to-pdf</a>, a pdf-generating cups backend based on <a class="link" href="https://www.cups-pdf.de/" target="_top">cups-pdf</a>. Available as <a class="link" href="options.html#opt-services.printing.cups-pdf.enable">services.printing.cups-pdf</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/zzzgydi/clash-verge" target="_top">clash-verge</a>, A Clash GUI based on tauri. Available as <a class="link" href="options.html#opt-programs.clash-verge.enable">programs.clash-verge</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://www.magicbug.co.uk/cloudlog/" target="_top">Cloudlog</a>, a web-based Amateur Radio logging application. Available as <a class="link" href="options.html#opt-services.cloudlog.enable">services.cloudlog</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/junegunn/fzf" target="_top">fzf</a>, a command line fuzzyfinder. Available as <a class="link" href="options.html#opt-programs.fzf.fuzzyCompletion">programs.fzf</a>.
@@ -113,6 +115,10 @@ the switch of a live system might fail.
  <code class="literal">borgbackup</code> module now has an option for inhibiting system sleep while backups are running, defaulting to off (not inhibiting sleep), available as <a class="link" href="options.html#opt-services.borgbackup.jobs._name_.inhibitsSleep"><code class="literal">services.borgbackup.jobs.&lt;name&gt;.inhibitsSleep</code></a>.
 </p></li><li class="listitem"><p>
  The <code class="literal">ssh</code> client tool now disables the <code class="literal">~C</code> escape sequence by default. This can be re-enabled by setting <code class="literal">EnableEscapeCommandline yes</code>
+</p></li><li class="listitem"><p>
+ The <code class="literal">ssh</code> module does not read <code class="literal">/etc/ssh/ssh_known_hosts2</code> anymore since this location is <a class="link" href="https://marc.info/?l=openssh-unix-dev&amp;m=100508718416162&amp;w=2" target="_top">deprecated since 2001</a>.
+</p></li><li class="listitem"><p>
+ The openssh module does not read <code class="literal">~/.ssh/authorized_keys2</code> anymore since this location is <a class="link" href="https://marc.info/?l=openssh-unix-dev&amp;m=100508718416162&amp;w=2" target="_top">deprecated since 2001</a>.
 </p></li><li class="listitem"><p>
  <code class="literal">podman</code> now uses the <code class="literal">netavark</code> network stack. Users will need to delete all of their local containers, images, volumes, etc, by running <code class="literal">podman system reset --force</code> once before upgrading their systems.
 </p></li><li class="listitem"><p>

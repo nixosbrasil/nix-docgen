@@ -34,6 +34,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/alexivkin/CUPS-PDF-to-PDF" target="_top">cups-pdf-to-pdf</a>, a pdf-generating cups backend based on <a class="link" href="https://www.cups-pdf.de/" target="_top">cups-pdf</a>. Available as <a class="link" href="options.html#opt-services.printing.cups-pdf.enable">services.printing.cups-pdf</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/zzzgydi/clash-verge" target="_top">clash-verge</a>, A Clash GUI based on tauri. Available as <a class="link" href="options.html#opt-programs.clash-verge.enable">programs.clash-verge</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://www.magicbug.co.uk/cloudlog/" target="_top">Cloudlog</a>, a web-based Amateur Radio logging application. Available as <a class="link" href="options.html#opt-services.cloudlog.enable">services.cloudlog</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/junegunn/fzf" target="_top">fzf</a>, a command line fuzzyfinder. Available as <a class="link" href="options.html#opt-programs.fzf.fuzzyCompletion">programs.fzf</a>.
@@ -114,6 +116,10 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  The <code class="literal">ssh</code> client tool now disables the <code class="literal">~C</code> escape sequence by default. This can be re-enabled by setting <code class="literal">EnableEscapeCommandline yes</code>
 </p></li><li class="listitem"><p>
+ The <code class="literal">ssh</code> module does not read <code class="literal">/etc/ssh/ssh_known_hosts2</code> anymore since this location is <a class="link" href="https://marc.info/?l=openssh-unix-dev&amp;m=100508718416162&amp;w=2" target="_top">deprecated since 2001</a>.
+</p></li><li class="listitem"><p>
+ The openssh module does not read <code class="literal">~/.ssh/authorized_keys2</code> anymore since this location is <a class="link" href="https://marc.info/?l=openssh-unix-dev&amp;m=100508718416162&amp;w=2" target="_top">deprecated since 2001</a>.
+</p></li><li class="listitem"><p>
  <code class="literal">podman</code> now uses the <code class="literal">netavark</code> network stack. Users will need to delete all of their local containers, images, volumes, etc, by running <code class="literal">podman system reset --force</code> once before upgrading their systems.
 </p></li><li class="listitem"><p>
  <code class="literal">git-bug</code> has been updated to at least version 0.8.0, which includes backwards incompatible changes. The <code class="literal">git-bug-migration</code> package can be used to upgrade existing repositories.
@@ -122,7 +128,9 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <code class="literal">keepassx</code> and <code class="literal">keepassx2</code> have been removed, due to upstream <a class="link" href="https://www.keepassx.org/index.html%3Fp=636.html" target="_top">stopping development</a>. Consider <a class="link" href="https://keepassxc.org" target="_top">KeePassXC</a> as a maintained alternative.
 </p></li><li class="listitem"><p>
- The <code class="literal">services.kubo.settings</code> option is now no longer stateful. If you changed any of the options in <code class="literal">services.kubo.settings</code> in the past and then removed them from your NixOS configuration again, those changes are still in your Kubo configuration file but will now be reset to the default. If you’re unsure, you may want to make a backup of your configuration file (probably /var/lib/ipfs/config) and compare after the update.
+ The <a class="link" href="options.html#opt-services.kubo.settings">services.kubo.settings</a> option is now no longer stateful. If you changed any of the options in <a class="link" href="options.html#opt-services.kubo.settings">services.kubo.settings</a> in the past and then removed them from your NixOS configuration again, those changes are still in your Kubo configuration file but will now be reset to the default. If you’re unsure, you may want to make a backup of your configuration file (probably /var/lib/ipfs/config) and compare after the update.
+</p></li><li class="listitem"><p>
+ The Kubo HTTP API will no longer listen on localhost and will instead only listen on a Unix domain socket by default. Read the <a class="link" href="options.html#opt-services.kubo.settings.Addresses.API">services.kubo.settings.Addresses.API</a> option description for more information.
 </p></li><li class="listitem"><p>
  The EC2 image module no longer fetches instance metadata in stage-1. This results in a significantly smaller initramfs, since network drivers no longer need to be included, and faster boots, since metadata fetching can happen in parallel with startup of other services.
 This breaks services which rely on metadata being present by the time stage-2 is entered. Anything which reads EC2 metadata from <code class="literal">/etc/ec2-metadata</code> should now have an <code class="literal">after</code> dependency on <code class="literal">fetch-ec2-metadata.service</code>
@@ -338,7 +346,7 @@ will be converted into headscale’s YAML config format. This means that the con
 <a class="link" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml" target="_top">headscale’s example configuration</a>
 can be directly written as attribute-set in Nix within this option.
 </p></li></ul></div></li><li class="listitem"><p>
- <code class="literal">services.kubo</code> now unmounts <code class="literal">ipfsMountDir</code> and <code class="literal">ipnsMountDir</code> even if it is killed unexpectedly when 'autoMount` is enabled.
+ <code class="literal">services.kubo</code> now unmounts <code class="literal">ipfsMountDir</code> and <code class="literal">ipnsMountDir</code> even if it is killed unexpectedly when <code class="literal">autoMount</code> is enabled.
 </p></li><li class="listitem"><p>
  <code class="literal">nixos/lib/make-disk-image.nix</code> can now mutate EFI variables, run user-provided EFI firmware or variable templates. This is now extensively documented in the NixOS manual.
 </p></li><li class="listitem"><p>

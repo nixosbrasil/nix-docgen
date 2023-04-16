@@ -4714,7 +4714,7 @@ stdenv.mkDerivation {
   };
 }
 </pre><p>
-     (<code class="literal">stdenv</code> needs to be in scope, so if you write this in a separate Nix expression from <code class="literal">pkgs/all-packages.nix</code>, you need to pass it as a function argument.) Specifying a <code class="literal">name</code> and a <code class="literal">src</code> is the absolute minimum Nix requires. For convenience, you can also use <code class="literal">pname</code> and <code class="literal">version</code> attributes and <code class="literal">mkDerivation</code> will automatically set <code class="literal">name</code> to <code class="literal">"${pname}-${version}"</code> by default. Since <a class="link" href="https://github.com/NixOS/rfcs/pull/35" target="_top">RFC 0035</a>, this is preferred for packages in Nixpkgs, as it allows us to reuse the version easily:
+     (<code class="literal">stdenv</code> needs to be in scope, so if you write this in a separate Nix expression from <code class="literal">pkgs/all-packages.nix</code>, you need to pass it as a function argument.) Specifying a <code class="literal">name</code> and a <code class="literal">src</code> is the absolute minimum Nix requires. For convenience, you can also use <code class="literal">pname</code> and <code class="literal">version</code> attributes and <code class="literal">mkDerivation</code> will automatically set <code class="literal">name</code> to <code class="literal">"${pname}-${version}"</code> by default. <span class="strong"><strong>Since <a class="link" href="https://github.com/NixOS/rfcs/pull/35" target="_top">RFC 0035</a>, this is preferred for packages in Nixpkgs</strong></span>, as it allows us to reuse the version easily:
     </p><pre class="programlisting">
 stdenv.mkDerivation rec {
   pname = "libfoo";
@@ -4728,7 +4728,8 @@ stdenv.mkDerivation rec {
      Many packages have dependencies that are not provided in the standard environment. It’s usually sufficient to specify those dependencies in the <code class="literal">buildInputs</code> attribute:
     </p><pre class="programlisting">
 stdenv.mkDerivation {
-  name = "libfoo-1.2.3";
+  pname = "libfoo";
+  version = "1.2.3";
   ...
   buildInputs = [libbar perl ncurses];
 }
@@ -4738,7 +4739,8 @@ stdenv.mkDerivation {
      Often it is necessary to override or modify some aspect of the build. To make this easier, the standard environment breaks the package build into a number of <span class="emphasis"><em>phases</em></span>, all of which can be overridden or modified individually: unpacking the sources, applying patches, configuring, building, and installing. (There are some others; see <a class="xref" href="#sec-stdenv-phases" title="Phases">the section called “Phases”</a>.) For instance, a package that doesn’t supply a makefile but instead has to be compiled <span class="quote">“<span class="quote">manually</span>”</span> could be handled like this:
     </p><pre class="programlisting">
 stdenv.mkDerivation {
-  name = "fnord-4.5";
+  pname = "fnord";
+  version = "4.5";
   ...
   buildPhase = ''
     gcc foo.c -o foo
@@ -4756,7 +4758,8 @@ stdenv.mkDerivation {
      While the standard environment provides a generic builder, you can still supply your own build script:
     </p><pre class="programlisting">
 stdenv.mkDerivation {
-  name = "libfoo-1.2.3";
+  pname = "libfoo";
+  version = "1.2.3";
   ...
   builder = ./builder.sh;
 }
