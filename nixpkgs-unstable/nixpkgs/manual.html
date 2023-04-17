@@ -6750,10 +6750,10 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
         <code class="literal">nodes</code>: the evaluated NixOS configurations. Useful for debugging and exploring the configuration.
        </p></li><li class="listitem"><p>
         <code class="literal">driverInteractive</code>: a script that launches an interactive Python session in the context of the <code class="literal">testScript</code>.
-       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSUserEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs.makeSetupHook">pkgs.makeSetupHook</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt><dt><span class="section"><a href="#sec-vm-tools">vmTools</a></span></dt></dl></div><p>
+       </p></li></ul></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-special"></a>Special builders</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-fhs-environments">buildFHSEnv</a></span></dt><dt><span class="section"><a href="#sec-pkgs.makeSetupHook">pkgs.makeSetupHook</a></span></dt><dt><span class="section"><a href="#sec-pkgs-mkShell">pkgs.mkShell</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder">darwin.builder</a></span></dt><dt><span class="section"><a href="#sec-vm-tools">vmTools</a></span></dt></dl></div><p>
     This chapter describes several special builders.
-   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-fhs-environments"></a>buildFHSUserEnv</h2></div></div></div><p>
-     <code class="literal">buildFHSUserEnv</code> provides a way to build and run FHS-compatible lightweight sandboxes. It creates an isolated root with bound <code class="literal">/nix/store</code>, so its footprint in terms of disk space needed is quite small. This allows one to run software which is hard or unfeasible to patch for NixOS – 3rd-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checking and/or external self-updated binaries. It uses Linux namespaces feature to create temporary lightweight environments which are destroyed after all child processes exit, without root user rights requirement. Accepted arguments are:
+   </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-fhs-environments"></a>buildFHSEnv</h2></div></div></div><p>
+     <code class="literal">buildFHSEnv</code> provides a way to build and run FHS-compatible lightweight sandboxes. It creates an isolated root with bound <code class="literal">/nix/store</code>, so its footprint in terms of disk space needed is quite small. This allows one to run software which is hard or unfeasible to patch for NixOS – 3rd-party source trees with FHS assumptions, games distributed as tarballs, software with integrity checking and/or external self-updated binaries. It uses Linux namespaces feature to create temporary lightweight environments which are destroyed after all child processes exit, without root user rights requirement. Accepted arguments are:
     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
        <code class="literal">name</code> Environment name.
       </p></li><li class="listitem"><p>
@@ -6777,7 +6777,7 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
     </p><pre class="programlisting">
 { pkgs ? import &lt;nixpkgs&gt; {} }:
 
-(pkgs.buildFHSUserEnv {
+(pkgs.buildFHSEnv {
   name = "simple-x11-env";
   targetPkgs = pkgs: (with pkgs;
     [ udev

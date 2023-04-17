@@ -1725,7 +1725,7 @@ environment.systemPackages = [ pkgs.appimage-run ];
  Then instead of running the AppImage “as-is”, run <code class="literal">appimage-run foo.appimage</code>.
 </p><p>
  To make other pre-built executables work on NixOS, you need to package them
-with Nix and special helpers like <code class="literal">autoPatchelfHook</code> or <code class="literal">buildFHSUserEnv</code>. See
+with Nix and special helpers like <code class="literal">autoPatchelfHook</code> or <code class="literal">buildFHSEnv</code>. See
 the <a class="link" href="https://nixos.org/nixpkgs/manual" target="_top">Nixpkgs manual</a> for details. This
 is complex and often doing a source build is easier.
 </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-ad-hoc-packages"></a>Ad-Hoc Package Management</h2></div></div></div><p>
