@@ -410,6 +410,8 @@ there are now two packages of Singularity/Apptainer:
 </p></li><li class="listitem"><p>
  The <code class="literal">unifi-poller</code> package and corresponding NixOS module have been renamed to <code class="literal">unpoller</code> to match upstream.
 </p></li><li class="listitem"><p>
+ The <code class="literal">rtsp-simple-server</code> package and corresponding NixOS module have been renamed to <code class="literal">mediamtx</code> to match upstream.
+</p></li><li class="listitem"><p>
  The new option <code class="literal">services.tailscale.useRoutingFeatures</code> controls various settings for using Tailscale features like exit nodes and subnet routers. If you wish to use your machine as an exit node, you can set this setting to <code class="literal">server</code>, otherwise if you wish to use an exit node you can set this setting to <code class="literal">client</code>. The strict RPF warning has been removed as the RPF will be loosened automatically based on the value of this setting.
 </p></li><li class="listitem"><p>
  <code class="literal">openjdk</code> from version 11 and above is not build with <code class="literal">openjfx</code> (i.e.: JavaFX) support by default anymore. You can re-enable it by overriding, e.g.: <code class="literal">openjdk11.override { enableJavaFX = true; };</code>.
@@ -1182,7 +1184,7 @@ DNS-01 validation when using <code class="literal">enableACME</code> web server 
 </p></li><li class="listitem"><p>
  <a class="link" href="https://www.rstudio.com/products/rstudio/#rstudio-server" target="_top">rstudio-server</a>, a browser-based version of the RStudio IDE for the R programming language. Available as <a class="link" href="options.html#opt-services.rstudio-server.enable">services.rstudio-server</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://github.com/aler9/rtsp-simple-server" target="_top">rtsp-simple-server</a>, ready-to-use RTSP / RTMP / HLS server and proxy that allows to read, publish and proxy video and audio streams. Available as <a class="link" href="options.html#opt-services.rtsp-simple-server.enable">services.rtsp-simple-server</a>.
+ <a class="link" href="https://github.com/aler9/mediamtx" target="_top">mediamtx</a>, ready-to-use RTSP / RTMP / HLS server and proxy that allows to read, publish and proxy video and audio streams. Available as <a class="link" href="options.html#opt-services.mediamtx.enable">services.mediamtx</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://snipeitapp.com" target="_top">Snipe-IT</a>, a free open source IT asset/license management system. Available as <a class="link" href="options.html#opt-services.snipe-it.enable">services.snipe-it</a>.
 </p></li><li class="listitem"><p>

@@ -68,6 +68,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/ellie/atuin" target="_top">atuin</a>, a sync server for shell history. Available as <a class="link" href="options.html#opt-services.atuin.enable">services.atuin</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://esphome.io" target="_top">esphome</a>, a dashboard to configure ESP8266/ESP32 devices for use with Home Automation systems. Available as <a class="link" href="options.html#opt-services.esphome.enable">services.esphome</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://gitlab.com/craftyguy/networkd-dispatcher" target="_top">networkd-dispatcher</a>, a dispatcher service for systemd-networkd connection status changes. Available as <a class="link" href="options.html#opt-services.networkd-dispatcher.enable">services.networkd-dispatcher</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://gitlab.com/kop316/mmsd" target="_top">mmsd</a>, a lower level daemon that transmits and recieves MMSes. Available as <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
@@ -409,6 +411,8 @@ there are now two packages of Singularity/Apptainer:
  The new option <code class="literal">programs.singularity.enableFakeroot</code>, if set to <code class="literal">true</code>, provides <code class="literal">--fakeroot</code> support for <code class="literal">apptainer</code> and <code class="literal">singularity</code>.
 </p></li><li class="listitem"><p>
  The <code class="literal">unifi-poller</code> package and corresponding NixOS module have been renamed to <code class="literal">unpoller</code> to match upstream.
+</p></li><li class="listitem"><p>
+ The <code class="literal">rtsp-simple-server</code> package and corresponding NixOS module have been renamed to <code class="literal">mediamtx</code> to match upstream.
 </p></li><li class="listitem"><p>
  The new option <code class="literal">services.tailscale.useRoutingFeatures</code> controls various settings for using Tailscale features like exit nodes and subnet routers. If you wish to use your machine as an exit node, you can set this setting to <code class="literal">server</code>, otherwise if you wish to use an exit node you can set this setting to <code class="literal">client</code>. The strict RPF warning has been removed as the RPF will be loosened automatically based on the value of this setting.
 </p></li><li class="listitem"><p>
@@ -1182,7 +1186,7 @@ DNS-01 validation when using <code class="literal">enableACME</code> web server 
 </p></li><li class="listitem"><p>
  <a class="link" href="https://www.rstudio.com/products/rstudio/#rstudio-server" target="_top">rstudio-server</a>, a browser-based version of the RStudio IDE for the R programming language. Available as <a class="link" href="options.html#opt-services.rstudio-server.enable">services.rstudio-server</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://github.com/aler9/rtsp-simple-server" target="_top">rtsp-simple-server</a>, ready-to-use RTSP / RTMP / HLS server and proxy that allows to read, publish and proxy video and audio streams. Available as <a class="link" href="options.html#opt-services.rtsp-simple-server.enable">services.rtsp-simple-server</a>.
+ <a class="link" href="https://github.com/aler9/mediamtx" target="_top">mediamtx</a>, ready-to-use RTSP / RTMP / HLS server and proxy that allows to read, publish and proxy video and audio streams. Available as <a class="link" href="options.html#opt-services.mediamtx.enable">services.mediamtx</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://snipeitapp.com" target="_top">Snipe-IT</a>, a free open source IT asset/license management system. Available as <a class="link" href="options.html#opt-services.snipe-it.enable">services.snipe-it</a>.
 </p></li><li class="listitem"><p>
