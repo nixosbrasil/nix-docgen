@@ -3560,7 +3560,9 @@ In case that doesn’t help, an entire re-creation can be forced via
 Nextcloud supports <a class="link" href="https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/encryption_configuration.html" target="_top">server-side encryption (SSE)</a>.
 This is not an end-to-end encryption, but can be used to encrypt files that will be persisted
 to external storage such as S3. Please note that this won’t work anymore when using OpenSSL 3
-for PHP’s openssl extension because this is implemented using the legacy cipher RC4.
+for PHP’s openssl extension and <span class="strong"><strong>Nextcloud 25 or older</strong></span> because this is implemented using the
+legacy cipher RC4. For Nextcloud26 this isn’t relevant anymore, because Nextcloud has an RC4 implementation
+written in native PHP and thus doesn’t need <code class="literal">ext-openssl</code> for that anymore.
 If <a class="xref" href="options.html#opt-system.stateVersion"><code class="option">system.stateVersion</code></a> is <span class="emphasis"><em>above</em></span> <code class="literal">22.05</code>,
 this is disabled by default. To turn it on again and for further information please refer to
 <a class="xref" href="options.html#opt-services.nextcloud.enableBrokenCiphersForSSE"><code class="option">services.nextcloud.enableBrokenCiphersForSSE</code></a>.

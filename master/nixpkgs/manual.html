@@ -10172,6 +10172,8 @@ mkDerivation {
          To obtain the actual hash, set <code class="literal">vendorHash = lib.fakeSha256;</code> and run the build (<a class="link" href="#sec-source-hashes" title="Obtaining source hash">more details here</a>).
         </p></li><li class="listitem"><p>
          <code class="literal">proxyVendor</code>: Fetches (go mod download) and proxies the vendor directory. This is useful if your code depends on c code and go mod tidy does not include the needed sources to build or if any dependency has case-insensitive conflicts which will produce platform dependant <code class="literal">vendorHash</code> checksums.
+        </p></li><li class="listitem"><p>
+         <code class="literal">modPostBuild</code>: Shell commands to run after the build of the go-modules executes <code class="literal">go mod vendor</code>, and before calculating fixed output derivation’s <code class="literal">vendorHash</code> (or <code class="literal">vendorSha256</code>). Note that if you change this attribute, you need to update <code class="literal">vendorHash</code> (or <code class="literal">vendorSha256</code>) attribute.
         </p></li></ul></div><pre class="programlisting">
 pet = buildGoModule rec {
   pname = "pet";
@@ -10253,7 +10255,21 @@ for p in $NIX_PROFILES; do
     GOPATH="$p/share/go:$GOPATH"
 done
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-go-common-attributes"></a>Attributes used by the builders</h3></div></div></div><p>
-      Both <code class="literal">buildGoModule</code> and <code class="literal">buildGoPackage</code> can be tweaked to behave slightly differently, if the following attributes are used:
+      Many attributes <a class="link" href="#variables-controlling-the-build-phase" title="Variables controlling the build phase">controlling the build phase</a> are respected by both <code class="literal">buildGoModule</code> and <code class="literal">buildGoPackage</code>. Note that <code class="literal">buildGoModule</code> reads the following attributes also when building the <code class="literal">vendor/</code> go-modules fixed output derivation as well:
+     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+        <a class="link" href="#var-stdenv-sourceRoot" title="sourceRoot"><code class="literal">sourceRoot</code></a>
+       </p></li><li class="listitem"><p>
+        <a class="link" href="#var-stdenv-prePatch" title="prePatch"><code class="literal">prePatch</code></a>
+       </p></li><li class="listitem"><p>
+        <a class="link" href="#var-stdenv-patches" title="patches"><code class="literal">patches</code></a>
+       </p></li><li class="listitem"><p>
+        <a class="link" href="#var-stdenv-patchFlags" title="patchFlags"><code class="literal">patchFlags</code></a>
+       </p></li><li class="listitem"><p>
+        <a class="link" href="#var-stdenv-postPatch" title="postPatch"><code class="literal">postPatch</code></a>
+       </p></li><li class="listitem"><p>
+        <a class="link" href="#var-stdenv-preBuild" title="preBuild"><code class="literal">preBuild</code></a>
+       </p></li></ul></div><p>
+      In addition to the above attributes, and the many more variables respected also by <code class="literal">stdenv.mkDerivation</code>, both <code class="literal">buildGoModule</code> and <code class="literal">buildGoPackage</code> respect Go-specific attributes that tweak them to behave slightly differently:
      </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="var-go-ldflags"></a><code class="literal">ldflags</code></h4></div></div></div><p>
        Arguments to pass to the Go linker tool via the <code class="literal">-ldflags</code> argument of <code class="literal">go build</code>. The most common use case for this argument is to make the resulting executable aware of its own version. For example:
       </p><pre class="programlisting">
