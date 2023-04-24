@@ -5865,7 +5865,19 @@ runCommand "my-package-test" {
 meta.platforms = lib.platforms.linux;
 meta.hydraPlatforms = [];
 </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-broken"></a><code class="literal">broken</code></h3></div></div></div><p>
-      If set to <code class="literal">true</code>, the package is marked as <span class="quote">“<span class="quote">broken</span>”</span>, meaning that it won’t show up in <code class="literal">nix-env -qa</code>, and cannot be built or installed. Such packages should be removed from Nixpkgs eventually unless they are fixed.
+      If set to <code class="literal">true</code>, the package is marked as <span class="quote">“<span class="quote">broken</span>”</span>, meaning that it won’t show up in <a class="link" href="https://search.nixos.org/packages" target="_top">search.nixos.org</a>, and cannot be built or installed unless the environment variable <a class="link" href="#opt-allowBroken"><code class="literal">NIXPKGS_ALLOW_BROKEN</code></a> is set. Such unconditionally-broken packages should be removed from Nixpkgs eventually unless they are fixed.
+     </p><p>
+      The value of this attribute can depend on a package’s arguments, including <code class="literal">stdenv</code>. This means that <code class="literal">broken</code> can be used to express constraints, for example:
+     </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        Does not cross compile
+       </p><pre class="programlisting">
+ meta.broken = !(stdenv.buildPlatform.canExecute stdenv.hostPlatform)
+</pre></li><li class="listitem"><p>
+        Broken if all of a certain set of its dependencies are broken
+       </p><pre class="programlisting">
+meta.broken = lib.all (map (p: p.meta.broken) [ glibc musl ])
+</pre></li></ul></div><p>
+      This makes <code class="literal">broken</code> strictly more powerful than <code class="literal">meta.badPlatforms</code>. However <code class="literal">meta.availableOn</code> currently examines only <code class="literal">meta.platforms</code> and <code class="literal">meta.badPlatforms</code>, so <code class="literal">meta.broken</code> does not influence the default values for optional dependencies.
      </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-meta-license"></a>Licenses</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#lib.licenses.free-free"><code class="literal">lib.licenses.free</code>, <code class="literal">"free"</code></a></span></dt><dt><span class="section"><a href="#lib.licenses.unfreeredistributable-unfree-redistributable"><code class="literal">lib.licenses.unfreeRedistributable</code>, <code class="literal">"unfree-redistributable"</code></a></span></dt><dt><span class="section"><a href="#lib.licenses.unfree-unfree"><code class="literal">lib.licenses.unfree</code>, <code class="literal">"unfree"</code></a></span></dt><dt><span class="section"><a href="#lib.licenses.unfreeredistributablefirmware-unfree-redistributable-firmware"><code class="literal">lib.licenses.unfreeRedistributableFirmware</code>, <code class="literal">"unfree-redistributable-firmware"</code></a></span></dt></dl></div><p>
      The <code class="literal">meta.license</code> attribute should preferably contain a value from <code class="literal">lib.licenses</code> defined in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/licenses.nix" target="_top"><code class="literal">nixpkgs/lib/licenses.nix</code></a>, or in-place license description of the same format if the license is unlikely to be useful in another expression.
     </p><p>

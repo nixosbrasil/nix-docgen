@@ -224,6 +224,8 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  To enable the HTTP3 (QUIC) protocol for a nginx virtual host, set the <code class="literal">quic</code> attribute on it to true, e.g. <code class="literal">services.nginx.virtualHosts.&lt;name&gt;.quic = true;</code>.
 </p></li><li class="listitem"><p>
+ The default Asterisk package was changed to v20 from v19. Asterisk versions 16 and 19 have been dropped due to being EOL. You may need to update /var/lib/asterisk to match the template files in <code class="literal">${asterisk-20}/var/lib/asterisk</code>.
+</p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li><li class="listitem"><p>
  The <code class="literal">services.pipewire.config</code> options have been removed, as they have basically never worked correctly. All behavior defined by the default configuration can be overridden with drop-in files as necessary - see <a class="link" href="release-notes.html#sec-release-23.05-migration-pipewire" title="Pipewire configuration overrides">below</a> for details.
