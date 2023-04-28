@@ -90,6 +90,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/Fallenbagel/jellyseerr" target="_top">jellyseerr</a>, a web-based requests manager for Jellyfin, forked from Overseerr. Available as <a class="link" href="options.html#opt-services.jellyseerr.enable">services.jellyseerr</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://sr.ht/~zethra/stargazer/" target="_top">stargazer</a>, a fast and easy to use Gemini server. Available as <a class="link" href="options.html#opt-services.stargazer.enable">services.stargazer</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://photoprism.app/" target="_top">photoprism</a>, a AI-Powered Photos App for the Decentralized Web. Available as <a class="link" href="options.html#opt-services.photoprism.enable" target="_top">services.photoprism</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/ljanyst/peroxide" target="_top">peroxide</a>, a fork of the official <a class="link" href="https://github.com/ProtonMail/proton-bridge" target="_top">ProtonMail bridge</a> that aims to be similar to <a class="link" href="https://github.com/emersion/hydroxide" target="_top">Hydroxide</a>. Available as <a class="link" href="options.html#opt-services.peroxide.enable">services.peroxide</a>.
@@ -179,7 +181,11 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  Calling <code class="literal">makeSetupHook</code> without passing a <code class="literal">name</code> argument is deprecated.
 </p></li><li class="listitem"><p>
+ Top-level buildPlatform,hostPlatform,targetPlatform have been deprecated, use stdenv.X instead.
+</p></li><li class="listitem"><p>
  <code class="literal">lib.systems.examples.ghcjs</code> and consequently <code class="literal">pkgsCross.ghcjs</code> now use the target triplet <code class="literal">javascript-unknown-ghcjs</code> instead of <code class="literal">js-unknown-ghcjs</code>. This has been done to match an <a class="link" href="https://gitlab.haskell.org/ghc/ghc/-/commit/6636b670233522f01d002c9b97827d00289dbf5c" target="_top">upstream decision</a> to follow Cabal’s platform naming more closely. Nixpkgs will also reject <code class="literal">js</code> as an architecture name.
+</p></li><li class="listitem"><p>
+ <code class="literal">dokuwiki</code> has been updated from 2023-07-31a (Igor) to 2023-04-04 (Jack Jackrum), which has <a class="link" href="https://www.dokuwiki.org/changes#release_2023-04-04_jack_jackrum" target="_top">completely removed</a> the options to embed HTML and PHP for security reasons. The <a class="link" href="https://www.dokuwiki.org/plugin:htmlok" target="_top">htmlok plugin</a> can be used to regain this functionality.
 </p></li><li class="listitem"><p>
  The old unsupported version 6.x of the ELK-stack and Elastic beats have been removed. Use OpenSearch instead.
 </p></li><li class="listitem"><p>
@@ -223,6 +229,8 @@ for more details and available replacements.
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
 </p></li><li class="listitem"><p>
  To enable the HTTP3 (QUIC) protocol for a nginx virtual host, set the <code class="literal">quic</code> attribute on it to true, e.g. <code class="literal">services.nginx.virtualHosts.&lt;name&gt;.quic = true;</code>.
+</p></li><li class="listitem"><p>
+ The default Asterisk package was changed to v20 from v19. Asterisk versions 16 and 19 have been dropped due to being EOL. You may need to update /var/lib/asterisk to match the template files in <code class="literal">${asterisk-20}/var/lib/asterisk</code>.
 </p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li><li class="listitem"><p>
@@ -303,9 +311,10 @@ into contemporary backup solutions.
 <code class="literal">services.dnsmasq.extraConfig</code> will be deprecated when NixOS 22.11 reaches
 end of life.
 </p></li><li class="listitem"><p>
- The <code class="literal">dokuwiki</code> service now takes configuration via the <code class="literal">services.dokuwiki.sites.&lt;name&gt;.settings</code> attribute set, <code class="literal">extraConfig</code> is deprecated and will be removed.
-The <code class="literal">{aclUse,superUser,disableActions}</code> attributes have been renamed, <code class="literal">pluginsConfig</code> now also accepts an attribute set of booleans, passing plain PHP is deprecated.
-Same applies to <code class="literal">acl</code> which now also accepts structured settings.
+ The <code class="literal">dokuwiki</code> service is now configured via <code class="literal">services.dokuwiki.sites.&lt;name&gt;.settings</code> attribute set; <code class="literal">extraConfig</code> has been removed.
+The <code class="literal">{aclUse,superUser,disableActions}</code> attributes have been renamed accordingly. <code class="literal">pluginsConfig</code> now only accepts an attribute set of booleans.
+Passing plain PHP is no longer possible.
+Same applies to <code class="literal">acl</code> which now also only accepts structured <code class="literal">settings</code>.
 </p></li><li class="listitem"><p>
  The <code class="literal">zsh</code> package changes the way to set environment variables on NixOS systems where <code class="literal">programs.zsh.enable</code> equals <code class="literal">false</code>.  It now sources <code class="literal">/etc/set-environment</code> when reading the system-level <code class="literal">zshenv</code> file.  Before, it sourced <code class="literal">/etc/profile</code> when reading the system-level <code class="literal">zprofile</code> file.
 </p></li><li class="listitem"><p>
