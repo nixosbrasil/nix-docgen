@@ -112,6 +112,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://woodpecker-ci.org/" target="_top">woodpecker-server</a>, a simple CI engine with great extensibility. Available as <a class="link" href="options.html#opt-services.woodpecker-server.enable">services.woodpecker-server</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/lldap/lldap" target="_top">lldap</a>, a lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication. Available as <a class="link" href="options.html#opt-services.lldap.enable">services.lldap</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/rharish101/ReGreet" target="_top">ReGreet</a>, a clean and customizable greeter for greetd. Available as <a class="link" href="options.html#opt-programs.regreet.enable">programs.regreet</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://git.launchpad.net/v4l2-relayd" target="_top">v4l2-relayd</a>, a streaming relay for v4l2loopback using gstreamer. Available as <a class="link" href="options.html#opt-services.v4l2-relayd.instances._name_.enable">services.v4l2-relayd</a>.
@@ -288,7 +290,7 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  <code class="literal">services.openssh.gatewayPorts</code> to <code class="literal">services.openssh.settings.GatewayPorts</code>
 </p></li></ul></div></li><li class="listitem"><p>
- <code class="literal">netbox</code> was updated to 3.4. NixOS’ <code class="literal">services.netbox.package</code> still defaults to 3.3 if <code class="literal">stateVersion</code> is earlier than 23.05. Please review upstream’s <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v3.4.0" target="_top">breaking changes</a>, and upgrade NetBox by changing <code class="literal">services.netbox.package</code>. Database migrations will be run automatically.
+ <code class="literal">netbox</code> was updated to 3.5. NixOS’ <code class="literal">services.netbox.package</code> still defaults to 3.3 if <code class="literal">stateVersion</code> is earlier than 23.05. Please review upstream’s breaking changes <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v3.4.0" target="_top">for 3.4.0</a> and <a class="link" href="https://github.com/netbox-community/netbox/releases/tag/v3.5.0" target="_top">for 3.5.0</a>, and upgrade NetBox by changing <code class="literal">services.netbox.package</code>. Database migrations will be run automatically.
 </p></li><li class="listitem"><p>
  <code class="literal">services.netbox</code> now support RFC42-style options, through <code class="literal">services.netbox.settings</code>.
 </p></li><li class="listitem"><p>
