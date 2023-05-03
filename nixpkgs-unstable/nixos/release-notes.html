@@ -130,6 +130,8 @@ the switch of a live system might fail.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">carnix</code> and <code class="literal">cratesIO</code> has been removed due to being unmaintained, use alternatives such as <a class="link" href="https://github.com/nix-community/naersk" target="_top">naersk</a> and <a class="link" href="https://github.com/kolloch/crate2nix" target="_top">crate2nix</a> instead.
 </p></li><li class="listitem"><p>
+ <code class="literal">services.asusd</code> configuration now uses strings instead of structured configuration, as upstream switched to the <a class="link" href="https://github.com/ron-rs/ron" target="_top">RON</a> configuration format. Support for structured configuration may return when <a class="link" href="https://github.com/ron-rs/ron" target="_top">RON</a> generation is implemented in nixpkgs.
+</p></li><li class="listitem"><p>
  <code class="literal">checkInputs</code> have been renamed to <code class="literal">nativeCheckInputs</code>, because they behave the same as <code class="literal">nativeBuildInputs</code> when <code class="literal">doCheck</code> is set. <code class="literal">checkInputs</code> now denote a new type of dependencies, added to <code class="literal">buildInputs</code> when <code class="literal">doCheck</code> is set. As a rule of thumb, <code class="literal">nativeCheckInputs</code> are tools on <code class="literal">$PATH</code> used during the tests, and <code class="literal">checkInputs</code> are libraries which are linked to executables built as part of the tests. Similarly, <code class="literal">installCheckInputs</code> are renamed to <code class="literal">nativeInstallCheckInputs</code>, corresponding to <code class="literal">nativeBuildInputs</code>, and <code class="literal">installCheckInputs</code> are a new type of dependencies added to <code class="literal">buildInputs</code> when <code class="literal">doInstallCheck</code> is set. (Note that this change will not cause breakage to derivations with <code class="literal">strictDeps</code> unset, which are most packages except python, rust, ocaml and go packages).
 </p></li><li class="listitem"><p>
  <code class="literal">buildDunePackage</code> now defaults to <code class="literal">strictDeps = true</code> which means that any library should go into <code class="literal">buildInputs</code> or <code class="literal">checkInputs</code>. Any executable that is run on the building machine should go into <code class="literal">nativeBuildInputs</code> or <code class="literal">nativeCheckInputs</code> respectively. Example of executables are <code class="literal">ocaml</code>, <code class="literal">findlib</code> and <code class="literal">menhir</code>. PPXs are libraries which are built by dune and should therefore not go into <code class="literal">nativeBuildInputs</code>.
@@ -205,6 +207,14 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.wordpress.sites._name_.plugins">services.wordpress.sites.&lt;name&gt;.plugins</a> and <a class="link" href="options.html#opt-services.wordpress.sites._name_.themes">services.wordpress.sites.&lt;name&gt;.themes</a> options have been converted from sets to attribute sets to allow for consumers to specify explicit install paths via attribute name.
 </p></li><li class="listitem"><p>
+ <a class="link" href="options.html#opt-services.nextcloud.database.createLocally"><code class="literal">services.nextcloud.database.createLocally</code></a> now uses socket authentication and is no longer compatible with password authentication.
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+ If you want the module to manage the database for you, unset <a class="link" href="options.html#opt-services.nextcloud.config.dbpassFile"><code class="literal">services.nextcloud.config.dbpassFile</code></a> (and <a class="link" href="options.html#opt-services.nextcloud.config.dbhost"><code class="literal">services.nextcloud.config.dbhost</code></a>, if it’s set).
+</p></li><li class="listitem"><p>
+ If your database is external, simply set <a class="link" href="options.html#opt-services.nextcloud.database.createLocally"><code class="literal">services.nextcloud.database.createLocally</code></a> to <code class="literal">false</code>.
+</p></li><li class="listitem"><p>
+ If you want to use password authentication <span class="strong"><strong>and</strong></span> create the database locally, you will have to use <a class="link" href="options.html#opt-services.mysql.enable"><code class="literal">services.mysql</code></a> to set it up.
+</p></li></ul></div></li><li class="listitem"><p>
  <code class="literal">protonmail-bridge</code> package has been updated to major version 3.
 </p></li><li class="listitem"><p>
  Nebula now runs as a system user and group created for each nebula network, using the <code class="literal">CAP_NET_ADMIN</code> ambient capability on launch rather than starting as root. Ensure that any files each Nebula instance needs to access are owned by the correct user and group, by default <code class="literal">nebula-${networkName}</code>.
@@ -235,6 +245,8 @@ This breaks services which rely on metadata being present by the time stage-2 is
 <code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools. See
 <a class="link" href="https://github.com/iputils/iputils/releases/tag/20221126" target="_top">upstream’s release notes</a>
 for more details and available replacements.
+</p></li><li class="listitem"><p>
+ The ppp plugin <code class="literal">rp-pppoe.so</code> has been renamed to <code class="literal">pppoe.so</code> in ppp 2.4.9. Starting from ppp 2.5.0, there is no longer a alias for backwards compatiblity. Configurations that use this plugin must be updated accordingly from <code class="literal">plugin rp-pppoe.so</code> to <code class="literal">plugin pppoe.so</code>. See <a class="link" href="https://github.com/ppp-project/ppp/commit/610a7bd76eb1f99f22317541b35001b1e24877ed" target="_top">upstream change</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
 </p></li><li class="listitem"><p>
@@ -316,8 +328,12 @@ replacement for openafs’s own <code class="literal">buserver</code>. See
 replacement. It stores backups as volume dump files and thus better integrates
 into contemporary backup solutions.
 </p></li><li class="listitem"><p>
- <code class="literal">services.maddy</code> now allows to configure users and their credentials using <code class="literal">services.maddy.ensureCredentials</code>.
+ <code class="literal">services.maddy</code> got several updates:
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+ Configuration of users and their credentials using <code class="literal">services.maddy.ensureCredentials</code>.
 </p></li><li class="listitem"><p>
+ Configuration of TLS key and certificate files using <code class="literal">services.maddy.tls</code>.
+</p></li></ul></div></li><li class="listitem"><p>
  The <code class="literal">dnsmasq</code> service now takes configuration via the
 <code class="literal">services.dnsmasq.settings</code> attribute set. The option
 <code class="literal">services.dnsmasq.extraConfig</code> will be deprecated when NixOS 22.11 reaches

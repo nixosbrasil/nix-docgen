@@ -3446,10 +3446,16 @@ major version available.
 </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-nextcloud-basic-usage"></a>Basic usage</h2></div></div></div><p>
  Nextcloud is a PHP-based application which requires an HTTP server
 (<a class="link" href="options.html#opt-services.nextcloud.enable"><code class="literal">services.nextcloud</code></a>
-optionally supports
-<a class="link" href="options.html#opt-services.nginx.enable"><code class="literal">services.nginx</code></a>)
-and a database (it’s recommended to use
-<a class="link" href="options.html#opt-services.postgresql.enable"><code class="literal">services.postgresql</code></a>).
+and optionally supports
+<a class="link" href="options.html#opt-services.nginx.enable"><code class="literal">services.nginx</code></a>).
+</p><p>
+ For the database, you can set
+<a class="link" href="options.html#opt-services.nextcloud.config.dbtype"><code class="literal">services.nextcloud.config.dbtype</code></a> to
+either <code class="literal">sqlite</code> (the default), <code class="literal">mysql</code>, or <code class="literal">pgsql</code>. For the last two, by
+default, a local database will be created and nextcloud will connect to it via
+socket; this can be disabled by setting
+<a class="link" href="options.html#opt-services.nextcloud.database.createLocally"><code class="literal">services.nextcloud.database.createLocally</code></a>
+to <code class="literal">false</code>.
 </p><p>
  A very basic configuration may look like this:
 </p><pre class="programlisting">
@@ -3460,28 +3466,8 @@ and a database (it’s recommended to use
     hostName = "nextcloud.tld";
     config = {
       dbtype = "pgsql";
-      dbuser = "nextcloud";
-      dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
-      dbname = "nextcloud";
       adminpassFile = "/path/to/admin-pass-file";
-      adminuser = "root";
     };
-  };
-
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "nextcloud" ];
-    ensureUsers = [
-     { name = "nextcloud";
-       ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
-     }
-    ];
-  };
-
-  # ensure that postgres is running *before* running the setup
-  systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-    after = ["postgresql.service"];
   };
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
