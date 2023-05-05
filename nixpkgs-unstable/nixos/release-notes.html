@@ -254,6 +254,8 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  To enable the HTTP3 (QUIC) protocol for a nginx virtual host, set the <code class="literal">quic</code> attribute on it to true, e.g. <code class="literal">services.nginx.virtualHosts.&lt;name&gt;.quic = true;</code>.
 </p></li><li class="listitem"><p>
+ In <code class="literal">services.fail2ban</code>, <code class="literal">bantime-increment.&lt;name&gt;</code> options now default to <code class="literal">null</code> (except <code class="literal">bantime-increment.enable</code>) and are used to set the corresponding option in <code class="literal">jail.local</code> only if not <code class="literal">null</code>. Also, enforce that <code class="literal">bantime-increment.formula</code> and <code class="literal">bantime-increment.multipliers</code> are not both specified.
+</p></li><li class="listitem"><p>
  The default Asterisk package was changed to v20 from v19. Asterisk versions 16 and 19 have been dropped due to being EOL. You may need to update /var/lib/asterisk to match the template files in <code class="literal">${asterisk-20}/var/lib/asterisk</code>.
 </p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
@@ -271,6 +273,8 @@ for more details and available replacements.
  <code class="literal">services.pipewire.media-session</code> and the <code class="literal">pipewire-media-session</code> package have been removed, as they are no longer supported upstream. Users are encouraged to use <code class="literal">services.pipewire.wireplumber</code> instead.
 </p></li><li class="listitem"><p>
  The <code class="literal">baget</code> package and module was removed due to being unmaintained.
+</p></li><li class="listitem"><p>
+ The <code class="literal">qlandkartegt</code> and <code class="literal">garmindev</code> packages were removed due to being unmaintained and insecure.
 </p></li><li class="listitem"><p>
  <code class="literal">go-ethereum</code> package has been updated to v1.11.5 and the <code class="literal">puppeth</code> command is no longer available as of v1.11.0.
 </p></li><li class="listitem"><p>

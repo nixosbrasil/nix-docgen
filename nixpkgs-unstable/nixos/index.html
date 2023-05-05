@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>NixOS Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">NixOS Manual</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-nixos-manual"></a>NixOS Manual</h1></div><div><h2 class="subtitle">Version 23.05</h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">Upgrading NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">Building a NixOS (Live) ISO</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#sec-bootloader-external">External Bootloader Backends</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-garage">Garage</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-akkoma">Akkoma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-experimental-bootspec">Experimental feature: Bootspec</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#chap-developing-the-test-driver">Developing the NixOS Test Driver</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">Testing the Installer</a></span></dt></dl></dd><dt><span class="chapter"><a href="index.html#chap-contributing">Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>NixOS Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /><link rel="home" href="index.html" title="NixOS Manual" /><link rel="next" href="options.html" title="Appendix A. Configuration Options" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">NixOS Manual</th></tr><tr><td width="20%" align="left"> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="options.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="book-nixos-manual"></a>NixOS Manual</h1></div><div><h2 class="subtitle">Version 23.05</h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="index.html#preface">Preface</a></span></dt><dt><span class="part"><a href="index.html#ch-installation">Installation</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-obtaining">Obtaining NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-installation">Installing NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-changing-config">Changing the Configuration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-upgrading">Upgrading NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-image">Building a NixOS (Live) ISO</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-configuration">Configuration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-configuration-syntax">Configuration Syntax</a></span></dt><dt><span class="chapter"><a href="index.html#sec-package-management">Package Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-management">User Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-file-systems">File Systems</a></span></dt><dt><span class="chapter"><a href="index.html#sec-x11">X Window System</a></span></dt><dt><span class="chapter"><a href="index.html#sec-wayland">Wayland</a></span></dt><dt><span class="chapter"><a href="index.html#sec-gpu-accel">GPU acceleration</a></span></dt><dt><span class="chapter"><a href="index.html#sec-xfce">Xfce Desktop Environment</a></span></dt><dt><span class="chapter"><a href="index.html#sec-networking">Networking</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kernel-config">Linux Kernel</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-subversion">Subversion</a></span></dt><dt><span class="chapter"><a href="index.html#chap-pantheon">Pantheon Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#chap-gnome">GNOME Desktop</a></span></dt><dt><span class="chapter"><a href="index.html#sec-bootloader-external">External Bootloader Backends</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-garage">Garage</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-plausible">Plausible</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pict-rs">Pict-rs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-nextcloud">Nextcloud</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matomo">Matomo</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-lemmy">Lemmy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-keycloak">Keycloak</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-jitsi-meet">Jitsi Meet</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-grocy">Grocy</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-discourse">Discourse</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-akkoma">Akkoma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-meilisearch">Meilisearch</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-networking-yggdrasil">Yggdrasil</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prosody">Prosody</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-pleroma">Pleroma</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mosquitto">Mosquitto</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-firefox-syncserver">Firefox Sync server</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-litestream">Litestream</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-prometheus-exporters">Prometheus exporters</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-parsedmarc">parsedmarc</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-weechat">WeeChat</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-taskserver">Taskserver</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-sourcehut">Sourcehut</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-gitlab">GitLab</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-matrix">Matrix</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mjolnir">Mjolnir (Matrix Moderation Tool)</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-mailman">Mailman</a></span></dt><dt><span class="chapter"><a href="index.html#trezor">Trezor</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-emacs">Emacs</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-blackfire">Blackfire profiler</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-flatpak">Flatpak</a></span></dt><dt><span class="chapter"><a href="index.html#module-postgresql">PostgreSQL</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-foundationdb">FoundationDB</a></span></dt><dt><span class="chapter"><a href="index.html#module-borgbase">BorgBackup</a></span></dt><dt><span class="chapter"><a href="index.html#module-security-acme">SSL/TLS Certificates with ACME</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-zsh-ohmyzsh">Oh my ZSH</a></span></dt><dt><span class="chapter"><a href="index.html#module-program-plotinus">Plotinus</a></span></dt><dt><span class="chapter"><a href="index.html#module-programs-digitalbitbox">Digital Bitbox</a></span></dt><dt><span class="chapter"><a href="index.html#module-services-input-methods">Input Methods</a></span></dt><dt><span class="chapter"><a href="index.html#ch-profiles">Profiles</a></span></dt><dt><span class="chapter"><a href="index.html#sec-kubernetes">Kubernetes</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-running">Administration</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-systemctl">Service Management</a></span></dt><dt><span class="chapter"><a href="index.html#sec-rebooting">Rebooting and Shutting Down</a></span></dt><dt><span class="chapter"><a href="index.html#sec-user-sessions">User Sessions</a></span></dt><dt><span class="chapter"><a href="index.html#sec-cgroups">Control Groups</a></span></dt><dt><span class="chapter"><a href="index.html#sec-logging">Logging</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nix-gc">Cleaning the Nix Store</a></span></dt><dt><span class="chapter"><a href="index.html#ch-containers">Container Management</a></span></dt><dt><span class="chapter"><a href="index.html#ch-troubleshooting">Troubleshooting</a></span></dt></dl></dd><dt><span class="part"><a href="index.html#ch-development">Development</a></span></dt><dd><dl><dt><span class="chapter"><a href="index.html#sec-getting-sources">Getting the Sources</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-modules">Writing NixOS Modules</a></span></dt><dt><span class="chapter"><a href="index.html#sec-building-parts">Building Specific Parts of NixOS</a></span></dt><dt><span class="chapter"><a href="index.html#sec-experimental-bootspec">Experimental feature: Bootspec</a></span></dt><dt><span class="chapter"><a href="index.html#sec-switching-systems">What happens during a system switch?</a></span></dt><dt><span class="chapter"><a href="index.html#sec-writing-documentation">Writing NixOS Documentation</a></span></dt><dt><span class="chapter"><a href="index.html#sec-nixos-tests">NixOS Tests</a></span></dt><dt><span class="chapter"><a href="index.html#chap-developing-the-test-driver">Developing the NixOS Test Driver</a></span></dt><dt><span class="chapter"><a href="index.html#ch-testing-installer">Testing the Installer</a></span></dt></dl></dd><dt><span class="chapter"><a href="index.html#chap-contributing">Contributing to this manual</a></span></dt><dt><span class="appendix"><a href="options.html">A. Configuration Options</a></span></dt><dt><span class="appendix"><a href="release-notes.html">B. Release Notes</a></span></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>1. <a href="index.html#ex-partition-scheme-MBR">Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (MBR)</a></dt><dt>2. <a href="index.html#ex-partition-scheme-UEFI">Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (UEFI)</a></dt><dt>3. <a href="index.html#ex-install-sequence">Commands for Installing NixOS on <code class="literal">/dev/sda</code></a></dt><dt>4. <a href="index.html#ex-config">Example: NixOS Configuration</a></dt><dt>5. <a href="index.html#ex-emacsNix">Nix expression to build Emacs with packages (<code class="literal">emacs.nix</code>)</a></dt><dt>6. <a href="index.html#module-services-emacs-querying-packages">Querying Emacs packages</a></dt><dt>7. <a href="index.html#module-services-emacs-configuration-nix">Custom Emacs in <code class="literal">configuration.nix</code></a></dt><dt>8. <a href="index.html#module-services-emacs-config-nix">Custom Emacs in <code class="literal">~/.config/nixpkgs/config.nix</code></a></dt><dt>9. <a href="index.html#ex-emacsGtk3Nix">Custom Emacs build</a></dt><dt>10. <a href="index.html#module-services-emacs-package-initialisation">Package initialization in <code class="literal">.emacs</code></a></dt><dt>11. <a href="index.html#ex-emacs-docbook-xml">nXML Schema Configuration (<code class="literal">~/.emacs.d/schemas.xml</code>)</a></dt><dt>12. <a href="index.html#ex-module-syntax">Structure of NixOS Modules</a></dt><dt>13. <a href="index.html#locate-example">NixOS Module for the “locate” Service</a></dt><dt>14. <a href="index.html#exec-escaping-example">Escaping in Exec directives</a></dt><dt>15. <a href="index.html#ex-options-declarations-util-mkEnableOption-magic"><code class="literal">mkEnableOption</code> usage</a></dt><dt>16. <a href="index.html#ex-options-declarations-util-mkPackageOption-hello">Simple <code class="literal">mkPackageOption</code> usage</a></dt><dt>17. <a href="index.html#ex-options-declarations-util-mkPackageOption-ghc"><code class="literal">mkPackageOption</code> with explicit default and example</a></dt><dt>18. <a href="index.html#ex-options-declarations-util-mkPackageOption-extraDescription"><code class="literal">mkPackageOption</code> with additional description text</a></dt><dt>19. <a href="index.html#ex-option-declaration-eot-service">Extensible type placeholder in the service module</a></dt><dt>20. <a href="index.html#ex-option-declaration-eot-backend-gdm">Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</a></dt><dt>21. <a href="index.html#ex-option-declaration-eot-backend-sddm">Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</a></dt><dt>22. <a href="index.html#ex-types-anything"><code class="literal">types.anything</code></a></dt><dt>23. <a href="index.html#ex-submodule-direct">Directly defined submodule</a></dt><dt>24. <a href="index.html#ex-submodule-reference">Submodule defined as a reference</a></dt><dt>25. <a href="index.html#ex-submodule-listof-declaration">Declaration of a list of submodules</a></dt><dt>26. <a href="index.html#ex-submodule-listof-definition">Definition of a list of submodules</a></dt><dt>27. <a href="index.html#ex-submodule-attrsof-declaration">Declaration of attribute sets of submodules</a></dt><dt>28. <a href="index.html#ex-submodule-attrsof-definition">Definition of attribute sets of submodules</a></dt><dt>29. <a href="index.html#ex-extending-type-check-1">Adding a type check</a></dt><dt>30. <a href="index.html#ex-extending-type-check-2">Overriding a type check</a></dt><dt>31. <a href="index.html#ex-freeform-module">Freeform submodule</a></dt><dt>32. <a href="index.html#ex-settings-nix-representable">Module with conventional <code class="literal">settings</code> option</a></dt><dt>33. <a href="index.html#ex-settings-typed-attrs">Declaring a type-checked <code class="literal">settings</code> attribute</a></dt></dl></div><div class="preface"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><p>
  This manual describes how to install, use and extend NixOS, a Linux distribution based on the purely functional package management system <a class="link" href="https://nixos.org/nix" target="_top">Nix</a>, that is composed using modules and packages defined in the <a class="link" href="https://nixos.org/nixpkgs" target="_top">Nixpkgs</a> project.
 </p><p>
  Additional information regarding the Nix package manager and the Nixpkgs project can be found in respectively the <a class="link" href="https://nixos.org/nix/manual" target="_top">Nix manual</a> and the <a class="link" href="https://nixos.org/nixpkgs/manual" target="_top">Nixpkgs manual</a>.
@@ -351,7 +351,7 @@ then NixOS takes care of making it happen. The syntax of the NixOS
 configuration file is described in <a class="xref" href="index.html#sec-configuration-syntax" title="Configuration Syntax"><em>Configuration Syntax</em></a>,
 while a list of available configuration options appears in
 <a class="xref" href="options.html" title="Appendix A. Configuration Options">Appendix A</a>. A minimal example is shown in
-<a class="link" href="index.html#ex-config">Example: NixOS Configuration</a>.
+<a class="link" href="index.html#ex-config" title="Example 4. Example: NixOS Configuration">Example: NixOS Configuration</a>.
 </p><p>
  The command <code class="literal">nixos-generate-config</code> can generate an initial
 configuration file for you:
@@ -468,27 +468,21 @@ $ passwd eelco
 </p></li></ol></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-installation-manual-summary"></a>Installation summary</h3></div></div></div><p>
  <a id="sec-installation-summary"></a> 
 </p><p>
- To summarise, <a class="link" href="index.html#ex-install-sequence">Example: Commands for Installing NixOS on <code class="literal">/dev/sda</code></a>
+ To summarise, <a class="link" href="index.html#ex-install-sequence" title="Example 3. Commands for Installing NixOS on /dev/sda">Example: Commands for Installing NixOS on <code class="literal">/dev/sda</code></a>
 shows a typical sequence of commands for installing NixOS on an empty hard
-drive (here <code class="literal">/dev/sda</code>). <a class="link" href="index.html#ex-config">Example: NixOS Configuration</a> shows a
+drive (here <code class="literal">/dev/sda</code>). <a class="link" href="index.html#ex-config" title="Example 4. Example: NixOS Configuration">Example: NixOS Configuration</a> shows a
 corresponding configuration Nix expression.
-</p><a id="ex-partition-scheme-MBR"></a><p>
- <span class="strong"><strong>Example: Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (MBR)</strong></span>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-partition-scheme-MBR"></a><p class="title"><strong>Example 1. Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (MBR)</strong></p><div class="example-contents"><pre class="programlisting">
 # parted /dev/sda -- mklabel msdos
 # parted /dev/sda -- mkpart primary 1MB -8GB
 # parted /dev/sda -- mkpart primary linux-swap -8GB 100%
-</pre><a id="ex-partition-scheme-UEFI"></a><p>
- <span class="strong"><strong>Example: Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (UEFI)</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-partition-scheme-UEFI"></a><p class="title"><strong>Example 2. Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (UEFI)</strong></p><div class="example-contents"><pre class="programlisting">
 # parted /dev/sda -- mklabel gpt
 # parted /dev/sda -- mkpart primary 512MB -8GB
 # parted /dev/sda -- mkpart primary linux-swap -8GB 100%
 # parted /dev/sda -- mkpart ESP fat32 1MB 512MB
 # parted /dev/sda -- set 3 esp on
-</pre><a id="ex-install-sequence"></a><p>
- <span class="strong"><strong>Example: Commands for Installing NixOS on <code class="literal">/dev/sda</code></strong></span>
-</p><p>
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-install-sequence"></a><p class="title"><strong>Example 3. Commands for Installing NixOS on <code class="literal">/dev/sda</code></strong></p><div class="example-contents"><p>
  With a partitioned disk.
 </p><pre class="programlisting">
 # mkfs.ext4 -L nixos /dev/sda1
@@ -502,9 +496,7 @@ corresponding configuration Nix expression.
 # nano /mnt/etc/nixos/configuration.nix
 # nixos-install
 # reboot
-</pre><a id="ex-config"></a><p>
- <span class="strong"><strong>Example: NixOS Configuration</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-config"></a><p class="title"><strong>Example 4. Example: NixOS Configuration</strong></p><div class="example-contents"><pre class="programlisting">
 { config, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
@@ -522,7 +514,7 @@ corresponding configuration Nix expression.
   # Enable the OpenSSH server.
   services.sshd.enable = true;
 }
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-installation-additional-notes"></a>Additional installation notes</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-booting-from-usb"></a>Booting from a USB flash drive</h3></div></div></div><p>
+</pre></div></div><br class="example-break" /></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-installation-additional-notes"></a>Additional installation notes</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-booting-from-usb"></a>Booting from a USB flash drive</h3></div></div></div><p>
  The image has to be written verbatim to the USB flash drive for it to be
 bootable on UEFI and BIOS systems. Here are the recommended tools to do that.
 </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-booting-from-usb-graphical"></a>Creating bootable USB flash drive with a graphical tool</h4></div></div></div><p>
@@ -6064,9 +6056,7 @@ Emacs packages through nixpkgs.
  The first step to declare the list of packages you want in your Emacs
 installation is to create a dedicated derivation. This can be done in a
 dedicated <code class="filename">emacs.nix</code> file such as:
-</p><p>
- <a id="ex-emacsNix"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-emacsNix"></a><p class="title"><strong>Example 5. Nix expression to build Emacs with packages (<code class="literal">emacs.nix</code>)</strong></p><div class="example-contents"><pre class="programlisting">
 /*
 This is a nix expression to build Emacs and some Emacs packages I like
 from source on any distribution where Nix is installed. This will install
@@ -6119,7 +6109,7 @@ in
   ++ [
     pkgs.notmuch   # From main packages set
   ])
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  The result of this configuration will be an <span class="command"><strong>emacs</strong></span>
 command which launches Emacs with all of your chosen packages in the
 <code class="varname">load-path</code>.
@@ -6139,26 +6129,24 @@ and yasnippet.
 </p></div><p>
  The list of available packages in the various ELPA repositories can be seen
 with the following commands:
-<a id="module-services-emacs-querying-packages"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="module-services-emacs-querying-packages"></a><p class="title"><strong>Example 6. Querying Emacs packages</strong></p><div class="example-contents"><pre class="programlisting">
 nix-env -f "&lt;nixpkgs&gt;" -qaP -A emacs.pkgs.elpaPackages
 nix-env -f "&lt;nixpkgs&gt;" -qaP -A emacs.pkgs.melpaPackages
 nix-env -f "&lt;nixpkgs&gt;" -qaP -A emacs.pkgs.melpaStablePackages
 nix-env -f "&lt;nixpkgs&gt;" -qaP -A emacs.pkgs.orgPackages
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  If you are on NixOS, you can install this particular Emacs for all users by
 adding it to the list of system packages (see
 <a class="xref" href="index.html#sec-declarative-package-mgmt" title="Declarative Package Management">the section called “Declarative Package Management”</a>). Simply modify your file
 <code class="filename">configuration.nix</code> to make it contain:
-<a id="module-services-emacs-configuration-nix"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="module-services-emacs-configuration-nix"></a><p class="title"><strong>Example 7. Custom Emacs in <code class="literal">configuration.nix</code></strong></p><div class="example-contents"><pre class="programlisting">
 {
  environment.systemPackages = [
    # [...]
    (import /path/to/emacs.nix { inherit pkgs; })
   ];
 }
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  In this case, the next <span class="command"><strong>nixos-rebuild switch</strong></span> will take
 care of adding your <span class="command"><strong>emacs</strong></span> to the <code class="varname">PATH</code>
 environment variable (see <a class="xref" href="index.html#sec-changing-config" title="Changing the Configuration"><em>Changing the Configuration</em></a>).
@@ -6167,14 +6155,13 @@ environment variable (see <a class="xref" href="index.html#sec-changing-config" 
 yourself, you can do so by adding it to your
 <code class="filename">~/.config/nixpkgs/config.nix</code> (see
 <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-modify-via-packageOverrides" target="_top">Nixpkgs manual</a>):
-<a id="module-services-emacs-config-nix"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="module-services-emacs-config-nix"></a><p class="title"><strong>Example 8. Custom Emacs in <code class="literal">~/.config/nixpkgs/config.nix</code></strong></p><div class="example-contents"><pre class="programlisting">
 {
   packageOverrides = super: let self = super.pkgs; in {
     myemacs = import /path/to/emacs.nix { pkgs = self; };
   };
 }
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  In this case, the next <code class="literal">nix-env -f '&lt;nixpkgs&gt;' -iA myemacs</code> will take care of adding your emacs to the
 <code class="varname">PATH</code> environment variable.
 </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="module-services-emacs-advanced"></a>Advanced Emacs Configuration</h3></div></div></div><p>
@@ -6184,9 +6171,7 @@ GTK 3-based Emacs instead of the default GTK 2-based binary and remove the
 automatically generated <code class="filename">emacs.desktop</code> (useful if you
 only use <span class="command"><strong>emacsclient</strong></span>), you can change your file
 <code class="filename">emacs.nix</code> in this way:
-</p><p>
- <a id="ex-emacsGtk3Nix"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-emacsGtk3Nix"></a><p class="title"><strong>Example 9. Custom Emacs build</strong></p><div class="example-contents"><pre class="programlisting">
 { pkgs ? import &lt;nixpkgs&gt; {} }:
 let
   myEmacs = (pkgs.emacs.override {
@@ -6201,8 +6186,8 @@ let
     '';
   });
 in [...]
-</pre><p>
- After building this file as shown in <a class="link" href="index.html#ex-emacsNix">the example above</a>, you
+</pre></div></div><br class="example-break" /><p>
+ After building this file as shown in <a class="xref" href="index.html#ex-emacsNix" title="Example 5. Nix expression to build Emacs with packages (emacs.nix)">Example 5</a>, you
 will get an GTK 3-based Emacs binary pre-loaded with your favorite packages.
 </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-emacs-running"></a>Running Emacs as a Service</h2></div></div></div><p>
  NixOS provides an optional
@@ -6279,8 +6264,7 @@ systemctl --user enable emacs
 </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-emacs-configuring"></a>Configuring Emacs</h2></div></div></div><p>
  The Emacs init file should be changed to load the extension packages at
 startup:
-<a id="module-services-emacs-package-initialisation"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="module-services-emacs-package-initialisation"></a><p class="title"><strong>Example 10. Package initialization in <code class="literal">.emacs</code></strong></p><div class="example-contents"><pre class="programlisting">
 (require 'package)
 
 ;; optional. makes unpure packages archives unavailable
@@ -6288,7 +6272,7 @@ startup:
 
 (setq package-enable-at-startup nil)
 (package-initialize)
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  After the declarative emacs package configuration has been tested,
 previously downloaded packages can be cleaned up by removing
 <code class="filename">~/.emacs.d/elpa</code> (do make a backup first, in case you
@@ -6317,8 +6301,7 @@ included.
  Then customize the variable <code class="varname">rng-schema-locating-files</code> to
 include <code class="filename">~/.emacs.d/schemas.xml</code> and put the following
 text into that file:
-<a id="ex-emacs-docbook-xml"></a>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-emacs-docbook-xml"></a><p class="title"><strong>Example 11. nXML Schema Configuration (<code class="literal">~/.emacs.d/schemas.xml</code>)</strong></p><div class="example-contents"><pre class="programlisting">
 &lt;?xml version="1.0"?&gt;
 &lt;!--
   To let emacs find this file, evaluate:
@@ -6336,7 +6319,7 @@ text into that file:
              uri="../.nix-profile/share/xml/docbook-5.0/rng/docbookxi.rnc"/&gt;
   --&gt;
 &lt;/locatingRules&gt;
-</pre></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-blackfire"></a>Blackfire profiler</h2></div></div></div><p>
+</pre></div></div><br class="example-break" /></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="module-services-blackfire"></a>Blackfire profiler</h2></div></div></div><p>
  <span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/development/blackfire.nix</code>
 </p><p>
  <span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="https://blackfire.io/docs/introduction" target="_top">https://blackfire.io/docs/introduction</a>
@@ -8511,10 +8494,8 @@ NixOS modules:
 </pre><p>
  This is actually an <span class="emphasis"><em>abbreviated</em></span> form of module that only defines
 options, but does not declare any. The structure of full NixOS modules
-is shown in <a class="link" href="index.html#ex-module-syntax">Example: Structure of NixOS Modules</a>.
-</p><a id="ex-module-syntax"></a><p>
- <span class="strong"><strong>Example: Structure of NixOS Modules</strong></span>
-</p><pre class="programlisting">
+is shown in <a class="link" href="index.html#ex-module-syntax" title="Example 12. Structure of NixOS Modules">Example: Structure of NixOS Modules</a>.
+</p><div class="example"><a id="ex-module-syntax"></a><p class="title"><strong>Example 12. Structure of NixOS Modules</strong></p><div class="example-contents"><pre class="programlisting">
 { config, pkgs, ... }:
 
 {
@@ -8530,7 +8511,7 @@ is shown in <a class="link" href="index.html#ex-module-syntax">Example: Structur
     option definitions
   };
 }
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  The meaning of each part is as follows.
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  The first line makes the current Nix expression a function. The variable
@@ -8551,7 +8532,7 @@ These don’t need to be added in the import list.
  The attribute <code class="literal">config</code> is a nested set of <span class="emphasis"><em>option definitions</em></span> (also
 described below).
 </p></li></ul></div><p>
- <a class="link" href="index.html#locate-example">Example: NixOS Module for the “locate” Service</a>
+ <a class="link" href="index.html#locate-example" title="Example 13. NixOS Module for the “locate” Service">Example: NixOS Module for the “locate” Service</a>
 shows a module that handles the regular update of the “locate” database,
 an index of all files in the file system. This module declares two
 options that can be defined by other modules (typically the user’s
@@ -8569,12 +8550,10 @@ arguments on whitespace, and splits commands on <code class="literal">;</code>. 
 to avoid unexpected substitution or splitting when interpolating into an <code class="literal">Exec*</code>
 directive, e.g. when using an <code class="literal">extraArgs</code> option to pass additional arguments to
 the service. The functions <code class="literal">utils.escapeSystemdExecArg</code> and
-<code class="literal">utils.escapeSystemdExecArgs</code> are provided for this, see <a class="link" href="index.html#exec-escaping-example">Example: Escaping in
+<code class="literal">utils.escapeSystemdExecArgs</code> are provided for this, see <a class="link" href="index.html#exec-escaping-example" title="Example 14. Escaping in Exec directives">Example: Escaping in
 Exec directives</a> for an example. When using these
 functions system environment substitution should <span class="emphasis"><em>not</em></span> be disabled explicitly.
-</p><a id="locate-example"></a><p>
- <span class="strong"><strong>Example: NixOS Module for the “locate” Service</strong></span>
-</p><pre class="programlisting">
+</p><div class="example"><a id="locate-example"></a><p class="title"><strong>Example 13. NixOS Module for the “locate” Service</strong></p><div class="example-contents"><pre class="programlisting">
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -8630,9 +8609,7 @@ in {
       };
   };
 }
-</pre><a id="exec-escaping-example"></a><p>
- <span class="strong"><strong>Example: Escaping in Exec directives</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="exec-escaping-example"></a><p class="title"><strong>Example 14. Escaping in Exec directives</strong></p><div class="example-contents"><pre class="programlisting">
 { config, lib, pkgs, utils, ... }:
 
 with lib;
@@ -8656,7 +8633,7 @@ in {
       '';
     };
 }
-</pre><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-option-declarations"></a>Option Declarations</h2></div></div></div><p>
+</pre></div></div><br class="example-break" /><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-option-declarations"></a>Option Declarations</h2></div></div></div><p>
  An option declaration specifies the name, type and description of a
 NixOS configuration option. It is invalid to define an option that
 hasn’t been declared in any module. An option declaration generally
@@ -8714,7 +8691,7 @@ option to be toggled on or off.
  The option’s description is “Whether to enable &lt;name&gt;.”.
 </p><p>
  For example:
-</p><a id="ex-options-declarations-util-mkEnableOption-magic"></a><pre class="programlisting">
+</p><div class="example"><a id="ex-options-declarations-util-mkEnableOption-magic"></a><p class="title"><strong>Example 15. <code class="literal">mkEnableOption</code> usage</strong></p><div class="example-contents"><pre class="programlisting">
 lib.mkEnableOption (lib.mdDoc "magic")
 # is like
 lib.mkOption {
@@ -8723,7 +8700,7 @@ lib.mkOption {
   example = true;
   description = lib.mdDoc "Whether to enable magic.";
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-option-declarations-util-mkPackageOption"></a><code class="literal">mkPackageOption</code>, <code class="literal">mkPackageOptionMD</code></h4></div></div></div><p>
+</pre></div></div><br class="example-break" /></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-option-declarations-util-mkPackageOption"></a><code class="literal">mkPackageOption</code>, <code class="literal">mkPackageOptionMD</code></h4></div></div></div><p>
  Usage:
 </p><pre class="programlisting">
 mkPackageOption pkgs "name" { default = [ "path" "in" "pkgs" ]; example = "literal example"; }
@@ -8755,7 +8732,7 @@ valid attribute path in pkgs (if name is a list).
 </p><p>
  <a id="ex-options-declarations-util-mkPackageOption"></a>
 Examples:
-</p><a id="ex-options-declarations-util-mkPackageOption-hello"></a><pre class="programlisting">
+</p><div class="example"><a id="ex-options-declarations-util-mkPackageOption-hello"></a><p class="title"><strong>Example 16. Simple <code class="literal">mkPackageOption</code> usage</strong></p><div class="example-contents"><pre class="programlisting">
 lib.mkPackageOptionMD pkgs "hello" { }
 # is like
 lib.mkOption {
@@ -8764,7 +8741,7 @@ lib.mkOption {
   defaultText = lib.literalExpression "pkgs.hello";
   description = lib.mdDoc "The hello package to use.";
 }
-</pre><a id="ex-options-declarations-util-mkPackageOption-ghc"></a><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-options-declarations-util-mkPackageOption-ghc"></a><p class="title"><strong>Example 17. <code class="literal">mkPackageOption</code> with explicit default and example</strong></p><div class="example-contents"><pre class="programlisting">
 lib.mkPackageOptionMD pkgs "GHC" {
   default = [ "ghc" ];
   example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
@@ -8777,7 +8754,7 @@ lib.mkOption {
   example = lib.literalExpression "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
   description = lib.mdDoc "The GHC package to use.";
 }
-</pre><a id="ex-options-declarations-util-mkPackageOption-extraDescription"></a><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-options-declarations-util-mkPackageOption-extraDescription"></a><p class="title"><strong>Example 18. <code class="literal">mkPackageOption</code> with additional description text</strong></p><div class="example-contents"><pre class="programlisting">
 mkPackageOption pkgs [ "python39Packages" "pytorch" ] {
   extraDescription = "This is an example and doesn't actually do anything.";
 }
@@ -8788,7 +8765,7 @@ lib.mkOption {
   defaultText = lib.literalExpression "pkgs.python39Packages.pytorch";
   description = "The pytorch package to use. This is an example and doesn't actually do anything.";
 }
-</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-eot"></a>Extensible Option Types</h3></div></div></div><p>
+</pre></div></div><br class="example-break" /></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-declarations-eot"></a>Extensible Option Types</h3></div></div></div><p>
  Extensible option types is a feature that allow to extend certain types
 declaration through multiple module files. This feature only work with a
 restricted set of types, namely <code class="literal">enum</code> and <code class="literal">submodules</code> and any composed
@@ -8824,34 +8801,28 @@ time a new backend is added or removed.
 </p><p>
  By using extensible option types, it is possible to create a placeholder
 option in the central module
-(<a class="link" href="index.html#ex-option-declaration-eot-service">Example: Extensible type placeholder in the service module</a>),
+(<a class="link" href="index.html#ex-option-declaration-eot-service" title="Example 19. Extensible type placeholder in the service module">Example: Extensible type placeholder in the service module</a>),
 and to extend it in each backend module
-(<a class="link" href="index.html#ex-option-declaration-eot-backend-gdm">Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</a>,
-<a class="link" href="index.html#ex-option-declaration-eot-backend-sddm">Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</a>).
+(<a class="link" href="index.html#ex-option-declaration-eot-backend-gdm" title="Example 20. Extending services.xserver.displayManager.enable in the gdm module">Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</a>,
+<a class="link" href="index.html#ex-option-declaration-eot-backend-sddm" title="Example 21. Extending services.xserver.displayManager.enable in the sddm module">Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</a>).
 </p><p>
  As a result, <code class="literal">displayManager.enable</code> option values can be added without
 changing the main service module file and the type system automatically
 enforces that there can only be a single display manager enabled.
-</p><a id="ex-option-declaration-eot-service"></a><p>
- <span class="strong"><strong>Example: Extensible type placeholder in the service module</strong></span>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-option-declaration-eot-service"></a><p class="title"><strong>Example 19. Extensible type placeholder in the service module</strong></p><div class="example-contents"><pre class="programlisting">
 services.xserver.displayManager.enable = mkOption {
   description = "Display manager to use";
   type = with types; nullOr (enum [ ]);
 };
-</pre><a id="ex-option-declaration-eot-backend-gdm"></a><p>
- <span class="strong"><strong>Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-option-declaration-eot-backend-gdm"></a><p class="title"><strong>Example 20. Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</strong></p><div class="example-contents"><pre class="programlisting">
 services.xserver.displayManager.enable = mkOption {
   type = with types; nullOr (enum [ "gdm" ]);
 };
-</pre><a id="ex-option-declaration-eot-backend-sddm"></a><p>
- <span class="strong"><strong>Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-option-declaration-eot-backend-sddm"></a><p class="title"><strong>Example 21. Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</strong></p><div class="example-contents"><pre class="programlisting">
 services.xserver.displayManager.enable = mkOption {
   type = with types; nullOr (enum [ "sddm" ]);
 };
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  The placeholder declaration is a standard <code class="literal">mkOption</code> declaration, but it
 is important that extensible option declarations only use the <code class="literal">type</code>
 argument.
@@ -8881,9 +8852,7 @@ Multiple definitions cannot be merged.
 </p></dd><dt><span class="term"><code class="literal">types.anything</code></span></dt><dd><p>
  A type that accepts any value and recursively merges attribute sets
 together. This type is recommended when the option type is unknown.
-</p><a id="ex-types-anything"></a><p>
- <span class="strong"><strong>Example: <code class="literal">types.anything</code> Example</strong></span>
-</p><p>
+</p><div class="example"><a id="ex-types-anything"></a><p class="title"><strong>Example 22. <code class="literal">types.anything</code></strong></p><div class="example-contents"><p>
  Two definitions of this type like
 </p><pre class="programlisting">
 {
@@ -8906,7 +8875,7 @@ together. This type is recommended when the option type is unknown.
   pkg.hello = pkgs.hello;
   fun.fun = x: x + 2;
 }
-</pre></dd><dt><span class="term"><code class="literal">types.raw</code></span></dt><dd><p>
+</pre></div></div><br class="example-break" /></dd><dt><span class="term"><code class="literal">types.raw</code></span></dt><dd><p>
  A type which doesn’t do any checking, merging or nested evaluation. It
 accepts a single arbitrary value that is not recursed into, making it
 useful for values coming from outside the module system, such as package
@@ -9010,7 +8979,7 @@ makes using <code class="literal">_module.args</code> to define it impossible.
 </p></li><li class="listitem"><p>
  <span class="emphasis"><em><code class="literal">shorthandOnlyDefinesConfig</code></em></span> Whether definitions of this type
 should default to the <code class="literal">config</code> section of a module (see
-<a class="link" href="index.html#ex-module-syntax">Example: Structure of NixOS Modules</a>)
+<a class="link" href="index.html#ex-module-syntax" title="Example 12. Structure of NixOS Modules">Example: Structure of NixOS Modules</a>)
 if it is an attribute set. Enabling this only has a benefit
 when the submodule defines an option named <code class="literal">config</code> or <code class="literal">options</code>.
 In such a case it would allow the option to be set with
@@ -9097,15 +9066,13 @@ Of course, you can nest submodule option definitions for even higher
 modularity.
 </p><p>
  The option set can be defined directly
-(<a class="link" href="index.html#ex-submodule-direct">Example: Directly defined submodule</a>) or as reference
-(<a class="link" href="index.html#ex-submodule-reference">Example: Submodule defined as a reference</a>).
+(<a class="link" href="index.html#ex-submodule-direct" title="Example 23. Directly defined submodule">Example: Directly defined submodule</a>) or as reference
+(<a class="link" href="index.html#ex-submodule-reference" title="Example 24. Submodule defined as a reference">Example: Submodule defined as a reference</a>).
 </p><p>
  Note that even if your submodule’s options all have a default value,
 you will still need to provide a default value (e.g. an empty attribute set)
 if you want to allow users to leave it undefined.
-</p><a id="ex-submodule-direct"></a><p>
- <span class="strong"><strong>Example: Directly defined submodule</strong></span>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-submodule-direct"></a><p class="title"><strong>Example 23. Directly defined submodule</strong></p><div class="example-contents"><pre class="programlisting">
 options.mod = mkOption {
   description = "submodule example";
   type = with types; submodule {
@@ -9119,9 +9086,7 @@ options.mod = mkOption {
     };
   };
 };
-</pre><a id="ex-submodule-reference"></a><p>
- <span class="strong"><strong>Example: Submodule defined as a reference</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-submodule-reference"></a><p class="title"><strong>Example 24. Submodule defined as a reference</strong></p><div class="example-contents"><pre class="programlisting">
 let
   modOptions = {
     options = {
@@ -9138,15 +9103,13 @@ options.mod = mkOption {
   description = "submodule example";
   type = with types; submodule modOptions;
 };
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  The <code class="literal">submodule</code> type is especially interesting when used with composed
 types like <code class="literal">attrsOf</code> or <code class="literal">listOf</code>. When composed with <code class="literal">listOf</code>
-(<a class="link" href="index.html#ex-submodule-listof-declaration">Example: Declaration of a list of submodules</a>), <code class="literal">submodule</code> allows
+(<a class="link" href="index.html#ex-submodule-listof-declaration" title="Example 25. Declaration of a list of submodules">Example: Declaration of a list of submodules</a>), <code class="literal">submodule</code> allows
 multiple definitions of the submodule option set
-(<a class="link" href="index.html#ex-submodule-listof-definition">Example: Definition of a list of submodules</a>).
-</p><a id="ex-submodule-listof-declaration"></a><p>
- <span class="strong"><strong>Example: Declaration of a list of submodules</strong></span>
-</p><pre class="programlisting">
+(<a class="link" href="index.html#ex-submodule-listof-definition" title="Example 26. Definition of a list of submodules">Example: Definition of a list of submodules</a>).
+</p><div class="example"><a id="ex-submodule-listof-declaration"></a><p class="title"><strong>Example 25. Declaration of a list of submodules</strong></p><div class="example-contents"><pre class="programlisting">
 options.mod = mkOption {
   description = "submodule example";
   type = with types; listOf (submodule {
@@ -9160,21 +9123,17 @@ options.mod = mkOption {
     };
   });
 };
-</pre><a id="ex-submodule-listof-definition"></a><p>
- <span class="strong"><strong>Example: Definition of a list of submodules</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-submodule-listof-definition"></a><p class="title"><strong>Example 26. Definition of a list of submodules</strong></p><div class="example-contents"><pre class="programlisting">
 config.mod = [
   { foo = 1; bar = "one"; }
   { foo = 2; bar = "two"; }
 ];
-</pre><p>
+</pre></div></div><br class="example-break" /><p>
  When composed with <code class="literal">attrsOf</code>
-(<a class="link" href="index.html#ex-submodule-attrsof-declaration">Example: Declaration of attribute sets of submodules</a>), <code class="literal">submodule</code> allows
+(<a class="link" href="index.html#ex-submodule-attrsof-declaration" title="Example 27. Declaration of attribute sets of submodules">Example: Declaration of attribute sets of submodules</a>), <code class="literal">submodule</code> allows
 multiple named definitions of the submodule option set
-(<a class="link" href="index.html#ex-submodule-attrsof-definition">Example: Definition of attribute sets of submodules</a>).
-</p><a id="ex-submodule-attrsof-declaration"></a><p>
- <span class="strong"><strong>Example: Declaration of attribute sets of submodules</strong></span>
-</p><pre class="programlisting">
+(<a class="link" href="index.html#ex-submodule-attrsof-definition" title="Example 28. Definition of attribute sets of submodules">Example: Definition of attribute sets of submodules</a>).
+</p><div class="example"><a id="ex-submodule-attrsof-declaration"></a><p class="title"><strong>Example 27. Declaration of attribute sets of submodules</strong></p><div class="example-contents"><pre class="programlisting">
 options.mod = mkOption {
   description = "submodule example";
   type = with types; attrsOf (submodule {
@@ -9188,36 +9147,30 @@ options.mod = mkOption {
     };
   });
 };
-</pre><a id="ex-submodule-attrsof-definition"></a><p>
- <span class="strong"><strong>Example: Definition of attribute sets of submodules</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-submodule-attrsof-definition"></a><p class="title"><strong>Example 28. Definition of attribute sets of submodules</strong></p><div class="example-contents"><pre class="programlisting">
 config.mod.one = { foo = 1; bar = "one"; };
 config.mod.two = { foo = 2; bar = "two"; };
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-types-extending"></a>Extending types</h3></div></div></div><p>
+</pre></div></div><br class="example-break" /></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-option-types-extending"></a>Extending types</h3></div></div></div><p>
  Types are mainly characterized by their <code class="literal">check</code> and <code class="literal">merge</code> functions.
 </p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">check</code></span></dt><dd><p>
  The function to type check the value. Takes a value as parameter and
 return a boolean. It is possible to extend a type check with the
-<code class="literal">addCheck</code> function (<a class="link" href="index.html#ex-extending-type-check-1">Example: Adding a type check</a>),
+<code class="literal">addCheck</code> function (<a class="link" href="index.html#ex-extending-type-check-1" title="Example 29. Adding a type check">Example: Adding a type check</a>),
 or to fully override the check function
-(<a class="link" href="index.html#ex-extending-type-check-2">Example: Overriding a type check</a>).
-</p><a id="ex-extending-type-check-1"></a><p>
- <span class="strong"><strong>Example: Adding a type check</strong></span>
-</p><pre class="programlisting">
+(<a class="link" href="index.html#ex-extending-type-check-2" title="Example 30. Overriding a type check">Example: Overriding a type check</a>).
+</p><div class="example"><a id="ex-extending-type-check-1"></a><p class="title"><strong>Example 29. Adding a type check</strong></p><div class="example-contents"><pre class="programlisting">
 byte = mkOption {
   description = "An integer between 0 and 255.";
   type = types.addCheck types.int (x: x &gt;= 0 &amp;&amp; x &lt;= 255);
 };
-</pre><a id="ex-extending-type-check-2"></a><p>
- <span class="strong"><strong>Example: Overriding a type check</strong></span>
-</p><pre class="programlisting">
+</pre></div></div><br class="example-break" /><div class="example"><a id="ex-extending-type-check-2"></a><p class="title"><strong>Example 30. Overriding a type check</strong></p><div class="example-contents"><pre class="programlisting">
 nixThings = mkOption {
   description = "words that start with 'nix'";
   type = types.str // {
     check = (x: lib.hasPrefix "nix" x)
   };
 };
-</pre></dd><dt><span class="term"><code class="literal">merge</code></span></dt><dd><p>
+</pre></div></div><br class="example-break" /></dd><dt><span class="term"><code class="literal">merge</code></span></dt><dd><p>
  Function to merge the options values when multiple values are set.
 The function takes two parameters, <code class="literal">loc</code> the option path as a list
 of strings, and <code class="literal">defs</code> the list of defined values as a list. It is
@@ -9585,14 +9538,12 @@ associated option will be merged using the freeform type and combined
 into the resulting <code class="literal">config</code> set. Since this feature nullifies name
 checking for entire option trees, it is only recommended for use in
 submodules.
-</p><a id="ex-freeform-module"></a><p>
- <span class="strong"><strong>Example: Freeform submodule</strong></span>
-</p><p>
+</p><div class="example"><a id="ex-freeform-module"></a><p class="title"><strong>Example 31. Freeform submodule</strong></p><div class="example-contents"><p>
  The following shows a submodule assigning a freeform type that allows
 arbitrary attributes with <code class="literal">str</code> values below <code class="literal">settings</code>, but also
 declares an option for the <code class="literal">settings.port</code> attribute to have it
 type-checked and assign a default value. See
-<a class="link" href="index.html#ex-settings-typed-attrs">Example: Declaring a type-checked <code class="literal">settings</code> attribute</a>
+<a class="link" href="index.html#ex-settings-typed-attrs" title="Example 33. Declaring a type-checked settings attribute">Example: Declaring a type-checked <code class="literal">settings</code> attribute</a>
 for a more complete example.
 </p><pre class="programlisting">
 { lib, config, ... }: {
@@ -9628,7 +9579,7 @@ for a more complete example.
   # Not allowed because the port option doesn't allow strings
   # settings.port = "443";
 }
-</pre><div class="note"><h3 class="title">Note</h3><p>
+</pre></div></div><br class="example-break" /><div class="note"><h3 class="title">Note</h3><p>
  Freeform attributes cannot depend on other attributes of the same set
 without infinite recursion:
 </p><pre class="programlisting">
@@ -9741,9 +9692,7 @@ a file path.
 </p><div class="note"><h3 class="title">Note</h3><p>
  This function puts the value contents in the Nix store. So this
 should be avoided for secrets.
-</p></div></dd></dl></div><a id="ex-settings-nix-representable"></a><p>
- <span class="strong"><strong>Example: Module with conventional <code class="literal">settings</code> option</strong></span>
-</p><p>
+</p></div></dd></dl></div><div class="example"><a id="ex-settings-nix-representable"></a><p class="title"><strong>Example 32. Module with conventional <code class="literal">settings</code> option</strong></p><div class="example-contents"><p>
  The following shows a module for an example program that uses a JSON
 configuration file. It demonstrates how above values can be used, along
 with some other related best practices. See the comments for
@@ -9801,7 +9750,7 @@ in {
     # ...
   };
 }
-</pre><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-settings-attrs-options"></a>Option declarations for attributes</h4></div></div></div><p>
+</pre></div></div><br class="example-break" /><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-settings-attrs-options"></a>Option declarations for attributes</h4></div></div></div><p>
  Some <code class="literal">settings</code> attributes may deserve some extra care. They may need a
 different type, default or merging behavior, or they are essential
 options that should show their documentation in the manual. This can be
@@ -9810,9 +9759,7 @@ done using <a class="xref" href="index.html#sec-freeform-modules" title="Freefor
  We extend above example using freeform modules to declare an option for
 the port, which will enforce it to be a valid integer and make it show
 up in the manual.
-</p><a id="ex-settings-typed-attrs"></a><p>
- <span class="strong"><strong>Example: Declaring a type-checked <code class="literal">settings</code> attribute</strong></span>
-</p><pre class="programlisting">
+</p><div class="example"><a id="ex-settings-typed-attrs"></a><p class="title"><strong>Example 33. Declaring a type-checked <code class="literal">settings</code> attribute</strong></p><div class="example-contents"><pre class="programlisting">
 settings = lib.mkOption {
   type = lib.types.submodule {
 
@@ -9836,7 +9783,7 @@ settings = lib.mkOption {
     for supported values.
   '';
 };
-</pre></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-building-parts"></a>Building Specific Parts of NixOS</h2></div></div></div><p>
+</pre></div></div><br class="example-break" /></div></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="sec-building-parts"></a>Building Specific Parts of NixOS</h2></div></div></div><p>
  With the command <code class="literal">nix-build</code>, you can build specific parts of your NixOS
 configuration. This is done as follows:
 </p><pre class="programlisting">
