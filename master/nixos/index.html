@@ -10241,7 +10241,12 @@ when you first execute an action on them (such as <code class="literal">wait_for
 starting them in parallel:
 </p><pre class="programlisting">
 start_all()
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-machine-objects"></a>Machine objects</h3></div></div></div><p>
+</pre><p>
+ If the hostname of a node contains characters that can’t be used in a
+Python variable name, those characters will be replaced with
+underscores in the variable name, so <code class="literal">nodes.machine-a</code> will be exposed
+to Python as <code class="literal">machine_a</code>.
+</p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-machine-objects"></a>Machine objects</h3></div></div></div><p>
  The following methods are available on machine objects:
 </p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">start</code></span></dt><dd><p>
  Start the virtual machine. This method is asynchronous — it does
@@ -10694,6 +10699,8 @@ by the package <code class="literal">tests</code> attributes and OfBorg.
  Finally, we have legacy entrypoints that users should move away from, but are cared for on a best effort basis.
 These include <code class="literal">pkgs.nixosTest</code>, <code class="literal">testing-python.nix</code> and <code class="literal">make-test-python.nix</code>.
 </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-test-the-test-framework"></a>Testing changes to the test framework</h2></div></div></div><p>
+ We currently have limited unit tests for the framework itself. You may run these with <code class="literal">nix-build -A nixosTests.nixos-test-driver</code>.
+</p><p>
  When making significant changes to the test framework, we run the tests on Hydra, to avoid disrupting the larger NixOS project.
 </p><p>
  For this, we use the <code class="literal">python-test-refactoring</code> branch in the <code class="literal">NixOS/nixpkgs</code> repository, and its <a class="link" href="https://hydra.nixos.org/jobset/nixos/python-test-refactoring" target="_top">corresponding Hydra jobset</a>.
