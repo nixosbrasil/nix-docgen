@@ -12430,7 +12430,7 @@ pkgs.mkShell {
        </p></li><li class="listitem"><p>
         It uses the <code class="literal">fetchFromGitHub</code> fetcher to get its source.
        </p></li><li class="listitem"><p>
-        <code class="literal">duneVersion = "2"</code> ensures that Dune version 2 is used for the build (this is the default; valid values are <code class="literal">"1"</code>, <code class="literal">"2"</code>, and <code class="literal">"3"</code>); note that there is also a legacy <code class="literal">useDune2</code> boolean attribute: set to <code class="literal">false</code> it corresponds to <code class="literal">duneVersion = "1"</code>; set to <code class="literal">true</code> it corresponds to <code class="literal">duneVersion = "2"</code>. If both arguments (<code class="literal">duneVersion</code> and <code class="literal">useDune2</code>) are given, the second one (<code class="literal">useDune2</code>) is silently ignored.
+        It also accept <code class="literal">duneVersion</code> parameter (valid value are <code class="literal">"1"</code>, <code class="literal">"2"</code>, and <code class="literal">"3"</code>). The recommended practice it to set only if you don’t want the default value and/or it depends on something else like package version. You might see a not-supported argument <code class="literal">useDune2</code>. The behavior was <code class="literal">useDune2 = true;</code> =&gt; <code class="literal">duneVersion = "2";</code> and <code class="literal">useDune2 = false;</code> =&gt; <code class="literal">duneVersion = "1";</code>. It was used at the time when dune3 didn’t existed.
        </p></li><li class="listitem"><p>
         It sets the optional <code class="literal">doCheck</code> attribute such that tests will be run with <code class="literal">dune runtest -p angstrom</code> after the build (<code class="literal">dune build -p angstrom</code>) is complete, but only if the Ocaml version is at at least <code class="literal">"4.05"</code>.
        </p></li><li class="listitem"><p>
@@ -12451,7 +12451,6 @@ pkgs.mkShell {
 buildDunePackage rec {
   pname = "angstrom";
   version = "0.15.0";
-  duneVersion = "2";
 
   minimalOCamlVersion = "4.04";
 
@@ -12481,8 +12480,6 @@ buildDunePackage rec {
 buildDunePackage rec {
   pname = "wtf8";
   version = "1.0.2";
-
-  useDune2 = true;
 
   minimalOCamlVersion = "4.02";
 
