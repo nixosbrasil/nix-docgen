@@ -395,6 +395,8 @@ Before upgrading, read the release notes for PeerTube:
   };
 }
 </pre></li><li class="listitem"><p>
+ <code class="literal">services.netdata</code> offers a <code class="literal">deadlineBeforeStopSec</code> option which enable users who have netdata instance that takes time to initialize to not have systemd kill them for no reason.
+</p></li><li class="listitem"><p>
  <code class="literal">services.dhcpcd</code> service now don’t solicit or accept IPv6 Router Advertisements on interfaces that use static IPv6 addresses.
 If network uses both IPv6 Unique local addresses (ULA) and global IPv6 address auto-configuration with SLAAC, must add the parameter <code class="literal">networking.dhcpcd.IPv6rs = true;</code>.
 </p></li><li class="listitem"><p>
