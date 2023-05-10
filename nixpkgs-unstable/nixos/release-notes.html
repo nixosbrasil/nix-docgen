@@ -351,6 +351,8 @@ into contemporary backup solutions.
 <code class="literal">services.dnsmasq.extraConfig</code> will be deprecated when NixOS 22.11 reaches
 end of life.
 </p></li><li class="listitem"><p>
+ <code class="literal">kube3d</code> has now been renamed to <code class="literal">k3d</code> since the 3d editor that originally took that name has been dropped from nixpkgs. <code class="literal">kube3d</code> will continue to work as an alias for now.
+</p></li><li class="listitem"><p>
  The <code class="literal">dokuwiki</code> service is now configured via <code class="literal">services.dokuwiki.sites.&lt;name&gt;.settings</code> attribute set; <code class="literal">extraConfig</code> has been removed.
 The <code class="literal">{aclUse,superUser,disableActions}</code> attributes have been renamed accordingly. <code class="literal">pluginsConfig</code> now only accepts an attribute set of booleans.
 Passing plain PHP is no longer possible.
@@ -395,6 +397,8 @@ Before upgrading, read the release notes for PeerTube:
   };
 }
 </pre></li><li class="listitem"><p>
+ <code class="literal">services.netdata</code> offers a <code class="literal">deadlineBeforeStopSec</code> option which enable users who have netdata instance that takes time to initialize to not have systemd kill them for no reason.
+</p></li><li class="listitem"><p>
  <code class="literal">services.dhcpcd</code> service now don’t solicit or accept IPv6 Router Advertisements on interfaces that use static IPv6 addresses.
 If network uses both IPv6 Unique local addresses (ULA) and global IPv6 address auto-configuration with SLAAC, must add the parameter <code class="literal">networking.dhcpcd.IPv6rs = true;</code>.
 </p></li><li class="listitem"><p>
