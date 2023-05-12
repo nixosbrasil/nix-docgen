@@ -9269,7 +9269,7 @@ mypkg = callPackage { cudaPackages = cudaPackages_11_5; }
      If another version of say <code class="literal">cudnn</code> or <code class="literal">cutensor</code> is needed, you can override the package set to make it the default. This guarantees you get a consistent package set.
     </p><pre class="programlisting">
 mypkg = let
-  cudaPackages = cudaPackages_11_5.overrideScope' (final: prev {
+  cudaPackages = cudaPackages_11_5.overrideScope' (final: prev: {
     cudnn = prev.cudnn_8_3_2;
   }});
 in callPackage { inherit cudaPackages; };
@@ -12737,7 +12737,7 @@ ImageExifTool = buildPerlPackage {
     hash = "sha256-vOhB/FwQMC8PPvdnjDvxRpU6jAZcC6GMQfc0AH4uwKg=";
   };
 
-  buildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
+  nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
   postInstall = lib.optionalString stdenv.isDarwin ''
     shortenPerlShebang $out/bin/exiftool
   '';
