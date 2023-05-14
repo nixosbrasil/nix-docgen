@@ -6671,7 +6671,7 @@ writeDirectReferencesToFile (writeScriptBin "hi" ''${hello}/bin/hello'')
 /nix/store/&lt;hash&gt;-hello-2.10
 </pre><p>
      but none of <code class="literal">hello</code>’s dependencies because those are not referenced directly by <code class="literal">hi</code>’s output.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-testers"></a>Testers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#tester-hasPkgConfigModule"><code class="literal">hasPkgConfigModule</code></a></span></dt><dt><span class="section"><a href="#tester-testVersion"><code class="literal">testVersion</code></a></span></dt><dt><span class="section"><a href="#tester-testBuildFailure"><code class="literal">testBuildFailure</code></a></span></dt><dt><span class="section"><a href="#tester-equalContents"><code class="literal">testEqualContents</code></a></span></dt><dt><span class="section"><a href="#tester-testEqualDerivation"><code class="literal">testEqualDerivation</code></a></span></dt><dt><span class="section"><a href="#tester-invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a></span></dt><dt><span class="section"><a href="#tester-nixosTest"><code class="literal">nixosTest</code></a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-testers"></a>Testers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#tester-hasPkgConfigModule"><code class="literal">hasPkgConfigModule</code></a></span></dt><dt><span class="section"><a href="#tester-testVersion"><code class="literal">testVersion</code></a></span></dt><dt><span class="section"><a href="#tester-testBuildFailure"><code class="literal">testBuildFailure</code></a></span></dt><dt><span class="section"><a href="#tester-equalContents"><code class="literal">testEqualContents</code></a></span></dt><dt><span class="section"><a href="#tester-testEqualDerivation"><code class="literal">testEqualDerivation</code></a></span></dt><dt><span class="section"><a href="#tester-invalidateFetcherByDrvHash"><code class="literal">invalidateFetcherByDrvHash</code></a></span></dt><dt><span class="section"><a href="#tester-runNixOSTest"><code class="literal">runNixOSTest</code></a></span></dt><dt><span class="section"><a href="#tester-nixosTest"><code class="literal">nixosTest</code></a></span></dt></dl></div><p>
     This chapter describes several testing builders which are available in the <code class="literal">testers</code> namespace.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-hasPkgConfigModule"></a><code class="literal">hasPkgConfigModule</code></h2></div></div></div><p>
      Checks whether a package exposes a certain <code class="literal">pkg-config</code> module.
@@ -6799,6 +6799,22 @@ tests.fetchgit = testers.invalidateFetcherByDrvHash fetchgit {
   rev = "9d9dbe6ed05854e03811c361a3380e09183f4f4a";
   hash = "sha256-7DszvbCNTjpzGRmpIVAWXk20P0/XTrWZ79KSOGLrUWY=";
 };
+</pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-runNixOSTest"></a><code class="literal">runNixOSTest</code></h2></div></div></div><p>
+     A helper function that behaves exactly like the NixOS <code class="literal">runTest</code>, except it also assigns this Nixpkgs package set as the <code class="literal">pkgs</code> of the test and makes the <code class="literal">nixpkgs.*</code> options read-only.
+    </p><p>
+     If your test is part of the Nixpkgs repository, or if you need a more general entrypoint, see <a class="link" href="https://nixos.org/manual/nixos/stable/index.html#sec-calling-nixos-tests" target="_top"><span class="quote">“<span class="quote">Calling a test</span>”</span> in the NixOS manual</a>.
+    </p><p>
+     Example:
+    </p><pre class="programlisting">
+pkgs.testers.runNixOSTest ({ lib, ... }: {
+  name = "hello";
+  nodes.machine = { pkgs, ... }: {
+    environment.systemPackages = [ pkgs.hello ];
+  };
+  testScript = ''
+    machine.succeed("hello")
+  '';
+})
 </pre></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="tester-nixosTest"></a><code class="literal">nixosTest</code></h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#tester-nixosTest-parameter">Parameter</a></span></dt><dt><span class="section"><a href="#tester-nixosTest-result">Result</a></span></dt></dl></div><p>
      Run a NixOS VM network test using this evaluation of Nixpkgs.
     </p><p>
@@ -8159,7 +8175,7 @@ stdenv.mkDerivation {
      Overrides the configure, build, and install phases. This will run the “waf” script used by many projects. If <code class="literal">wafPath</code> (default <code class="literal">./waf</code>) doesn’t exist, it will copy the version of waf available in Nixpkgs. <code class="literal">wafFlags</code> can be used to pass flags to the waf script.
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="xcbuildhook"></a>xcbuildHook</h2></div></div></div><p>
      Overrides the build and install phases to run the <span class="quote">“<span class="quote">xcbuild</span>”</span> command. This hook is needed when a project only comes with build files for the XCode build system. You can disable this behavior by setting buildPhase and configurePhase to a custom value. xcbuildFlags controls flags passed only to xcbuild.
-    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#lisp">lisp-modules</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#sec-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#swift">Swift</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
+    </p></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-language-support"></a>Languages and frameworks</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#agda">Agda</a></span></dt><dt><span class="section"><a href="#android">Android</a></span></dt><dt><span class="section"><a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a></span></dt><dt><span class="section"><a href="#sec-bower">Bower</a></span></dt><dt><span class="section"><a href="#sec-chicken">CHICKEN</a></span></dt><dt><span class="section"><a href="#sec-language-coq">Coq and coq packages</a></span></dt><dt><span class="section"><a href="#crystal">Crystal</a></span></dt><dt><span class="section"><a href="#cuda">CUDA</a></span></dt><dt><span class="section"><a href="#cuelang">Cue (Cuelang)</a></span></dt><dt><span class="section"><a href="#sec-language-dart">Dart</a></span></dt><dt><span class="section"><a href="#sec-language-dhall">Dhall</a></span></dt><dt><span class="section"><a href="#dotnet">Dotnet</a></span></dt><dt><span class="section"><a href="#emscripten">Emscripten</a></span></dt><dt><span class="section"><a href="#sec-language-gnome">GNOME</a></span></dt><dt><span class="section"><a href="#sec-language-go">Go</a></span></dt><dt><span class="section"><a href="#haskell">Haskell</a></span></dt><dt><span class="section"><a href="#sec-language-hy">Hy</a></span></dt><dt><span class="section"><a href="#idris">Idris</a></span></dt><dt><span class="section"><a href="#ios">iOS</a></span></dt><dt><span class="section"><a href="#sec-language-java">Java</a></span></dt><dt><span class="section"><a href="#language-javascript">Javascript</a></span></dt><dt><span class="section"><a href="#lisp">lisp-modules</a></span></dt><dt><span class="section"><a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a></span></dt><dt><span class="section"><a href="#maven">Maven</a></span></dt><dt><span class="section"><a href="#nim">Nim</a></span></dt><dt><span class="section"><a href="#sec-language-ocaml">OCaml</a></span></dt><dt><span class="section"><a href="#sec-octave">Octave</a></span></dt><dt><span class="section"><a href="#sec-language-perl">Perl</a></span></dt><dt><span class="section"><a href="#sec-php">PHP</a></span></dt><dt><span class="section"><a href="#sec-pkg-config">pkg-config</a></span></dt><dt><span class="section"><a href="#python">Python</a></span></dt><dt><span class="section"><a href="#sec-language-qt">Qt</a></span></dt><dt><span class="section"><a href="#r">R</a></span></dt><dt><span class="section"><a href="#sec-language-ruby">Ruby</a></span></dt><dt><span class="section"><a href="#rust">Rust</a></span></dt><dt><span class="section"><a href="#swift">Swift</a></span></dt><dt><span class="section"><a href="#sec-language-texlive">TeX Live</a></span></dt><dt><span class="section"><a href="#titanium">Titanium</a></span></dt><dt><span class="section"><a href="#vim">Vim</a></span></dt></dl></div><p>
     The <a class="link" href="#chap-stdenv" title="The Standard Environment">standard build environment</a> makes it easy to build typical Autotools-based packages with very little code. Any other kind of package can be accommodated by overriding the appropriate phases of <code class="literal">stdenv</code>. However, there are specialised functions in Nixpkgs to easily build packages for other programming languages, such as Perl or Haskell. These are described in this chapter.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="agda"></a>Agda</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#how-to-use-agda">How to use Agda</a></span></dt><dt><span class="section"><a href="#compiling-agda">Compiling Agda</a></span></dt><dt><span class="section"><a href="#writing-agda-packages">Writing Agda packages</a></span></dt><dt><span class="section"><a href="#maintaining-the-agda-package-set-on-nixpkgs">Maintaining the Agda package set on Nixpkgs</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="how-to-use-agda"></a>How to use Agda</h3></div></div></div><p>
       Agda is available as the <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=agda&amp;from=0&amp;size=30&amp;sort=relevance&amp;query=agda" target="_top">agda</a> package.
@@ -9376,7 +9392,63 @@ field1: conflicting values 3 and string (mismatched types int and string):
       <span class="strong"><strong>Known limitations</strong></span>
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         The script will enforce <span class="strong"><strong>concrete</strong></span> values and will not accept lossy transformations (strictness). You can add these options if you need them.
-       </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-dhall"></a>Dhall</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-dhall-remote-imports">Remote imports</a></span></dt><dt><span class="section"><a href="#ssec-dhall-packaging-expression">Packaging a Dhall expression from scratch</a></span></dt><dt><span class="section"><a href="#ssec-dhall-package-contents">Contents of a Dhall package</a></span></dt><dt><span class="section"><a href="#ssec-dhall-packaging-functions">Packaging functions</a></span></dt><dt><span class="section"><a href="#ssec-dhall-dhall-to-nixpkgs"><code class="literal">dhall-to-nixpkgs</code></a></span></dt><dt><span class="section"><a href="#ssec-dhall-overriding-dependency-versions">Overriding dependency versions</a></span></dt><dt><span class="section"><a href="#ssec-dhall-overrides">Overrides</a></span></dt></dl></div><p>
+       </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-dart"></a>Dart</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-dart-applications">Dart applications</a></span></dt><dt><span class="section"><a href="#ssec-dart-flutter">Flutter applications</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-dart-applications"></a>Dart applications</h3></div></div></div><p>
+      The function <code class="literal">buildDartApplication</code> builds Dart applications managed with pub.
+     </p><p>
+      It fetches its Dart dependencies automatically through <code class="literal">fetchDartDeps</code>, and (through a series of hooks) builds and installs the executables specified in the pubspec file. The hooks can be used in other derivations, if needed. The phases can also be overridden to do something different from installing binaries.
+     </p><p>
+      If you are packaging a Flutter desktop application, use <a class="link" href="#ssec-dart-flutter" title="Flutter applications"><code class="literal">buildFlutterApplication</code></a> instead.
+     </p><p>
+      <code class="literal">vendorHash</code>: is the hash of the output of the dependency fetcher derivation. To obtain it, simply set it to <code class="literal">lib.fakeHash</code> (or omit it) and run the build (<a class="link" href="#sec-source-hashes" title="Obtaining source hash">more details here</a>).
+     </p><p>
+      If the upstream source is missing a <code class="literal">pubspec.lock</code> file, you’ll have to vendor one and specify it using <code class="literal">pubspecLockFile</code>. If it is needed, one will be generated for you and printed when attempting to build the derivation.
+     </p><p>
+      The <code class="literal">dart</code> commands run can be overridden through <code class="literal">pubGetScript</code> and <code class="literal">dartCompileCommand</code>, you can also add flags using <code class="literal">dartCompileFlags</code> or <code class="literal">dartJitFlags</code>.
+     </p><p>
+      Dart supports multiple <a class="link" href="https://dart.dev/tools/dart-compile#types-of-output" target="_top">outputs types</a>, you can choose between them using <code class="literal">dartOutputType</code> (defaults to <code class="literal">exe</code>). If you want to override the binaries path or the source path they come from, you can use <code class="literal">dartEntryPoints</code>. Outputs that require a runtime will automatically be wrapped with the relevant runtime (<code class="literal">dartaotruntime</code> for <code class="literal">aot-snapshot</code>, <code class="literal">dart run</code> for <code class="literal">jit-snapshot</code> and <code class="literal">kernel</code>, <code class="literal">node</code> for <code class="literal">js</code>), this can be overridden through <code class="literal">dartRuntimeCommand</code>.
+     </p><pre class="programlisting">
+{ buildDartApplication, fetchFromGitHub }:
+
+buildDartApplication rec {
+  pname = "dart-sass";
+  version = "1.62.1";
+
+  src = fetchFromGitHub {
+    owner = "sass";
+    repo = pname;
+    rev = version;
+    hash = "sha256-U6enz8yJcc4Wf8m54eYIAnVg/jsGi247Wy8lp1r1wg4=";
+  };
+
+  pubspecLockFile = ./pubspec.lock;
+  vendorHash = "sha256-Atm7zfnDambN/BmmUf4BG0yUz/y6xWzf0reDw3Ad41s=";
+}
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-dart-flutter"></a>Flutter applications</h3></div></div></div><p>
+      The function <code class="literal">buildFlutterApplication</code> builds Flutter applications.
+     </p><p>
+      The deps.json file must always be provided when packaging in Nixpkgs. It will be generated and printed if the derivation is attempted to be built without one. Alternatively, <code class="literal">autoDepsList</code> may be set to <code class="literal">true</code> when outside of Nixpkgs, as it relies on import-from-derivation.
+     </p><p>
+      A <code class="literal">pubspec.lock</code> file must be available. See the <a class="link" href="#ssec-dart-applications" title="Dart applications">Dart documentation</a> for more details.
+     </p><pre class="programlisting">
+{  flutter, fetchFromGitHub }:
+
+flutter.buildFlutterApplication {
+  pname = "firmware-updater";
+  version = "unstable-2023-04-30";
+
+  src = fetchFromGitHub {
+    owner = "canonical";
+    repo = "firmware-updater";
+    rev = "6e7dbdb64e344633ea62874b54ff3990bd3b8440";
+    sha256 = "sha256-s5mwtr5MSPqLMN+k851+pFIFFPa0N1hqz97ys050tFA=";
+    fetchSubmodules = true;
+  };
+
+  pubspecLockFile = ./pubspec.lock;
+  depsListFile = ./deps.json;
+  vendorHash = "sha256-cdMO+tr6kYiN5xKXa+uTMAcFf2C75F3wVPrn21G4QPQ=";
+}
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-dhall"></a>Dhall</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-dhall-remote-imports">Remote imports</a></span></dt><dt><span class="section"><a href="#ssec-dhall-packaging-expression">Packaging a Dhall expression from scratch</a></span></dt><dt><span class="section"><a href="#ssec-dhall-package-contents">Contents of a Dhall package</a></span></dt><dt><span class="section"><a href="#ssec-dhall-packaging-functions">Packaging functions</a></span></dt><dt><span class="section"><a href="#ssec-dhall-dhall-to-nixpkgs"><code class="literal">dhall-to-nixpkgs</code></a></span></dt><dt><span class="section"><a href="#ssec-dhall-overriding-dependency-versions">Overriding dependency versions</a></span></dt><dt><span class="section"><a href="#ssec-dhall-overrides">Overrides</a></span></dt></dl></div><p>
      The Nixpkgs support for Dhall assumes some familiarity with Dhall’s language support for importing Dhall expressions, which is documented here:
     </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
        <a class="link" href="https://docs.dhall-lang.org/tutorials/Language-Tour.html#installing-packages" target="_top"><code class="literal">dhall-lang.org</code> - Installing packages</a>
@@ -14809,7 +14881,9 @@ cargoDeps = rustPlatform.importCargoLock {
        </p><pre class="programlisting">
 { fetchFromGitHub
 , buildPythonPackage
+, cargo
 , rustPlatform
+, rustc
 , setuptools-rust
 }:
 
@@ -14832,11 +14906,12 @@ buildPythonPackage rec {
 
   sourceRoot = "source/bindings/python";
 
-  nativeBuildInputs = [ setuptools-rust ] ++ (with rustPlatform; [
-    cargoSetupHook
-    rust.cargo
-    rust.rustc
-  ]);
+  nativeBuildInputs = [
+    cargo
+    rustPlatform.cargoSetupHook
+    rustc
+    setuptools-rust
+  ];
 
   # ...
 }

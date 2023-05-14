@@ -22,6 +22,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  KDE Plasma has been updated to v5.27, see <a class="link" href="https://kde.org/announcements/plasma/5/5.27.0/" target="_top">the release notes</a> for what is changed.
 </p></li><li class="listitem"><p>
+ Python implements <a class="link" href="https://peps.python.org/pep-0668/" target="_top">PEP 668</a>, providing better feedback to users that try to run <code class="literal">pip install</code> system-wide.
+</p></li><li class="listitem"><p>
  <code class="literal">nixos-rebuild</code> now supports an extra <code class="literal">--specialisation</code> option that can be used to change specialisation for <code class="literal">switch</code> and <code class="literal">test</code> commands.
 </p></li><li class="listitem"><p>
  <code class="literal">libxcrypt</code>, the library providing the <code class="literal">crypt(3)</code> password hashing function, is now built without support for algorithms not flagged <a class="link" href="https://github.com/besser82/libxcrypt/blob/v4.4.33/lib/hashes.conf#L48" target="_top"><code class="literal">strong</code></a>. This affects the availability of password hashing algorithms used for system login (<code class="literal">login(1)</code>, <code class="literal">passwd(1)</code>), but also Apache2 Basic-Auth, Samba, OpenLDAP, Dovecot, and <a class="link" href="https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20libxcrypt&amp;type=code" target="_top">many other packages</a>.

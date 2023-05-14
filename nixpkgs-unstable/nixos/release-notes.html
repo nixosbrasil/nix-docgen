@@ -50,6 +50,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/rubygems/gemstash" target="_top">gemstash</a>, a RubyGems.org cache and private gem server. Available as <a class="link" href="options.html#opt-services.gemstash.enable">services.gemstash</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://gitea.com/gitea/act_runner" target="_top">gitea-actions-runner</a>, a CI runner for Gitea/Forgejo Actions. Available as <a class="link" href="options.html#opt-services.gitea-actions-runner.instances">services.gitea-actions-runner</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/hzeller/gmrender-resurrect" target="_top">gmediarender</a>, a simple, headless UPnP/DLNA renderer.  Available as <a class="link" href="options.html#opt-services.gmediarender.enable" target="_top">services.gmediarender</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/nix-community/harmonia/" target="_top">harmonia</a>, Nix binary cache implemented in rust using libnix-store. Available as <a class="link" href="options.html#opt-services.harmonia.enable" target="_top">services.harmonia</a>.
@@ -261,6 +263,8 @@ for more details and available replacements.
  The ppp plugin <code class="literal">rp-pppoe.so</code> has been renamed to <code class="literal">pppoe.so</code> in ppp 2.4.9. Starting from ppp 2.5.0, there is no longer a alias for backwards compatiblity. Configurations that use this plugin must be updated accordingly from <code class="literal">plugin rp-pppoe.so</code> to <code class="literal">plugin pppoe.so</code>. See <a class="link" href="https://github.com/ppp-project/ppp/commit/610a7bd76eb1f99f22317541b35001b1e24877ed" target="_top">upstream change</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
+</p></li><li class="listitem"><p>
+ <a class="link" href="options.html#opt-services.xserver.libinput.enable" target="_top">services.xserver.libinput.enable</a> is now set by default, enabling the more actively maintained and consistently behaved input device driver.
 </p></li><li class="listitem"><p>
  To enable the HTTP3 (QUIC) protocol for a nginx virtual host, set the <code class="literal">quic</code> attribute on it to true, e.g. <code class="literal">services.nginx.virtualHosts.&lt;name&gt;.quic = true;</code>.
 </p></li><li class="listitem"><p>
