@@ -3443,11 +3443,12 @@ and optionally supports
 </p><p>
  For the database, you can set
 <a class="link" href="options.html#opt-services.nextcloud.config.dbtype"><code class="literal">services.nextcloud.config.dbtype</code></a> to
-either <code class="literal">sqlite</code> (the default), <code class="literal">mysql</code>, or <code class="literal">pgsql</code>. For the last two, by
-default, a local database will be created and nextcloud will connect to it via
-socket; this can be disabled by setting
+either <code class="literal">sqlite</code> (the default), <code class="literal">mysql</code>, or <code class="literal">pgsql</code>. The simplest is <code class="literal">sqlite</code>,
+which will be automatically created and managed by the application. For the
+last two, you can easily create a local database by setting
 <a class="link" href="options.html#opt-services.nextcloud.database.createLocally"><code class="literal">services.nextcloud.database.createLocally</code></a>
-to <code class="literal">false</code>.
+to <code class="literal">true</code>, Nextcloud will automatically be configured to connect to it through
+socket.
 </p><p>
  A very basic configuration may look like this:
 </p><pre class="programlisting">
@@ -3456,6 +3457,7 @@ to <code class="literal">false</code>.
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.tld";
+    database.createLocally = true;
     config = {
       dbtype = "pgsql";
       adminpassFile = "/path/to/admin-pass-file";

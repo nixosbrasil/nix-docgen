@@ -102,7 +102,11 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://developer.hashicorp.com/vault/docs/agent" target="_top">vault-agent</a>, a template rendering and API auth proxy for HashiCorp Vault, similar to <code class="literal">consul-template</code>. Available as <a class="link" href="options.html#opt-services.vault-agent.instances">services.vault-agent</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/fujiapple852/trippy" target="_top">trippy</a>, a network diagnostic tool. Available as <a class="link" href="options.html#opt-programs.trippy.enable">programs.trippy</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://v2raya.org" target="_top">v2rayA</a>, a Linux web GUI client of Project V which supports V2Ray, Xray, SS, SSR, Trojan and Pingtunnel. Available as <a class="link" href="options.html#opt-services.v2raya.enable" target="_top">services.v2raya</a>.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/Mellanox/rshim-user-space" target="_top">rshim</a>, the user-space rshim driver for the BlueField SoC. Available as <a class="link" href="options.html#opt-services.rshim.enable" target="_top">services.rshim</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/erebe/wstunnel" target="_top">wstunnel</a>, a proxy tunnelling arbitrary TCP or UDP traffic through a WebSocket connection. Instances may be configured via <a class="link" href="options.html#opt-services.wstunnel.enable" target="_top">services.wstunnel</a>.
 </p></li><li class="listitem"><p>
@@ -117,6 +121,10 @@ the switch of a live system might fail.
  <a class="link" href="https://github.com/GyulyVGC/sniffnet" target="_top">sniffnet</a>, an application to monitor your network traffic. Available as <a class="link" href="options.html#opt-programs.sniffnet.enable">programs.sniffnet</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://photoprism.app/" target="_top">photoprism</a>, a AI-Powered Photos App for the Decentralized Web. Available as <a class="link" href="options.html#opt-services.photoprism.enable" target="_top">services.photoprism</a>.
+</p></li><li class="listitem"><p>
+ <a class="link" href="github.com/alice-lg/alice-lg" target="_top">alice-lg</a>, a looking-glass for BGP sessions. Available as <a class="link" href="options.html#opt-services.alice-lg.enable">services.alice-lg</a>.
+</p></li><li class="listitem"><p>
+ <a class="link" href="github.com/alice-lg/birdwatcher" target="_top">birdwatcher</a>, a small HTTP server meant to provide an API defined by Barry O’Donovan’s birds-eye to the BIRD internet routing daemon. Available as <a class="link" href="options.html#opt-services.birdwatcher.enable">services.birdwatcher</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/ljanyst/peroxide" target="_top">peroxide</a>, a fork of the official <a class="link" href="https://github.com/ProtonMail/proton-bridge" target="_top">ProtonMail bridge</a> that aims to be similar to <a class="link" href="https://github.com/emersion/hydroxide" target="_top">Hydroxide</a>. Available as <a class="link" href="options.html#opt-services.peroxide.enable">services.peroxide</a>.
 </p></li><li class="listitem"><p>
@@ -164,6 +172,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <code class="literal">git-bug</code> has been updated to at least version 0.8.0, which includes backwards incompatible changes. The <code class="literal">git-bug-migration</code> package can be used to upgrade existing repositories.
 </p></li><li class="listitem"><p>
+ <code class="literal">graylog</code> has been updated to version 5, which can not be upgraded directly from the previously packaged version 3.3. If you had installed the previously packaged version 3.3, please follow the <a class="link" href="https://go2docs.graylog.org/5-0/upgrading_graylog/upgrade_path.htm" target="_top">upgrade path</a> from 3.3 to 4.0 to 4.3 to 5.0.
+</p></li><li class="listitem"><p>
  <code class="literal">nushell</code> has been updated to at least version 0.77.0, which includes potential breaking changes in aliases. The old aliases are now available as <code class="literal">old-alias</code> but it is recommended you migrate to the new format. See <a class="link" href="https://www.nushell.sh/blog/2023-03-14-nushell_0_77.html#reworked-aliases-breaking-changes-kubouch" target="_top">Reworked aliases</a>.
 </p></li><li class="listitem"><p>
  <code class="literal">keepassx</code> and <code class="literal">keepassx2</code> have been removed, due to upstream <a class="link" href="https://www.keepassx.org/index.html%3Fp=636.html" target="_top">stopping development</a>. Consider <a class="link" href="https://keepassxc.org" target="_top">KeePassXC</a> as a maintained alternative.
@@ -179,6 +189,22 @@ This breaks services which rely on metadata being present by the time stage-2 is
 </p></li><li class="listitem"><p>
  <code class="literal">services.sourcehut.dispatch</code> and the corresponding package (<code class="literal">sourcehut.dispatchsrht</code>) have been removed due to <a class="link" href="https://sourcehut.org/blog/2022-08-01-dispatch-deprecation-plans/" target="_top">upstream deprecation</a>.
 </p></li><li class="listitem"><p>
+ The attributes used by <code class="literal">services.snapper.configs.&lt;name&gt;</code> have changed. Migrate from this:
+</p><pre class="programlisting">
+services.snapper.configs.example = {
+  subvolume = "/example";
+  extraConfig = ''
+    ALLOW_USERS="alice"
+  '';
+};
+</pre><p>
+ to this:
+</p><pre class="programlisting">
+services.snapper.configs.example = {
+  SUBVOLUME = "/example";
+  ALLOW_USERS = [ "alice" ];
+};
+</pre></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.snapserver.openFirewall">services.snapserver.openFirewall</a> module option default value has been changed from <code class="literal">true</code> to <code class="literal">false</code>. You will need to explicitly set this option to <code class="literal">true</code>, or configure your firewall.
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.tmate-ssh-server.openFirewall">services.tmate-ssh-server.openFirewall</a> module option default value has been changed from <code class="literal">true</code> to <code class="literal">false</code>. You will need to explicitly set this option to <code class="literal">true</code>, or configure your firewall.
@@ -228,8 +254,6 @@ This breaks services which rely on metadata being present by the time stage-2 is
  <a class="link" href="options.html#opt-services.nextcloud.database.createLocally"><code class="literal">services.nextcloud.database.createLocally</code></a> now uses socket authentication and is no longer compatible with password authentication.
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
  If you want the module to manage the database for you, unset <a class="link" href="options.html#opt-services.nextcloud.config.dbpassFile"><code class="literal">services.nextcloud.config.dbpassFile</code></a> (and <a class="link" href="options.html#opt-services.nextcloud.config.dbhost"><code class="literal">services.nextcloud.config.dbhost</code></a>, if it’s set).
-</p></li><li class="listitem"><p>
- If your database is external, simply set <a class="link" href="options.html#opt-services.nextcloud.database.createLocally"><code class="literal">services.nextcloud.database.createLocally</code></a> to <code class="literal">false</code>.
 </p></li><li class="listitem"><p>
  If you want to use password authentication <span class="strong"><strong>and</strong></span> create the database locally, you will have to use <a class="link" href="options.html#opt-services.mysql.enable"><code class="literal">services.mysql</code></a> to set it up.
 </p></li></ul></div></li><li class="listitem"><p>
@@ -358,7 +382,7 @@ into contemporary backup solutions.
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
  Configuration of users and their credentials using <code class="literal">services.maddy.ensureCredentials</code>.
 </p></li><li class="listitem"><p>
- Configuration of TLS key and certificate files using <code class="literal">services.maddy.tls</code>.
+ TLS configuration is now possible via <code class="literal">services.maddy.tls</code> with two loaders present: ACME and file based.
 </p></li></ul></div></li><li class="listitem"><p>
  The <code class="literal">dnsmasq</code> service now takes configuration via the
 <code class="literal">services.dnsmasq.settings</code> attribute set. The option
@@ -411,6 +435,8 @@ underlying block device rather than allowing them to be determined by <code clas
   ];
 }
 </pre></li><li class="listitem"><p>
+ New option <code class="literal">security.pam.zfs</code> to enable unlocking and mounting of encrypted ZFS home dataset at login.
+</p></li><li class="listitem"><p>
  <code class="literal">services.peertube</code> now requires you to specify the secret file <code class="literal">secrets.secretsFile</code>. It can be generated by running <code class="literal">openssl rand -hex 32</code>.
 Before upgrading, read the release notes for PeerTube:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
