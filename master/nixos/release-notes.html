@@ -166,6 +166,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  The <code class="literal">ssh</code> client tool now disables the <code class="literal">~C</code> escape sequence by default. This can be re-enabled by setting <code class="literal">EnableEscapeCommandline yes</code>
 </p></li><li class="listitem"><p>
+ Many <code class="literal">services.syncthing</code> options have been moved to <code class="literal">services.syncthing.settings</code>, as part of <a class="link" href="https://github.com/NixOS/rfcs/pull/42" target="_top">RFC 42</a>’s implementation, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/226088" target="_top">#226088</a>.
+</p></li><li class="listitem"><p>
  The <code class="literal">ssh</code> module does not read <code class="literal">/etc/ssh/ssh_known_hosts2</code> anymore since this location is <a class="link" href="https://marc.info/?l=openssh-unix-dev&amp;m=100508718416162&amp;w=2" target="_top">deprecated since 2001</a>.
 </p></li><li class="listitem"><p>
  The openssh module does not read <code class="literal">~/.ssh/authorized_keys2</code> anymore since this location is <a class="link" href="https://marc.info/?l=openssh-unix-dev&amp;m=100508718416162&amp;w=2" target="_top">deprecated since 2001</a>.
