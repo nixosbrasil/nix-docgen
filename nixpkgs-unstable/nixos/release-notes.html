@@ -66,7 +66,7 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/StevenBlack/hosts" target="_top">stevenblack-blocklist</a>, A unified hosts file with base extensions for blocking unwanted websites. Available as <a class="link" href="options.html#opt-networking.stevenblack.enable" target="_top">networking.stevenblack</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://github.com/BuddiesOfBudgie/budgie-desktop" target="_top">Budgie Desktop</a>, a familiar, modern desktop environment. Availabe as <a class="link" href="options.html#opt-services.xserver.desktopManager.budgie" target="_top">services.xserver.desktopManager.budgie</a>.
+ <a class="link" href="https://github.com/BuddiesOfBudgie/budgie-desktop" target="_top">Budgie Desktop</a>, a familiar, modern desktop environment. Available as <a class="link" href="options.html#opt-services.xserver.desktopManager.budgie" target="_top">services.xserver.desktopManager.budgie</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/h2non/imaginary" target="_top">imaginary</a>, a microservice for high-level image processing that Nextcloud can use to generate previews. Available as <a class="link" href="options.html#opt-services.imaginary.enable">services.imaginary</a>.
 </p></li><li class="listitem"><p>
@@ -82,7 +82,7 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/google/alertmanager-irc-relay" target="_top">alertmanager-irc-relay</a>, a Prometheus Alertmanager IRC Relay. Available as <a class="link" href="options.html#opt-services.prometheus.alertmanagerIrcRelay.enable" target="_top">services.prometheus.alertmanagerIrcRelay</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://github.com/coqui-ai/TTS" target="_top">tts</a>, a battle-tested deep learning toolkit for Text-to-Speech. Mutiple servers may be configured below <a class="link" href="options.html#opt-services.tts.servers">services.tts.servers</a>.
+ <a class="link" href="https://github.com/coqui-ai/TTS" target="_top">tts</a>, a battle-tested deep learning toolkit for Text-to-Speech. Multiple servers may be configured below <a class="link" href="options.html#opt-services.tts.servers">services.tts.servers</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/ellie/atuin" target="_top">atuin</a>, a sync server for shell history. Available as <a class="link" href="options.html#opt-services.atuin.enable">services.atuin</a>.
 </p></li><li class="listitem"><p>
@@ -92,7 +92,7 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://github.com/sentriz/gonic" target="_top">gonic</a>, a Subsonic music streaming server. Available as <a class="link" href="options.html#opt-services.gonic.enable">services.gonic</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://gitlab.com/kop316/mmsd" target="_top">mmsd</a>, a lower level daemon that transmits and recieves MMSes. Available as <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
+ <a class="link" href="https://gitlab.com/kop316/mmsd" target="_top">mmsd</a>, a lower level daemon that transmits and receives MMSes. Available as <a class="link" href="options.html#opt-services.mmsd.enable">services.mmsd</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://dm3mat.darc.de/qdmr/" target="_top">QDMR</a>, a GUI application and command line tool for programming DMR radios <a class="link" href="options.html#opt-programs.qdmr.enable">programs.qdmr</a>
 </p></li><li class="listitem"><p>
@@ -241,6 +241,8 @@ services.snapper.configs.example = {
 </p></li><li class="listitem"><p>
  <code class="literal">fail2ban</code> has been updated to 1.0.2, which has a few breaking changes compared to 0.11.2 (<a class="link" href="https://github.com/fail2ban/fail2ban/blob/1.0.1/ChangeLog" target="_top">changelog for 1.0.1</a>, <a class="link" href="https://github.com/fail2ban/fail2ban/blob/1.0.2/ChangeLog" target="_top">changelog for 1.0.2</a>)
 </p></li><li class="listitem"><p>
+ <code class="literal">albert</code> has been updated from 0.17.6 to 0.20.13, and 0.18.0 changed the config format and many plugins (<a class="link" href="https://github.com/albertlauncher/albert/blob/v0.18.0/CHANGELOG.md" target="_top">changelog for 0.18.0</a>)
+</p></li><li class="listitem"><p>
  Calling <code class="literal">makeSetupHook</code> without passing a <code class="literal">name</code> argument is deprecated.
 </p></li><li class="listitem"><p>
  Top-level buildPlatform,hostPlatform,targetPlatform have been deprecated, use stdenv.X instead.
@@ -275,7 +277,7 @@ services.snapper.configs.example = {
 </p></li><li class="listitem"><p>
  The <code class="literal">nix.readOnlyStore</code> option has been renamed to <code class="literal">boot.readOnlyNixStore</code> to clarify that it configures the NixOS boot process, not the Nix daemon.
 </p></li><li class="listitem"><p>
- Deprecated <code class="literal">xlibsWrapper</code> transitional package has been removed in favour of direct use of its constitutents: <code class="literal">xorg.libX11</code>, <code class="literal">freetype</code> and others.
+ Deprecated <code class="literal">xlibsWrapper</code> transitional package has been removed in favour of direct use of its constituents: <code class="literal">xorg.libX11</code>, <code class="literal">freetype</code> and others.
 </p></li><li class="listitem"><p>
  The latest available version of Nextcloud is v26 (available as <code class="literal">pkgs.nextcloud26</code>) which uses PHP 8.2 as interpreter by default. The installation logic is as follows:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
@@ -294,7 +296,7 @@ services.snapper.configs.example = {
 <a class="link" href="https://github.com/iputils/iputils/releases/tag/20221126" target="_top">upstream’s release notes</a>
 for more details and available replacements.
 </p></li><li class="listitem"><p>
- The ppp plugin <code class="literal">rp-pppoe.so</code> has been renamed to <code class="literal">pppoe.so</code> in ppp 2.4.9. Starting from ppp 2.5.0, there is no longer a alias for backwards compatiblity. Configurations that use this plugin must be updated accordingly from <code class="literal">plugin rp-pppoe.so</code> to <code class="literal">plugin pppoe.so</code>. See <a class="link" href="https://github.com/ppp-project/ppp/commit/610a7bd76eb1f99f22317541b35001b1e24877ed" target="_top">upstream change</a>.
+ The ppp plugin <code class="literal">rp-pppoe.so</code> has been renamed to <code class="literal">pppoe.so</code> in ppp 2.4.9. Starting from ppp 2.5.0, there is no longer a alias for backwards compatibility. Configurations that use this plugin must be updated accordingly from <code class="literal">plugin rp-pppoe.so</code> to <code class="literal">plugin pppoe.so</code>. See <a class="link" href="https://github.com/ppp-project/ppp/commit/610a7bd76eb1f99f22317541b35001b1e24877ed" target="_top">upstream change</a>.
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.xserver.videoDrivers" target="_top">services.xserver.videoDrivers</a> now defaults to the <code class="literal">modesetting</code> driver over device-specific ones. The <code class="literal">radeon</code>, <code class="literal">amdgpu</code> and <code class="literal">nouveau</code> drivers are still available, but effectively unmaintained and not recommended for use.
 </p></li><li class="listitem"><p>
@@ -568,7 +570,7 @@ there are now two packages of Singularity/Apptainer:
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-migration"></a>Detailed migration information</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="sec-release-23.05-migration-pipewire"></a>Pipewire configuration overrides</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-why"></a>Why this change?</h5></div></div></div><p>
  The Pipewire config semantics don’t really match the NixOS module semantics, so it’s extremely awkward to override the default config, especially when lists are involved. Vendoring the configuration files in nixpkgs also creates unnecessary maintenance overhead.
 </p><p>
- Also, upstream added a lot of accomodations to allow doing most of the things you’d want to do with a config edit in better ways.
+ Also, upstream added a lot of accommodations to allow doing most of the things you’d want to do with a config edit in better ways.
 </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="sec-release-23.05-migration-pipewire-how"></a>Migrating your configuration</h5></div></div></div><p>
  Compare your settings to <a class="link" href="https://gitlab.freedesktop.org/pipewire/pipewire/-/tree/master/src/daemon" target="_top">the defaults</a> and where your configuration differs from them.
 </p><p>
@@ -844,7 +846,7 @@ maintenance.
 </p></li><li class="listitem"><p>
  Linux 4.9 has been removed because it will reach its end of life within the lifespan of 22.11.
 </p></li><li class="listitem"><p>
- (Neo)Vim can not be configured with <code class="literal">configure.pathogen</code> anymore to reduce maintainance burden.
+ (Neo)Vim can not be configured with <code class="literal">configure.pathogen</code> anymore to reduce maintenance burden.
 Use <code class="literal">configure.packages</code> instead.
 </p></li><li class="listitem"><p>
  Neovim can not be configured with plug anymore (still works for vim).
@@ -861,7 +863,7 @@ Use <code class="literal">configure.packages</code> instead.
 </p></li><li class="listitem"><p>
  <code class="literal">mysql57</code> has been removed. Please update to <code class="literal">mysql80</code> or <code class="literal">mariadb</code>. See the <a class="link" href="https://mariadb.com/kb/en/upgrading-from-mysql-to-mariadb/" target="_top">upgrade guide</a> for more information.
 </p></li><li class="listitem"><p>
- Consequently, <code class="literal">cqrlog</code> and <code class="literal">amorok</code> now use <code class="literal">mariadb</code> instead of <code class="literal">mysql57</code> for their embedded databases. Running <code class="literal">mysql_upgrade</code> may be neccesary.
+ Consequently, <code class="literal">cqrlog</code> and <code class="literal">amorok</code> now use <code class="literal">mariadb</code> instead of <code class="literal">mysql57</code> for their embedded databases. Running <code class="literal">mysql_upgrade</code> may be necessary.
 </p></li><li class="listitem"><p>
  <code class="literal">k3s</code> supports <code class="literal">clusterInit</code> option, and it is enabled by default, for servers.
 </p></li><li class="listitem"><p>
@@ -1178,7 +1180,7 @@ and <a class="link" href="options.html#opt-systemd.oomd.enableUserServices" targ
 for Flakes, but also marks the <code class="literal">nix</code> command as experimental which now has to
 be enabled via the configuration explicitly. For more information and
 instructions for upgrades, see the
-relase notes for <a class="link" href="https://nixos.org/manual/nix/stable/release-notes/rl-2.4.html" target="_top">nix-2.4</a>,
+release notes for <a class="link" href="https://nixos.org/manual/nix/stable/release-notes/rl-2.4.html" target="_top">nix-2.4</a>,
 <a class="link" href="https://nixos.org/manual/nix/stable/release-notes/rl-2.5.html" target="_top">nix-2.5</a>,
 <a class="link" href="https://nixos.org/manual/nix/stable/release-notes/rl-2.6.html" target="_top">nix-2.6</a>,
 <a class="link" href="https://nixos.org/manual/nix/stable/release-notes/rl-2.7.html" target="_top">nix-2.7</a> and
@@ -1440,11 +1442,11 @@ In particular, Recursor by default will:
 </p></li><li class="listitem"><p>
  <code class="literal">openldap</code> (and therefore the slapd LDAP server) were updated to version 2.6.2. The project introduced backwards-incompatible changes, namely the removal of the bdb, hdb, ndb, and shell backends in slapd. Therefore before updating, dump your database <code class="literal">slapcat -n 1</code> in LDIF format, and reimport it after updating your <code class="literal">services.openldap.settings</code>, which represents your <code class="literal">cn=config</code>.
 </p><p>
- Additionally with 2.5 the argon2 module was included in the standard distrubtion and renamed from <code class="literal">pw-argon2</code> to <code class="literal">argon2</code>. Remember to update your <code class="literal">olcModuleLoad</code> entry in <code class="literal">cn=config</code>.
+ Additionally with 2.5 the argon2 module was included in the standard distribution and renamed from <code class="literal">pw-argon2</code> to <code class="literal">argon2</code>. Remember to update your <code class="literal">olcModuleLoad</code> entry in <code class="literal">cn=config</code>.
 </p></li><li class="listitem"><p>
  <code class="literal">openssh</code> has been update to 8.9p1, changing the FIDO security key middleware interface.
 </p></li><li class="listitem"><p>
- <code class="literal">git</code> no longer hardcodes the path to openssh’ ssh binary to reduce the amount of rebuilds. If you are using git with ssh remotes and do not have a ssh binary in your enviroment consider adding <code class="literal">openssh</code> to it or switching to <code class="literal">gitFull</code>.
+ <code class="literal">git</code> no longer hardcodes the path to openssh’ ssh binary to reduce the amount of rebuilds. If you are using git with ssh remotes and do not have a ssh binary in your environment consider adding <code class="literal">openssh</code> to it or switching to <code class="literal">gitFull</code>.
 </p></li><li class="listitem"><p>
  <code class="literal">services.k3s.enable</code> no longer implies <code class="literal">systemd.enableUnifiedCgroupHierarchy = false</code>, and will default to the ‘systemd’ cgroup driver when using <code class="literal">services.k3s.docker = true</code>.
 This change may require a reboot to take effect, and k3s may not be able to run if the boot cgroup hierarchy does not match its configuration.
@@ -1802,7 +1804,7 @@ doesn’t include serif fonts.
 changes in the database scheme and configuration format.
 </p></li><li class="listitem"><p>
  Some top-level settings under <a class="link" href="options.html#opt-services.epgstation.enable">services.epgstation</a>
-is now deprecated because it was redudant due to the same options being
+is now deprecated because it was redundant due to the same options being
 present in <a class="link" href="options.html#opt-services.epgstation.settings">services.epgstation.settings</a>.
 </p></li><li class="listitem"><p>
  The option <code class="literal">services.epgstation.basicAuth</code> was removed because basic
@@ -1816,7 +1818,7 @@ upgrading. Change the database password if necessary.
 option now expects options for <code class="literal">config.yml</code> in EPGStation v2.
 </p></li><li class="listitem"><p>
  Existing data for the <a class="link" href="options.html#opt-services.epgstation.enable">services.epgstation</a>
-module would have to be backed up prior to the upgrade. To back up exising
+module would have to be backed up prior to the upgrade. To back up existing
 data to <code class="literal">/tmp/epgstation.bak</code>, run
 <code class="literal">sudo -u epgstation epgstation run backup /tmp/epgstation.bak</code>.
 To import that data after to the upgrade, run
@@ -1988,7 +1990,7 @@ Furthermore, not all Electron apps use the latest Electron versions.
  The <code class="literal">influxdb2</code> package was split into <code class="literal">influxdb2-server</code> and
 <code class="literal">influxdb2-cli</code>, matching the split that took place upstream. A
 combined <code class="literal">influxdb2</code> package is still provided in this release for
-backwards compatibilty, but will be removed at a later date.
+backwards compatibility, but will be removed at a later date.
 </p></li><li class="listitem"><p>
  The <code class="literal">unifi</code> package was switched from <code class="literal">unifi6</code> to <code class="literal">unifi7</code>.
 Direct downgrades from Unifi 7 to Unifi 6 are not possible and require restoring from a backup made by Unifi 6.
@@ -2617,7 +2619,7 @@ were renamed to <code class="literal">systemd.services.vaultwarden</code>, <code
 </p></li><li class="listitem"><p>
  <code class="literal">programs.neovim.runtime</code> switched to a <code class="literal">linkFarm</code> internally, making it impossible to use wildcards in the <code class="literal">source</code> argument.
 </p></li><li class="listitem"><p>
- The <code class="literal">openrazer</code> and <code class="literal">openrazer-daemon</code> packages as well as the <code class="literal">hardware.openrazer</code> module now require users to be members of the <code class="literal">openrazer</code> group instead of <code class="literal">plugdev</code>. With this change, users no longer need be granted the entire set of <code class="literal">plugdev</code> group permissions, which can include permissions other than those required by <code class="literal">openrazer</code>. This is desirable from a security point of view. The setting <a class="link" href="options.html#opt-services.hardware.openrazer.users" target="_top"><code class="literal">harware.openrazer.users</code></a> can be used to add users to the <code class="literal">openrazer</code> group.
+ The <code class="literal">openrazer</code> and <code class="literal">openrazer-daemon</code> packages as well as the <code class="literal">hardware.openrazer</code> module now require users to be members of the <code class="literal">openrazer</code> group instead of <code class="literal">plugdev</code>. With this change, users no longer need be granted the entire set of <code class="literal">plugdev</code> group permissions, which can include permissions other than those required by <code class="literal">openrazer</code>. This is desirable from a security point of view. The setting <a class="link" href="options.html#opt-services.hardware.openrazer.users" target="_top"><code class="literal">hardware.openrazer.users</code></a> can be used to add users to the <code class="literal">openrazer</code> group.
 </p></li><li class="listitem"><p>
  The fontconfig service’s dpi option has been removed.
 Fontconfig should use Xft settings by default so there’s no need to override one value in multiple places.
@@ -3021,7 +3023,7 @@ http://some.json-exporter.host:7979/probe?target=https://example.com/some/json/e
 </p><p>
  Android packages are now loaded from a repo.json file created by parsing Android repo XML files. The arguments <code class="literal">repoJson</code> and <code class="literal">repoXmls</code> have been added to allow overriding the built-in androidenv repo.json with your own. Additionally, license files are now written to allow compatibility with Gradle-based tools, and the <code class="literal">extraLicenses</code> argument has been added to accept more SDK licenses if your project requires it. See the androidenv documentation for more details.
 </p></li><li class="listitem"><p>
- The attribute <code class="literal">mpi</code> is now consistently used to provide a default, system-wide MPI implementation. The default implementation is openmpi, which has been used before by all derivations affects by this change. Note that all packages that have used <code class="literal">mpi ? null</code> in the input for optional MPI builds, have been changed to the boolean input paramater <code class="literal">useMpi</code> to enable building with MPI. Building all packages with <code class="literal">mpich</code> instead of the default <code class="literal">openmpi</code> can now be achived like this:
+ The attribute <code class="literal">mpi</code> is now consistently used to provide a default, system-wide MPI implementation. The default implementation is openmpi, which has been used before by all derivations affects by this change. Note that all packages that have used <code class="literal">mpi ? null</code> in the input for optional MPI builds, have been changed to the boolean input parameter <code class="literal">useMpi</code> to enable building with MPI. Building all packages with <code class="literal">mpich</code> instead of the default <code class="literal">openmpi</code> can now be achieved like this:
 </p><pre class="programlisting">
 self: super:
 {
@@ -3090,7 +3092,7 @@ self: super:
 </pre></li><li class="listitem"><p>
  <code class="literal">environment.defaultPackages</code> now includes the nano package. If pkgs.nano is not added to the list, make sure another editor is installed and the <code class="literal">EDITOR</code> environment variable is set to it. Environment variables can be set using <code class="literal">environment.variables</code>.
 </p></li><li class="listitem"><p>
- <code class="literal">services.minio.dataDir</code> changed type to a list of paths, required for specifiyng multiple data directories for using with erasure coding. Currently, the service doesn’t enforce nor checks the correct number of paths to correspond to minio requirements.
+ <code class="literal">services.minio.dataDir</code> changed type to a list of paths, required for specifying multiple data directories for using with erasure coding. Currently, the service doesn’t enforce nor checks the correct number of paths to correspond to minio requirements.
 </p></li><li class="listitem"><p>
  All CUDA toolkit versions prior to CUDA 10 have been removed.
 </p></li><li class="listitem"><p>
@@ -3189,7 +3191,7 @@ self: super:
 </p></li><li class="listitem"><p>
  When defining a new user, one of <a class="link" href="options.html#opt-users.users._name_.isNormalUser" target="_top">users.users.<span class="emphasis"><em>name</em></span>.isNormalUser</a> and <a class="link" href="options.html#opt-users.users._name_.isSystemUser" target="_top">users.users.<span class="emphasis"><em>name</em></span>.isSystemUser</a> is now required. This is to prevent accidentally giving a UID above 1000 to system users, which could have unexpected consequences, like running user activation scripts for system users. Note that users defined with an explicit UID below 500 are exempted from this check, as <a class="link" href="options.html#opt-users.users._name_.isSystemUser" target="_top">users.users.<span class="emphasis"><em>name</em></span>.isSystemUser</a> has no effect for those.
 </p></li><li class="listitem"><p>
- The <code class="literal">security.apparmor</code> module, for the <a class="link" href="https://gitlab.com/apparmor/apparmor/-/wikis/Documentation" target="_top">AppArmor</a> Mandatory Access Control system, has been substantialy improved along with related tools, so that module maintainers can now more easily write AppArmor profiles for NixOS. The most notable change on the user-side is the new option <a class="link" href="options.html#opt-security.apparmor.policies" target="_top">security.apparmor.policies</a>, replacing the previous <code class="literal">profiles</code> option to provide a way to disable a profile and to select whether to confine in enforce mode (default) or in complain mode (see <code class="literal">journalctl -b --grep apparmor</code>). Security-minded users may also want to enable <a class="link" href="options.html#opt-security.apparmor.killUnconfinedConfinables" target="_top">security.apparmor.killUnconfinedConfinables</a>, at the cost of having some of their processes killed when updating to a NixOS version introducing new AppArmor profiles.
+ The <code class="literal">security.apparmor</code> module, for the <a class="link" href="https://gitlab.com/apparmor/apparmor/-/wikis/Documentation" target="_top">AppArmor</a> Mandatory Access Control system, has been substantially improved along with related tools, so that module maintainers can now more easily write AppArmor profiles for NixOS. The most notable change on the user-side is the new option <a class="link" href="options.html#opt-security.apparmor.policies" target="_top">security.apparmor.policies</a>, replacing the previous <code class="literal">profiles</code> option to provide a way to disable a profile and to select whether to confine in enforce mode (default) or in complain mode (see <code class="literal">journalctl -b --grep apparmor</code>). Security-minded users may also want to enable <a class="link" href="options.html#opt-security.apparmor.killUnconfinedConfinables" target="_top">security.apparmor.killUnconfinedConfinables</a>, at the cost of having some of their processes killed when updating to a NixOS version introducing new AppArmor profiles.
 </p></li><li class="listitem"><p>
  The GNOME desktop manager once again installs gnome.epiphany by default.
 </p></li><li class="listitem"><p>
@@ -3365,7 +3367,7 @@ self: super:
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.cage.enable" target="_top">services.cage.enable</a> Wayland cage service
 </p></li><li class="listitem"><p>
- <a class="link" href="options.html#opt-services.convos.enable" target="_top">services.convos.enable</a> IRC daemon, which can be accessed throught the browser
+ <a class="link" href="options.html#opt-services.convos.enable" target="_top">services.convos.enable</a> IRC daemon, which can be accessed through the browser
 </p></li><li class="listitem"><p>
  <a class="link" href="options.html#opt-services.engelsystem.enable" target="_top">services.engelsystem.enable</a> Tool for coordinating volunteers and shifts on large events
 </p></li><li class="listitem"><p>
@@ -3741,7 +3743,7 @@ CREATE ROLE postgres LOGIN SUPERUSER;
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.jellyfin.enable" target="_top">jellyfin</a> module will use and stay on the Jellyfin version <code class="literal">10.5.5</code> if <code class="literal">stateVersion</code> is lower than <code class="literal">20.09</code>. This is because significant changes were made to the database schema, and it is highly recommended to backup your instance before upgrading. After making your backup, you can upgrade to the latest version either by setting your <code class="literal">stateVersion</code> to <code class="literal">20.09</code> or higher, or set the <code class="literal">services.jellyfin.package</code> to <code class="literal">pkgs.jellyfin</code>. If you do not wish to upgrade Jellyfin, but want to change your <code class="literal">stateVersion</code>, you can set the value of <code class="literal">services.jellyfin.package</code> to <code class="literal">pkgs.jellyfin_10_5</code>.
 </p></li><li class="listitem"><p>
- The <code class="literal">security.rngd</code> service is now disabled by default. This choice was made because there’s krngd in the linux kernel space making it (for most usecases) functionally redundent.
+ The <code class="literal">security.rngd</code> service is now disabled by default. This choice was made because there’s krngd in the linux kernel space making it (for most usecases) functionally redundant.
 </p></li><li class="listitem"><p>
  The <code class="literal">hardware.nvidia.optimus_prime.enable</code> service has been renamed to <code class="literal">hardware.nvidia.prime.sync.enable</code> and has many new enhancements. Related nvidia prime settings may have also changed.
 </p></li><li class="listitem"><p>
@@ -4570,7 +4572,7 @@ $ hydra-backfill-ids
 </p><p>
  <code class="literal">security.acme.preDelay</code> and <code class="literal">security.acme.activationDelay</code> options have been removed. To execute a service before certificates are provisioned or renewed add a <code class="literal">RequiredBy=acme-${cert}.service</code> to any service.
 </p><p>
- Furthermore, the acme module will not automatically add a dependency on <code class="literal">lighttpd.service</code> anymore. If you are using certficates provided by letsencrypt for lighttpd, then you should depend on the certificate service <code class="literal">acme-${cert}.service&gt;</code> manually.
+ Furthermore, the acme module will not automatically add a dependency on <code class="literal">lighttpd.service</code> anymore. If you are using certificates provided by letsencrypt for lighttpd, then you should depend on the certificate service <code class="literal">acme-${cert}.service&gt;</code> manually.
 </p><p>
  For nginx, the dependencies are still automatically managed when <code class="literal">services.nginx.virtualhosts.&lt;name&gt;.enableACME</code> is enabled just like before. What changed is that nginx now directly depends on the specific certificates that it needs, instead of depending on the catch-all <code class="literal">acme-certificates.target</code>. This target unit was also removed from the codebase. This will mean nginx will no longer depend on certificates it isn’t explicitly managing and fixes a bug with certificate renewal ordering racing with nginx restarting which could lead to nginx getting in a broken state as described at <a class="link" href="https://github.com/NixOS/nixpkgs/issues/60180" target="_top">NixOS/nixpkgs#60180</a>.
 </p></li><li class="listitem"><p>
@@ -4759,7 +4761,7 @@ Because of that it is recommended to leave LightDM enabled. If you’d like to d
 </p><p>
  The slurmctld now runs as user <code class="literal">slurm</code> instead of <code class="literal">root</code>. If you want to keep slurmctld running as <code class="literal">root</code>, set <code class="literal">services.slurm.user = root</code>.
 </p><p>
- The options <code class="literal">services.slurm.nodeName</code> and <code class="literal">services.slurm.partitionName</code> are now sets of strings to correctly reflect that fact that each of these options can occour more than once in the configuration.
+ The options <code class="literal">services.slurm.nodeName</code> and <code class="literal">services.slurm.partitionName</code> are now sets of strings to correctly reflect that fact that each of these options can occur more than once in the configuration.
 </p></li><li class="listitem"><p>
  The <code class="literal">solr</code> package has been upgraded from 4.10.3 to 7.5.0 and has undergone some major changes. The <code class="literal">services.solr</code> module has been updated to reflect these changes. Please review http://lucene.apache.org/solr/ carefully before upgrading.
 </p></li><li class="listitem"><p>
@@ -4769,7 +4771,7 @@ Because of that it is recommended to leave LightDM enabled. If you’d like to d
 </p></li><li class="listitem"><p>
  Network interface indiscriminate NixOS firewall options (<code class="literal">networking.firewall.allow*</code>) are now preserved when also setting interface specific rules such as <code class="literal">networking.firewall.interfaces.en0.allow*</code>. These rules continue to use the pseudo device “default” (<code class="literal">networking.firewall.interfaces.default.*</code>), and assigning to this pseudo device will override the (<code class="literal">networking.firewall.allow*</code>) options.
 </p></li><li class="listitem"><p>
- The <code class="literal">nscd</code> service now disables all caching of <code class="literal">passwd</code> and <code class="literal">group</code> databases by default. This was interferring with the correct functioning of the <code class="literal">libnss_systemd.so</code> module which is used by <code class="literal">systemd</code> to manage uids and usernames in the presence of <code class="literal">DynamicUser=</code> in systemd services. This was already the default behaviour in presence of <code class="literal">services.sssd.enable = true</code> because nscd caching would interfere with <code class="literal">sssd</code> in unpredictable ways as well. Because we’re using nscd not for caching, but for convincing glibc to find NSS modules in the nix store instead of an absolute path, we have decided to disable caching globally now, as it’s usually not the behaviour the user wants and can lead to surprising behaviour. Furthermore, negative caching of host lookups is also disabled now by default. This should fix the issue of dns lookups failing in the presence of an unreliable network.
+ The <code class="literal">nscd</code> service now disables all caching of <code class="literal">passwd</code> and <code class="literal">group</code> databases by default. This was interfering with the correct functioning of the <code class="literal">libnss_systemd.so</code> module which is used by <code class="literal">systemd</code> to manage uids and usernames in the presence of <code class="literal">DynamicUser=</code> in systemd services. This was already the default behaviour in presence of <code class="literal">services.sssd.enable = true</code> because nscd caching would interfere with <code class="literal">sssd</code> in unpredictable ways as well. Because we’re using nscd not for caching, but for convincing glibc to find NSS modules in the nix store instead of an absolute path, we have decided to disable caching globally now, as it’s usually not the behaviour the user wants and can lead to surprising behaviour. Furthermore, negative caching of host lookups is also disabled now by default. This should fix the issue of dns lookups failing in the presence of an unreliable network.
 </p><p>
  If the old behaviour is desired, this can be restored by setting the <code class="literal">services.nscd.config</code> option with the desired caching parameters.
 </p><pre class="programlisting">
@@ -4811,7 +4813,7 @@ Because of that it is recommended to leave LightDM enabled. If you’d like to d
 </p></li><li class="listitem"><p>
  GitLab Shell previously used the nix store paths for the <code class="literal">gitlab-shell</code> command in its <code class="literal">authorized_keys</code> file, which might stop working after garbage collection. To circumvent that, we regenerated that file on each startup. As <code class="literal">gitlab-shell</code> has now been changed to use <code class="literal">/var/run/current-system/sw/bin/gitlab-shell</code>, this is not necessary anymore, but there might be leftover lines with a nix store path. Regenerate the <code class="literal">authorized_keys</code> file via <code class="literal">sudo -u git -H gitlab-rake gitlab:shell:setup</code> in that case.
 </p></li><li class="listitem"><p>
- The <code class="literal">pam_unix</code> account module is now loaded with its control field set to <code class="literal">required</code> instead of <code class="literal">sufficient</code>, so that later PAM account modules that might do more extensive checks are being executed. Previously, the whole account module verification was exited prematurely in case a nss module provided the account name to <code class="literal">pam_unix</code>. The LDAP and SSSD NixOS modules already add their NSS modules when enabled. In case your setup breaks due to some later PAM account module previosuly shadowed, or failing NSS lookups, please file a bug. You can get back the old behaviour by manually setting <code class="literal">security.pam.services.&lt;name?&gt;.text</code>.
+ The <code class="literal">pam_unix</code> account module is now loaded with its control field set to <code class="literal">required</code> instead of <code class="literal">sufficient</code>, so that later PAM account modules that might do more extensive checks are being executed. Previously, the whole account module verification was exited prematurely in case a nss module provided the account name to <code class="literal">pam_unix</code>. The LDAP and SSSD NixOS modules already add their NSS modules when enabled. In case your setup breaks due to some later PAM account module previously shadowed, or failing NSS lookups, please file a bug. You can get back the old behaviour by manually setting <code class="literal">security.pam.services.&lt;name?&gt;.text</code>.
 </p></li><li class="listitem"><p>
  The <code class="literal">pam_unix</code> password module is now loaded with its control field set to <code class="literal">sufficient</code> instead of <code class="literal">required</code>, so that password managed only by later PAM password modules are being executed. Previously, for example, changing an LDAP account’s password through PAM was not possible: the whole password module verification was exited prematurely by <code class="literal">pam_unix</code>, preventing <code class="literal">pam_ldap</code> to manage the password as it should.
 </p></li><li class="listitem"><p>
@@ -5359,7 +5361,7 @@ $ nix-instantiate -E '(import &lt;nixpkgsunstable&gt; {}).gitFull'
 </p></li><li class="listitem"><p>
  The <code class="literal">openssh</code> package now includes Kerberos support by default; the <code class="literal">openssh_with_kerberos</code> package is now a deprecated alias. If you do not want Kerberos support, you can do <code class="literal">openssh.override { withKerberos = false; }</code>. Note, this also applies to the <code class="literal">openssh_hpn</code> package.
 </p></li><li class="listitem"><p>
- <code class="literal">cc-wrapper</code> has been split in two; there is now also a <code class="literal">bintools-wrapper</code>. The most commonly used files in <code class="literal">nix-support</code> are now split between the two wrappers. Some commonly used ones, like <code class="literal">nix-support/dynamic-linker</code>, are duplicated for backwards compatability, even though they rightly belong only in <code class="literal">bintools-wrapper</code>. Other more obscure ones are just moved.
+ <code class="literal">cc-wrapper</code> has been split in two; there is now also a <code class="literal">bintools-wrapper</code>. The most commonly used files in <code class="literal">nix-support</code> are now split between the two wrappers. Some commonly used ones, like <code class="literal">nix-support/dynamic-linker</code>, are duplicated for backwards compatibility, even though they rightly belong only in <code class="literal">bintools-wrapper</code>. Other more obscure ones are just moved.
 </p></li><li class="listitem"><p>
  The propagation logic has been changed. The new logic, along with new types of dependencies that go with, is thoroughly documented in the “Specifying dependencies” section of the “Standard Environment” chapter of the nixpkgs manual. The old logic isn’t but is easy to describe: dependencies were propagated as the same type of dependency no matter what. In practice, that means that many <code class="literal">propagatedNativeBuildInputs</code> should instead be <code class="literal">propagatedBuildInputs</code>. Thankfully, that was and is the least used type of dependency. Also, it means that some <code class="literal">propagatedBuildInputs</code> should instead be <code class="literal">depsTargetTargetPropagated</code>. Other types dependencies should be unaffected.
 </p></li><li class="listitem"><p>
@@ -5729,7 +5731,7 @@ FLUSH PRIVILEGES;
 </p><p>
  You can check that backups still work by running <code class="literal">systemctl start mysql-backup</code> then <code class="literal">systemctl status mysql-backup</code>.
 </p></li><li class="listitem"><p>
- Templated systemd services e.g <code class="literal">container@name</code> are now handled currectly when switching to a new configuration, resulting in them being reloaded.
+ Templated systemd services e.g <code class="literal">container@name</code> are now handled correctly when switching to a new configuration, resulting in them being reloaded.
 </p></li><li class="listitem"><p>
  Steam: the <code class="literal">newStdcpp</code> parameter was removed and should not be needed anymore.
 </p></li><li class="listitem"><p>
@@ -6073,7 +6075,7 @@ in
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  A large number of packages have been converted to use the multiple outputs feature of Nix to greatly reduce the amount of required disk space, as mentioned above. This may require changes to any custom packages to make them build again; see the relevant chapter in the Nixpkgs manual for more information. (Additional caveat to packagers: some packaging conventions related to multiple-output packages <a class="link" href="https://github.com/NixOS/nixpkgs/pull/14766" target="_top">were changed</a> late (August 2016) in the release cycle and differ from the initial introduction of multiple outputs.)
 </p></li><li class="listitem"><p>
- Previous versions of Nixpkgs had support for all versions of the LTS Haskell package set. That support has been dropped. The previously provided <code class="literal">haskell.packages.lts-x_y</code> package sets still exist in name to aviod breaking user code, but these package sets don’t actually contain the versions mandated by the corresponding LTS release. Instead, our package set it loosely based on the latest available LTS release, i.e. LTS 7.x at the time of this writing. New releases of NixOS and Nixpkgs will drop those old names entirely. <a class="link" href="https://nixos.org/nix-dev/2016-June/020585.html" target="_top">The motivation for this change</a> has been discussed at length on the <code class="literal">nix-dev</code> mailing list and in <a class="link" href="https://github.com/NixOS/nixpkgs/issues/14897" target="_top">Github issue #14897</a>. Development strategies for Haskell hackers who want to rely on Nix and NixOS have been described in <a class="link" href="https://nixos.org/nix-dev/2016-June/020642.html" target="_top">another nix-dev article</a>.
+ Previous versions of Nixpkgs had support for all versions of the LTS Haskell package set. That support has been dropped. The previously provided <code class="literal">haskell.packages.lts-x_y</code> package sets still exist in name to avoid breaking user code, but these package sets don’t actually contain the versions mandated by the corresponding LTS release. Instead, our package set it loosely based on the latest available LTS release, i.e. LTS 7.x at the time of this writing. New releases of NixOS and Nixpkgs will drop those old names entirely. <a class="link" href="https://nixos.org/nix-dev/2016-June/020585.html" target="_top">The motivation for this change</a> has been discussed at length on the <code class="literal">nix-dev</code> mailing list and in <a class="link" href="https://github.com/NixOS/nixpkgs/issues/14897" target="_top">Github issue #14897</a>. Development strategies for Haskell hackers who want to rely on Nix and NixOS have been described in <a class="link" href="https://nixos.org/nix-dev/2016-June/020642.html" target="_top">another nix-dev article</a>.
 </p></li><li class="listitem"><p>
  Shell aliases for systemd sub-commands <a class="link" href="https://github.com/NixOS/nixpkgs/pull/15598" target="_top">were dropped</a>: <code class="literal">start</code>, <code class="literal">stop</code>, <code class="literal">restart</code>, <code class="literal">status</code>.
 </p></li><li class="listitem"><p>
@@ -6081,7 +6083,7 @@ in
 </p></li><li class="listitem"><p>
  <code class="literal">/var/empty</code> is now immutable. Activation script runs <code class="literal">chattr +i</code> to forbid any modifications inside the folder. See <a class="link" href="https://github.com/NixOS/nixpkgs/pull/18365" target="_top"> the pull request</a> for what bugs this caused.
 </p></li><li class="listitem"><p>
- Gitlab’s maintainance script <code class="literal">gitlab-runner</code> was removed and split up into the more clearer <code class="literal">gitlab-run</code> and <code class="literal">gitlab-rake</code> scripts, because <code class="literal">gitlab-runner</code> is a component of Gitlab CI.
+ Gitlab’s maintenance script <code class="literal">gitlab-runner</code> was removed and split up into the more clearer <code class="literal">gitlab-run</code> and <code class="literal">gitlab-rake</code> scripts, because <code class="literal">gitlab-runner</code> is a component of Gitlab CI.
 </p></li><li class="listitem"><p>
  <code class="literal">services.xserver.libinput.accelProfile</code> default changed from <code class="literal">flat</code> to <code class="literal">adaptive</code>, as per <a class="link" href="https://wayland.freedesktop.org/libinput/doc/latest/group__config.html#gad63796972347f318b180e322e35cee79" target="_top"> official documentation</a>.
 </p></li><li class="listitem"><p>

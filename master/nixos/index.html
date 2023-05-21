@@ -3292,7 +3292,7 @@ updated to make sure that the
 on fresh setups.
 </p><p>
  If major-releases will be abandoned by upstream, we should check first if those are needed
-in NixOS for a safe upgrade-path before removing those. In that case we shold keep those
+in NixOS for a safe upgrade-path before removing those. In that case we should keep those
 packages, but mark them as insecure in an expression like this (in
 <code class="literal">&lt;nixpkgs/pkgs/tools/filesystem/garage/default.nix&gt;</code>):
 </p><pre class="programlisting">
@@ -4481,7 +4481,7 @@ services.meilisearch.enable = true;
 </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-meilisearch-defaults"></a>Defaults</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  The default nixos package doesn’t come with the <a class="link" href="https://docs.meilisearch.com/learn/getting_started/quick_start.html#search" target="_top">dashboard</a>, since the dashboard features makes some assets downloads at compile time.
 </p></li><li class="listitem"><p>
- Anonimized Analytics sent to meilisearch are disabled by default.
+ Anonymized Analytics sent to meilisearch are disabled by default.
 </p></li><li class="listitem"><p>
  Default deployment is development mode. It doesn’t require a secret master key. All routes are not protected and accessible.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="module-services-meilisearch-missing"></a>Missing</h2></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
