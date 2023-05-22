@@ -180,6 +180,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <code class="literal">nushell</code> has been updated to at least version 0.77.0, which includes potential breaking changes in aliases. The old aliases are now available as <code class="literal">old-alias</code> but it is recommended you migrate to the new format. See <a class="link" href="https://www.nushell.sh/blog/2023-03-14-nushell_0_77.html#reworked-aliases-breaking-changes-kubouch" target="_top">Reworked aliases</a>.
 </p></li><li class="listitem"><p>
+ <code class="literal">gajim</code> has been updated to version 1.7.3 which has disabled legacy ciphers. See <a class="link" href="https://dev.gajim.org/gajim/gajim/-/releases/1.7.0" target="_top">changelog for version 1.7.0</a>.
+</p></li><li class="listitem"><p>
  <code class="literal">keepassx</code> and <code class="literal">keepassx2</code> have been removed, due to upstream <a class="link" href="https://www.keepassx.org/index.html%3Fp=636.html" target="_top">stopping development</a>. Consider <a class="link" href="https://keepassxc.org" target="_top">KeePassXC</a> as a maintained alternative.
 </p></li><li class="listitem"><p>
  The <a class="link" href="options.html#opt-services.kubo.settings">services.kubo.settings</a> option is now no longer stateful. If you changed any of the options in <a class="link" href="options.html#opt-services.kubo.settings">services.kubo.settings</a> in the past and then removed them from your NixOS configuration again, those changes are still in your Kubo configuration file but will now be reset to the default. If you’re unsure, you may want to make a backup of your configuration file (probably /var/lib/ipfs/config) and compare after the update.
