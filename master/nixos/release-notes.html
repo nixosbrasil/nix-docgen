@@ -6,7 +6,7 @@
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
  Create the first release note entry in this section!
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
- Create the first release note entry in this section!
+ The latest version of <code class="literal">clonehero</code> now stores custom content in <code class="literal">~/.clonehero</code>. See the <a class="link" href="https://clonehero.net/2022/11/29/v23-to-v1-migration-instructions.html" target="_top">migration instructions</a>. Typically, these content files would exist along side the binary, but the previous build used a wrapper script that would store them in <code class="literal">~/.config/unity3d/srylain Inc_/Clone Hero</code>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
  Create the first release note entry in this section!
 </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-23.05"></a>Release 23.05 (“Stoat”, 2023.05/??)</h2></div></div></div><p>
@@ -430,6 +430,8 @@ Same applies to <code class="literal">acl</code> which now also only accepts str
 </p></li><li class="listitem"><p>
  The minimal ISO image now uses the <code class="literal">nixos/modules/profiles/minimal.nix</code> profile.
 </p></li><li class="listitem"><p>
+ NixOS installer ISOs can now be built for <code class="literal">powerpc64le-linux</code>; see <code class="literal">nixos/modules/installer/sd-card/sd-image-powerpc64le.nix</code> and <a class="link" href="https://github.com/NixOS/nixpkgs/pull/192672" target="_top">PR 192672</a>.  Hydra does not support this platform, so you must build the binaries yourself.
+</p></li><li class="listitem"><p>
  The <code class="literal">ghcWithPackages</code> and <code class="literal">ghcWithHoogle</code> wrappers will now also symlink GHC’s
 and all included libraries’ documentation to <code class="literal">$out/share/doc</code> for convenience.
 If undesired, the old behavior can be restored by overriding the builders with
@@ -534,6 +536,8 @@ can be directly written as attribute-set in Nix within this option.
  The <code class="literal">firewall</code> and <code class="literal">nat</code> module now has a nftables based implementation. Enable <code class="literal">networking.nftables</code> to use it.
 </p></li><li class="listitem"><p>
  The <code class="literal">services.fwupd</code> module now allows arbitrary daemon settings to be configured in a structured manner (<a class="link" href="options.html#opt-services.fwupd.daemonSettings"><code class="literal">services.fwupd.daemonSettings</code></a>).
+</p></li><li class="listitem"><p>
+ Nixpkgs now uses <a class="link" href="https://github.com/NixOS/nixpkgs/pull/170215" target="_top">IEEE-standard floating point arithmetic</a> on <code class="literal">powerpc64le-linux</code>.
 </p></li><li class="listitem"><p>
  <code class="literal">services.xserver.desktopManager.plasma5.phononBackend</code> now defaults to vlc according to <a class="link" href="https://community.kde.org/Distributions/Packaging_Recommendations#Non-Plasma_packages" target="_top">upstrean recommendation</a>
 </p></li><li class="listitem"><p>
