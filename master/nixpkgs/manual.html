@@ -9300,7 +9300,7 @@ crystal.buildCrystalPackage rec {
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="cuda"></a>CUDA</h2></div></div></div><p>
      CUDA-only packages are stored in the <code class="literal">cudaPackages</code> packages set. This set includes the <code class="literal">cudatoolkit</code>, portions of the toolkit in separate derivations, <code class="literal">cudnn</code>, <code class="literal">cutensor</code> and <code class="literal">nccl</code>.
     </p><p>
-     A package set is available for each CUDA version, so for example <code class="literal">cudaPackages_11_6</code>. Within each set is a matching version of the above listed packages. Additionally, other versions of the packages that are packaged and compatible are available as well. For example, there can be a <code class="literal">cudaPackages.cudnn_8_3_2</code> package.
+     A package set is available for each CUDA version, so for example <code class="literal">cudaPackages_11_6</code>. Within each set is a matching version of the above listed packages. Additionally, other versions of the packages that are packaged and compatible are available as well. For example, there can be a <code class="literal">cudaPackages.cudnn_8_3</code> package.
     </p><p>
      To use one or more CUDA packages in an expression, give the expression a <code class="literal">cudaPackages</code> parameter, and in case CUDA is optional
     </p><pre class="programlisting">
@@ -9315,7 +9315,7 @@ mypkg = callPackage { cudaPackages = cudaPackages_11_5; }
     </p><pre class="programlisting">
 mypkg = let
   cudaPackages = cudaPackages_11_5.overrideScope' (final: prev: {
-    cudnn = prev.cudnn_8_3_2;
+    cudnn = prev.cudnn_8_3;
   }});
 in callPackage { inherit cudaPackages; };
 </pre><p>
