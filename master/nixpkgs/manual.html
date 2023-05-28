@@ -10355,7 +10355,7 @@ mkDerivation {
         </p><p>
          To obtain the actual hash, set <code class="literal">vendorHash = lib.fakeSha256;</code> and run the build (<a class="link" href="#sec-source-hashes" title="Obtaining source hash">more details here</a>).
         </p></li><li class="listitem"><p>
-         <code class="literal">proxyVendor</code>: Fetches (go mod download) and proxies the vendor directory. This is useful if your code depends on c code and go mod tidy does not include the needed sources to build or if any dependency has case-insensitive conflicts which will produce platform dependant <code class="literal">vendorHash</code> checksums.
+         <code class="literal">proxyVendor</code>: Fetches (go mod download) and proxies the vendor directory. This is useful if your code depends on c code and go mod tidy does not include the needed sources to build or if any dependency has case-insensitive conflicts which will produce platform-dependent <code class="literal">vendorHash</code> checksums.
         </p></li><li class="listitem"><p>
          <code class="literal">modPostBuild</code>: Shell commands to run after the build of the go-modules executes <code class="literal">go mod vendor</code>, and before calculating fixed output derivation’s <code class="literal">vendorHash</code> (or <code class="literal">vendorSha256</code>). Note that if you change this attribute, you need to update <code class="literal">vendorHash</code> (or <code class="literal">vendorSha256</code>) attribute.
         </p></li></ul></div><pre class="programlisting">
