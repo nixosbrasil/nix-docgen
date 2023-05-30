@@ -9701,12 +9701,12 @@ $ nix-env --install --attr haskellPackages.dhall-nixpkgs
 
 $ nix-env --install --attr nix-prefetch-git  # Used by dhall-to-nixpkgs
 
-$ dhall-to-nixpkgs github https://github.com/Gabriel439/dhall-semver.git
+$ dhall-to-nixpkgs github https://github.com/Gabriella439/dhall-semver.git
 { buildDhallGitHubPackage, Prelude }:
   buildDhallGitHubPackage {
     name = "dhall-semver";
     githubBase = "github.com";
-    owner = "Gabriel439";
+    owner = "Gabriella439";
     repo = "dhall-semver";
     rev = "2d44ae605302ce5dc6c657a1216887fbb96392a4";
     fetchSubmodules = false;
@@ -10653,6 +10653,10 @@ haskell.packages.ghc927.abc-puzzle                                              
         </span></dt><dd><p>
           Whether to generate an index for interactive navigation of the HTML documentation. Defaults to <code class="literal">true</code> if supported.
          </p></dd><dt><span class="term">
+         <code class="literal">doInstallIntermediates</code>
+        </span></dt><dd><p>
+          Whether to install intermediate build products (files written to <code class="literal">dist/build</code> by GHC during the build process). With <code class="literal">enableSeparateIntermediatesOutput</code>, these files are instead installed to <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#chap-multiple-output" target="_top">a separate <code class="literal">intermediates</code> output.</a> The output can then be passed into a future build of the same package with the <code class="literal">previousIntermediates</code> argument to support incremental builds. See <a class="link" href="#haskell-incremental-builds" title="Incremental builds">“Incremental builds”</a> for more information. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
          <code class="literal">enableLibraryProfiling</code>
         </span></dt><dd><p>
           Whether to enable <a class="link" href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html" target="_top">profiling</a> for libraries contained in the package. Enabled by default if supported.
@@ -10757,6 +10761,10 @@ haskell.packages.ghc927.abc-puzzle                                              
         </span></dt><dd><p>
           Whether to install documentation to a separate <code class="literal">doc</code> output. Is automatically enabled if <code class="literal">doHaddock</code> is <code class="literal">true</code>.
          </p></dd><dt><span class="term">
+         <code class="literal">enableSeparateIntermediatesOutput</code>
+        </span></dt><dd><p>
+          When <code class="literal">doInstallIntermediates</code> is true, whether to install intermediate build products to a separate <code class="literal">intermediates</code> output. See <a class="link" href="#haskell-incremental-builds" title="Incremental builds">“Incremental builds”</a> for more information. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
          <code class="literal">allowInconsistentDependencies</code>
         </span></dt><dd><p>
           If enabled, allow multiple versions of the same Haskell package in the dependency tree at configure time. Often in such a situation compilation would later fail because of type mismatches. Defaults to <code class="literal">false</code>.
@@ -10764,6 +10772,10 @@ haskell.packages.ghc927.abc-puzzle                                              
          <code class="literal">enableLibraryForGhci</code>
         </span></dt><dd><p>
           Build and install a special object file for GHCi. This improves performance when loading the library in the REPL, but requires extra build time and disk space. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">previousIntermediates</code>
+        </span></dt><dd><p>
+          If non-null, intermediate build artifacts are copied from this input to <code class="literal">dist/build</code> before performing compiling. See <a class="link" href="#haskell-incremental-builds" title="Incremental builds">“Incremental builds”</a> for more information. Defaults to <code class="literal">null</code>.
          </p></dd><dt><span class="term">
          <code class="literal">buildTarget</code>
         </span></dt><dd><p>
@@ -10864,7 +10876,42 @@ haskell.packages.ghc927.abc-puzzle                                              
            <code class="literal">broken</code>
           </p></li><li class="listitem"><p>
            <code class="literal">hydraPlatforms</code>
-          </p></li></ul></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-development-environments"></a>Development environments</h3></div></div></div><p>
+          </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-incremental-builds"></a>Incremental builds</h4></div></div></div><p>
+       <code class="literal">haskellPackages.mkDerivation</code> supports incremental builds for GHC 9.4 and newer with the <code class="literal">doInstallIntermediates</code>, <code class="literal">enableSeparateIntermediatesOutput</code>, and <code class="literal">previousIntermediates</code> arguments.
+      </p><p>
+       The basic idea is to first perform a full build of the package in question, save its intermediate build products for later, and then copy those build products into the build directory of an incremental build performed later. Then, GHC will use those build artifacts to avoid recompiling unchanged modules.
+      </p><p>
+       For more detail on how to store and use incremental build products, see <a class="link" href="https://www.haskellforall.com/2022/12/nixpkgs-support-for-incremental-haskell.html" target="_top">Gabriella Gonzalez’ blog post “Nixpkgs support for incremental Haskell builds”.</a> motivation behind this feature.
+      </p><p>
+       An incremental build for <a class="link" href="https://hackage.haskell.org/package/turtle" target="_top">the <code class="literal">turtle</code> package</a> can be performed like so:
+      </p><pre class="programlisting">
+let
+  pkgs = import &lt;nixpkgs&gt; {};
+  inherit (pkgs) haskell;
+  inherit (haskell.lib.compose) overrideCabal;
+
+  # Incremental builds work with GHC &gt;=9.4.
+  turtle = haskell.packages.ghc944.turtle;
+
+  # This will do a full build of `turtle`, while writing the intermediate build products
+  # (compiled modules, etc.) to the `intermediates` output.
+  turtle-full-build-with-incremental-output = overrideCabal (drv: {
+    doInstallIntermediates = true;
+    enableSeparateIntermediatesOutput = true;
+  }) turtle;
+
+  # This will do an incremental build of `turtle` by copying the previously
+  # compiled modules and intermediate build products into the source tree
+  # before running the build.
+  #
+  # GHC will then naturally pick up and reuse these products, making this build
+  # complete much more quickly than the previous one.
+  turtle-incremental-build = overrideCabal (drv: {
+    previousIntermediates = turtle-full-build-with-incremental-output.intermediates;
+  }) turtle;
+in
+  turtle-incremental-build
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-development-environments"></a>Development environments</h3></div></div></div><p>
       In addition to building and installing Haskell software, nixpkgs can also provide development environments for Haskell projects. This has the obvious advantage that you benefit from <code class="literal">cache.nixos.org</code> and no longer need to compile all project dependencies yourself. While it is often very useful, this is not the primary use case of our package set. Have a look at the section <a class="link" href="#haskell-available-versions" title="Available package versions">available package versions</a> to learn which versions of packages we provide and the section <a class="link" href="#haskell-limitations" title="Limitations">limitations</a>, to judge whether a <code class="literal">haskellPackages</code> based development environment for your project is feasible.
      </p><p>
       By default, every derivation built using <a class="link" href="#haskell-mkderivation" title="haskellPackages.mkDerivation"><code class="literal">haskellPackages.mkDerivation</code></a> exposes an environment suitable for building it interactively as the <code class="literal">env</code> attribute. For example, if you have a local checkout of <code class="literal">random</code>, you can enter a development environment for it like this (if the dependencies in the development and packaged version match):

@@ -200,6 +200,8 @@ the switch of a live system might fail.
 </p></li><li class="listitem"><p>
  <code class="literal">graylog</code> has been updated to version 5, which can not be upgraded directly from the previously packaged version 3.3. If you had installed the previously packaged version 3.3, please follow the <a class="link" href="https://go2docs.graylog.org/5-0/upgrading_graylog/upgrade_path.htm" target="_top">upgrade path</a> from 3.3 to 4.0 to 4.3 to 5.0.
 </p></li><li class="listitem"><p>
+ <code class="literal">buildFHSUserEnv</code> is now called <code class="literal">buildFHSEnv</code> and uses FlatPak’s Bubblewrap sandboxing tool rather than Nixpkgs’ own chrootenv. The old chrootenv-based implemenation is still available via <code class="literal">buildFHSEnvChrootenv</code> but is considered deprecated and will be removed when the remaining uses inside Nixpkgs have been migrated. If your FHSEnv-wrapped application misbehaves when using the new bubblewrap implementation, please create an issue in Nixpkgs.
+</p></li><li class="listitem"><p>
  <code class="literal">nushell</code> has been updated to at least version 0.77.0, which includes potential breaking changes in aliases. The old aliases are now available as <code class="literal">old-alias</code> but it is recommended you migrate to the new format. See <a class="link" href="https://www.nushell.sh/blog/2023-03-14-nushell_0_77.html#reworked-aliases-breaking-changes-kubouch" target="_top">Reworked aliases</a>.
 </p></li><li class="listitem"><p>
  <code class="literal">gajim</code> has been updated to version 1.7.3 which has disabled legacy ciphers. See <a class="link" href="https://dev.gajim.org/gajim/gajim/-/releases/1.7.0" target="_top">changelog for version 1.7.0</a>.
