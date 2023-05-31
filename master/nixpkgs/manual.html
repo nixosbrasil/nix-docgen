@@ -5954,7 +5954,7 @@ runCommand "my-package-test" {
   mkdir $out
 ''
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-timeout"></a><code class="literal">timeout</code></h3></div></div></div><p>
-      A timeout (in seconds) for building the derivation. If the derivation takes longer than this time to build, it can fail due to breaking the timeout. However, all computers do not have the same computing power, hence some builders may decide to apply a multiplicative factor to this value. When filling this value in, try to keep it approximately consistent with other values already present in <code class="literal">nixpkgs</code>.
+      A timeout (in seconds) for building the derivation. If the derivation takes longer than this time to build, Hydra will fail it due to breaking the timeout. However, all computers do not have the same computing power, hence some builders may decide to apply a multiplicative factor to this value. When filling this value in, try to keep it approximately consistent with other values already present in <code class="literal">nixpkgs</code>.
      </p><p>
       <code class="literal">meta</code> attributes are not stored in the instantiated derivation. Therefore, this setting may be lost when the package is used as a dependency. To be effective, it must be presented directly to an evaluation process that handles the <code class="literal">meta.timeout</code> attribute.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-hydraPlatforms"></a><code class="literal">hydraPlatforms</code></h3></div></div></div><p>
