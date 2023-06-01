@@ -834,6 +834,10 @@ getAttrFromPath ["z" "z"] x
          <code class="varname">f</code>
         </span></dt><dd><p>
           Function argument
+         </p></dd><dt><span class="term">
+         <code class="varname">v</code>
+        </span></dt><dd><p>
+          Function argument
          </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.4.6.5"></a><p class="title"><strong>Example 7. <code class="function">lib.attrsets.concatMapAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatMapAttrs
 (name: value: {
@@ -877,7 +881,7 @@ update = old: "xy";
 =&gt; { a = { b = { d = 1; }; }; x = { y = "xy"; }; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.updateManyAttrsByPath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L173" target="_top">lib/attrsets.nix:173</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L177" target="_top">lib/attrsets.nix:177</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.attrVals"></a><code class="function">lib.attrsets.attrVals</code></h4></div><div><h5 class="subtitle"><code class="literal">attrVals :: [String] -&gt; AttrSet -&gt; [Any]</code>
       </h5></div></div></div><p>
        Return the specified attributes from a set.
@@ -894,7 +898,7 @@ attrVals ["a" "b" "c"] as
 =&gt; [as.a as.b as.c]
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.attrVals"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L241" target="_top">lib/attrsets.nix:241</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L245" target="_top">lib/attrsets.nix:245</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.attrValues"></a><code class="function">lib.attrsets.attrValues</code></h4></div><div><h5 class="subtitle"><code class="literal">attrValues :: AttrSet -&gt; [Any]</code>
       </h5></div></div></div><p>
        Return the values of all attributes in the given set, sorted by attribute name.
@@ -903,7 +907,7 @@ attrValues {c = 3; a = 1; b = 2;}
 =&gt; [1 2 3]
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.attrValues"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L258" target="_top">lib/attrsets.nix:258</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L262" target="_top">lib/attrsets.nix:262</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getAttrs"></a><code class="function">lib.attrsets.getAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">getAttrs :: [String] -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Given a set of attribute names, return the set of the corresponding attributes from the given set.
@@ -920,7 +924,7 @@ getAttrs [ "a" "b" ] { a = 1; b = 2; c = 3; }
 =&gt; { a = 1; b = 2; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.getAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L271" target="_top">lib/attrsets.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L275" target="_top">lib/attrsets.nix:275</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.catAttrs"></a><code class="function">lib.attrsets.catAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">catAttrs :: String -&gt; [AttrSet] -&gt; [Any]</code>
       </h5></div></div></div><p>
        Collect each attribute named `attr` from a list of attribute sets. Sets that don't contain the named attribute are ignored.
@@ -929,7 +933,7 @@ catAttrs "a" [{a = 1;} {b = 0;} {a = 2;}]
 =&gt; [1 2]
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.catAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L287" target="_top">lib/attrsets.nix:287</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L291" target="_top">lib/attrsets.nix:291</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.filterAttrs"></a><code class="function">lib.attrsets.filterAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">filterAttrs :: (String -&gt; Any -&gt; Bool) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Filter an attribute set by removing all attributes for which the given predicate return false.
@@ -946,7 +950,7 @@ filterAttrs (n: v: n == "foo") { foo = 1; bar = 2; }
 =&gt; { foo = 1; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.filterAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L301" target="_top">lib/attrsets.nix:301</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L305" target="_top">lib/attrsets.nix:305</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.filterAttrsRecursive"></a><code class="function">lib.attrsets.filterAttrsRecursive</code></h4></div><div><h5 class="subtitle"><code class="literal">filterAttrsRecursive :: (String -&gt; Any -&gt; Bool) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Filter an attribute set recursively by removing all attributes for which the given predicate return false.
@@ -963,7 +967,7 @@ filterAttrsRecursive (n: v: v != null) { foo = { bar = null; }; }
 =&gt; { foo = {}; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.filterAttrsRecursive"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L319" target="_top">lib/attrsets.nix:319</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L323" target="_top">lib/attrsets.nix:323</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.foldlAttrs"></a><code class="function">lib.attrsets.foldlAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">foldlAttrs :: ( a -&gt; String -&gt; b -&gt; a ) -&gt; a -&gt; { ... :: b } -&gt; a</code>
       </h5></div></div></div><p>
        Like builtins.foldl' but for attribute sets. Iterates over every name-value pair in the given attribute set. The result of the callback function is often called `acc` for accumulator. It is passed between callbacks from left to right and the final `acc` is the return value of `foldlAttrs`.
@@ -1023,7 +1027,7 @@ foldlAttrs
 121
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.foldlAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L390" target="_top">lib/attrsets.nix:390</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L394" target="_top">lib/attrsets.nix:394</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.foldAttrs"></a><code class="function">lib.attrsets.foldAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">foldAttrs :: (Any -&gt; Any -&gt; Any) -&gt; Any -&gt; [AttrSets] -&gt; Any</code>
       </h5></div></div></div><p>
        Apply fold functions to values grouped by key.
@@ -1044,7 +1048,7 @@ foldAttrs (item: acc: [item] ++ acc) [] [{ a = 2; } { a = 3; }]
 =&gt; { a = [ 2 3 ]; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.foldAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L406" target="_top">lib/attrsets.nix:406</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L410" target="_top">lib/attrsets.nix:410</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.collect"></a><code class="function">lib.attrsets.collect</code></h4></div><div><h5 class="subtitle"><code class="literal">collect :: (AttrSet -&gt; Bool) -&gt; AttrSet -&gt; [x]</code>
       </h5></div></div></div><p>
        Recursively collect sets that verify a given predicate named `pred` from the set `attrs`. The recursion is stopped when the predicate is verified.
@@ -1065,7 +1069,7 @@ collect (x: x ? outPath)
 =&gt; [{ outPath = "a/"; } { outPath = "b/"; }]
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.collect"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L435" target="_top">lib/attrsets.nix:435</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L439" target="_top">lib/attrsets.nix:439</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.cartesianProductOfSets"></a><code class="function">lib.attrsets.cartesianProductOfSets</code></h4></div><div><h5 class="subtitle"><code class="literal">cartesianProductOfSets :: AttrSet -&gt; [AttrSet]</code>
       </h5></div></div></div><p>
        Return the cartesian product of attribute set value combinations.
@@ -1082,7 +1086,7 @@ cartesianProductOfSets { a = [ 1 2 ]; b = [ 10 20 ]; }
 { a = 2; b = 20; }
 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.cartesianProductOfSets"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L460" target="_top">lib/attrsets.nix:460</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L464" target="_top">lib/attrsets.nix:464</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.nameValuePair"></a><code class="function">lib.attrsets.nameValuePair</code></h4></div><div><h5 class="subtitle"><code class="literal">nameValuePair :: String -&gt; Any -&gt; { name :: String; value :: Any; }</code>
       </h5></div></div></div><p>
        Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
@@ -1099,7 +1103,7 @@ nameValuePair "some" 6
 =&gt; { name = "some"; value = 6; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.nameValuePair"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L479" target="_top">lib/attrsets.nix:479</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L483" target="_top">lib/attrsets.nix:483</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrs"></a><code class="function">lib.attrsets.mapAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrs :: (String -&gt; Any -&gt; Any) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Apply a function to each element in an attribute set, creating a new attribute set.
@@ -1109,7 +1113,7 @@ mapAttrs (name: value: name + "-" + value)
 =&gt; { x = "x-foo"; y = "y-bar"; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.mapAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L497" target="_top">lib/attrsets.nix:497</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L501" target="_top">lib/attrsets.nix:501</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrs-prime"></a><code class="function">lib.attrsets.mapAttrs'</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrs' :: (String -&gt; Any -&gt; { name :: String; value :: Any; }) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Like `mapAttrs`, but allows the name of each attribute to be changed in addition to the value. The applied function should return both the new name and value as a `nameValuePair`.
@@ -1127,7 +1131,7 @@ mapAttrs' (name: value: nameValuePair ("foo_" + name) ("bar-" + value))
 =&gt; { foo_x = "bar-a"; foo_y = "bar-b"; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.mapAttrs-prime"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L514" target="_top">lib/attrsets.nix:514</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L518" target="_top">lib/attrsets.nix:518</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrsToList"></a><code class="function">lib.attrsets.mapAttrsToList</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrsToList :: (String -&gt; a -&gt; b) -&gt; AttrSet -&gt; [b]</code>
       </h5></div></div></div><p>
        Call a function for each attribute in the given set and return the result in a list.
@@ -1145,7 +1149,7 @@ mapAttrsToList (name: value: name + value)
 =&gt; [ "xa" "yb" ]
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.mapAttrsToList"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L534" target="_top">lib/attrsets.nix:534</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L538" target="_top">lib/attrsets.nix:538</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrsRecursive"></a><code class="function">lib.attrsets.mapAttrsRecursive</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrsRecursive :: ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Like `mapAttrs`, except that it recursively applies itself to the *leaf* attributes of a potentially-nested attribute set: the second argument of the function will never be an attrset. Also, the first argument of the argument function is a *list* of the attribute names that form the path to the leaf attribute.
@@ -1165,7 +1169,7 @@ mapAttrsRecursive (path: value: concatStringsSep "-" (path ++ [value]))
 =&gt; { n = { a = "n-a-A"; m = { b = "n-m-b-B"; c = "n-m-c-C"; }; }; d = "d-D"; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.mapAttrsRecursive"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L559" target="_top">lib/attrsets.nix:559</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L563" target="_top">lib/attrsets.nix:563</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.mapAttrsRecursiveCond"></a><code class="function">lib.attrsets.mapAttrsRecursiveCond</code></h4></div><div><h5 class="subtitle"><code class="literal">mapAttrsRecursiveCond :: (AttrSet -&gt; Bool) -&gt; ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Like `mapAttrsRecursive`, but it takes an additional predicate function that tells it whether to recurse into an attribute set. If it returns false, `mapAttrsRecursiveCond` does not recurse, but does apply the map function. If it returns true, it does recurse, and does not apply the map function.
@@ -1190,7 +1194,7 @@ mapAttrsRecursiveCond
 attrs
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.mapAttrsRecursiveCond"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L584" target="_top">lib/attrsets.nix:584</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L588" target="_top">lib/attrsets.nix:588</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.genAttrs"></a><code class="function">lib.attrsets.genAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">genAttrs :: [ String ] -&gt; (String -&gt; Any) -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Generate an attribute set by mapping a function over a list of attribute names.
@@ -1207,7 +1211,7 @@ genAttrs [ "foo" "bar" ] (name: "x_" + name)
 =&gt; { foo = "x_foo"; bar = "x_bar"; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.genAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L613" target="_top">lib/attrsets.nix:613</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L617" target="_top">lib/attrsets.nix:617</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.isDerivation"></a><code class="function">lib.attrsets.isDerivation</code></h4></div><div><h5 class="subtitle"><code class="literal">isDerivation :: Any -&gt; Bool</code>
       </h5></div></div></div><p>
        Check whether the argument is a derivation. Any set with `{ type = "derivation"; }` counts as a derivation.
@@ -1223,7 +1227,7 @@ isDerivation "foobar"
 =&gt; false
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.isDerivation"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L634" target="_top">lib/attrsets.nix:634</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L638" target="_top">lib/attrsets.nix:638</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.toDerivation"></a><code class="function">lib.attrsets.toDerivation</code></h4></div><div><h5 class="subtitle"><code class="literal">toDerivation :: Path -&gt; Derivation</code>
       </h5></div></div></div><p>
        Converts a store path to a fake derivation.
@@ -1232,7 +1236,7 @@ isDerivation "foobar"
         </span></dt><dd><p>
           A store path to convert to a derivation.
          </p></dd></dl></div><p><a id="lib.attrsets.toDerivation"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L643" target="_top">lib/attrsets.nix:643</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L647" target="_top">lib/attrsets.nix:647</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.optionalAttrs"></a><code class="function">lib.attrsets.optionalAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">optionalAttrs :: Bool -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        If `cond` is true, return the attribute set `as`, otherwise an empty attribute set.
@@ -1251,7 +1255,7 @@ optionalAttrs (false) { my = "set"; }
 =&gt; { }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.optionalAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L671" target="_top">lib/attrsets.nix:671</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L675" target="_top">lib/attrsets.nix:675</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.zipAttrsWithNames"></a><code class="function">lib.attrsets.zipAttrsWithNames</code></h4></div><div><h5 class="subtitle"><code class="literal">zipAttrsWithNames :: [ String ] -&gt; (String -&gt; [ Any ] -&gt; Any) -&gt; [ AttrSet ] -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Merge sets of attributes and use the function `f` to merge attributes values.
@@ -1272,7 +1276,7 @@ zipAttrsWithNames ["a"] (name: vs: vs) [{a = "x";} {a = "y"; b = "z";}]
 =&gt; { a = ["x" "y"]; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.zipAttrsWithNames"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L689" target="_top">lib/attrsets.nix:689</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L693" target="_top">lib/attrsets.nix:693</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.zipAttrsWith"></a><code class="function">lib.attrsets.zipAttrsWith</code></h4></div><div><h5 class="subtitle"><code class="literal">zipAttrsWith :: (String -&gt; [ Any ] -&gt; Any) -&gt; [ AttrSet ] -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Merge sets of attributes and use the function f to merge attribute values. Like `lib.attrsets.zipAttrsWithNames` with all key names are passed for `names`.
@@ -1283,7 +1287,7 @@ zipAttrsWith (name: values: values) [{a = "x";} {a = "y"; b = "z";}]
 =&gt; { a = ["x" "y"]; b = ["z"]; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.zipAttrsWith"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L717" target="_top">lib/attrsets.nix:717</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L721" target="_top">lib/attrsets.nix:721</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.zipAttrs"></a><code class="function">lib.attrsets.zipAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">zipAttrs :: [ AttrSet ] -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Merge sets of attributes and combine each attribute value in to a list.
@@ -1298,7 +1302,7 @@ zipAttrs [{a = "x";} {a = "y"; b = "z";}]
 =&gt; { a = ["x" "y"]; b = ["z"]; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.zipAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L732" target="_top">lib/attrsets.nix:732</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L736" target="_top">lib/attrsets.nix:736</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.recursiveUpdateUntil"></a><code class="function">lib.attrsets.recursiveUpdateUntil</code></h4></div><div><h5 class="subtitle"><code class="literal">recursiveUpdateUntil :: ( [ String ] -&gt; AttrSet -&gt; AttrSet -&gt; Bool ) -&gt; AttrSet -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Does the same as the update operator '//' except that attributes are merged until the given predicate is verified. The predicate should accept 3 arguments which are the path to reach the attribute, a part of the first attribute set and a part of the second attribute set. When the predicate is satisfied, the value of the first attribute set is replaced by the value of the second attribute set.
@@ -1335,7 +1339,7 @@ baz = 4;     # 'baz' from the second set
 }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.recursiveUpdateUntil"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L768" target="_top">lib/attrsets.nix:768</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L772" target="_top">lib/attrsets.nix:772</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.recursiveUpdate"></a><code class="function">lib.attrsets.recursiveUpdate</code></h4></div><div><h5 class="subtitle"><code class="literal">recursiveUpdate :: AttrSet -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        A recursive variant of the update operator ‘//’. The recursion stops when one of the attribute values is not an attribute set, in which case the right hand side value takes precedence over the left hand side value.
@@ -1361,7 +1365,7 @@ boot.loader.grub.device = "";
 }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.recursiveUpdate"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L808" target="_top">lib/attrsets.nix:808</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L812" target="_top">lib/attrsets.nix:812</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.matchAttrs"></a><code class="function">lib.attrsets.matchAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">matchAttrs :: AttrSet -&gt; AttrSet -&gt; Bool</code>
       </h5></div></div></div><p>
        Returns true if the pattern is contained in the set. False otherwise.
@@ -1378,7 +1382,7 @@ matchAttrs { cpu = {}; } { cpu = { bits = 64; }; }
 =&gt; true
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.matchAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L825" target="_top">lib/attrsets.nix:825</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L829" target="_top">lib/attrsets.nix:829</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.overrideExisting"></a><code class="function">lib.attrsets.overrideExisting</code></h4></div><div><h5 class="subtitle"><code class="literal">overrideExisting :: AttrSet -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Override only the attributes that are already present in the old set useful for deep-overriding.
@@ -1399,7 +1403,7 @@ overrideExisting { a = 3; b = 2; } { a = 1; }
 =&gt; { a = 1; b = 2; }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.overrideExisting"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L853" target="_top">lib/attrsets.nix:853</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L857" target="_top">lib/attrsets.nix:857</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.showAttrPath"></a><code class="function">lib.attrsets.showAttrPath</code></h4></div><div><h5 class="subtitle"><code class="literal">showAttrPath :: [String] -&gt; String</code>
       </h5></div></div></div><p>
        Turns a list of strings into a human-readable description of those strings represented as an attribute path. The result of this function is not intended to be machine-readable. Create a new attribute set with `value` set at the nested attribute location specified in `attrPath`.
@@ -1414,7 +1418,7 @@ showAttrPath []
 =&gt; "&lt;root attribute path&gt;"
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.showAttrPath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L875" target="_top">lib/attrsets.nix:875</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L879" target="_top">lib/attrsets.nix:879</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getOutput"></a><code class="function">lib.attrsets.getOutput</code></h4></div><div><h5 class="subtitle"><code class="literal">getOutput :: String -&gt; Derivation -&gt; String</code>
       </h5></div></div></div><p>
        Get a package output. If no output is found, fallback to `.out` and then to the default.
@@ -1431,7 +1435,7 @@ getOutput "dev" pkgs.openssl
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r-dev"
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.getOutput"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L892" target="_top">lib/attrsets.nix:892</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L896" target="_top">lib/attrsets.nix:896</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getBin"></a><code class="function">lib.attrsets.getBin</code></h4></div><div><h5 class="subtitle"><code class="literal">getBin :: Derivation -&gt; String</code>
       </h5></div></div></div><p>
        Get a package's `bin` output. If the output does not exist, fallback to `.out` and then to the default.
@@ -1440,7 +1444,7 @@ getBin pkgs.openssl
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r"
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.getBin"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L907" target="_top">lib/attrsets.nix:907</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L911" target="_top">lib/attrsets.nix:911</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getLib"></a><code class="function">lib.attrsets.getLib</code></h4></div><div><h5 class="subtitle"><code class="literal">getLib :: Derivation -&gt; String</code>
       </h5></div></div></div><p>
        Get a package's `lib` output. If the output does not exist, fallback to `.out` and then to the default.
@@ -1449,7 +1453,7 @@ getLib pkgs.openssl
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r-lib"
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.getLib"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L920" target="_top">lib/attrsets.nix:920</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L924" target="_top">lib/attrsets.nix:924</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getDev"></a><code class="function">lib.attrsets.getDev</code></h4></div><div><h5 class="subtitle"><code class="literal">getDev :: Derivation -&gt; String</code>
       </h5></div></div></div><p>
        Get a package's `dev` output. If the output does not exist, fallback to `.out` and then to the default.
@@ -1458,7 +1462,7 @@ getDev pkgs.openssl
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r-dev"
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.getDev"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L933" target="_top">lib/attrsets.nix:933</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L937" target="_top">lib/attrsets.nix:937</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.getMan"></a><code class="function">lib.attrsets.getMan</code></h4></div><div><h5 class="subtitle"><code class="literal">getMan :: Derivation -&gt; String</code>
       </h5></div></div></div><p>
        Get a package's `man` output. If the output does not exist, fallback to `.out` and then to the default.
@@ -1467,7 +1471,7 @@ getMan pkgs.openssl
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r-man"
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.getMan"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L946" target="_top">lib/attrsets.nix:946</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L950" target="_top">lib/attrsets.nix:950</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.chooseDevOutputs"></a><code class="function">lib.attrsets.chooseDevOutputs</code></h4></div><div><h5 class="subtitle"><code class="literal">chooseDevOutputs :: [Derivation] -&gt; [String]</code>
       </h5></div></div></div><p>
        Pick the outputs of packages to place in `buildInputs`
@@ -1476,7 +1480,7 @@ getMan pkgs.openssl
         </span></dt><dd><p>
           List of packages to pick `dev` outputs from
          </p></dd></dl></div><p><a id="lib.attrsets.chooseDevOutputs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L953" target="_top">lib/attrsets.nix:953</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L957" target="_top">lib/attrsets.nix:957</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.recurseIntoAttrs"></a><code class="function">lib.attrsets.recurseIntoAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">recurseIntoAttrs :: AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Make various Nix tools consider the contents of the resulting attribute set when looking for what to build, find, etc.
@@ -1495,7 +1499,7 @@ inherit (pkgs) hello figlet;
 }
 
 </pre></div></div><br class="example-break" /><p><a id="lib.attrsets.recurseIntoAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L976" target="_top">lib/attrsets.nix:976</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L980" target="_top">lib/attrsets.nix:980</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.dontRecurseIntoAttrs"></a><code class="function">lib.attrsets.dontRecurseIntoAttrs</code></h4></div><div><h5 class="subtitle"><code class="literal">dontRecurseIntoAttrs :: AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        Undo the effect of recurseIntoAttrs.
@@ -1504,7 +1508,7 @@ inherit (pkgs) hello figlet;
         </span></dt><dd><p>
           An attribute set to not scan for derivations.
          </p></dd></dl></div><p><a id="lib.attrsets.dontRecurseIntoAttrs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L986" target="_top">lib/attrsets.nix:986</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L990" target="_top">lib/attrsets.nix:990</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.attrsets.unionOfDisjoint"></a><code class="function">lib.attrsets.unionOfDisjoint</code></h4></div><div><h5 class="subtitle"><code class="literal">unionOfDisjoint :: AttrSet -&gt; AttrSet -&gt; AttrSet</code>
       </h5></div></div></div><p>
        `unionOfDisjoint x y` is equal to `x // y // z` where the attrnames in `z` are the intersection of the attrnames in `x` and `y`, and all values `assert` with an error message. This operator is commutative, unlike (//).
@@ -1517,7 +1521,7 @@ inherit (pkgs) hello figlet;
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.attrsets.unionOfDisjoint"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L998" target="_top">lib/attrsets.nix:998</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L1002" target="_top">lib/attrsets.nix:1002</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-strings"></a>lib.strings: string manipulation functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatStrings"></a><code class="function">lib.strings.concatStrings</code></h4></div><div><h5 class="subtitle"><code class="literal">concatStrings :: [string] -&gt; string</code>
       </h5></div></div></div><p>
        Concatenate a list of strings.
@@ -5954,7 +5958,7 @@ runCommand "my-package-test" {
   mkdir $out
 ''
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-timeout"></a><code class="literal">timeout</code></h3></div></div></div><p>
-      A timeout (in seconds) for building the derivation. If the derivation takes longer than this time to build, it can fail due to breaking the timeout. However, all computers do not have the same computing power, hence some builders may decide to apply a multiplicative factor to this value. When filling this value in, try to keep it approximately consistent with other values already present in <code class="literal">nixpkgs</code>.
+      A timeout (in seconds) for building the derivation. If the derivation takes longer than this time to build, Hydra will fail it due to breaking the timeout. However, all computers do not have the same computing power, hence some builders may decide to apply a multiplicative factor to this value. When filling this value in, try to keep it approximately consistent with other values already present in <code class="literal">nixpkgs</code>.
      </p><p>
       <code class="literal">meta</code> attributes are not stored in the instantiated derivation. Therefore, this setting may be lost when the package is used as a dependency. To be effective, it must be presented directly to an evaluation process that handles the <code class="literal">meta.timeout</code> attribute.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-hydraPlatforms"></a><code class="literal">hydraPlatforms</code></h3></div></div></div><p>
@@ -9701,12 +9705,12 @@ $ nix-env --install --attr haskellPackages.dhall-nixpkgs
 
 $ nix-env --install --attr nix-prefetch-git  # Used by dhall-to-nixpkgs
 
-$ dhall-to-nixpkgs github https://github.com/Gabriel439/dhall-semver.git
+$ dhall-to-nixpkgs github https://github.com/Gabriella439/dhall-semver.git
 { buildDhallGitHubPackage, Prelude }:
   buildDhallGitHubPackage {
     name = "dhall-semver";
     githubBase = "github.com";
-    owner = "Gabriel439";
+    owner = "Gabriella439";
     repo = "dhall-semver";
     rev = "2d44ae605302ce5dc6c657a1216887fbb96392a4";
     fetchSubmodules = false;
@@ -10653,6 +10657,10 @@ haskell.packages.ghc927.abc-puzzle                                              
         </span></dt><dd><p>
           Whether to generate an index for interactive navigation of the HTML documentation. Defaults to <code class="literal">true</code> if supported.
          </p></dd><dt><span class="term">
+         <code class="literal">doInstallIntermediates</code>
+        </span></dt><dd><p>
+          Whether to install intermediate build products (files written to <code class="literal">dist/build</code> by GHC during the build process). With <code class="literal">enableSeparateIntermediatesOutput</code>, these files are instead installed to <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#chap-multiple-output" target="_top">a separate <code class="literal">intermediates</code> output.</a> The output can then be passed into a future build of the same package with the <code class="literal">previousIntermediates</code> argument to support incremental builds. See <a class="link" href="#haskell-incremental-builds" title="Incremental builds">“Incremental builds”</a> for more information. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
          <code class="literal">enableLibraryProfiling</code>
         </span></dt><dd><p>
           Whether to enable <a class="link" href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html" target="_top">profiling</a> for libraries contained in the package. Enabled by default if supported.
@@ -10757,6 +10765,10 @@ haskell.packages.ghc927.abc-puzzle                                              
         </span></dt><dd><p>
           Whether to install documentation to a separate <code class="literal">doc</code> output. Is automatically enabled if <code class="literal">doHaddock</code> is <code class="literal">true</code>.
          </p></dd><dt><span class="term">
+         <code class="literal">enableSeparateIntermediatesOutput</code>
+        </span></dt><dd><p>
+          When <code class="literal">doInstallIntermediates</code> is true, whether to install intermediate build products to a separate <code class="literal">intermediates</code> output. See <a class="link" href="#haskell-incremental-builds" title="Incremental builds">“Incremental builds”</a> for more information. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
          <code class="literal">allowInconsistentDependencies</code>
         </span></dt><dd><p>
           If enabled, allow multiple versions of the same Haskell package in the dependency tree at configure time. Often in such a situation compilation would later fail because of type mismatches. Defaults to <code class="literal">false</code>.
@@ -10764,6 +10776,10 @@ haskell.packages.ghc927.abc-puzzle                                              
          <code class="literal">enableLibraryForGhci</code>
         </span></dt><dd><p>
           Build and install a special object file for GHCi. This improves performance when loading the library in the REPL, but requires extra build time and disk space. Defaults to <code class="literal">false</code>.
+         </p></dd><dt><span class="term">
+         <code class="literal">previousIntermediates</code>
+        </span></dt><dd><p>
+          If non-null, intermediate build artifacts are copied from this input to <code class="literal">dist/build</code> before performing compiling. See <a class="link" href="#haskell-incremental-builds" title="Incremental builds">“Incremental builds”</a> for more information. Defaults to <code class="literal">null</code>.
          </p></dd><dt><span class="term">
          <code class="literal">buildTarget</code>
         </span></dt><dd><p>
@@ -10864,7 +10880,42 @@ haskell.packages.ghc927.abc-puzzle                                              
            <code class="literal">broken</code>
           </p></li><li class="listitem"><p>
            <code class="literal">hydraPlatforms</code>
-          </p></li></ul></div></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-development-environments"></a>Development environments</h3></div></div></div><p>
+          </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-incremental-builds"></a>Incremental builds</h4></div></div></div><p>
+       <code class="literal">haskellPackages.mkDerivation</code> supports incremental builds for GHC 9.4 and newer with the <code class="literal">doInstallIntermediates</code>, <code class="literal">enableSeparateIntermediatesOutput</code>, and <code class="literal">previousIntermediates</code> arguments.
+      </p><p>
+       The basic idea is to first perform a full build of the package in question, save its intermediate build products for later, and then copy those build products into the build directory of an incremental build performed later. Then, GHC will use those build artifacts to avoid recompiling unchanged modules.
+      </p><p>
+       For more detail on how to store and use incremental build products, see <a class="link" href="https://www.haskellforall.com/2022/12/nixpkgs-support-for-incremental-haskell.html" target="_top">Gabriella Gonzalez’ blog post “Nixpkgs support for incremental Haskell builds”.</a> motivation behind this feature.
+      </p><p>
+       An incremental build for <a class="link" href="https://hackage.haskell.org/package/turtle" target="_top">the <code class="literal">turtle</code> package</a> can be performed like so:
+      </p><pre class="programlisting">
+let
+  pkgs = import &lt;nixpkgs&gt; {};
+  inherit (pkgs) haskell;
+  inherit (haskell.lib.compose) overrideCabal;
+
+  # Incremental builds work with GHC &gt;=9.4.
+  turtle = haskell.packages.ghc944.turtle;
+
+  # This will do a full build of `turtle`, while writing the intermediate build products
+  # (compiled modules, etc.) to the `intermediates` output.
+  turtle-full-build-with-incremental-output = overrideCabal (drv: {
+    doInstallIntermediates = true;
+    enableSeparateIntermediatesOutput = true;
+  }) turtle;
+
+  # This will do an incremental build of `turtle` by copying the previously
+  # compiled modules and intermediate build products into the source tree
+  # before running the build.
+  #
+  # GHC will then naturally pick up and reuse these products, making this build
+  # complete much more quickly than the previous one.
+  turtle-incremental-build = overrideCabal (drv: {
+    previousIntermediates = turtle-full-build-with-incremental-output.intermediates;
+  }) turtle;
+in
+  turtle-incremental-build
+</pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="haskell-development-environments"></a>Development environments</h3></div></div></div><p>
       In addition to building and installing Haskell software, nixpkgs can also provide development environments for Haskell projects. This has the obvious advantage that you benefit from <code class="literal">cache.nixos.org</code> and no longer need to compile all project dependencies yourself. While it is often very useful, this is not the primary use case of our package set. Have a look at the section <a class="link" href="#haskell-available-versions" title="Available package versions">available package versions</a> to learn which versions of packages we provide and the section <a class="link" href="#haskell-limitations" title="Limitations">limitations</a>, to judge whether a <code class="literal">haskellPackages</code> based development environment for your project is feasible.
      </p><p>
       By default, every derivation built using <a class="link" href="#haskell-mkderivation" title="haskellPackages.mkDerivation"><code class="literal">haskellPackages.mkDerivation</code></a> exposes an environment suitable for building it interactively as the <code class="literal">env</code> attribute. For example, if you have a local checkout of <code class="literal">random</code>, you can enter a development environment for it like this (if the dependencies in the development and packaged version match):

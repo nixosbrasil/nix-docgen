@@ -3,8 +3,10 @@
  This section lists the release notes for each stable version of NixOS and current unstable revision.
 </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-23.11"></a>Release 23.11 (“Tapir”, 2023.11/??)</h2></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-highlights"></a>Highlights</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
  FoundationDB now defaults to major version 7.
-</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  Create the first release note entry in this section!
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/joohoi/acme-dns" target="_top">acme-dns</a>, a limited DNS server to handle ACME DNS challenges easily and securely. Available as <a class="link" href="options.html#opt-services.acme-dns.enable">services.acme-dns</a>.
 </p></li></ul></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
  <a class="link" href="https://github.com/riverwm/river" target="_top">river</a>, A dynamic tiling wayland compositor. Available as <a class="link" href="options.html#opt-programs.river.enable">programs.river</a>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
@@ -28,37 +30,37 @@
 </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-highlights"></a>Highlights</h3></div></div></div><p>
  In addition to numerous new and updated packages, this release has the following highlights:
 </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
- The default Linux kernel has been updated from 5.15 to 6.1, all kernels version supported on &lt;kernel.org&gt; are also available.
+ The default <a class="link" href="https://github.com/NixOS/nix" target="_top">Nix</a> version was updated from 2.11 to 2.13. In particular, this includes a <a class="link" href="https://github.com/NixOS/nix/issues/8259" target="_top">small language alteration</a> in the way floats are represented in <code class="literal">builtins.toJSON</code>. See the release notes for <a class="link" href="https://nixos.org/manual/nix/stable/release-notes/rl-2.13.html" target="_top">2.13</a> and <a class="link" href="https://nixos.org/manual/nix/unstable/release-notes/rl-2.14.html" target="_top">2.14</a> for more information.
 </p></li><li class="listitem"><p>
- systemd has been updated from v252 to v253, see <a class="link" href="https://github.com/systemd/systemd/blob/main/NEWS#L21-L677" target="_top">release notes</a> for more info.
+ The default <a class="link" href="https://kernel.org/" target="_top">Linux Kernel</a> was updated from version 5.15 to 6.1, see <a class="link" href="https://kernelnewbies.org/Linux_6.1" target="_top">Kernelnewbies</a> for what has changed. All currently shown Kernels shown on <a class="link" href="https://kernel.org/" target="_top">kernel.org</a> are available.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://systemd.io" target="_top">systemd</a> has been updated from v252 to v253, see <a class="link" href="https://github.com/systemd/systemd/blob/main/NEWS#L21-L677" target="_top">the release notes</a> for more information on the changes.
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
- Updating with <code class="literal">nixos-rebuild boot</code> and <code class="literal">reboot</code> is recommended, since in some rare cases the <code class="literal">switch</code> into the new generation on a live system might fail due to missing mount units.
+ Updating with <code class="literal">nixos-rebuild boot</code> and rebooting is recommended, since in some rare cases the <code class="literal">nixos-rebuild switch</code> into the new generation on a live system might fail due to missing mount units.
 </p></li></ul></div></li><li class="listitem"><p>
- The glibc has been updated from 2.35 to 2.37
+ <a class="link" href="https://www.gnu.org/software/libc/" target="_top">glibc</a> has been updated from version 2.35 to 2.37, see <a class="link" href="https://sourceware.org/glibc/wiki/Release/2.37" target="_top">the release notes</a> for what was changed.
 </p></li><li class="listitem"><p>
- GNOME has been updated to version 44. Please see the <a class="link" href="https://release.gnome.org/44/" target="_top">release notes</a> for details.
+ <a class="link" href="https://github.com/besser82/libxcrypt" target="_top">libxcrypt</a>, the library providing the <code class="literal">crypt(3)</code> password hashing function, is now built without support for algorithms not flagged <a class="link" href="https://github.com/besser82/libxcrypt/blob/v4.4.33/lib/hashes.conf#L48" target="_top"><code class="literal">strong</code></a>. This affects the availability of password hashing algorithms used for system login (<code class="literal">login(1)</code>, <code class="literal">passwd(1)</code>), but also Apache2 Basic-Auth, Samba, OpenLDAP, Dovecot, and <a class="link" href="https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/NixOS/nixpkgs%24+libxcrypt&amp;patternType=standard&amp;sm=1&amp;groupBy=path" target="_top">many other packages</a>.
 </p></li><li class="listitem"><p>
- KDE Plasma has been updated to v5.27, see <a class="link" href="https://kde.org/announcements/plasma/5/5.27.0/" target="_top">the release notes</a> for what is changed.
-</p></li><li class="listitem"><p>
- Cinnamon has been updated to 5.6, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204" target="_top">the pull request</a> for what is changed.
-</p></li><li class="listitem"><p>
- <code class="literal">libxcrypt</code>, the library providing the <code class="literal">crypt(3)</code> password hashing function, is now built without support for algorithms not flagged <a class="link" href="https://github.com/besser82/libxcrypt/blob/v4.4.33/lib/hashes.conf#L48" target="_top"><code class="literal">strong</code></a>. This affects the availability of password hashing algorithms used for system login (<code class="literal">login(1)</code>, <code class="literal">passwd(1)</code>), but also Apache2 Basic-Auth, Samba, OpenLDAP, Dovecot, and <a class="link" href="https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/NixOS/nixpkgs%24+libxcrypt&amp;patternType=standard&amp;sm=1&amp;groupBy=path" target="_top">many other packages</a>.
-</p></li><li class="listitem"><p>
- NixOS now defaults to using <a class="link" href="https://github.com/twosigma/nsncd" target="_top">nsncd</a>, a non-caching reimplementation of nscd in Rust, as its NSS lookup dispatcher. This replaces the buggy and deprecated nscd implementation provided through glibc. When you find problems, you can switch back by setting
+ NixOS now defaults to using <a class="link" href="https://github.com/twosigma/nsncd" target="_top">nsncd</a>, a non-caching reimplementation of nscd in Rust, as its NSS lookup dispatcher. This replaces the buggy and deprecated nscd implementation provided through glibc. When you find problems, you can switch back by disabling it:
 </p><pre class="programlisting">
 services.nscd.enableNsncd = false;
-</pre><p>
- but please open an issue in nixpkgs, so your problem can be addressed.
+</pre></li><li class="listitem"><p>
+ The internal option <code class="literal">boot.bootspec.enable</code> is now enabled by default because <a class="link" href="https://github.com/NixOS/rfcs/pull/125" target="_top">RFC 0125</a> was merged. This means you will have a bootspec document called <code class="literal">boot.json</code> generated for each system and specialisation in the top-level. This is useful to enable advanced boot use cases in NixOS, such as Secure Boot.
 </p></li><li class="listitem"><p>
- Python implements <a class="link" href="https://peps.python.org/pep-0668/" target="_top">PEP 668</a>, providing better feedback to users that try to run <code class="literal">pip install</code> for system-wide or user home installations.
-</p></li><li class="listitem"><p>
- There have been two changes to <code class="literal">nixos-rebuild</code>:
+ Two changes to <code class="literal">nixos-rebuild</code> are important to highlight as well.
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
  Support for an extra <code class="literal">--specialisation</code> option was added that can be used to change specialisation for <code class="literal">switch</code> and <code class="literal">test</code> commands.
 </p></li><li class="listitem"><p>
- The <code class="literal">--target-host</code> and <code class="literal">--build-host</code> options no longer treat the <code class="literal">localhost</code> value specially – to build on/deploy to a local machine, omit the relevant flag.
+ The <code class="literal">--target-host</code> and <code class="literal">--build-host</code> options no longer treat the <code class="literal">localhost</code> value specially – to build on resp. deploy to a local machine, omit the relevant flag.
 </p></li></ul></div></li><li class="listitem"><p>
- <code class="literal">boot.bootspec.enable</code> (internal option) is now enabled by default because <a class="link" href="https://github.com/NixOS/rfcs/pull/125" target="_top">RFC 0125</a> was merged. This means you will have a bootspec document called <code class="literal">boot.json</code> generated for each system and specialisation in the top-level. This is useful to enable advanced boot use cases in NixOS, such as Secure Boot.
+ <a class="link" href="https://www.python.org" target="_top">Python</a> implements <a class="link" href="https://peps.python.org/pep-0668/" target="_top">PEP 668</a>, providing better feedback to users that try to run <code class="literal">pip install</code> for system-wide or user home installations.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://github.com/linuxmint/Cinnamon" target="_top">Cinnamon</a> has been updated to version 5.6, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/201328#issue-1449910204" target="_top">the pull request</a> for what was changed.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://www.gnome.org" target="_top">GNOME</a> has been updated to version 44, see the <a class="link" href="https://release.gnome.org/44/" target="_top">the release notes</a> for details.
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://kde.org/de/plasma-desktop/" target="_top">KDE Plasma</a> has been updated to version 5.27, see <a class="link" href="https://kde.org/announcements/plasma/5/5.27.0/" target="_top">the release notes</a> for what was changed.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <a class="link" href="https://akkoma.social" target="_top">Akkoma</a>, an ActivityPub microblogging server. Available as <a class="link" href="options.html#opt-services.akkoma.enable" target="_top">services.akkoma</a>.
 </p></li><li class="listitem"><p>
@@ -184,7 +186,7 @@ services.nscd.enableNsncd = false;
 </p></li><li class="listitem"><p>
  <a class="link" href="https://woodpecker-ci.org/" target="_top">woodpecker</a>, a simple CI engine with great extensibility. Available as <a class="link" href="options.html#opt-services.woodpecker-server.enable">services.woodpecker-server</a> and <a class="link" href="options.html#opt-services.woodpecker-agents.agents._name_.enable">services.woodpecker-agents</a>.
 </p></li><li class="listitem"><p>
- <a class="link" href="https://github.com/erebe/wstunnel" target="_top">wstunnel</a>, a proxy tunnelling arbitrary TCP or UDP traffic through a WebSocket connection. Instances may be configured via <a class="link" href="options.html#opt-services.wstunnel.enable" target="_top">services.wstunnel</a>.
+ <a class="link" href="https://github.com/erebe/wstunnel" target="_top">wstunnel</a>, a proxy tunnelling arbitrary TCP or UDP traffic through a WebSocket connection. Available as <a class="link" href="options.html#opt-services.wstunnel.enable" target="_top">services.wstunnel</a>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">services.asusd</code> configuration now uses strings instead of structured configuration, as upstream switched to the <a class="link" href="https://github.com/ron-rs/ron" target="_top">RON</a> configuration format. Support for structured configuration may return when <a class="link" href="https://github.com/ron-rs/ron" target="_top">RON</a> generation is implemented in nixpkgs.
 </p></li><li class="listitem"><p>
@@ -282,6 +284,10 @@ fcitx5-rime.override {
 </p></li><li class="listitem"><p>
  The EC2 image module previously detected and activated swap-formatted instance store devices and partitions in stage-1 (initramfs). This behaviour has been removed. Users relying on this should provide their own implementation.
 </p></li><li class="listitem"><p>
+ <code class="literal">gitlab</code> has been upgraded from major version 15 to major version 16 and requires at least PostgreSQL 13.6. Check the <a class="link" href="index.html#module-services-postgres-upgrading" title="Upgrading">upgrade guide</a> in the NixOS manual on how to upgrade your PostgreSQL installation.
+</p></li><li class="listitem"><p>
+ <code class="literal">gitlab</code> 16 deprecates the use of external container registries, in our case <code class="literal">pkgs.docker-distribution</code>. Module users who have <a class="link" href="options.html#opt-services.gitlab.registry.enable"><code class="literal">services.gitlab.registry.enable</code></a> set to <code class="literal">true</code> are advised to back up their state and switch to gitlab’s fork by setting <a class="link" href="options.html#opt-services.gitlab.registry.package"><code class="literal">services.gitlab.registry.package</code></a> to <code class="literal">pkgs.gitlab-container-registry</code>.
+</p></li><li class="listitem"><p>
  <code class="literal">fail2ban</code> has been updated to 1.0.2, which has a few breaking changes compared to 0.11.2 (<a class="link" href="https://github.com/fail2ban/fail2ban/blob/1.0.1/ChangeLog" target="_top">changelog for 1.0.1</a>, <a class="link" href="https://github.com/fail2ban/fail2ban/blob/1.0.2/ChangeLog" target="_top">changelog for 1.0.2</a>)
 </p></li><li class="listitem"><p>
  <code class="literal">albert</code> has been updated from 0.17.6 to 0.20.13, and 0.18.0 changed the config format and many plugins (<a class="link" href="https://github.com/albertlauncher/albert/blob/v0.18.0/CHANGELOG.md" target="_top">changelog for 0.18.0</a>)
@@ -316,12 +322,10 @@ fcitx5-rime.override {
 </p></li><li class="listitem"><p>
  It’s recommended to use the latest version available (i.e. v26) and to specify that using <code class="literal">services.nextcloud.package</code>.
 </p></li></ul></div></li><li class="listitem"><p>
- .NET 5.0 and .NET 3.1 were removed due to being end-of-life, use a newer, supported .NET version - https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core
+ .NET 5.0 and .NET 3.1 were removed due to being end-of-life, use a newer, supported .NET version. Visit the  <a class="link" href="https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core" target="_top">Support Policy</a> for more information.
 </p></li><li class="listitem"><p>
  The iputils package, which is installed by default, no longer provides the
-<code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools. See
-<a class="link" href="https://github.com/iputils/iputils/releases/tag/20221126" target="_top">upstream’s release notes</a>
-for more details and available replacements.
+<code class="literal">ninfod</code>, <code class="literal">rarpd</code> and <code class="literal">rdisc</code> tools. See <a class="link" href="https://github.com/iputils/iputils/releases/tag/20221126" target="_top">upstream’s release notes</a> for more details and available replacements.
 </p></li><li class="listitem"><p>
  The ppp plugin <code class="literal">rp-pppoe.so</code> has been renamed to <code class="literal">pppoe.so</code> in ppp 2.4.9. Starting from ppp 2.5.0, there is no longer an alias for backwards compatibility. Configurations that use this plugin must be updated accordingly from <code class="literal">plugin rp-pppoe.so</code> to <code class="literal">plugin pppoe.so</code>. See <a class="link" href="https://github.com/ppp-project/ppp/commit/610a7bd76eb1f99f22317541b35001b1e24877ed" target="_top">upstream change</a>.
 </p></li><li class="listitem"><p>
@@ -333,7 +337,7 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  In <code class="literal">services.fail2ban</code>, <code class="literal">bantime-increment.&lt;name&gt;</code> options now default to <code class="literal">null</code> (except <code class="literal">bantime-increment.enable</code>) and are used to set the corresponding option in <code class="literal">jail.local</code> only if not <code class="literal">null</code>. Also, enforce that <code class="literal">bantime-increment.formula</code> and <code class="literal">bantime-increment.multipliers</code> are not both specified.
 </p></li><li class="listitem"><p>
- The default Asterisk package was changed to v20 from v19. Asterisk versions 16 and 19 have been dropped due to being EOL. You may need to update /var/lib/asterisk to match the template files in <code class="literal">${asterisk-20}/var/lib/asterisk</code>.
+ The default <code class="literal">asterisk</code> package was changed to v20 from v19. Asterisk versions 16 and 19 have been dropped due to being EOL. You may need to update /var/lib/asterisk to match the template files in <code class="literal">${asterisk-20}/var/lib/asterisk</code>.
 </p></li><li class="listitem"><p>
  conntrack helper autodetection has been removed from kernels 6.0 and up upstream, and an assertion was added to ensure things don’t silently stop working. Migrate your configuration to assign helpers explicitly or use an older LTS kernel branch as a temporary workaround.
 </p></li><li class="listitem"><p>
@@ -353,7 +357,7 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  The <code class="literal">qlandkartegt</code> and <code class="literal">garmindev</code> packages were removed due to being unmaintained and insecure.
 </p></li><li class="listitem"><p>
- <code class="literal">go-ethereum</code> package has been updated to v1.11.5 and the <code class="literal">puppeth</code> command is no longer available as of v1.11.0.
+ The <code class="literal">go-ethereum</code> package has been updated to v1.11.5 and the <code class="literal">puppeth</code> command is no longer available as of v1.11.0.
 </p></li><li class="listitem"><p>
  The <code class="literal">pnpm</code> package has be updated to from version 7.29.1 to version 8.1.1 and Node.js 14 support has been discontinued (though, there are workarounds if Node.js 14 is still required)
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
@@ -363,9 +367,17 @@ for more details and available replacements.
 </p></li><li class="listitem"><p>
  The <code class="literal">pict-rs</code> package was updated from an 0.3 alpha release to 0.3 stable, and related environment variables now require two underscores instead of one.
 </p></li><li class="listitem"><p>
+ The <code class="literal">shattered-pixel-dungeon</code> game was updated from 1.1.2 to 2.0.2.
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
+ The location of game data has changed. To migrate it, run <code class="literal">mv ~/.shatteredpixel ~/.local/share/.shatteredpixel</code>
+</p></li><li class="listitem"><p>
+ The update will delete all your in-progress games.
+</p></li></ul></div></li><li class="listitem"><p>
  <code class="literal">espanso</code> has been updated to major version 2. Therefore, migration steps may need to be performed. See <a class="link" href="https://espanso.org/docs/migration/overview/" target="_top">the official migration instructions</a> for how to perform these migrations. Further, <code class="literal">espanso-wayland</code> can now be used for Wayland support.
+</p></li><li class="listitem"><p>
+ Only <code class="literal">k3s</code> version 1.26 is included. Users of the <code class="literal">k3s_1_24</code> or <code class="literal">k3s_1_25</code> packages should upgrade to use the <code class="literal">1.26</code> version of the package.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
- A few openssh options have been moved from extraConfig to the new freeform option <code class="literal">settings</code> and renamed as follows:
+ To follow <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">RFC 0042</a> a few options of <code class="literal">openssh</code> have been moved from <code class="literal">extraConfig</code> to the new freeform option <code class="literal">settings</code> and renamed, e.g.:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
  <code class="literal">services.openssh.forwardX11</code> to <code class="literal">services.openssh.settings.X11Forwarding</code>
 </p></li><li class="listitem"><p>
@@ -483,10 +495,7 @@ If your network provides both IPv6 unique local addresses (ULA) and globally uni
 </p></li><li class="listitem"><p>
  The module <code class="literal">services.headscale</code> was refactored to be compliant with <a class="link" href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md" target="_top">RFC 0042</a>. To be precise, this means that the following things have changed:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
- Most settings have been migrated below <a class="link" href="options.html#opt-services.headscale.settings">services.headscale.settings</a> which is a freeform attribute-set that
-will be converted into headscale’s YAML config format. This means that the configuration from
-<a class="link" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml" target="_top">headscale’s example configuration</a>
-can be directly written as attribute-set in Nix within this option.
+ Most settings have been migrated below <a class="link" href="options.html#opt-services.headscale.settings">services.headscale.settings</a> which is a freeform attribute-set that will be converted into headscale’s YAML config format. This means that the configuration from <a class="link" href="https://github.com/juanfont/headscale/blob/main/config-example.yaml" target="_top">headscale’s example configuration</a> can be directly written as attribute-set in Nix within this option.
 </p></li></ul></div></li><li class="listitem"><p>
  <code class="literal">services.kubo</code> now unmounts <code class="literal">ipfsMountDir</code> and <code class="literal">ipnsMountDir</code> even if it is killed unexpectedly when <code class="literal">autoMount</code> is enabled.
 </p></li><li class="listitem"><p>
@@ -571,6 +580,8 @@ there are now two packages of Singularity/Apptainer:
  The option <code class="literal">services.jitsi-videobridge.apis</code> has been renamed to <code class="literal">colibriRestApi</code> and turned into a boolean. Setting it to <code class="literal">true</code> will enable the private rest API, useful for monitoring using <code class="literal">services.prometheus.exporters.jitsi.enable</code>. Learn more about the API: “<a class="link" href="https://github.com/jitsi/jitsi-videobridge/blob/v2.3/doc/rest.md" target="_top">The COLIBRI control interface (/colibri/)</a>”.
 </p></li><li class="listitem"><p>
  Booting from a volume managed by the Stratis storage management daemon is now supported. Use <code class="literal">fileSystems.&lt;name&gt;.stratis.poolUuid</code> to configure the pool containing the fs.
+</p></li><li class="listitem"><p>
+ Only <code class="literal">k3s</code> version 1.26 is included. Users of the <code class="literal">k3s_1_24</code> or <code class="literal">k3s_1_25</code> packages should upgrade to use the version 1.26 of the package.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-nixpkgs-internals"></a>Nixpkgs internals</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">buildDunePackage</code> now defaults to <code class="literal">strictDeps = true</code> which means that any library should go into <code class="literal">buildInputs</code> or <code class="literal">checkInputs</code>. Any executable that is run on the building machine should go into <code class="literal">nativeBuildInputs</code> or <code class="literal">nativeCheckInputs</code> respectively. Example of executables are <code class="literal">ocaml</code>, <code class="literal">findlib</code> and <code class="literal">menhir</code>. PPXs are libraries which are built by dune and should therefore not go into <code class="literal">nativeBuildInputs</code>.
 </p></li><li class="listitem"><p>
