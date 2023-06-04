@@ -212,8 +212,6 @@ services.openssh.settings.Macs = [
   "umac-128@openssh.com"
 };
 </pre></li><li class="listitem"><p>
- Many <code class="literal">services.syncthing</code> options have been moved to <code class="literal">services.syncthing.settings</code>, as part of <a class="link" href="https://github.com/NixOS/rfcs/pull/42" target="_top">RFC 42</a>’s implementation, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/226088" target="_top">#226088</a>.
-</p></li><li class="listitem"><p>
  <code class="literal">podman</code> now uses the <code class="literal">netavark</code> network stack. Users will need to delete all of their local containers, images, volumes, etc, by running <code class="literal">podman system reset --force</code> once before upgrading their systems.
 </p></li><li class="listitem"><p>
  <code class="literal">git-bug</code> has been updated to at least version 0.8.0, which includes backwards incompatible changes. The <code class="literal">git-bug-migration</code> package can be used to upgrade existing repositories.
