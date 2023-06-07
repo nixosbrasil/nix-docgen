@@ -1587,7 +1587,29 @@ plugin. It can be set in <code class="literal">configuration.nix</code> as follo
 </p><div class="warning"><h3 class="title">Warning</h3><p>
  Unfortunately, Nixpkgs currently lacks a way to query available
 configuration options.
-</p></div><p>
+</p></div><div class="note"><h3 class="title">Note</h3><p>
+ Alternatively, many packages come with extensions one might add.
+Examples include:
+</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+ <a class="link" href="https://search.nixos.org/packages/query=passExtensions.pass-otp" target="_top"><code class="literal">passExtensions.pass-otp</code></a>
+</p></li><li class="listitem"><p>
+ <a class="link" href="https://search.nixos.org/packages/query=python310Packages.requests" target="_top"><code class="literal">python310Packages.requests</code></a>
+</p></li></ul></div><p>
+ You can use them like this:
+</p><pre class="programlisting">
+environment.systemPackages = with pkgs; [
+  sl
+  (pass.withExtensions (subpkgs: with subpkgs; [
+    pass-audit
+    pass-otp
+    pass-genphrase
+  ]))
+  (python3.withPackages (subpkgs: with subpkgs; [
+      requests
+  ]))
+  cowsay
+];
+</pre></div><p>
  Apart from high-level options, it’s possible to tweak a package in
 almost arbitrary ways, such as changing or disabling dependencies of a
 package. For instance, the Emacs package in Nixpkgs by default has a

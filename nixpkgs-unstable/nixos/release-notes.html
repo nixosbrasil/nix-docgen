@@ -21,6 +21,10 @@
  <code class="literal">etcd</code> has been updated to 3.5, you will want to read the <a class="link" href="https://etcd.io/docs/v3.5/upgrades/upgrade_3_4/" target="_top">3.3 to 3.4</a> and <a class="link" href="https://etcd.io/docs/v3.5/upgrades/upgrade_3_5/" target="_top">3.4 to 3.5</a> upgrade guides
 </p></li><li class="listitem"><p>
  <code class="literal">util-linux</code> is now supported on Darwin and is no longer an alias to <code class="literal">unixtools</code>. Use the <code class="literal">unixtools.util-linux</code> package for access to the Apple variants of the utilities.
+</p></li><li class="listitem"><p>
+ <code class="literal">fileSystems.&lt;name&gt;.autoFormat</code> now uses <code class="literal">systemd-makefs</code>, which does not accept formatting options. Therefore, <code class="literal">fileSystems.&lt;name&gt;.formatOptions</code> has been removed.
+</p></li><li class="listitem"><p>
+ <code class="literal">fileSystems.&lt;name&gt;.autoResize</code> now uses <code class="literal">systemd-growfs</code> to resize the file system online in stage 2. This means that <code class="literal">f2fs</code> and <code class="literal">ext2</code> can no longer be auto resized, while <code class="literal">xfs</code> and <code class="literal">btrfs</code> now can be.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  The Cinnamon module now enables XDG desktop integration by default. If you are experiencing collisions related to xdg-desktop-portal-gtk you can safely remove <code class="literal">xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];</code> from your NixOS configuration.
 </p></li><li class="listitem"><p>
