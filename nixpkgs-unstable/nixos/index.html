@@ -6591,7 +6591,7 @@ postgresql.withJIT.pname
 </p><p>
  <span class="emphasis"><em>Maintainer:</em></span> Austin Seipp
 </p><p>
- <span class="emphasis"><em>Available version(s):</em></span> 5.1.x, 5.2.x, 6.0.x
+ <span class="emphasis"><em>Available version(s):</em></span> 7.1.x
 </p><p>
  FoundationDB (or “FDB”) is an open source, distributed, transactional
 key-value store.
@@ -6600,7 +6600,7 @@ key-value store.
 <code class="filename">configuration.nix</code>:
 </p><pre class="programlisting">
 services.foundationdb.enable = true;
-services.foundationdb.package = pkgs.foundationdb52; # FoundationDB 5.2.x
+services.foundationdb.package = pkgs.foundationdb71; # FoundationDB 7.1.x
 </pre><p>
  The <code class="option">services.foundationdb.package</code> option is required, and
 must always be specified. Due to the fact FoundationDB network protocols and
@@ -6647,7 +6647,7 @@ necessary Python modules).
 </p><pre class="programlisting">
 a@link&gt; cat fdb-status.py
 #! /usr/bin/env nix-shell
-#! nix-shell -i python -p python pythonPackages.foundationdb52
+#! nix-shell -i python -p python pythonPackages.foundationdb71
 
 import fdb
 import json

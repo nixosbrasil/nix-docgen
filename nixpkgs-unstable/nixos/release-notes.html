@@ -18,7 +18,11 @@
 </p></li><li class="listitem"><p>
  <code class="literal">python3.pkgs.fetchPypi</code> (and <code class="literal">python3Packages.fetchPypi</code>) has been deprecated in favor of top-level <code class="literal">fetchPypi</code>.
 </p></li><li class="listitem"><p>
+ <code class="literal">mariadb</code> now defaults to <code class="literal">mariadb_1011</code> instead of <code class="literal">mariadb_106</code>, meaning the default version was upgraded from 10.6.x to 10.11.x. See the <a class="link" href="https://mariadb.com/kb/en/upgrading-from-mariadb-10-6-to-mariadb-10-11/" target="_top">upgrade notes</a> for potential issues.
+</p></li><li class="listitem"><p>
  <code class="literal">etcd</code> has been updated to 3.5, you will want to read the <a class="link" href="https://etcd.io/docs/v3.5/upgrades/upgrade_3_4/" target="_top">3.3 to 3.4</a> and <a class="link" href="https://etcd.io/docs/v3.5/upgrades/upgrade_3_5/" target="_top">3.4 to 3.5</a> upgrade guides
+</p></li><li class="listitem"><p>
+ <code class="literal">himalaya</code> has been updated to <code class="literal">0.8.0</code>, which drops the native TLS support (in favor of Rustls) and add OAuth 2.0 support. See the <a class="link" href="https://github.com/soywod/himalaya/releases/tag/v0.8.0" target="_top">release note</a> for more details.
 </p></li><li class="listitem"><p>
  <code class="literal">util-linux</code> is now supported on Darwin and is no longer an alias to <code class="literal">unixtools</code>. Use the <code class="literal">unixtools.util-linux</code> package for access to the Apple variants of the utilities.
 </p></li><li class="listitem"><p>
@@ -73,6 +77,9 @@ services.nscd.enableNsncd = false;
  <a class="link" href="https://www.gnome.org" target="_top">GNOME</a> has been updated to version 44, see the <a class="link" href="https://release.gnome.org/44/" target="_top">the release notes</a> for details.
 </p></li><li class="listitem"><p>
  <a class="link" href="https://kde.org/de/plasma-desktop/" target="_top">KDE Plasma</a> has been updated to version 5.27, see <a class="link" href="https://kde.org/announcements/plasma/5/5.27.0/" target="_top">the release notes</a> for what was changed.
+</p></li><li class="listitem"><p>
+ <code class="literal">openra</code> was updated to <code class="literal">20230225</code>. Due to large scope of the update, currently only <code class="literal">openraPackages.engines.release</code> and <code class="literal">openraPackages.engines.latest</code> packages are available.
+If you want to use the old engine versions or mods, they were moved to the <code class="literal">openraPackages_2019</code> namespace.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.05-new-services"></a>New Services</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <a class="link" href="https://akkoma.social" target="_top">Akkoma</a>, an ActivityPub microblogging server. Available as <a class="link" href="options.html#opt-services.akkoma.enable" target="_top">services.akkoma</a>.
 </p></li><li class="listitem"><p>
