@@ -4647,7 +4647,7 @@ let
              if v == true then ''"yes"''
         else if v == false then ''"no"''
         else if isString v then ''"${v}"''
-        # and delegats all other values to the default generator
+        # and delegates all other values to the default generator
         else generators.mkValueStringDefault {} v;
     } ":";
   };
@@ -5074,7 +5074,7 @@ let f(h, h + 1, i) = i + h
      </p><p>
       Because of the bounds checks, the uncommon cases are <code class="literal">h = t</code> and <code class="literal">h + 2 = t</code>. In the former case, the motivation for <code class="literal">mapOffset</code> is that since its host and target platforms are the same, no transitive dependency of it should be able to “discover” an offset greater than its reduced target offsets. <code class="literal">mapOffset</code> effectively “squashes” all its transitive dependencies’ offsets so that none will ever be greater than the target offset of the original <code class="literal">h = t</code> package. In the other case, <code class="literal">h + 1</code> is skipped over between the host and target offsets. Instead of squashing the offsets, we need to “rip” them apart so no transitive dependencies’ offset is that one.
      </p><p>
-      Overall, the unifying theme here is that propagation shouldn’t be introducing transitive dependencies involving platforms the depending package is unaware of. [One can imagine the dependending package asking for dependencies with the platforms it knows about; other platforms it doesn’t know how to ask for. The platform description in that scenario is a kind of unforagable capability.] The offset bounds checking and definition of <code class="literal">mapOffset</code> together ensure that this is the case. Discovering a new offset is discovering a new platform, and since those platforms weren’t in the derivation “spec” of the needing package, they cannot be relevant. From a capability perspective, we can imagine that the host and target platforms of a package are the capabilities a package requires, and the depending package must provide the capability to the dependency.
+      Overall, the unifying theme here is that propagation shouldn’t be introducing transitive dependencies involving platforms the depending package is unaware of. [One can imagine the depending package asking for dependencies with the platforms it knows about; other platforms it doesn’t know how to ask for. The platform description in that scenario is a kind of unforgeable capability.] The offset bounds checking and definition of <code class="literal">mapOffset</code> together ensure that this is the case. Discovering a new offset is discovering a new platform, and since those platforms weren’t in the derivation “spec” of the needing package, they cannot be relevant. From a capability perspective, we can imagine that the host and target platforms of a package are the capabilities a package requires, and the depending package must provide the capability to the dependency.
      </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="variables-specifying-dependencies"></a>Variables specifying dependencies</h4></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-depsBuildBuild"></a><code class="literal">depsBuildBuild</code></h5></div></div></div><p>
         A list of dependencies whose host and target platforms are the new derivation’s build platform. These are programs and libraries used at build time that produce programs and libraries also used at build time. If the dependency doesn’t care about the target platform (i.e. isn’t a compiler or similar tool), put it in <code class="literal">nativeBuildInputs</code> instead. The most common use of this <code class="literal">buildPackages.stdenv.cc</code>, the default C compiler for this role. That example crops up more than one might think in old commonly used C libraries.
        </p><p>
@@ -5885,7 +5885,7 @@ meta = with lib; {
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-maintainers"></a><code class="literal">maintainers</code></h3></div></div></div><p>
       A list of the maintainers of this Nix expression. Maintainers are defined in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/maintainers/maintainer-list.nix" target="_top"><code class="literal">nixpkgs/maintainers/maintainer-list.nix</code></a>. There is no restriction to becoming a maintainer, just add yourself to that list in a separate commit titled “maintainers: add alice” in the same pull request, and reference maintainers with <code class="literal">maintainers = with lib.maintainers; [ alice bob ]</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-mainProgram"></a><code class="literal">mainProgram</code></h3></div></div></div><p>
-      The name of the main binary for the package. This effects the binary <code class="literal">nix run</code> executes and falls back to the name of the package. Example: <code class="literal">"rg"</code>
+      The name of the main binary for the package. This affects the binary <code class="literal">nix run</code> executes and falls back to the name of the package. Example: <code class="literal">"rg"</code>
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-priority"></a><code class="literal">priority</code></h3></div></div></div><p>
       The <span class="emphasis"><em>priority</em></span> of the package, used by <code class="literal">nix-env</code> to resolve file name conflicts between packages. See the Nix manual page for <code class="literal">nix-env</code> for details. Example: <code class="literal">"10"</code> (a low-priority package).
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="var-meta-platforms"></a><code class="literal">platforms</code></h3></div></div></div><p>
@@ -8969,7 +8969,7 @@ in mkShell {
          </p></li><li class="listitem"><p>
           you can start your phoenix server and get a shell with <code class="literal">iex -S mix phx.server</code>
          </p></li></ul></div></div></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-bower"></a>Bower</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-bower2nix-usage">bower2nix usage</a></span></dt><dt><span class="section"><a href="#ssec-build-bower-components">buildBowerComponents function</a></span></dt><dt><span class="section"><a href="#ssec-bower2nix-troubleshooting">Troubleshooting</a></span></dt></dl></div><p>
-     <a class="link" href="https://bower.io" target="_top">Bower</a> is a package manager for web site front-end components. Bower packages (comprising of build artefacts and sometimes sources) are stored in <code class="literal">git</code> repositories, typically on Github. The package registry is run by the Bower team with package metadata coming from the <code class="literal">bower.json</code> file within each package.
+     <a class="link" href="https://bower.io" target="_top">Bower</a> is a package manager for web site front-end components. Bower packages (comprising of build artifacts and sometimes sources) are stored in <code class="literal">git</code> repositories, typically on Github. The package registry is run by the Bower team with package metadata coming from the <code class="literal">bower.json</code> file within each package.
     </p><p>
      The end result of running Bower is a <code class="literal">bower_components</code> directory which can be included in the web app’s build process.
     </p><p>
@@ -10181,7 +10181,7 @@ xmlmirror = pkgs.buildEmscriptenPackage rec {
       </p><p>
        In particular, we recommend:
       </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-         adding <code class="literal">dconf.lib</code> for any software on Linux that reads <a class="link" href="#ssec-gnome-settings" title="Settings">GSettings</a> (even transitivily through e.g. GTK’s file manager)
+         adding <code class="literal">dconf.lib</code> for any software on Linux that reads <a class="link" href="#ssec-gnome-settings" title="Settings">GSettings</a> (even transitively through e.g. GTK’s file manager)
         </p></li><li class="listitem"><p>
          adding <code class="literal">glib-networking</code> for any software that accesses network using GIO or libsoup – glib-networking contains a module that implements TLS support and loads system-wide proxy settings
         </p></li></ul></div><p>
@@ -11462,7 +11462,7 @@ xcodeenv.buildApp {
        </p></li><li class="listitem"><p>
         <code class="literal">sdkVersion</code> specifies which version of the iOS SDK to use.
        </p></li></ul></div><p>
-      It also possile to adjust the <code class="literal">xcodebuild</code> parameters. This is only needed in rare circumstances. In most cases the default values should suffice:
+      It also possible to adjust the <code class="literal">xcodebuild</code> parameters. This is only needed in rare circumstances. In most cases the default values should suffice:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
         Specifies which <code class="literal">xcodebuild</code> target to build. By default it takes the target that has the same name as the app.
        </p></li><li class="listitem"><p>
@@ -11486,7 +11486,7 @@ xcodeenv.buildApp {
        </p></li><li class="listitem"><p>
         <code class="literal">generateIPA</code> specifies that we want to produce an IPA file (this is probably what you want)
        </p></li><li class="listitem"><p>
-        <code class="literal">generateXCArchive</code> specifies thet we want to produce an xcarchive file.
+        <code class="literal">generateXCArchive</code> specifies that we want to produce an xcarchive file.
        </p></li></ul></div><p>
       When building IPA files on Hydra and when it is desired to allow iOS devices to install IPAs by browsing to the Hydra build products page, you can enable the <code class="literal">enableWirelessDistribution</code> parameter.
      </p><p>
@@ -11728,7 +11728,7 @@ nix-build -A nodePackages_latest.&lt;new-or-updated-package&gt;
       </p><pre class="programlisting">
 ./pkgs/development/node-packages/generate.sh
 </pre><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="javascript-git-error"></a>Git protocol error</h5></div></div></div><p>
-        Some packages may have Git dependencies from GitHub specified with <code class="literal">git://</code>. GitHub has <a class="link" href="https://github.blog/2021-09-01-improving-git-protocol-security-github/#no-more-unauthenticated-git" target="_top">disabled unecrypted Git connections</a>, so you may see the following error when running the generate script:
+        Some packages may have Git dependencies from GitHub specified with <code class="literal">git://</code>. GitHub has <a class="link" href="https://github.blog/2021-09-01-improving-git-protocol-security-github/#no-more-unauthenticated-git" target="_top">disabled unencrypted Git connections</a>, so you may see the following error when running the generate script:
        </p><pre class="programlisting">
 The unauthenticated git protocol on port 9418 is no longer supported
 </pre><p>
@@ -17597,7 +17597,7 @@ Reason: several people cannot boot with ZFS on NVMe
    </p><p>
     GitHub provides reactions as a simple and quick way to provide feedback to pull requests or any comments. The thumb-down reaction should be used with care and if possible accompanied with some explanation so the submitter has directions to improve their contribution.
    </p><p>
-    pull request reviews should include a list of what has been reviewed in a comment, so other reviewers and mergers can know the state of the review.
+    Pull request reviews should include a list of what has been reviewed in a comment, so other reviewers and mergers can know the state of the review.
    </p><p>
     All the review template samples provided in this section are generic and meant as examples. Their usage is optional and the reviewer is free to adapt them to their liking.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="reviewing-contributions-package-updates"></a>Package updates</h2></div></div></div><p>
@@ -17801,7 +17801,7 @@ $ nix-shell -p nixpkgs-review --run "nixpkgs-review pr PRNUMBER"
       </p><p>
        If the commit is not signed or it is signed by a different user, ask them to either recommit using that key or to remove their key information.
       </p><p>
-       Given a maintainter entry like this:
+       Given a maintainer entry like this:
       </p><pre class="programlisting">
 {
   example = {
