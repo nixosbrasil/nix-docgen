@@ -226,7 +226,7 @@ pkgs/top-level/config.nix
 </a></code></td></tr></table></dd><dt><span class="term"><a id="opt-checkMeta"></a><a class="term" href="#opt-checkMeta">
        <code class="option">checkMeta</code>
       </a></span></dt><dd><p>
-        Whether to check that the `meta` attribute of derivations are correct during evaluation time.
+        Whether to check that the <code class="literal">meta</code> attribute of derivations are correct during evaluation time.
        </p><p>
         <span class="emphasis"><em>Type:</em></span> boolean
        </p><p>
@@ -6991,7 +6991,7 @@ pkgs.mkShell {
       … all the attributes of <code class="literal">stdenv.mkDerivation</code>.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-pkgs-mkShell-building"></a>Building the shell</h3></div></div></div><p>
       This derivation output will contain a text file that contains a reference to all the build inputs. This is useful in CI where we want to make sure that every derivation, and its dependencies, build properly. Or when creating a GC root so that the build dependencies don’t get garbage-collected.
-     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-darwin-builder"></a>darwin.builder</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#id-1.6.5.6.18">Example flake usage</a></span></dt><dt><span class="section"><a href="#id-1.6.5.6.19">Reconfiguring the builder</a></span></dt></dl></div><p>
+     </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-darwin-builder"></a>darwin.builder</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#sec-darwin-builder-example-flake">Example flake usage</a></span></dt><dt><span class="section"><a href="#sec-darwin-builder-reconfiguring">Reconfiguring the builder</a></span></dt></dl></div><p>
      <code class="literal">darwin.builder</code> provides a way to bootstrap a Linux builder on a macOS machine.
     </p><p>
      This requires macOS version 12.4 or later.
@@ -7036,7 +7036,7 @@ builders-use-substitutes = true
      … and then restart your Nix daemon to apply the change:
     </p><pre class="programlisting">
 $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
-</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.6.5.6.18"></a>Example flake usage</h3></div></div></div><pre class="programlisting">
+</pre><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-darwin-builder-example-flake"></a>Example flake usage</h3></div></div></div><pre class="programlisting">
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-22.11-darwin";
@@ -7090,7 +7090,7 @@ $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
 
   };
 }
-</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="id-1.6.5.6.19"></a>Reconfiguring the builder</h3></div></div></div><p>
+</pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-darwin-builder-reconfiguring"></a>Reconfiguring the builder</h3></div></div></div><p>
       Initially you should not change the builder configuration else you will not be able to use the binary cache. However, after you have the builder running locally you may use it to build a modified builder with additional storage or memory.
      </p><p>
       To do this, you just need to set the <code class="literal">virtualisation.darwin-builder.*</code> parameters as in the example below and rebuild.
@@ -7113,7 +7113,7 @@ $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
      A set of VM related utilities, that help in building some packages in more advanced scenarios.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-createEmptyImage"></a><code class="literal">vmTools.createEmptyImage</code></h3></div></div></div><p>
       A bash script fragment that produces a disk image at <code class="literal">destination</code>.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.3.3"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-createEmptyImage-attributes"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          <code class="literal">size</code>. The disk size, in MiB.
         </p></li><li class="listitem"><p>
          <code class="literal">fullName</code>. Name that will be written to <code class="literal">${destination}/nix-support/full-name</code>.
@@ -7123,13 +7123,13 @@ $ sudo launchctl kickstart -k system/org.nixos.nix-daemon
       Run a derivation in a Linux virtual machine (using Qemu/KVM). By default, there is no disk image; the root filesystem is a <code class="literal">tmpfs</code>, and the Nix store is shared with the host (via the <a class="link" href="https://wiki.qemu.org/Documentation/9p#9p_Protocol" target="_top">9P protocol</a>). Thus, any pure Nix derivation should run unmodified.
      </p><p>
       If the build fails and Nix is run with the <code class="literal">-K/--keep-failed</code> option, a script <code class="literal">run-vm</code> will be left behind in the temporary build directory that allows you to boot into the VM and debug it interactively.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.4.4"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-runInLinuxVM-attributes"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          <code class="literal">preVM</code> (optional). Shell command to be evaluated <span class="emphasis"><em>before</em></span> the VM is started (i.e., on the host).
         </p></li><li class="listitem"><p>
          <code class="literal">memSize</code> (optional, default <code class="literal">512</code>). The memory size of the VM in MiB.
         </p></li><li class="listitem"><p>
          <code class="literal">diskImage</code> (optional). A file system image to be attached to <code class="literal">/dev/sda</code>. Note that currently we expect the image to contain a filesystem, not a full disk image with a partition table etc.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.4.5"></a>Examples</h4></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-runInLinuxVM-examples"></a>Examples</h4></div></div></div><p>
        Build the derivation hello inside a VM:
       </p><pre class="programlisting">
 { pkgs }: with pkgs; with vmTools;
@@ -7151,11 +7151,11 @@ runInLinuxVM (hello.overrideAttrs (_: {
 }))
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-extractFs"></a><code class="literal">vmTools.extractFs</code></h3></div></div></div><p>
       Takes a file, such as an ISO, and extracts its contents into the store.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.5.3"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-extractFs-attributes"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          <code class="literal">file</code>. Path to the file to be extracted. Note that currently we expect the image to contain a filesystem, not a full disk image with a partition table etc.
         </p></li><li class="listitem"><p>
          <code class="literal">fs</code> (optional). Filesystem of the contents of the file.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.5.4"></a>Examples</h4></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-extractFs-examples"></a>Examples</h4></div></div></div><p>
        Extract the contents of an ISO file:
       </p><pre class="programlisting">
 { pkgs }: with pkgs; with vmTools;
@@ -7166,7 +7166,7 @@ extractFs { file = ./image.iso; }
       Like <a class="xref" href="#vm-tools-runInLinuxVM" title="vmTools.runInLinuxVM">the section called “<code class="literal">vmTools.runInLinuxVM</code>”</a>, but instead of using <code class="literal">stdenv</code> from the Nix store, run the build using the tools provided by <code class="literal">/bin</code>, <code class="literal">/usr/bin</code>, etc. from the specified filesystem image, which typically is a filesystem containing a <a class="link" href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" target="_top">FHS</a>-based Linux distribution.
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-makeImageTestScript"></a><code class="literal">vmTools.makeImageTestScript</code></h3></div></div></div><p>
       Generate a script that can be used to run an interactive session in the given image.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.8.3"></a>Examples</h4></div></div></div><p>
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-makeImageTestScript-examples"></a>Examples</h4></div></div></div><p>
        Create a script for running a Fedora 27 VM:
       </p><pre class="programlisting">
 { pkgs }: with pkgs; with vmTools;
@@ -7178,7 +7178,7 @@ makeImageTestScript diskImages.fedora27x86_64
 makeImageTestScript diskImages.ubuntu2004x86_64
 </pre></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="vm-tools-diskImageFuns"></a><code class="literal">vmTools.diskImageFuns</code></h3></div></div></div><p>
       A set of functions that build a predefined set of minimal Linux distributions images.
-     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.9.3"></a>Images</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+     </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-diskImageFuns-images"></a>Images</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          Fedora
         </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
            <code class="literal">fedora26x86_64</code>
@@ -7224,11 +7224,11 @@ makeImageTestScript diskImages.ubuntu2004x86_64
            <code class="literal">debian11i386</code>
           </p></li><li class="listitem"><p>
            <code class="literal">debian11x86_64</code>
-          </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.9.4"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+          </p></li></ul></div></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-diskImageFuns-attributes"></a>Attributes</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
          <code class="literal">size</code> (optional, defaults to <code class="literal">4096</code>). The size of the image, in MiB.
         </p></li><li class="listitem"><p>
          <code class="literal">extraPackages</code> (optional). A list names of additional packages from the distribution that should be included in the image.
-        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="id-1.6.5.7.9.5"></a>Examples</h4></div></div></div><p>
+        </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="vm-tools-diskImageFuns-examples"></a>Examples</h4></div></div></div><p>
        8GiB image containing Firefox in addition to the default packages:
       </p><pre class="programlisting">
 { pkgs }: with pkgs; with vmTools;
@@ -8998,18 +8998,18 @@ buildEnv { name = "bower-env"; ignoreCollisions = true; paths = [
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-build-bower-components"></a>buildBowerComponents function</h3></div></div></div><p>
       The function is implemented in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/bower-modules/generic/default.nix" target="_top">pkgs/development/bower-modules/generic/default.nix</a>.
      </p><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="ex-buildBowerComponents"></a>Example buildBowerComponents</h4></div></div></div><pre class="programlisting">
-      bowerComponents = buildBowerComponents {
-        name = "my-web-app";
-        generated = ./bower-packages.nix; <a id="ex-buildBowerComponents-1"></a><span><img src="images/callouts/1.svg" alt="1" border="0" /></span>
-        src = myWebApp; <a id="ex-buildBowerComponents-2"></a><span><img src="images/callouts/2.svg" alt="2" border="0" /></span>
-      };
-      </pre><p>
+bowerComponents = buildBowerComponents {
+  name = "my-web-app";
+  generated = ./bower-packages.nix; # note 1
+  src = myWebApp; # note 2
+};
+</pre><p>
        In <a class="link" href="#ex-buildBowerComponents" title="Example buildBowerComponents"><span class="quote">“<span class="quote">buildBowerComponents</span>”</span> example</a> the following arguments are of special significance to the function:
-      </p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#ex-buildBowerComponents-1"><span><img src="images/callouts/1.svg" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-         <code class="varname">generated</code> specifies the file which was created by <span class="command"><strong>bower2nix</strong></span>.
-        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-buildBowerComponents-2"><span><img src="images/callouts/2.svg" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-         <code class="varname">src</code> is your project's sources. It needs to contain a <code class="filename">bower.json</code> file.
-        </p></td></tr></table></div><p>
+      </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+         <code class="literal">generated</code> specifies the file which was created by <span class="command"><strong>bower2nix</strong></span>.
+        </p></li><li class="listitem"><p>
+         <code class="literal">src</code> is your project’s sources. It needs to contain a <code class="filename">bower.json</code> file.
+        </p></li></ol></div><p>
        <code class="literal">buildBowerComponents</code> will run Bower to link together the output of <code class="literal">bower2nix</code>, resulting in a <code class="literal">bower_components</code> directory which can be used.
       </p><p>
        Here is an example of a web frontend build process using <code class="literal">gulp</code>. You might use <code class="literal">grunt</code>, or anything else.
@@ -9027,41 +9027,41 @@ gulp.task('build', [], function () {
     .pipe(gulp.dest("./gulpdist/"));
 });
 </pre></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="ex-buildBowerComponentsDefaultNix"></a>Example Full example — default.nix</h4></div></div></div><pre class="programlisting">
-      { myWebApp ? { outPath = ./.; name = "myWebApp"; }
-      , pkgs ? import &lt;nixpkgs&gt; {}
-      }:
+{ myWebApp ? { outPath = ./.; name = "myWebApp"; }
+, pkgs ? import &lt;nixpkgs&gt; {}
+}:
 
-      pkgs.stdenv.mkDerivation {
-        name = "my-web-app-frontend";
-        src = myWebApp;
+pkgs.stdenv.mkDerivation {
+  name = "my-web-app-frontend";
+  src = myWebApp;
 
-        buildInputs = [ pkgs.nodePackages.gulp ];
+  buildInputs = [ pkgs.nodePackages.gulp ];
 
-        bowerComponents = pkgs.buildBowerComponents { <a id="ex-buildBowerComponentsDefault-1"></a><span><img src="images/callouts/1.svg" alt="1" border="0" /></span>
-          name = "my-web-app";
-          generated = ./bower-packages.nix;
-          src = myWebApp;
-        };
+  bowerComponents = pkgs.buildBowerComponents { # note 1
+    name = "my-web-app";
+    generated = ./bower-packages.nix;
+    src = myWebApp;
+  };
 
-        buildPhase = ''
-          cp --reflink=auto --no-preserve=mode -R $bowerComponents/bower_components . <a id="ex-buildBowerComponentsDefault-2"></a><span><img src="images/callouts/2.svg" alt="2" border="0" /></span>
-          export HOME=$PWD <a id="ex-buildBowerComponentsDefault-3"></a><span><img src="images/callouts/3.svg" alt="3" border="0" /></span>
-          ${pkgs.nodePackages.gulp}/bin/gulp build <a id="ex-buildBowerComponentsDefault-4"></a><span><img src="images/callouts/4.svg" alt="4" border="0" /></span>
-        '';
+  buildPhase = ''
+    cp --reflink=auto --no-preserve=mode -R $bowerComponents/bower_components . # note 2
+    export HOME=$PWD # note 3
+    ${pkgs.nodePackages.gulp}/bin/gulp build # note 4
+  '';
 
-        installPhase = "mv gulpdist $out";
-      }
-      </pre><p>
+  installPhase = "mv gulpdist $out";
+}
+</pre><p>
        A few notes about <a class="link" href="#ex-buildBowerComponentsDefaultNix" title="Example Full example — default.nix">Full example — <code class="literal">default.nix</code></a>:
-      </p><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#ex-buildBowerComponentsDefault-1"><span><img src="images/callouts/1.svg" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-         The result of <code class="varname">buildBowerComponents</code> is an input to the frontend build.
-        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-buildBowerComponentsDefault-2"><span><img src="images/callouts/2.svg" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
+      </p><div class="orderedlist"><ol class="orderedlist compact" type="1"><li class="listitem"><p>
+         The result of <code class="literal">buildBowerComponents</code> is an input to the frontend build.
+        </p></li><li class="listitem"><p>
          Whether to symlink or copy the <code class="filename">bower_components</code> directory depends on the build tool in use. In this case a copy is used to avoid <span class="command"><strong>gulp</strong></span> silliness with permissions.
-        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-buildBowerComponentsDefault-3"><span><img src="images/callouts/3.svg" alt="3" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-         <span class="command"><strong>gulp</strong></span> requires <code class="varname">HOME</code> to refer to a writeable directory.
-        </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#ex-buildBowerComponentsDefault-4"><span><img src="images/callouts/4.svg" alt="4" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-         The actual build command. Other tools could be used.
-        </p></td></tr></table></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-bower2nix-troubleshooting"></a>Troubleshooting</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="enocache-errors-from-buildbowercomponents"></a>ENOCACHE errors from buildBowerComponents</h4></div></div></div><p>
+        </p></li><li class="listitem"><p>
+         <span class="command"><strong>gulp</strong></span> requires <code class="literal">HOME</code> to refer to a writeable directory.
+        </p></li><li class="listitem"><p>
+         The actual build command in this example is <span class="command"><strong>gulp</strong></span>. Other tools could be used instead.
+        </p></li></ol></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-bower2nix-troubleshooting"></a>Troubleshooting</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="enocache-errors-from-buildbowercomponents"></a>ENOCACHE errors from buildBowerComponents</h4></div></div></div><p>
        This means that Bower was looking for a package version which doesn’t exist in the generated <code class="literal">bower-packages.nix</code>.
       </p><p>
        If <code class="literal">bower.json</code> has been updated, then run <code class="literal">bower2nix</code> again.
@@ -13696,7 +13696,7 @@ Packages.buildPythonPackage;
 </pre><p>
        Important to remember is that the Python version for which the package is made depends on the <code class="literal">python</code> derivation that is passed to <code class="literal">buildPythonPackage</code>. Nix tries to automatically pass arguments when possible, which is why generally you don’t explicitly define which <code class="literal">python</code> derivation should be used. In the above example we use <code class="literal">buildPythonPackage</code> that is part of the set <code class="literal">python3Packages</code>, and in this case the <code class="literal">python3</code> interpreter is automatically used.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="reference"></a>Reference</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="interpreters"></a>Interpreters</h4></div></div></div><p>
-       Versions 2.7, 3.8, 3.9, 3.10 and 3.11 of the CPython interpreter are available as respectively <code class="literal">python27</code>, python38<code class="literal">, </code>python39<code class="literal">, </code>python310<code class="literal">and</code>python311<code class="literal">. The aliases </code>python2<code class="literal">and</code>python3<code class="literal">correspond to respectively</code>python27<code class="literal">and</code>python310<code class="literal">. The attribute </code>python<code class="literal">maps to</code>python2<code class="literal">. The PyPy interpreters compatible with Python 2.7 and 3 are available as </code>pypy27<code class="literal">and</code>pypy3<code class="literal">, with aliases </code>pypy2<code class="literal">mapping to</code>pypy27<code class="literal">and</code>pypy<code class="literal">mapping to</code>pypy2<code class="literal">. The Nix expressions for the interpreters can be found in </code>pkgs/development/interpreters/python`.
+       Versions 2.7, 3.8, 3.9, 3.10 and 3.11 of the CPython interpreter are available as respectively <code class="literal">python27</code>, <code class="literal">python38</code>, <code class="literal">python39</code>, <code class="literal">python310</code> and <code class="literal">python311</code>. The aliases <code class="literal">python2</code> and <code class="literal">python3</code> correspond to respectively <code class="literal">python27</code> and <code class="literal">python310</code>. The attribute <code class="literal">python</code> maps to <code class="literal">python2</code>. The PyPy interpreters compatible with Python 2.7 and 3 are available as <code class="literal">pypy27</code> and <code class="literal">pypy3</code>, with aliases <code class="literal">pypy2</code> mapping to <code class="literal">pypy27</code> and <code class="literal">pypy</code> mapping to <code class="literal">pypy2</code>. The Nix expressions for the interpreters can be found in <code class="literal">pkgs/development/interpreters/python</code>.
       </p><p>
        All packages depending on any Python interpreter get appended <code class="literal">out/{python.sitePackages}</code> to <code class="literal">$PYTHONPATH</code> if such directory exists.
       </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="missing-tkinter-module-standard-library"></a>Missing <code class="literal">tkinter</code> module standard library</h5></div></div></div><p>
@@ -14426,20 +14426,20 @@ $ maintainers/scripts/update-python-libraries --target minor --commit --use-pkgs
     </p><p>
      The major caveat with Qt applications is that Qt uses a plugin system to load additional modules at runtime, from a list of well-known locations. In Nixpkgs, we patch QtCore to instead use an environment variable, and wrap Qt applications to set it to the right paths. This effectively makes the runtime dependencies pure and explicit at build-time, at the cost of introducing an extra indirection.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)</h3></div></div></div><pre class="programlisting">
-    { stdenv, lib, qtbase, wrapQtAppsHook }: <a id="qt-default-nix-co-1"></a><span><img src="images/callouts/1.svg" alt="1" border="0" /></span>
+{ stdenv, lib, qtbase, wrapQtAppsHook }:
 
-    stdenv.mkDerivation {
-      pname = "myapp";
-      version = "1.0";
+stdenv.mkDerivation {
+  pname = "myapp";
+  version = "1.0";
 
-      buildInputs = [ qtbase ];
-      nativeBuildInputs = [ wrapQtAppsHook ]; <a id="qt-default-nix-co-2"></a><span><img src="images/callouts/2.svg" alt="2" border="0" /></span>
-    }
-    </pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#qt-default-nix-co-1"><span><img src="images/callouts/1.svg" alt="1" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-        Import Qt modules directly, that is: <code class="literal">qtbase</code>, <code class="literal">qtdeclarative</code>, etc. <span class="emphasis"><em>Do not</em></span> import Qt package sets such as <code class="literal">qt5</code> because the Qt versions of dependencies may not be coherent, causing build and runtime failures.
-       </p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#qt-default-nix-co-2"><span><img src="images/callouts/2.svg" alt="2" border="0" /></span></a> </p></td><td valign="top" align="left"><p>
-        All Qt packages must include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>, or you must explicitly set <code class="literal">dontWrapQtApps</code>.
-       </p></td></tr></table></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="qt-runtime-dependencies"></a>Locating runtime dependencies</h3></div></div></div><p>
+  buildInputs = [ qtbase ];
+  nativeBuildInputs = [ wrapQtAppsHook ];
+}
+</pre><p>
+      It is important to import Qt modules directly, that is: <code class="literal">qtbase</code>, <code class="literal">qtdeclarative</code>, etc. <span class="emphasis"><em>Do not</em></span> import Qt package sets such as <code class="literal">qt5</code> because the Qt versions of dependencies may not be coherent, causing build and runtime failures.
+     </p><p>
+      Additionally all Qt packages must include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>, or you must explicitly set <code class="literal">dontWrapQtApps</code>.
+     </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="qt-runtime-dependencies"></a>Locating runtime dependencies</h3></div></div></div><p>
       Qt applications must be wrapped to find runtime dependencies. Include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>:
      </p><pre class="programlisting">
 { stdenv, wrapQtAppsHook }:
