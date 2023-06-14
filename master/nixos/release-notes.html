@@ -10,6 +10,8 @@
 </p></li></ul></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <a class="link" href="https://github.com/riverwm/river" target="_top">river</a>, A dynamic tiling wayland compositor. Available as <a class="link" href="options.html#opt-programs.river.enable">programs.river</a>.
 </p></li><li class="listitem"><p>
+ <a class="link" href="https://gotosocial.org/" target="_top">GoToSocial</a>, an ActivityPub social network server, written in Golang. Available as <a class="link" href="options.html#opt-services.gotosocial.enable">services.gotosocial</a>.
+</p></li><li class="listitem"><p>
  <a class="link" href="https://sitespeed.io" target="_top">sitespeed-io</a>, a tool that can generate metrics (timings, diagnostics) for websites. Available as <a class="link" href="options.html#opt-services.sitespeed-io.enable">services.sitespeed-io</a>.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-incompatibilities"></a>Backward Incompatibilities</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  <code class="literal">writeTextFile</code> now requires <code class="literal">executable</code> to be boolean, values like <code class="literal">null</code> or <code class="literal">""</code> will now fail to evaluate.
@@ -233,7 +235,7 @@ services.openssh.settings.Macs = [
 </p></li><li class="listitem"><p>
  <code class="literal">graylog</code> has been updated to version 5, which can not be updated directly from the previously packaged version 3.3. If you had installed the previously packaged version 3.3, please follow the <a class="link" href="https://go2docs.graylog.org/5-0/upgrading_graylog/upgrade_path.htm" target="_top">upgrade path</a> from 3.3 to 4.0 to 4.3 to 5.0.
 </p></li><li class="listitem"><p>
- <code class="literal">buildFHSUserEnv</code> is now called <code class="literal">buildFHSEnv</code> and uses FlatPak’s Bubblewrap sandboxing tool rather than Nixpkgs’ own chrootenv. The old chrootenv-based implemenation is still available via <code class="literal">buildFHSEnvChrootenv</code> but is considered deprecated and will be removed when the remaining uses inside Nixpkgs have been migrated. If your FHSEnv-wrapped application misbehaves when using the new bubblewrap implementation, please create an issue in Nixpkgs.
+ <code class="literal">buildFHSUserEnv</code> is now called <code class="literal">buildFHSEnv</code> and uses FlatPak’s Bubblewrap sandboxing tool rather than Nixpkgs’ own chrootenv. The old chrootenv-based implemenation is still available via <code class="literal">buildFHSEnvChroot</code> but is considered deprecated and will be removed when the remaining uses inside Nixpkgs have been migrated. If your FHSEnv-wrapped application misbehaves when using the new bubblewrap implementation, please create an issue in Nixpkgs.
 </p></li><li class="listitem"><p>
  <code class="literal">nushell</code> has been updated to at least version 0.77.0, which includes potential breaking changes in aliases. The old aliases are now available as <code class="literal">old-alias</code> but it is recommended you migrate to the new format. See <a class="link" href="https://www.nushell.sh/blog/2023-03-14-nushell_0_77.html#reworked-aliases-breaking-changes-kubouch" target="_top">Reworked aliases</a>.
 </p></li><li class="listitem"><p>
