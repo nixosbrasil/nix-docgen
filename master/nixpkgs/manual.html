@@ -12560,31 +12560,23 @@ NixOS 😀 is super cool 😃!
      </p><p>
       The following example shows a Nim program that depends only on Nim libraries:
      </p><pre class="programlisting">
-{ lib, nimPackages, fetchurl }:
+{ lib, nimPackages, fetchFromGitHub }:
 
-nimPackages.buildNimPackage rec {
-  pname = "hottext";
-  version = "1.4";
-
+nimPackages.buildNimPackage (finalAttrs: {
+  pname = "ttop";
+  version = "1.0.1";
   nimBinOnly = true;
 
-  src = fetchurl {
-    url = "https://git.sr.ht/~ehmry/hottext/archive/v${version}.tar.gz";
-    hash = "sha256-hIUofi81zowSMbt1lUsxCnVzfJGN3FEiTtN8CEFpwzY=";
+  src = fetchFromGitHub {
+    owner = "inv2004";
+    repo = "ttop";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-x4Uczksh6p3XX/IMrOFtBxIleVHdAPX9e8n32VAUTC4=";
   };
 
-  buildInputs = with nimPackages; [
-    bumpy
-    chroma
-    flatty
-    nimsimd
-    pixie
-    sdl2
-    typography
-    vmath
-    zippy
-  ];
-}
+  buildInputs = with nimPackages; [ asciigraph illwill parsetoml zippy ];
+
+})
 </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="nim-library-packages-in-nixpkgs"></a>Nim library packages in Nixpkgs</h3></div></div></div><p>
       Nim libraries can also be built using <code class="literal">nimPackages.buildNimPackage</code>, but often the product of a fetcher is sufficient to satisfy a dependency. The <code class="literal">fetchgit</code>, <code class="literal">fetchFromGitHub</code>, and <code class="literal">fetchNimble</code> functions yield an output that can be discovered during the <code class="literal">configurePhase</code> of <code class="literal">buildNimPackage</code>.
      </p><p>
@@ -12594,15 +12586,16 @@ nimPackages.buildNimPackage rec {
      </p><pre class="programlisting">
 { lib, buildNimPackage, fetchNimble, SDL2 }:
 
-buildNimPackage rec {
+buildNimPackage (finalAttrs: {
   pname = "sdl2";
   version = "2.0.4";
   src = fetchNimble {
-    inherit pname version;
-    hash = "sha256-qDtVSnf+7rTq36WAxgsUZ8XoUk4sKwHyt8EJcY5WP+o=";
+    inherit (finalAttrs) pname version;
+    hash = "sha256-Vtcj8goI4zZPQs2TbFoBFlcR5UqDtOldaXSH/+/xULk=";
   };
   propagatedBuildInputs = [ SDL2 ];
-}
+  doCheck = true;
+})
 </pre></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="buildnimpackage-parameters"></a><code class="literal">buildNimPackage</code> parameters</h3></div></div></div><p>
       All parameters from <code class="literal">stdenv.mkDerivation</code> function are still supported. The following are specific to <code class="literal">buildNimPackage</code>:
      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
