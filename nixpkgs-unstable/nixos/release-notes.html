@@ -51,6 +51,17 @@
  A new option was added to the virtualisation module that enables specifying explicitly named network interfaces in QEMU VMs. The existing <code class="literal">virtualisation.vlans</code> is still supported for cases where the name of the network interface is irrelevant.
 </p></li><li class="listitem"><p>
  <code class="literal">services.nginx</code> gained a <code class="literal">defaultListen</code> option at server-level with support for PROXY protocol listeners, also <code class="literal">proxyProtocol</code> is now exposed in <code class="literal">services.nginx.virtualHosts.&lt;name&gt;.listen</code> option. It is now possible to run PROXY listeners and non-PROXY listeners at a server-level, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/213510/" target="_top">#213510</a> for more details.
+</p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-nixpkgs-internals"></a>Nixpkgs internals</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
+ The <code class="literal">qemu-vm.nix</code> module by default now identifies block devices via
+persistent names available in <code class="literal">/dev/disk/by-*</code>. Because the rootDevice is
+identfied by its filesystem label, it needs to be formatted before the VM is
+started. The functionality of automatically formatting the rootDevice in the
+initrd is removed from the QEMU module. However, for tests that depend on
+this functionality, a test utility for the scripted initrd is added
+(<code class="literal">nixos/tests/common/auto-format-root-device.nix</code>). To use this in a NixOS
+test, import the module, e.g. <code class="literal">imports = [ ./common/auto-format-root-device.nix ];</code> When you use the systemd initrd, you
+can automatically format the root device by setting
+<code class="literal">virtualisation.fileSystems."/".autoFormat = true;</code>.
 </p></li></ul></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-release-23.05"></a>Release 23.05 (“Stoat”, 2023.05/31)</h2></div></div></div><p>
  The NixOS release team is happy to announce a new version of NixOS. The release is called NixOS 23.05 (“Stoat”).
 </p><p>
