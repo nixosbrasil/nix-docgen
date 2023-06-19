@@ -30,6 +30,8 @@
 </p></li><li class="listitem"><p>
  <code class="literal">util-linux</code> is now supported on Darwin and is no longer an alias to <code class="literal">unixtools</code>. Use the <code class="literal">unixtools.util-linux</code> package for access to the Apple variants of the utilities.
 </p></li><li class="listitem"><p>
+ The <code class="literal">vlock</code> program from the <code class="literal">kbd</code> package has been moved into its own package output and should now be referenced explicitly as <code class="literal">kbd.vlock</code> or replaced with an alternative such as the standalone <code class="literal">vlock</code> package or <code class="literal">physlock</code>.
+</p></li><li class="listitem"><p>
  <code class="literal">fileSystems.&lt;name&gt;.autoFormat</code> now uses <code class="literal">systemd-makefs</code>, which does not accept formatting options. Therefore, <code class="literal">fileSystems.&lt;name&gt;.formatOptions</code> has been removed.
 </p></li><li class="listitem"><p>
  <code class="literal">fileSystems.&lt;name&gt;.autoResize</code> now uses <code class="literal">systemd-growfs</code> to resize the file system online in stage 2. This means that <code class="literal">f2fs</code> and <code class="literal">ext2</code> can no longer be auto resized, while <code class="literal">xfs</code> and <code class="literal">btrfs</code> now can be.
@@ -37,6 +39,8 @@
  <code class="literal">services.lemmy.settings.federation</code> was removed in 0.17.0 and no longer has any effect. To enable federation, the hostname must be set in the configuration file and then federation must be enabled in the admin web UI. See the <a class="link" href="https://github.com/LemmyNet/lemmy/blob/c32585b03429f0f76d1e4ff738786321a0a9df98/RELEASES.md#upgrade-instructions" target="_top">release notes</a> for more details.
 </p></li></ul></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-release-23.11-notable-changes"></a>Other Notable Changes</h3></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
  The Cinnamon module now enables XDG desktop integration by default. If you are experiencing collisions related to xdg-desktop-portal-gtk you can safely remove <code class="literal">xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];</code> from your NixOS configuration.
+</p></li><li class="listitem"><p>
+ <code class="literal">fontconfig</code> now defaults to using greyscale antialiasing instead of subpixel antialiasing because of a <a class="link" href="https://gitlab.freedesktop.org/fontconfig/fontconfig/-/issues/337" target="_top">recommendation from one of the downstreams</a>. You can change this value by configuring <a class="xref" href="options.html#opt-fonts.fontconfig.subpixel.rgba"><code class="option">fonts.fontconfig.subpixel.rgba</code></a> accordingly.
 </p></li><li class="listitem"><p>
  The latest available version of Nextcloud is v27 (available as <code class="literal">pkgs.nextcloud27</code>). The installation logic is as follows:
 </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle; "><li class="listitem"><p>
