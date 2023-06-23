@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Nixpkgs Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /></head><body><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="nixpkgs-manual"></a>Nixpkgs Manual</h1></div><div><h2 class="subtitle">Version 23.11pre-git
-  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#preface">Preface</a></span></dt><dt><span class="part"><a href="#part-using">Using Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-packageconfig">Global configuration</a></span></dt><dt><span class="chapter"><a href="#chap-overlays">Overlays</a></span></dt><dt><span class="chapter"><a href="#chap-overrides">Overriding</a></span></dt></dl></dd><dt><span class="part"><a href="#id-1.4">Nixpkgs <code class="code">lib</code></a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-functions">Functions reference</a></span></dt><dt><span class="chapter"><a href="#module-system">Module System</a></span></dt></dl></dd><dt><span class="part"><a href="#part-stdenv">Standard environment</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-stdenv">The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">Platform Notes</a></span></dt></dl></dd><dt><span class="part"><a href="#part-builders">Builders</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-pkgs-fetchers">Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-testers">Testers</a></span></dt><dt><span class="chapter"><a href="#chap-special">Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">Images</a></span></dt><dt><span class="chapter"><a href="#chap-hooks">Hooks reference</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">Packages</a></span></dt></dl></dd><dt><span class="part"><a href="#part-contributing">Contributing to Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-quick-start">Quick Start to Adding a Package</a></span></dt><dt><span class="chapter"><a href="#chap-conventions">Coding conventions</a></span></dt><dt><span class="chapter"><a href="#chap-submitting-changes">Submitting changes</a></span></dt><dt><span class="chapter"><a href="#chap-vulnerability-roundup">Vulnerability Roundup</a></span></dt><dt><span class="chapter"><a href="#chap-reviewing-contributions">Reviewing contributions</a></span></dt><dt><span class="chapter"><a href="#chap-contributing">Contributing to this documentation</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><strong>List of Figures</strong></p><dl><dt>1. <a href="#id-1.7.4.8.3">Staging workflow</a></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>1. <a href="#id-1.4.2.3.3.2.5"><code class="function">lib.asserts.assertMsg</code> usage example</a></dt><dt>2. <a href="#id-1.4.2.3.3.3.5"><code class="function">lib.asserts.assertOneOf</code> usage example</a></dt><dt>3. <a href="#id-1.4.2.3.4.2.5"><code class="function">lib.attrsets.attrByPath</code> usage example</a></dt><dt>4. <a href="#id-1.4.2.3.4.3.5"><code class="function">lib.attrsets.hasAttrByPath</code> usage example</a></dt><dt>5. <a href="#id-1.4.2.3.4.4.5"><code class="function">lib.attrsets.setAttrByPath</code> usage example</a></dt><dt>6. <a href="#id-1.4.2.3.4.5.5"><code class="function">lib.attrsets.getAttrFromPath</code> usage example</a></dt><dt>7. <a href="#id-1.4.2.3.4.6.5"><code class="function">lib.attrsets.concatMapAttrs</code> usage example</a></dt><dt>8. <a href="#id-1.4.2.3.4.7.10"><code class="function">lib.attrsets.updateManyAttrsByPath</code> usage example</a></dt><dt>9. <a href="#id-1.4.2.3.4.8.5"><code class="function">lib.attrsets.attrVals</code> usage example</a></dt><dt>10. <a href="#id-1.4.2.3.4.9.4"><code class="function">lib.attrsets.attrValues</code> usage example</a></dt><dt>11. <a href="#id-1.4.2.3.4.10.5"><code class="function">lib.attrsets.getAttrs</code> usage example</a></dt><dt>12. <a href="#id-1.4.2.3.4.11.4"><code class="function">lib.attrsets.catAttrs</code> usage example</a></dt><dt>13. <a href="#id-1.4.2.3.4.12.5"><code class="function">lib.attrsets.filterAttrs</code> usage example</a></dt><dt>14. <a href="#id-1.4.2.3.4.13.5"><code class="function">lib.attrsets.filterAttrsRecursive</code> usage example</a></dt><dt>15. <a href="#id-1.4.2.3.4.14.6"><code class="function">lib.attrsets.foldlAttrs</code> usage example</a></dt><dt>16. <a href="#id-1.4.2.3.4.15.5"><code class="function">lib.attrsets.foldAttrs</code> usage example</a></dt><dt>17. <a href="#id-1.4.2.3.4.16.5"><code class="function">lib.attrsets.collect</code> usage example</a></dt><dt>18. <a href="#id-1.4.2.3.4.17.5"><code class="function">lib.attrsets.cartesianProductOfSets</code> usage example</a></dt><dt>19. <a href="#id-1.4.2.3.4.18.5"><code class="function">lib.attrsets.nameValuePair</code> usage example</a></dt><dt>20. <a href="#id-1.4.2.3.4.19.4"><code class="function">lib.attrsets.mapAttrs</code> usage example</a></dt><dt>21. <a href="#id-1.4.2.3.4.20.5"><code class="function">lib.attrsets.mapAttrs'</code> usage example</a></dt><dt>22. <a href="#id-1.4.2.3.4.21.5"><code class="function">lib.attrsets.mapAttrsToList</code> usage example</a></dt><dt>23. <a href="#id-1.4.2.3.4.22.6"><code class="function">lib.attrsets.mapAttrsRecursive</code> usage example</a></dt><dt>24. <a href="#id-1.4.2.3.4.23.5"><code class="function">lib.attrsets.mapAttrsRecursiveCond</code> usage example</a></dt><dt>25. <a href="#id-1.4.2.3.4.24.5"><code class="function">lib.attrsets.genAttrs</code> usage example</a></dt><dt>26. <a href="#id-1.4.2.3.4.25.5"><code class="function">lib.attrsets.isDerivation</code> usage example</a></dt><dt>27. <a href="#id-1.4.2.3.4.27.5"><code class="function">lib.attrsets.optionalAttrs</code> usage example</a></dt><dt>28. <a href="#id-1.4.2.3.4.28.5"><code class="function">lib.attrsets.zipAttrsWithNames</code> usage example</a></dt><dt>29. <a href="#id-1.4.2.3.4.29.5"><code class="function">lib.attrsets.zipAttrsWith</code> usage example</a></dt><dt>30. <a href="#id-1.4.2.3.4.30.6"><code class="function">lib.attrsets.zipAttrs</code> usage example</a></dt><dt>31. <a href="#id-1.4.2.3.4.31.5"><code class="function">lib.attrsets.recursiveUpdateUntil</code> usage example</a></dt><dt>32. <a href="#id-1.4.2.3.4.32.5"><code class="function">lib.attrsets.recursiveUpdate</code> usage example</a></dt><dt>33. <a href="#id-1.4.2.3.4.33.5"><code class="function">lib.attrsets.matchAttrs</code> usage example</a></dt><dt>34. <a href="#id-1.4.2.3.4.34.5"><code class="function">lib.attrsets.overrideExisting</code> usage example</a></dt><dt>35. <a href="#id-1.4.2.3.4.35.5"><code class="function">lib.attrsets.showAttrPath</code> usage example</a></dt><dt>36. <a href="#id-1.4.2.3.4.36.5"><code class="function">lib.attrsets.getOutput</code> usage example</a></dt><dt>37. <a href="#id-1.4.2.3.4.37.4"><code class="function">lib.attrsets.getBin</code> usage example</a></dt><dt>38. <a href="#id-1.4.2.3.4.38.4"><code class="function">lib.attrsets.getLib</code> usage example</a></dt><dt>39. <a href="#id-1.4.2.3.4.39.4"><code class="function">lib.attrsets.getDev</code> usage example</a></dt><dt>40. <a href="#id-1.4.2.3.4.40.4"><code class="function">lib.attrsets.getMan</code> usage example</a></dt><dt>41. <a href="#id-1.4.2.3.4.42.6"><code class="function">lib.attrsets.recurseIntoAttrs</code> usage example</a></dt><dt>42. <a href="#id-1.4.2.3.5.2.4"><code class="function">lib.strings.concatStrings</code> usage example</a></dt><dt>43. <a href="#id-1.4.2.3.5.3.5"><code class="function">lib.strings.concatMapStrings</code> usage example</a></dt><dt>44. <a href="#id-1.4.2.3.5.4.5"><code class="function">lib.strings.concatImapStrings</code> usage example</a></dt><dt>45. <a href="#id-1.4.2.3.5.5.5"><code class="function">lib.strings.intersperse</code> usage example</a></dt><dt>46. <a href="#id-1.4.2.3.5.6.4"><code class="function">lib.strings.concatStringsSep</code> usage example</a></dt><dt>47. <a href="#id-1.4.2.3.5.7.5"><code class="function">lib.strings.concatMapStringsSep</code> usage example</a></dt><dt>48. <a href="#id-1.4.2.3.5.8.5"><code class="function">lib.strings.concatImapStringsSep</code> usage example</a></dt><dt>49. <a href="#id-1.4.2.3.5.9.4"><code class="function">lib.strings.concatLines</code> usage example</a></dt><dt>50. <a href="#id-1.4.2.3.5.10.5"><code class="function">lib.strings.makeSearchPath</code> usage example</a></dt><dt>51. <a href="#id-1.4.2.3.5.11.5"><code class="function">lib.strings.makeSearchPathOutput</code> usage example</a></dt><dt>52. <a href="#id-1.4.2.3.5.12.3"><code class="function">lib.strings.makeLibraryPath</code> usage example</a></dt><dt>53. <a href="#id-1.4.2.3.5.13.3"><code class="function">lib.strings.makeBinPath</code> usage example</a></dt><dt>54. <a href="#id-1.4.2.3.5.14.5"><code class="function">lib.strings.normalizePath</code> usage example</a></dt><dt>55. <a href="#id-1.4.2.3.5.15.5"><code class="function">lib.strings.optionalString</code> usage example</a></dt><dt>56. <a href="#id-1.4.2.3.5.16.5"><code class="function">lib.strings.hasPrefix</code> usage example</a></dt><dt>57. <a href="#id-1.4.2.3.5.17.5"><code class="function">lib.strings.hasSuffix</code> usage example</a></dt><dt>58. <a href="#id-1.4.2.3.5.18.5"><code class="function">lib.strings.hasInfix</code> usage example</a></dt><dt>59. <a href="#id-1.4.2.3.5.19.5"><code class="function">lib.strings.stringToCharacters</code> usage example</a></dt><dt>60. <a href="#id-1.4.2.3.5.20.5"><code class="function">lib.strings.stringAsChars</code> usage example</a></dt><dt>61. <a href="#id-1.4.2.3.5.21.5"><code class="function">lib.strings.charToInt</code> usage example</a></dt><dt>62. <a href="#id-1.4.2.3.5.22.5"><code class="function">lib.strings.escape</code> usage example</a></dt><dt>63. <a href="#id-1.4.2.3.5.23.5"><code class="function">lib.strings.escapeC</code> usage example</a></dt><dt>64. <a href="#id-1.4.2.3.5.24.4"><code class="function">lib.strings.escapeURL</code> usage example</a></dt><dt>65. <a href="#id-1.4.2.3.5.25.5"><code class="function">lib.strings.escapeShellArg</code> usage example</a></dt><dt>66. <a href="#id-1.4.2.3.5.26.4"><code class="function">lib.strings.escapeShellArgs</code> usage example</a></dt><dt>67. <a href="#id-1.4.2.3.5.27.5"><code class="function">lib.strings.isValidPosixName</code> usage example</a></dt><dt>68. <a href="#id-1.4.2.3.5.28.7"><code class="function">lib.strings.toShellVar</code> usage example</a></dt><dt>69. <a href="#id-1.4.2.3.5.29.5"><code class="function">lib.strings.toShellVars</code> usage example</a></dt><dt>70. <a href="#id-1.4.2.3.5.30.5"><code class="function">lib.strings.escapeNixString</code> usage example</a></dt><dt>71. <a href="#id-1.4.2.3.5.31.4"><code class="function">lib.strings.escapeRegex</code> usage example</a></dt><dt>72. <a href="#id-1.4.2.3.5.32.5"><code class="function">lib.strings.escapeNixIdentifier</code> usage example</a></dt><dt>73. <a href="#id-1.4.2.3.5.33.4"><code class="function">lib.strings.escapeXML</code> usage example</a></dt><dt>74. <a href="#id-1.4.2.3.5.34.4"><code class="function">lib.strings.toLower</code> usage example</a></dt><dt>75. <a href="#id-1.4.2.3.5.35.4"><code class="function">lib.strings.toUpper</code> usage example</a></dt><dt>76. <a href="#id-1.4.2.3.5.36.5"><code class="function">lib.strings.addContextFrom</code> usage example</a></dt><dt>77. <a href="#id-1.4.2.3.5.37.4"><code class="function">lib.strings.splitString</code> usage example</a></dt><dt>78. <a href="#id-1.4.2.3.5.38.5"><code class="function">lib.strings.removePrefix</code> usage example</a></dt><dt>79. <a href="#id-1.4.2.3.5.39.5"><code class="function">lib.strings.removeSuffix</code> usage example</a></dt><dt>80. <a href="#id-1.4.2.3.5.40.4"><code class="function">lib.strings.versionOlder</code> usage example</a></dt><dt>81. <a href="#id-1.4.2.3.5.41.4"><code class="function">lib.strings.versionAtLeast</code> usage example</a></dt><dt>82. <a href="#id-1.4.2.3.5.42.4"><code class="function">lib.strings.getName</code> usage example</a></dt><dt>83. <a href="#id-1.4.2.3.5.43.4"><code class="function">lib.strings.getVersion</code> usage example</a></dt><dt>84. <a href="#id-1.4.2.3.5.44.4"><code class="function">lib.strings.nameFromURL</code> usage example</a></dt><dt>85. <a href="#id-1.4.2.3.5.45.5"><code class="function">lib.strings.mesonOption</code> usage example</a></dt><dt>86. <a href="#id-1.4.2.3.5.46.5"><code class="function">lib.strings.mesonBool</code> usage example</a></dt><dt>87. <a href="#id-1.4.2.3.5.47.5"><code class="function">lib.strings.mesonEnable</code> usage example</a></dt><dt>88. <a href="#id-1.4.2.3.5.48.4"><code class="function">lib.strings.enableFeature</code> usage example</a></dt><dt>89. <a href="#id-1.4.2.3.5.49.4"><code class="function">lib.strings.enableFeatureAs</code> usage example</a></dt><dt>90. <a href="#id-1.4.2.3.5.50.4"><code class="function">lib.strings.withFeature</code> usage example</a></dt><dt>91. <a href="#id-1.4.2.3.5.51.4"><code class="function">lib.strings.withFeatureAs</code> usage example</a></dt><dt>92. <a href="#id-1.4.2.3.5.52.6"><code class="function">lib.strings.fixedWidthString</code> usage example</a></dt><dt>93. <a href="#id-1.4.2.3.5.53.4"><code class="function">lib.strings.fixedWidthNumber</code> usage example</a></dt><dt>94. <a href="#id-1.4.2.3.5.54.4"><code class="function">lib.strings.floatToString</code> usage example</a></dt><dt>95. <a href="#id-1.4.2.3.5.58.4"><code class="function">lib.strings.isStorePath</code> usage example</a></dt><dt>96. <a href="#id-1.4.2.3.5.59.5"><code class="function">lib.strings.toInt</code> usage example</a></dt><dt>97. <a href="#id-1.4.2.3.5.60.5"><code class="function">lib.strings.toIntBase10</code> usage example</a></dt><dt>98. <a href="#id-1.4.2.3.5.61.4"><code class="function">lib.strings.readPathsFromFile</code> usage example</a></dt><dt>99. <a href="#id-1.4.2.3.5.62.5"><code class="function">lib.strings.fileContents</code> usage example</a></dt><dt>100. <a href="#id-1.4.2.3.5.63.4"><code class="function">lib.strings.sanitizeDerivationName</code> usage example</a></dt><dt>101. <a href="#id-1.4.2.3.5.64.5"><code class="function">lib.strings.levenshtein</code> usage example</a></dt><dt>102. <a href="#id-1.4.2.3.5.67.4"><code class="function">lib.strings.levenshteinAtMost</code> usage example</a></dt><dt>103. <a href="#id-1.4.2.3.6.2.3"><code class="function">lib.versions.splitVersion</code> usage example</a></dt><dt>104. <a href="#id-1.4.2.3.6.3.4"><code class="function">lib.versions.major</code> usage example</a></dt><dt>105. <a href="#id-1.4.2.3.6.4.4"><code class="function">lib.versions.minor</code> usage example</a></dt><dt>106. <a href="#id-1.4.2.3.6.5.4"><code class="function">lib.versions.patch</code> usage example</a></dt><dt>107. <a href="#id-1.4.2.3.6.6.4"><code class="function">lib.versions.majorMinor</code> usage example</a></dt><dt>108. <a href="#id-1.4.2.3.6.7.4"><code class="function">lib.versions.pad</code> usage example</a></dt><dt>109. <a href="#id-1.4.2.3.7.3.6"><code class="function">lib.trivial.const</code> usage example</a></dt><dt>110. <a href="#id-1.4.2.3.7.4.5"><code class="function">lib.trivial.pipe</code> usage example</a></dt><dt>111. <a href="#id-1.4.2.3.7.5.5"><code class="function">lib.trivial.concat</code> usage example</a></dt><dt>112. <a href="#id-1.4.2.3.7.13.5"><code class="function">lib.trivial.mergeAttrs</code> usage example</a></dt><dt>113. <a href="#id-1.4.2.3.7.14.5"><code class="function">lib.trivial.flip</code> usage example</a></dt><dt>114. <a href="#id-1.4.2.3.7.15.4"><code class="function">lib.trivial.mapNullable</code> usage example</a></dt><dt>115. <a href="#id-1.4.2.3.7.27.4"><code class="function">lib.trivial.mod</code> usage example</a></dt><dt>116. <a href="#id-1.4.2.3.7.29.5"><code class="function">lib.trivial.splitByAndCompare</code> usage example</a></dt><dt>117. <a href="#id-1.4.2.3.7.35.8"><code class="function">lib.trivial.throwIfNot</code> usage example</a></dt><dt>118. <a href="#id-1.4.2.3.7.37.5"><code class="function">lib.trivial.checkListOfEnum</code> usage example</a></dt><dt>119. <a href="#id-1.4.2.3.7.41.4"><code class="function">lib.trivial.toFunction</code> usage example</a></dt><dt>120. <a href="#id-1.4.2.3.8.2.5"><code class="function">lib.lists.singleton</code> usage example</a></dt><dt>121. <a href="#id-1.4.2.3.8.3.5"><code class="function">lib.lists.forEach</code> usage example</a></dt><dt>122. <a href="#id-1.4.2.3.8.4.5"><code class="function">lib.lists.foldr</code> usage example</a></dt><dt>123. <a href="#id-1.4.2.3.8.6.5"><code class="function">lib.lists.foldl</code> usage example</a></dt><dt>124. <a href="#id-1.4.2.3.8.8.5"><code class="function">lib.lists.imap0</code> usage example</a></dt><dt>125. <a href="#id-1.4.2.3.8.9.5"><code class="function">lib.lists.imap1</code> usage example</a></dt><dt>126. <a href="#id-1.4.2.3.8.10.4"><code class="function">lib.lists.concatMap</code> usage example</a></dt><dt>127. <a href="#id-1.4.2.3.8.11.4"><code class="function">lib.lists.flatten</code> usage example</a></dt><dt>128. <a href="#id-1.4.2.3.8.12.5"><code class="function">lib.lists.remove</code> usage example</a></dt><dt>129. <a href="#id-1.4.2.3.8.13.5"><code class="function">lib.lists.findSingle</code> usage example</a></dt><dt>130. <a href="#id-1.4.2.3.8.14.5"><code class="function">lib.lists.findFirst</code> usage example</a></dt><dt>131. <a href="#id-1.4.2.3.8.15.4"><code class="function">lib.lists.any</code> usage example</a></dt><dt>132. <a href="#id-1.4.2.3.8.16.4"><code class="function">lib.lists.all</code> usage example</a></dt><dt>133. <a href="#id-1.4.2.3.8.17.5"><code class="function">lib.lists.count</code> usage example</a></dt><dt>134. <a href="#id-1.4.2.3.8.18.5"><code class="function">lib.lists.optional</code> usage example</a></dt><dt>135. <a href="#id-1.4.2.3.8.19.5"><code class="function">lib.lists.optionals</code> usage example</a></dt><dt>136. <a href="#id-1.4.2.3.8.20.4"><code class="function">lib.lists.toList</code> usage example</a></dt><dt>137. <a href="#id-1.4.2.3.8.21.5"><code class="function">lib.lists.range</code> usage example</a></dt><dt>138. <a href="#id-1.4.2.3.8.22.5"><code class="function">lib.lists.replicate</code> usage example</a></dt><dt>139. <a href="#id-1.4.2.3.8.23.4"><code class="function">lib.lists.partition</code> usage example</a></dt><dt>140. <a href="#id-1.4.2.3.8.24.5"><code class="function">lib.lists.groupBy'</code> usage example</a></dt><dt>141. <a href="#id-1.4.2.3.8.25.5"><code class="function">lib.lists.zipListsWith</code> usage example</a></dt><dt>142. <a href="#id-1.4.2.3.8.26.4"><code class="function">lib.lists.zipLists</code> usage example</a></dt><dt>143. <a href="#id-1.4.2.3.8.27.5"><code class="function">lib.lists.reverseList</code> usage example</a></dt><dt>144. <a href="#id-1.4.2.3.8.28.5"><code class="function">lib.lists.listDfs</code> usage example</a></dt><dt>145. <a href="#id-1.4.2.3.8.29.5"><code class="function">lib.lists.toposort</code> usage example</a></dt><dt>146. <a href="#id-1.4.2.3.8.30.3"><code class="function">lib.lists.sort</code> usage example</a></dt><dt>147. <a href="#id-1.4.2.3.8.31.4"><code class="function">lib.lists.compareLists</code> usage example</a></dt><dt>148. <a href="#id-1.4.2.3.8.32.4"><code class="function">lib.lists.naturalSort</code> usage example</a></dt><dt>149. <a href="#id-1.4.2.3.8.33.5"><code class="function">lib.lists.take</code> usage example</a></dt><dt>150. <a href="#id-1.4.2.3.8.34.5"><code class="function">lib.lists.drop</code> usage example</a></dt><dt>151. <a href="#id-1.4.2.3.8.35.5"><code class="function">lib.lists.sublist</code> usage example</a></dt><dt>152. <a href="#id-1.4.2.3.8.36.6"><code class="function">lib.lists.last</code> usage example</a></dt><dt>153. <a href="#id-1.4.2.3.8.37.6"><code class="function">lib.lists.init</code> usage example</a></dt><dt>154. <a href="#id-1.4.2.3.8.38.3"><code class="function">lib.lists.crossLists</code> usage example</a></dt><dt>155. <a href="#id-1.4.2.3.8.39.4"><code class="function">lib.lists.unique</code> usage example</a></dt><dt>156. <a href="#id-1.4.2.3.8.40.4"><code class="function">lib.lists.intersectLists</code> usage example</a></dt><dt>157. <a href="#id-1.4.2.3.8.41.4"><code class="function">lib.lists.subtractLists</code> usage example</a></dt><dt>158. <a href="#id-1.4.2.3.9.2.5"><code class="function">lib.debug.traceIf</code> usage example</a></dt><dt>159. <a href="#id-1.4.2.3.9.3.5"><code class="function">lib.debug.traceValFn</code> usage example</a></dt><dt>160. <a href="#id-1.4.2.3.9.4.4"><code class="function">lib.debug.traceVal</code> usage example</a></dt><dt>161. <a href="#id-1.4.2.3.9.5.5"><code class="function">lib.debug.traceSeq</code> usage example</a></dt><dt>162. <a href="#id-1.4.2.3.9.6.5"><code class="function">lib.debug.traceSeqN</code> usage example</a></dt><dt>163. <a href="#id-1.4.2.3.9.11.5"><code class="function">lib.debug.traceFnSeqN</code> usage example</a></dt><dt>164. <a href="#id-1.4.2.3.9.12.11"><code class="function">lib.debug.runTests</code> usage example</a></dt><dt>165. <a href="#id-1.4.2.3.9.13.4"><code class="function">lib.debug.testAllTrue</code> usage example</a></dt><dt>166. <a href="#id-1.4.2.3.10.2.4"><code class="function">lib.options.isOption</code> usage example</a></dt><dt>167. <a href="#id-1.4.2.3.10.3.5"><code class="function">lib.options.mkOption</code> usage example</a></dt><dt>168. <a href="#id-1.4.2.3.10.4.4"><code class="function">lib.options.mkEnableOption</code> usage example</a></dt><dt>169. <a href="#id-1.4.2.3.10.5.10"><code class="function">lib.options.mkPackageOption</code> usage example</a></dt><dt>170. <a href="#id-1.4.2.3.10.9.4"><code class="function">lib.options.getValues</code> usage example</a></dt><dt>171. <a href="#id-1.4.2.3.10.10.4"><code class="function">lib.options.getFiles</code> usage example</a></dt><dt>172. <a href="#id-1.4.2.3.10.16.4"><code class="function">lib.options.showOption</code> usage example</a></dt><dt>173. <a href="#id-1.4.2.3.11.2.6"><code class="function">lib.path.append</code> usage example</a></dt><dt>174. <a href="#id-1.4.2.3.11.3.9"><code class="function">lib.path.subpath.isValid</code> usage example</a></dt><dt>175. <a href="#id-1.4.2.3.11.4.18"><code class="function">lib.path.subpath.join</code> usage example</a></dt><dt>176. <a href="#id-1.4.2.3.11.5.20"><code class="function">lib.path.subpath.normalise</code> usage example</a></dt><dt>177. <a href="#id-1.4.2.3.12.2.4"><code class="function">lib.filesystem.pathType</code> usage example</a></dt><dt>178. <a href="#id-1.4.2.3.12.3.5"><code class="function">lib.filesystem.pathIsDirectory</code> usage example</a></dt><dt>179. <a href="#id-1.4.2.3.12.4.5"><code class="function">lib.filesystem.pathIsRegularFile</code> usage example</a></dt><dt>180. <a href="#id-1.4.2.3.13.3.4"><code class="function">lib.sources.cleanSource</code> usage example</a></dt><dt>181. <a href="#id-1.4.2.3.13.4.4"><code class="function">lib.sources.cleanSourceWith</code> usage example</a></dt><dt>182. <a href="#id-1.4.2.3.13.6.4"><code class="function">lib.sources.sourceByRegex</code> usage example</a></dt><dt>183. <a href="#id-1.4.2.3.13.7.5"><code class="function">lib.sources.sourceFilesBySuffices</code> usage example</a></dt><dt>184. <a href="#id-1.4.2.3.13.8.4"><code class="function">lib.sources.commitIdFromGitRepo</code> usage example</a></dt><dt>185. <a href="#id-1.4.2.3.14.2.6"><code class="function">lib.cli.toGNUCommandLineShell</code> usage example</a></dt><dt>186. <a href="#id-1.5.2.6.4.3.5.2.8">Standard output of an update script using commit feature</a></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#overview-of-nixpkgs">Overview of Nixpkgs</a></span></dt></dl></div><p>
+  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#preface">Preface</a></span></dt><dt><span class="part"><a href="#part-using">Using Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-packageconfig">Global configuration</a></span></dt><dt><span class="chapter"><a href="#chap-overlays">Overlays</a></span></dt><dt><span class="chapter"><a href="#chap-overrides">Overriding</a></span></dt></dl></dd><dt><span class="part"><a href="#id-1.4">Nixpkgs <code class="code">lib</code></a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-functions">Functions reference</a></span></dt><dt><span class="chapter"><a href="#module-system">Module System</a></span></dt></dl></dd><dt><span class="part"><a href="#part-stdenv">Standard environment</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-stdenv">The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">Platform Notes</a></span></dt></dl></dd><dt><span class="part"><a href="#part-builders">Builders</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-pkgs-fetchers">Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-testers">Testers</a></span></dt><dt><span class="chapter"><a href="#chap-special">Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">Images</a></span></dt><dt><span class="chapter"><a href="#chap-hooks">Hooks reference</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">Packages</a></span></dt></dl></dd><dt><span class="part"><a href="#part-contributing">Contributing to Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-quick-start">Quick Start to Adding a Package</a></span></dt><dt><span class="chapter"><a href="#chap-conventions">Coding conventions</a></span></dt><dt><span class="chapter"><a href="#chap-submitting-changes">Submitting changes</a></span></dt><dt><span class="chapter"><a href="#chap-vulnerability-roundup">Vulnerability Roundup</a></span></dt><dt><span class="chapter"><a href="#chap-reviewing-contributions">Reviewing contributions</a></span></dt><dt><span class="chapter"><a href="#chap-contributing">Contributing to this documentation</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><strong>List of Figures</strong></p><dl><dt>1. <a href="#id-1.7.4.8.3">Staging workflow</a></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>1. <a href="#id-1.4.2.3.3.2.5"><code class="function">lib.asserts.assertMsg</code> usage example</a></dt><dt>2. <a href="#id-1.4.2.3.3.3.5"><code class="function">lib.asserts.assertOneOf</code> usage example</a></dt><dt>3. <a href="#id-1.4.2.3.4.2.5"><code class="function">lib.attrsets.attrByPath</code> usage example</a></dt><dt>4. <a href="#id-1.4.2.3.4.3.5"><code class="function">lib.attrsets.hasAttrByPath</code> usage example</a></dt><dt>5. <a href="#id-1.4.2.3.4.4.5"><code class="function">lib.attrsets.setAttrByPath</code> usage example</a></dt><dt>6. <a href="#id-1.4.2.3.4.5.5"><code class="function">lib.attrsets.getAttrFromPath</code> usage example</a></dt><dt>7. <a href="#id-1.4.2.3.4.6.5"><code class="function">lib.attrsets.concatMapAttrs</code> usage example</a></dt><dt>8. <a href="#id-1.4.2.3.4.7.10"><code class="function">lib.attrsets.updateManyAttrsByPath</code> usage example</a></dt><dt>9. <a href="#id-1.4.2.3.4.8.5"><code class="function">lib.attrsets.attrVals</code> usage example</a></dt><dt>10. <a href="#id-1.4.2.3.4.9.4"><code class="function">lib.attrsets.attrValues</code> usage example</a></dt><dt>11. <a href="#id-1.4.2.3.4.10.5"><code class="function">lib.attrsets.getAttrs</code> usage example</a></dt><dt>12. <a href="#id-1.4.2.3.4.11.4"><code class="function">lib.attrsets.catAttrs</code> usage example</a></dt><dt>13. <a href="#id-1.4.2.3.4.12.5"><code class="function">lib.attrsets.filterAttrs</code> usage example</a></dt><dt>14. <a href="#id-1.4.2.3.4.13.5"><code class="function">lib.attrsets.filterAttrsRecursive</code> usage example</a></dt><dt>15. <a href="#id-1.4.2.3.4.14.6"><code class="function">lib.attrsets.foldlAttrs</code> usage example</a></dt><dt>16. <a href="#id-1.4.2.3.4.15.5"><code class="function">lib.attrsets.foldAttrs</code> usage example</a></dt><dt>17. <a href="#id-1.4.2.3.4.16.5"><code class="function">lib.attrsets.collect</code> usage example</a></dt><dt>18. <a href="#id-1.4.2.3.4.17.5"><code class="function">lib.attrsets.cartesianProductOfSets</code> usage example</a></dt><dt>19. <a href="#id-1.4.2.3.4.18.5"><code class="function">lib.attrsets.nameValuePair</code> usage example</a></dt><dt>20. <a href="#id-1.4.2.3.4.19.4"><code class="function">lib.attrsets.mapAttrs</code> usage example</a></dt><dt>21. <a href="#id-1.4.2.3.4.20.5"><code class="function">lib.attrsets.mapAttrs'</code> usage example</a></dt><dt>22. <a href="#id-1.4.2.3.4.21.5"><code class="function">lib.attrsets.mapAttrsToList</code> usage example</a></dt><dt>23. <a href="#id-1.4.2.3.4.22.6"><code class="function">lib.attrsets.mapAttrsRecursive</code> usage example</a></dt><dt>24. <a href="#id-1.4.2.3.4.23.5"><code class="function">lib.attrsets.mapAttrsRecursiveCond</code> usage example</a></dt><dt>25. <a href="#id-1.4.2.3.4.24.5"><code class="function">lib.attrsets.genAttrs</code> usage example</a></dt><dt>26. <a href="#id-1.4.2.3.4.25.5"><code class="function">lib.attrsets.isDerivation</code> usage example</a></dt><dt>27. <a href="#id-1.4.2.3.4.27.5"><code class="function">lib.attrsets.optionalAttrs</code> usage example</a></dt><dt>28. <a href="#id-1.4.2.3.4.28.5"><code class="function">lib.attrsets.zipAttrsWithNames</code> usage example</a></dt><dt>29. <a href="#id-1.4.2.3.4.29.5"><code class="function">lib.attrsets.zipAttrsWith</code> usage example</a></dt><dt>30. <a href="#id-1.4.2.3.4.30.6"><code class="function">lib.attrsets.zipAttrs</code> usage example</a></dt><dt>31. <a href="#id-1.4.2.3.4.31.5"><code class="function">lib.attrsets.recursiveUpdateUntil</code> usage example</a></dt><dt>32. <a href="#id-1.4.2.3.4.32.5"><code class="function">lib.attrsets.recursiveUpdate</code> usage example</a></dt><dt>33. <a href="#id-1.4.2.3.4.33.5"><code class="function">lib.attrsets.matchAttrs</code> usage example</a></dt><dt>34. <a href="#id-1.4.2.3.4.34.5"><code class="function">lib.attrsets.overrideExisting</code> usage example</a></dt><dt>35. <a href="#id-1.4.2.3.4.35.5"><code class="function">lib.attrsets.showAttrPath</code> usage example</a></dt><dt>36. <a href="#id-1.4.2.3.4.36.5"><code class="function">lib.attrsets.getOutput</code> usage example</a></dt><dt>37. <a href="#id-1.4.2.3.4.37.4"><code class="function">lib.attrsets.getBin</code> usage example</a></dt><dt>38. <a href="#id-1.4.2.3.4.38.4"><code class="function">lib.attrsets.getLib</code> usage example</a></dt><dt>39. <a href="#id-1.4.2.3.4.39.4"><code class="function">lib.attrsets.getDev</code> usage example</a></dt><dt>40. <a href="#id-1.4.2.3.4.40.4"><code class="function">lib.attrsets.getMan</code> usage example</a></dt><dt>41. <a href="#id-1.4.2.3.4.42.6"><code class="function">lib.attrsets.recurseIntoAttrs</code> usage example</a></dt><dt>42. <a href="#id-1.4.2.3.5.2.4"><code class="function">lib.strings.concatStrings</code> usage example</a></dt><dt>43. <a href="#id-1.4.2.3.5.3.5"><code class="function">lib.strings.concatMapStrings</code> usage example</a></dt><dt>44. <a href="#id-1.4.2.3.5.4.5"><code class="function">lib.strings.concatImapStrings</code> usage example</a></dt><dt>45. <a href="#id-1.4.2.3.5.5.5"><code class="function">lib.strings.intersperse</code> usage example</a></dt><dt>46. <a href="#id-1.4.2.3.5.6.4"><code class="function">lib.strings.concatStringsSep</code> usage example</a></dt><dt>47. <a href="#id-1.4.2.3.5.7.5"><code class="function">lib.strings.concatMapStringsSep</code> usage example</a></dt><dt>48. <a href="#id-1.4.2.3.5.8.5"><code class="function">lib.strings.concatImapStringsSep</code> usage example</a></dt><dt>49. <a href="#id-1.4.2.3.5.9.4"><code class="function">lib.strings.concatLines</code> usage example</a></dt><dt>50. <a href="#id-1.4.2.3.5.10.5"><code class="function">lib.strings.makeSearchPath</code> usage example</a></dt><dt>51. <a href="#id-1.4.2.3.5.11.5"><code class="function">lib.strings.makeSearchPathOutput</code> usage example</a></dt><dt>52. <a href="#id-1.4.2.3.5.12.3"><code class="function">lib.strings.makeLibraryPath</code> usage example</a></dt><dt>53. <a href="#id-1.4.2.3.5.13.3"><code class="function">lib.strings.makeBinPath</code> usage example</a></dt><dt>54. <a href="#id-1.4.2.3.5.14.5"><code class="function">lib.strings.normalizePath</code> usage example</a></dt><dt>55. <a href="#id-1.4.2.3.5.15.5"><code class="function">lib.strings.optionalString</code> usage example</a></dt><dt>56. <a href="#id-1.4.2.3.5.16.5"><code class="function">lib.strings.hasPrefix</code> usage example</a></dt><dt>57. <a href="#id-1.4.2.3.5.17.5"><code class="function">lib.strings.hasSuffix</code> usage example</a></dt><dt>58. <a href="#id-1.4.2.3.5.18.5"><code class="function">lib.strings.hasInfix</code> usage example</a></dt><dt>59. <a href="#id-1.4.2.3.5.19.5"><code class="function">lib.strings.stringToCharacters</code> usage example</a></dt><dt>60. <a href="#id-1.4.2.3.5.20.5"><code class="function">lib.strings.stringAsChars</code> usage example</a></dt><dt>61. <a href="#id-1.4.2.3.5.21.5"><code class="function">lib.strings.charToInt</code> usage example</a></dt><dt>62. <a href="#id-1.4.2.3.5.22.5"><code class="function">lib.strings.escape</code> usage example</a></dt><dt>63. <a href="#id-1.4.2.3.5.23.5"><code class="function">lib.strings.escapeC</code> usage example</a></dt><dt>64. <a href="#id-1.4.2.3.5.24.4"><code class="function">lib.strings.escapeURL</code> usage example</a></dt><dt>65. <a href="#id-1.4.2.3.5.25.5"><code class="function">lib.strings.escapeShellArg</code> usage example</a></dt><dt>66. <a href="#id-1.4.2.3.5.26.4"><code class="function">lib.strings.escapeShellArgs</code> usage example</a></dt><dt>67. <a href="#id-1.4.2.3.5.27.5"><code class="function">lib.strings.isValidPosixName</code> usage example</a></dt><dt>68. <a href="#id-1.4.2.3.5.28.7"><code class="function">lib.strings.toShellVar</code> usage example</a></dt><dt>69. <a href="#id-1.4.2.3.5.29.5"><code class="function">lib.strings.toShellVars</code> usage example</a></dt><dt>70. <a href="#id-1.4.2.3.5.30.5"><code class="function">lib.strings.escapeNixString</code> usage example</a></dt><dt>71. <a href="#id-1.4.2.3.5.31.4"><code class="function">lib.strings.escapeRegex</code> usage example</a></dt><dt>72. <a href="#id-1.4.2.3.5.32.5"><code class="function">lib.strings.escapeNixIdentifier</code> usage example</a></dt><dt>73. <a href="#id-1.4.2.3.5.33.4"><code class="function">lib.strings.escapeXML</code> usage example</a></dt><dt>74. <a href="#id-1.4.2.3.5.34.4"><code class="function">lib.strings.toLower</code> usage example</a></dt><dt>75. <a href="#id-1.4.2.3.5.35.4"><code class="function">lib.strings.toUpper</code> usage example</a></dt><dt>76. <a href="#id-1.4.2.3.5.36.5"><code class="function">lib.strings.addContextFrom</code> usage example</a></dt><dt>77. <a href="#id-1.4.2.3.5.37.4"><code class="function">lib.strings.splitString</code> usage example</a></dt><dt>78. <a href="#id-1.4.2.3.5.38.5"><code class="function">lib.strings.removePrefix</code> usage example</a></dt><dt>79. <a href="#id-1.4.2.3.5.39.5"><code class="function">lib.strings.removeSuffix</code> usage example</a></dt><dt>80. <a href="#id-1.4.2.3.5.40.4"><code class="function">lib.strings.versionOlder</code> usage example</a></dt><dt>81. <a href="#id-1.4.2.3.5.41.4"><code class="function">lib.strings.versionAtLeast</code> usage example</a></dt><dt>82. <a href="#id-1.4.2.3.5.42.4"><code class="function">lib.strings.getName</code> usage example</a></dt><dt>83. <a href="#id-1.4.2.3.5.43.4"><code class="function">lib.strings.getVersion</code> usage example</a></dt><dt>84. <a href="#id-1.4.2.3.5.44.4"><code class="function">lib.strings.nameFromURL</code> usage example</a></dt><dt>85. <a href="#id-1.4.2.3.5.45.5"><code class="function">lib.strings.mesonOption</code> usage example</a></dt><dt>86. <a href="#id-1.4.2.3.5.46.5"><code class="function">lib.strings.mesonBool</code> usage example</a></dt><dt>87. <a href="#id-1.4.2.3.5.47.5"><code class="function">lib.strings.mesonEnable</code> usage example</a></dt><dt>88. <a href="#id-1.4.2.3.5.48.4"><code class="function">lib.strings.enableFeature</code> usage example</a></dt><dt>89. <a href="#id-1.4.2.3.5.49.4"><code class="function">lib.strings.enableFeatureAs</code> usage example</a></dt><dt>90. <a href="#id-1.4.2.3.5.50.4"><code class="function">lib.strings.withFeature</code> usage example</a></dt><dt>91. <a href="#id-1.4.2.3.5.51.4"><code class="function">lib.strings.withFeatureAs</code> usage example</a></dt><dt>92. <a href="#id-1.4.2.3.5.52.6"><code class="function">lib.strings.fixedWidthString</code> usage example</a></dt><dt>93. <a href="#id-1.4.2.3.5.53.4"><code class="function">lib.strings.fixedWidthNumber</code> usage example</a></dt><dt>94. <a href="#id-1.4.2.3.5.54.4"><code class="function">lib.strings.floatToString</code> usage example</a></dt><dt>95. <a href="#id-1.4.2.3.5.58.4"><code class="function">lib.strings.isStorePath</code> usage example</a></dt><dt>96. <a href="#id-1.4.2.3.5.59.5"><code class="function">lib.strings.toInt</code> usage example</a></dt><dt>97. <a href="#id-1.4.2.3.5.60.5"><code class="function">lib.strings.toIntBase10</code> usage example</a></dt><dt>98. <a href="#id-1.4.2.3.5.61.4"><code class="function">lib.strings.readPathsFromFile</code> usage example</a></dt><dt>99. <a href="#id-1.4.2.3.5.62.5"><code class="function">lib.strings.fileContents</code> usage example</a></dt><dt>100. <a href="#id-1.4.2.3.5.63.4"><code class="function">lib.strings.sanitizeDerivationName</code> usage example</a></dt><dt>101. <a href="#id-1.4.2.3.5.64.5"><code class="function">lib.strings.levenshtein</code> usage example</a></dt><dt>102. <a href="#id-1.4.2.3.5.67.4"><code class="function">lib.strings.levenshteinAtMost</code> usage example</a></dt><dt>103. <a href="#id-1.4.2.3.6.2.3"><code class="function">lib.versions.splitVersion</code> usage example</a></dt><dt>104. <a href="#id-1.4.2.3.6.3.4"><code class="function">lib.versions.major</code> usage example</a></dt><dt>105. <a href="#id-1.4.2.3.6.4.4"><code class="function">lib.versions.minor</code> usage example</a></dt><dt>106. <a href="#id-1.4.2.3.6.5.4"><code class="function">lib.versions.patch</code> usage example</a></dt><dt>107. <a href="#id-1.4.2.3.6.6.4"><code class="function">lib.versions.majorMinor</code> usage example</a></dt><dt>108. <a href="#id-1.4.2.3.6.7.4"><code class="function">lib.versions.pad</code> usage example</a></dt><dt>109. <a href="#id-1.4.2.3.7.3.6"><code class="function">lib.trivial.const</code> usage example</a></dt><dt>110. <a href="#id-1.4.2.3.7.4.5"><code class="function">lib.trivial.pipe</code> usage example</a></dt><dt>111. <a href="#id-1.4.2.3.7.5.5"><code class="function">lib.trivial.concat</code> usage example</a></dt><dt>112. <a href="#id-1.4.2.3.7.13.5"><code class="function">lib.trivial.mergeAttrs</code> usage example</a></dt><dt>113. <a href="#id-1.4.2.3.7.14.5"><code class="function">lib.trivial.flip</code> usage example</a></dt><dt>114. <a href="#id-1.4.2.3.7.15.4"><code class="function">lib.trivial.mapNullable</code> usage example</a></dt><dt>115. <a href="#id-1.4.2.3.7.27.4"><code class="function">lib.trivial.mod</code> usage example</a></dt><dt>116. <a href="#id-1.4.2.3.7.29.5"><code class="function">lib.trivial.splitByAndCompare</code> usage example</a></dt><dt>117. <a href="#id-1.4.2.3.7.35.8"><code class="function">lib.trivial.throwIfNot</code> usage example</a></dt><dt>118. <a href="#id-1.4.2.3.7.37.5"><code class="function">lib.trivial.checkListOfEnum</code> usage example</a></dt><dt>119. <a href="#id-1.4.2.3.7.41.4"><code class="function">lib.trivial.toFunction</code> usage example</a></dt><dt>120. <a href="#id-1.4.2.3.8.2.5"><code class="function">lib.lists.singleton</code> usage example</a></dt><dt>121. <a href="#id-1.4.2.3.8.3.5"><code class="function">lib.lists.forEach</code> usage example</a></dt><dt>122. <a href="#id-1.4.2.3.8.4.5"><code class="function">lib.lists.foldr</code> usage example</a></dt><dt>123. <a href="#id-1.4.2.3.8.6.5"><code class="function">lib.lists.foldl</code> usage example</a></dt><dt>124. <a href="#id-1.4.2.3.8.8.5"><code class="function">lib.lists.imap0</code> usage example</a></dt><dt>125. <a href="#id-1.4.2.3.8.9.5"><code class="function">lib.lists.imap1</code> usage example</a></dt><dt>126. <a href="#id-1.4.2.3.8.10.4"><code class="function">lib.lists.concatMap</code> usage example</a></dt><dt>127. <a href="#id-1.4.2.3.8.11.4"><code class="function">lib.lists.flatten</code> usage example</a></dt><dt>128. <a href="#id-1.4.2.3.8.12.5"><code class="function">lib.lists.remove</code> usage example</a></dt><dt>129. <a href="#id-1.4.2.3.8.13.5"><code class="function">lib.lists.findSingle</code> usage example</a></dt><dt>130. <a href="#id-1.4.2.3.8.14.5"><code class="function">lib.lists.findFirst</code> usage example</a></dt><dt>131. <a href="#id-1.4.2.3.8.15.4"><code class="function">lib.lists.any</code> usage example</a></dt><dt>132. <a href="#id-1.4.2.3.8.16.4"><code class="function">lib.lists.all</code> usage example</a></dt><dt>133. <a href="#id-1.4.2.3.8.17.5"><code class="function">lib.lists.count</code> usage example</a></dt><dt>134. <a href="#id-1.4.2.3.8.18.5"><code class="function">lib.lists.optional</code> usage example</a></dt><dt>135. <a href="#id-1.4.2.3.8.19.5"><code class="function">lib.lists.optionals</code> usage example</a></dt><dt>136. <a href="#id-1.4.2.3.8.20.4"><code class="function">lib.lists.toList</code> usage example</a></dt><dt>137. <a href="#id-1.4.2.3.8.21.5"><code class="function">lib.lists.range</code> usage example</a></dt><dt>138. <a href="#id-1.4.2.3.8.22.5"><code class="function">lib.lists.replicate</code> usage example</a></dt><dt>139. <a href="#id-1.4.2.3.8.23.4"><code class="function">lib.lists.partition</code> usage example</a></dt><dt>140. <a href="#id-1.4.2.3.8.24.5"><code class="function">lib.lists.groupBy'</code> usage example</a></dt><dt>141. <a href="#id-1.4.2.3.8.25.5"><code class="function">lib.lists.zipListsWith</code> usage example</a></dt><dt>142. <a href="#id-1.4.2.3.8.26.4"><code class="function">lib.lists.zipLists</code> usage example</a></dt><dt>143. <a href="#id-1.4.2.3.8.27.5"><code class="function">lib.lists.reverseList</code> usage example</a></dt><dt>144. <a href="#id-1.4.2.3.8.28.5"><code class="function">lib.lists.listDfs</code> usage example</a></dt><dt>145. <a href="#id-1.4.2.3.8.29.5"><code class="function">lib.lists.toposort</code> usage example</a></dt><dt>146. <a href="#id-1.4.2.3.8.30.3"><code class="function">lib.lists.sort</code> usage example</a></dt><dt>147. <a href="#id-1.4.2.3.8.31.4"><code class="function">lib.lists.compareLists</code> usage example</a></dt><dt>148. <a href="#id-1.4.2.3.8.32.4"><code class="function">lib.lists.naturalSort</code> usage example</a></dt><dt>149. <a href="#id-1.4.2.3.8.33.5"><code class="function">lib.lists.take</code> usage example</a></dt><dt>150. <a href="#id-1.4.2.3.8.34.5"><code class="function">lib.lists.drop</code> usage example</a></dt><dt>151. <a href="#id-1.4.2.3.8.35.5"><code class="function">lib.lists.sublist</code> usage example</a></dt><dt>152. <a href="#id-1.4.2.3.8.36.6"><code class="function">lib.lists.last</code> usage example</a></dt><dt>153. <a href="#id-1.4.2.3.8.37.6"><code class="function">lib.lists.init</code> usage example</a></dt><dt>154. <a href="#id-1.4.2.3.8.38.3"><code class="function">lib.lists.crossLists</code> usage example</a></dt><dt>155. <a href="#id-1.4.2.3.8.39.4"><code class="function">lib.lists.unique</code> usage example</a></dt><dt>156. <a href="#id-1.4.2.3.8.40.4"><code class="function">lib.lists.intersectLists</code> usage example</a></dt><dt>157. <a href="#id-1.4.2.3.8.41.4"><code class="function">lib.lists.subtractLists</code> usage example</a></dt><dt>158. <a href="#id-1.4.2.3.9.2.5"><code class="function">lib.debug.traceIf</code> usage example</a></dt><dt>159. <a href="#id-1.4.2.3.9.3.5"><code class="function">lib.debug.traceValFn</code> usage example</a></dt><dt>160. <a href="#id-1.4.2.3.9.4.4"><code class="function">lib.debug.traceVal</code> usage example</a></dt><dt>161. <a href="#id-1.4.2.3.9.5.5"><code class="function">lib.debug.traceSeq</code> usage example</a></dt><dt>162. <a href="#id-1.4.2.3.9.6.5"><code class="function">lib.debug.traceSeqN</code> usage example</a></dt><dt>163. <a href="#id-1.4.2.3.9.11.5"><code class="function">lib.debug.traceFnSeqN</code> usage example</a></dt><dt>164. <a href="#id-1.4.2.3.9.12.11"><code class="function">lib.debug.runTests</code> usage example</a></dt><dt>165. <a href="#id-1.4.2.3.9.13.4"><code class="function">lib.debug.testAllTrue</code> usage example</a></dt><dt>166. <a href="#id-1.4.2.3.10.2.4"><code class="function">lib.options.isOption</code> usage example</a></dt><dt>167. <a href="#id-1.4.2.3.10.3.5"><code class="function">lib.options.mkOption</code> usage example</a></dt><dt>168. <a href="#id-1.4.2.3.10.4.4"><code class="function">lib.options.mkEnableOption</code> usage example</a></dt><dt>169. <a href="#id-1.4.2.3.10.5.10"><code class="function">lib.options.mkPackageOption</code> usage example</a></dt><dt>170. <a href="#id-1.4.2.3.10.9.4"><code class="function">lib.options.getValues</code> usage example</a></dt><dt>171. <a href="#id-1.4.2.3.10.10.4"><code class="function">lib.options.getFiles</code> usage example</a></dt><dt>172. <a href="#id-1.4.2.3.10.16.4"><code class="function">lib.options.showOption</code> usage example</a></dt><dt>173. <a href="#id-1.4.2.3.11.2.9"><code class="function">lib.path.append</code> usage example</a></dt><dt>174. <a href="#id-1.4.2.3.11.3.8"><code class="function">lib.path.hasPrefix</code> usage example</a></dt><dt>175. <a href="#id-1.4.2.3.11.4.9"><code class="function">lib.path.subpath.isValid</code> usage example</a></dt><dt>176. <a href="#id-1.4.2.3.11.5.18"><code class="function">lib.path.subpath.join</code> usage example</a></dt><dt>177. <a href="#id-1.4.2.3.11.6.20"><code class="function">lib.path.subpath.normalise</code> usage example</a></dt><dt>178. <a href="#id-1.4.2.3.12.2.4"><code class="function">lib.filesystem.pathType</code> usage example</a></dt><dt>179. <a href="#id-1.4.2.3.12.3.5"><code class="function">lib.filesystem.pathIsDirectory</code> usage example</a></dt><dt>180. <a href="#id-1.4.2.3.12.4.5"><code class="function">lib.filesystem.pathIsRegularFile</code> usage example</a></dt><dt>181. <a href="#id-1.4.2.3.13.3.4"><code class="function">lib.sources.cleanSource</code> usage example</a></dt><dt>182. <a href="#id-1.4.2.3.13.4.4"><code class="function">lib.sources.cleanSourceWith</code> usage example</a></dt><dt>183. <a href="#id-1.4.2.3.13.6.4"><code class="function">lib.sources.sourceByRegex</code> usage example</a></dt><dt>184. <a href="#id-1.4.2.3.13.7.5"><code class="function">lib.sources.sourceFilesBySuffices</code> usage example</a></dt><dt>185. <a href="#id-1.4.2.3.13.8.4"><code class="function">lib.sources.commitIdFromGitRepo</code> usage example</a></dt><dt>186. <a href="#id-1.4.2.3.14.2.6"><code class="function">lib.cli.toGNUCommandLineShell</code> usage example</a></dt><dt>187. <a href="#id-1.5.2.6.4.3.5.2.8">Standard output of an update script using commit feature</a></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Preface</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#overview-of-nixpkgs">Overview of Nixpkgs</a></span></dt></dl></div><p>
    The Nix Packages collection (Nixpkgs) is a set of thousands of packages for the <a class="link" href="https://nixos.org/nix/" target="_top">Nix package manager</a>, released under a <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/COPYING" target="_top">permissive MIT/X11 license</a>. Packages are available for several platforms, and can be used with the Nix package manager on most GNU/Linux distributions as well as <a class="link" href="https://nixos.org/nixos" target="_top">NixOS</a>.
   </p><p>
    This manual primarily describes how to write packages for the Nix Packages collection (Nixpkgs). Thus it’s mainly for packagers and developers who want to add packages to Nixpkgs. If you like to learn more about the Nix package manager and the Nix expression language, then you are kindly referred to the <a class="link" href="https://nixos.org/nix/manual/" target="_top">Nix manual</a>. The NixOS distribution is documented in the <a class="link" href="https://nixos.org/nixos/manual/" target="_top">NixOS manual</a>.
@@ -1754,7 +1754,7 @@ hasSuffix "foo" "foobar"
 hasSuffix "foo" "barfoo"
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.hasSuffix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L280" target="_top">lib/strings.nix:280</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L281" target="_top">lib/strings.nix:281</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.hasInfix"></a><code class="function">lib.strings.hasInfix</code></h4></div><div><h5 class="subtitle"><code class="literal">hasInfix :: string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Determine whether a string contains the given infix
@@ -1776,7 +1776,7 @@ hasInfix "cd" "abcd"
 hasInfix "foo" "abcd"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.hasInfix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L317" target="_top">lib/strings.nix:317</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L318" target="_top">lib/strings.nix:318</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.stringToCharacters"></a><code class="function">lib.strings.stringToCharacters</code></h4></div><div><h5 class="subtitle"><code class="literal">stringToCharacters :: string -&gt; [string]</code>
       </h5></div></div></div><p>
        Convert a string to a list of characters (i.e. singleton strings). This allows you to, e.g., map a function over each character. However, note that this will likely be horribly inefficient; Nix is not a general purpose programming language. Complex string manipulations should, if appropriate, be done in a derivation. Also note that Nix treats strings as a list of bytes and thus doesn't handle unicode.
@@ -1792,7 +1792,7 @@ stringToCharacters "abc"
 stringToCharacters "🦄"
 =&gt; [ "�" "�" "�" "�" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.stringToCharacters"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L347" target="_top">lib/strings.nix:347</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L348" target="_top">lib/strings.nix:348</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.stringAsChars"></a><code class="function">lib.strings.stringAsChars</code></h4></div><div><h5 class="subtitle"><code class="literal">stringAsChars :: (string -&gt; string) -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Manipulate a string character by character and replace them by strings before concatenating the results.
@@ -1808,7 +1808,7 @@ stringToCharacters "🦄"
 stringAsChars (x: if x == "a" then "i" else x) "nax"
 =&gt; "nix"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.stringAsChars"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L359" target="_top">lib/strings.nix:359</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L360" target="_top">lib/strings.nix:360</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.charToInt"></a><code class="function">lib.strings.charToInt</code></h4></div><div><h5 class="subtitle"><code class="literal">charToInt :: string -&gt; int</code>
       </h5></div></div></div><p>
        Convert char to ascii value, must be in printable range
@@ -1822,7 +1822,7 @@ charToInt "A"
 charToInt "("
 =&gt; 40
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.charToInt"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L378" target="_top">lib/strings.nix:378</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L379" target="_top">lib/strings.nix:379</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escape"></a><code class="function">lib.strings.escape</code></h4></div><div><h5 class="subtitle"><code class="literal">escape :: [string] -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Escape occurrence of the elements of `list` in `string` by prefixing it with a backslash.
@@ -1834,7 +1834,7 @@ charToInt "("
 escape ["(" ")"] "(foo)"
 =&gt; "\\(foo\\)"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escape"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L389" target="_top">lib/strings.nix:389</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L390" target="_top">lib/strings.nix:390</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeC"></a><code class="function">lib.strings.escapeC</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeC = [string] -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Escape occurrence of the element of `list` in `string` by converting to its ASCII value and prefixing it with \\x. Only works for printable ascii characters.
@@ -1846,7 +1846,7 @@ escape ["(" ")"] "(foo)"
 escapeC [" "] "foo bar"
 =&gt; "foo\\x20bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeC"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L402" target="_top">lib/strings.nix:402</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L403" target="_top">lib/strings.nix:403</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeURL"></a><code class="function">lib.strings.escapeURL</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeURL :: string -&gt; string</code>
       </h5></div></div></div><p>
        Escape the string so it can be safely placed inside a URL query.
@@ -1854,7 +1854,7 @@ escapeC [" "] "foo bar"
 escapeURL "foo/bar baz"
 =&gt; "foo%2Fbar%20baz"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeURL"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L413" target="_top">lib/strings.nix:413</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L414" target="_top">lib/strings.nix:414</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeShellArg"></a><code class="function">lib.strings.escapeShellArg</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeShellArg :: string -&gt; string</code>
       </h5></div></div></div><p>
        Quote string to be used safely within the Bourne shell.
@@ -1866,7 +1866,7 @@ escapeURL "foo/bar baz"
 escapeShellArg "esc'ape\nme"
 =&gt; "'esc'\\''ape\nme'"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeShellArg"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L427" target="_top">lib/strings.nix:427</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L428" target="_top">lib/strings.nix:428</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeShellArgs"></a><code class="function">lib.strings.escapeShellArgs</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeShellArgs :: [string] -&gt; string</code>
       </h5></div></div></div><p>
        Quote all arguments to be safely passed to the Bourne shell.
@@ -1874,7 +1874,7 @@ escapeShellArg "esc'ape\nme"
 escapeShellArgs ["one" "two three" "four'five"]
 =&gt; "'one' 'two three' 'four'\\''five'"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeShellArgs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L437" target="_top">lib/strings.nix:437</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L438" target="_top">lib/strings.nix:438</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isValidPosixName"></a><code class="function">lib.strings.isValidPosixName</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; bool</code>
       </h5></div></div></div><p>
        Test whether the given name is a valid POSIX shell variable name.
@@ -1888,7 +1888,7 @@ isValidPosixName "foo_bar000"
 isValidPosixName "0-bad.jpg"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.isValidPosixName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L449" target="_top">lib/strings.nix:449</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L450" target="_top">lib/strings.nix:450</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toShellVar"></a><code class="function">lib.strings.toShellVar</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; (string | listOf string | attrsOf string) -&gt; string</code>
       </h5></div></div></div><p>
        Translate a Nix value into a shell variable declaration, with proper escaping.
@@ -1910,7 +1910,7 @@ ${toShellVar "foo" "some string"}
 [[ "$foo" == "some string" ]]
 ''
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toShellVar"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L469" target="_top">lib/strings.nix:469</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L470" target="_top">lib/strings.nix:470</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toShellVars"></a><code class="function">lib.strings.toShellVars</code></h4></div><div><h5 class="subtitle"><code class="literal">attrsOf (string | listOf string | attrsOf string) -&gt; string</code>
       </h5></div></div></div><p>
        Translate an attribute set into corresponding shell variable declarations using `toShellVar`.
@@ -1927,7 +1927,7 @@ ${toShellVars { inherit foo bar; }}
 [[ "$foo" == "$bar" ]]
 ''
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toShellVars"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L497" target="_top">lib/strings.nix:497</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L498" target="_top">lib/strings.nix:498</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeNixString"></a><code class="function">lib.strings.escapeNixString</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Turn a string into a Nix expression representing that string
@@ -1939,7 +1939,7 @@ ${toShellVars { inherit foo bar; }}
 escapeNixString "hello\${}\n"
 =&gt; "\"hello\\\${}\\n\""
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeNixString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L507" target="_top">lib/strings.nix:507</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L508" target="_top">lib/strings.nix:508</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeRegex"></a><code class="function">lib.strings.escapeRegex</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Turn a string into an exact regular expression
@@ -1947,7 +1947,7 @@ escapeNixString "hello\${}\n"
 escapeRegex "[^a-z]*"
 =&gt; "\\[\\^a-z]\\*"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeRegex"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L517" target="_top">lib/strings.nix:517</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L518" target="_top">lib/strings.nix:518</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeNixIdentifier"></a><code class="function">lib.strings.escapeNixIdentifier</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Quotes a string if it can't be used as an identifier directly.
@@ -1961,7 +1961,7 @@ escapeNixIdentifier "hello"
 escapeNixIdentifier "0abc"
 =&gt; "\"0abc\""
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeNixIdentifier"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L529" target="_top">lib/strings.nix:529</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L530" target="_top">lib/strings.nix:530</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeXML"></a><code class="function">lib.strings.escapeXML</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Escapes a string such that it is safe to include verbatim in an XML document.
@@ -1969,7 +1969,7 @@ escapeNixIdentifier "0abc"
 escapeXML ''"test" 'test' &lt; &amp; &gt;''
 =&gt; "&amp;quot;test&amp;quot; &amp;apos;test&amp;apos; &amp;lt; &amp;amp; &amp;gt;"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeXML"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L543" target="_top">lib/strings.nix:543</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L544" target="_top">lib/strings.nix:544</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toLower"></a><code class="function">lib.strings.toLower</code></h4></div><div><h5 class="subtitle"><code class="literal">toLower :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to lower-case.
@@ -1977,7 +1977,7 @@ escapeXML ''"test" 'test' &lt; &amp; &gt;''
 toLower "HOME"
 =&gt; "home"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toLower"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L562" target="_top">lib/strings.nix:562</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L563" target="_top">lib/strings.nix:563</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toUpper"></a><code class="function">lib.strings.toUpper</code></h4></div><div><h5 class="subtitle"><code class="literal">toUpper :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to upper-case.
@@ -1985,7 +1985,7 @@ toLower "HOME"
 toUpper "home"
 =&gt; "HOME"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toUpper"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L572" target="_top">lib/strings.nix:572</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L573" target="_top">lib/strings.nix:573</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.addContextFrom"></a><code class="function">lib.strings.addContextFrom</code></h4></div></div></div><p>
        Appends string context from another string. This is an implementation detail of Nix and should be used carefully.
       </p><p>
@@ -2003,7 +2003,7 @@ pkgs = import &lt;nixpkgs&gt; { };
 addContextFrom pkgs.coreutils "bar"
 =&gt; "bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.addContextFrom"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L587" target="_top">lib/strings.nix:587</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L588" target="_top">lib/strings.nix:588</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.splitString"></a><code class="function">lib.strings.splitString</code></h4></div></div></div><p>
        Cut a string with a separator and produces a list of strings which were separated by this separator.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2020,7 +2020,7 @@ splitString "." "foo.bar.baz"
 splitString "/" "/usr/local/bin"
 =&gt; [ "" "usr" "local" "bin" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.splitString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L598" target="_top">lib/strings.nix:598</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L599" target="_top">lib/strings.nix:599</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.removePrefix"></a><code class="function">lib.strings.removePrefix</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Return a string without the specified prefix, if the prefix matches.
@@ -2038,7 +2038,7 @@ removePrefix "foo." "foo.bar.baz"
 removePrefix "xxx" "foo.bar.baz"
 =&gt; "foo.bar.baz"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.removePrefix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L614" target="_top">lib/strings.nix:614</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L615" target="_top">lib/strings.nix:615</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.removeSuffix"></a><code class="function">lib.strings.removeSuffix</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Return a string without the specified suffix, if the suffix matches.
@@ -2056,7 +2056,7 @@ removeSuffix "front" "homefront"
 removeSuffix "xxx" "homefront"
 =&gt; "homefront"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.removeSuffix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L647" target="_top">lib/strings.nix:647</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L648" target="_top">lib/strings.nix:648</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.versionOlder"></a><code class="function">lib.strings.versionOlder</code></h4></div></div></div><p>
        Return true if string v1 denotes a version older than v2.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2073,7 +2073,7 @@ versionOlder "1.1" "1.2"
 versionOlder "1.1" "1.1"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.versionOlder"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L678" target="_top">lib/strings.nix:678</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L679" target="_top">lib/strings.nix:679</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.versionAtLeast"></a><code class="function">lib.strings.versionAtLeast</code></h4></div></div></div><p>
        Return true if string v1 denotes a version equal to or newer than v2.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2092,7 +2092,7 @@ versionAtLeast "1.1" "1.1"
 versionAtLeast "1.1" "1.2"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.versionAtLeast"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L690" target="_top">lib/strings.nix:690</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L691" target="_top">lib/strings.nix:691</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.getName"></a><code class="function">lib.strings.getName</code></h4></div></div></div><p>
        This function takes an argument that's either a derivation or a derivation's "name" attribute and extracts the name part from that argument.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2105,7 +2105,7 @@ getName "youtube-dl-2016.01.01"
 getName pkgs.youtube-dl
 =&gt; "youtube-dl"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.getName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L702" target="_top">lib/strings.nix:702</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L703" target="_top">lib/strings.nix:703</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.getVersion"></a><code class="function">lib.strings.getVersion</code></h4></div></div></div><p>
        This function takes an argument that's either a derivation or a derivation's "name" attribute and extracts the version part from that argument.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2118,7 +2118,7 @@ getVersion "youtube-dl-2016.01.01"
 getVersion pkgs.youtube-dl
 =&gt; "2016.01.01"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.getVersion"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L719" target="_top">lib/strings.nix:719</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L720" target="_top">lib/strings.nix:720</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.nameFromURL"></a><code class="function">lib.strings.nameFromURL</code></h4></div></div></div><p>
        Extract name with version from URL. Ask for separator which is supposed to start extension.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2135,7 +2135,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
 nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2" "_"
 =&gt; "nix-1.7-x86"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.nameFromURL"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L735" target="_top">lib/strings.nix:735</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L736" target="_top">lib/strings.nix:736</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonOption"></a><code class="function">lib.strings.mesonOption</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonOption :: string -&gt; string -&gt; string@param feature The feature to be set@param value The desired value</code>
       </h5></div></div></div><p>
        Create a -D&lt;feature&gt;=&lt;value&gt; string that can be passed to typical Meson invocations.
@@ -2151,7 +2151,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
 mesonOption "engine" "opengl"
 =&gt; "-Dengine=opengl"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L754" target="_top">lib/strings.nix:754</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L755" target="_top">lib/strings.nix:755</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonBool"></a><code class="function">lib.strings.mesonBool</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonBool :: string -&gt; bool -&gt; string@param condition The condition to be made true or false@param flag The controlling flag of the condition</code>
       </h5></div></div></div><p>
        Create a -D&lt;condition&gt;={true,false} string that can be passed to typical Meson invocations.
@@ -2169,7 +2169,7 @@ mesonBool "hardened" true
 mesonBool "static" false
 =&gt; "-Dstatic=false"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonBool"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L773" target="_top">lib/strings.nix:773</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L774" target="_top">lib/strings.nix:774</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonEnable"></a><code class="function">lib.strings.mesonEnable</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonEnable :: string -&gt; bool -&gt; string@param feature The feature to be enabled or disabled@param flag The controlling flag</code>
       </h5></div></div></div><p>
        Create a -D&lt;feature&gt;={enabled,disabled} string that can be passed to typical Meson invocations.
@@ -2187,7 +2187,7 @@ mesonEnable "docs" true
 mesonEnable "savage" false
 =&gt; "-Dsavage=disabled"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonEnable"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L792" target="_top">lib/strings.nix:792</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L793" target="_top">lib/strings.nix:793</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.enableFeature"></a><code class="function">lib.strings.enableFeature</code></h4></div></div></div><p>
        Create an --{enable,disable}-&lt;feat&gt; string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2204,7 +2204,7 @@ enableFeature true "shared"
 enableFeature false "shared"
 =&gt; "--disable-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.enableFeature"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L806" target="_top">lib/strings.nix:806</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L807" target="_top">lib/strings.nix:807</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.enableFeatureAs"></a><code class="function">lib.strings.enableFeatureAs</code></h4></div></div></div><p>
        Create an --{enable-&lt;feat&gt;=&lt;value&gt;,disable-&lt;feat&gt;} string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2225,7 +2225,7 @@ enableFeatureAs true "shared" "foo"
 enableFeatureAs false "shared" (throw "ignored")
 =&gt; "--disable-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.enableFeatureAs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L819" target="_top">lib/strings.nix:819</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L820" target="_top">lib/strings.nix:820</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.withFeature"></a><code class="function">lib.strings.withFeature</code></h4></div></div></div><p>
        Create an --{with,without}-&lt;feat&gt; string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2242,7 +2242,7 @@ withFeature true "shared"
 withFeature false "shared"
 =&gt; "--without-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.withFeature"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L830" target="_top">lib/strings.nix:830</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L831" target="_top">lib/strings.nix:831</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.withFeatureAs"></a><code class="function">lib.strings.withFeatureAs</code></h4></div></div></div><p>
        Create an --{with-&lt;feat&gt;=&lt;value&gt;,without-&lt;feat&gt;} string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2263,7 +2263,7 @@ withFeatureAs true "shared" "foo"
 withFeatureAs false "shared" (throw "ignored")
 =&gt; "--without-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.withFeatureAs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L843" target="_top">lib/strings.nix:843</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L844" target="_top">lib/strings.nix:844</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fixedWidthString"></a><code class="function">lib.strings.fixedWidthString</code></h4></div><div><h5 class="subtitle"><code class="literal">fixedWidthString :: int -&gt; string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Create a fixed width string with additional prefix to match required width.
@@ -2285,7 +2285,7 @@ withFeatureAs false "shared" (throw "ignored")
 fixedWidthString 5 "0" (toString 15)
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L857" target="_top">lib/strings.nix:857</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L858" target="_top">lib/strings.nix:858</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fixedWidthNumber"></a><code class="function">lib.strings.fixedWidthNumber</code></h4></div></div></div><p>
        Format a number adding leading zeroes up to fixed width.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2300,7 +2300,7 @@ fixedWidthString 5 "0" (toString 15)
 fixedWidthNumber 5 15
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthNumber"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L874" target="_top">lib/strings.nix:874</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L875" target="_top">lib/strings.nix:875</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.floatToString"></a><code class="function">lib.strings.floatToString</code></h4></div></div></div><p>
        Convert a float to a string, but emit a warning when precision is lost during the conversion
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2314,11 +2314,11 @@ floatToString 0.0000001
 =&gt; trace: warning: Imprecise conversion from float to string 0.000000
 "0.000000"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.floatToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L886" target="_top">lib/strings.nix:886</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L887" target="_top">lib/strings.nix:887</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isCoercibleToString"></a><code class="function">lib.strings.isCoercibleToString</code></h4></div></div></div><p>
        Soft-deprecated function. While the original implementation is available as isConvertibleWithToString, consider using isStringLike instead, if suitable.
       </p><p><a id="lib.strings.isCoercibleToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L894" target="_top">lib/strings.nix:894</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L895" target="_top">lib/strings.nix:895</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isConvertibleWithToString"></a><code class="function">lib.strings.isConvertibleWithToString</code></h4></div></div></div><p>
        Check whether a list or other value can be passed to toString.
       </p><p>
@@ -2328,7 +2328,7 @@ floatToString 0.0000001
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.isConvertibleWithToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L903" target="_top">lib/strings.nix:903</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L904" target="_top">lib/strings.nix:904</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isStringLike"></a><code class="function">lib.strings.isStringLike</code></h4></div></div></div><p>
        Check whether a value can be coerced to a string. The value must be a string, path, or attribute set.
       </p><p>
@@ -2338,7 +2338,7 @@ floatToString 0.0000001
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.isStringLike"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L914" target="_top">lib/strings.nix:914</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L915" target="_top">lib/strings.nix:915</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isStorePath"></a><code class="function">lib.strings.isStorePath</code></h4></div></div></div><p>
        Check whether a value is a store path.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2355,7 +2355,7 @@ isStorePath pkgs.python
 isStorePath [] || isStorePath 42 || isStorePath {} || …
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.isStorePath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L932" target="_top">lib/strings.nix:932</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L933" target="_top">lib/strings.nix:933</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toInt"></a><code class="function">lib.strings.toInt</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; int</code>
       </h5></div></div></div><p>
        Parse a string as an int. Does not support parsing of integers with preceding zero due to ambiguity between zero-padded and octal numbers. See toIntBase10.
@@ -2380,7 +2380,7 @@ toInt "00024"
 toInt "3.14"
 =&gt; error: floating point JSON numbers are not supported
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toInt"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L962" target="_top">lib/strings.nix:962</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L963" target="_top">lib/strings.nix:963</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toIntBase10"></a><code class="function">lib.strings.toIntBase10</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; int</code>
       </h5></div></div></div><p>
        Parse a string as a base 10 int. This supports parsing of zero-padded integers.
@@ -2404,7 +2404,7 @@ toIntBase10 "00024"
 toIntBase10 "3.14"
 =&gt; error: floating point JSON numbers are not supported
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toIntBase10"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1013" target="_top">lib/strings.nix:1013</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1014" target="_top">lib/strings.nix:1014</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.readPathsFromFile"></a><code class="function">lib.strings.readPathsFromFile</code></h4></div></div></div><p>
        Read a list of paths from `file`, relative to the `rootPath`. Lines beginning with `#` are treated as comments and ignored. Whitespace is significant.
       </p><p>
@@ -2418,7 +2418,7 @@ readPathsFromFile /prefix
 "/prefix/nix-profiles-library-paths.patch"
 "/prefix/compose-search-path.patch" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.readPathsFromFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1056" target="_top">lib/strings.nix:1056</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1057" target="_top">lib/strings.nix:1057</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fileContents"></a><code class="function">lib.strings.fileContents</code></h4></div><div><h5 class="subtitle"><code class="literal">fileContents :: path -&gt; string</code>
       </h5></div></div></div><p>
        Read the contents of a file removing the trailing \n
@@ -2432,7 +2432,7 @@ $ echo "1.0" &gt; ./version
 fileContents ./version
 =&gt; "1.0"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fileContents"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1076" target="_top">lib/strings.nix:1076</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1077" target="_top">lib/strings.nix:1077</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.sanitizeDerivationName"></a><code class="function">lib.strings.sanitizeDerivationName</code></h4></div><div><h5 class="subtitle"><code class="literal">sanitizeDerivationName :: String -&gt; String</code>
       </h5></div></div></div><p>
        Creates a valid derivation name from a potentially invalid one.
@@ -2444,7 +2444,7 @@ sanitizeDerivationName ""
 sanitizeDerivationName pkgs.hello
 =&gt; "-nix-store-2g75chlbpxlrqn15zlby2dfh8hr9qwbk-hello-2.10"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.sanitizeDerivationName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1091" target="_top">lib/strings.nix:1091</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1092" target="_top">lib/strings.nix:1092</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshtein"></a><code class="function">lib.strings.levenshtein</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshtein :: string -&gt; string -&gt; int</code>
       </h5></div></div></div><p>
        Computes the Levenshtein distance between two strings. Complexity O(n*m) where n and m are the lengths of the strings. Algorithm adjusted from https://stackoverflow.com/a/9750974/6605742
@@ -2464,7 +2464,7 @@ levenshtein "book" "hook"
 levenshtein "hello" "Heyo"
 =&gt; 3
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshtein"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1130" target="_top">lib/strings.nix:1130</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1131" target="_top">lib/strings.nix:1131</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonPrefixLength"></a><code class="function">lib.strings.commonPrefixLength</code></h4></div></div></div><p>
        Returns the length of the prefix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2476,7 +2476,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonPrefixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1151" target="_top">lib/strings.nix:1151</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1152" target="_top">lib/strings.nix:1152</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonSuffixLength"></a><code class="function">lib.strings.commonSuffixLength</code></h4></div></div></div><p>
        Returns the length of the suffix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2488,7 +2488,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonSuffixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1159" target="_top">lib/strings.nix:1159</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1160" target="_top">lib/strings.nix:1160</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshteinAtMost"></a><code class="function">lib.strings.levenshteinAtMost</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshteinAtMost :: int -&gt; string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Returns whether the levenshtein distance between two strings is at most some value Complexity is O(min(n,m)) for k &lt;= 2 and O(n*m) otherwise
@@ -2504,7 +2504,7 @@ levenshteinAtMost 2 "This is a sentence" "this is a sentense."
 levenshteinAtMost 3 "This is a sentence" "this is a sentense."
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshteinAtMost"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1183" target="_top">lib/strings.nix:1183</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1184" target="_top">lib/strings.nix:1184</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-versions"></a>lib.versions: version string functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.versions.splitVersion"></a><code class="function">lib.versions.splitVersion</code></h4></div></div></div><p>
        Break a version string into its component parts.
       </p><div class="example"><a id="id-1.4.2.3.6.2.3"></a><p class="title"><strong>Example 103. <code class="function">lib.versions.splitVersion</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -4176,6 +4176,12 @@ Placeholders will not be quoted as they are not actual values:
        Append a subpath string to a path.
       </p><p>
        Like `path + ("/" + string)` but safer, because it errors instead of returning potentially surprising results. More specifically, it checks that the first argument is a [path value type](https://nixos.org/manual/nix/stable/language/values.html#type-path"), and that the second argument is a valid subpath string (see `lib.path.subpath.isValid`).
+      </p><p>
+       Laws:
+      </p><p>
+       - Not influenced by subpath normalisation
+      </p><p>
+       append p s == append p (subpath.normalise s)
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
          <code class="varname">path</code>
         </span></dt><dd><p>
@@ -4184,7 +4190,7 @@ Placeholders will not be quoted as they are not actual values:
          <code class="varname">subpath</code>
         </span></dt><dd><p>
           The subpath string to append
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.2.6"></a><p class="title"><strong>Example 173. <code class="function">lib.path.append</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.2.9"></a><p class="title"><strong>Example 173. <code class="function">lib.path.append</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 append /foo "bar/baz"
 =&gt; /foo/bar/baz
 
@@ -4210,7 +4216,31 @@ append /foo "/bar"
 append /foo "../bar"
 =&gt; &lt;error&gt;
 </pre></div></div><br class="example-break" /><p><a id="lib.path.append"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L140" target="_top">lib/path/default.nix:140</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L164" target="_top">lib/path/default.nix:164</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.path.hasPrefix"></a><code class="function">lib.path.hasPrefix</code></h4></div><div><h5 class="subtitle"><code class="literal">hasPrefix :: Path -&gt; Path -&gt; Bool</code>
+      </h5></div></div></div><p>
+       Whether the first path is a component-wise prefix of the second path.
+      </p><p>
+       Laws:
+      </p><p>
+       - `hasPrefix p q` is only true if `q == append p s` for some subpath `s`.
+      </p><p>
+       - `hasPrefix` is a [non-strict partial order](https://en.wikipedia.org/wiki/Partially_ordered_set#Non-strict_partial_order) over the set of all path values
+      </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
+         <code class="varname">path1</code>
+        </span></dt><dd><p>
+          Function argument
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.3.8"></a><p class="title"><strong>Example 174. <code class="function">lib.path.hasPrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+hasPrefix /foo /foo/bar
+=&gt; true
+hasPrefix /foo /foo
+=&gt; true
+hasPrefix /foo/bar /foo
+=&gt; false
+hasPrefix /. /foo
+=&gt; true
+</pre></div></div><br class="example-break" /><p><a id="lib.path.hasPrefix"></a>
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L198" target="_top">lib/path/default.nix:198</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.path.subpath.isValid"></a><code class="function">lib.path.subpath.isValid</code></h4></div><div><h5 class="subtitle"><code class="literal">subpath.isValid :: String -&gt; Bool</code>
       </h5></div></div></div><p>
        Whether a value is a valid subpath string.
@@ -4226,7 +4256,7 @@ append /foo "../bar"
          <code class="varname">value</code>
         </span></dt><dd><p>
           The value to check
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.3.9"></a><p class="title"><strong>Example 174. <code class="function">lib.path.subpath.isValid</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.4.9"></a><p class="title"><strong>Example 175. <code class="function">lib.path.subpath.isValid</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 # Not a string
 subpath.isValid null
 =&gt; false
@@ -4251,7 +4281,7 @@ subpath.isValid "foo/bar"
 subpath.isValid "./foo//bar/"
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.path.subpath.isValid"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L190" target="_top">lib/path/default.nix:190</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L259" target="_top">lib/path/default.nix:259</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.path.subpath.join"></a><code class="function">lib.path.subpath.join</code></h4></div><div><h5 class="subtitle"><code class="literal">subpath.join :: [ String ] -&gt; String</code>
       </h5></div></div></div><p>
        Join subpath strings together using `/`, returning a normalised subpath string.
@@ -4285,7 +4315,7 @@ subpath.isValid "./foo//bar/"
          <code class="varname">subpaths</code>
         </span></dt><dd><p>
           The list of subpaths to join together
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.4.18"></a><p class="title"><strong>Example 175. <code class="function">lib.path.subpath.join</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.5.18"></a><p class="title"><strong>Example 176. <code class="function">lib.path.subpath.join</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 subpath.join [ "foo" "bar/baz" ]
 =&gt; "./foo/bar/baz"
 
@@ -4307,7 +4337,7 @@ subpath.join [ "/foo" ]
 subpath.join [ "../foo" ]
 =&gt; &lt;error&gt;
 </pre></div></div><br class="example-break" /><p><a id="lib.path.subpath.join"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L252" target="_top">lib/path/default.nix:252</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L321" target="_top">lib/path/default.nix:321</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.path.subpath.normalise"></a><code class="function">lib.path.subpath.normalise</code></h4></div><div><h5 class="subtitle"><code class="literal">subpath.normalise :: String -&gt; String</code>
       </h5></div></div></div><p>
        Normalise a subpath. Throw an error if the subpath isn't valid, see `lib.path.subpath.isValid`
@@ -4345,7 +4375,7 @@ subpath.join [ "../foo" ]
          <code class="varname">subpath</code>
         </span></dt><dd><p>
           The subpath string to normalise
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.5.20"></a><p class="title"><strong>Example 176. <code class="function">lib.path.subpath.normalise</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.11.6.20"></a><p class="title"><strong>Example 177. <code class="function">lib.path.subpath.normalise</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 # limit repeating `/` to a single one
 subpath.normalise "foo//bar"
 =&gt; "./foo/bar"
@@ -4382,11 +4412,11 @@ subpath.normalise ""
 subpath.normalise "/foo"
 =&gt; &lt;error&gt;
 </pre></div></div><br class="example-break" /><p><a id="lib.path.subpath.normalise"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L343" target="_top">lib/path/default.nix:343</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L412" target="_top">lib/path/default.nix:412</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-filesystem"></a>lib.filesystem: filesystem functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.pathType"></a><code class="function">lib.filesystem.pathType</code></h4></div><div><h5 class="subtitle"><code class="literal">pathType :: Path -&gt; String</code>
       </h5></div></div></div><p>
        The type of a path. The path needs to exist and be accessible. The result is either "directory" for a directory, "regular" for a regular file, "symlink" for a symlink, or "unknown" for anything else.
-      </p><div class="example"><a id="id-1.4.2.3.12.2.4"></a><p class="title"><strong>Example 177. <code class="function">lib.filesystem.pathType</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="id-1.4.2.3.12.2.4"></a><p class="title"><strong>Example 178. <code class="function">lib.filesystem.pathType</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 pathType /.
 =&gt; "directory"
 
@@ -4401,7 +4431,7 @@ pathType /some/file.nix
          <code class="varname">path</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.12.3.5"></a><p class="title"><strong>Example 178. <code class="function">lib.filesystem.pathIsDirectory</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.12.3.5"></a><p class="title"><strong>Example 179. <code class="function">lib.filesystem.pathIsDirectory</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 pathIsDirectory /.
 =&gt; true
 
@@ -4419,7 +4449,7 @@ pathIsDirectory /some/file.nix
          <code class="varname">path</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.12.4.5"></a><p class="title"><strong>Example 179. <code class="function">lib.filesystem.pathIsRegularFile</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.12.4.5"></a><p class="title"><strong>Example 180. <code class="function">lib.filesystem.pathIsRegularFile</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 pathIsRegularFile /.
 =&gt; false
 
@@ -4479,7 +4509,7 @@ pathIsRegularFile /some/file.nix
          <code class="varname">src</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.3.4"></a><p class="title"><strong>Example 180. <code class="function">lib.sources.cleanSource</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.3.4"></a><p class="title"><strong>Example 181. <code class="function">lib.sources.cleanSource</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 cleanSource ./.
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.cleanSource"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
@@ -4501,7 +4531,7 @@ cleanSource ./.
             <code class="varname">name</code>
            </span></dt><dd><p>
              Optional name to use as part of the store path.
-            </p></dd></dl></div></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.4.4"></a><p class="title"><strong>Example 181. <code class="function">lib.sources.cleanSourceWith</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+            </p></dd></dl></div></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.4.4"></a><p class="title"><strong>Example 182. <code class="function">lib.sources.cleanSourceWith</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 lib.cleanSourceWith {
 filter = f;
 src = lib.cleanSourceWith {
@@ -4534,7 +4564,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
          <code class="varname">regexes</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.6.4"></a><p class="title"><strong>Example 182. <code class="function">lib.sources.sourceByRegex</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">src = sourceByRegex ./my-subproject [".*\.py$" "^database.sql$"]
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.6.4"></a><p class="title"><strong>Example 183. <code class="function">lib.sources.sourceByRegex</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">src = sourceByRegex ./my-subproject [".*\.py$" "^database.sql$"]
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.sourceByRegex"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.sourceFilesBySuffices"></a><code class="function">lib.sources.sourceFilesBySuffices</code></h4></div><div><h5 class="subtitle"><code class="literal">sourceLike -&gt; [String] -&gt; Source</code>
@@ -4548,7 +4578,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
          <code class="varname">exts</code>
         </span></dt><dd><p>
           A list of file suffix strings
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.7.5"></a><p class="title"><strong>Example 183. <code class="function">lib.sources.sourceFilesBySuffices</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.7.5"></a><p class="title"><strong>Example 184. <code class="function">lib.sources.sourceFilesBySuffices</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 sourceFilesBySuffices ./. [ ".xml" ".c" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.sourceFilesBySuffices"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
@@ -4558,7 +4588,7 @@ sourceFilesBySuffices ./. [ ".xml" ".c" ]
          <code class="varname">path</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.8.4"></a><p class="title"><strong>Example 184. <code class="function">lib.sources.commitIdFromGitRepo</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">commitIdFromGitRepo &lt;nixpkgs/.git&gt;
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.8.4"></a><p class="title"><strong>Example 185. <code class="function">lib.sources.commitIdFromGitRepo</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">commitIdFromGitRepo &lt;nixpkgs/.git&gt;
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.commitIdFromGitRepo"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-cli"></a>lib.cli: command-line serialization functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.cli.toGNUCommandLineShell"></a><code class="function">lib.cli.toGNUCommandLineShell</code></h4></div></div></div><p>
@@ -4575,7 +4605,7 @@ sourceFilesBySuffices ./. [ ".xml" ".c" ]
          <code class="varname">attrs</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.14.2.6"></a><p class="title"><strong>Example 185. <code class="function">lib.cli.toGNUCommandLineShell</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.14.2.6"></a><p class="title"><strong>Example 186. <code class="function">lib.cli.toGNUCommandLineShell</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 cli.toGNUCommandLine {} {
 data = builtins.toJSON { id = 0; };
 X = "PUT";
@@ -5191,7 +5221,7 @@ passthru.updateScript = {
            <code class="literal">commitMessage</code> (optional) – a string to use instead of the default commit message.
           </p></li></ul></div><p>
          If the returned array contains exactly one object (e.g. <code class="literal">[{}]</code>), all values are optional and will be determined automatically.
-        </p><div class="example"><a id="id-1.5.2.6.4.3.5.2.8"></a><p class="title"><strong>Example 186. Standard output of an update script using commit feature</strong></p><div class="example-contents"><pre class="programlisting">
+        </p><div class="example"><a id="id-1.5.2.6.4.3.5.2.8"></a><p class="title"><strong>Example 187. Standard output of an update script using commit feature</strong></p><div class="example-contents"><pre class="programlisting">
 [
   {
     "attrPath": "volume_key",
@@ -9875,7 +9905,7 @@ Download .NET:
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="packaging-a-dotnet-application"></a>Packaging a Dotnet Application</h3></div></div></div><p>
       To package Dotnet applications, you can use <code class="literal">buildDotnetModule</code>. This has similar arguments to <code class="literal">stdenv.mkDerivation</code>, with the following additions:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">projectFile</code> is used for specifying the dotnet project file, relative to the source root. These usually have <code class="literal">.sln</code> or <code class="literal">.csproj</code> file extensions. This can be a list of multiple projects as well. Most of the time dotnet can figure this location out by itself, so this should only be set if necessary.
+        <code class="literal">projectFile</code> is used for specifying the dotnet project file, relative to the source root. These have <code class="literal">.sln</code> (entire solution) or <code class="literal">.csproj</code> (single project) file extensions. This can be a list of multiple projects as well. When omitted, will attempt to find and build the solution (<code class="literal">.sln</code>). If running into problems, make sure to set it to a file (or a list of files) with the <code class="literal">.csproj</code> extension - building applications as entire solutions is not fully supported by the .NET CLI.
        </p></li><li class="listitem"><p>
         <code class="literal">nugetDeps</code> takes either a path to a <code class="literal">deps.nix</code> file, or a derivation. The <code class="literal">deps.nix</code> file can be generated using the script attached to <code class="literal">passthru.fetch-deps</code>. This file can also be generated manually using <code class="literal">nuget-to-nix</code> tool, which is available in nixpkgs. If the argument is a derivation, it will be used directly and assume it has the same output as <code class="literal">mkNugetDeps</code>.
        </p></li><li class="listitem"><p>
@@ -9896,7 +9926,7 @@ Download .NET:
        </p></li><li class="listitem"><p>
         <code class="literal">buildType</code> is used to change the type of build. Possible values are <code class="literal">Release</code>, <code class="literal">Debug</code>, etc. By default, this is set to <code class="literal">Release</code>.
        </p></li><li class="listitem"><p>
-        <code class="literal">selfContainedBuild</code> allows to enable the <a class="link" href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_top">self-contained</a> build flag. By default, it is set to false and generated applications have a dependency on the selected dotnet runtime. If enabled, the dotnet runtime is bundled into the executable and the built app has no dependency on Dotnet.
+        <code class="literal">selfContainedBuild</code> allows to enable the <a class="link" href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_top">self-contained</a> build flag. By default, it is set to false and generated applications have a dependency on the selected dotnet runtime. If enabled, the dotnet runtime is bundled into the executable and the built app has no dependency on .NET.
        </p></li><li class="listitem"><p>
         <code class="literal">useAppHost</code> will enable creation of a binary executable that runs the .NET application using the specified root. More info in <a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/deploying/#publish-framework-dependent" target="_top">Microsoft docs</a>. Enabled by default.
        </p></li><li class="listitem"><p>
@@ -9908,7 +9938,7 @@ Download .NET:
        </p></li><li class="listitem"><p>
         <code class="literal">dotnet-test-sdk</code> is useful in cases where unit tests expect a different dotnet SDK. By default, this is set to the <code class="literal">dotnet-sdk</code> attribute.
        </p></li><li class="listitem"><p>
-        <code class="literal">testProjectFile</code> is useful in cases where the regular project file does not contain the unit tests. It gets restored and build, but not installed. You may need to regenerate your nuget lockfile after setting this.
+        <code class="literal">testProjectFile</code> is useful in cases where the regular project file does not contain the unit tests. It gets restored and build, but not installed. You may need to regenerate your nuget lockfile after setting this. Note that if set, only tests from this project are executed.
        </p></li><li class="listitem"><p>
         <code class="literal">disabledTests</code> is used to disable running specific unit tests. This gets passed as: <code class="literal">dotnet test --filter "FullyQualifiedName!={}"</code>, to ensure compatibility with all unit test frameworks.
        </p></li><li class="listitem"><p>
@@ -12952,7 +12982,7 @@ $ nix-generate-from-cpan XML::Simple
       </p><p>
        The attribute <code class="literal">php</code> refers to the version of PHP considered most stable and thoroughly tested in nixpkgs for any given release of NixOS - not necessarily the latest major release from upstream.
       </p><p>
-       All available PHP attributes are wrappers around their respective binary PHP package and provide commonly used extensions this way. The real PHP 7.4 package, i.e. the unwrapped one, is available as <code class="literal">php81.unwrapped</code>; see the next section for more details.
+       All available PHP attributes are wrappers around their respective binary PHP package and provide commonly used extensions this way. The real PHP 8.1 package, i.e. the unwrapped one, is available as <code class="literal">php81.unwrapped</code>; see the next section for more details.
       </p><p>
        Interactive tools built on PHP are put in <code class="literal">php.packages</code>; composer is for example available at <code class="literal">php.packages.composer</code>.
       </p><p>

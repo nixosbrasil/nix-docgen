@@ -9905,7 +9905,7 @@ Download .NET:
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="packaging-a-dotnet-application"></a>Packaging a Dotnet Application</h3></div></div></div><p>
       To package Dotnet applications, you can use <code class="literal">buildDotnetModule</code>. This has similar arguments to <code class="literal">stdenv.mkDerivation</code>, with the following additions:
      </p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">projectFile</code> is used for specifying the dotnet project file, relative to the source root. These usually have <code class="literal">.sln</code> or <code class="literal">.csproj</code> file extensions. This can be a list of multiple projects as well. Most of the time dotnet can figure this location out by itself, so this should only be set if necessary.
+        <code class="literal">projectFile</code> is used for specifying the dotnet project file, relative to the source root. These have <code class="literal">.sln</code> (entire solution) or <code class="literal">.csproj</code> (single project) file extensions. This can be a list of multiple projects as well. When omitted, will attempt to find and build the solution (<code class="literal">.sln</code>). If running into problems, make sure to set it to a file (or a list of files) with the <code class="literal">.csproj</code> extension - building applications as entire solutions is not fully supported by the .NET CLI.
        </p></li><li class="listitem"><p>
         <code class="literal">nugetDeps</code> takes either a path to a <code class="literal">deps.nix</code> file, or a derivation. The <code class="literal">deps.nix</code> file can be generated using the script attached to <code class="literal">passthru.fetch-deps</code>. This file can also be generated manually using <code class="literal">nuget-to-nix</code> tool, which is available in nixpkgs. If the argument is a derivation, it will be used directly and assume it has the same output as <code class="literal">mkNugetDeps</code>.
        </p></li><li class="listitem"><p>
@@ -9926,7 +9926,7 @@ Download .NET:
        </p></li><li class="listitem"><p>
         <code class="literal">buildType</code> is used to change the type of build. Possible values are <code class="literal">Release</code>, <code class="literal">Debug</code>, etc. By default, this is set to <code class="literal">Release</code>.
        </p></li><li class="listitem"><p>
-        <code class="literal">selfContainedBuild</code> allows to enable the <a class="link" href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_top">self-contained</a> build flag. By default, it is set to false and generated applications have a dependency on the selected dotnet runtime. If enabled, the dotnet runtime is bundled into the executable and the built app has no dependency on Dotnet.
+        <code class="literal">selfContainedBuild</code> allows to enable the <a class="link" href="https://docs.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained" target="_top">self-contained</a> build flag. By default, it is set to false and generated applications have a dependency on the selected dotnet runtime. If enabled, the dotnet runtime is bundled into the executable and the built app has no dependency on .NET.
        </p></li><li class="listitem"><p>
         <code class="literal">useAppHost</code> will enable creation of a binary executable that runs the .NET application using the specified root. More info in <a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/deploying/#publish-framework-dependent" target="_top">Microsoft docs</a>. Enabled by default.
        </p></li><li class="listitem"><p>
@@ -9938,7 +9938,7 @@ Download .NET:
        </p></li><li class="listitem"><p>
         <code class="literal">dotnet-test-sdk</code> is useful in cases where unit tests expect a different dotnet SDK. By default, this is set to the <code class="literal">dotnet-sdk</code> attribute.
        </p></li><li class="listitem"><p>
-        <code class="literal">testProjectFile</code> is useful in cases where the regular project file does not contain the unit tests. It gets restored and build, but not installed. You may need to regenerate your nuget lockfile after setting this.
+        <code class="literal">testProjectFile</code> is useful in cases where the regular project file does not contain the unit tests. It gets restored and build, but not installed. You may need to regenerate your nuget lockfile after setting this. Note that if set, only tests from this project are executed.
        </p></li><li class="listitem"><p>
         <code class="literal">disabledTests</code> is used to disable running specific unit tests. This gets passed as: <code class="literal">dotnet test --filter "FullyQualifiedName!={}"</code>, to ensure compatibility with all unit test frameworks.
        </p></li><li class="listitem"><p>
@@ -12982,7 +12982,7 @@ $ nix-generate-from-cpan XML::Simple
       </p><p>
        The attribute <code class="literal">php</code> refers to the version of PHP considered most stable and thoroughly tested in nixpkgs for any given release of NixOS - not necessarily the latest major release from upstream.
       </p><p>
-       All available PHP attributes are wrappers around their respective binary PHP package and provide commonly used extensions this way. The real PHP 7.4 package, i.e. the unwrapped one, is available as <code class="literal">php81.unwrapped</code>; see the next section for more details.
+       All available PHP attributes are wrappers around their respective binary PHP package and provide commonly used extensions this way. The real PHP 8.1 package, i.e. the unwrapped one, is available as <code class="literal">php81.unwrapped</code>; see the next section for more details.
       </p><p>
        Interactive tools built on PHP are put in <code class="literal">php.packages</code>; composer is for example available at <code class="literal">php.packages.composer</code>.
       </p><p>
