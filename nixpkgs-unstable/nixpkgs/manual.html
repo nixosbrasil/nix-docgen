@@ -3759,7 +3759,7 @@ traceIf true "hello" 3
 trace: hello
 =&gt; 3
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.traceIf"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L51" target="_top">lib/debug.nix:51</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L44" target="_top">lib/debug.nix:44</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceValFn"></a><code class="function">lib.debug.traceValFn</code></h4></div><div><h5 class="subtitle"><code class="literal">traceValFn :: (a -&gt; b) -&gt; a -&gt; a</code>
       </h5></div></div></div><p>
        Trace the supplied value after applying a function to it, and return the original value.
@@ -3776,7 +3776,7 @@ traceValFn (v: "mystring ${v}") "foo"
 trace: mystring foo
 =&gt; "foo"
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.traceValFn"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L69" target="_top">lib/debug.nix:69</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L62" target="_top">lib/debug.nix:62</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceVal"></a><code class="function">lib.debug.traceVal</code></h4></div><div><h5 class="subtitle"><code class="literal">traceVal :: a -&gt; a</code>
       </h5></div></div></div><p>
        Trace the supplied value and return it.
@@ -3785,7 +3785,7 @@ traceVal 42
 # trace: 42
 =&gt; 42
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.traceVal"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L84" target="_top">lib/debug.nix:84</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L77" target="_top">lib/debug.nix:77</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceSeq"></a><code class="function">lib.debug.traceSeq</code></h4></div><div><h5 class="subtitle"><code class="literal">traceSeq :: a -&gt; b -&gt; b</code>
       </h5></div></div></div><p>
        `builtins.trace`, but the value is `builtins.deepSeq`ed first.
@@ -3805,7 +3805,7 @@ traceSeq { a.b.c = 3; } null
 trace: { a = { b = { c = 3; }; }; }
 =&gt; null
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.traceSeq"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L98" target="_top">lib/debug.nix:98</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L91" target="_top">lib/debug.nix:91</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceSeqN"></a><code class="function">lib.debug.traceSeqN</code></h4></div><div><h5 class="subtitle"><code class="literal">traceSeqN :: Int -&gt; a -&gt; b -&gt; b</code>
       </h5></div></div></div><p>
        Like `traceSeq`, but only evaluate down to depth n. This is very useful because lots of `traceSeq` usages lead to an infinite recursion.
@@ -3827,7 +3827,7 @@ trace: { a = { b = {…}; }; }
 =&gt; null
 
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.traceSeqN"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L115" target="_top">lib/debug.nix:115</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L108" target="_top">lib/debug.nix:108</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceValSeqFn"></a><code class="function">lib.debug.traceValSeqFn</code></h4></div></div></div><p>
        A combination of `traceVal` and `traceSeq` that applies a provided function to the value to be traced after `deepSeq`ing it.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3839,11 +3839,11 @@ trace: { a = { b = {…}; }; }
         </span></dt><dd><p>
           Value to trace
          </p></dd></dl></div><p><a id="lib.debug.traceValSeqFn"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L132" target="_top">lib/debug.nix:132</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L125" target="_top">lib/debug.nix:125</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceValSeq"></a><code class="function">lib.debug.traceValSeq</code></h4></div></div></div><p>
        A combination of `traceVal` and `traceSeq`.
       </p><p><a id="lib.debug.traceValSeq"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L139" target="_top">lib/debug.nix:139</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L132" target="_top">lib/debug.nix:132</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceValSeqNFn"></a><code class="function">lib.debug.traceValSeqNFn</code></h4></div></div></div><p>
        A combination of `traceVal` and `traceSeqN` that applies a provided function to the value to be traced.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3859,11 +3859,11 @@ trace: { a = { b = {…}; }; }
         </span></dt><dd><p>
           Value to trace
          </p></dd></dl></div><p><a id="lib.debug.traceValSeqNFn"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L143" target="_top">lib/debug.nix:143</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L136" target="_top">lib/debug.nix:136</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceValSeqN"></a><code class="function">lib.debug.traceValSeqN</code></h4></div></div></div><p>
        A combination of `traceVal` and `traceSeqN`.
       </p><p><a id="lib.debug.traceValSeqN"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L151" target="_top">lib/debug.nix:151</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L144" target="_top">lib/debug.nix:144</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceFnSeqN"></a><code class="function">lib.debug.traceFnSeqN</code></h4></div></div></div><p>
        Trace the input and output of a function `f` named `name`, both down to `depth`.
       </p><p>
@@ -3889,7 +3889,7 @@ traceFnSeqN 2 "id" (x: x) { a.b.c = 3; }
 trace: { fn = "id"; from = { a.b = {…}; }; to = { a.b = {…}; }; }
 =&gt; { a.b.c = 3; }
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.traceFnSeqN"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L164" target="_top">lib/debug.nix:164</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L157" target="_top">lib/debug.nix:157</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.runTests"></a><code class="function">lib.debug.runTests</code></h4></div><div><h5 class="subtitle"><code class="literal">runTests :: {tests = [ String ];${testName} :: {expr :: a;expected :: a;};}-&gt;[{name :: String;expected :: a;result :: a;}]</code>
       </h5></div></div></div><p>
        Evaluates a set of tests.
@@ -3931,7 +3931,7 @@ result = false;
 ]
 
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.runTests"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L236" target="_top">lib/debug.nix:236</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L229" target="_top">lib/debug.nix:229</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.testAllTrue"></a><code class="function">lib.debug.testAllTrue</code></h4></div></div></div><p>
        Create a test assuming that list elements are `true`.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -3941,7 +3941,7 @@ result = false;
          </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.9.13.4"></a><p class="title"><strong>Example 165. <code class="function">lib.debug.testAllTrue</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 { testX = allTrue [ true ]; }
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.testAllTrue"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L252" target="_top">lib/debug.nix:252</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L245" target="_top">lib/debug.nix:245</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-options"></a>lib.options: NixOS / nixpkgs option handling</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.isOption"></a><code class="function">lib.options.isOption</code></h4></div><div><h5 class="subtitle"><code class="literal">isOption :: a -&gt; bool</code>
       </h5></div></div></div><p>
        Returns true when the given argument is an option
@@ -4423,7 +4423,7 @@ pathType /.
 pathType /some/file.nix
 =&gt; "regular"
 </pre></div></div><br class="example-break" /><p><a id="lib.filesystem.pathType"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L37" target="_top">lib/filesystem.nix:37</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L33" target="_top">lib/filesystem.nix:33</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.pathIsDirectory"></a><code class="function">lib.filesystem.pathIsDirectory</code></h4></div><div><h5 class="subtitle"><code class="literal">pathIsDirectory :: Path -&gt; Bool</code>
       </h5></div></div></div><p>
        Whether a path exists and is a directory.
@@ -4441,7 +4441,7 @@ pathIsDirectory /this/does/not/exist
 pathIsDirectory /some/file.nix
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.filesystem.pathIsDirectory"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L69" target="_top">lib/filesystem.nix:69</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L65" target="_top">lib/filesystem.nix:65</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.pathIsRegularFile"></a><code class="function">lib.filesystem.pathIsRegularFile</code></h4></div><div><h5 class="subtitle"><code class="literal">pathIsRegularFile :: Path -&gt; Bool</code>
       </h5></div></div></div><p>
        Whether a path exists and is a regular file, meaning not a symlink or any other special file type.
@@ -4459,7 +4459,7 @@ pathIsRegularFile /this/does/not/exist
 pathIsRegularFile /some/file.nix
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.filesystem.pathIsRegularFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L88" target="_top">lib/filesystem.nix:88</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L84" target="_top">lib/filesystem.nix:84</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.haskellPathsInDir"></a><code class="function">lib.filesystem.haskellPathsInDir</code></h4></div><div><h5 class="subtitle"><code class="literal">Path -&gt; Map String Path</code>
       </h5></div></div></div><p>
        A map of all haskell packages defined in the given path, identified by having a cabal file with the same name as the directory itself.
@@ -4468,7 +4468,7 @@ pathIsRegularFile /some/file.nix
         </span></dt><dd><p>
           The directory within to search
          </p></dd></dl></div><p><a id="lib.filesystem.haskellPathsInDir"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L98" target="_top">lib/filesystem.nix:98</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L94" target="_top">lib/filesystem.nix:94</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.locateDominatingFile"></a><code class="function">lib.filesystem.locateDominatingFile</code></h4></div><div><h5 class="subtitle"><code class="literal">RegExp -&gt; Path -&gt; Nullable { path : Path; matches : [ MatchResults ]; }</code>
       </h5></div></div></div><p>
        Find the first directory containing a file matching 'pattern' upward from a given 'file'. Returns 'null' if no directories contain a file matching 'pattern'.
@@ -4481,7 +4481,7 @@ pathIsRegularFile /some/file.nix
         </span></dt><dd><p>
           The file to start searching upward from
          </p></dd></dl></div><p><a id="lib.filesystem.locateDominatingFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L121" target="_top">lib/filesystem.nix:121</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L117" target="_top">lib/filesystem.nix:117</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.filesystem.listFilesRecursive"></a><code class="function">lib.filesystem.listFilesRecursive</code></h4></div><div><h5 class="subtitle"><code class="literal">Path -&gt; [ Path ]</code>
       </h5></div></div></div><p>
        Given a directory, return a flattened list of all files within it recursively.
@@ -4490,7 +4490,7 @@ pathIsRegularFile /some/file.nix
         </span></dt><dd><p>
           The path to recursively list
          </p></dd></dl></div><p><a id="lib.filesystem.listFilesRecursive"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L149" target="_top">lib/filesystem.nix:149</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/filesystem.nix#L145" target="_top">lib/filesystem.nix:145</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-sources"></a>lib.sources: source filtering functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.cleanSourceFilter"></a><code class="function">lib.sources.cleanSourceFilter</code></h4></div></div></div><p>
        A basic filter for `cleanSourceWith` that removes directories of version control system, backup files (*~) and some generated files.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4502,7 +4502,7 @@ pathIsRegularFile /some/file.nix
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.sources.cleanSourceFilter"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.cleanSource"></a><code class="function">lib.sources.cleanSource</code></h4></div></div></div><p>
        Filters a source tree removing version control files and directories using cleanSourceFilter.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4512,7 +4512,7 @@ pathIsRegularFile /some/file.nix
          </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.3.4"></a><p class="title"><strong>Example 181. <code class="function">lib.sources.cleanSource</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 cleanSource ./.
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.cleanSource"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.cleanSourceWith"></a><code class="function">lib.sources.cleanSourceWith</code></h4></div></div></div><p>
        Like `builtins.filterSource`, except it will compose with itself, allowing you to chain multiple calls together without any intermediate copies being put in the nix store.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4544,7 +4544,7 @@ src = ./.;
 builtins.filterSource f (builtins.filterSource g ./.)
 # Fails!
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.cleanSourceWith"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.trace"></a><code class="function">lib.sources.trace</code></h4></div><div><h5 class="subtitle"><code class="literal">sources.trace :: sourceLike -&gt; Source</code>
       </h5></div></div></div><p>
        Add logging to a source, for troubleshooting the filtering behavior.
@@ -4553,7 +4553,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
         </span></dt><dd><p>
           Source to debug. The returned source will behave like this source, but also log its filter invocations.
          </p></dd></dl></div><p><a id="lib.sources.trace"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.sourceByRegex"></a><code class="function">lib.sources.sourceByRegex</code></h4></div></div></div><p>
        Filter sources by a list of regular expressions.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4566,7 +4566,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
           Function argument
          </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.6.4"></a><p class="title"><strong>Example 183. <code class="function">lib.sources.sourceByRegex</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">src = sourceByRegex ./my-subproject [".*\.py$" "^database.sql$"]
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.sourceByRegex"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.sourceFilesBySuffices"></a><code class="function">lib.sources.sourceFilesBySuffices</code></h4></div><div><h5 class="subtitle"><code class="literal">sourceLike -&gt; [String] -&gt; Source</code>
       </h5></div></div></div><p>
        Get all files ending with the specified suffices from the given source directory or its descendants, omitting files that do not match any suffix. The result of the example below will include files like `./dir/module.c` and `./dir/subdir/doc.xml` if present.
@@ -4581,7 +4581,7 @@ builtins.filterSource f (builtins.filterSource g ./.)
          </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.7.5"></a><p class="title"><strong>Example 184. <code class="function">lib.sources.sourceFilesBySuffices</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 sourceFilesBySuffices ./. [ ".xml" ".c" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.sourceFilesBySuffices"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.sources.commitIdFromGitRepo"></a><code class="function">lib.sources.commitIdFromGitRepo</code></h4></div></div></div><p>
        Get the commit id of a git repo.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -4590,7 +4590,7 @@ sourceFilesBySuffices ./. [ ".xml" ".c" ]
           Function argument
          </p></dd></dl></div><div class="example"><a id="id-1.4.2.3.13.8.4"></a><p class="title"><strong>Example 185. <code class="function">lib.sources.commitIdFromGitRepo</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">commitIdFromGitRepo &lt;nixpkgs/.git&gt;
 </pre></div></div><br class="example-break" /><p><a id="lib.sources.commitIdFromGitRepo"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L277" target="_top">lib/sources.nix:277</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/sources.nix#L271" target="_top">lib/sources.nix:271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-cli"></a>lib.cli: command-line serialization functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.cli.toGNUCommandLineShell"></a><code class="function">lib.cli.toGNUCommandLineShell</code></h4></div></div></div><p>
        Automatically convert an attribute set to command-line options.
       </p><p>
