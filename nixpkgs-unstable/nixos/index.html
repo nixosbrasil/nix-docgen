@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
- <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <title>NixOS Manual</title>
 <link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" />
 <script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script>
@@ -6633,7 +6634,8 @@ multiple value definitions.</p><div class="section"> <div class="titlepage">  <d
 types include multiple string types that mainly differ in how definition
 merging is handled.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">types.bool</code></span></dt><dd><p>A boolean, its values can be <code class="literal">true</code> or <code class="literal">false</code>.</p></dd><dt><span class="term"><code class="literal">types.path</code></span></dt><dd><p>A filesystem path is anything that starts with a slash when
 coerced to a string. Even if derivations can be considered as
-paths, the more specific <code class="literal">types.package</code> should be preferred.</p></dd><dt><span class="term"><code class="literal">types.package</code></span></dt><dd><p>A top-level store path. This can be an attribute set pointing
+paths, the more specific <code class="literal">types.package</code> should be preferred.</p></dd><dt><span class="term"><code class="literal">types.pathInStore</code></span></dt><dd><p>A path that is contained in the Nix store. This can be a top-level store
+path like <code class="literal">pkgs.hello</code> or a descendant like <code class="literal">&quot;${pkgs.hello}/bin/hello&quot;</code>.</p></dd><dt><span class="term"><code class="literal">types.package</code></span></dt><dd><p>A top-level store path. This can be an attribute set pointing
 to a store path, like a derivation or a flake input.</p></dd><dt><span class="term"><code class="literal">types.enum</code> <span class="emphasis"><em><code class="literal">l</code></em></span></span></dt><dd><p>One element of the list <span class="emphasis"><em><code class="literal">l</code></em></span>, e.g. <code class="literal">types.enum [ &quot;left&quot; &quot;right&quot; ]</code>.
 Multiple definitions cannot be merged.</p></dd><dt><span class="term"><code class="literal">types.anything</code></span></dt><dd><p>A type that accepts any value and recursively merges attribute sets
 together. This type is recommended when the option type is unknown.</p><div class="example"><a id="ex-types-anything" /><p class="title"><strong>Example 22. <code class="literal">types.anything</code></strong></p><div class="example-contents"><p>Two definitions of this type like</p><pre class="programlisting">
