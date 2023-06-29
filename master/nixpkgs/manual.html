@@ -9954,7 +9954,7 @@ Download .NET:
        </p></li><li class="listitem"><p>
         <code class="literal">dotnetFlags</code> can be used to pass flags to all of the above phases.
        </p></li></ul></div><p>
-      When packaging a new application, you need to fetch its dependencies. You can run <code class="literal">nix-build -A package.fetch-deps</code> to generate a script that will build a lockfile for you. After running the script you should have the location of the generated lockfile printed to the console, which can be copied to a stable directory. Then set <code class="literal">nugetDeps = ./deps.nix</code> and you’re ready to build the derivation.
+      When packaging a new application, you need to fetch its dependencies. Create an empty <code class="literal">deps.nix</code>, set <code class="literal">nugetDeps = ./deps.nix</code>, then run <code class="literal">nix-build -A package.fetch-deps</code> to generate a script that will build the lockfile for you.
      </p><p>
       Here is an example <code class="literal">default.nix</code>, using some of the previously discussed arguments:
      </p><pre class="programlisting">
@@ -10552,7 +10552,7 @@ done
        </p></li></ul></div><p>
       Many “normal” user facing packages written in Haskell, like <code class="literal">niv</code> or <code class="literal">cachix</code>, are also exposed at the top level, and there is nothing Haskell specific to installing and using them.
      </p><p>
-      All of these packages are originally defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> below)
+      All of these packages are originally defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> or <code class="literal">separateBinOutput</code> below)
      </p><p>
       The <code class="literal">haskellPackages</code> set includes at least one version of every package from Hackage as well as some manually injected packages. This amounts to a lot of packages, so it is hidden from <code class="literal">nix-env -qa</code> by default for performance reasons. You can still list all packages in the set like this:
      </p><pre class="programlisting">
@@ -11825,6 +11825,10 @@ buildNpmPackage rec {
           <code class="literal">makeCacheWritable</code>: Whether to make the cache writable prior to installing dependencies. Don’t set this unless npm tries to write to the cache directory, as it can slow down the build.
          </p></li><li class="listitem"><p>
           <code class="literal">npmBuildScript</code>: The script to run to build the project. Defaults to <code class="literal">"build"</code>.
+         </p></li><li class="listitem"><p>
+          <code class="literal">dontNpmBuild</code>: Option to disable running the build script. Set to <code class="literal">true</code> if the package does not have a build script. Defaults to <code class="literal">false</code>. Alternatively, setting <code class="literal">buildPhase</code> explicitly also disables this.
+         </p></li><li class="listitem"><p>
+          <code class="literal">dontNpmInstall</code>: Option to disable running <code class="literal">npm install</code>. Defaults to <code class="literal">false</code>. Alternatively, setting <code class="literal">installPhase</code> explicitly also disables this.
          </p></li><li class="listitem"><p>
           <code class="literal">npmFlags</code>: Flags to pass to all npm commands.
          </p></li><li class="listitem"><p>
