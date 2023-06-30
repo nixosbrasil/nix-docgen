@@ -11288,6 +11288,22 @@ lib.pipe my-haskell-package [
            <code class="literal">dontCoverage drv</code>
           </span></dt><dd><p>
             Sets the <code class="literal">doCoverage</code> argument to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">enableExecutableProfiling drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">enableExecutableProfiling</code> argument to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">disableExecutableProfiling drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">enableExecutableProfiling</code> argument to <code class="literal">false</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">enableLibraryProfiling drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">enableLibraryProfiling</code> argument to <code class="literal">true</code> for <code class="literal">drv</code>.
+           </p></dd><dt><span class="term">
+           <code class="literal">disableLibraryProfiling drv</code>
+          </span></dt><dd><p>
+            Sets the <code class="literal">enableLibraryProfiling</code> argument to <code class="literal">false</code> for <code class="literal">drv</code>.
            </p></dd></dl></div></div></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="haskell-package-set-lib-functions"></a>Library functions in the Haskell package sets</h5></div></div></div><p>
         Some library functions depend on packages from the Haskell package sets. Thus they are exposed from those instead of from <code class="literal">haskell.lib.compose</code> which can only access what is passed directly to it. When using the functions below, make sure that you are obtaining them from the same package set (<code class="literal">haskellPackages</code>, <code class="literal">haskell.packages.ghc944</code> etc.) as the packages you are working with or – even better – from the <code class="literal">self</code>/<code class="literal">final</code> fix point of your overlay to <code class="literal">haskellPackages</code>.
        </p><p>
@@ -11309,7 +11325,88 @@ lib.pipe my-haskell-package [
        We have been working on <a class="link" href="https://github.com/NixOS/nixpkgs/issues/121403" target="_top">moving the nixpkgs Haskell documentation back into the nixpkgs manual</a>. Since this process has not been completed yet, you may find some topics missing here covered in the old <a class="link" href="https://haskell4nix.readthedocs.io/" target="_top">haskell4nix docs</a>.
       </p><p>
        If you feel any important topic is not documented at all, feel free to comment on the issue linked above.
-      </p></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-hy"></a>Hy</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-hy-installation">Installation</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-hy-installation"></a>Installation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="installation-without-packages"></a>Installation without packages</h4></div></div></div><p>
+      </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="haskell-faq-override-profiling"></a>How to enable or disable profiling builds globally?</h4></div></div></div><p>
+       By default, Nixpkgs builds a profiling version of each Haskell library. The exception to this rule are some platforms where it is disabled due to concerns over output size. You may want to…
+      </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+         …enable profiling globally so that you can build a project you are working on with profiling ability giving you insight in the time spent across your code and code you depend on using <a class="link" href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/profiling.html" target="_top">GHC’s profiling feature</a>.
+        </p></li><li class="listitem"><p>
+         …disable profiling (globally) to reduce the time spent building the profiling versions of libraries which a significant amount of build time is spent on (although they are not as expensive as the “normal” build of a Haskell library).
+        </p></li></ul></div><div class="note"><h3 class="title">Note</h3><p>
+        The method described below affects the build of all libraries in the respective Haskell package set as well as GHC. If your choices differ from Nixpkgs’ default for your (host) platform, you will lose the ability to substitute from the official binary cache.
+       </p><p>
+        If you are concerned about build times and thus want to disable profiling, it probably makes sense to use <code class="literal">haskell.lib.compose.disableLibraryProfiling</code> (see <a class="xref" href="#haskell-trivial-helpers" title="Trivial Helpers">the section called “Trivial Helpers”</a>) on the packages you are building locally while continuing to substitute their dependencies and GHC.
+       </p></div><p>
+       Since we need to change the profiling settings for the desired Haskell package set <span class="emphasis"><em>and</em></span> GHC (as the core libraries like <code class="literal">base</code>, <code class="literal">filepath</code> etc. are bundled with GHC), it is recommended to use overlays for Nixpkgs to change them. Since the interrelated parts, i.e. the package set and GHC, are connected via the Nixpkgs fixpoint, we need to modify them both in a way that preserves their connection (or else we’d have to wire it up again manually). This is achieved by changing GHC and the package set in seperate overlays to prevent the package set from pulling in GHC from <code class="literal">prev</code>.
+      </p><p>
+       The result is two overlays like the ones shown below. Adjustable parts are annotated with comments, as are any optional or alternative ways to achieve the desired profiling settings without causing too many rebuilds.
+      </p><pre class="programlisting">
+let
+  # Name of the compiler and package set you want to change. If you are using
+  # the default package set `haskellPackages`, you need to look up what version
+  # of GHC it currently uses (note that this is subject to change).
+  ghcName = "ghc92";
+  # Desired new setting
+  enableProfiling = true;
+in
+
+[
+  # The first overlay modifies the GHC derivation so that it does or does not
+  # build profiling versions of the core libraries bundled with it. It is
+  # recommended to only use such an overlay if you are enabling profiling on a
+  # platform that doesn't by default, because compiling GHC from scratch is
+  # quite expensive.
+  (final: prev:
+  let
+    inherit (final) lib;
+  in
+
+  {
+    haskell = lib.recursiveUpdate prev.haskell {
+      compiler.${ghcName} = prev.haskell.compiler.${ghcName}.override {
+        # Unfortunately, the GHC setting is named differently for historical reasons
+        enableProfiledLibs = enableProfiling;
+      };
+    };
+  })
+
+  (final: prev:
+  let
+    inherit (final) lib;
+    haskellLib = final.haskell.lib.compose;
+  in
+
+  {
+    haskell = lib.recursiveUpdate prev.haskell {
+      packages.${ghcName} = prev.haskell.packages.${ghcName}.override {
+        overrides = hfinal: hprev: {
+          mkDerivation = args: hprev.mkDerivation (args // {
+            # Since we are forcing our ideas upon mkDerivation, this change will
+            # affect every package in the package set.
+            enableLibraryProfiling = enableProfiling;
+
+            # To actually use profiling on an executable, executable profiling
+            # needs to be enabled for the executable you want to profile. You
+            # can either do this globally or…
+            enableExecutableProfiling = enableProfiling;
+          });
+
+          # …only for the package that contains an executable you want to profile.
+          # That saves on unnecessary rebuilds for packages that you only depend
+          # on for their library, but also contain executables (e.g. pandoc).
+          my-executable = haskellLib.enableExecutableProfiling hprev.my-executable;
+
+          # If you are disabling profiling to save on build time, but want to
+          # retain the ability to substitute from the binary cache. Drop the
+          # override for mkDerivation above and instead have an override like
+          # this for the specific packages you are building locally and want
+          # to make cheaper to build.
+          my-library = haskellLib.disableLibraryProfiling hprev.my-library;
+        };
+      };
+    };
+  })
+]
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-language-hy"></a>Hy</h2></div></div></div><div class="toc"><dl class="toc"><dt><span class="section"><a href="#ssec-hy-installation">Installation</a></span></dt></dl></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="ssec-hy-installation"></a>Installation</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="installation-without-packages"></a>Installation without packages</h4></div></div></div><p>
        You can install <code class="literal">hy</code> via nix-env or by adding it to <code class="literal">configuration.nix</code> by referring to it as a <code class="literal">hy</code> attribute. This kind of installation adds <code class="literal">hy</code> to your environment and it successfully works with <code class="literal">python3</code>.
       </p><div class="caution"><h3 class="title">Caution</h3><p>
         Packages that are installed with your python derivation, are not accessible by <code class="literal">hy</code> this way.
@@ -13414,9 +13511,10 @@ buildPythonPackage rec {
         In the previous case we had only dependencies on other Python packages to consider. Occasionally you have also system libraries to consider. E.g., <code class="literal">lxml</code> provides Python bindings to <code class="literal">libxml2</code> and <code class="literal">libxslt</code>. These libraries are only required when building the bindings and are therefore added as <code class="literal">buildInputs</code>.
        </p><pre class="programlisting">
 { lib
-, pkgs
 , buildPythonPackage
 , fetchPypi
+, libxml2
+, libxslt
 }:
 
 buildPythonPackage rec {
@@ -13430,8 +13528,8 @@ buildPythonPackage rec {
   };
 
   buildInputs = [
-    pkgs.libxml2
-    pkgs.libxslt
+    libxml2
+    libxslt
   ];
 
   meta = with lib; {
@@ -13448,11 +13546,13 @@ buildPythonPackage rec {
         The example below shows bindings to The Fastest Fourier Transform in the West, commonly known as FFTW. On Nix we have separate packages of FFTW for the different types of floats (<code class="literal">"single"</code>, <code class="literal">"double"</code>, <code class="literal">"long-double"</code>). The bindings need all three types, and therefore we add all three as <code class="literal">buildInputs</code>. The bindings don’t expect to find each of them in a different folder, and therefore we have to set <code class="literal">LDFLAGS</code> and <code class="literal">CFLAGS</code>.
        </p><pre class="programlisting">
 { lib
-, pkgs
 , buildPythonPackage
 , fetchPypi
 
 # dependencies
+, fftw
+, fftwFloat
+, fftwLongDouble
 , numpy
 , scipy
 }:
@@ -13468,9 +13568,9 @@ buildPythonPackage rec {
   };
 
   buildInputs = [
-    pkgs.fftw
-    pkgs.fftwFloat
-    pkgs.fftwLongDouble
+    fftw
+    fftwFloat
+    fftwLongDouble
   ];
 
   propagatedBuildInputs = [
@@ -13479,8 +13579,8 @@ buildPythonPackage rec {
   ];
 
   preConfigure = ''
-    export LDFLAGS="-L${pkgs.fftw.dev}/lib -L${pkgs.fftwFloat.out}/lib -L${pkgs.fftwLongDouble.out}/lib"
-    export CFLAGS="-I${pkgs.fftw.dev}/include -I${pkgs.fftwFloat.dev}/include -I${pkgs.fftwLongDouble.dev}/include"
+    export LDFLAGS="-L${fftw.dev}/lib -L${fftwFloat.out}/lib -L${fftwLongDouble.out}/lib"
+    export CFLAGS="-I${fftw.dev}/include -I${fftwFloat.dev}/include -I${fftwLongDouble.dev}/include"
   '';
 
   # Tests cannot import pyfftw. pyfftw works fine though.

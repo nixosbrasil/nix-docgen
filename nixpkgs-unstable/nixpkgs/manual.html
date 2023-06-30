@@ -10552,7 +10552,7 @@ done
        </p></li></ul></div><p>
       Many “normal” user facing packages written in Haskell, like <code class="literal">niv</code> or <code class="literal">cachix</code>, are also exposed at the top level, and there is nothing Haskell specific to installing and using them.
      </p><p>
-      All of these packages are originally defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> below)
+      All of these packages are originally defined in the <code class="literal">haskellPackages</code> package set and are re-exposed with a reduced dependency closure for convenience. (see <code class="literal">justStaticExecutables</code> or <code class="literal">separateBinOutput</code> below)
      </p><p>
       The <code class="literal">haskellPackages</code> set includes at least one version of every package from Hackage as well as some manually injected packages. This amounts to a lot of packages, so it is hidden from <code class="literal">nix-env -qa</code> by default for performance reasons. You can still list all packages in the set like this:
      </p><pre class="programlisting">
