@@ -1529,7 +1529,7 @@ inherit (pkgs) hello figlet;
 concatStrings ["foo" "bar"]
 =&gt; "foobar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatStrings"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L49" target="_top">lib/strings.nix:49</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L50" target="_top">lib/strings.nix:50</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatMapStrings"></a><code class="function">lib.strings.concatMapStrings</code></h4></div><div><h5 class="subtitle"><code class="literal">concatMapStrings :: (a -&gt; string) -&gt; [a] -&gt; string</code>
       </h5></div></div></div><p>
        Map a function over a list and concatenate the resulting strings.
@@ -1545,7 +1545,7 @@ concatStrings ["foo" "bar"]
 concatMapStrings (x: "a" + x) ["foo" "bar"]
 =&gt; "afooabar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatMapStrings"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L59" target="_top">lib/strings.nix:59</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L60" target="_top">lib/strings.nix:60</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatImapStrings"></a><code class="function">lib.strings.concatImapStrings</code></h4></div><div><h5 class="subtitle"><code class="literal">concatImapStrings :: (int -&gt; a -&gt; string) -&gt; [a] -&gt; string</code>
       </h5></div></div></div><p>
        Like `concatMapStrings` except that the f functions also gets the position as a parameter.
@@ -1561,7 +1561,7 @@ concatMapStrings (x: "a" + x) ["foo" "bar"]
 concatImapStrings (pos: x: "${toString pos}-${x}") ["foo" "bar"]
 =&gt; "1-foo2-bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatImapStrings"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L70" target="_top">lib/strings.nix:70</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L71" target="_top">lib/strings.nix:71</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.intersperse"></a><code class="function">lib.strings.intersperse</code></h4></div><div><h5 class="subtitle"><code class="literal">intersperse :: a -&gt; [a] -&gt; [a]</code>
       </h5></div></div></div><p>
        Place an element between each element of a list
@@ -1577,7 +1577,7 @@ concatImapStrings (pos: x: "${toString pos}-${x}") ["foo" "bar"]
 intersperse "/" ["usr" "local" "bin"]
 =&gt; ["usr" "/" "local" "/" "bin"].
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.intersperse"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L80" target="_top">lib/strings.nix:80</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L81" target="_top">lib/strings.nix:81</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatStringsSep"></a><code class="function">lib.strings.concatStringsSep</code></h4></div><div><h5 class="subtitle"><code class="literal">concatStringsSep :: string -&gt; [string] -&gt; string</code>
       </h5></div></div></div><p>
        Concatenate a list of strings with a separator between each element
@@ -1585,7 +1585,7 @@ intersperse "/" ["usr" "local" "bin"]
 concatStringsSep "/" ["usr" "local" "bin"]
 =&gt; "usr/local/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatStringsSep"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L97" target="_top">lib/strings.nix:97</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L98" target="_top">lib/strings.nix:98</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatMapStringsSep"></a><code class="function">lib.strings.concatMapStringsSep</code></h4></div><div><h5 class="subtitle"><code class="literal">concatMapStringsSep :: string -&gt; (a -&gt; string) -&gt; [a] -&gt; string</code>
       </h5></div></div></div><p>
        Maps a function over a list of strings and then concatenates the result with the specified separator interspersed between elements.
@@ -1605,7 +1605,7 @@ concatStringsSep "/" ["usr" "local" "bin"]
 concatMapStringsSep "-" (x: toUpper x)  ["foo" "bar" "baz"]
 =&gt; "FOO-BAR-BAZ"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatMapStringsSep"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L110" target="_top">lib/strings.nix:110</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L111" target="_top">lib/strings.nix:111</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatImapStringsSep"></a><code class="function">lib.strings.concatImapStringsSep</code></h4></div><div><h5 class="subtitle"><code class="literal">concatIMapStringsSep :: string -&gt; (int -&gt; a -&gt; string) -&gt; [a] -&gt; string</code>
       </h5></div></div></div><p>
        Same as `concatMapStringsSep`, but the mapping function additionally receives the position of its argument.
@@ -1625,7 +1625,7 @@ concatMapStringsSep "-" (x: toUpper x)  ["foo" "bar" "baz"]
 concatImapStringsSep "-" (pos: x: toString (x / pos)) [ 6 6 6 ]
 =&gt; "6-3-2"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatImapStringsSep"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L127" target="_top">lib/strings.nix:127</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L128" target="_top">lib/strings.nix:128</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatLines"></a><code class="function">lib.strings.concatLines</code></h4></div><div><h5 class="subtitle"><code class="literal">concatLines :: [string] -&gt; string</code>
       </h5></div></div></div><p>
        Concatenate a list of strings, adding a newline at the end of each one. Defined as `concatMapStrings (s: s + "\n")`.
@@ -1633,7 +1633,7 @@ concatImapStringsSep "-" (pos: x: toString (x / pos)) [ 6 6 6 ]
 concatLines [ "foo" "bar" ]
 =&gt; "foo\nbar\n"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatLines"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L144" target="_top">lib/strings.nix:144</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L145" target="_top">lib/strings.nix:145</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.makeSearchPath"></a><code class="function">lib.strings.makeSearchPath</code></h4></div><div><h5 class="subtitle"><code class="literal">makeSearchPath :: string -&gt; [string] -&gt; string</code>
       </h5></div></div></div><p>
        Construct a Unix-style, colon-separated search path consisting of the given `subDir` appended to each of the given paths.
@@ -1651,7 +1651,7 @@ makeSearchPath "bin" ["/root" "/usr" "/usr/local"]
 makeSearchPath "bin" [""]
 =&gt; "/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.makeSearchPath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L157" target="_top">lib/strings.nix:157</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L158" target="_top">lib/strings.nix:158</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.makeSearchPathOutput"></a><code class="function">lib.strings.makeSearchPathOutput</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; [package] -&gt; string</code>
       </h5></div></div></div><p>
        Construct a Unix-style search path by appending the given `subDir` to the specified `output` of each of the packages. If no output by the given name is found, fallback to `.out` and then to the default.
@@ -1671,7 +1671,7 @@ makeSearchPath "bin" [""]
 makeSearchPathOutput "dev" "bin" [ pkgs.openssl pkgs.zlib ]
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r-dev/bin:/nix/store/wwh7mhwh269sfjkm6k5665b5kgp7jrk2-zlib-1.2.8/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.makeSearchPathOutput"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L175" target="_top">lib/strings.nix:175</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L176" target="_top">lib/strings.nix:176</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.makeLibraryPath"></a><code class="function">lib.strings.makeLibraryPath</code></h4></div></div></div><p>
        Construct a library search path (such as RPATH) containing the libraries for a set of packages
       </p><div class="example"><a id="id-1.4.2.3.5.12.3"></a><p class="title"><strong>Example 52. <code class="function">lib.strings.makeLibraryPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -1681,14 +1681,14 @@ pkgs = import &lt;nixpkgs&gt; { }
 makeLibraryPath [ pkgs.openssl pkgs.zlib ]
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r/lib:/nix/store/wwh7mhwh269sfjkm6k5665b5kgp7jrk2-zlib-1.2.8/lib"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.makeLibraryPath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L193" target="_top">lib/strings.nix:193</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L194" target="_top">lib/strings.nix:194</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.makeBinPath"></a><code class="function">lib.strings.makeBinPath</code></h4></div></div></div><p>
        Construct a binary search path (such as $PATH) containing the binaries for a set of packages.
       </p><div class="example"><a id="id-1.4.2.3.5.13.3"></a><p class="title"><strong>Example 53. <code class="function">lib.strings.makeBinPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 makeBinPath ["/root" "/usr" "/usr/local"]
 =&gt; "/root/bin:/usr/bin:/usr/local/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.makeBinPath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L202" target="_top">lib/strings.nix:202</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L203" target="_top">lib/strings.nix:203</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.normalizePath"></a><code class="function">lib.strings.normalizePath</code></h4></div><div><h5 class="subtitle"><code class="literal">normalizePath :: string -&gt; string</code>
       </h5></div></div></div><p>
        Normalize path, removing extraneous /s
@@ -1700,7 +1700,7 @@ makeBinPath ["/root" "/usr" "/usr/local"]
 normalizePath "/a//b///c/"
 =&gt; "/a/b/c/"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.normalizePath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L212" target="_top">lib/strings.nix:212</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L213" target="_top">lib/strings.nix:213</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.optionalString"></a><code class="function">lib.strings.optionalString</code></h4></div><div><h5 class="subtitle"><code class="literal">optionalString :: bool -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Depending on the boolean `cond', return either the given string or the empty string. Useful to concatenate against a bigger string.
@@ -1718,7 +1718,7 @@ optionalString true "some-string"
 optionalString false "some-string"
 =&gt; ""
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.optionalString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L238" target="_top">lib/strings.nix:238</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L239" target="_top">lib/strings.nix:239</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.hasPrefix"></a><code class="function">lib.strings.hasPrefix</code></h4></div><div><h5 class="subtitle"><code class="literal">hasPrefix :: string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Determine whether a string has given prefix.
@@ -1736,7 +1736,7 @@ hasPrefix "foo" "foobar"
 hasPrefix "foo" "barfoo"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.hasPrefix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L254" target="_top">lib/strings.nix:254</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L255" target="_top">lib/strings.nix:255</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.hasSuffix"></a><code class="function">lib.strings.hasSuffix</code></h4></div><div><h5 class="subtitle"><code class="literal">hasSuffix :: string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Determine whether a string has given suffix.
@@ -1754,7 +1754,7 @@ hasSuffix "foo" "foobar"
 hasSuffix "foo" "barfoo"
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.hasSuffix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L281" target="_top">lib/strings.nix:281</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L282" target="_top">lib/strings.nix:282</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.hasInfix"></a><code class="function">lib.strings.hasInfix</code></h4></div><div><h5 class="subtitle"><code class="literal">hasInfix :: string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Determine whether a string contains the given infix
@@ -1776,7 +1776,7 @@ hasInfix "cd" "abcd"
 hasInfix "foo" "abcd"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.hasInfix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L318" target="_top">lib/strings.nix:318</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L319" target="_top">lib/strings.nix:319</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.stringToCharacters"></a><code class="function">lib.strings.stringToCharacters</code></h4></div><div><h5 class="subtitle"><code class="literal">stringToCharacters :: string -&gt; [string]</code>
       </h5></div></div></div><p>
        Convert a string to a list of characters (i.e. singleton strings). This allows you to, e.g., map a function over each character. However, note that this will likely be horribly inefficient; Nix is not a general purpose programming language. Complex string manipulations should, if appropriate, be done in a derivation. Also note that Nix treats strings as a list of bytes and thus doesn't handle unicode.
@@ -1792,7 +1792,7 @@ stringToCharacters "abc"
 stringToCharacters "🦄"
 =&gt; [ "�" "�" "�" "�" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.stringToCharacters"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L348" target="_top">lib/strings.nix:348</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L349" target="_top">lib/strings.nix:349</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.stringAsChars"></a><code class="function">lib.strings.stringAsChars</code></h4></div><div><h5 class="subtitle"><code class="literal">stringAsChars :: (string -&gt; string) -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Manipulate a string character by character and replace them by strings before concatenating the results.
@@ -1808,7 +1808,7 @@ stringToCharacters "🦄"
 stringAsChars (x: if x == "a" then "i" else x) "nax"
 =&gt; "nix"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.stringAsChars"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L360" target="_top">lib/strings.nix:360</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L361" target="_top">lib/strings.nix:361</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.charToInt"></a><code class="function">lib.strings.charToInt</code></h4></div><div><h5 class="subtitle"><code class="literal">charToInt :: string -&gt; int</code>
       </h5></div></div></div><p>
        Convert char to ascii value, must be in printable range
@@ -1822,7 +1822,7 @@ charToInt "A"
 charToInt "("
 =&gt; 40
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.charToInt"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L379" target="_top">lib/strings.nix:379</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L380" target="_top">lib/strings.nix:380</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escape"></a><code class="function">lib.strings.escape</code></h4></div><div><h5 class="subtitle"><code class="literal">escape :: [string] -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Escape occurrence of the elements of `list` in `string` by prefixing it with a backslash.
@@ -1834,7 +1834,7 @@ charToInt "("
 escape ["(" ")"] "(foo)"
 =&gt; "\\(foo\\)"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escape"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L390" target="_top">lib/strings.nix:390</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L391" target="_top">lib/strings.nix:391</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeC"></a><code class="function">lib.strings.escapeC</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeC = [string] -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Escape occurrence of the element of `list` in `string` by converting to its ASCII value and prefixing it with \\x. Only works for printable ascii characters.
@@ -1846,7 +1846,7 @@ escape ["(" ")"] "(foo)"
 escapeC [" "] "foo bar"
 =&gt; "foo\\x20bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeC"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L403" target="_top">lib/strings.nix:403</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L404" target="_top">lib/strings.nix:404</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeURL"></a><code class="function">lib.strings.escapeURL</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeURL :: string -&gt; string</code>
       </h5></div></div></div><p>
        Escape the string so it can be safely placed inside a URL query.
@@ -1854,7 +1854,7 @@ escapeC [" "] "foo bar"
 escapeURL "foo/bar baz"
 =&gt; "foo%2Fbar%20baz"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeURL"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L414" target="_top">lib/strings.nix:414</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L415" target="_top">lib/strings.nix:415</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeShellArg"></a><code class="function">lib.strings.escapeShellArg</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeShellArg :: string -&gt; string</code>
       </h5></div></div></div><p>
        Quote string to be used safely within the Bourne shell.
@@ -1866,7 +1866,7 @@ escapeURL "foo/bar baz"
 escapeShellArg "esc'ape\nme"
 =&gt; "'esc'\\''ape\nme'"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeShellArg"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L428" target="_top">lib/strings.nix:428</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L429" target="_top">lib/strings.nix:429</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeShellArgs"></a><code class="function">lib.strings.escapeShellArgs</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeShellArgs :: [string] -&gt; string</code>
       </h5></div></div></div><p>
        Quote all arguments to be safely passed to the Bourne shell.
@@ -1874,7 +1874,7 @@ escapeShellArg "esc'ape\nme"
 escapeShellArgs ["one" "two three" "four'five"]
 =&gt; "'one' 'two three' 'four'\\''five'"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeShellArgs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L438" target="_top">lib/strings.nix:438</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L439" target="_top">lib/strings.nix:439</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isValidPosixName"></a><code class="function">lib.strings.isValidPosixName</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; bool</code>
       </h5></div></div></div><p>
        Test whether the given name is a valid POSIX shell variable name.
@@ -1888,7 +1888,7 @@ isValidPosixName "foo_bar000"
 isValidPosixName "0-bad.jpg"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.isValidPosixName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L450" target="_top">lib/strings.nix:450</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L451" target="_top">lib/strings.nix:451</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toShellVar"></a><code class="function">lib.strings.toShellVar</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; (string | listOf string | attrsOf string) -&gt; string</code>
       </h5></div></div></div><p>
        Translate a Nix value into a shell variable declaration, with proper escaping.
@@ -1910,7 +1910,7 @@ ${toShellVar "foo" "some string"}
 [[ "$foo" == "some string" ]]
 ''
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toShellVar"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L470" target="_top">lib/strings.nix:470</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L471" target="_top">lib/strings.nix:471</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toShellVars"></a><code class="function">lib.strings.toShellVars</code></h4></div><div><h5 class="subtitle"><code class="literal">attrsOf (string | listOf string | attrsOf string) -&gt; string</code>
       </h5></div></div></div><p>
        Translate an attribute set into corresponding shell variable declarations using `toShellVar`.
@@ -1927,7 +1927,7 @@ ${toShellVars { inherit foo bar; }}
 [[ "$foo" == "$bar" ]]
 ''
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toShellVars"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L498" target="_top">lib/strings.nix:498</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L499" target="_top">lib/strings.nix:499</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeNixString"></a><code class="function">lib.strings.escapeNixString</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Turn a string into a Nix expression representing that string
@@ -1939,7 +1939,7 @@ ${toShellVars { inherit foo bar; }}
 escapeNixString "hello\${}\n"
 =&gt; "\"hello\\\${}\\n\""
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeNixString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L508" target="_top">lib/strings.nix:508</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L509" target="_top">lib/strings.nix:509</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeRegex"></a><code class="function">lib.strings.escapeRegex</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Turn a string into an exact regular expression
@@ -1947,7 +1947,7 @@ escapeNixString "hello\${}\n"
 escapeRegex "[^a-z]*"
 =&gt; "\\[\\^a-z]\\*"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeRegex"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L518" target="_top">lib/strings.nix:518</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L519" target="_top">lib/strings.nix:519</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeNixIdentifier"></a><code class="function">lib.strings.escapeNixIdentifier</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Quotes a string if it can't be used as an identifier directly.
@@ -1961,7 +1961,7 @@ escapeNixIdentifier "hello"
 escapeNixIdentifier "0abc"
 =&gt; "\"0abc\""
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeNixIdentifier"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L530" target="_top">lib/strings.nix:530</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L531" target="_top">lib/strings.nix:531</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeXML"></a><code class="function">lib.strings.escapeXML</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Escapes a string such that it is safe to include verbatim in an XML document.
@@ -1969,7 +1969,7 @@ escapeNixIdentifier "0abc"
 escapeXML ''"test" 'test' &lt; &amp; &gt;''
 =&gt; "&amp;quot;test&amp;quot; &amp;apos;test&amp;apos; &amp;lt; &amp;amp; &amp;gt;"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeXML"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L544" target="_top">lib/strings.nix:544</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L545" target="_top">lib/strings.nix:545</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toLower"></a><code class="function">lib.strings.toLower</code></h4></div><div><h5 class="subtitle"><code class="literal">toLower :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to lower-case.
@@ -1977,7 +1977,7 @@ escapeXML ''"test" 'test' &lt; &amp; &gt;''
 toLower "HOME"
 =&gt; "home"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toLower"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L563" target="_top">lib/strings.nix:563</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L564" target="_top">lib/strings.nix:564</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toUpper"></a><code class="function">lib.strings.toUpper</code></h4></div><div><h5 class="subtitle"><code class="literal">toUpper :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to upper-case.
@@ -1985,7 +1985,7 @@ toLower "HOME"
 toUpper "home"
 =&gt; "HOME"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toUpper"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L573" target="_top">lib/strings.nix:573</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L574" target="_top">lib/strings.nix:574</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.addContextFrom"></a><code class="function">lib.strings.addContextFrom</code></h4></div></div></div><p>
        Appends string context from another string. This is an implementation detail of Nix and should be used carefully.
       </p><p>
@@ -2003,7 +2003,7 @@ pkgs = import &lt;nixpkgs&gt; { };
 addContextFrom pkgs.coreutils "bar"
 =&gt; "bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.addContextFrom"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L588" target="_top">lib/strings.nix:588</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L589" target="_top">lib/strings.nix:589</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.splitString"></a><code class="function">lib.strings.splitString</code></h4></div></div></div><p>
        Cut a string with a separator and produces a list of strings which were separated by this separator.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2020,7 +2020,7 @@ splitString "." "foo.bar.baz"
 splitString "/" "/usr/local/bin"
 =&gt; [ "" "usr" "local" "bin" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.splitString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L599" target="_top">lib/strings.nix:599</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L600" target="_top">lib/strings.nix:600</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.removePrefix"></a><code class="function">lib.strings.removePrefix</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Return a string without the specified prefix, if the prefix matches.
@@ -2038,7 +2038,7 @@ removePrefix "foo." "foo.bar.baz"
 removePrefix "xxx" "foo.bar.baz"
 =&gt; "foo.bar.baz"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.removePrefix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L615" target="_top">lib/strings.nix:615</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L616" target="_top">lib/strings.nix:616</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.removeSuffix"></a><code class="function">lib.strings.removeSuffix</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Return a string without the specified suffix, if the suffix matches.
@@ -2056,7 +2056,7 @@ removeSuffix "front" "homefront"
 removeSuffix "xxx" "homefront"
 =&gt; "homefront"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.removeSuffix"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L648" target="_top">lib/strings.nix:648</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L649" target="_top">lib/strings.nix:649</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.versionOlder"></a><code class="function">lib.strings.versionOlder</code></h4></div></div></div><p>
        Return true if string v1 denotes a version older than v2.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2073,7 +2073,7 @@ versionOlder "1.1" "1.2"
 versionOlder "1.1" "1.1"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.versionOlder"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L679" target="_top">lib/strings.nix:679</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L680" target="_top">lib/strings.nix:680</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.versionAtLeast"></a><code class="function">lib.strings.versionAtLeast</code></h4></div></div></div><p>
        Return true if string v1 denotes a version equal to or newer than v2.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2092,7 +2092,7 @@ versionAtLeast "1.1" "1.1"
 versionAtLeast "1.1" "1.2"
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.versionAtLeast"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L691" target="_top">lib/strings.nix:691</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L692" target="_top">lib/strings.nix:692</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.getName"></a><code class="function">lib.strings.getName</code></h4></div></div></div><p>
        This function takes an argument that's either a derivation or a derivation's "name" attribute and extracts the name part from that argument.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2105,7 +2105,7 @@ getName "youtube-dl-2016.01.01"
 getName pkgs.youtube-dl
 =&gt; "youtube-dl"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.getName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L703" target="_top">lib/strings.nix:703</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L704" target="_top">lib/strings.nix:704</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.getVersion"></a><code class="function">lib.strings.getVersion</code></h4></div></div></div><p>
        This function takes an argument that's either a derivation or a derivation's "name" attribute and extracts the version part from that argument.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2118,7 +2118,7 @@ getVersion "youtube-dl-2016.01.01"
 getVersion pkgs.youtube-dl
 =&gt; "2016.01.01"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.getVersion"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L720" target="_top">lib/strings.nix:720</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L721" target="_top">lib/strings.nix:721</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.nameFromURL"></a><code class="function">lib.strings.nameFromURL</code></h4></div></div></div><p>
        Extract name with version from URL. Ask for separator which is supposed to start extension.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2135,7 +2135,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
 nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2" "_"
 =&gt; "nix-1.7-x86"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.nameFromURL"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L736" target="_top">lib/strings.nix:736</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L737" target="_top">lib/strings.nix:737</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonOption"></a><code class="function">lib.strings.mesonOption</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonOption :: string -&gt; string -&gt; string@param feature The feature to be set@param value The desired value</code>
       </h5></div></div></div><p>
        Create a -D&lt;feature&gt;=&lt;value&gt; string that can be passed to typical Meson invocations.
@@ -2151,7 +2151,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
 mesonOption "engine" "opengl"
 =&gt; "-Dengine=opengl"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonOption"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L755" target="_top">lib/strings.nix:755</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L756" target="_top">lib/strings.nix:756</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonBool"></a><code class="function">lib.strings.mesonBool</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonBool :: string -&gt; bool -&gt; string@param condition The condition to be made true or false@param flag The controlling flag of the condition</code>
       </h5></div></div></div><p>
        Create a -D&lt;condition&gt;={true,false} string that can be passed to typical Meson invocations.
@@ -2169,7 +2169,7 @@ mesonBool "hardened" true
 mesonBool "static" false
 =&gt; "-Dstatic=false"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonBool"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L774" target="_top">lib/strings.nix:774</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L775" target="_top">lib/strings.nix:775</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.mesonEnable"></a><code class="function">lib.strings.mesonEnable</code></h4></div><div><h5 class="subtitle"><code class="literal">mesonEnable :: string -&gt; bool -&gt; string@param feature The feature to be enabled or disabled@param flag The controlling flag</code>
       </h5></div></div></div><p>
        Create a -D&lt;feature&gt;={enabled,disabled} string that can be passed to typical Meson invocations.
@@ -2187,7 +2187,7 @@ mesonEnable "docs" true
 mesonEnable "savage" false
 =&gt; "-Dsavage=disabled"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.mesonEnable"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L793" target="_top">lib/strings.nix:793</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L794" target="_top">lib/strings.nix:794</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.enableFeature"></a><code class="function">lib.strings.enableFeature</code></h4></div></div></div><p>
        Create an --{enable,disable}-&lt;feat&gt; string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2204,7 +2204,7 @@ enableFeature true "shared"
 enableFeature false "shared"
 =&gt; "--disable-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.enableFeature"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L807" target="_top">lib/strings.nix:807</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L808" target="_top">lib/strings.nix:808</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.enableFeatureAs"></a><code class="function">lib.strings.enableFeatureAs</code></h4></div></div></div><p>
        Create an --{enable-&lt;feat&gt;=&lt;value&gt;,disable-&lt;feat&gt;} string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2225,7 +2225,7 @@ enableFeatureAs true "shared" "foo"
 enableFeatureAs false "shared" (throw "ignored")
 =&gt; "--disable-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.enableFeatureAs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L820" target="_top">lib/strings.nix:820</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L821" target="_top">lib/strings.nix:821</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.withFeature"></a><code class="function">lib.strings.withFeature</code></h4></div></div></div><p>
        Create an --{with,without}-&lt;feat&gt; string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2242,7 +2242,7 @@ withFeature true "shared"
 withFeature false "shared"
 =&gt; "--without-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.withFeature"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L831" target="_top">lib/strings.nix:831</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L832" target="_top">lib/strings.nix:832</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.withFeatureAs"></a><code class="function">lib.strings.withFeatureAs</code></h4></div></div></div><p>
        Create an --{with-&lt;feat&gt;=&lt;value&gt;,without-&lt;feat&gt;} string that can be passed to standard GNU Autoconf scripts.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2263,7 +2263,7 @@ withFeatureAs true "shared" "foo"
 withFeatureAs false "shared" (throw "ignored")
 =&gt; "--without-shared"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.withFeatureAs"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L844" target="_top">lib/strings.nix:844</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L845" target="_top">lib/strings.nix:845</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fixedWidthString"></a><code class="function">lib.strings.fixedWidthString</code></h4></div><div><h5 class="subtitle"><code class="literal">fixedWidthString :: int -&gt; string -&gt; string -&gt; string</code>
       </h5></div></div></div><p>
        Create a fixed width string with additional prefix to match required width.
@@ -2285,7 +2285,7 @@ withFeatureAs false "shared" (throw "ignored")
 fixedWidthString 5 "0" (toString 15)
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L858" target="_top">lib/strings.nix:858</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L859" target="_top">lib/strings.nix:859</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fixedWidthNumber"></a><code class="function">lib.strings.fixedWidthNumber</code></h4></div></div></div><p>
        Format a number adding leading zeroes up to fixed width.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2300,7 +2300,7 @@ fixedWidthString 5 "0" (toString 15)
 fixedWidthNumber 5 15
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthNumber"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L875" target="_top">lib/strings.nix:875</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L876" target="_top">lib/strings.nix:876</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.floatToString"></a><code class="function">lib.strings.floatToString</code></h4></div></div></div><p>
        Convert a float to a string, but emit a warning when precision is lost during the conversion
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2314,11 +2314,11 @@ floatToString 0.0000001
 =&gt; trace: warning: Imprecise conversion from float to string 0.000000
 "0.000000"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.floatToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L887" target="_top">lib/strings.nix:887</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L888" target="_top">lib/strings.nix:888</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isCoercibleToString"></a><code class="function">lib.strings.isCoercibleToString</code></h4></div></div></div><p>
        Soft-deprecated function. While the original implementation is available as isConvertibleWithToString, consider using isStringLike instead, if suitable.
       </p><p><a id="lib.strings.isCoercibleToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L895" target="_top">lib/strings.nix:895</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L896" target="_top">lib/strings.nix:896</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isConvertibleWithToString"></a><code class="function">lib.strings.isConvertibleWithToString</code></h4></div></div></div><p>
        Check whether a list or other value can be passed to toString.
       </p><p>
@@ -2328,7 +2328,7 @@ floatToString 0.0000001
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.isConvertibleWithToString"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L904" target="_top">lib/strings.nix:904</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L905" target="_top">lib/strings.nix:905</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isStringLike"></a><code class="function">lib.strings.isStringLike</code></h4></div></div></div><p>
        Check whether a value can be coerced to a string. The value must be a string, path, or attribute set.
       </p><p>
@@ -2338,7 +2338,7 @@ floatToString 0.0000001
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.isStringLike"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L915" target="_top">lib/strings.nix:915</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L916" target="_top">lib/strings.nix:916</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.isStorePath"></a><code class="function">lib.strings.isStorePath</code></h4></div></div></div><p>
        Check whether a value is a store path.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2355,7 +2355,7 @@ isStorePath pkgs.python
 isStorePath [] || isStorePath 42 || isStorePath {} || …
 =&gt; false
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.isStorePath"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L933" target="_top">lib/strings.nix:933</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L934" target="_top">lib/strings.nix:934</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toInt"></a><code class="function">lib.strings.toInt</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; int</code>
       </h5></div></div></div><p>
        Parse a string as an int. Does not support parsing of integers with preceding zero due to ambiguity between zero-padded and octal numbers. See toIntBase10.
@@ -2380,7 +2380,7 @@ toInt "00024"
 toInt "3.14"
 =&gt; error: floating point JSON numbers are not supported
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toInt"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L963" target="_top">lib/strings.nix:963</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L964" target="_top">lib/strings.nix:964</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toIntBase10"></a><code class="function">lib.strings.toIntBase10</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; int</code>
       </h5></div></div></div><p>
        Parse a string as a base 10 int. This supports parsing of zero-padded integers.
@@ -2404,7 +2404,7 @@ toIntBase10 "00024"
 toIntBase10 "3.14"
 =&gt; error: floating point JSON numbers are not supported
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toIntBase10"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1014" target="_top">lib/strings.nix:1014</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1015" target="_top">lib/strings.nix:1015</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.readPathsFromFile"></a><code class="function">lib.strings.readPathsFromFile</code></h4></div></div></div><p>
        Read a list of paths from `file`, relative to the `rootPath`. Lines beginning with `#` are treated as comments and ignored. Whitespace is significant.
       </p><p>
@@ -2418,7 +2418,7 @@ readPathsFromFile /prefix
 "/prefix/nix-profiles-library-paths.patch"
 "/prefix/compose-search-path.patch" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.readPathsFromFile"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1057" target="_top">lib/strings.nix:1057</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1058" target="_top">lib/strings.nix:1058</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.fileContents"></a><code class="function">lib.strings.fileContents</code></h4></div><div><h5 class="subtitle"><code class="literal">fileContents :: path -&gt; string</code>
       </h5></div></div></div><p>
        Read the contents of a file removing the trailing \n
@@ -2432,7 +2432,7 @@ $ echo "1.0" &gt; ./version
 fileContents ./version
 =&gt; "1.0"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fileContents"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1077" target="_top">lib/strings.nix:1077</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1078" target="_top">lib/strings.nix:1078</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.sanitizeDerivationName"></a><code class="function">lib.strings.sanitizeDerivationName</code></h4></div><div><h5 class="subtitle"><code class="literal">sanitizeDerivationName :: String -&gt; String</code>
       </h5></div></div></div><p>
        Creates a valid derivation name from a potentially invalid one.
@@ -2444,7 +2444,7 @@ sanitizeDerivationName ""
 sanitizeDerivationName pkgs.hello
 =&gt; "-nix-store-2g75chlbpxlrqn15zlby2dfh8hr9qwbk-hello-2.10"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.sanitizeDerivationName"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1092" target="_top">lib/strings.nix:1092</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1093" target="_top">lib/strings.nix:1093</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshtein"></a><code class="function">lib.strings.levenshtein</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshtein :: string -&gt; string -&gt; int</code>
       </h5></div></div></div><p>
        Computes the Levenshtein distance between two strings. Complexity O(n*m) where n and m are the lengths of the strings. Algorithm adjusted from https://stackoverflow.com/a/9750974/6605742
@@ -2464,7 +2464,7 @@ levenshtein "book" "hook"
 levenshtein "hello" "Heyo"
 =&gt; 3
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshtein"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1131" target="_top">lib/strings.nix:1131</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1132" target="_top">lib/strings.nix:1132</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonPrefixLength"></a><code class="function">lib.strings.commonPrefixLength</code></h4></div></div></div><p>
        Returns the length of the prefix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2476,7 +2476,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonPrefixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1152" target="_top">lib/strings.nix:1152</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1153" target="_top">lib/strings.nix:1153</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.commonSuffixLength"></a><code class="function">lib.strings.commonSuffixLength</code></h4></div></div></div><p>
        Returns the length of the suffix common to both strings.
       </p><div class="variablelist"><dl class="variablelist"><dt><span class="term">
@@ -2488,7 +2488,7 @@ levenshtein "hello" "Heyo"
         </span></dt><dd><p>
           Function argument
          </p></dd></dl></div><p><a id="lib.strings.commonSuffixLength"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1160" target="_top">lib/strings.nix:1160</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1161" target="_top">lib/strings.nix:1161</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.levenshteinAtMost"></a><code class="function">lib.strings.levenshteinAtMost</code></h4></div><div><h5 class="subtitle"><code class="literal">levenshteinAtMost :: int -&gt; string -&gt; string -&gt; bool</code>
       </h5></div></div></div><p>
        Returns whether the levenshtein distance between two strings is at most some value Complexity is O(min(n,m)) for k &lt;= 2 and O(n*m) otherwise
@@ -2504,7 +2504,7 @@ levenshteinAtMost 2 "This is a sentence" "this is a sentense."
 levenshteinAtMost 3 "This is a sentence" "this is a sentense."
 =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.levenshteinAtMost"></a>
-       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1184" target="_top">lib/strings.nix:1184</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
+       Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1185" target="_top">lib/strings.nix:1185</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-versions"></a>lib.versions: version string functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.versions.splitVersion"></a><code class="function">lib.versions.splitVersion</code></h4></div></div></div><p>
        Break a version string into its component parts.
       </p><div class="example"><a id="id-1.4.2.3.6.2.3"></a><p class="title"><strong>Example 103. <code class="function">lib.versions.splitVersion</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -12543,7 +12543,30 @@ stdenv.mkDerivation {
 │       │   ├── classworlds-1.1.jar
 </pre><p>
        If your package uses <span class="emphasis"><em>SNAPSHOT</em></span> dependencies or <span class="emphasis"><em>version ranges</em></span>; there is a strong likelihood that over-time your output hash will change since the resolved dependencies may change. Hence this method is less recommended then using <code class="literal">buildMaven</code>.
-      </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="building-a-jar"></a>Building a JAR</h3></div></div></div><p>
+      </p><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="stable-maven-plugins"></a>Stable Maven plugins</h5></div></div></div><p>
+        Maven defines default versions for its core plugins, e.g. <code class="literal">maven-compiler-plugin</code>. If your project does not override these versions, an upgrade of Maven will change the version of the used plugins. This changes the output of the first invocation and the plugins required by the second invocation. However, since a hash is given for the output of the first invocation, the second invocation will simply fail because the requested plugins are missing. This will prevent automatic upgrades of Maven: the manual fix for this is to change the hash of the first invocation.
+       </p><p>
+        To make sure that your package does not add manual effort when upgrading Maven, explicitly define versions for all plugins. You can check if this is the case by adding the following plugin to your (parent) POM:
+       </p><pre class="programlisting">
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
+  &lt;version&gt;3.3.0&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;enforce-plugin-versions&lt;/id&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;enforce&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;rules&gt;
+          &lt;requirePluginVersions /&gt;
+        &lt;/rules&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</pre></div></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="building-a-jar"></a>Building a JAR</h3></div></div></div><p>
       Regardless of which strategy is chosen above, the step to build the derivation is the same.
      </p><pre class="programlisting">
 { stdenv, maven, callPackage }:
