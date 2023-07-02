@@ -633,6 +633,10 @@ self: super:
      Example usages:
     </p><pre class="programlisting">
 pkgs.foo.override { arg1 = val1; arg2 = val2; ... }
+</pre><p>
+     It’s also possible to access the previous arguments.
+    </p><pre class="programlisting">
+pkgs.foo.override (previous: { arg1 = previous.arg1; ... })
 </pre><pre class="programlisting">
 import pkgs.path { overlays = [ (self: super: {
   foo = super.foo.override { barSupport = true ; };
@@ -646,19 +650,27 @@ mypkg = pkgs.callPackage ./mypkg.nix {
     </p></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkg-overrideAttrs"></a>&lt;pkg&gt;.overrideAttrs</h2></div></div></div><p>
      The function <code class="literal">overrideAttrs</code> allows overriding the attribute set passed to a <code class="literal">stdenv.mkDerivation</code> call, producing a new derivation based on the original one. This function is available on all derivations produced by the <code class="literal">stdenv.mkDerivation</code> function, which is most packages in the nixpkgs expression <code class="literal">pkgs</code>.
     </p><p>
-     Example usage:
+     Example usages:
     </p><pre class="programlisting">
-helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
-  separateDebugInfo = true;
+helloBar = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
+  pname = previousAttrs.pname + "-bar";
 });
 </pre><p>
-     In the above example, the <code class="literal">separateDebugInfo</code> attribute is overridden to be true, thus building debug info for <code class="literal">helloWithDebug</code>, while all other attributes will be retained from the original <code class="literal">hello</code> package.
+     In the above example, <span class="quote">“<span class="quote">-bar</span>”</span> is appended to the pname attribute, while all other attributes will be retained from the original <code class="literal">hello</code> package.
     </p><p>
      The argument <code class="literal">previousAttrs</code> is conventionally used to refer to the attr set originally passed to <code class="literal">stdenv.mkDerivation</code>.
     </p><p>
      The argument <code class="literal">finalAttrs</code> refers to the final attributes passed to <code class="literal">mkDerivation</code>, plus the <code class="literal">finalPackage</code> attribute which is equal to the result of <code class="literal">mkDerivation</code> or subsequent <code class="literal">overrideAttrs</code> calls.
     </p><p>
      If only a one-argument function is written, the argument has the meaning of <code class="literal">previousAttrs</code>.
+    </p><p>
+     Function arguments can be omitted entirely if there is no need to access <code class="literal">previousAttrs</code> or <code class="literal">finalAttrs</code>.
+    </p><pre class="programlisting">
+helloWithDebug = pkgs.hello.overrideAttrs {
+  separateDebugInfo = true;
+};
+</pre><p>
+     In the above example, the <code class="literal">separateDebugInfo</code> attribute is overridden to be true, thus building debug info for <code class="literal">helloWithDebug</code>.
     </p><div class="note"><h3 class="title">Note</h3><p>
       Note that <code class="literal">separateDebugInfo</code> is processed only by the <code class="literal">stdenv.mkDerivation</code> function, not the generated, raw Nix derivation. Thus, using <code class="literal">overrideDerivation</code> will not work in this case, as it overrides only the attributes of the final derivation. It is for this reason that <code class="literal">overrideAttrs</code> should be preferred in (almost) all cases to <code class="literal">overrideDerivation</code>, i.e. to allow using <code class="literal">stdenv.mkDerivation</code> to process input arguments, as well as the fact that it is easier to use (you can use the same attribute names you see in your Nix code, instead of the ones generated (e.g. <code class="literal">buildInputs</code> vs <code class="literal">nativeBuildInputs</code>), and it involves less typing).
      </p></div></div><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-pkg-overrideDerivation"></a>&lt;pkg&gt;.overrideDerivation</h2></div></div></div><div class="warning"><h3 class="title">Warning</h3><p>
