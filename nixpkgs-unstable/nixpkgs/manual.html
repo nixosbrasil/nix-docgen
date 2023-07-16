@@ -6094,14 +6094,15 @@ haskellPackages.abc-puzzle                                                  abc-
 …
 </pre><p>Also, the <code class="literal">haskellPackages</code> set is included on <a class="link" href="https://search.nixos.org"  target="_top">search.nixos.org</a>.</p><p>The attribute names in <code class="literal">haskellPackages</code> always correspond with their name on
 Hackage. Since Hackage allows names that are not valid Nix without escaping,
-you need to take care when handling attribute names like <code class="literal">3dmodels</code>.</p><p>For packages that are part of <a class="link" href="https://www.stackage.org"  target="_top">Stackage</a>, we use the version prescribed by a
-Stackage solver (usually the current LTS one) as the default version. For all
-other packages we use the latest version from Hackage. See
-<a class="link" href="#haskell-available-versions" title="Available package versions" >below</a> to learn which versions are provided
-exactly.</p><p>Roughly half of the 16K packages contained in <code class="literal">haskellPackages</code> don’t actually
-build and are marked as broken semi-automatically. Most of those packages are
-deprecated or unmaintained, but sometimes packages that should build, do not
-build. Very often fixing them is not a lot of work.</p><p><code class="literal">haskellPackages</code> is built with our default compiler, but we also provide other
+you need to take care when handling attribute names like <code class="literal">3dmodels</code>.</p><p>For packages that are part of <a class="link" href="https://www.stackage.org"  target="_top">Stackage</a> (a curated set of known to be
+compatible packages), we use the version prescribed by a Stackage snapshot
+(usually the current LTS one) as the default version. For all other packages we
+use the latest version from <a class="link" href="https://hackage.org"  target="_top">Hackage</a> (the repository of
+basically all open source Haskell packages). See [below](#haskell-available-
+versions) for a few more details on this.</p><p>Roughly half of the 16K packages contained in <code class="literal">haskellPackages</code> don’t actually
+build and are <a class="link" href="https://github.com/NixOS/nixpkgs/blob/haskell-updates/pkgs/development/haskell-modules/configuration-hackage2nix/broken.yaml"  target="_top">marked as broken semi-automatically</a>.
+Most of those packages are deprecated or unmaintained, but sometimes packages
+that should build, do not build. Very often fixing them is not a lot of work.</p><p><code class="literal">haskellPackages</code> is built with our default compiler, but we also provide other
 releases of GHC and package sets built with them. You can list all available
 compilers like this:</p><pre class="programlisting">
 $ nix-env -f &#x27;&lt;nixpkgs&gt;&#x27; -qaP -A haskell.compiler
@@ -6153,23 +6154,30 @@ haskell.packages.ghc927.abacate                                                 
 haskell.packages.ghc927.abc-puzzle                                                  abc-puzzle-0.2.1
 …
 </pre><p>Every package set also re-exposes the GHC used to build its packages as <code class="literal">haskell.packages.*.ghc</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="haskell-available-versions"></a>Available package versions   </h4>  </div> </div></div><p>We aim for a “blessed” package set which only contains one version of each
-package, like Stackage (and based on it) but with more packages. Normally in
-nixpkgs the number of building Haskell packages is roughly two to three times
-the size of Stackage. For choosing the version to use for a certain package we
-use the following rules:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>By default, for every package <code class="literal">haskellPackages.foo</code> is the newest version
-found on Hackage (at the time of the last update of our package set).</p></li><li class="listitem"><p>If the Stackage snapshot that we use (usually the newest LTS snapshot)
-contains a package, we use the Stackage version as default version for that
-package.</p></li><li class="listitem"><p>For some packages, which are not on Stackage, we have manual overrides to
-set the default version to a version older than the newest on Hackage. We do
-this to get them or their reverse dependencies to compile in our package set.</p></li><li class="listitem"><p>For all packages, for which the newest Hackage version is not the default
+package, like <a class="link" href="https://www.stackage.org"  target="_top">Stackage</a>, which is a curated set of known to be compatible
+packages. We use the version information from Stackage snapshots and extend it
+with more packages. Normally in Nixpkgs the number of building Haskell packages
+is roughly two to three times the size of Stackage. For choosing the version to
+use for a certain package we use the following rules:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>By default, for <code class="literal">haskellPackages.foo</code> is the newest version of the package
+<code class="literal">foo</code> found on <a class="link" href="https://hackage.org"  target="_top">Hackage</a>, which is the central registry
+of all open source Haskell packages. Nixpkgs contains a reference to a pinned
+Hackage snapshot, thus we use the state of Hackage as of the last time we
+updated this pin.</p></li><li class="listitem"><p>If the <a class="link" href="https://www.stackage.org"  target="_top">Stackage</a> snapshot that we use (usually the newest LTS snapshot)
+contains a package, <a class="link" href="https://github.com/NixOS/nixpkgs/blob/haskell-updates/pkgs/development/haskell-modules/configuration-hackage2nix/stackage.yaml"  target="_top">we use instead the version in the Stackage snapshot as
+default version for that package.</a></p></li><li class="listitem"><p>For some packages, which are not on Stackage, we have if necessary <a class="link" href="https://github.com/NixOS/nixpkgs/blob/haskell-updates/pkgs/development/haskell-modules/configuration-hackage2nix/main.yaml"  target="_top">manual
+overrides to set the default version to a version older than the newest on
+Hackage.</a></p></li><li class="listitem"><p>For all packages, for which the newest Hackage version is not the default
 version, there will also be a <code class="literal">haskellPackages.foo_x_y_z</code> package with the
 newest version. The <code class="literal">x_y_z</code> part encodes the version with dots replaced by
 underscores. When the newest version changes by a new release to Hackage the
 old package will disappear under that name and be replaced by a newer one under
 the name with the new version. The package name including the version will
 also disappear when the default version e.g. from Stackage catches up with the
-newest version from Hackage.</p></li><li class="listitem"><p>For some packages, we also manually add other <code class="literal">haskellPackages.foo_x_y_z</code>
-versions, if they are required for a certain build.</p></li></ol></div><p>Relying on <code class="literal">haskellPackages.foo_x_y_z</code> attributes in derivations outside
+newest version from Hackage. E.g. if <code class="literal">haskellPackages.foo</code> gets updated from
+1.0.0 to 1.1.0 the package <code class="literal">haskellPackages.foo_1_1_0</code> becomes obsolete and
+gets dropped.</p></li><li class="listitem"><p>For some packages, we also <a class="link" href="https://github.com/NixOS/nixpkgs/blob/haskell-updates/pkgs/development/haskell-modules/configuration-hackage2nix/main.yaml"  target="_top">manually add other <code class="literal">haskellPackages.foo_x_y_z</code>
+versions</a>,
+if they are required for a certain build.</p></li></ol></div><p>Relying on <code class="literal">haskellPackages.foo_x_y_z</code> attributes in derivations outside
 nixpkgs is discouraged because they may change or disappear with every package
 set update.
 </p><p>All <code class="literal">haskell.packages.*</code> package sets use the same package descriptions and the same sets
