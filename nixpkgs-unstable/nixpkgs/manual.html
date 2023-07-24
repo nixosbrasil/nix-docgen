@@ -9790,7 +9790,7 @@ rustPlatform.buildRustPackage rec {
     description = &quot;A fast line-oriented regex search tool, similar to ag and ack&quot;;
     homepage = &quot;https://github.com/BurntSushi/ripgrep&quot;;
     license = licenses.unlicense;
-    maintainers = [ maintainers.tailhook ];
+    maintainers = [];
   };
 }
 </pre><p><code class="literal">buildRustPackage</code> requires either the <code class="literal">cargoSha256</code> or the
@@ -10389,7 +10389,7 @@ rustPlatform.buildRustPackage rec {
     description = &quot;A fast line-oriented regex search tool, similar to ag and ack&quot;;
     homepage = &quot;https://github.com/BurntSushi/ripgrep&quot;;
     license = with licenses; [ mit unlicense ];
-    maintainers = with maintainers; [ tailhook ];
+    maintainers = with maintainers; [];
   };
 }
 </pre><p>Follow the below steps to try that snippet.</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>save the above snippet as <code class="literal">default.nix</code> in that directory</p></li><li class="listitem"><p>cd into that directory and run <code class="literal">nix-build</code></p></li></ol></div><p>Fenix also has examples with <code class="literal">buildRustPackage</code>,
