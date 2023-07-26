@@ -329,6 +329,31 @@ pkgs/top-level/config.nix
 </dd>
 <dt>
  <span class="term">
+ <a id="opt-cudaSupport"></a><a class="term" href="#opt-cudaSupport"><code class="option">cudaSupport</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to build packages with CUDA support by default while building nixpkgs packages.
+Changing the default may cause a mass rebuild.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/config.nix" target="_top">
+pkgs/top-level/config.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="opt-doCheckByDefault"></a><a class="term" href="#opt-doCheckByDefault"><code class="option">doCheckByDefault</code>
   </a>
  </span>
@@ -5263,8 +5288,11 @@ includes the <code class="literal">cudatoolkit</code>, portions of the toolkit i
 packages. Additionally, other versions of the packages that are packaged and
 compatible are available as well. For example, there can be a
 <code class="literal">cudaPackages.cudnn_8_3</code> package.</p><p>To use one or more CUDA packages in an expression, give the expression a <code class="literal">cudaPackages</code> parameter, and in case CUDA is optional</p><pre class="programlisting">
-cudaSupport ? false
-cudaPackages ? {}
+{ config
+, cudaSupport ? config.cudaSupport
+, cudaPackages ? { }
+, ...
+}:
 </pre><p>When using <code class="literal">callPackage</code>, you can choose to pass in a different variant, e.g.
 when a different version of the toolkit suffices</p><pre class="programlisting">
 mypkg = callPackage { cudaPackages = cudaPackages_11_5; }
@@ -11133,7 +11161,9 @@ on pkg-config.</p>
 ibus-engines.typing-booster.override { langs = [ &quot;de-at&quot; &quot;en-gb&quot; ]; }
 </pre><p><span class="emphasis"><em>Note: each language passed to <code class="literal">langs</code> must be an attribute name in <code class="literal">pkgs.hunspellDicts</code>.</em></span></p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-ibus-typing-booster-emoji-picker"></a>Built-in emoji picker   </h3>  </div> </div></div><p>The <code class="literal">ibus-engines.typing-booster</code> package contains a program named <code class="literal">emoji-picker</code>. To display all emojis correctly, a special font such as <code class="literal">noto-fonts-emoji</code> is needed:</p><p>On NixOS, it can be installed using the following expression:</p><pre class="programlisting">
-{ pkgs, ... }: { fonts.fonts = with pkgs; [ noto-fonts-emoji ]; }
+{ pkgs, ... }: {
+  fonts.packages = with pkgs; [ noto-fonts-emoji ];
+}
 </pre>
 </div>
 
