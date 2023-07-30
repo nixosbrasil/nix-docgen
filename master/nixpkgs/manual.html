@@ -11965,15 +11965,9 @@ suggestion) You should pay extra attention to make sure the addition doesn’t g
 against the idea of the original PR and would not be opposed by the author.</p><p>Please see the discussion in <a class="link" href="https://github.com/NixOS/nixpkgs/issues/50105"  target="_top">GitHub nixpkgs issue #50105</a> for information on how to proceed to be granted this level of access.</p><p>In a case a contributor definitively leaves the Nix community, they should create an issue or post on <a class="link" href="https://discourse.nixos.org"  target="_top">Discourse</a> with references of packages and modules they maintain so the maintainership can be taken over by other contributors.</p>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-contributing"></a>Contributing to this documentation   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#sec-contributing-devmode">devmode</a> </span></dt><dt> <span class="section">  <a href="#sec-contributing-markup">Syntax</a> </span></dt> </dl></div><p>The sources of the Nixpkgs manual are in the <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/doc"  target="_top">doc</a> subdirectory of the Nixpkgs repository. The manual is still partially written in DocBook but it is progressively being converted to <a class="link" href="#sec-contributing-markup" title="Syntax" >Markdown</a>.</p><p>You can quickly check your edits with <code class="literal">make</code>:</p><pre class="programlisting">
-$ cd /path/to/nixpkgs/doc
-$ nix-shell
-[nix-shell]$ make
-</pre><p>If you experience problems, run <code class="literal">make debug</code> to help understand the docbook errors.</p><p>After making modifications to the manual, it’s important to build it before committing. You can do that as follows:</p><pre class="programlisting">
-$ cd /path/to/nixpkgs/doc
-$ nix-shell
-[nix-shell]$ make clean
-[nix-shell]$ nix-build .
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-contributing"></a>Contributing to this documentation   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#sec-contributing-devmode">devmode</a> </span></dt><dt> <span class="section">  <a href="#sec-contributing-markup">Syntax</a> </span></dt> </dl></div><p>The sources of the Nixpkgs manual are in the <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/doc"  target="_top">doc</a> subdirectory of the Nixpkgs repository.</p><p>You can quickly check your edits with <code class="literal">nix-build</code>:</p><pre class="programlisting">
+$ cd /path/to/nixpkgs
+$ nix-build doc
 </pre><p>If the build succeeds, the manual will be in <code class="literal">./result/share/doc/nixpkgs/manual.html</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-contributing-devmode"></a>devmode   </h2>  </div> </div></div><p>The shell in the manual source directory makes available a command, <code class="literal">devmode</code>.
 It is a daemon, that:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>watches the manual’s source for changes and when they occur — rebuilds</p></li><li class="listitem"><p>HTTP serves the manual, injecting a script that triggers reload on changes</p></li><li class="listitem"><p>opens the manual in the default browser</p></li></ol></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-contributing-markup"></a>Syntax   </h2>  </div> </div></div><p>As per <a class="link" href="https://github.com/NixOS/rfcs/pull/72"  target="_top">RFC 0072</a>, all new documentation content should be written in <a class="link" href="https://commonmark.org/"  target="_top">CommonMark</a> Markdown dialect.</p><p>Additional syntax extensions are available, all of which can be used in NixOS option documentation. The following extensions are currently used:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><a id="ssec-contributing-markup-anchors" />
@@ -11996,7 +11990,7 @@ pear
 
 watermelon
 :   green fruit with red flesh
-</pre><p>which renders as</p><div class="blockquote"><blockquote class="blockquote"><div class="variablelist"><dl class="variablelist"><dt><span class="term">pear</span></dt><dd><p>green or yellow bulbous fruit</p></dd><dt><span class="term">watermelon</span></dt><dd><p>green fruit with red flesh</p></dd></dl></div></blockquote></div></li></ul></div><p>For contributing to the legacy parts, please see <a class="link" href="https://tdg.docbook.org/"  target="_top">DocBook: The Definitive Guide</a> or the <a class="link" href="https://web.archive.org/web/20200816233747/https://docbook.rocks/"  target="_top">DocBook rocks! primer</a>.</p>
+</pre><p>which renders as</p><div class="blockquote"><blockquote class="blockquote"><div class="variablelist"><dl class="variablelist"><dt><span class="term">pear</span></dt><dd><p>green or yellow bulbous fruit</p></dd><dt><span class="term">watermelon</span></dt><dd><p>green fruit with red flesh</p></dd></dl></div></blockquote></div></li></ul></div>
 </div>
 
 </div>
