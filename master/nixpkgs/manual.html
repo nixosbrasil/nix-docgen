@@ -782,11 +782,11 @@ getAttrFromPath [&quot;z&quot; &quot;z&quot;] x
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L104"  target="_top">lib/attrsets.nix:104</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.concatMapAttrs"></a><code class="literal">lib.attrsets.concatMapAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">concatMapAttrs :: (String -&gt; a -&gt; AttrSet) -&gt; AttrSet -&gt; AttrSet</code></p><p>Map each attribute in the given set and merge them into a new attribute set.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">v</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.concatMapAttrs" /><p class="title"><strong>Example 7. <code class="literal">lib.attrsets.concatMapAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatMapAttrs
-(name: value: {
-${name} = value;
-${name + value} = value;
-})
-{ x = &quot;a&quot;; y = &quot;b&quot;; }
+  (name: value: {
+    ${name} = value;
+    ${name + value} = value;
+  })
+  { x = &quot;a&quot;; y = &quot;b&quot;; }
 =&gt; { x = &quot;a&quot;; xa = &quot;a&quot;; y = &quot;b&quot;; yb = &quot;b&quot;; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L126"  target="_top">lib/attrsets.nix:126</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.updateManyAttrsByPath"></a><code class="literal">lib.attrsets.updateManyAttrsByPath</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">updateManyAttrsByPath :: [{ path :: [String]; update :: (Any -&gt; Any); }] -&gt; AttrSet -&gt; AttrSet</code></p><p>Update or set specific paths of an attribute set.</p><p>Takes a list of updates to apply and an attribute set to apply them to,
@@ -802,18 +802,18 @@ attribute set, an error is thrown</p></li><li class="listitem"><p>If there is an
 accessing the argument in the update function causes an error, but
 intermediate attribute sets are implicitly created as needed</p></li></ul></div><div class="example"><a id="function-library-example-lib.attrsets.updateManyAttrsByPath" /><p class="title"><strong>Example 8. <code class="literal">lib.attrsets.updateManyAttrsByPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 updateManyAttrsByPath [
-{
-path = [ &quot;a&quot; &quot;b&quot; ];
-update = old: { d = old.c; };
-}
-{
-path = [ &quot;a&quot; &quot;b&quot; &quot;c&quot; ];
-update = old: old + 1;
-}
-{
-path = [ &quot;x&quot; &quot;y&quot; ];
-update = old: &quot;xy&quot;;
-}
+  {
+    path = [ &quot;a&quot; &quot;b&quot; ];
+    update = old: { d = old.c; };
+  }
+  {
+    path = [ &quot;a&quot; &quot;b&quot; &quot;c&quot; ];
+    update = old: old + 1;
+  }
+  {
+    path = [ &quot;x&quot; &quot;y&quot; ];
+    update = old: &quot;xy&quot;;
+  }
 ] { a.b.c = 0; }
 =&gt; { a = { b = { d = 1; }; }; x = { y = &quot;xy&quot;; }; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L177"  target="_top">lib/attrsets.nix:177</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -853,44 +853,44 @@ There is a completely different function
 <code class="literal">lib.foldAttrs</code>
 which has nothing to do with this function, despite the similar name.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">init</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.foldlAttrs" /><p class="title"><strong>Example 15. <code class="literal">lib.attrsets.foldlAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 foldlAttrs
-(acc: name: value: {
-sum = acc.sum + value;
-names = acc.names ++ [name];
-})
-{ sum = 0; names = []; }
-{
-foo = 1;
-bar = 10;
-}
+  (acc: name: value: {
+    sum = acc.sum + value;
+    names = acc.names ++ [name];
+  })
+  { sum = 0; names = []; }
+  {
+    foo = 1;
+    bar = 10;
+  }
 -&gt;
-{
-sum = 11;
-names = [&quot;bar&quot; &quot;foo&quot;];
-}
+  {
+    sum = 11;
+    names = [&quot;bar&quot; &quot;foo&quot;];
+  }
 
 foldlAttrs
-(throw &quot;function not needed&quot;)
-123
-{};
+  (throw &quot;function not needed&quot;)
+  123
+  {};
 -&gt;
-123
+  123
 
 foldlAttrs
-(_: _: v: v)
-(throw &quot;initial accumulator not needed&quot;)
-{ z = 3; a = 2; };
+  (_: _: v: v)
+  (throw &quot;initial accumulator not needed&quot;)
+  { z = 3; a = 2; };
 -&gt;
-3
+  3
 
 The accumulator doesn&#x27;t have to be an attrset.
 It can be as simple as a number or string.
 
 foldlAttrs
-(acc: _: v: acc * 10 + v)
-1
-{ z = 1; a = 2; };
+  (acc: _: v: acc * 10 + v)
+  1
+  { z = 1; a = 2; };
 -&gt;
-121
+  121
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L394"  target="_top">lib/attrsets.nix:394</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.foldAttrs"></a><code class="literal">lib.attrsets.foldAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">foldAttrs :: (Any -&gt; Any -&gt; Any) -&gt; Any -&gt; [AttrSets] -&gt; Any</code></p><p>Apply fold functions to values grouped by key.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">op</code></span></dt><dd><p>A function, given a value and a collector combines the two.</p></dd><dt><span class="term"><code class="literal">nul</code></span></dt><dd><p>The starting value.</p></dd><dt><span class="term"><code class="literal">list_of_attrs</code></span></dt><dd><p>A list of attribute sets to fold together by key.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.foldAttrs" /><p class="title"><strong>Example 16. <code class="literal">lib.attrsets.foldAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 foldAttrs (item: acc: [item] ++ acc) [] [{ a = 2; } { a = 3; }]
@@ -903,17 +903,17 @@ collect isList { a = { b = [&quot;b&quot;]; }; c = [1]; }
 =&gt; [[&quot;b&quot;] [1]]
 
 collect (x: x ? outPath)
-{ a = { outPath = &quot;a/&quot;; }; b = { outPath = &quot;b/&quot;; }; }
+   { a = { outPath = &quot;a/&quot;; }; b = { outPath = &quot;b/&quot;; }; }
 =&gt; [{ outPath = &quot;a/&quot;; } { outPath = &quot;b/&quot;; }]
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L439"  target="_top">lib/attrsets.nix:439</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.cartesianProductOfSets"></a><code class="literal">lib.attrsets.cartesianProductOfSets</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">cartesianProductOfSets :: AttrSet -&gt; [AttrSet]</code></p><p>Return the cartesian product of attribute set value combinations.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">attrsOfLists</code></span></dt><dd><p>Attribute set with attributes that are lists of values</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.cartesianProductOfSets" /><p class="title"><strong>Example 18. <code class="literal">lib.attrsets.cartesianProductOfSets</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 cartesianProductOfSets { a = [ 1 2 ]; b = [ 10 20 ]; }
 =&gt; [
-{ a = 1; b = 10; }
-{ a = 1; b = 20; }
-{ a = 2; b = 10; }
-{ a = 2; b = 20; }
-]
+     { a = 1; b = 10; }
+     { a = 1; b = 20; }
+     { a = 2; b = 10; }
+     { a = 2; b = 20; }
+   ]
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L464"  target="_top">lib/attrsets.nix:464</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.nameValuePair"></a><code class="literal">lib.attrsets.nameValuePair</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">nameValuePair :: String -&gt; Any -&gt; { name :: String; value :: Any; }</code></p><p>Utility function that creates a <code class="literal">{name, value}</code> pair as expected by <code class="literal">builtins.listToAttrs</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>Attribute name</p></dd><dt><span class="term"><code class="literal">value</code></span></dt><dd><p>Attribute value</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.nameValuePair" /><p class="title"><strong>Example 19. <code class="literal">lib.attrsets.nameValuePair</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 nameValuePair &quot;some&quot; 6
@@ -921,20 +921,20 @@ nameValuePair &quot;some&quot; 6
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L483"  target="_top">lib/attrsets.nix:483</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.mapAttrs"></a><code class="literal">lib.attrsets.mapAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mapAttrs :: (String -&gt; Any -&gt; Any) -&gt; AttrSet -&gt; AttrSet</code></p><p>Apply a function to each element in an attribute set, creating a new attribute set.</p><div class="example"><a id="function-library-example-lib.attrsets.mapAttrs" /><p class="title"><strong>Example 20. <code class="literal">lib.attrsets.mapAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mapAttrs (name: value: name + &quot;-&quot; + value)
-{ x = &quot;foo&quot;; y = &quot;bar&quot;; }
+   { x = &quot;foo&quot;; y = &quot;bar&quot;; }
 =&gt; { x = &quot;x-foo&quot;; y = &quot;y-bar&quot;; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L501"  target="_top">lib/attrsets.nix:501</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.mapAttrs-prime"></a><code class="literal">lib.attrsets.mapAttrs&#x27;</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mapAttrs&#x27; :: (String -&gt; Any -&gt; { name :: String; value :: Any; }) -&gt; AttrSet -&gt; AttrSet</code></p><p>Like <code class="literal">mapAttrs</code>, but allows the name of each attribute to be
 changed in addition to the value.  The applied function should
 return both the new name and value as a <code class="literal">nameValuePair</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>A function, given an attribute’s name and value, returns a new <code class="literal">nameValuePair</code>.</p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>Attribute set to map over.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.mapAttrs-prime" /><p class="title"><strong>Example 21. <code class="literal">lib.attrsets.mapAttrs&#x27;</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mapAttrs&#x27; (name: value: nameValuePair (&quot;foo_&quot; + name) (&quot;bar-&quot; + value))
-{ x = &quot;a&quot;; y = &quot;b&quot;; }
+   { x = &quot;a&quot;; y = &quot;b&quot;; }
 =&gt; { foo_x = &quot;bar-a&quot;; foo_y = &quot;bar-b&quot;; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L518"  target="_top">lib/attrsets.nix:518</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.mapAttrsToList"></a><code class="literal">lib.attrsets.mapAttrsToList</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mapAttrsToList :: (String -&gt; a -&gt; b) -&gt; AttrSet -&gt; [b]</code></p><p>Call a function for each attribute in the given set and return
 the result in a list.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>A function, given an attribute’s name and value, returns a new value.</p></dd><dt><span class="term"><code class="literal">attrs</code></span></dt><dd><p>Attribute set to map over.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.mapAttrsToList" /><p class="title"><strong>Example 22. <code class="literal">lib.attrsets.mapAttrsToList</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mapAttrsToList (name: value: name + value)
-{ x = &quot;a&quot;; y = &quot;b&quot;; }
+   { x = &quot;a&quot;; y = &quot;b&quot;; }
 =&gt; [ &quot;xa&quot; &quot;yb&quot; ]
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L538"  target="_top">lib/attrsets.nix:538</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.mapAttrsRecursive"></a><code class="literal">lib.attrsets.mapAttrsRecursive</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mapAttrsRecursive :: ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet</code></p><p>Like <code class="literal">mapAttrs</code>, except that it recursively applies itself to
@@ -944,7 +944,7 @@ Also, the first argument of the argument function is a <span class="emphasis"><e
 of the attribute names that form the path to the leaf attribute.</p><p>For a function that gives you control over what counts as a leaf,
 see <code class="literal">mapAttrsRecursiveCond</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>A function, given a list of attribute names and a value, returns a new value.</p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>Set to recursively map over.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.mapAttrsRecursive" /><p class="title"><strong>Example 23. <code class="literal">lib.attrsets.mapAttrsRecursive</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mapAttrsRecursive (path: value: concatStringsSep &quot;-&quot; (path ++ [value]))
-{ n = { a = &quot;A&quot;; m = { b = &quot;B&quot;; c = &quot;C&quot;; }; }; d = &quot;D&quot;; }
+  { n = { a = &quot;A&quot;; m = { b = &quot;B&quot;; c = &quot;C&quot;; }; }; d = &quot;D&quot;; }
 =&gt; { n = { a = &quot;n-a-A&quot;; m = { b = &quot;n-m-b-B&quot;; c = &quot;n-m-c-C&quot;; }; }; d = &quot;d-D&quot;; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L563"  target="_top">lib/attrsets.nix:563</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.mapAttrsRecursiveCond"></a><code class="literal">lib.attrsets.mapAttrsRecursiveCond</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mapAttrsRecursiveCond :: (AttrSet -&gt; Bool) -&gt; ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet</code></p><p>Like <code class="literal">mapAttrsRecursive</code>, but it takes an additional predicate
@@ -955,9 +955,9 @@ does recurse, and does not apply the map function.</p><div class="variablelist">
 # To prevent recursing into derivations (which are attribute
 # sets with the attribute &quot;type&quot; equal to &quot;derivation&quot;):
 mapAttrsRecursiveCond
-(as: !(as ? &quot;type&quot; &amp;&amp; as.type == &quot;derivation&quot;))
-(x: ... do something ...)
-attrs
+  (as: !(as ? &quot;type&quot; &amp;&amp; as.type == &quot;derivation&quot;))
+  (x: ... do something ...)
+  attrs
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L588"  target="_top">lib/attrsets.nix:588</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.genAttrs"></a><code class="literal">lib.attrsets.genAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">genAttrs :: [ String ] -&gt; (String -&gt; Any) -&gt; AttrSet</code></p><p>Generate an attribute set by mapping a function over a list of
 attribute names.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">names</code></span></dt><dd><p>Names of values in the resulting attribute set.</p></dd><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>A function, given the name of the attribute, returns the attribute’s value.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.genAttrs" /><p class="title"><strong>Example 25. <code class="literal">lib.attrsets.genAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -1013,22 +1013,22 @@ the first attribute set and a part of the second attribute set.  When
 the predicate is satisfied, the value of the first attribute set is
 replaced by the value of the second attribute set.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">pred</code></span></dt><dd><p>Predicate, taking the path to the current attribute as a list of strings for attribute names, and the two values at that path from the original arguments.</p></dd><dt><span class="term"><code class="literal">lhs</code></span></dt><dd><p>Left attribute set of the merge.</p></dd><dt><span class="term"><code class="literal">rhs</code></span></dt><dd><p>Right attribute set of the merge.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.recursiveUpdateUntil" /><p class="title"><strong>Example 32. <code class="literal">lib.attrsets.recursiveUpdateUntil</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 recursiveUpdateUntil (path: l: r: path == [&quot;foo&quot;]) {
-# first attribute set
-foo.bar = 1;
-foo.baz = 2;
-bar = 3;
+  # first attribute set
+  foo.bar = 1;
+  foo.baz = 2;
+  bar = 3;
 } {
-#second attribute set
-foo.bar = 1;
-foo.quz = 2;
-baz = 4;
+  #second attribute set
+  foo.bar = 1;
+  foo.quz = 2;
+  baz = 4;
 }
 
 =&gt; {
-foo.bar = 1; # &#x27;foo.*&#x27; from the second set
-foo.quz = 2; #
-bar = 3;     # &#x27;bar&#x27; from the first set
-baz = 4;     # &#x27;baz&#x27; from the second set
+  foo.bar = 1; # &#x27;foo.*&#x27; from the second set
+  foo.quz = 2; #
+  bar = 3;     # &#x27;bar&#x27; from the first set
+  baz = 4;     # &#x27;baz&#x27; from the second set
 }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L808"  target="_top">lib/attrsets.nix:808</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.recursiveUpdate"></a><code class="literal">lib.attrsets.recursiveUpdate</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">recursiveUpdate :: AttrSet -&gt; AttrSet -&gt; AttrSet</code></p><p>A recursive variant of the update operator ‘//’.  The recursion
@@ -1036,15 +1036,15 @@ stops when one of the attribute values is not an attribute set,
 in which case the right hand side value takes precedence over the
 left hand side value.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">lhs</code></span></dt><dd><p>Left attribute set of the merge.</p></dd><dt><span class="term"><code class="literal">rhs</code></span></dt><dd><p>Right attribute set of the merge.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.recursiveUpdate" /><p class="title"><strong>Example 33. <code class="literal">lib.attrsets.recursiveUpdate</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 recursiveUpdate {
-boot.loader.grub.enable = true;
-boot.loader.grub.device = &quot;/dev/hda&quot;;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = &quot;/dev/hda&quot;;
 } {
-boot.loader.grub.device = &quot;&quot;;
+  boot.loader.grub.device = &quot;&quot;;
 }
 
 returns: {
-boot.loader.grub.enable = true;
-boot.loader.grub.device = &quot;&quot;;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = &quot;&quot;;
 }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L848"  target="_top">lib/attrsets.nix:848</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.matchAttrs"></a><code class="literal">lib.attrsets.matchAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">matchAttrs :: AttrSet -&gt; AttrSet -&gt; Bool</code></p><p>Returns true if the pattern is contained in the set. False otherwise.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">pattern</code></span></dt><dd><p>Attribute set structure to match</p></dd><dt><span class="term"><code class="literal">attrs</code></span></dt><dd><p>Attribute set to find patterns in</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.matchAttrs" /><p class="title"><strong>Example 34. <code class="literal">lib.attrsets.matchAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -1100,9 +1100,9 @@ attribute set when looking for what to build, find, etc.</p><p>This function onl
 apply itself recursively for nested attribute sets.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">attrs</code></span></dt><dd><p>An attribute set to scan for derivations.</p></dd></dl></div><div class="example"><a id="function-library-example-lib.attrsets.recurseIntoAttrs" /><p class="title"><strong>Example 42. <code class="literal">lib.attrsets.recurseIntoAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 { pkgs ? import &lt;nixpkgs&gt; {} }:
 {
-myTools = pkgs.lib.recurseIntoAttrs {
-inherit (pkgs) hello figlet;
-};
+  myTools = pkgs.lib.recurseIntoAttrs {
+    inherit (pkgs) hello figlet;
+  };
 }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L1016"  target="_top">lib/attrsets.nix:1016</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.dontRecurseIntoAttrs"></a><code class="literal">lib.attrsets.dontRecurseIntoAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">dontRecurseIntoAttrs :: AttrSet -&gt; AttrSet</code></p><p>Undo the effect of recurseIntoAttrs.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">attrs</code></span></dt><dd><p>An attribute set to not scan for derivations.</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L1026"  target="_top">lib/attrsets.nix:1026</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -1270,18 +1270,18 @@ Bash-style associative array). Note that “string” includes string-coercible
 values like paths or derivations.</p><p>Strings are translated into POSIX sh-compatible code; lists and attribute sets
 assume a shell that understands Bash syntax (e.g. Bash or ZSH).</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">value</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.toShellVar" /><p class="title"><strong>Example 69. <code class="literal">lib.strings.toShellVar</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 &#x27;&#x27;
-${toShellVar &quot;foo&quot; &quot;some string&quot;}
-[[ &quot;$foo&quot; == &quot;some string&quot; ]]
+  ${toShellVar &quot;foo&quot; &quot;some string&quot;}
+  [[ &quot;$foo&quot; == &quot;some string&quot; ]]
 &#x27;&#x27;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L471"  target="_top">lib/strings.nix:471</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.toShellVars"></a><code class="literal">lib.strings.toShellVars</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">attrsOf (string | listOf string | attrsOf string) -&gt; string</code></p><p>Translate an attribute set into corresponding shell variable declarations
 using <code class="literal">toShellVar</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">vars</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.toShellVars" /><p class="title"><strong>Example 70. <code class="literal">lib.strings.toShellVars</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 let
-foo = &quot;value&quot;;
-bar = foo;
+  foo = &quot;value&quot;;
+  bar = foo;
 in &#x27;&#x27;
-${toShellVars { inherit foo bar; }}
-[[ &quot;$foo&quot; == &quot;$bar&quot; ]]
+  ${toShellVars { inherit foo bar; }}
+  [[ &quot;$foo&quot; == &quot;$bar&quot; ]]
 &#x27;&#x27;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L499"  target="_top">lib/strings.nix:499</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.escapeNixString"></a><code class="literal">lib.strings.escapeNixString</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">string -&gt; string</code></p><p>Turn a string into a Nix expression representing that string</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">s</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.escapeNixString" /><p class="title"><strong>Example 71. <code class="literal">lib.strings.escapeNixString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -1376,19 +1376,34 @@ nameFromURL &quot;https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.ta
 nameFromURL &quot;https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2&quot; &quot;_&quot;
 =&gt; &quot;nix-1.7-x86&quot;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L737"  target="_top">lib/strings.nix:737</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.mesonOption"></a><code class="literal">lib.strings.mesonOption</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mesonOption :: string -&gt; string -&gt; string@param feature The feature to be set@param value The desired value</code></p><p>Create a -D&lt;feature&gt;=&lt;value&gt; string that can be passed to typical Meson
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.mesonOption"></a><code class="literal">lib.strings.mesonOption</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>:</p><pre class="programlisting">
+mesonOption :: string -&gt; string -&gt; string
+
+@param feature The feature to be set
+@param value The desired value
+</pre><p>Create a -D&lt;feature&gt;=&lt;value&gt; string that can be passed to typical Meson
 invocations.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">feature</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">value</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.mesonOption" /><p class="title"><strong>Example 86. <code class="literal">lib.strings.mesonOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mesonOption &quot;engine&quot; &quot;opengl&quot;
 =&gt; &quot;-Dengine=opengl&quot;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L756"  target="_top">lib/strings.nix:756</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.mesonBool"></a><code class="literal">lib.strings.mesonBool</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mesonBool :: string -&gt; bool -&gt; string@param condition The condition to be made true or false@param flag The controlling flag of the condition</code></p><p>Create a -D&lt;condition&gt;={true,false} string that can be passed to typical
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.mesonBool"></a><code class="literal">lib.strings.mesonBool</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>:</p><pre class="programlisting">
+mesonBool :: string -&gt; bool -&gt; string
+
+@param condition The condition to be made true or false
+@param flag The controlling flag of the condition
+</pre><p>Create a -D&lt;condition&gt;={true,false} string that can be passed to typical
 Meson invocations.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">condition</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">flag</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.mesonBool" /><p class="title"><strong>Example 87. <code class="literal">lib.strings.mesonBool</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mesonBool &quot;hardened&quot; true
 =&gt; &quot;-Dhardened=true&quot;
 mesonBool &quot;static&quot; false
 =&gt; &quot;-Dstatic=false&quot;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L775"  target="_top">lib/strings.nix:775</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.mesonEnable"></a><code class="literal">lib.strings.mesonEnable</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">mesonEnable :: string -&gt; bool -&gt; string@param feature The feature to be enabled or disabled@param flag The controlling flag</code></p><p>Create a -D&lt;feature&gt;={enabled,disabled} string that can be passed to
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.mesonEnable"></a><code class="literal">lib.strings.mesonEnable</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>:</p><pre class="programlisting">
+mesonEnable :: string -&gt; bool -&gt; string
+
+@param feature The feature to be enabled or disabled
+@param flag The controlling flag
+</pre><p>Create a -D&lt;feature&gt;={enabled,disabled} string that can be passed to
 typical Meson invocations.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">feature</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">flag</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.mesonEnable" /><p class="title"><strong>Example 88. <code class="literal">lib.strings.mesonEnable</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mesonEnable &quot;docs&quot; true
 =&gt; &quot;-Ddocs=enabled&quot;
@@ -1439,7 +1454,7 @@ floatToString 0.000001
 =&gt; &quot;0.000001&quot;
 floatToString 0.0000001
 =&gt; trace: warning: Imprecise conversion from float to string 0.000000
-&quot;0.000000&quot;
+   &quot;0.000000&quot;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L888"  target="_top">lib/strings.nix:888</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.isCoercibleToString"></a><code class="literal">lib.strings.isCoercibleToString</code>   </h4>  </div> </div></div><p>Soft-deprecated function. While the original implementation is available as
 isConvertibleWithToString, consider using isStringLike instead, if suitable.</p><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L896"  target="_top">lib/strings.nix:896</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -1495,12 +1510,12 @@ toIntBase10 &quot;3.14&quot;
 Lines beginning with <code class="literal">#</code> are treated as comments and ignored.
 Whitespace is significant.</p><p>NOTE: This function is not performant and should be avoided.</p><div class="example"><a id="function-library-example-lib.strings.readPathsFromFile" /><p class="title"><strong>Example 99. <code class="literal">lib.strings.readPathsFromFile</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 readPathsFromFile /prefix
-./pkgs/development/libraries/qt-5/5.4/qtbase/series
+  ./pkgs/development/libraries/qt-5/5.4/qtbase/series
 =&gt; [ &quot;/prefix/dlopen-resolv.patch&quot; &quot;/prefix/tzdir.patch&quot;
-&quot;/prefix/dlopen-libXcursor.patch&quot; &quot;/prefix/dlopen-openssl.patch&quot;
-&quot;/prefix/dlopen-dbus.patch&quot; &quot;/prefix/xdg-config-dirs.patch&quot;
-&quot;/prefix/nix-profiles-library-paths.patch&quot;
-&quot;/prefix/compose-search-path.patch&quot; ]
+     &quot;/prefix/dlopen-libXcursor.patch&quot; &quot;/prefix/dlopen-openssl.patch&quot;
+     &quot;/prefix/dlopen-dbus.patch&quot; &quot;/prefix/xdg-config-dirs.patch&quot;
+     &quot;/prefix/nix-profiles-library-paths.patch&quot;
+     &quot;/prefix/compose-search-path.patch&quot; ]
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L1058"  target="_top">lib/strings.nix:1058</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.fileContents"></a><code class="literal">lib.strings.fileContents</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">fileContents :: path -&gt; string</code></p><p>Read the contents of a file removing the trailing \n</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">file</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.fileContents" /><p class="title"><strong>Example 100. <code class="literal">lib.strings.fileContents</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 $ echo &quot;1.0&quot; &gt; ./version
@@ -1583,25 +1598,25 @@ let f = const 5; in f 10
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/trivial.nix#L26"  target="_top">lib/trivial.nix:26</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.trivial.pipe"></a><code class="literal">lib.trivial.pipe</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">pipe :: a -&gt; [&lt;functions&gt;] -&gt; &lt;return type of last function&gt;</code></p><p>Pipes a value through a list of functions, left to right.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">val</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">functions</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.trivial.pipe" /><p class="title"><strong>Example 111. <code class="literal">lib.trivial.pipe</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 pipe 2 [
-(x: x + 2)  # 2 + 2 = 4
-(x: x * 2)  # 4 * 2 = 8
-]
-=&gt; 8
+    (x: x + 2)  # 2 + 2 = 4
+    (x: x * 2)  # 4 * 2 = 8
+  ]
+  =&gt; 8
 
-# ideal to do text transformations
-pipe [ &quot;a/b&quot; &quot;a/c&quot; ] [
+  # ideal to do text transformations
+  pipe [ &quot;a/b&quot; &quot;a/c&quot; ] [
 
-# create the cp command
-(map (file: &#x27;&#x27;cp &quot;${src}/${file}&quot; $out\n&#x27;&#x27;))
+    # create the cp command
+    (map (file: &#x27;&#x27;cp &quot;${src}/${file}&quot; $out\n&#x27;&#x27;))
 
-# concatenate all commands into one string
-lib.concatStrings
+    # concatenate all commands into one string
+    lib.concatStrings
 
-# make that string into a nix derivation
-(pkgs.runCommand &quot;copy-to-out&quot; {})
+    # make that string into a nix derivation
+    (pkgs.runCommand &quot;copy-to-out&quot; {})
 
-]
-=&gt; &lt;drv which copies all files to $out&gt;
+  ]
+  =&gt; &lt;drv which copies all files to $out&gt;
 
 The output type of each function has to be the input type
 of the next function, and the last function returns the
@@ -1731,7 +1746,12 @@ representation. For example:</p><p>toHexString 0 =&gt; “0”</p><p>toHexString
 digits in the given base. For example:</p><p>toBaseDigits 10 123 =&gt; [ 1 2 3 ]</p><p>toBaseDigits 2 6 =&gt; [ 1 1 0 ]</p><p>toBaseDigits 16 250 =&gt; [ 15 10 ]</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">base</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">i</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/trivial.nix#L505"  target="_top">lib/trivial.nix:505</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-functions-library-fixedPoints"></a>lib.fixedPoints: explicit recursion functions   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.fixedPoints.fix"></a><code class="literal">lib.fixedPoints.fix</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">fix :: (a -&gt; a) -&gt; aSee https://en.wikipedia.org/wiki/Fixed-point_combinator for furtherdetails.</code></p><p>Compute the fixed point of the given function <code class="literal">f</code>, which is usually an
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-functions-library-fixedPoints"></a>lib.fixedPoints: explicit recursion functions   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.fixedPoints.fix"></a><code class="literal">lib.fixedPoints.fix</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>:</p><pre class="programlisting">
+fix :: (a -&gt; a) -&gt; a
+
+See https://en.wikipedia.org/wiki/Fixed-point_combinator for further
+details.
+</pre><p>Compute the fixed point of the given function <code class="literal">f</code>, which is usually an
 attribute set that expects its final, non-recursive representation as an
 argument:</p><pre class="programlisting">
 f = self: { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }
@@ -1765,10 +1785,10 @@ point (the package set we start with) into a new function with a different fix
 point (the desired packages set) lets just see, how <code class="literal">extends g f</code>
 unfolds with <code class="literal">g</code> and <code class="literal">f</code> defined above:</p><pre class="programlisting">
 extends g f = self: let super = f self; in super // g self super;
-= self: let super = { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }; in super // g self super
-= self: { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; } // g self { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }
-= self: { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; } // { foo = &quot;foo&quot; + &quot; + &quot;; }
-= self: { foo = &quot;foo + &quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }
+            = self: let super = { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }; in super // g self super
+            = self: { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; } // g self { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }
+            = self: { foo = &quot;foo&quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; } // { foo = &quot;foo&quot; + &quot; + &quot;; }
+            = self: { foo = &quot;foo + &quot;; bar = &quot;bar&quot;; foobar = self.foo + self.bar; }
 </pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">rattrs</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">self</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fixed-points.nix#L91"  target="_top">lib/fixed-points.nix:91</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.fixedPoints.composeExtensions"></a><code class="literal">lib.fixedPoints.composeExtensions</code>   </h4>  </div> </div></div><p>Compose two extending functions of the type expected by ‘extends’
 into one where changes made in the first are available in the
@@ -1777,7 +1797,7 @@ into one where changes made in the first are available in the
 one where changes made in preceding functions are made available to
 subsequent ones.</p><pre class="programlisting">
 composeManyExtensions : [packageSet -&gt; packageSet -&gt; packageSet] -&gt; packageSet -&gt; packageSet -&gt; packageSet
-^final        ^prev         ^overrides     ^final        ^prev         ^overrides
+                          ^final        ^prev         ^overrides     ^final        ^prev         ^overrides
 </pre><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fixed-points.nix#L114"  target="_top">lib/fixed-points.nix:114</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.fixedPoints.makeExtensible"></a><code class="literal">lib.fixedPoints.makeExtensible</code>   </h4>  </div> </div></div><p>Create an overridable, recursive attribute set. For example:</p><pre class="programlisting">
 nix-repl&gt; obj = makeExtensible (self: { })
@@ -1808,7 +1828,7 @@ singleton &quot;foo&quot;
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.lists.forEach"></a><code class="literal">lib.lists.forEach</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">forEach :: [a] -&gt; (a -&gt; b) -&gt; [b]</code></p><p>Apply the function to each element in the list. Same as <code class="literal">map</code>, but arguments
 flipped.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">xs</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.lists.forEach" /><p class="title"><strong>Example 122. <code class="literal">lib.lists.forEach</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 forEach [ 1 2 ] (x:
-toString x
+  toString x
 )
 =&gt; [ &quot;1&quot; &quot;2&quot; ]
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L36"  target="_top">lib/lists.nix:36</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -1947,15 +1967,15 @@ Predicate should return a string which becomes keys of attrset <code class="lite
 groupBy (x: boolToString (x &gt; 2)) [ 5 1 2 3 4 ]
 =&gt; { true = [ 5 3 4 ]; false = [ 1 2 ]; }
 groupBy (x: x.name) [ {name = &quot;icewm&quot;; script = &quot;icewm &amp;&quot;;}
-{name = &quot;xfce&quot;;  script = &quot;xfce4-session &amp;&quot;;}
-{name = &quot;icewm&quot;; script = &quot;icewmbg &amp;&quot;;}
-{name = &quot;mate&quot;;  script = &quot;gnome-session &amp;&quot;;}
-]
+                      {name = &quot;xfce&quot;;  script = &quot;xfce4-session &amp;&quot;;}
+                      {name = &quot;icewm&quot;; script = &quot;icewmbg &amp;&quot;;}
+                      {name = &quot;mate&quot;;  script = &quot;gnome-session &amp;&quot;;}
+                    ]
 =&gt; { icewm = [ { name = &quot;icewm&quot;; script = &quot;icewm &amp;&quot;; }
-{ name = &quot;icewm&quot;; script = &quot;icewmbg &amp;&quot;; } ];
-mate  = [ { name = &quot;mate&quot;;  script = &quot;gnome-session &amp;&quot;; } ];
-xfce  = [ { name = &quot;xfce&quot;;  script = &quot;xfce4-session &amp;&quot;; } ];
-}
+               { name = &quot;icewm&quot;; script = &quot;icewmbg &amp;&quot;; } ];
+     mate  = [ { name = &quot;mate&quot;;  script = &quot;gnome-session &amp;&quot;; } ];
+     xfce  = [ { name = &quot;xfce&quot;;  script = &quot;xfce4-session &amp;&quot;; } ];
+   }
 
 groupBy&#x27; builtins.add 0 (x: boolToString (x &gt; 2)) [ 5 1 2 3 4 ]
 =&gt; { true = 12; false = 3; }
@@ -1978,30 +1998,30 @@ reverseList [ &quot;b&quot; &quot;o&quot; &quot;j&quot; ]
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.lists.listDfs"></a><code class="literal">lib.lists.listDfs</code>   </h4>  </div> </div></div><p>Depth-First Search (DFS) for lists <code class="literal">list != []</code>.</p><p><code class="literal">before a b == true</code> means that <code class="literal">b</code> depends on <code class="literal">a</code> (there’s an
 edge from <code class="literal">b</code> to <code class="literal">a</code>).</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">stopOnCycles</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">before</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.lists.listDfs" /><p class="title"><strong>Example 146. <code class="literal">lib.lists.listDfs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 listDfs true hasPrefix [ &quot;/home/user&quot; &quot;other&quot; &quot;/&quot; &quot;/home&quot; ]
-== { minimal = &quot;/&quot;;                  # minimal element
-visited = [ &quot;/home/user&quot; ];     # seen elements (in reverse order)
-rest    = [ &quot;/home&quot; &quot;other&quot; ];  # everything else
-}
+  == { minimal = &quot;/&quot;;                  # minimal element
+       visited = [ &quot;/home/user&quot; ];     # seen elements (in reverse order)
+       rest    = [ &quot;/home&quot; &quot;other&quot; ];  # everything else
+     }
 
 listDfs true hasPrefix [ &quot;/home/user&quot; &quot;other&quot; &quot;/&quot; &quot;/home&quot; &quot;/&quot; ]
-== { cycle   = &quot;/&quot;;                  # cycle encountered at this element
-loops   = [ &quot;/&quot; ];              # and continues to these elements
-visited = [ &quot;/&quot; &quot;/home/user&quot; ]; # elements leading to the cycle (in reverse order)
-rest    = [ &quot;/home&quot; &quot;other&quot; ];  # everything else
+  == { cycle   = &quot;/&quot;;                  # cycle encountered at this element
+       loops   = [ &quot;/&quot; ];              # and continues to these elements
+       visited = [ &quot;/&quot; &quot;/home/user&quot; ]; # elements leading to the cycle (in reverse order)
+       rest    = [ &quot;/home&quot; &quot;other&quot; ];  # everything else
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L484"  target="_top">lib/lists.nix:484</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.lists.toposort"></a><code class="literal">lib.lists.toposort</code>   </h4>  </div> </div></div><p>Sort a list based on a partial ordering using DFS. This
 implementation is O(N^2), if your ordering is linear, use <code class="literal">sort</code>
 instead.</p><p><code class="literal">before a b == true</code> means that <code class="literal">b</code> should be after <code class="literal">a</code>
 in the result.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">before</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.lists.toposort" /><p class="title"><strong>Example 147. <code class="literal">lib.lists.toposort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 toposort hasPrefix [ &quot;/home/user&quot; &quot;other&quot; &quot;/&quot; &quot;/home&quot; ]
-== { result = [ &quot;/&quot; &quot;/home&quot; &quot;/home/user&quot; &quot;other&quot; ]; }
+  == { result = [ &quot;/&quot; &quot;/home&quot; &quot;/home/user&quot; &quot;other&quot; ]; }
 
 toposort hasPrefix [ &quot;/home/user&quot; &quot;other&quot; &quot;/&quot; &quot;/home&quot; &quot;/&quot; ]
-== { cycle = [ &quot;/home/user&quot; &quot;/&quot; &quot;/&quot; ]; # path leading to a cycle
-loops = [ &quot;/&quot; ]; }                # loops back to these elements
+  == { cycle = [ &quot;/home/user&quot; &quot;/&quot; &quot;/&quot; ]; # path leading to a cycle
+       loops = [ &quot;/&quot; ]; }                # loops back to these elements
 
 toposort hasPrefix [ &quot;other&quot; &quot;/home/user&quot; &quot;/home&quot; &quot;/&quot; ]
-== { result = [ &quot;other&quot; &quot;/&quot; &quot;/home&quot; &quot;/home/user&quot; ]; }
+  == { result = [ &quot;other&quot; &quot;/&quot; &quot;/home&quot; &quot;/home/user&quot; ]; }
 
 toposort (a: b: a &lt; b) [ 3 2 1 ] == { result = [ 1 2 3 ]; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L523"  target="_top">lib/lists.nix:523</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -2131,27 +2151,43 @@ traceFnSeqN 2 &quot;id&quot; (x: x) { a.b.c = 3; }
 trace: { fn = &quot;id&quot;; from = { a.b = {…}; }; to = { a.b = {…}; }; }
 =&gt; { a.b.c = 3; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L157"  target="_top">lib/debug.nix:157</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.debug.runTests"></a><code class="literal">lib.debug.runTests</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">runTests :: {tests = [ String ];${testName} :: {expr :: a;expected :: a;};}-&gt;[{name :: String;expected :: a;result :: a;}]</code></p><p>Evaluates a set of tests.</p><p>A test is an attribute set <code class="literal">{expr, expected}</code>,
-denoting an expression and its expected result.</p><p>The result is a <code class="literal">list</code> of <span class="strong"><strong>failed tests</strong></span>, each represented as
-<code class="literal">{name, expected, result}</code>,</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>expected</p></li><li class="listitem"><p>What was passed as <code class="literal">expected</code></p></li><li class="listitem"><p>result</p></li><li class="listitem"><p>The actual <code class="literal">result</code> of the test</p></li></ul></div><p>Used for regression testing of the functions in lib; see
-tests.nix for more examples.</p><p>Important: Only attributes that start with <code class="literal">test</code> are executed.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>If you want to run only a subset of the tests add the attribute <code class="literal">tests = [&quot;testName&quot;];</code></p></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">tests</code></span></dt><dd><p>Tests to run</p></dd></dl></div><div class="example"><a id="function-library-example-lib.debug.runTests" /><p class="title"><strong>Example 167. <code class="literal">lib.debug.runTests</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
-runTests {
-testAndOk = {
-expr = lib.and true false;
-expected = false;
-};
-testAndFail = {
-expr = lib.and true false;
-expected = true;
-};
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.debug.runTests"></a><code class="literal">lib.debug.runTests</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>:</p><pre class="programlisting">
+runTests :: {
+  tests = [ String ];
+  ${testName} :: {
+    expr :: a;
+    expected :: a;
+  };
 }
 -&gt;
 [
-{
-name = &quot;testAndFail&quot;;
-expected = true;
-result = false;
+  {
+    name :: String;
+    expected :: a;
+    result :: a;
+  }
+]
+</pre><p>Evaluates a set of tests.</p><p>A test is an attribute set <code class="literal">{expr, expected}</code>,
+denoting an expression and its expected result.</p><p>The result is a <code class="literal">list</code> of <span class="strong"><strong>failed tests</strong></span>, each represented as
+<code class="literal">{name, expected, result}</code>,</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>expected</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle;"><li class="listitem"><p>What was passed as <code class="literal">expected</code></p></li></ul></div></li><li class="listitem"><p>result</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle;"><li class="listitem"><p>The actual <code class="literal">result</code> of the test</p></li></ul></div></li></ul></div><p>Used for regression testing of the functions in lib; see
+tests.nix for more examples.</p><p>Important: Only attributes that start with <code class="literal">test</code> are executed.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>If you want to run only a subset of the tests add the attribute <code class="literal">tests = [&quot;testName&quot;];</code></p></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">tests</code></span></dt><dd><p>Tests to run</p></dd></dl></div><div class="example"><a id="function-library-example-lib.debug.runTests" /><p class="title"><strong>Example 167. <code class="literal">lib.debug.runTests</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+runTests {
+  testAndOk = {
+    expr = lib.and true false;
+    expected = false;
+  };
+  testAndFail = {
+    expr = lib.and true false;
+    expected = true;
+  };
 }
+-&gt;
+[
+  {
+    name = &quot;testAndFail&quot;;
+    expected = true;
+    result = false;
+  }
 ]
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L229"  target="_top">lib/debug.nix:229</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.debug.testAllTrue"></a><code class="literal">lib.debug.testAllTrue</code>   </h4>  </div> </div></div><p>Create a test assuming that list elements are <code class="literal">true</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">expr</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.debug.testAllTrue" /><p class="title"><strong>Example 168. <code class="literal">lib.debug.testAllTrue</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
@@ -2188,14 +2224,14 @@ mkPackageOption pkgs &quot;hello&quot; { }
 
 
 mkPackageOption pkgs &quot;GHC&quot; {
-default = [ &quot;ghc&quot; ];
-example = &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
+  default = [ &quot;ghc&quot; ];
+  example = &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
 }
 =&gt; { _type = &quot;option&quot;; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = &quot;The GHC package to use.&quot;; example = { ... }; type = { ... }; }
 
 
 mkPackageOption pkgs [ &quot;python39Packages&quot; &quot;pytorch&quot; ] {
-extraDescription = &quot;This is an example and doesn&#x27;t actually do anything.&quot;;
+  extraDescription = &quot;This is an example and doesn&#x27;t actually do anything.&quot;;
 }
 =&gt; { _type = &quot;option&quot;; default = «derivation /nix/store/gvqgsnc4fif9whvwd9ppa568yxbkmvk8-python3.9-pytorch-1.10.2.drv»; defaultText = { ... }; description = &quot;The pytorch package to use. This is an example and doesn&#x27;t actually do anything.&quot;; type = { ... }; }
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L149"  target="_top">lib/options.nix:149</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -2233,18 +2269,18 @@ a <code class="literal">literalExpression</code> would be too hard to read.</p><
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.options.showOption"></a><code class="literal">lib.options.showOption</code>   </h4>  </div> </div></div><p>Convert an option, described as a list of the option parts to a
 human-readable version.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">parts</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.options.showOption" /><p class="title"><strong>Example 175. <code class="literal">lib.options.showOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 (showOption [&quot;foo&quot; &quot;bar&quot; &quot;baz&quot;]) == &quot;foo.bar.baz&quot;
-(showOption [&quot;foo&quot; &quot;bar.baz&quot; &quot;tux&quot;]) == &quot;foo.\&quot;bar.baz\&quot;.tux&quot;
-(showOption [&quot;windowManager&quot; &quot;2bwm&quot; &quot;enable&quot;]) == &quot;windowManager.\&quot;2bwm\&quot;.enable&quot;
+  (showOption [&quot;foo&quot; &quot;bar.baz&quot; &quot;tux&quot;]) == &quot;foo.\&quot;bar.baz\&quot;.tux&quot;
+  (showOption [&quot;windowManager&quot; &quot;2bwm&quot; &quot;enable&quot;]) == &quot;windowManager.\&quot;2bwm\&quot;.enable&quot;
 
 Placeholders will not be quoted as they are not actual values:
-(showOption [&quot;foo&quot; &quot;*&quot; &quot;bar&quot;]) == &quot;foo.*.bar&quot;
-(showOption [&quot;foo&quot; &quot;&lt;name&gt;&quot; &quot;bar&quot;]) == &quot;foo.&lt;name&gt;.bar&quot;
+  (showOption [&quot;foo&quot; &quot;*&quot; &quot;bar&quot;]) == &quot;foo.*.bar&quot;
+  (showOption [&quot;foo&quot; &quot;&lt;name&gt;&quot; &quot;bar&quot;]) == &quot;foo.&lt;name&gt;.bar&quot;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/options.nix#L373"  target="_top">lib/options.nix:373</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-functions-library-path"></a>lib.path: path functions   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.path.append"></a><code class="literal">lib.path.append</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">append :: Path -&gt; String -&gt; Path</code></p><p>Append a subpath string to a path.</p><p>Like <code class="literal">path + (&quot;/&quot; + string)</code> but safer, because it errors instead of returning potentially surprising results.
 More specifically, it checks that the first argument is a <a class="link" href="https://nixos.org/manual/nix/stable/language/values.html#type-path%22"  target="_top">path value type</a>,
-and that the second argument is a valid subpath string (see <code class="literal">lib.path.subpath.isValid</code>).</p><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Not influenced by subpath normalisation</p></li></ul></div><p>append p s == append p (subpath.normalise s)</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path</code></span></dt><dd><p>The absolute path to append to</p></dd><dt><span class="term"><code class="literal">subpath</code></span></dt><dd><p>The subpath string to append</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.append" /><p class="title"><strong>Example 176. <code class="literal">lib.path.append</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+and that the second argument is a valid subpath string (see <code class="literal">lib.path.subpath.isValid</code>).</p><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Not influenced by subpath normalisation</p><p>append p s == append p (subpath.normalise s)</p></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path</code></span></dt><dd><p>The absolute path to append to</p></dd><dt><span class="term"><code class="literal">subpath</code></span></dt><dd><p>The subpath string to append</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.append" /><p class="title"><strong>Example 176. <code class="literal">lib.path.append</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 append /foo &quot;bar/baz&quot;
 =&gt; /foo/bar/baz
 
@@ -2281,7 +2317,9 @@ hasPrefix /. /foo
 =&gt; true
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L199"  target="_top">lib/path/default.nix:199</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.path.removePrefix"></a><code class="literal">lib.path.removePrefix</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">removePrefix :: Path -&gt; Path -&gt; String</code></p><p>Remove the first path as a component-wise prefix from the second path.
-The result is a normalised subpath string, see <code class="literal">lib.path.subpath.normalise</code>.</p><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Inverts <code class="literal">append</code> for normalised subpaths:</p></li></ul></div><p>removePrefix p (append p s) == subpath.normalise s</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path1</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.removePrefix" /><p class="title"><strong>Example 178. <code class="literal">lib.path.removePrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+The result is a normalised subpath string, see <code class="literal">lib.path.subpath.normalise</code>.</p><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Inverts <code class="literal">append</code> for normalised subpaths:</p><pre class="programlisting">
+removePrefix p (append p s) == subpath.normalise s
+</pre></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path1</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.removePrefix" /><p class="title"><strong>Example 178. <code class="literal">lib.path.removePrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 removePrefix /foo /foo/bar/baz
 =&gt; &quot;./bar/baz&quot;
 removePrefix /foo /foo
@@ -2292,10 +2330,14 @@ removePrefix /. /foo
 =&gt; &quot;./foo&quot;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L244"  target="_top">lib/path/default.nix:244</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.path.splitRoot"></a><code class="literal">lib.path.splitRoot</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">splitRoot :: Path -&gt; { root :: Path, subpath :: String }</code></p><p>Split the filesystem root from a <a class="link" href="https://nixos.org/manual/nix/stable/language/values.html#type-path"  target="_top">path</a>.
-The result is an attribute set with these attributes:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">root</code>: The filesystem root of the path, meaning that this directory has no parent directory.</p></li><li class="listitem"><p><code class="literal">subpath</code>: The <a class="link" href="#function-library-lib.path.subpath.normalise" title="lib.path.subpath.normalise" >normalised subpath string</a> that when <a class="link" href="#function-library-lib.path.append" title="lib.path.append" >appended</a> to <code class="literal">root</code> returns the original path.</p></li></ul></div><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><a class="link" href="#function-library-lib.path.append" title="lib.path.append" >Appending</a> the <code class="literal">root</code> and <code class="literal">subpath</code> gives the original path:</p></li></ul></div><p>p ==
-append
-(splitRoot p).root
-(splitRoot p).subpath</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Trying to get the parent directory of <code class="literal">root</code> using <a class="link" href="https://nixos.org/manual/nix/stable/language/builtins.html#builtins-readDir"  target="_top"><code class="literal">readDir</code></a> returns <code class="literal">root</code> itself:</p></li></ul></div><p>dirOf (splitRoot p).root == (splitRoot p).root</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.splitRoot" /><p class="title"><strong>Example 179. <code class="literal">lib.path.splitRoot</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+The result is an attribute set with these attributes:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">root</code>: The filesystem root of the path, meaning that this directory has no parent directory.</p></li><li class="listitem"><p><code class="literal">subpath</code>: The <a class="link" href="#function-library-lib.path.subpath.normalise" title="lib.path.subpath.normalise" >normalised subpath string</a> that when <a class="link" href="#function-library-lib.path.append" title="lib.path.append" >appended</a> to <code class="literal">root</code> returns the original path.</p></li></ul></div><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><a class="link" href="#function-library-lib.path.append" title="lib.path.append" >Appending</a> the <code class="literal">root</code> and <code class="literal">subpath</code> gives the original path:</p><pre class="programlisting">
+p ==
+  append
+    (splitRoot p).root
+    (splitRoot p).subpath
+</pre></li><li class="listitem"><p>Trying to get the parent directory of <code class="literal">root</code> using <a class="link" href="https://nixos.org/manual/nix/stable/language/builtins.html#builtins-readDir"  target="_top"><code class="literal">readDir</code></a> returns <code class="literal">root</code> itself:</p><pre class="programlisting">
+dirOf (splitRoot p).root == (splitRoot p).root
+</pre></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.splitRoot" /><p class="title"><strong>Example 179. <code class="literal">lib.path.splitRoot</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 splitRoot /foo/bar
 =&gt; { root = /.; subpath = &quot;./foo/bar&quot;; }
 
@@ -2335,10 +2377,18 @@ subpath.isValid &quot;foo/bar&quot;
 subpath.isValid &quot;./foo//bar/&quot;
 =&gt; true
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L361"  target="_top">lib/path/default.nix:361</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.path.subpath.join"></a><code class="literal">lib.path.subpath.join</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">subpath.join :: [ String ] -&gt; String</code></p><p>Join subpath strings together using <code class="literal">/</code>, returning a normalised subpath string.</p><p>Like <code class="literal">concatStringsSep &quot;/&quot;</code> but safer, specifically:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>All elements must be valid subpath strings, see <code class="literal">lib.path.subpath.isValid</code></p></li><li class="listitem"><p>The result gets normalised, see <code class="literal">lib.path.subpath.normalise</code></p></li><li class="listitem"><p>The edge case of an empty list gets properly handled by returning the neutral subpath <code class="literal">&quot;./.&quot;</code></p></li></ul></div><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Associativity:</p></li></ul></div><p>subpath.join [ x (subpath.join [ y z ]) ] == subpath.join [ (subpath.join [ x y ]) z ]</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Identity - <code class="literal">&quot;./.&quot;</code> is the neutral element for normalised paths:</p></li></ul></div><p>subpath.join [ ] == “./.”
-subpath.join [ (subpath.normalise p) “./.” ] == subpath.normalise p
-subpath.join [ “./.” (subpath.normalise p) ] == subpath.normalise p</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Normalisation - the result is normalised according to <code class="literal">lib.path.subpath.normalise</code>:</p></li></ul></div><p>subpath.join ps == subpath.normalise (subpath.join ps)</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>For non-empty lists, the implementation is equivalent to normalising the result of <code class="literal">concatStringsSep &quot;/&quot;</code>.
-Note that the above laws can be derived from this one.</p></li></ul></div><p>ps != [] -&gt; subpath.join ps == subpath.normalise (concatStringsSep “/” ps)</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">subpaths</code></span></dt><dd><p>The list of subpaths to join together</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.subpath.join" /><p class="title"><strong>Example 181. <code class="literal">lib.path.subpath.join</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.path.subpath.join"></a><code class="literal">lib.path.subpath.join</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">subpath.join :: [ String ] -&gt; String</code></p><p>Join subpath strings together using <code class="literal">/</code>, returning a normalised subpath string.</p><p>Like <code class="literal">concatStringsSep &quot;/&quot;</code> but safer, specifically:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>All elements must be valid subpath strings, see <code class="literal">lib.path.subpath.isValid</code></p></li><li class="listitem"><p>The result gets normalised, see <code class="literal">lib.path.subpath.normalise</code></p></li><li class="listitem"><p>The edge case of an empty list gets properly handled by returning the neutral subpath <code class="literal">&quot;./.&quot;</code></p></li></ul></div><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Associativity:</p><pre class="programlisting">
+subpath.join [ x (subpath.join [ y z ]) ] == subpath.join [ (subpath.join [ x y ]) z ]
+</pre></li><li class="listitem"><p>Identity - <code class="literal">&quot;./.&quot;</code> is the neutral element for normalised paths:</p><pre class="programlisting">
+subpath.join [ ] == &quot;./.&quot;
+subpath.join [ (subpath.normalise p) &quot;./.&quot; ] == subpath.normalise p
+subpath.join [ &quot;./.&quot; (subpath.normalise p) ] == subpath.normalise p
+</pre></li><li class="listitem"><p>Normalisation - the result is normalised according to <code class="literal">lib.path.subpath.normalise</code>:</p><pre class="programlisting">
+subpath.join ps == subpath.normalise (subpath.join ps)
+</pre></li><li class="listitem"><p>For non-empty lists, the implementation is equivalent to normalising the result of <code class="literal">concatStringsSep &quot;/&quot;</code>.
+Note that the above laws can be derived from this one.</p><pre class="programlisting">
+ps != [] -&gt; subpath.join ps == subpath.normalise (concatStringsSep &quot;/&quot; ps)
+</pre></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">subpaths</code></span></dt><dd><p>The list of subpaths to join together</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.subpath.join" /><p class="title"><strong>Example 181. <code class="literal">lib.path.subpath.join</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 subpath.join [ &quot;foo&quot; &quot;bar/baz&quot; ]
 =&gt; &quot;./foo/bar/baz&quot;
 
@@ -2361,7 +2411,17 @@ subpath.join [ &quot;../foo&quot; ]
 =&gt; &lt;error&gt;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/path/default.nix#L423"  target="_top">lib/path/default.nix:423</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.path.subpath.normalise"></a><code class="literal">lib.path.subpath.normalise</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">subpath.normalise :: String -&gt; String</code></p><p>Normalise a subpath. Throw an error if the subpath isn’t valid, see
-<code class="literal">lib.path.subpath.isValid</code></p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Limit repeating <code class="literal">/</code> to a single one</p></li><li class="listitem"><p>Remove redundant <code class="literal">.</code> components</p></li><li class="listitem"><p>Remove trailing <code class="literal">/</code> and <code class="literal">/.</code></p></li><li class="listitem"><p>Add leading <code class="literal">./</code></p></li></ul></div><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Idempotency - normalising multiple times gives the same result:</p></li></ul></div><p>subpath.normalise (subpath.normalise p) == subpath.normalise p</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Uniqueness - there’s only a single normalisation for the paths that lead to the same file system node:</p></li></ul></div><p>subpath.normalise p != subpath.normalise q -&gt; $(realpath ${p}) != $(realpath ${q})</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Don’t change the result when appended to a Nix path value:</p></li></ul></div><p>base + (“/” + p) == base + (“/” + subpath.normalise p)</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Don’t change the path according to <code class="literal">realpath</code>:</p></li></ul></div><p>$(realpath ${p}) == $(realpath ${subpath.normalise p})</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Only error on invalid subpaths:</p></li></ul></div><p>builtins.tryEval (subpath.normalise p)).success == subpath.isValid p</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">subpath</code></span></dt><dd><p>The subpath string to normalise</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.subpath.normalise" /><p class="title"><strong>Example 182. <code class="literal">lib.path.subpath.normalise</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+<code class="literal">lib.path.subpath.isValid</code></p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Limit repeating <code class="literal">/</code> to a single one</p></li><li class="listitem"><p>Remove redundant <code class="literal">.</code> components</p></li><li class="listitem"><p>Remove trailing <code class="literal">/</code> and <code class="literal">/.</code></p></li><li class="listitem"><p>Add leading <code class="literal">./</code></p></li></ul></div><p>Laws:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Idempotency - normalising multiple times gives the same result:</p><pre class="programlisting">
+subpath.normalise (subpath.normalise p) == subpath.normalise p
+</pre></li><li class="listitem"><p>Uniqueness - there’s only a single normalisation for the paths that lead to the same file system node:</p><pre class="programlisting">
+subpath.normalise p != subpath.normalise q -&gt; $(realpath ${p}) != $(realpath ${q})
+</pre></li><li class="listitem"><p>Don’t change the result when appended to a Nix path value:</p><pre class="programlisting">
+base + (&quot;/&quot; + p) == base + (&quot;/&quot; + subpath.normalise p)
+</pre></li><li class="listitem"><p>Don’t change the path according to <code class="literal">realpath</code>:</p><pre class="programlisting">
+$(realpath ${p}) == $(realpath ${subpath.normalise p})
+</pre></li><li class="listitem"><p>Only error on invalid subpaths:</p><pre class="programlisting">
+builtins.tryEval (subpath.normalise p)).success == subpath.isValid p
+</pre></li></ul></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">subpath</code></span></dt><dd><p>The subpath string to normalise</p></dd></dl></div><div class="example"><a id="function-library-example-lib.path.subpath.normalise" /><p class="title"><strong>Example 182. <code class="literal">lib.path.subpath.normalise</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 # limit repeating `/` to a single one
 subpath.normalise &quot;foo//bar&quot;
 =&gt; &quot;./foo/bar&quot;
@@ -2447,11 +2507,11 @@ cleanSource ./.
 allowing you to chain multiple calls together without any
 intermediate copies being put in the nix store.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">structured function argument</span></dt><dd><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">src</code></span></dt><dd><p>A path or cleanSourceWith result to filter and/or rename.</p></dd><dt><span class="term"><code class="literal">filter</code></span></dt><dd><p>Optional with default value: constant true (include everything) The function will be combined with the &amp;&amp; operator such that src.filter is called lazily. For implementing a filter, see https://nixos.org/nix/manual/#builtin-filterSource Type: A function (path -&gt; type -&gt; bool)</p></dd><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>Optional name to use as part of the store path. This defaults to <code class="literal">src.name</code> or otherwise <code class="literal">&quot;source&quot;</code>.</p></dd></dl></div></dd></dl></div><div class="example"><a id="function-library-example-lib.sources.cleanSourceWith" /><p class="title"><strong>Example 188. <code class="literal">lib.sources.cleanSourceWith</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 lib.cleanSourceWith {
-filter = f;
-src = lib.cleanSourceWith {
-filter = g;
-src = ./.;
-};
+  filter = f;
+  src = lib.cleanSourceWith {
+    filter = g;
+    src = ./.;
+  };
 }
 # Succeeds!
 
@@ -2477,31 +2537,31 @@ sourceFilesBySuffices ./. [ &quot;.xml&quot; &quot;.c&quot; ]
 boilerplate related to command-line construction for simple use cases.</p><p><code class="literal">toGNUCommandLine</code> returns a list of nix strings.
 <code class="literal">toGNUCommandLineShell</code> returns an escaped shell string.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">options</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">attrs</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.cli.toGNUCommandLineShell" /><p class="title"><strong>Example 191. <code class="literal">lib.cli.toGNUCommandLineShell</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 cli.toGNUCommandLine {} {
-data = builtins.toJSON { id = 0; };
-X = &quot;PUT&quot;;
-retry = 3;
-retry-delay = null;
-url = [ &quot;https://example.com/foo&quot; &quot;https://example.com/bar&quot; ];
-silent = false;
-verbose = true;
+  data = builtins.toJSON { id = 0; };
+  X = &quot;PUT&quot;;
+  retry = 3;
+  retry-delay = null;
+  url = [ &quot;https://example.com/foo&quot; &quot;https://example.com/bar&quot; ];
+  silent = false;
+  verbose = true;
 }
 =&gt; [
-&quot;-X&quot; &quot;PUT&quot;
-&quot;--data&quot; &quot;{\&quot;id\&quot;:0}&quot;
-&quot;--retry&quot; &quot;3&quot;
-&quot;--url&quot; &quot;https://example.com/foo&quot;
-&quot;--url&quot; &quot;https://example.com/bar&quot;
-&quot;--verbose&quot;
+  &quot;-X&quot; &quot;PUT&quot;
+  &quot;--data&quot; &quot;{\&quot;id\&quot;:0}&quot;
+  &quot;--retry&quot; &quot;3&quot;
+  &quot;--url&quot; &quot;https://example.com/foo&quot;
+  &quot;--url&quot; &quot;https://example.com/bar&quot;
+  &quot;--verbose&quot;
 ]
 
 cli.toGNUCommandLineShell {} {
-data = builtins.toJSON { id = 0; };
-X = &quot;PUT&quot;;
-retry = 3;
-retry-delay = null;
-url = [ &quot;https://example.com/foo&quot; &quot;https://example.com/bar&quot; ];
-silent = false;
-verbose = true;
+  data = builtins.toJSON { id = 0; };
+  X = &quot;PUT&quot;;
+  retry = 3;
+  retry-delay = null;
+  url = [ &quot;https://example.com/foo&quot; &quot;https://example.com/bar&quot; ];
+  silent = false;
+  verbose = true;
 }
 =&gt; &quot;&#x27;-X&#x27; &#x27;PUT&#x27; &#x27;--data&#x27; &#x27;{\&quot;id\&quot;:0}&#x27; &#x27;--retry&#x27; &#x27;3&#x27; &#x27;--url&#x27; &#x27;https://example.com/foo&#x27; &#x27;--url&#x27; &#x27;https://example.com/bar&#x27; &#x27;--verbose&#x27;&quot;;
 </pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/cli.nix#L42"  target="_top">lib/cli.nix:42</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
