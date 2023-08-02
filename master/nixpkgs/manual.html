@@ -4460,7 +4460,7 @@ nix-build -A hello &#x27;&lt;nixpkgs&gt;&#x27; \
 </div>
 
 </div>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-hooks"></a>Hooks reference   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#setup-hook-autoconf">Autoconf</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-automake">Automake</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-autopatchelfhook">autoPatchelfHook</a> </span></dt><dt> <span class="section">  <a href="#breakpointhook">breakpointHook</a> </span></dt><dt> <span class="section">  <a href="#cmake">cmake</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-gdk-pixbuf">gdk-pixbuf</a> </span></dt><dt> <span class="section">  <a href="#ghc">GHC</a> </span></dt><dt> <span class="section">  <a href="#gnome-platform">GNOME platform</a> </span></dt><dt> <span class="section">  <a href="#installshellfiles"><code class="literal">installShellFiles</code></a> </span></dt><dt> <span class="section">  <a href="#libiconv-libintl">libiconv, libintl</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-libxml2">libxml2</a> </span></dt><dt> <span class="section">  <a href="#meson">Meson</a> </span></dt><dt> <span class="section">  <a href="#ninja">ninja</a> </span></dt><dt> <span class="section">  <a href="#sec-patchRcPathHooks"><code class="literal">patchRcPath</code> hooks</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-perl">Perl</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-pkg-config">pkg-config</a> </span></dt><dt> <span class="section">  <a href="#sec-postgresqlTestHook"><code class="literal">postgresqlTestHook</code></a> </span></dt><dt> <span class="section">  <a href="#setup-hook-python">Python</a> </span></dt><dt> <span class="section">  <a href="#qt-4">Qt 4</a> </span></dt><dt> <span class="section">  <a href="#scons">scons</a> </span></dt><dt> <span class="section">  <a href="#tetex-tex-live">teTeX / TeX Live</a> </span></dt><dt> <span class="section">  <a href="#unzip">unzip</a> </span></dt><dt> <span class="section">  <a href="#validatepkgconfig">validatePkgConfig</a> </span></dt><dt> <span class="section">  <a href="#wafhook">wafHook</a> </span></dt><dt> <span class="section">  <a href="#xcbuildhook">xcbuildHook</a> </span></dt> </dl></div><p>Nixpkgs has several hook packages that augment the stdenv phases.</p><p>The stdenv built-in hooks are documented in <a class="xref" href="#ssec-setup-hooks" title="Package setup hooks" >the section called “Package setup hooks”</a>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-autoconf"></a>Autoconf   </h2>  </div> </div></div><p>The <code class="literal">autoreconfHook</code> derivation adds <code class="literal">autoreconfPhase</code>, which runs autoreconf, libtoolize and automake, essentially preparing the configure script in autotools-based builds. Most autotools-based packages come with the configure script pre-generated, but this hook is necessary for a few packages and when you need to patch the package’s configure scripts.</p>
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-hooks"></a>Hooks reference   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#setup-hook-autoconf">Autoconf</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-automake">Automake</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-autopatchelfhook">autoPatchelfHook</a> </span></dt><dt> <span class="section">  <a href="#breakpointhook">breakpointHook</a> </span></dt><dt> <span class="section">  <a href="#cmake">cmake</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-gdk-pixbuf">gdk-pixbuf</a> </span></dt><dt> <span class="section">  <a href="#ghc">GHC</a> </span></dt><dt> <span class="section">  <a href="#gnome-platform">GNOME platform</a> </span></dt><dt> <span class="section">  <a href="#installshellfiles"><code class="literal">installShellFiles</code></a> </span></dt><dt> <span class="section">  <a href="#libiconv-libintl">libiconv, libintl</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-libxml2">libxml2</a> </span></dt><dt> <span class="section">  <a href="#meson">Meson</a> </span></dt><dt> <span class="section">  <a href="#ninja">ninja</a> </span></dt><dt> <span class="section">  <a href="#sec-patchRcPathHooks"><code class="literal">patchRcPath</code> hooks</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-perl">Perl</a> </span></dt><dt> <span class="section">  <a href="#setup-hook-pkg-config">pkg-config</a> </span></dt><dt> <span class="section">  <a href="#sec-postgresqlTestHook"><code class="literal">postgresqlTestHook</code></a> </span></dt><dt> <span class="section">  <a href="#setup-hook-python">Python</a> </span></dt><dt> <span class="section">  <a href="#qt-4">Qt 4</a> </span></dt><dt> <span class="section">  <a href="#scons">scons</a> </span></dt><dt> <span class="section">  <a href="#tetex-tex-live">teTeX / TeX Live</a> </span></dt><dt> <span class="section">  <a href="#unzip">unzip</a> </span></dt><dt> <span class="section">  <a href="#validatepkgconfig">validatePkgConfig</a> </span></dt><dt> <span class="section">  <a href="#wafhook">wafHook</a> </span></dt><dt> <span class="section">  <a href="#zighook">zigHook</a> </span></dt><dt> <span class="section">  <a href="#xcbuildhook">xcbuildHook</a> </span></dt> </dl></div><p>Nixpkgs has several hook packages that augment the stdenv phases.</p><p>The stdenv built-in hooks are documented in <a class="xref" href="#ssec-setup-hooks" title="Package setup hooks" >the section called “Package setup hooks”</a>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-autoconf"></a>Autoconf   </h2>  </div> </div></div><p>The <code class="literal">autoreconfHook</code> derivation adds <code class="literal">autoreconfPhase</code>, which runs autoreconf, libtoolize and automake, essentially preparing the configure script in autotools-based builds. Most autotools-based packages come with the configure script pre-generated, but this hook is necessary for a few packages and when you need to patch the package’s configure scripts.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-automake"></a>Automake   </h2>  </div> </div></div><p>Adds the <code class="literal">share/aclocal</code> subdirectory of each build input to the <code class="literal">ACLOCAL_PATH</code> environment variable.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-autopatchelfhook"></a>autoPatchelfHook   </h2>  </div> </div></div><p>This is a special setup hook which helps in packaging proprietary software in that it automatically tries to find missing shared library dependencies of ELF files based on the given <code class="literal">buildInputs</code> and <code class="literal">nativeBuildInputs</code>.</p><p>You can also specify a <code class="literal">runtimeDependencies</code> variable which lists dependencies to be unconditionally added to rpath of all executables. This is useful for programs that use dlopen 3 to load libraries at runtime.</p><p>In certain situations you may want to run the main command (<code class="literal">autoPatchelf</code>) of the setup hook on a file or a set of directories instead of unconditionally patching all outputs. This can be done by setting the <code class="literal">dontAutoPatchelf</code> environment variable to a non-empty value.</p><p>By default <code class="literal">autoPatchelf</code> will fail as soon as any ELF file requires a dependency which cannot be resolved via the given build inputs. In some situations you might prefer to just leave missing dependencies unpatched and continue to patch the rest. This can be achieved by setting the <code class="literal">autoPatchelfIgnoreMissingDeps</code> environment variable to a non-empty value. <code class="literal">autoPatchelfIgnoreMissingDeps</code> can be set to a list like <code class="literal">autoPatchelfIgnoreMissingDeps = [ &quot;libcuda.so.1&quot; &quot;libcudart.so.1&quot; ];</code> or to simply <code class="literal">[ &quot;*&quot; ]</code> to ignore all missing dependencies.</p><p>The <code class="literal">autoPatchelf</code> command also recognizes a <code class="literal">--no-recurse</code> command line flag, which prevents it from recursing into subdirectories.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="breakpointhook"></a>breakpointHook   </h2>  </div> </div></div><p>This hook will make a build pause instead of stopping when a failure happens. It prevents nix from cleaning up the build environment immediately and allows the user to attach to a build environment using the <code class="literal">cntr</code> command. Upon build error it will print instructions on how to use <code class="literal">cntr</code>, which can be used to enter the environment for debugging. Installing cntr and running the command will provide shell access to the build sandbox of failed build. At <code class="literal">/var/lib/cntr</code> the sandboxed filesystem is mounted. All commands and files of the system are still accessible within the shell. To execute commands from the sandbox use the cntr exec subcommand. <code class="literal">cntr</code> is only supported on Linux-based platforms. To use it first add <code class="literal">cntr</code> to your <code class="literal">environment.systemPackages</code> on NixOS or alternatively to the root user on non-NixOS systems. Then in the package that is supposed to be inspected, add <code class="literal">breakpointHook</code> to <code class="literal">nativeBuildInputs</code>.</p><pre class="programlisting">
@@ -4556,6 +4556,37 @@ Some test suites hardcode a value for <code class="literal">host</code> though, 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="unzip"></a>unzip   </h2>  </div> </div></div><p>This setup hook will allow you to unzip .zip files specified in <code class="literal">$src</code>. There are many similar packages like <code class="literal">unrar</code>, <code class="literal">undmg</code>, etc.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="validatepkgconfig"></a>validatePkgConfig   </h2>  </div> </div></div><p>The <code class="literal">validatePkgConfig</code> hook validates all pkg-config (<code class="literal">.pc</code>) files in a package. This helps catching some common errors in pkg-config files, such as undefined variables.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="wafhook"></a>wafHook   </h2>  </div> </div></div><p>Overrides the configure, build, and install phases. This will run the “waf” script used by many projects. If <code class="literal">wafPath</code> (default <code class="literal">./waf</code>) doesn’t exist, it will copy the version of waf available in Nixpkgs. <code class="literal">wafFlags</code> can be used to pass flags to the waf script.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="zighook"></a>zigHook   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#example-code-snippet">Example code snippet</a> </span></dt><dt> <span class="section">  <a href="#variables-controlling-zighook">Variables controlling zigHook</a> </span></dt> </dl></div><p><a class="link" href="https://ziglang.org/"  target="_top">Zig</a> is a general-purpose programming language and toolchain for maintaining robust, optimal and reusable software.</p><p>In Nixpkgs, <code class="literal">zigHook</code> overrides the default build, check and install phases.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="example-code-snippet"></a>Example code snippet   </h3>  </div> </div></div><pre class="programlisting">
+{ lib
+, stdenv
+, zigHook
+}:
+
+stdenv.mkDerivation {
+  # . . .
+
+  nativeBuildInputs = [
+    zigHook
+  ];
+
+  zigBuildFlags = [ &quot;-Dman-pages=true&quot; ];
+
+  dontUseZigCheck = true;
+
+  # . . .
+}
+</pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="variables-controlling-zighook"></a>Variables controlling zigHook   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="dontUseZigBuild"></a><code class="literal">dontUseZigBuild</code>   </h4>  </div> </div></div><p>Disables using <code class="literal">zigBuildPhase</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="zigBuildFlags"></a><code class="literal">zigBuildFlags</code>   </h4>  </div> </div></div><p>Controls the flags passed to the build phase.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="dontUseZigCheck"></a><code class="literal">dontUseZigCheck</code>   </h4>  </div> </div></div><p>Disables using <code class="literal">zigCheckPhase</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="zigCheckFlags"></a><code class="literal">zigCheckFlags</code>   </h4>  </div> </div></div><p>Controls the flags passed to the check phase.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="dontUseZigInstall"></a><code class="literal">dontUseZigInstall</code>   </h4>  </div> </div></div><p>Disables using <code class="literal">zigInstallPhase</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="zigInstallFlags"></a><code class="literal">zigInstallFlags</code>   </h4>  </div> </div></div><p>Controls the flags passed to the install phase.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="variablesHonoredByZigHook"></a>Variables honored by zigHook   </h4>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">prefixKey</code></p></li><li class="listitem"><p><code class="literal">dontAddPrefix</code></p></li></ul></div>
+</div>
+
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="xcbuildhook"></a>xcbuildHook   </h2>  </div> </div></div><p>Overrides the build and install phases to run the “xcbuild” command. This hook is needed when a project only comes with build files for the XCode build system. You can disable this behavior by setting buildPhase and configurePhase to a custom value. xcbuildFlags controls flags passed only to xcbuild.</p>
 </div>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-language-support"></a>Languages and frameworks   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#agda">Agda</a> </span></dt><dt> <span class="section">  <a href="#android">Android</a> </span></dt><dt> <span class="section">  <a href="#sec-beam">BEAM Languages (Erlang, Elixir &amp; LFE)</a> </span></dt><dt> <span class="section">  <a href="#sec-bower">Bower</a> </span></dt><dt> <span class="section">  <a href="#sec-chicken">CHICKEN</a> </span></dt><dt> <span class="section">  <a href="#sec-language-coq">Coq and coq packages</a> </span></dt><dt> <span class="section">  <a href="#crystal">Crystal</a> </span></dt><dt> <span class="section">  <a href="#cuda">CUDA</a> </span></dt><dt> <span class="section">  <a href="#cuelang">Cue (Cuelang)</a> </span></dt><dt> <span class="section">  <a href="#sec-language-dart">Dart</a> </span></dt><dt> <span class="section">  <a href="#sec-language-dhall">Dhall</a> </span></dt><dt> <span class="section">  <a href="#dotnet">Dotnet</a> </span></dt><dt> <span class="section">  <a href="#emscripten">Emscripten</a> </span></dt><dt> <span class="section">  <a href="#sec-language-gnome">GNOME</a> </span></dt><dt> <span class="section">  <a href="#sec-language-go">Go</a> </span></dt><dt> <span class="section">  <a href="#haskell">Haskell</a> </span></dt><dt> <span class="section">  <a href="#sec-language-hy">Hy</a> </span></dt><dt> <span class="section">  <a href="#idris">Idris</a> </span></dt><dt> <span class="section">  <a href="#ios">iOS</a> </span></dt><dt> <span class="section">  <a href="#sec-language-java">Java</a> </span></dt><dt> <span class="section">  <a href="#language-javascript">Javascript</a> </span></dt><dt> <span class="section">  <a href="#lisp">lisp-modules</a> </span></dt><dt> <span class="section">  <a href="#users-guide-to-lua-infrastructure">User’s Guide to Lua Infrastructure</a> </span></dt><dt> <span class="section">  <a href="#maven">Maven</a> </span></dt><dt> <span class="section">  <a href="#nim">Nim</a> </span></dt><dt> <span class="section">  <a href="#sec-language-ocaml">OCaml</a> </span></dt><dt> <span class="section">  <a href="#sec-octave">Octave</a> </span></dt><dt> <span class="section">  <a href="#sec-language-perl">Perl</a> </span></dt><dt> <span class="section">  <a href="#sec-php">PHP</a> </span></dt><dt> <span class="section">  <a href="#sec-pkg-config">pkg-config</a> </span></dt><dt> <span class="section">  <a href="#python">Python</a> </span></dt><dt> <span class="section">  <a href="#sec-language-qt">Qt</a> </span></dt><dt> <span class="section">  <a href="#r">R</a> </span></dt><dt> <span class="section">  <a href="#sec-language-ruby">Ruby</a> </span></dt><dt> <span class="section">  <a href="#rust">Rust</a> </span></dt><dt> <span class="section">  <a href="#swift">Swift</a> </span></dt><dt> <span class="section">  <a href="#sec-language-texlive">TeX Live</a> </span></dt><dt> <span class="section">  <a href="#titanium">Titanium</a> </span></dt><dt> <span class="section">  <a href="#vim">Vim</a> </span></dt> </dl></div><p>The <a class="link" href="#chap-stdenv" title="The Standard Environment" >standard build environment</a> makes it easy to build typical Autotools-based packages with very little code. Any other kind of package can be accommodated by overriding the appropriate phases of <code class="literal">stdenv</code>. However, there are specialised functions in Nixpkgs to easily build packages for other programming languages, such as Perl or Haskell. These are described in this chapter.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="agda"></a>Agda   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#how-to-use-agda">How to use Agda</a> </span></dt><dt> <span class="section">  <a href="#compiling-agda">Compiling Agda</a> </span></dt><dt> <span class="section">  <a href="#writing-agda-packages">Writing Agda packages</a> </span></dt><dt> <span class="section">  <a href="#maintaining-the-agda-package-set-on-nixpkgs">Maintaining the Agda package set on Nixpkgs</a> </span></dt> </dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="how-to-use-agda"></a>How to use Agda   </h3>  </div> </div></div><p>Agda is available as the <a class="link" href="https://search.nixos.org/packages?channel=unstable&amp;show=agda&amp;from=0&amp;size=30&amp;sort=relevance&amp;query=agda"  target="_top">agda</a>
@@ -7592,7 +7623,62 @@ lua5_2.withPackages (ps: [ps.lua])
 
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="maven"></a>Maven   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#solving-for-dependencies">Solving for dependencies</a> </span></dt><dt> <span class="section">  <a href="#building-a-jar">Building a JAR</a> </span></dt><dt> <span class="section">  <a href="#runnable-jar">Runnable JAR</a> </span></dt> </dl></div><p>Maven is a well-known build tool for the Java ecosystem however it has some challenges when integrating into the Nix build system.</p><p>The following provides a list of common patterns with how to package a Maven project (or any JVM language that can export to Maven) as a Nix package.</p><p>For the purposes of this example let’s consider a very basic Maven project with the following <code class="literal">pom.xml</code> with a single dependency on <a class="link" href="https://github.com/vdurmont/emoji-java"  target="_top">emoji-java</a>.</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="maven"></a>Maven   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#maven-buildmavenpackage">Building a package using <code class="literal">maven.buildMavenPackage</code></a> </span></dt><dt> <span class="section">  <a href="#maven-mvn2nix">Manually using <code class="literal">mvn2nix</code></a> </span></dt> </dl></div><p>Maven is a well-known build tool for the Java ecosystem however it has some challenges when integrating into the Nix build system.</p><p>The following provides a list of common patterns with how to package a Maven project (or any JVM language that can export to Maven) as a Nix package.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="maven-buildmavenpackage"></a>Building a package using <code class="literal">maven.buildMavenPackage</code>   </h3>  </div> </div></div><p>Consider the following package:</p><pre class="programlisting">
+{ lib, fetchFromGitHub, jre, makeWrapper, maven }:
+
+maven.buildMavenPackage rec {
+  pname = &quot;jd-cli&quot;;
+  version = &quot;1.2.1&quot;;
+
+  src = fetchFromGitHub {
+    owner = &quot;intoolswetrust&quot;;
+    repo = pname;
+    rev = &quot;${pname}-${version}&quot;;
+    hash = &quot;sha256-rRttA5H0A0c44loBzbKH7Waoted3IsOgxGCD2VM0U/Q=&quot;;
+  };
+
+  mvnHash = &quot;sha256-kLpjMj05uC94/5vGMwMlFzLKNFOKeyNvq/vmB6pHTAo=&quot;;
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  installPhase = &#x27;&#x27;
+    mkdir -p $out/bin $out/share/jd-cli
+    install -Dm644 jd-cli/target/jd-cli.jar $out/share/jd-cli
+
+    makeWrapper ${jre}/bin/java $out/bin/jd-cli \
+      --add-flags &quot;-jar $out/share/jd-cli/jd-cli.jar&quot;
+  &#x27;&#x27;;
+
+  meta = with lib; {
+    description = &quot;Simple command line wrapper around JD Core Java Decompiler project&quot;;
+    homepage = &quot;https://github.com/intoolswetrust/jd-cli&quot;;
+    license = licenses.gpl3Plus;
+    maintainers = with maintainers; [ majiir ];
+  };
+}:
+</pre><p>This package calls <code class="literal">maven.buildMavenPackage</code> to do its work. The primary difference from <code class="literal">stdenv.mkDerivation</code> is the <code class="literal">mvnHash</code> variable, which is a hash of all of the Maven dependencies.</p><div class="tip"><h3 class="title">Tip</h3><p>After setting <code class="literal">maven.buildMavenPackage</code>, we then do standard Java <code class="literal">.jar</code> installation by saving the <code class="literal">.jar</code> to <code class="literal">$out/share/java</code> and then making a wrapper which allows executing that file; see <a class="xref" href="#sec-language-java" title="Java" >the section called “Java”</a> for additional generic information about packaging Java applications.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="stable-maven-plugins"></a>Stable Maven plugins   </h4>  </div> </div></div><p>Maven defines default versions for its core plugins, e.g. <code class="literal">maven-compiler-plugin</code>. If your project does not override these versions, an upgrade of Maven will change the version of the used plugins, and therefore the derivation and hash.</p><p>When <code class="literal">maven</code> is upgraded, <code class="literal">mvnHash</code> for the derivation must be updated as well: otherwise, the project will simply be built on the derivation of old plugins, and fail because the requested plugins are missing.</p><p>This clearly prevents automatic upgrades of Maven: a manual effort must be made throughout nixpkgs by any maintainer wishing to push the upgrades.</p><p>To make sure that your package does not add extra manual effort when upgrading Maven, explicitly define versions for all plugins. You can check if this is the case by adding the following plugin to your (parent) POM:</p><pre class="programlisting">
+&lt;plugin&gt;
+  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+  &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
+  &lt;version&gt;3.3.0&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;enforce-plugin-versions&lt;/id&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;enforce&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;rules&gt;
+          &lt;requirePluginVersions /&gt;
+        &lt;/rules&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</pre>
+</div>
+
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="maven-mvn2nix"></a>Manually using <code class="literal">mvn2nix</code>   </h3>  </div> </div></div><div class="warning"><h3 class="title">Warning</h3><p>This way is no longer recommended; see <a class="xref" href="#maven-buildmavenpackage" title="Building a package using maven.buildMavenPackage" >the section called “Building a package using <code class="literal">maven.buildMavenPackage</code>”</a> for the simpler and preferred way.</p></div><p>For the purposes of this example let’s consider a very basic Maven project with the following <code class="literal">pom.xml</code> with a single dependency on <a class="link" href="https://github.com/vdurmont/emoji-java"  target="_top">emoji-java</a>.</p><pre class="programlisting">
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
@@ -7621,7 +7707,7 @@ public class Main {
     System.out.println(result);
   }
 }
-</pre><p>You find this demo project at https://github.com/fzakaria/nixos-maven-example</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="solving-for-dependencies"></a>Solving for dependencies   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="buildmaven-with-nixosmvn2nix-maven-plugin"></a>buildMaven with NixOS/mvn2nix-maven-plugin   </h4>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p>⚠️ Although <code class="literal">buildMaven</code> is the “blessed” way within nixpkgs, as of 2020, it hasn’t seen much activity in quite a while.</p></blockquote></div><p><code class="literal">buildMaven</code> is an alternative method that tries to follow similar patterns of other programming languages by generating a lock file. It relies on the maven plugin <a class="link" href="https://github.com/NixOS/mvn2nix-maven-plugin"  target="_top">mvn2nix-maven-plugin</a>.</p><p>First you generate a <code class="literal">project-info.json</code> file using the maven plugin.</p><div class="blockquote"><blockquote class="blockquote"><p>This should be executed in the project’s source repository or be told which <code class="literal">pom.xml</code> to execute with.</p></blockquote></div><pre class="programlisting">
+</pre><p>You find this demo project at <a class="link" href="https://github.com/fzakaria/nixos-maven-example"  target="_top">https://github.com/fzakaria/nixos-maven-example</a>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="solving-for-dependencies"></a>Solving for dependencies   </h4>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="buildmaven-with-nixosmvn2nix-maven-plugin"></a>buildMaven with NixOS/mvn2nix-maven-plugin   </h5>  </div> </div></div><p><code class="literal">buildMaven</code> is an alternative method that tries to follow similar patterns of other programming languages by generating a lock file. It relies on the maven plugin <a class="link" href="https://github.com/NixOS/mvn2nix-maven-plugin"  target="_top">mvn2nix-maven-plugin</a>.</p><p>First you generate a <code class="literal">project-info.json</code> file using the maven plugin.</p><div class="blockquote"><blockquote class="blockquote"><p>This should be executed in the project’s source repository or be told which <code class="literal">pom.xml</code> to execute with.</p></blockquote></div><pre class="programlisting">
 # run this step within the project&#x27;s source repository
 ❯ mvn org.nixos.mvn2nix:mvn2nix-maven-plugin:mvn2nix
 
@@ -7655,7 +7741,7 @@ with pkgs;
 │       └── 4.1.3
 │           ├── avalon-framework-4.1.3.jar -&gt; /nix/store/iv5fp3955w3nq28ff9xfz86wvxbiw6n9-avalon-framework-4.1.3.jar
 </pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="double-invocation"></a>Double Invocation   </h4>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p>⚠️ This pattern is the simplest but may cause unnecessary rebuilds due to the output hash changing.</p></blockquote></div><p>The double invocation is a <span class="emphasis"><em>simple</em></span> way to get around the problem that <code class="literal">nix-build</code> may be sandboxed and have no Internet connectivity.</p><p>It treats the entire Maven repository as a single source to be downloaded, relying on Maven’s dependency resolution to satisfy the output hash. This is similar to fetchers like <code class="literal">fetchgit</code>, except it has to run a Maven build to determine what to download.</p><p>The first step will be to build the Maven project as a fixed-output derivation in order to collect the Maven repository – below is an <a class="link" href="https://github.com/fzakaria/nixos-maven-example/blob/main/double-invocation-repository.nix"  target="_top">example</a>.</p><div class="blockquote"><blockquote class="blockquote"><p>Traditionally the Maven repository is at <code class="literal">~/.m2/repository</code>. We will override this to be the <code class="literal">$out</code> directory.</p></blockquote></div><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="double-invocation"></a>Double Invocation   </h5>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>This pattern is the simplest but may cause unnecessary rebuilds due to the output hash changing.</p></div><p>The double invocation is a <span class="emphasis"><em>simple</em></span> way to get around the problem that <code class="literal">nix-build</code> may be sandboxed and have no Internet connectivity.</p><p>It treats the entire Maven repository as a single source to be downloaded, relying on Maven’s dependency resolution to satisfy the output hash. This is similar to fetchers like <code class="literal">fetchgit</code>, except it has to run a Maven build to determine what to download.</p><p>The first step will be to build the Maven project as a fixed-output derivation in order to collect the Maven repository – below is an <a class="link" href="https://github.com/fzakaria/nixos-maven-example/blob/main/double-invocation-repository.nix"  target="_top">example</a>.</p><div class="note"><h3 class="title">Note</h3><p>Traditionally the Maven repository is at <code class="literal">~/.m2/repository</code>. We will override this to be the <code class="literal">$out</code> directory.</p></div><pre class="programlisting">
 { lib, stdenv, maven }:
 stdenv.mkDerivation {
   name = &quot;maven-repository&quot;;
@@ -7681,7 +7767,7 @@ stdenv.mkDerivation {
   # replace this with the correct SHA256
   outputHash = lib.fakeSha256;
 }
-</pre><p>The build will fail, and tell you the expected <code class="literal">outputHash</code> to place. When you’ve set the hash, the build will return with a <code class="literal">/nix/store</code> entry whose contents are the full Maven repository.</p><div class="blockquote"><blockquote class="blockquote"><p>Some additional files are deleted that would cause the output hash to change potentially on subsequent runs.</p></blockquote></div><pre class="programlisting">
+</pre><p>The build will fail, and tell you the expected <code class="literal">outputHash</code> to place. When you’ve set the hash, the build will return with a <code class="literal">/nix/store</code> entry whose contents are the full Maven repository.</p><div class="warning"><h3 class="title">Warning</h3><p>Some additional files are deleted that would cause the output hash to change potentially on subsequent runs.</p></div><pre class="programlisting">
 ❯ tree $(nix-build --no-out-link double-invocation-repository.nix) | head
 /nix/store/8kicxzp98j68xyi9gl6jda67hp3c54fq-maven-repository
 ├── backport-util-concurrent
@@ -7693,37 +7779,10 @@ stdenv.mkDerivation {
 │   └── classworlds
 │       ├── 1.1
 │       │   ├── classworlds-1.1.jar
-</pre><p>If your package uses <span class="emphasis"><em>SNAPSHOT</em></span> dependencies or <span class="emphasis"><em>version ranges</em></span>; there is a strong likelihood that over-time your output hash will change since the resolved dependencies may change. Hence this method is less recommended then using <code class="literal">buildMaven</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="stable-maven-plugins"></a>Stable Maven plugins   </h5>  </div> </div></div><p>Maven defines default versions for its core plugins, e.g. <code class="literal">maven-compiler-plugin</code>.
-If your project does not override these versions, an upgrade of Maven will change the version of the used plugins.
-This changes the output of the first invocation and the plugins required by the second invocation.
-However, since a hash is given for the output of the first invocation, the second invocation will simply fail
-because the requested plugins are missing.
-This will prevent automatic upgrades of Maven: the manual fix for this is to change the hash of the first invocation.</p><p>To make sure that your package does not add manual effort when upgrading Maven, explicitly define versions for all
-plugins. You can check if this is the case by adding the following plugin to your (parent) POM:</p><pre class="programlisting">
-&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-enforcer-plugin&lt;/artifactId&gt;
-  &lt;version&gt;3.3.0&lt;/version&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;id&gt;enforce-plugin-versions&lt;/id&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;enforce&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;rules&gt;
-          &lt;requirePluginVersions /&gt;
-        &lt;/rules&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-  &lt;/executions&gt;
-&lt;/plugin&gt;
-</pre>
+</pre><p>If your package uses <span class="emphasis"><em>SNAPSHOT</em></span> dependencies or <span class="emphasis"><em>version ranges</em></span>; there is a strong likelihood that over-time your output hash will change since the resolved dependencies may change. Hence this method is less recommended then using <code class="literal">buildMaven</code>.</p>
 </div>
 
-</div>
-
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="building-a-jar"></a>Building a JAR   </h3>  </div> </div></div><p>Regardless of which strategy is chosen above, the step to build the derivation is the same.</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="building-a-jar"></a>Building a JAR   </h4>  </div> </div></div><p>Regardless of which strategy is chosen above, the step to build the derivation is the same.</p><pre class="programlisting">
 { stdenv, maven, callPackage }:
 # pick a repository derivation, here we will use buildMaven
 let repository = callPackage ./build-maven-repository.nix { };
@@ -7743,7 +7802,7 @@ in stdenv.mkDerivation rec {
     install -Dm644 target/${pname}-${version}.jar $out/share/java
   &#x27;&#x27;;
 }
-</pre><div class="blockquote"><blockquote class="blockquote"><p>We place the library in <code class="literal">$out/share/java</code> since JDK package has a <span class="emphasis"><em>stdenv setup hook</em></span> that adds any JARs in the <code class="literal">share/java</code> directories of the build inputs to the CLASSPATH environment.</p></blockquote></div><pre class="programlisting">
+</pre><div class="tip"><h3 class="title">Tip</h3><p>We place the library in <code class="literal">$out/share/java</code> since JDK package has a <span class="emphasis"><em>stdenv setup hook</em></span> that adds any JARs in the <code class="literal">share/java</code> directories of the build inputs to the CLASSPATH environment.</p></div><pre class="programlisting">
 ❯ tree $(nix-build --no-out-link build-jar.nix)
 /nix/store/7jw3xdfagkc2vw8wrsdv68qpsnrxgvky-maven-demo-1.0
 └── share
@@ -7752,7 +7811,7 @@ in stdenv.mkDerivation rec {
 
 2 directories, 1 file
 </pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="runnable-jar"></a>Runnable JAR   </h3>  </div> </div></div><p>The previous example builds a <code class="literal">jar</code> file but that’s not a file one can run.</p><p>You need to use it with <code class="literal">java -jar $out/share/java/output.jar</code> and make sure to provide the required dependencies on the classpath.</p><p>The following explains how to use <code class="literal">makeWrapper</code> in order to make the derivation produce an executable that will run the JAR file you created.</p><p>We will use the same repository we built above (either <span class="emphasis"><em>double invocation</em></span> or <span class="emphasis"><em>buildMaven</em></span>) to setup a CLASSPATH for our JAR.</p><p>The following two methods are more suited to Nix then building an <a class="link" href="https://imagej.net/Uber-JAR"  target="_top">UberJar</a> which may be the more traditional approach.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="classpath"></a>CLASSPATH   </h4>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p>This is ideal if you are providing a derivation for <span class="emphasis"><em>nixpkgs</em></span> and don’t want to patch the project’s <code class="literal">pom.xml</code>.</p></blockquote></div><p>We will read the Maven repository and flatten it to a single list. This list will then be concatenated with the <span class="emphasis"><em>CLASSPATH</em></span> separator to create the full classpath.</p><p>We make sure to provide this classpath to the <code class="literal">makeWrapper</code>.</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="runnable-jar"></a>Runnable JAR   </h4>  </div> </div></div><p>The previous example builds a <code class="literal">jar</code> file but that’s not a file one can run.</p><p>You need to use it with <code class="literal">java -jar $out/share/java/output.jar</code> and make sure to provide the required dependencies on the classpath.</p><p>The following explains how to use <code class="literal">makeWrapper</code> in order to make the derivation produce an executable that will run the JAR file you created.</p><p>We will use the same repository we built above (either <span class="emphasis"><em>double invocation</em></span> or <span class="emphasis"><em>buildMaven</em></span>) to setup a CLASSPATH for our JAR.</p><p>The following two methods are more suited to Nix then building an <a class="link" href="https://imagej.net/Uber-JAR"  target="_top">UberJar</a> which may be the more traditional approach.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="classpath"></a>CLASSPATH   </h5>  </div> </div></div><p>This method is ideal if you are providing a derivation for <span class="emphasis"><em>nixpkgs</em></span> and don’t want to patch the project’s <code class="literal">pom.xml</code>.</p><p>We will read the Maven repository and flatten it to a single list. This list will then be concatenated with the <span class="emphasis"><em>CLASSPATH</em></span> separator to create the full classpath.</p><p>We make sure to provide this classpath to the <code class="literal">makeWrapper</code>.</p><pre class="programlisting">
 { stdenv, maven, callPackage, makeWrapper, jre }:
 let
   repository = callPackage ./build-maven-repository.nix { };
@@ -7783,7 +7842,7 @@ in stdenv.mkDerivation rec {
   &#x27;&#x27;;
 }
 </pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="manifest-file-via-maven-plugin"></a>MANIFEST file via Maven Plugin   </h4>  </div> </div></div><div class="blockquote"><blockquote class="blockquote"><p>This is ideal if you are the project owner and want to change your <code class="literal">pom.xml</code> to set the CLASSPATH within it.</p></blockquote></div><p>Augment the <code class="literal">pom.xml</code> to create a JAR with the following manifest:</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="manifest-file-via-maven-plugin"></a>MANIFEST file via Maven Plugin   </h5>  </div> </div></div><p>This method is ideal if you are the project owner and want to change your <code class="literal">pom.xml</code> to set the CLASSPATH within it.</p><p>Augment the <code class="literal">pom.xml</code> to create a JAR with the following manifest:</p><pre class="programlisting">
 &lt;build&gt;
   &lt;plugins&gt;
     &lt;plugin&gt;
@@ -7846,7 +7905,7 @@ in stdenv.mkDerivation rec {
           --add-flags &quot;-jar $out/share/java/${pname}-${version}.jar&quot;
   &#x27;&#x27;;
 }
-</pre><div class="blockquote"><blockquote class="blockquote"><p>Our script produces a dependency on <code class="literal">jre</code> rather than <code class="literal">jdk</code> to restrict the runtime closure necessary to run the application.</p></blockquote></div><p>This will give you an executable shell-script that launches your JAR with all the dependencies available.</p><pre class="programlisting">
+</pre><div class="note"><h3 class="title">Note</h3><p>Our script produces a dependency on <code class="literal">jre</code> rather than <code class="literal">jdk</code> to restrict the runtime closure necessary to run the application.</p></div><p>This will give you an executable shell-script that launches your JAR with all the dependencies available.</p><pre class="programlisting">
 ❯ tree $(nix-build --no-out-link runnable-jar.nix)
 /nix/store/8d4c3ibw8ynsn01ibhyqmc1zhzz75s26-maven-demo-1.0
 ├── bin
@@ -7859,6 +7918,8 @@ in stdenv.mkDerivation rec {
 ❯ $(nix-build --no-out-link --option tarball-ttl 1 runnable-jar.nix)/bin/maven-demo
 NixOS 😀 is super cool 😃!
 </pre>
+</div>
+
 </div>
 
 </div>
