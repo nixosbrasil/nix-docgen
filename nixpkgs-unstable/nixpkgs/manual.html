@@ -10715,7 +10715,7 @@ texlive.combine {
 texlive.combine {
   # inherit (texlive) whatever-you-want;
   pkgFilter = pkg:
-    pkg.tlType == &quot;run&quot; || pkg.tlType == &quot;bin&quot; || pkg.pname == &quot;cm-super&quot;;
+    pkg.tlType == &quot;run&quot; || pkg.tlType == &quot;bin&quot; || pkg.hasManpages || pkg.pname == &quot;cm-super&quot;;
   # elem tlType [ &quot;run&quot; &quot;bin&quot; &quot;doc&quot; &quot;source&quot; ]
   # there are also other attributes: version, name
 }
