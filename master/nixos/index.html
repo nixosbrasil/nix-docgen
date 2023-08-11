@@ -4241,7 +4241,8 @@ please refer to the
 { pkgs, lib, config, ... }:
 let
   fqdn = &quot;${config.networking.hostName}.${config.networking.domain}&quot;;
-  clientConfig.&quot;m.homeserver&quot;.base_url = &quot;https://${fqdn}&quot;;
+  baseUrl = &quot;https://${fqdn}&quot;;
+  clientConfig.&quot;m.homeserver&quot;.base_url = baseUrl;
   serverConfig.&quot;m.server&quot; = &quot;${fqdn}:443&quot;;
   mkWellKnown = data: &#x27;&#x27;
     add_header Content-Type application/json;
@@ -4311,6 +4312,11 @@ in {
   services.matrix-synapse = {
     enable = true;
     settings.server_name = config.networking.domain;
+    # The public base URL value must match the `base_url` value set in `clientConfig` above.
+    # The default value here is based on `server_name`, so if your `server_name` is different
+    # from the value of `fqdn` above, you will likely run into some mismatched domain names
+    # in client applications.
+    settings.public_baseurl = baseUrl;
     settings.listeners = [
       { port = 8008;
         bind_addresses = [ &quot;::1&quot; ];
@@ -8380,7 +8386,8 @@ $ nix-build &#x27;&lt;nixpkgs/nixos&gt;&#x27; -A config.system.build.nixos-enter
 # ./result/bin/nixos-enter
 </pre>
 </div>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="chap-contributing"></a>Contributing to this manual   </h1>  </div> </div></div><p>The <a class="link" href="https://en.wikipedia.org/wiki/DocBook"  target="_top">DocBook</a> and CommonMark sources of the NixOS manual are in the <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual"  target="_top">nixos/doc/manual</a> subdirectory of the <a class="link" href="https://github.com/NixOS/nixpkgs"  target="_top">Nixpkgs</a> repository.</p><p>You can quickly check your edits with the following:</p><pre class="programlisting">
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="chap-contributing"></a>Contributing to this manual   </h1>  </div> </div></div><p>The <a class="link" href="https://en.wikipedia.org/wiki/DocBook"  target="_top">DocBook</a> and CommonMark sources of the NixOS manual are in the <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual"  target="_top">nixos/doc/manual</a> subdirectory of the <a class="link" href="https://github.com/NixOS/nixpkgs"  target="_top">Nixpkgs</a> repository.
+This manual uses the <a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-markup"  target="_top">Nixpkgs manual syntax</a>.</p><p>You can quickly check your edits with the following:</p><pre class="programlisting">
 $ cd /path/to/nixpkgs
 $ nix-build nixos/release.nix -A manual.x86_64-linux
 </pre><p>If the build succeeds, the manual will be in <code class="literal">./result/share/doc/nixos/index.html</code>.</p><p>There’s also <a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-devmode"  target="_top">a convenient development daemon</a>.</p><p><span class="strong"><strong>Contributing to the man pages</strong></span></p><p>The man pages are written in <a class="link" href="https://en.wikipedia.org/wiki/DocBook"  target="_top">DocBook</a> which is XML.</p><p>To see what your edits look like:</p><pre class="programlisting">
