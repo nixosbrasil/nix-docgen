@@ -5450,7 +5450,7 @@ mypkg = callPackage { cudaPackages = cudaPackages_11_5; }
 package set to make it the default. This guarantees you get a consistent package
 set.</p><pre class="programlisting">
 mypkg = let
-  cudaPackages = cudaPackages_11_5.overrideScope&#x27; (final: prev: {
+  cudaPackages = cudaPackages_11_5.overrideScope (final: prev: {
     cudnn = prev.cudnn_8_3;
   }});
 in callPackage { inherit cudaPackages; };
@@ -11224,12 +11224,12 @@ nix-shell -p elmPackages.elm elmPackages.elm-format
     ]));
   };
 }
-</pre><p>This provides a fairly full Emacs start file. It will load in addition to the user’s personal config. You can always disable it by passing <code class="literal">-q</code> to the Emacs command.</p><p>Sometimes <code class="literal">emacs.pkgs.withPackages</code> is not enough, as this package set has some priorities imposed on packages (with the lowest priority assigned to Melpa Unstable, and the highest for packages manually defined in <code class="literal">pkgs/top-level/emacs-packages.nix</code>). But you can’t control these priorities when some package is installed as a dependency. You can override it on a per-package-basis, providing all the required dependencies manually, but it’s tedious and there is always a possibility that an unwanted dependency will sneak in through some other package. To completely override such a package, you can use <code class="literal">overrideScope&#x27;</code>.</p><pre class="programlisting">
+</pre><p>This provides a fairly full Emacs start file. It will load in addition to the user’s personal config. You can always disable it by passing <code class="literal">-q</code> to the Emacs command.</p><p>Sometimes <code class="literal">emacs.pkgs.withPackages</code> is not enough, as this package set has some priorities imposed on packages (with the lowest priority assigned to Melpa Unstable, and the highest for packages manually defined in <code class="literal">pkgs/top-level/emacs-packages.nix</code>). But you can’t control these priorities when some package is installed as a dependency. You can override it on a per-package-basis, providing all the required dependencies manually, but it’s tedious and there is always a possibility that an unwanted dependency will sneak in through some other package. To completely override such a package, you can use <code class="literal">overrideScope</code>.</p><pre class="programlisting">
 overrides = self: super: rec {
   haskell-mode = self.melpaPackages.haskell-mode;
   ...
 };
-((emacsPackagesFor emacs).overrideScope&#x27; overrides).withPackages
+((emacsPackagesFor emacs).overrideScope overrides).withPackages
   (p: with p; [
     # here both these package will use haskell-mode of our own choice
     ghc-mod
