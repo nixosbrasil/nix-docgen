@@ -5893,7 +5893,7 @@ cluster-admin kubeconfig references an auto-generated keypair owned by
 root. Thus, only root on the kubernetes master may obtain cluster-admin
 rights by means of this file.</p>
 </div>
-</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-running"></a>Administration   </h1>  </div> </div></div><div class="partintro"><p>This chapter describes various aspects of managing a running NixOS system, such as how to use the <span class="command"><strong>systemd</strong></span> service manager.</p><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="chapter">  <a href="index.html#sec-systemctl">Service Management</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-rebooting">Rebooting and Shutting Down</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-user-sessions">User Sessions</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-cgroups">Control Groups</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-logging">Logging</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-nix-gc">Cleaning the Nix Store</a> </span></dt><dt> <span class="chapter">  <a href="index.html#ch-containers">Container Management</a> </span></dt><dt> <span class="chapter">  <a href="index.html#ch-troubleshooting">Troubleshooting</a> </span></dt> </dl></div></div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-systemctl"></a>Service Management   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sect-nixos-systemd-general">Interacting with a running systemd</a> </span></dt><dt> <span class="section">  <a href="index.html#sect-nixos-systemd-nixos">systemd in NixOS</a> </span></dt> </dl></div><p>In NixOS, all system services are started and monitored using the
+</div><div class="part"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="ch-running"></a>Administration   </h1>  </div> </div></div><div class="partintro"><p>This chapter describes various aspects of managing a running NixOS system, such as how to use the <span class="command"><strong>systemd</strong></span> service manager.</p><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="chapter">  <a href="index.html#sec-systemctl">Service Management</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-rebooting">Rebooting and Shutting Down</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-user-sessions">User Sessions</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-cgroups">Control Groups</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-logging">Logging</a> </span></dt><dt> <span class="chapter">  <a href="index.html#sec-nix-gc">Cleaning the Nix Store</a> </span></dt><dt> <span class="chapter">  <a href="index.html#ch-containers">Container Management</a> </span></dt><dt> <span class="chapter">  <a href="index.html#ch-troubleshooting">Troubleshooting</a> </span></dt> </dl></div></div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-systemctl"></a>Service Management   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sect-nixos-systemd-general">Interacting with a running systemd</a> </span></dt><dt> <span class="section">  <a href="index.html#sect-nixos-systemd-nixos">systemd in NixOS</a> </span></dt><dt> <span class="section">  <a href="index.html#sect-nixos-systemd-template-units">Template units</a> </span></dt> </dl></div><p>In NixOS, all system services are started and monitored using the
 systemd program. systemd is the “init” process of the system (i.e. PID
 1), the parent of all other processes. It manages a set of so-called
 “units”, which can be things like system services (programs), but also
@@ -5974,6 +5974,32 @@ the symlink, and this path is in <code class="literal">/nix/store/.../lib/system
 Hence <a class="link" href="index.html#sec-nix-gc" title="Cleaning the Nix Store" >garbage collection</a> will remove that file and you
 will wind up with a broken symlink in your systemd configuration, which
 in turn will not make the service / timer start on login.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sect-nixos-systemd-template-units"></a>Template units   </h2>  </div> </div></div><p>systemd supports templated units where a base unit can be started multiple
+times with a different parameter. The syntax to accomplish this is
+<code class="literal">service-name@instance-name.service</code>. Units get the instance name passed to
+them (see <code class="literal">systemd.unit(5)</code>). NixOS has support for these kinds of units and
+for template-specific overrides. A service needs to be defined twice, once
+for the base unit and once for the instance. All instances must include
+<code class="literal">overrideStrategy = &quot;asDropin&quot;</code> for the change detection to work. This
+example illustrates this:</p><pre class="programlisting">
+{
+  systemd.services = {
+    &quot;base-unit@&quot;.serviceConfig = {
+      ExecStart = &quot;...&quot;;
+      User = &quot;...&quot;;
+    };
+    &quot;base-unit@instance-a&quot; = {
+      overrideStrategy = &quot;asDropin&quot;; # needed for templates to work
+      wantedBy = [ &quot;multi-user.target&quot; ]; # causes NixOS to manage the instance
+    };
+    &quot;base-unit@instance-b&quot; = {
+      overrideStrategy = &quot;asDropin&quot;; # needed for templates to work
+      wantedBy = [ &quot;multi-user.target&quot; ]; # causes NixOS to manage the instance
+      serviceConfig.User = &quot;root&quot;; # also override something for this specific instance
+    };
+  };
+}
+</pre>
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-rebooting"></a>Rebooting and Shutting Down   </h2>  </div> </div></div><p>The system can be shut down (and automatically powered off) by doing:</p><pre class="programlisting">
@@ -8386,17 +8412,44 @@ $ nix-build &#x27;&lt;nixpkgs/nixos&gt;&#x27; -A config.system.build.nixos-enter
 # ./result/bin/nixos-enter
 </pre>
 </div>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="chap-contributing"></a>Contributing to this manual   </h1>  </div> </div></div><p>The <a class="link" href="https://en.wikipedia.org/wiki/DocBook"  target="_top">DocBook</a> and CommonMark sources of the NixOS manual are in the <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual"  target="_top">nixos/doc/manual</a> subdirectory of the <a class="link" href="https://github.com/NixOS/nixpkgs"  target="_top">Nixpkgs</a> repository.
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h1 class="title" >     <a id="chap-contributing"></a>Contributing to this manual   </h1>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-contributing-options">Contributing to the <code class="literal">configuration.nix</code> options documentation</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-contributing-nixos-tools">Contributing to <code class="literal">nixos-*</code> tools’ manpages</a> </span></dt> </dl></div><p>The [DocBook] and CommonMark sources of the NixOS manual are in the <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/nixos/doc/manual"  target="_top">nixos/doc/manual</a> subdirectory of the <a class="link" href="https://github.com/NixOS/nixpkgs"  target="_top">Nixpkgs</a> repository.
 This manual uses the <a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-markup"  target="_top">Nixpkgs manual syntax</a>.</p><p>You can quickly check your edits with the following:</p><pre class="programlisting">
 $ cd /path/to/nixpkgs
+$ $EDITOR doc/nixos/manual/... # edit the manual
 $ nix-build nixos/release.nix -A manual.x86_64-linux
-</pre><p>If the build succeeds, the manual will be in <code class="literal">./result/share/doc/nixos/index.html</code>.</p><p>There’s also <a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-devmode"  target="_top">a convenient development daemon</a>.</p><p><span class="strong"><strong>Contributing to the man pages</strong></span></p><p>The man pages are written in <a class="link" href="https://en.wikipedia.org/wiki/DocBook"  target="_top">DocBook</a> which is XML.</p><p>To see what your edits look like:</p><pre class="programlisting">
+</pre><p>If the build succeeds, the manual will be in <code class="literal">./result/share/doc/nixos/index.html</code>.</p><p>There’s also <a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#sec-contributing-devmode"  target="_top">a convenient development daemon</a>.</p><p>The above instructions don’t deal with the appendix of available <code class="literal">configuration.nix</code> options, and the manual pages related to NixOS. These are built, and written in a different location and in a different format, as explained in the next sections.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h1 class="title" style="clear: both">     <a id="sec-contributing-options"></a>Contributing to the <code class="literal">configuration.nix</code> options documentation   </h1>  </div> </div></div><p>The documentation for all the different <code class="literal">configuration.nix</code> options is automatically generated by reading the <code class="literal">description</code>s of all the NixOS options defined at <code class="literal">nixos/modules/</code>. If you want to improve such <code class="literal">description</code>, find it in the <code class="literal">nixos/modules/</code> directory, and edit it and open a pull request.</p><p>To see how your changes render on the web, run again:</p><pre class="programlisting">
+$ nix-build nixos/release.nix -A manual.x86_64-linux
+</pre><p>And you’ll see the changes to the appendix in the path <code class="literal">result/share/doc/nixos/options.html</code>.</p><p>You can also build only the <code class="literal">configuration.nix(5)</code> manual page, via:</p><pre class="programlisting">
 $ cd /path/to/nixpkgs
-$ nix-build nixos/release.nix -A manpages.x86_64-linux
-</pre><p>You can then read the man page you edited by running</p><pre class="programlisting">
-$ man --manpath=result/share/man nixos-rebuild # Replace nixos-rebuild with the command whose manual you edited
-</pre><p>If you’re on a different architecture that’s supported by NixOS (check nixos/release.nix) then replace <code class="literal">x86_64-linux</code> with the architecture.
-<code class="literal">nix-build</code> will complain otherwise, but should also tell you which architecture you have + the supported ones.</p>
+$ nix-build nixos/release.nix -A nixos-configuration-reference-manpage.x86_64-linux
+</pre><p>And observe the result via:</p><pre class="programlisting">
+$ man --local-file result/share/man/man5/configuration.nix.5
+</pre><p>If you’re on a different architecture that’s supported by NixOS (check file <code class="literal">nixos/release.nix</code> on Nixpkgs’ repository) then replace <code class="literal">x86_64-linux</code> with the architecture. <code class="literal">nix-build</code> will complain otherwise, but should also tell you which architecture you have + the supported ones.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h1 class="title" style="clear: both">     <a id="sec-contributing-nixos-tools"></a>Contributing to <code class="literal">nixos-*</code> tools’ manpages   </h1>  </div> </div></div><p>The manual pages for the tools available in the installation image can be found in Nixpkgs by running (e.g for <code class="literal">nixos-rebuild</code>):</p><pre class="programlisting">
+$ git ls | grep nixos-rebuild.8
+</pre><p>Man pages are written in <a class="link" href="https://mandoc.bsd.lv/man/mdoc.7.html"  target="_top"><code class="literal">mdoc(7)</code> format</a> and should be portable between mandoc and groff for rendering (except for minor differences, notably different spacing rules.)</p><p>For a preview, run <code class="literal">man --local-file path/to/file.8</code>.</p><p>Being written in <code class="literal">mdoc</code>, these manpages use semantic markup. This following subsections provides a guideline on where to apply which semantic elements.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="ssec-contributing-nixos-tools-cli-and-args"></a>Command lines and arguments   </h2>  </div> </div></div><p>In any manpage, commands, flags and arguments to the <span class="emphasis"><em>current</em></span> executable should be marked according to their semantics. Commands, flags and arguments passed to <span class="emphasis"><em>other</em></span> executables should not be marked like this and should instead be considered as code examples and marked with <code class="literal">Ql</code>.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Use <code class="literal">Fl</code> to mark flag arguments, <code class="literal">Ar</code> for their arguments.</p></li><li class="listitem"><p>Repeating arguments should be marked by adding an ellipsis (spelled with periods, <code class="literal">...</code>).</p></li><li class="listitem"><p>Use <code class="literal">Cm</code> to mark literal string arguments, e.g. the <code class="literal">boot</code> command argument passed to <code class="literal">nixos-rebuild</code>.</p></li><li class="listitem"><p>Optional flags or arguments should be marked with <code class="literal">Op</code>. This includes optional repeating arguments.</p></li><li class="listitem"><p>Required flags or arguments should not be marked.</p></li><li class="listitem"><p>Mutually exclusive groups of arguments should be enclosed in curly brackets, preferably created with <code class="literal">Bro</code>/<code class="literal">Brc</code> blocks.</p></li></ul></div><p>When an argument is used in an example it should be marked up with <code class="literal">Ar</code> again to differentiate it from a constant. For example, a command with a <code class="literal">--host name</code> option that calls ssh to retrieve the host’s local time would signify this thusly:</p><pre class="programlisting">
+This will run
+.Ic ssh Ar name Ic time
+to retrieve the remote time.
+</pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="ssec-contributing-nixos-tools-options-and-environment"></a>Paths, NixOS options, environment variables   </h2>  </div> </div></div><p>Constant paths should be marked with <code class="literal">Pa</code>, NixOS options with <code class="literal">Va</code>, and environment variables with <code class="literal">Ev</code>.</p><p>Generated paths, e.g. <code class="literal">result/bin/run-hostname-vm</code> (where <code class="literal">hostname</code> is a variable or arguments) should be marked as <code class="literal">Ql</code> inline literals with their variable components marked appropriately.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>When <code class="literal">hostname</code> refers to an argument, it becomes <code class="literal">.Ql result/bin/run- Ns Ar hostname Ns -vm</code></p></li><li class="listitem"><p>When <code class="literal">hostname</code> refers to a variable, it becomes <code class="literal">.Ql result/bin/run- Ns Va hostname Ns -vm</code></p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="ssec-contributing-nixos-tools-code-examples"></a>Code examples and other commands   </h2>  </div> </div></div><p>In free text names and complete invocations of other commands (e.g. <code class="literal">ssh</code> or <code class="literal">tar -xvf src.tar</code>) should be marked with <code class="literal">Ic</code>, fragments of command lines should be marked with <code class="literal">Ql</code>.</p><p>Larger code blocks or those that cannot be shown inline should use indented literal display block markup for their contents, i.e.</p><pre class="programlisting">
+.Bd -literal -offset indent
+...
+.Ed
+</pre><p>Contents of code blocks may be marked up further, e.g. if they refer to arguments that will be substituted into them:</p><pre class="programlisting">
+.Bd -literal -offset indent
+{
+  config.networking.hostname = &quot;\c
+.Ar hostname Ns \c
+&quot;;
+}
+.Ed
+</pre>
+</div>
+
+</div>
+
 </div>
  </div>
   <div class="navfooter">
