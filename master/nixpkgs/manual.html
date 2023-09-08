@@ -7542,54 +7542,55 @@ These that can’t be used inside Nixpkgs because they require <a class="link" h
 
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="lisp"></a>lisp-modules   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#lisp-overview">Overview</a> </span></dt><dt> <span class="section">  <a href="#lisp-use-case-example">The 90% use case example</a> </span></dt><dt> <span class="section">  <a href="#lisp-importing-packages-from-quicklisp">Importing packages from Quicklisp</a> </span></dt><dt> <span class="section">  <a href="#lisp-defining-packages-inside">Defining packages manually inside Nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#lisp-defining-packages-outside">Defining packages manually outside Nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#lisp-overriding-package-attributes">Overriding package attributes</a> </span></dt><dt> <span class="section">  <a href="#lisp-overriding-packages-in-scope">Overriding packages in scope</a> </span></dt><dt> <span class="section">  <a href="#lisp-building-wrappers">Building Wrappers</a> </span></dt><dt> <span class="section">  <a href="#lisp-adding-a-new-lisp">Adding a new Lisp</a> </span></dt> </dl></div><p>This document describes the Nixpkgs infrastructure for building Common Lisp
-libraries that use ASDF (Another System Definition Facility). It lives in
-<code class="literal">pkgs/development/lisp-modules</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-overview"></a>Overview   </h3>  </div> </div></div><p>The main entry point of the API are the Common Lisp implementation packages
-(e.g. <code class="literal">abcl</code>, <code class="literal">ccl</code>, <code class="literal">clasp-common-lisp</code>, <code class="literal">clisp</code> <code class="literal">ecl</code>, <code class="literal">sbcl</code>)
-themselves. They have the <code class="literal">pkgs</code> and <code class="literal">withPackages</code> attributes, which can be
-used to discover available packages and to build wrappers, respectively.</p><p>The <code class="literal">pkgs</code> attribute set contains packages that were automatically imported from
-Quicklisp, and any other manually defined ones. Not every package works for all
-the CL implementations (e.g. <code class="literal">nyxt</code> only makes sense for <code class="literal">sbcl</code>).</p><p>The <code class="literal">withPackages</code> function is of primary utility. It is used to build runnable
-wrappers, with a pinned and pre-built ASDF FASL available in the <code class="literal">ASDF</code>
-environment variable, and <code class="literal">CL_SOURCE_REGISTRY</code>/<code class="literal">ASDF_OUTPUT_TRANSLATIONS</code>
-configured to find the desired systems on runtime.</p><p>With a few exceptions, the primary thing that the infrastructure does is to run
-<code class="literal">asdf:load-system</code> for each system specified in the <code class="literal">systems</code> argument to
-<code class="literal">build-asdf-system</code>, and save the FASLs to the Nix store. Then, it makes these
-FASLs available to wrappers. Any other use-cases, such as producing SBCL
-executables with <code class="literal">sb-ext:save-lisp-and-die</code>, are achieved via overriding the
-<code class="literal">buildPhase</code> etc.</p><p>In addition, Lisps have the <code class="literal">withOverrides</code> function, which can be used to
-substitute any package in the scope of their <code class="literal">pkgs</code>. This will be useful
-together with <code class="literal">overrideLispAttrs</code> when dealing with slashy ASDF systems, because
-they should stay in the main package and be build by specifying the <code class="literal">systems</code>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="lisp"></a>lisp-modules   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#lisp-overview">Overview</a> </span></dt><dt> <span class="section">  <a href="#lisp-use-case-example">The 90% use case example</a> </span></dt><dt> <span class="section">  <a href="#lisp-importing-packages-from-quicklisp">Importing packages from Quicklisp</a> </span></dt><dt> <span class="section">  <a href="#lisp-defining-packages-inside">Defining packages manually inside Nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#lisp-defining-packages-outside">Defining packages manually outside Nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#lisp-overriding-package-attributes">Overriding package attributes</a> </span></dt><dt> <span class="section">  <a href="#lisp-building-wrappers">Building Wrappers</a> </span></dt><dt> <span class="section">  <a href="#lisp-adding-a-new-lisp">Adding a new Lisp</a> </span></dt> </dl></div><p>This document describes the Nixpkgs infrastructure for building Common Lisp
+systems that use <a class="link" href="https://asdf.common-lisp.dev/"  target="_top">ASDF</a> (Another System
+Definition Facility). It lives in <code class="literal">pkgs/development/lisp-modules</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-overview"></a>Overview   </h3>  </div> </div></div><p>The main entry point of the API are the Common Lisp implementation packages
+themselves (e.g. <code class="literal">abcl</code>, <code class="literal">ccl</code>, <code class="literal">clasp-common-lisp</code>, <code class="literal">clisp</code>, <code class="literal">ecl</code>,
+<code class="literal">sbcl</code>). They have the <code class="literal">pkgs</code> and <code class="literal">withPackages</code> attributes, which can be used
+to discover available packages and to build wrappers, respectively.</p><p>The <code class="literal">pkgs</code> attribute set contains packages that were automatically
+<a class="link" href="#lisp-importing-packages-from-quicklisp" title="Importing packages from Quicklisp" >imported</a> from Quicklisp, and any
+other <a class="link" href="#lisp-defining-packages-inside" title="Defining packages manually inside Nixpkgs" >manually defined</a> ones. Not every package
+works for all the CL implementations (e.g. <code class="literal">nyxt</code> only makes sense for <code class="literal">sbcl</code>).</p><p>The <code class="literal">withPackages</code> function is of primary utility. It is used to build
+<a class="link" href="#lisp-building-wrappers" title="Building Wrappers" >runnable wrappers</a>, with a pinned and pre-built
+<a class="link" href="#lisp-loading-asdf" title="Loading ASDF" >ASDF FASL</a> available in the <code class="literal">ASDF</code> environment variable,
+and <code class="literal">CL_SOURCE_REGISTRY</code>/<code class="literal">ASDF_OUTPUT_TRANSLATIONS</code> configured to
+<a class="link" href="#lisp-loading-systems" title="Loading systems" >find the desired systems on runtime</a>.</p><p>In addition, Lisps have the <code class="literal">withOverrides</code> function, which can be used to
+<a class="link" href="#lisp-including-external-pkg-in-scope" title="Including an external package in scope" >substitute</a> any package in the scope of
+their <code class="literal">pkgs</code>. This will also be useful together with <code class="literal">overrideLispAttrs</code> when
+<a class="link" href="#lisp-dealing-with-slashy-systems" title="Dealing with slashy systems" >dealing with slashy systems</a>, because they
+should stay in the main package and be built by specifying the <code class="literal">systems</code>
 argument to <code class="literal">build-asdf-system</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-use-case-example"></a>The 90% use case example   </h3>  </div> </div></div><p>The most common way to use the library is to run ad-hoc wrappers like this:</p><p><code class="literal">nix-shell -p &#x27;sbcl.withPackages (ps: with ps; [ alexandria ])&#x27;</code></p><p>Then, in a shell:</p><pre class="programlisting">
-$ result/bin/sbcl
+$ sbcl
 * (load (sb-ext:posix-getenv &quot;ASDF&quot;))
 * (asdf:load-system &#x27;alexandria)
 </pre><p>Also one can create a <code class="literal">pkgs.mkShell</code> environment in <code class="literal">shell.nix</code>/<code class="literal">flake.nix</code>:</p><pre class="programlisting">
 let
   sbcl&#x27; = sbcl.withPackages (ps: [ ps.alexandria ]);
 in mkShell {
-  buildInputs = [ sbcl&#x27; ];
+  packages = [ sbcl&#x27; ];
 }
 </pre><p>Such a Lisp can be now used e.g. to compile your sources:</p><pre class="programlisting">
 buildPhase = &#x27;&#x27;
   ${sbcl&#x27;}/bin/sbcl --load my-build-file.lisp
 &#x27;&#x27;
 </pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-importing-packages-from-quicklisp"></a>Importing packages from Quicklisp   </h3>  </div> </div></div><p>The library is able to very quickly import all the packages distributed by
-Quicklisp by parsing its <code class="literal">releases.txt</code> and <code class="literal">systems.txt</code> files. These files are
-available from [http://beta.quicklisp.org/dist/quicklisp.txt].</p><p>The import process is implemented in the <code class="literal">import</code> directory as Common Lisp
-functions in the <code class="literal">org.lispbuilds.nix</code> ASDF system. To run the script, one can
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-importing-packages-from-quicklisp"></a>Importing packages from Quicklisp   </h3>  </div> </div></div><p>To save some work of writing Nix expressions, there is a script that imports all
+the packages distributed by Quicklisp into <code class="literal">imported.nix</code>. This works by parsing
+its <code class="literal">releases.txt</code> and <code class="literal">systems.txt</code> files, which are published every couple of
+months on <a class="link" href="http://beta.quicklisp.org/dist/quicklisp.txt"  target="_top">quicklisp.org</a>.</p><p>The import process is implemented in the <code class="literal">import</code> directory as Common Lisp
+code in the <code class="literal">org.lispbuilds.nix</code> ASDF system. To run the script, one can
 execute <code class="literal">ql-import.lisp</code>:</p><pre class="programlisting">
+cd pkgs/development/lisp-modules
 nix-shell --run &#x27;sbcl --script ql-import.lisp&#x27;
-</pre><p>The script will:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>Download the latest Quicklisp <code class="literal">systems.txt</code> and <code class="literal">releases.txt</code> files</p></li><li class="listitem"><p>Generate an SQLite database of all QL systems in <code class="literal">packages.sqlite</code></p></li><li class="listitem"><p>Generate an <code class="literal">imported.nix</code> file from the database</p></li></ol></div><p>The maintainer’s job there is to:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>Re-run the <code class="literal">ql-import.lisp</code> script</p></li><li class="listitem"><p>Add missing native dependencies in <code class="literal">ql.nix</code></p></li><li class="listitem"><p>For packages that still don’t build, package them manually in <code class="literal">packages.nix</code></p></li></ol></div><p>Also, the <code class="literal">imported.nix</code> file <span class="strong"><strong>must not be edited manually</strong></span>! It should only be
-generated as described in this section.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-quicklisp-adding-native-dependencies"></a>Adding native dependencies   </h4>  </div> </div></div><p>The Quicklisp files contain ASDF dependency data, but don’t include native
+</pre><p>The script will:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>Download the latest Quicklisp <code class="literal">systems.txt</code> and <code class="literal">releases.txt</code> files</p></li><li class="listitem"><p>Generate a temporary SQLite database of all QL systems in <code class="literal">packages.sqlite</code></p></li><li class="listitem"><p>Generate an <code class="literal">imported.nix</code> file from the database</p></li></ol></div><p>(The <code class="literal">packages.sqlite</code> file can be deleted at will, because it is regenerated
+each time the script runs.)</p><p>The maintainer’s job is to:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>Re-run the <code class="literal">ql-import.lisp</code> script when there is a new Quicklisp release</p></li><li class="listitem"><p><a class="link" href="#lisp-quicklisp-adding-native-dependencies" title="Adding native dependencies" >Add any missing native dependencies</a> in <code class="literal">ql.nix</code></p></li><li class="listitem"><p>For packages that still don’t build, <a class="link" href="#lisp-defining-packages-inside" title="Defining packages manually inside Nixpkgs" >package them manually</a> in <code class="literal">packages.nix</code></p></li></ol></div><p>Also, the <code class="literal">imported.nix</code> file <span class="strong"><strong>must not be edited manually</strong></span>! It should only be
+generated as described in this section (by running <code class="literal">ql-import.lisp</code>).</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-quicklisp-adding-native-dependencies"></a>Adding native dependencies   </h4>  </div> </div></div><p>The Quicklisp files contain ASDF dependency data, but don’t include native
 library (CFFI) dependencies, and, in the case of ABCL, Java dependencies.</p><p>The <code class="literal">ql.nix</code> file contains a long list of overrides, where these dependencies
 can be added.</p><p>Packages defined in <code class="literal">packages.nix</code> contain these dependencies naturally.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-quicklisp-trusting"></a>Trusting <code class="literal">systems.txt</code> and <code class="literal">releases.txt</code>   </h4>  </div> </div></div><p>The previous implementation of <code class="literal">lisp-modules</code> didn’t fully trust the Quicklisp
 data, because there were times where the dependencies specified were not
-complete, and caused broken builds. It instead used a <code class="literal">nix-shell</code> environment to
+complete and caused broken builds. It instead used a <code class="literal">nix-shell</code> environment to
 discover real dependencies by using the ASDF APIs.</p><p>The current implementation has chosen to trust this data, because it’s faster to
 parse a text file than to build each system to generate its Nix file, and
 because that way packages can be mass-imported. Because of that, there may come
@@ -7598,19 +7599,21 @@ the fix could be a manual override in <code class="literal">packages.nix</code> 
 its data. This is an example of a situation where such fixes were used, e.g. to
 replace the <code class="literal">systems</code> attribute of the affected packages. (See the definition of
 <code class="literal">iolib</code>).</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-quicklisp-quirks"></a>Quirks   </h4>  </div> </div></div><p>During Quicklisp import:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">+</code> in names are converted to <code class="literal">_plus{_,}</code>: <code class="literal">cl+ssl</code>-&gt;<code class="literal">cl_plus_ssl</code>, <code class="literal">alexandria+</code>-&gt;<code class="literal">alexandria_plus</code></p></li><li class="listitem"><p><code class="literal">.</code> to <code class="literal">_dot_</code>: <code class="literal">iolib.base</code>-&gt;<code class="literal">iolib_dot_base</code></p></li><li class="listitem"><p>names starting with a number have a <code class="literal">_</code> prepended (<code class="literal">3d-vectors</code>-&gt;<code class="literal">_3d-vectors</code>)</p></li><li class="listitem"><p><code class="literal">_</code> in names is converted to <code class="literal">__</code> for reversibility</p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-quicklisp-quirks"></a>Quirks   </h4>  </div> </div></div><p>During Quicklisp import:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">+</code> in names is converted to <code class="literal">_plus{_,}</code>: <code class="literal">cl+ssl</code>-&gt;<code class="literal">cl_plus_ssl</code>, <code class="literal">alexandria+</code>-&gt;<code class="literal">alexandria_plus</code></p></li><li class="listitem"><p><code class="literal">.</code> in names is converted to <code class="literal">_dot_</code>: <code class="literal">iolib.base</code>-&gt;<code class="literal">iolib_dot_base</code></p></li><li class="listitem"><p>names starting with a number have a <code class="literal">_</code> prepended (<code class="literal">3d-vectors</code>-&gt;<code class="literal">_3d-vectors</code>)</p></li><li class="listitem"><p><code class="literal">_</code> in names is converted to <code class="literal">__</code> for reversibility</p></li></ul></div>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-defining-packages-inside"></a>Defining packages manually inside Nixpkgs   </h3>  </div> </div></div><p>New packages, that for some reason are not in Quicklisp, and so cannot be
-auto-imported, can be written in the <code class="literal">packages.nix</code> file.</p><p>In that file, use the <code class="literal">build-asdf-system</code> function, which is a wrapper around
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-defining-packages-inside"></a>Defining packages manually inside Nixpkgs   </h3>  </div> </div></div><p>Packages that for some reason are not in Quicklisp, and so cannot be
+auto-imported, or don’t work straight from the import, are defined in the
+<code class="literal">packages.nix</code> file.</p><p>In that file, use the <code class="literal">build-asdf-system</code> function, which is a wrapper around
 <code class="literal">mkDerivation</code> for building ASDF systems. Various other hacks are present, such
 as <code class="literal">build-with-compile-into-pwd</code> for systems which create files during
-compilation.</p><p>The <code class="literal">build-asdf-system</code> function is documented with comments in
-<code class="literal">nix-cl.nix</code>. Also, <code class="literal">packages.nix</code> is full of examples of how to use it.</p>
+compilation (such as cl-unicode).</p><p>The <code class="literal">build-asdf-system</code> function is documented
+<a class="link" href="#lisp-defining-packages-outside" title="Defining packages manually outside Nixpkgs" >here</a>. Also, <code class="literal">packages.nix</code> is full of
+examples of how to use it.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-defining-packages-outside"></a>Defining packages manually outside Nixpkgs   </h3>  </div> </div></div><p>Lisp derivations (<code class="literal">abcl</code>, <code class="literal">sbcl</code> etc.) also export the <code class="literal">buildASDFSystem</code>
-function, which is the same as <code class="literal">build-asdf-system</code>, except for the <code class="literal">lisp</code>
-argument which is set to the given CL implementation.</p><p>It can be used to define packages outside Nixpkgs, and, for example, add them
-into the package scope with <code class="literal">withOverrides</code> which will be discussed later on.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-including-external-pkg-in-scope"></a>Including an external package in scope   </h4>  </div> </div></div><p>A package defined outside Nixpkgs using <code class="literal">buildASDFSystem</code> can be woven into the
+function, which is similar to <code class="literal">build-asdf-system</code> from <code class="literal">packages.nix</code>, but is
+part of the public API.</p><p>It takes the following arguments:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">pname</code>: the package name</p></li><li class="listitem"><p><code class="literal">version</code>: the package version</p></li><li class="listitem"><p><code class="literal">src</code>: the package source</p></li><li class="listitem"><p><code class="literal">patches</code>: patches to apply to the source before build</p></li><li class="listitem"><p><code class="literal">nativeLibs</code>: native libraries used by CFFI and grovelling</p></li><li class="listitem"><p><code class="literal">javaLibs</code>: Java libraries for ABCL</p></li><li class="listitem"><p><code class="literal">lispLibs</code>: dependencies on other packages build with <code class="literal">buildASDFSystem</code></p></li><li class="listitem"><p><code class="literal">systems</code>: list of systems to build</p></li></ul></div><p>It can be used to define packages outside Nixpkgs, and, for example, add them
+into the package scope with <code class="literal">withOverrides</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-including-external-pkg-in-scope"></a>Including an external package in scope   </h4>  </div> </div></div><p>A package defined outside Nixpkgs using <code class="literal">buildASDFSystem</code> can be woven into the
 Nixpkgs-provided scope like this:</p><pre class="programlisting">
 let
   alexandria = sbcl.buildASDFSystem rec {
@@ -7643,23 +7646,6 @@ sbcl.pkgs.alexandria.overrideLispAttrs (oldAttrs: rec {
     hash = &quot;sha256-1Hzxt65dZvgOFIljjjlSGgKYkj+YBLwJCACi5DZsKmQ=&quot;;
   };
 })
-</pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-overriding-packages-in-scope"></a>Overriding packages in scope   </h3>  </div> </div></div><p>Packages can be woven into a new scope by using <code class="literal">withOverrides</code>:</p><pre class="programlisting">
-let
-  sbcl&#x27; = sbcl.withOverrides (self: super: {
-    alexandria = super.alexandria.overrideLispAttrs (oldAttrs: rec {
-      pname = &quot;alexandria&quot;;
-      version = &quot;1.4&quot;;
-      src = fetchFromGitLab {
-        domain = &quot;gitlab.common-lisp.net&quot;;
-        owner = &quot;alexandria&quot;;
-        repo = &quot;alexandria&quot;;
-        rev = &quot;v${version}&quot;;
-        hash = &quot;sha256-1Hzxt65dZvgOFIljjjlSGgKYkj+YBLwJCACi5DZsKmQ=&quot;;
-      };
-    });
-  });
-in builtins.elemAt sbcl&#x27;.pkgs.bordeaux-threads.lispLibs 0
 </pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-dealing-with-slashy-systems"></a>Dealing with slashy systems   </h4>  </div> </div></div><p>Slashy (secondary) systems should not exist in their own packages! Instead, they
 should be included in the parent package as an extra entry in the <code class="literal">systems</code>
 argument to the <code class="literal">build-asdf-system</code>/<code class="literal">buildASDFSystem</code> functions.</p><p>The reason is that ASDF searches for a secondary system in the <code class="literal">.asd</code> of the
@@ -7670,17 +7656,20 @@ ecl.pkgs.alexandria.overrideLispAttrs (oldAttrs: {
   systems = oldAttrs.systems ++ [ &quot;alexandria/tests&quot; ];
   lispLibs = oldAttrs.lispLibs ++ [ ecl.pkgs.rt ];
 })
-</pre><p>See the respective section on using <code class="literal">withOverrides</code> for how to weave it back
-into <code class="literal">ecl.pkgs</code>.</p><p>Note that sometimes the slashy systems might not only have more dependencies
+</pre><p>See the <a class="link" href="#lisp-including-external-pkg-in-scope" title="Including an external package in scope" >respective section</a> on using
+<code class="literal">withOverrides</code> for how to weave it back into <code class="literal">ecl.pkgs</code>.</p><p>Note that sometimes the slashy systems might not only have more dependencies
 than the main one, but create a circular dependency between <code class="literal">.asd</code>
 files. Unfortunately, in this case an adhoc solution becomes necessary.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="lisp-building-wrappers"></a>Building Wrappers   </h3>  </div> </div></div><p>Wrappers can be built using the <code class="literal">withPackages</code> function of Common Lisp
 implementations (<code class="literal">abcl</code>, <code class="literal">ecl</code>, <code class="literal">sbcl</code> etc.):</p><pre class="programlisting">
-sbcl.withPackages (ps: [ ps.alexandria ps.bordeaux-threads ])
-</pre><p>Such a wrapper can then be executed like this:</p><pre class="programlisting">
-result/bin/sbcl
+nix-shell -p &#x27;sbcl.withPackages (ps: [ ps.alexandria ps.bordeaux-threads ])&#x27;
+</pre><p>Such a wrapper can then be used like this:</p><pre class="programlisting">
+$ sbcl
+* (load (sb-ext:posix-getenv &quot;ASDF&quot;))
+* (asdf:load-system &#x27;alexandria)
+* (asdf:load-system &#x27;bordeaux-threads)
 </pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="lisp-loading-asdf"></a>Loading ASDF   </h4>  </div> </div></div><p>For best results, avoid calling <code class="literal">(require &#x27;asdf)</code> When using the
 library-generated wrappers.</p><p>Use <code class="literal">(load (ext:getenv &quot;ASDF&quot;))</code> instead, supplying your implementation’s way of
 getting an environment variable for <code class="literal">ext:getenv</code>. This will load the
