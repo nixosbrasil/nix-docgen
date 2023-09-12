@@ -5436,7 +5436,7 @@ security.acme.defaults.email = &quot;admin+acme@example.com&quot;;
 security.acme.certs.&quot;example.com&quot; = {
   domain = &quot;*.example.com&quot;;
   dnsProvider = &quot;rfc2136&quot;;
-  credentialsFile = &quot;/var/lib/secrets/certs.secret&quot;;
+  environmentFile = &quot;/var/lib/secrets/certs.secret&quot;;
   # We don&#x27;t need to wait for propagation since this is a local DNS server
   dnsPropagationCheck = false;
 };
@@ -5489,7 +5489,7 @@ security.acme.acceptTerms = true;
 security.acme.defaults.email = &quot;admin+acme@example.com&quot;;
 security.acme.defaults = {
   dnsProvider = &quot;rfc2136&quot;;
-  credentialsFile = &quot;/var/lib/secrets/certs.secret&quot;;
+  environmentFile = &quot;/var/lib/secrets/certs.secret&quot;;
   # We don&#x27;t need to wait for propagation since this is a local DNS server
   dnsPropagationCheck = false;
 };
