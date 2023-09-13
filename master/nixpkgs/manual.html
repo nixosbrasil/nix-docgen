@@ -11531,9 +11531,9 @@ on pkg-config.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-ibus-typing-booster-customize-hunspell"></a>Using custom hunspell dictionaries   </h3>  </div> </div></div><p>The IBus engine is based on <code class="literal">hunspell</code> to support completion in many languages. By default, the dictionaries <code class="literal">de-de</code>, <code class="literal">en-us</code>, <code class="literal">fr-moderne</code> <code class="literal">es-es</code>, <code class="literal">it-it</code>, <code class="literal">sv-se</code> and <code class="literal">sv-fi</code> are in use. To add another dictionary, the package can be overridden like this:</p><pre class="programlisting">
 ibus-engines.typing-booster.override { langs = [ &quot;de-at&quot; &quot;en-gb&quot; ]; }
 </pre><p><span class="emphasis"><em>Note: each language passed to <code class="literal">langs</code> must be an attribute name in <code class="literal">pkgs.hunspellDicts</code>.</em></span></p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-ibus-typing-booster-emoji-picker"></a>Built-in emoji picker   </h3>  </div> </div></div><p>The <code class="literal">ibus-engines.typing-booster</code> package contains a program named <code class="literal">emoji-picker</code>. To display all emojis correctly, a special font such as <code class="literal">noto-fonts-emoji</code> is needed:</p><p>On NixOS, it can be installed using the following expression:</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-ibus-typing-booster-emoji-picker"></a>Built-in emoji picker   </h3>  </div> </div></div><p>The <code class="literal">ibus-engines.typing-booster</code> package contains a program named <code class="literal">emoji-picker</code>. To display all emojis correctly, a special font such as <code class="literal">noto-fonts-color-emoji</code> is needed:</p><p>On NixOS, it can be installed using the following expression:</p><pre class="programlisting">
 { pkgs, ... }: {
-  fonts.packages = with pkgs; [ noto-fonts-emoji ];
+  fonts.packages = with pkgs; [ noto-fonts-color-emoji ];
 }
 </pre>
 </div>
