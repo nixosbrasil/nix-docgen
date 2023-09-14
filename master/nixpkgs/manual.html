@@ -3155,6 +3155,17 @@ installTargets = &quot;install-bin install-doc&quot;;
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-stripDebugList"></a><code class="literal">stripDebugList</code>   </h5>  </div> </div></div><p>List of directories to search for libraries and executables from which only debugging-related symbols should be stripped. It defaults to <code class="literal">lib lib32 lib64 libexec bin sbin</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-stripDebugListTarget"></a><code class="literal">stripDebugListTarget</code>   </h5>  </div> </div></div><p>Like <code class="literal">stripDebugList</code>, but only applies to packages’ target platform. By default, it’s empty. Useful when supporting cross compilation.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-stripDebugFlags"></a><code class="literal">stripDebugFlags</code>   </h5>  </div> </div></div><p>Flags passed to the <code class="literal">strip</code> command applied to the files in the directories listed in <code class="literal">stripDebugList</code>. Defaults to <code class="literal">-S</code> (i.e. <code class="literal">--strip-debug</code>).</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-stripExclude"></a><code class="literal">stripExclude</code>   </h5>  </div> </div></div><p>A list of filenames or path patterns to avoid stripping. A file is excluded if its name <span class="emphasis"><em>or</em></span> path (from the derivation root) matches.</p><p>This example prevents all <code class="literal">*.rlib</code> files from being stripped:</p><pre class="programlisting">
+stdenv.mkDerivation {
+  # ...
+  stripExclude = [ &quot;*.rlib&quot; ]
+}
+</pre><p>This example prevents files within certain paths from being stripped:</p><pre class="programlisting">
+stdenv.mkDerivation {
+  # ...
+  stripExclude = [ &quot;lib/modules/*/build/* ]
+}
+</pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-dontPatchELF"></a><code class="literal">dontPatchELF</code>   </h5>  </div> </div></div><p>If set, the <code class="literal">patchelf</code> command is not used to remove unnecessary <code class="literal">RPATH</code> entries. Only applies to Linux.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-dontPatchShebangs"></a><code class="literal">dontPatchShebangs</code>   </h5>  </div> </div></div><p>If set, scripts starting with <code class="literal">#!</code> do not have their interpreter paths rewritten to paths in the Nix store. See <a class="xref" href="#patch-shebangs.sh" title="patch-shebangs.sh" >the section called “<code class="literal">patch-shebangs.sh</code>”</a> on how patching shebangs works.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="var-stdenv-dontPruneLibtoolFiles"></a><code class="literal">dontPruneLibtoolFiles</code>   </h5>  </div> </div></div><p>If set, libtool <code class="literal">.la</code> files associated with shared libraries won’t have their <code class="literal">dependency_libs</code> field cleared.</p>
@@ -5189,7 +5200,7 @@ $ nix-env -f &quot;&lt;nixpkgs&gt;&quot; -iA beamPackages.rebar3
 with import &lt;nixpkgs&gt; { };
 
 let
-  # beam.interpreters.erlang_23 is available if you need a particular version
+  # beam.interpreters.erlang_26 is available if you need a particular version
   packages = beam.packagesWith beam.interpreters.erlang;
 
   pname = &quot;your_project&quot;;
@@ -8490,7 +8501,9 @@ won’t work with that project unless those extensions are loaded.</p><p>Example
   enabled ++ (with all; [ imagick redis ]))
 ).packages.composer
 </pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-php-user-guide-overriding-packages"></a>Overriding PHP packages   </h4>  </div> </div></div><p><code class="literal">php-packages.nix</code> form a scope, allowing us to override the packages defined within. For example, to apply a patch to a <code class="literal">mysqlnd</code> extension, you can simply pass an overlay-style function to <code class="literal">php</code>’s <code class="literal">packageOverrides</code> argument:</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-php-user-guide-overriding-packages"></a>Overriding PHP packages   </h4>  </div> </div></div><p><code class="literal">php-packages.nix</code> form a scope, allowing us to override the packages defined
+within. For example, to apply a patch to a <code class="literal">mysqlnd</code> extension, you can simply
+pass an overlay-style function to <code class="literal">php</code>’s <code class="literal">packageOverrides</code> argument:</p><pre class="programlisting">
 php.override {
   packageOverrides = final: prev: {
     extensions = prev.extensions // {
@@ -8502,6 +8515,102 @@ php.override {
     };
   };
 }
+</pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-building-php-projects"></a>Building PHP projects   </h4>  </div> </div></div><p>With <a class="link" href="https://getcomposer.org/"  target="_top">Composer</a>, you can effectively build PHP
+projects by streamlining dependency management. As the de-facto standard
+dependency manager for PHP, Composer enables you to declare and manage the
+libraries your project relies on, ensuring a more organized and efficient
+development process.</p><p>Composer is not a package manager in the same sense as <code class="literal">Yum</code> or <code class="literal">Apt</code> are. Yes,
+it deals with “packages” or libraries, but it manages them on a per-project
+basis, installing them in a directory (e.g. <code class="literal">vendor</code>) inside your project. By
+default, it does not install anything globally. This idea is not new and
+Composer is strongly inspired by node’s <code class="literal">npm</code> and ruby’s <code class="literal">bundler</code>.</p><p>Currently, there is no other PHP tool that offers the same functionality as
+Composer. Consequently, incorporating a helper in Nix to facilitate building
+such applications is a logical choice.</p><p>In a Composer project, dependencies are defined in a <code class="literal">composer.json</code> file,
+while their specific versions are locked in a <code class="literal">composer.lock</code> file. Some
+Composer-based projects opt to include this <code class="literal">composer.lock</code> file in their source
+code, while others choose not to.</p><p>In Nix, there are multiple approaches to building a Composer-based project.</p><p>One such method is the <code class="literal">php.buildComposerProject</code> helper function, which serves
+as a wrapper around <code class="literal">mkDerivation</code>.</p><p>Using this function, you can build a PHP project that includes both a
+<code class="literal">composer.json</code> and <code class="literal">composer.lock</code> file. If the project specifies binaries
+using the <code class="literal">bin</code> attribute in <code class="literal">composer.json</code>, these binaries will be
+automatically linked and made accessible in the derivation. In this context,
+“binaries” refer to PHP scripts that are intended to be executable.</p><p>To use the helper effectively, simply add the <code class="literal">vendorHash</code> attribute, which
+enables the wrapper to handle the heavy lifting.</p><p>Internally, the helper operates in three stages:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>It constructs a <code class="literal">composerRepository</code> attribute derivation by creating a
+composer repository on the filesystem containing dependencies specified in
+<code class="literal">composer.json</code>. This process uses the function
+<code class="literal">php.mkComposerRepository</code> which in turn uses the
+<code class="literal">php.composerHooks.composerRepositoryHook</code> hook. Internaly this function uses
+a custom
+<a class="link" href="https://github.com/nix-community/composer-local-repo-plugin"  target="_top">Composer plugin</a> to
+generate the repository.</p></li><li class="listitem"><p>The resulting <code class="literal">composerRepository</code> derivation is then used by the
+<code class="literal">php.composerHooks.composerInstallHook</code> hook, which is responsible for
+creating the final <code class="literal">vendor</code> directory.</p></li><li class="listitem"><p>Any “binary” specified in the <code class="literal">composer.json</code> are linked and made accessible
+in the derivation.</p></li></ol></div><p>As the autoloader optimization can be activated directly within the
+<code class="literal">composer.json</code> file, we do not enable any autoloader optimization flags.</p><p>To customize the PHP version, you can specify the <code class="literal">php</code> attribute. Similarly, if
+you wish to modify the Composer version, use the <code class="literal">composer</code> attribute. It is
+important to note that both attributes should be of the <code class="literal">derivation</code> type.</p><p>Here’s an example of working code example using <code class="literal">php.buildComposerProject</code>:</p><pre class="programlisting">
+{ php, fetchFromGitHub }:
+
+php.buildComposerProject (finalAttrs: {
+  pname = &quot;php-app&quot;;
+  version = &quot;1.0.0&quot;;
+
+  src = fetchFromGitHub {
+    owner = &quot;git-owner&quot;;
+    repo = &quot;git-repo&quot;;
+    rev = finalAttrs.version;
+    hash = &quot;sha256-VcQRSss2dssfkJ+iUb5qT+FJ10GHiFDzySigcmuVI+8=&quot;;
+  };
+
+  # PHP version containing the `ast` extension enabled
+  php = php.buildEnv {
+    extensions = ({ enabled, all }: enabled ++ (with all; [
+      ast
+    ]));
+  };
+
+  # The composer vendor hash
+  vendorHash = &quot;sha256-86s/F+/5cBAwBqZ2yaGRM5rTGLmou5//aLRK5SA0WiQ=&quot;;
+
+  # If the composer.lock file is missing from the repository, add it:
+  # composerLock = ./path/to/composer.lock;
+})
+</pre><p>In case the file <code class="literal">composer.lock</code> is missing from the repository, it is possible
+to specify it using the <code class="literal">composerLock</code> attribute.</p><p>The other method is to use all these methods and hooks individually. This has
+the advantage of building a PHP library within another derivation very easily
+when necessary.</p><p>Here’s a working code example to build a PHP library using <code class="literal">mkDerivation</code> and
+separate functions and hooks:</p><pre class="programlisting">
+{ stdenvNoCC, fetchFromGitHub, php }:
+
+stdenvNoCC.mkDerivation (finalAttrs:
+let
+  src = fetchFromGitHub {
+    owner = &quot;git-owner&quot;;
+    repo = &quot;git-repo&quot;;
+    rev = finalAttrs.version;
+    hash = &quot;sha256-VcQRSss2dssfkJ+iUb5qT+FJ10GHiFDzySigcmuVI+8=&quot;;
+  };
+in {
+  inherit src;
+  pname = &quot;php-app&quot;;
+  version = &quot;1.0.0&quot;;
+
+  buildInputs = [ php ];
+
+  nativeBuildInputs = [
+    php.packages.composer
+    # This hook will use the attribute `composerRepository`
+    php.composerHooks.composerInstallHook
+  ];
+
+  composerRepository = php.mkComposerRepository {
+    inherit (finalAttrs) src;
+    # Specifying a custom composer.lock since it is not present in the sources.
+    composerLock = ./composer.lock;
+    # The composer vendor hash
+    vendorHash = &quot;sha256-86s/F+/5cBAwBqZ2yaGRM5rTGLmou5//aLRK5SA0WiQ=&quot;;
+  };
+})
 </pre>
 </div>
 
