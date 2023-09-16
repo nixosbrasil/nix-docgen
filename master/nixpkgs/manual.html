@@ -2873,7 +2873,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = &quot;https://github.com/Solo5/solo5/releases/download/v${version}/solo5-v${version}.tar.gz&quot;;
-    sha256 = &quot;sha256-viwrS9lnaU8sTGuzK/+L/PlMM/xRRtgVuK5pixVeDEw=&quot;;
+    hash = &quot;sha256-viwrS9lnaU8sTGuzK/+L/PlMM/xRRtgVuK5pixVeDEw=&quot;;
   };
 
   nativeBuildInputs = [ makeWrapper pkg-config ];
@@ -3685,7 +3685,7 @@ Otherwise, the builder will run, but fail with a message explaining to the user 
 requireFile {
   name = &quot;jdk-${version}_linux-x64_bin.tar.gz&quot;;
   url = &quot;https://www.oracle.com/java/technologies/javase-jdk11-downloads.html&quot;;
-  sha256 = &quot;94bd34f85ee38d3ef59e5289ec7450b9443b924c55625661fffe66b03f2c8de2&quot;;
+  hash = &quot;sha256-lL00+F7jjT71nlKJ7HRQuUQ7kkxVYlZh//5msD8sjeI=&quot;;
 }
 </pre><p>results in this error message:</p><pre class="programlisting">
 ***
@@ -5812,7 +5812,7 @@ buildDhallPackage {
 let
   nixpkgs = builtins.fetchTarball {
     url    = &quot;https://github.com/NixOS/nixpkgs/archive/94b2848559b12a8ed1fe433084686b2a81123c99.tar.gz&quot;;
-    sha256 = &quot;sha256-B4Q3c6IvTLg3Q92qYa8y+i4uTaphtFdjp+Ir3QQjdN0=&quot;;
+    hash = &quot;sha256-B4Q3c6IvTLg3Q92qYa8y+i4uTaphtFdjp+Ir3QQjdN0=&quot;;
   };
 
   dhallOverlay = self: super: {
@@ -10233,6 +10233,12 @@ in mkShell { packages = [ gems gems.wrappedRuby ]; }
 </pre><p>With this file in your directory, you can run <code class="literal">nix-shell</code> to build and use the gems. The important parts here are <code class="literal">bundlerEnv</code> and <code class="literal">wrappedRuby</code>.</p><p>The <code class="literal">bundlerEnv</code> is a wrapper over all the gems in your gemset. This means that all the <code class="literal">/lib</code> and <code class="literal">/bin</code> directories will be available, and the executables of all gems (even of indirect dependencies) will end up in your <code class="literal">$PATH</code>. The <code class="literal">wrappedRuby</code> provides you with all executables that come with Ruby itself, but wrapped so they can easily find the gems in your gemset.</p><p>One common issue that you might have is that you have Ruby 2.6, but also <code class="literal">bundler</code> in your gemset. That leads to a conflict for <code class="literal">/bin/bundle</code> and <code class="literal">/bin/bundler</code>. You can resolve this by wrapping either your Ruby or your gems in a <code class="literal">lowPrio</code> call. So in order to give the <code class="literal">bundler</code> from your gemset priority, it would be used like this:</p><pre class="programlisting">
 # ...
 mkShell { buildInputs = [ gems (lowPrio gems.wrappedRuby) ]; }
+</pre><p>Sometimes a Gemfile references other files. Such as <code class="literal">.ruby-version</code> or vendored gems. When copying the Gemfile to the nix store we need to copy those files alongside. This can be done using <code class="literal">extraConfigPaths</code>. For example:</p><pre class="programlisting">
+  gems = bundlerEnv {
+    name = &quot;gems-for-some-project&quot;;
+    gemdir = ./.;
+    extraConfigPaths = [ &quot;${./.}/.ruby-version&quot; ];
+  };
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="gem-specific-configurations-and-workarounds"></a>Gem-specific configurations and workarounds   </h4>  </div> </div></div><p>In some cases, especially if the gem has native extensions, you might need to modify the way the gem is built.</p><p>This is done via a common configuration file that includes all of the workarounds for each gem.</p><p>This file lives at <code class="literal">/pkgs/development/ruby-modules/gem-config/default.nix</code>, since it already contains a lot of entries, it should be pretty easy to add the modifications you need for your needs.</p><p>In the meanwhile, or if the modification is for a private gem, you can also add the configuration to only your own environment.</p><p>Two places that allow this modification are the <code class="literal">ruby</code> derivation, or <code class="literal">bundlerEnv</code>.</p><p>Here’s the <code class="literal">ruby</code> one:</p><pre class="programlisting">
 { pg_version ? &quot;10&quot;, pkgs ? import &lt;nixpkgs&gt; { } }:
@@ -10396,7 +10402,7 @@ rustPlatform.buildRustPackage rec {
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = &quot;sha256-aDQA4A5mScX9or3Lyiv/5GyAehidnpKKE0grhbP1Ctc=&quot;;
+    hash = &quot;sha256-aDQA4A5mScX9or3Lyiv/5GyAehidnpKKE0grhbP1Ctc=&quot;;
   };
 
   cargoHash = &quot;sha256-tbrTbutUs5aPSV+yE0IBUZAAytgmZV7Eqxia7g+9zRs=&quot;;
