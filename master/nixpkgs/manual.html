@@ -7495,6 +7495,7 @@ sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
 </pre>
 </div>
 
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="javascript-corepack"></a>corepack   </h4>  </div> </div></div><p>This package puts the corepack wrappers for pnpm and yarn in your PATH, and they will honor the <code class="literal">packageManager</code> setting in the <code class="literal">package.json</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="javascript-node2nix"></a>node2nix   </h4>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="javascript-node2nix-preparation"></a>Preparation   </h5>  </div> </div></div><p>You will need to generate a Nix expression for the dependencies. Don’t forget the <code class="literal">-l package-lock.json</code> if there is a lock file. Most probably you will need the <code class="literal">--development</code> to include the <code class="literal">devDependencies</code></p><p>So the command will most likely be:</p><pre class="programlisting">
 node2nix --development -l package-lock.json
 </pre><p>See <code class="literal">node2nix</code> <a class="link" href="https://github.com/svanderburg/node2nix"  target="_top">docs</a> for more info.</p>
