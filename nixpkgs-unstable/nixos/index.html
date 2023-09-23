@@ -7685,20 +7685,20 @@ machine.systemctl(&quot;list-jobs --no-pager&quot;)
 # spawn a shell for `any-user` and run
 # `systemctl --user list-jobs --no-pager`
 machine.systemctl(&quot;list-jobs --no-pager&quot;, &quot;any-user&quot;)
-</pre></dd><dt><span class="term">unblock()</span></dt><dd><p>Undo the effect of <code class="literal">block</code>.</p></dd><dt><span class="term">wait_for_closed_port(port, addr)</span></dt><dd><p>Wait until nobody is listening on the given TCP port and IP address
+</pre></dd><dt><span class="term">unblock()</span></dt><dd><p>Undo the effect of <code class="literal">block</code>.</p></dd><dt><span class="term">wait_for_closed_port(port, addr, timeout)</span></dt><dd><p>Wait until nobody is listening on the given TCP port and IP address
 (default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_console_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions match a line of the
 serial console output.
-This method is useful when OCR is not possible or inaccurate.</p></dd><dt><span class="term">wait_for_file(filename)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
-(default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_text(regex)</span></dt><dd><p>Wait until the supplied regular expressions matches the textual
+This method is useful when OCR is not possible or inaccurate.</p></dd><dt><span class="term">wait_for_file(filename, timeout)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr, timeout)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
+(default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions matches the textual
 contents of the screen by using optical character recognition (see
 <code class="literal">get_screen_text</code> and <code class="literal">get_screen_text_variants</code>).</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">wait_for_unit(unit, user, timeout)</span></dt><dd><p>Wait for a systemd unit to get into “active” state.
 Throws exceptions on “failed” and “inactive” states as well as after
-timing out.</p></dd><dt><span class="term">wait_for_window(regexp)</span></dt><dd><p>Wait until an X11 window has appeared whose name matches the given
-regular expression, e.g., <code class="literal">wait_for_window(&quot;Terminal&quot;)</code>.</p></dd><dt><span class="term">wait_for_x()</span></dt><dd><p>Wait until it is possible to connect to the X server.</p></dd><dt><span class="term">wait_until_fails(command, timeout)</span></dt><dd><p>Like <code class="literal">wait_until_succeeds</code>, but repeating the command until it fails.</p></dd><dt><span class="term">wait_until_succeeds(command, timeout)</span></dt><dd><p>Repeat a shell command with 1-second intervals until it succeeds.
+timing out.</p></dd><dt><span class="term">wait_for_window(regexp, timeout)</span></dt><dd><p>Wait until an X11 window has appeared whose name matches the given
+regular expression, e.g., <code class="literal">wait_for_window(&quot;Terminal&quot;)</code>.</p></dd><dt><span class="term">wait_for_x(timeout)</span></dt><dd><p>Wait until it is possible to connect to the X server.</p></dd><dt><span class="term">wait_until_fails(command, timeout)</span></dt><dd><p>Like <code class="literal">wait_until_succeeds</code>, but repeating the command until it fails.</p></dd><dt><span class="term">wait_until_succeeds(command, timeout)</span></dt><dd><p>Repeat a shell command with 1-second intervals until it succeeds.
 Has a default timeout of 900 seconds which can be modified, e.g.
 <code class="literal">wait_until_succeeds(cmd, timeout=10)</code>. See <code class="literal">execute</code> for details on
 command execution.
-Throws an exception on timeout.</p></dd><dt><span class="term">wait_until_tty_matches(tty, regexp)</span></dt><dd><p>Wait until the visible output on the chosen TTY matches regular
+Throws an exception on timeout.</p></dd><dt><span class="term">wait_until_tty_matches(tty, regexp, timeout)</span></dt><dd><p>Wait until the visible output on the chosen TTY matches regular
 expression. Throws an exception on timeout.</p></dd></dl></div><p>To test user units declared by <code class="literal">systemd.user.services</code> the optional
 <code class="literal">user</code> argument can be used:</p><pre class="programlisting">
 machine.start()
