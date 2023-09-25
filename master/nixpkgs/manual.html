@@ -8732,12 +8732,12 @@ Hand-written packages should use the normal Nixpkgs attribute name instead.</p>
 <code class="literal">pkgs/development/interpreters/python</code>.</p><p>All packages depending on any Python interpreter get appended
 <code class="literal">out/{python.sitePackages}</code> to <code class="literal">$PYTHONPATH</code> if such directory
 exists.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="missing-tkinter-module-standard-library"></a>Missing <code class="literal">tkinter</code> module standard library   </h5>  </div> </div></div><p>To reduce closure size the <code class="literal">Tkinter</code>/<code class="literal">tkinter</code> is available as a separate package, <code class="literal">pythonPackages.tkinter</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="attributes-on-interpreters-packages"></a>Attributes on interpreters packages   </h5>  </div> </div></div><p>Each interpreter has the following attributes:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">libPrefix</code>. Name of the folder in <code class="literal">${python}/lib/</code> for corresponding interpreter.</p></li><li class="listitem"><p><code class="literal">interpreter</code>. Alias for <code class="literal">${python}/bin/${executable}</code>.</p></li><li class="listitem"><p><code class="literal">buildEnv</code>. Function to build python interpreter environments with extra packages bundled together. See section <span class="emphasis"><em>python.buildEnv function</em></span> for usage and documentation.</p></li><li class="listitem"><p><code class="literal">withPackages</code>. Simpler interface to <code class="literal">buildEnv</code>. See section <span class="emphasis"><em>python.withPackages function</em></span> for usage and documentation.</p></li><li class="listitem"><p><code class="literal">sitePackages</code>. Alias for <code class="literal">lib/${libPrefix}/site-packages</code>.</p></li><li class="listitem"><p><code class="literal">executable</code>. Name of the interpreter executable, e.g. <code class="literal">python3.10</code>.</p></li><li class="listitem"><p><code class="literal">pkgs</code>. Set of Python packages for that specific interpreter. The package set can be modified by overriding the interpreter and passing <code class="literal">packageOverrides</code>.</p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="attributes-on-interpreters-packages"></a>Attributes on interpreters packages   </h5>  </div> </div></div><p>Each interpreter has the following attributes:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">libPrefix</code>. Name of the folder in <code class="literal">${python}/lib/</code> for corresponding interpreter.</p></li><li class="listitem"><p><code class="literal">interpreter</code>. Alias for <code class="literal">${python}/bin/${executable}</code>.</p></li><li class="listitem"><p><code class="literal">buildEnv</code>. Function to build python interpreter environments with extra packages bundled together. See <a class="xref" href="#python.buildenv-function" title="python.buildEnv function" >the section called “<code class="literal">python.buildEnv</code> function”</a> for usage and documentation.</p></li><li class="listitem"><p><code class="literal">withPackages</code>. Simpler interface to <code class="literal">buildEnv</code>. See <a class="xref" href="#python.withpackages-function" title="python.withPackages function" >the section called “<code class="literal">python.withPackages</code> function”</a> for usage and documentation.</p></li><li class="listitem"><p><code class="literal">sitePackages</code>. Alias for <code class="literal">lib/${libPrefix}/site-packages</code>.</p></li><li class="listitem"><p><code class="literal">executable</code>. Name of the interpreter executable, e.g. <code class="literal">python3.10</code>.</p></li><li class="listitem"><p><code class="literal">pkgs</code>. Set of Python packages for that specific interpreter. The package set can be modified by overriding the interpreter and passing <code class="literal">packageOverrides</code>.</p></li></ul></div>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="building-packages-and-applications"></a>Building packages and applications   </h4>  </div> </div></div><p>Python libraries and applications that use <code class="literal">setuptools</code> or
-<code class="literal">distutils</code> are typically built with respectively the <code class="literal">buildPythonPackage</code> and
-<code class="literal">buildPythonApplication</code> functions. These two functions also support installing a <code class="literal">wheel</code>.</p><p>All Python packages reside in <code class="literal">pkgs/top-level/python-packages.nix</code> and all
+<code class="literal">distutils</code> are typically built with respectively the <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> and
+<a class="link" href="#buildpythonapplication-function" title="buildPythonApplication function" ><code class="literal">buildPythonApplication</code></a> functions. These two functions also support installing a <code class="literal">wheel</code>.</p><p>All Python packages reside in <code class="literal">pkgs/top-level/python-packages.nix</code> and all
 applications elsewhere. In case a package is used as both a library and an
 application, then the package should be in <code class="literal">pkgs/top-level/python-packages.nix</code>
 since only those packages are made available for all interpreter versions. The
@@ -8806,12 +8806,12 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ domenkozar lovek323 madjar lsix ];
   };
 }
-</pre><p>The <code class="literal">buildPythonPackage</code> mainly does four things:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>In the <code class="literal">buildPhase</code>, it calls <code class="literal">${python.pythonForBuild.interpreter} setup.py bdist_wheel</code> to
-build a wheel binary zipfile.</p></li><li class="listitem"><p>In the <code class="literal">installPhase</code>, it installs the wheel file using <code class="literal">pip install *.whl</code>.</p></li><li class="listitem"><p>In the <code class="literal">postFixup</code> phase, the <code class="literal">wrapPythonPrograms</code> bash function is called to
+</pre><p>The <code class="literal">buildPythonPackage</code> mainly does four things:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>In the <a class="link" href="#build-phase" title="The build phase" ><code class="literal">buildPhase</code></a>, it calls <code class="literal">${python.pythonForBuild.interpreter} setup.py bdist_wheel</code> to
+build a wheel binary zipfile.</p></li><li class="listitem"><p>In the <a class="link" href="#ssec-install-phase" title="The install phase" ><code class="literal">installPhase</code></a>, it installs the wheel file using <code class="literal">pip install *.whl</code>.</p></li><li class="listitem"><p>In the <a class="link" href="#var-stdenv-postFixup" title="postFixup" ><code class="literal">postFixup</code></a> phase, the <code class="literal">wrapPythonPrograms</code> bash function is called to
 wrap all programs in the <code class="literal">$out/bin/*</code> directory to include <code class="literal">$PATH</code>
-environment variable and add dependent libraries to script’s <code class="literal">sys.path</code>.</p></li><li class="listitem"><p>In the <code class="literal">installCheck</code> phase, <code class="literal">${python.interpreter} setup.py test</code> is run.</p></li></ul></div><p>By default tests are run because <code class="literal">doCheck = true</code>. Test dependencies, like
-e.g. the test runner, should be added to <code class="literal">nativeCheckInputs</code>.</p><p>By default <code class="literal">meta.platforms</code> is set to the same value
-as the interpreter unless overridden otherwise.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h6 class="title" >     <a id="buildpythonpackage-parameters"></a><code class="literal">buildPythonPackage</code> parameters   </h6>  </div> </div></div><p>All parameters from <code class="literal">stdenv.mkDerivation</code> function are still supported. The
+environment variable and add dependent libraries to script’s <code class="literal">sys.path</code>.</p></li><li class="listitem"><p>In the <a class="link" href="#ssec-installCheck-phase" title="The installCheck phase" ><code class="literal">installCheck</code></a> phase, <code class="literal">${python.interpreter} setup.py test</code> is run.</p></li></ul></div><p>By default tests are run because <a class="link" href="#var-stdenv-doCheck" title="doCheck" ><code class="literal">doCheck = true</code></a>. Test dependencies, like
+e.g. the test runner, should be added to <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a>.</p><p>By default <code class="literal">meta.platforms</code> is set to the same value
+as the interpreter unless overridden otherwise.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h6 class="title" >     <a id="buildpythonpackage-parameters"></a><code class="literal">buildPythonPackage</code> parameters   </h6>  </div> </div></div><p>All parameters from <a class="link" href="#sec-using-stdenv" title="Using stdenv" ><code class="literal">stdenv.mkDerivation</code></a> function are still supported. The
 following are specific to <code class="literal">buildPythonPackage</code>:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">catchConflicts ? true</code>: If <code class="literal">true</code>, abort package build if a package name
 appears more than once in dependency tree. Default is <code class="literal">true</code>.</p></li><li class="listitem"><p><code class="literal">disabled ? false</code>: If <code class="literal">true</code>, package is not built for the particular Python
 interpreter version.</p></li><li class="listitem"><p><code class="literal">dontWrapPythonPrograms ? false</code>: Skip wrapping of Python programs.</p></li><li class="listitem"><p><code class="literal">permitUserSite ? false</code>: Skip setting the <code class="literal">PYTHONNOUSERSITE</code> environment
@@ -8824,22 +8824,22 @@ use the existing [hooks](#setup-hooks0 or provide your own logic to build the
 package. This can be useful for packages that don’t support the pyproject
 format. When unset, the legacy <code class="literal">setuptools</code> hooks are used for backwards
 compatibility.</p></li><li class="listitem"><p><code class="literal">makeWrapperArgs ? []</code>: A list of strings. Arguments to be passed to
-<code class="literal">makeWrapper</code>, which wraps generated binaries. By default, the arguments to
-<code class="literal">makeWrapper</code> set <code class="literal">PATH</code> and <code class="literal">PYTHONPATH</code> environment variables before calling
+<a class="link" href="#fun-makeWrapper" title="makeWrapper &lt;executable&gt; &lt;wrapperfile&gt; &lt;args&gt;" ><code class="literal">makeWrapper</code></a>, which wraps generated binaries. By default, the arguments to
+<a class="link" href="#fun-makeWrapper" title="makeWrapper &lt;executable&gt; &lt;wrapperfile&gt; &lt;args&gt;" ><code class="literal">makeWrapper</code></a> set <code class="literal">PATH</code> and <code class="literal">PYTHONPATH</code> environment variables before calling
 the binary. Additional arguments here can allow a developer to set environment
 variables which will be available when the binary is run. For example,
 <code class="literal">makeWrapperArgs = [&quot;--set FOO BAR&quot; &quot;--set BAZ QUX&quot;]</code>.</p></li><li class="listitem"><p><code class="literal">namePrefix</code>: Prepends text to <code class="literal">${name}</code> parameter. In case of libraries, this
 defaults to <code class="literal">&quot;python3.8-&quot;</code> for Python 3.8, etc., and in case of applications to <code class="literal">&quot;&quot;</code>.</p></li><li class="listitem"><p><code class="literal">pipInstallFlags ? []</code>: A list of strings. Arguments to be passed to <code class="literal">pip install</code>. To pass options to <code class="literal">python setup.py install</code>, use
 <code class="literal">--install-option</code>. E.g., <code class="literal">pipInstallFlags=[&quot;--install-option=&#x27;--cpp_implementation&#x27;&quot;]</code>.</p></li><li class="listitem"><p><code class="literal">pipBuildFlags ? []</code>: A list of strings. Arguments to be passed to <code class="literal">pip wheel</code>.</p></li><li class="listitem"><p><code class="literal">pypaBuildFlags ? []</code>: A list of strings. Arguments to be passed to <code class="literal">python -m build --wheel</code>.</p></li><li class="listitem"><p><code class="literal">pythonPath ? []</code>: List of packages to be added into <code class="literal">$PYTHONPATH</code>. Packages
-in <code class="literal">pythonPath</code> are not propagated (contrary to <code class="literal">propagatedBuildInputs</code>).</p></li><li class="listitem"><p><code class="literal">preShellHook</code>: Hook to execute commands before <code class="literal">shellHook</code>.</p></li><li class="listitem"><p><code class="literal">postShellHook</code>: Hook to execute commands after <code class="literal">shellHook</code>.</p></li><li class="listitem"><p><code class="literal">removeBinByteCode ? true</code>: Remove bytecode from <code class="literal">/bin</code>. Bytecode is only
-created when the filenames end with <code class="literal">.py</code>.</p></li><li class="listitem"><p><code class="literal">setupPyGlobalFlags ? []</code>: List of flags passed to <code class="literal">setup.py</code> command.</p></li><li class="listitem"><p><code class="literal">setupPyBuildFlags ? []</code>: List of flags passed to <code class="literal">setup.py build_ext</code> command.</p></li></ul></div><p>The <code class="literal">stdenv.mkDerivation</code> function accepts various parameters for describing
+in <code class="literal">pythonPath</code> are not propagated (contrary to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>).</p></li><li class="listitem"><p><code class="literal">preShellHook</code>: Hook to execute commands before <code class="literal">shellHook</code>.</p></li><li class="listitem"><p><code class="literal">postShellHook</code>: Hook to execute commands after <code class="literal">shellHook</code>.</p></li><li class="listitem"><p><code class="literal">removeBinByteCode ? true</code>: Remove bytecode from <code class="literal">/bin</code>. Bytecode is only
+created when the filenames end with <code class="literal">.py</code>.</p></li><li class="listitem"><p><code class="literal">setupPyGlobalFlags ? []</code>: List of flags passed to <code class="literal">setup.py</code> command.</p></li><li class="listitem"><p><code class="literal">setupPyBuildFlags ? []</code>: List of flags passed to <code class="literal">setup.py build_ext</code> command.</p></li></ul></div><p>The <a class="link" href="#sec-using-stdenv" title="Using stdenv" ><code class="literal">stdenv.mkDerivation</code></a> function accepts various parameters for describing
 build inputs (see “Specifying dependencies”). The following are of special
 interest for Python packages, either because these are primarily used, or
 because their behaviour is different:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">nativeBuildInputs ? []</code>: Build-time only dependencies. Typically executables
 as well as the items listed in <code class="literal">setup_requires</code>.</p></li><li class="listitem"><p><code class="literal">buildInputs ? []</code>: Build and/or run-time dependencies that need to be
 compiled for the host machine. Typically non-Python libraries which are being
-linked.</p></li><li class="listitem"><p><code class="literal">nativeCheckInputs ? []</code>: Dependencies needed for running the <code class="literal">checkPhase</code>. These
-are added to <code class="literal">nativeBuildInputs</code> when <code class="literal">doCheck = true</code>. Items listed in
+linked.</p></li><li class="listitem"><p><code class="literal">nativeCheckInputs ? []</code>: Dependencies needed for running the <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a>. These
+are added to <a class="link" href="#var-stdenv-nativeBuildInputs" title="nativeBuildInputs" ><code class="literal">nativeBuildInputs</code></a> when <a class="link" href="#var-stdenv-doCheck" title="doCheck" ><code class="literal">doCheck = true</code></a>. Items listed in
 <code class="literal">tests_require</code> go here.</p></li><li class="listitem"><p><code class="literal">propagatedBuildInputs ? []</code>: Aside from propagating dependencies,
 <code class="literal">buildPythonPackage</code> also injects code into and wraps executables with the
 paths included in this list. Items listed in <code class="literal">install_requires</code> go here.</p></li></ul></div>
@@ -8883,13 +8883,13 @@ Note that using simply <code class="literal">scipy = super.scipy.override { blas
 compilation issues, because scipy dependencies need to use the same blas implementation as well.</p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="buildpythonapplication-function"></a><code class="literal">buildPythonApplication</code> function   </h5>  </div> </div></div><p>The <code class="literal">buildPythonApplication</code> function is practically the same as
-<code class="literal">buildPythonPackage</code>. The main purpose of this function is to build a Python
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="buildpythonapplication-function"></a><code class="literal">buildPythonApplication</code> function   </h5>  </div> </div></div><p>The <a class="link" href="#buildpythonapplication-function" title="buildPythonApplication function" ><code class="literal">buildPythonApplication</code></a> function is practically the same as
+<a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>. The main purpose of this function is to build a Python
 package where one is interested only in the executables, and not importable
-modules. For that reason, when adding this package to a <code class="literal">python.buildEnv</code>, the
-modules won’t be made available.</p><p>Another difference is that <code class="literal">buildPythonPackage</code> by default prefixes the names of
+modules. For that reason, when adding this package to a <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a>, the
+modules won’t be made available.</p><p>Another difference is that <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> by default prefixes the names of
 the packages with the version of the interpreter. Because this is irrelevant for
-applications, the prefix is omitted.</p><p>When packaging a Python application with <code class="literal">buildPythonApplication</code>, it should be
+applications, the prefix is omitted.</p><p>When packaging a Python application with <a class="link" href="#buildpythonapplication-function" title="buildPythonApplication function" ><code class="literal">buildPythonApplication</code></a>, it should be
 called with <code class="literal">callPackage</code> and passed <code class="literal">python</code> or <code class="literal">pythonPackages</code> (possibly
 specifying an interpreter version), like this:</p><pre class="programlisting">
 { lib
@@ -8929,14 +8929,14 @@ Python versions or modules, which is why they don’t go in <code class="literal
 package is used as both. In this case the package is added as a library to
 <code class="literal">python-packages.nix</code> and as an application to <code class="literal">all-packages.nix</code>. To reduce
 duplication the <code class="literal">toPythonApplication</code> can be used to convert a library to an
-application.</p><p>The Nix expression shall use <code class="literal">buildPythonPackage</code> and be called from
+application.</p><p>The Nix expression shall use <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> and be called from
 <code class="literal">python-packages.nix</code>. A reference shall be created from <code class="literal">all-packages.nix</code> to
 the attribute in <code class="literal">python-packages.nix</code>, and the <code class="literal">toPythonApplication</code> shall be
 applied to the reference:</p><pre class="programlisting">
 youtube-dl = with pythonPackages; toPythonApplication youtube-dl;
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="topythonmodule-function"></a><code class="literal">toPythonModule</code> function   </h5>  </div> </div></div><p>In some cases, such as bindings, a package is created using
-<code class="literal">stdenv.mkDerivation</code> and added as attribute in <code class="literal">all-packages.nix</code>. The Python
+<a class="link" href="#sec-using-stdenv" title="Using stdenv" ><code class="literal">stdenv.mkDerivation</code></a> and added as attribute in <code class="literal">all-packages.nix</code>. The Python
 bindings should be made available from <code class="literal">python-packages.nix</code>. The
 <code class="literal">toPythonModule</code> function takes a derivation and makes certain Python-specific
 modifications.</p><pre class="programlisting">
@@ -8972,20 +8972,20 @@ specified packages in its path.</p><div class="section"> <div class="titlepage">
 wrapped binaries in the environment.</p></li></ul></div>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="python.withpackages-function"></a><code class="literal">python.withPackages</code> function   </h5>  </div> </div></div><p>The <code class="literal">python.withPackages</code> function provides a simpler interface to the <code class="literal">python.buildEnv</code> functionality.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="python.withpackages-function"></a><code class="literal">python.withPackages</code> function   </h5>  </div> </div></div><p>The <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">python.withPackages</code></a> function provides a simpler interface to the <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a> functionality.
 It takes a function as an argument that is passed the set of python packages and returns the list
-of the packages to be included in the environment. Using the <code class="literal">withPackages</code> function, the previous
+of the packages to be included in the environment. Using the <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">withPackages</code></a> function, the previous
 example for the Pyramid Web Framework environment can be written like this:</p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 
 python.withPackages (ps: [ ps.pyramid ])
-</pre><p><code class="literal">withPackages</code> passes the correct package set for the specific interpreter
+</pre><p><a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">withPackages</code></a> passes the correct package set for the specific interpreter
 version as an argument to the function. In the above example, <code class="literal">ps</code> equals
 <code class="literal">pythonPackages</code>. But you can also easily switch to using python3:</p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 
 python3.withPackages (ps: [ ps.pyramid ])
-</pre><p>Now, <code class="literal">ps</code> is set to <code class="literal">python3Packages</code>, matching the version of the interpreter.</p><p>As <code class="literal">python.withPackages</code> simply uses <code class="literal">python.buildEnv</code> under the hood, it also
+</pre><p>Now, <code class="literal">ps</code> is set to <code class="literal">python3Packages</code>, matching the version of the interpreter.</p><p>As <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">python.withPackages</code></a> simply uses <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a> under the hood, it also
 supports the <code class="literal">env</code> attribute. The <code class="literal">shell.nix</code> file from the previous section can
 thus be also written like this:</p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
@@ -8994,12 +8994,12 @@ with import &lt;nixpkgs&gt; {};
   numpy
   requests
 ])).env
-</pre><p>In contrast to <code class="literal">python.buildEnv</code>, <code class="literal">python.withPackages</code> does not support the
+</pre><p>In contrast to <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a>, <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">python.withPackages</code></a> does not support the
 more advanced options such as <code class="literal">ignoreCollisions = true</code> or <code class="literal">postBuild</code>. If you
-need them, you have to use <code class="literal">python.buildEnv</code>.</p><p>Python 2 namespace packages may provide <code class="literal">__init__.py</code> that collide. In that case
-<code class="literal">python.buildEnv</code> should be used with <code class="literal">ignoreCollisions = true</code>.</p>
+need them, you have to use <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a>.</p><p>Python 2 namespace packages may provide <code class="literal">__init__.py</code> that collide. In that case
+<a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a> should be used with <code class="literal">ignoreCollisions = true</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="setup-hooks"></a>Setup hooks   </h5>  </div> </div></div><p>The following are setup hooks specifically for Python packages. Most of these
-are used in <code class="literal">buildPythonPackage</code>.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">eggUnpackhook</code> to move an egg to the correct folder so it can be installed
+are used in <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">eggUnpackhook</code> to move an egg to the correct folder so it can be installed
 with the <code class="literal">eggInstallHook</code></p></li><li class="listitem"><p><code class="literal">eggBuildHook</code> to skip building for eggs.</p></li><li class="listitem"><p><code class="literal">eggInstallHook</code> to install eggs.</p></li><li class="listitem"><p><code class="literal">flitBuildHook</code> to build a wheel using <code class="literal">flit</code>.</p></li><li class="listitem"><p><code class="literal">pipBuildHook</code> to build a wheel using <code class="literal">pip</code> and PEP 517. Note a build system
 (e.g. <code class="literal">setuptools</code> or <code class="literal">flit</code>) should still be added as <code class="literal">nativeBuildInput</code>.</p></li><li class="listitem"><p><code class="literal">pypaBuildHook</code> to build a wheel using
 <a class="link" href="https://pypa-build.readthedocs.io/en/latest/index.html"  target="_top"><code class="literal">pypa/build</code></a> and
@@ -9012,7 +9012,7 @@ with the <code class="literal">pipInstallHook</code>.</p></li><li class="listite
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="development-mode"></a>Development mode   </h4>  </div> </div></div><p>Development or editable mode is supported. To develop Python packages
-<code class="literal">buildPythonPackage</code> has additional logic inside <code class="literal">shellPhase</code> to run <code class="literal">pip install -e . --prefix $TMPDIR/</code>for the package.</p><p>Warning: <code class="literal">shellPhase</code> is executed only if <code class="literal">setup.py</code> exists.</p><p>Given a <code class="literal">default.nix</code>:</p><pre class="programlisting">
+<a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> has additional logic inside <code class="literal">shellPhase</code> to run <code class="literal">pip install -e . --prefix $TMPDIR/</code>for the package.</p><p>Warning: <code class="literal">shellPhase</code> is executed only if <code class="literal">setup.py</code> exists.</p><p>Given a <code class="literal">default.nix</code>:</p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 
 pythonPackages.buildPythonPackage {
@@ -9056,7 +9056,7 @@ your profile, and will be wrapped to find their exact library dependencies,
 without impacting other applications or polluting your user environment.</p><p>But Python libraries you would like to use for development cannot be installed,
 at least not individually, because they won’t be able to find each other
 resulting in import errors. Instead, it is possible to create an environment
-with <code class="literal">python.buildEnv</code> or <code class="literal">python.withPackages</code> where the interpreter and other
+with <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a> or <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">python.withPackages</code></a> where the interpreter and other
 executables are wrapped to be able to find each other and all of the modules.</p><p>In the following examples we will start by creating a simple, ad-hoc environment
 with a nix-shell that has <code class="literal">numpy</code> and <code class="literal">toolz</code> in Python 3.11; then we will create
 a re-usable environment in a single-file Python script; then we will create a
@@ -9163,7 +9163,7 @@ dependencies; this can provide a way for developers to share the environments
 with each other and with CI builders.</p><p>What’s happening here?</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>We begin with importing the Nix Packages collections. <code class="literal">import &lt;nixpkgs&gt;</code>
 imports the <code class="literal">&lt;nixpkgs&gt;</code> function, <code class="literal">{}</code> calls it and the <code class="literal">with</code> statement
 brings all attributes of <code class="literal">nixpkgs</code> in the local scope. These attributes form
-the main package set.</p></li><li class="listitem"><p>Then we create a Python 3.11 environment with the <code class="literal">withPackages</code> function, as before.</p></li><li class="listitem"><p>The <code class="literal">withPackages</code> function expects us to provide a function as an argument
+the main package set.</p></li><li class="listitem"><p>Then we create a Python 3.11 environment with the <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">withPackages</code></a> function, as before.</p></li><li class="listitem"><p>The <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">withPackages</code></a> function expects us to provide a function as an argument
 that takes the set of all Python packages and returns a list of packages to
 include in the environment. Here, we select the packages <code class="literal">numpy</code> and <code class="literal">toolz</code>
 from the package set.</p></li></ol></div><p>To combine this with <code class="literal">mkShell</code> you can:</p><pre class="programlisting">
@@ -9241,7 +9241,7 @@ on NixOS.</p><pre class="programlisting">
 creating working Python environments in nix.</p><p>Now that you know the basics to be up and running, it is time to take a step
 back and take a deeper look at how Python packages are packaged on Nix. Then,
 we will look at how you can use development mode with your code.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="python-library-packages-in-nixpkgs"></a>Python library packages in Nixpkgs   </h5>  </div> </div></div><p>With Nix all packages are built by functions. The main function in Nix for
-building Python libraries is <code class="literal">buildPythonPackage</code>. Let’s see how we can build the
+building Python libraries is <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>. Let’s see how we can build the
 <code class="literal">toolz</code> package.</p><pre class="programlisting">
 { lib
 , buildPythonPackage
@@ -9282,13 +9282,13 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fridh ];
   };
 }
-</pre><p>What happens here? The function <code class="literal">buildPythonPackage</code> is called and as argument
+</pre><p>What happens here? The function <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> is called and as argument
 it accepts a set. In this case the set is a recursive set, <code class="literal">rec</code>. One of the
 arguments is the name of the package, which consists of a basename (generally
 following the name on PyPi) and a version. Another argument, <code class="literal">src</code> specifies the
 source, which in this case is fetched from PyPI using the helper function
 <code class="literal">fetchPypi</code>. The argument <code class="literal">doCheck</code> is used to set whether tests should be run
-when building the package. Since there are no tests, we rely on <code class="literal">pythonImportsCheck</code>
+when building the package. Since there are no tests, we rely on <a class="link" href="#using-pythonimportscheck" title="Using pythonImportsCheck" ><code class="literal">pythonImportsCheck</code></a>
 to test whether the package can be imported. Furthermore, we specify some meta
 information. The output of the function is a derivation.</p><p>An expression for <code class="literal">toolz</code> can be found in the Nixpkgs repository. As explained
 in the introduction of this Python section, a derivation of <code class="literal">toolz</code> is available
@@ -9335,17 +9335,17 @@ Python 3.11 and the <code class="literal">toolz</code> package. As you can see w
 for which Python version we want to build a package.</p><p>So, what did we do here? Well, we took the Nix expression that we used earlier
 to build a Python environment, and said that we wanted to include our own
 version of <code class="literal">toolz</code>, named <code class="literal">my_toolz</code>. To introduce our own package in the scope
-of <code class="literal">withPackages</code> we used a <code class="literal">let</code> expression. You can see that we used
+of <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">withPackages</code></a> we used a <code class="literal">let</code> expression. You can see that we used
 <code class="literal">ps.numpy</code> to select numpy from the nixpkgs package set (<code class="literal">ps</code>). We did not take
 <code class="literal">toolz</code> from the Nixpkgs package set this time, but instead took our own version
 that we introduced with the <code class="literal">let</code> expression.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="handling-dependencies"></a>Handling dependencies   </h5>  </div> </div></div><p>Our example, <code class="literal">toolz</code>, does not have any dependencies on other Python packages or
-system libraries. According to the manual, <code class="literal">buildPythonPackage</code> uses the
-arguments <code class="literal">buildInputs</code> and <code class="literal">propagatedBuildInputs</code> to specify dependencies. If
+system libraries. According to the manual, <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> uses the
+arguments <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a> and <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a> to specify dependencies. If
 something is exclusively a build-time dependency, then the dependency should be
-included in <code class="literal">buildInputs</code>, but if it is (also) a runtime dependency, then it
-should be added to <code class="literal">propagatedBuildInputs</code>. Test dependencies are considered
-build-time dependencies and passed to <code class="literal">nativeCheckInputs</code>.</p><p>The following example shows which arguments are given to <code class="literal">buildPythonPackage</code> in
+included in <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a>, but if it is (also) a runtime dependency, then it
+should be added to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>. Test dependencies are considered
+build-time dependencies and passed to <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a>.</p><p>The following example shows which arguments are given to <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> in
 order to build <a class="link" href="https://github.com/blaze/datashape"  target="_top"><code class="literal">datashape</code></a>.</p><pre class="programlisting">
 { lib
 , buildPythonPackage
@@ -9395,12 +9395,12 @@ buildPythonPackage rec {
   };
 }
 </pre><p>We can see several runtime dependencies, <code class="literal">numpy</code>, <code class="literal">multipledispatch</code>, and
-<code class="literal">python-dateutil</code>. Furthermore, we have <code class="literal">nativeCheckInputs</code> with <code class="literal">pytest</code>.
-<code class="literal">pytest</code> is a test runner and is only used during the <code class="literal">checkPhase</code> and is
-therefore not added to <code class="literal">propagatedBuildInputs</code>.</p><p>In the previous case we had only dependencies on other Python packages to consider.
+<code class="literal">python-dateutil</code>. Furthermore, we have <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a> with <code class="literal">pytest</code>.
+<code class="literal">pytest</code> is a test runner and is only used during the <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a> and is
+therefore not added to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>.</p><p>In the previous case we had only dependencies on other Python packages to consider.
 Occasionally you have also system libraries to consider. E.g., <code class="literal">lxml</code> provides
 Python bindings to <code class="literal">libxml2</code> and <code class="literal">libxslt</code>. These libraries are only required
-when building the bindings and are therefore added as <code class="literal">buildInputs</code>.</p><pre class="programlisting">
+when building the bindings and are therefore added as <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a>.</p><pre class="programlisting">
 { lib
 , buildPythonPackage
 , fetchPypi
@@ -9442,7 +9442,7 @@ buildPythonPackage rec {
 files of the dependencies are. This is not always the case.</p><p>The example below shows bindings to The Fastest Fourier Transform in the West,
 commonly known as FFTW. On Nix we have separate packages of FFTW for the
 different types of floats (<code class="literal">&quot;single&quot;</code>, <code class="literal">&quot;double&quot;</code>, <code class="literal">&quot;long-double&quot;</code>). The
-bindings need all three types, and therefore we add all three as <code class="literal">buildInputs</code>.
+bindings need all three types, and therefore we add all three as <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a>.
 The bindings don’t expect to find each of them in a different folder, and
 therefore we have to set <code class="literal">LDFLAGS</code> and <code class="literal">CFLAGS</code>.</p><pre class="programlisting">
 { lib
@@ -9503,13 +9503,13 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fridh ];
   };
 }
-</pre><p>Note also the line <code class="literal">doCheck = false;</code>, we explicitly disabled running the test-suite.</p>
+</pre><p>Note also the line <a class="link" href="#var-stdenv-doCheck" title="doCheck" ><code class="literal">doCheck = false;</code></a>, we explicitly disabled running the test-suite.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="testing-python-packages"></a>Testing Python Packages   </h5>  </div> </div></div><p>It is highly encouraged to have testing as part of the package build. This
 helps to avoid situations where the package was able to build and install,
 but is not usable at runtime. Currently, all packages will use the <code class="literal">test</code>
 command provided by the setup.py (i.e. <code class="literal">python setup.py test</code>). However,
 this is currently deprecated https://github.com/pypa/setuptools/pull/1878
-and your package should provide its own checkPhase.</p><div class="note"><h3 class="title">Note</h3><p>The <code class="literal">checkPhase</code> for python maps to the <code class="literal">installCheckPhase</code> on a
+and your package should provide its own <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a>.</p><div class="note"><h3 class="title">Note</h3><p>The <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a> for python maps to the <code class="literal">installCheckPhase</code> on a
 normal derivation. This is due to many python packages not behaving well
 to the pre-installed version of the package. Version info, and natively
 compiled extensions generally only exist in the install directory, and
@@ -9547,7 +9547,7 @@ Only one <code class="literal">-k</code> argument is allowed, and thus a long pr
 with “\” and wrapped to the next line.</p><div class="note"><h3 class="title">Note</h3><p>In pytest==6.0.1, the use of “\” to continue a line (e.g. <code class="literal">-k &#x27;not download \&#x27;</code>) has
 been removed, in this case, it’s recommended to use <code class="literal">pytestCheckHook</code>.</p></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="using-pytestcheckhook"></a>Using pytestCheckHook   </h5>  </div> </div></div><p><code class="literal">pytestCheckHook</code> is a convenient hook which will substitute the setuptools
-<code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">pytest</code>. This is also beneficial
+<code class="literal">test</code> command for a <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a> which runs <code class="literal">pytest</code>. This is also beneficial
 when a package may need many items disabled to run the test suite.</p><p>Using the example above, the analogous <code class="literal">pytestCheckHook</code> usage would be:</p><pre class="programlisting">
   nativeCheckInputs = [
     pytestCheckHook
@@ -9582,11 +9582,11 @@ for example:</p><pre class="programlisting">
     &quot;socket&quot;
   ];
 </pre><p>Trying to concatenate the related strings to disable tests in a regular
-<code class="literal">checkPhase</code> would be much harder to read. This also enables us to comment on
+<a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a> would be much harder to read. This also enables us to comment on
 why specific tests are disabled.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="using-pythonimportscheck"></a>Using pythonImportsCheck   </h5>  </div> </div></div><p>Although unit tests are highly preferred to validate correctness of a package, not
 all packages have test suites that can be run easily, and some have none at all.
-To help ensure the package still works, <code class="literal">pythonImportsCheck</code> can attempt to import
+To help ensure the package still works, <a class="link" href="#using-pythonimportscheck" title="Using pythonImportsCheck" ><code class="literal">pythonImportsCheck</code></a> can attempt to import
 the listed modules.</p><pre class="programlisting">
   pythonImportsCheck = [
     &quot;requests&quot;
@@ -9597,7 +9597,7 @@ the listed modules.</p><pre class="programlisting">
     PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
     python -c &quot;import requests; import urllib&quot;
   &#x27;&#x27;;
-</pre><p>However, this is done in its own phase, and not dependent on whether <code class="literal">doCheck = true;</code>.</p><p>This can also be useful in verifying that the package doesn’t assume commonly
+</pre><p>However, this is done in its own phase, and not dependent on whether <a class="link" href="#var-stdenv-doCheck" title="doCheck" ><code class="literal">doCheck = true;</code></a>.</p><p>This can also be useful in verifying that the package doesn’t assume commonly
 present packages (e.g. <code class="literal">setuptools</code>).</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="using-pythonrelaxdepshook"></a>Using pythonRelaxDepsHook   </h5>  </div> </div></div><p>It is common for upstream to specify a range of versions for its package
 dependencies. This makes sense, since it ensures that the package will be built
@@ -9640,8 +9640,8 @@ still be useful in exceptional cases, and also to remove dependencies wrongly
 declared by upstream (for example, declaring <code class="literal">black</code> as a runtime dependency
 instead of a dev dependency).</p><p>Keep in mind that while the examples above are done with <code class="literal">requirements.txt</code>,
 <code class="literal">pythonRelaxDepsHook</code> works by modifying the resulting wheel file, so it should
-work with any of the existing <a class="link" href="#setup-hooks" title="Setup hooks" >hooks</a>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="using-unittestcheckhook"></a>Using unittestCheckHook   </h5>  </div> </div></div><p><code class="literal">unittestCheckHook</code> is a hook which will substitute the setuptools <code class="literal">test</code> command for a <code class="literal">checkPhase</code> which runs <code class="literal">python -m unittest discover</code>:</p><pre class="programlisting">
+work with any of the <a class="link" href="#setup-hooks" title="Setup hooks" >existing hooks</a>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="using-unittestcheckhook"></a>Using unittestCheckHook   </h5>  </div> </div></div><p><code class="literal">unittestCheckHook</code> is a hook which will substitute the setuptools <code class="literal">test</code> command for a <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a> which runs <code class="literal">python -m unittest discover</code>:</p><pre class="programlisting">
   nativeCheckInputs = [
     unittestCheckHook
   ];
@@ -9689,13 +9689,13 @@ referencing it using <code class="literal">sphinxHook</code> from top-level.</p>
 creates a special link to the project code. That way, you can run updated code
 without having to reinstall after each and every change you make. Development
 mode is also available. Let’s see how you can use it.</p><p>In the previous Nix expression the source was fetched from a url. We can also
-refer to a local source instead using <code class="literal">src = ./path/to/source/tree;</code></p><p>If we create a <code class="literal">shell.nix</code> file which calls <code class="literal">buildPythonPackage</code>, and if <code class="literal">src</code>
+refer to a local source instead using <code class="literal">src = ./path/to/source/tree;</code></p><p>If we create a <code class="literal">shell.nix</code> file which calls <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>, and if <code class="literal">src</code>
 is a local source, and if the local source has a <code class="literal">setup.py</code>, then development
 mode is activated.</p><p>In the following example, we create a simple environment that has a Python 3.11
 version of our package in it, as well as its dependencies and other packages we
-like to have in the environment, all specified with <code class="literal">propagatedBuildInputs</code>.
+like to have in the environment, all specified with <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>.
 Indeed, we can just add any package we like to have in our environment to
-<code class="literal">propagatedBuildInputs</code>.</p><pre class="programlisting">
+<a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>.</p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 with python311Packages;
 
@@ -9717,7 +9717,7 @@ available.</p><p>At some point you’ll likely have multiple packages which you 
 like to be able to use in different projects. In order to minimise unnecessary
 duplication we now look at how you can maintain a repository with your
 own packages. The important functions here are <code class="literal">import</code> and <code class="literal">callPackage</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="including-a-derivation-using-callpackage"></a>Including a derivation using <code class="literal">callPackage</code>   </h4>  </div> </div></div><p>Earlier we created a Python environment using <code class="literal">withPackages</code>, and included the
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="including-a-derivation-using-callpackage"></a>Including a derivation using <code class="literal">callPackage</code>   </h4>  </div> </div></div><p>Earlier we created a Python environment using <a class="link" href="#python.withpackages-function" title="python.withPackages function" ><code class="literal">withPackages</code></a>, and included the
 <code class="literal">toolz</code> package via a <code class="literal">let</code> expression.
 Let’s split the package definition from the environment definition.</p><p>We first create a function that builds <code class="literal">toolz</code> in <code class="literal">~/path/to/toolz/release.nix</code></p><pre class="programlisting">
 { lib
@@ -9750,7 +9750,7 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ fridh ];
   };
 }
-</pre><p>It takes an argument <code class="literal">buildPythonPackage</code>. We now call this function using
+</pre><p>It takes an argument <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>. We now call this function using
 <code class="literal">callPackage</code> in the definition of our environment</p><pre class="programlisting">
 with import &lt;nixpkgs&gt; {};
 
@@ -9765,10 +9765,10 @@ Packages.buildPythonPackage;
   ])
 ).env
 </pre><p>Important to remember is that the Python version for which the package is made
-depends on the <code class="literal">python</code> derivation that is passed to <code class="literal">buildPythonPackage</code>. Nix
+depends on the <code class="literal">python</code> derivation that is passed to <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>. Nix
 tries to automatically pass arguments when possible, which is why generally you
 don’t explicitly define which <code class="literal">python</code> derivation should be used. In the above
-example we use <code class="literal">buildPythonPackage</code> that is part of the set <code class="literal">python3Packages</code>,
+example we use <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> that is part of the set <code class="literal">python3Packages</code>,
 and in this case the <code class="literal">python3</code> interpreter is automatically used.</p>
 </div>
 
@@ -9852,7 +9852,7 @@ versions of certain libraries for your projects. Generally, you would solve such
 issues by creating virtual environments using <code class="literal">virtualenv</code>.</p><p>On Nix each package has an isolated dependency tree which, in the case of
 Python, guarantees the right versions of the interpreter and libraries or
 packages are available. There is therefore no need to maintain a global <code class="literal">site-packages</code>.</p><p>If you want to create a Python environment for development, then the recommended
-method is to use <code class="literal">nix-shell</code>, either with or without the <code class="literal">python.buildEnv</code>
+method is to use <code class="literal">nix-shell</code>, either with or without the <a class="link" href="#python.buildenv-function" title="python.buildEnv function" ><code class="literal">python.buildEnv</code></a>
 function.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="how-to-consume-python-modules-using-pip-in-a-virtual-environment-like-i-am-used-to-on-other-operating-systems"></a>How to consume Python modules using pip in a virtual environment like I am used to on other Operating Systems?   </h4>  </div> </div></div><p>While this approach is not very idiomatic from Nix perspective, it can still be
 useful when dealing with pre-existing projects or in situations where it’s not
@@ -9995,7 +9995,7 @@ self: super: {
   };
 }
 </pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="how-to-override-a-python-package-for-all-python-versions-using-extensions"></a>How to override a Python package for all Python versions using extensions?   </h4>  </div> </div></div><p>The following overlay overrides the call to <code class="literal">buildPythonPackage</code> for the
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="how-to-override-a-python-package-for-all-python-versions-using-extensions"></a>How to override a Python package for all Python versions using extensions?   </h4>  </div> </div></div><p>The following overlay overrides the call to <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> for the
 <code class="literal">foo</code> package for all interpreters by appending a Python extension to the
 <code class="literal">pythonPackagesExtensions</code> list of extensions.</p><pre class="programlisting">
 final: prev: {
@@ -10012,7 +10012,7 @@ final: prev: {
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="how-to-use-intels-mkl-with-numpy-and-scipy"></a>How to use Intel’s MKL with numpy and scipy?   </h4>  </div> </div></div><p>MKL can be configured using an overlay. See the section “<a class="link" href="#sec-overlays-alternatives-blas-lapack" title="BLAS/LAPACK" >Using overlays to
 configure alternatives</a>”.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="what-inputs-do-setup_requires-install_requires-and-tests_require-map-to"></a>What inputs do <code class="literal">setup_requires</code>, <code class="literal">install_requires</code> and <code class="literal">tests_require</code> map to?   </h4>  </div> </div></div><p>In a <code class="literal">setup.py</code> or <code class="literal">setup.cfg</code> it is common to declare dependencies:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">setup_requires</code> corresponds to <code class="literal">nativeBuildInputs</code></p></li><li class="listitem"><p><code class="literal">install_requires</code> corresponds to <code class="literal">propagatedBuildInputs</code></p></li><li class="listitem"><p><code class="literal">tests_require</code> corresponds to <code class="literal">nativeCheckInputs</code></p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="what-inputs-do-setup_requires-install_requires-and-tests_require-map-to"></a>What inputs do <code class="literal">setup_requires</code>, <code class="literal">install_requires</code> and <code class="literal">tests_require</code> map to?   </h4>  </div> </div></div><p>In a <code class="literal">setup.py</code> or <code class="literal">setup.cfg</code> it is common to declare dependencies:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">setup_requires</code> corresponds to <a class="link" href="#var-stdenv-nativeBuildInputs" title="nativeBuildInputs" ><code class="literal">nativeBuildInputs</code></a></p></li><li class="listitem"><p><code class="literal">install_requires</code> corresponds to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a></p></li><li class="listitem"><p><code class="literal">tests_require</code> corresponds to <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a></p></li></ul></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="optimizations"></a>How to enable interpreter optimizations?   </h4>  </div> </div></div><p>The Python interpreters are by default not built with optimizations enabled, because
 the builds are in that case not reproducible. To enable optimizations, override the
 interpreter of interest, e.g using</p><pre class="programlisting">
@@ -10040,20 +10040,20 @@ propagatedBuildInputs = [
 </pre><p>Note this method is preferred over adding parameters to builders, as that can
 result in packages depending on different variants and thereby causing
 collisions.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="tools"></a>How to contribute a Python package to nixpkgs?   </h4>  </div> </div></div><p>Packages inside nixpkgs must use the <code class="literal">buildPythonPackage</code> or <code class="literal">buildPythonApplication</code> function directly,
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="tools"></a>How to contribute a Python package to nixpkgs?   </h4>  </div> </div></div><p>Packages inside nixpkgs must use the <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> or <a class="link" href="#buildpythonapplication-function" title="buildPythonApplication function" ><code class="literal">buildPythonApplication</code></a> function directly,
 because we can only provide security support for non-vendored dependencies.</p><p>We recommend <a class="link" href="https://github.com/nix-community/nix-init"  target="_top">nix-init</a> for creating new python packages within nixpkgs,
 as it already prefetches the source, parses dependencies for common formats and prefills most things in <code class="literal">meta</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="deterministic-builds"></a>Are Python interpreters built deterministically?   </h4>  </div> </div></div><p>The Python interpreters are now built deterministically. Minor modifications had
 to be made to the interpreters in order to generate deterministic bytecode. This
 has security implications and is relevant for those using Python in a
 <code class="literal">nix-shell</code>.</p><p>When the environment variable <code class="literal">DETERMINISTIC_BUILD</code> is set, all bytecode will
-have timestamp 1. The <code class="literal">buildPythonPackage</code> function sets <code class="literal">DETERMINISTIC_BUILD=1</code>
+have timestamp 1. The <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> function sets <code class="literal">DETERMINISTIC_BUILD=1</code>
 and <a class="link" href="https://docs.python.org/3.11/using/cmdline.html#envvar-PYTHONHASHSEED"  target="_top">PYTHONHASHSEED=0</a>.
 Both are also exported in <code class="literal">nix-shell</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="automatic-tests"></a>How to provide automatic tests to Python packages?   </h4>  </div> </div></div><p>It is recommended to test packages as part of the build process.
 Source distributions (<code class="literal">sdist</code>) often include test files, but not always.</p><p>By default the command <code class="literal">python setup.py test</code> is run as part of the
-<code class="literal">checkPhase</code>, but often it is necessary to pass a custom <code class="literal">checkPhase</code>. An
-example of such a situation is when <code class="literal">py.test</code> is used.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="common-issues"></a>Common issues   </h5>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Non-working tests can often be deselected. By default <code class="literal">buildPythonPackage</code>
+<a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a>, but often it is necessary to pass a custom <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a>. An
+example of such a situation is when <code class="literal">py.test</code> is used.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="common-issues"></a>Common issues   </h5>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>Non-working tests can often be deselected. By default <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>
 runs <code class="literal">python setup.py test</code>. which is deprecated. Most Python modules however
 do follow the standard test protocol where the pytest runner can be used
 instead. <code class="literal">pytest</code> supports the <code class="literal">-k</code> and <code class="literal">--ignore</code> parameters to ignore test
@@ -10081,9 +10081,9 @@ work-around before running tests (e.g. <code class="literal">preCheck</code>): <
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="contributing"></a>Contributing   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="contributing-guidelines"></a>Contributing guidelines   </h4>  </div> </div></div><p>The following rules are desired to be respected:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Python libraries are called from <code class="literal">python-packages.nix</code> and packaged with
-<code class="literal">buildPythonPackage</code>. The expression of a library should be in
+<a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>. The expression of a library should be in
 <code class="literal">pkgs/development/python-modules/&lt;name&gt;/default.nix</code>.</p></li><li class="listitem"><p>Python applications live outside of <code class="literal">python-packages.nix</code> and are packaged
-with <code class="literal">buildPythonApplication</code>.</p></li><li class="listitem"><p>Make sure libraries build for all Python interpreters.</p></li><li class="listitem"><p>By default we enable tests. Make sure the tests are found and, in the case of
+with <a class="link" href="#buildpythonapplication-function" title="buildPythonApplication function" ><code class="literal">buildPythonApplication</code></a>.</p></li><li class="listitem"><p>Make sure libraries build for all Python interpreters.</p></li><li class="listitem"><p>By default we enable tests. Make sure the tests are found and, in the case of
 libraries, are passing for all interpreters. If certain tests fail they can be
 disabled individually. Try to avoid disabling the tests altogether. In any
 case, when you disable tests, leave a comment explaining why.</p></li><li class="listitem"><p>Commit names of Python libraries should reflect that they are Python
