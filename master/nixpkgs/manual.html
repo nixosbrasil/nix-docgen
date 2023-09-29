@@ -4792,7 +4792,7 @@ postInstall = &#x27;&#x27;
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-mpi-check"></a>mpiCheckPhaseHook   </h2>  </div> </div></div><p>This hook can be used to setup a check phase that
 requires running a MPI application. It detects the
-used present MPI implementaion type and exports
+used present MPI implementation type and exports
 the neceesary environment variables to use
 <code class="literal">mpirun</code> and <code class="literal">mpiexec</code> in a Nix sandbox.</p><p>Example:</p><pre class="programlisting">
   { mpiCheckPhaseHook, mpi, ... }:
@@ -6272,7 +6272,7 @@ in buildDotnetModule rec {
 }
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="dotnet-global-tools"></a>Dotnet global tools   </h3>  </div> </div></div><p><a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools"  target="_top">.NET Global tools</a> are a mechanism provided by the dotnet CLI to install .NET binaries from Nuget packages.</p><p>They can be installed either as a global tool for the entire system, or as a local tool specific to project.</p><p>The local installation is the easiest and works on NixOS in the same way as on other Linux distributions.
-<a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-local-tool"  target="_top">See dotnet documention</a> to learn more.</p><p><a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-global-tool"  target="_top">The global installation method</a>
+<a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-local-tool"  target="_top">See dotnet documentation</a> to learn more.</p><p><a class="link" href="https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools#install-a-global-tool"  target="_top">The global installation method</a>
 should also work most of the time. You have to remember to update the <code class="literal">PATH</code>
 value to the location the tools are installed to (the CLI will inform you about it during installation) and also set
 the <code class="literal">DOTNET_ROOT</code> value, so that the tool can find the .NET SDK package.
@@ -7142,7 +7142,7 @@ with GHC), it is recommended to use overlays for Nixpkgs to change them.
 Since the interrelated parts, i.e. the package set and GHC, are connected
 via the Nixpkgs fixpoint, we need to modify them both in a way that preserves
 their connection (or else we’d have to wire it up again manually). This is
-achieved by changing GHC and the package set in seperate overlays to prevent
+achieved by changing GHC and the package set in separate overlays to prevent
 the package set from pulling in GHC from <code class="literal">prev</code>.</p><p>The result is two overlays like the ones shown below. Adjustable parts are
 annotated with comments, as are any optional or alternative ways to achieve
 the desired profiling settings without causing too many rebuilds.</p><pre class="programlisting">
@@ -8665,7 +8665,7 @@ enables the wrapper to handle the heavy lifting.</p><p>Internally, the helper op
 composer repository on the filesystem containing dependencies specified in
 <code class="literal">composer.json</code>. This process uses the function
 <code class="literal">php.mkComposerRepository</code> which in turn uses the
-<code class="literal">php.composerHooks.composerRepositoryHook</code> hook. Internaly this function uses
+<code class="literal">php.composerHooks.composerRepositoryHook</code> hook. Internally this function uses
 a custom
 <a class="link" href="https://github.com/nix-community/composer-local-repo-plugin"  target="_top">Composer plugin</a> to
 generate the repository.</p></li><li class="listitem"><p>The resulting <code class="literal">composerRepository</code> derivation is then used by the
