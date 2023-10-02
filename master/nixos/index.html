@@ -1024,12 +1024,8 @@ nixos.firefox   firefox-23.0   Mozilla Firefox - the browser, reloaded
 the <code class="literal">nixos</code> channel and works only in CLI tools. In declarative
 configuration use <code class="literal">pkgs</code> prefix (variable).</p><p>To “uninstall” a package, simply remove it from
 <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a> and run <code class="literal">nixos-rebuild switch</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-customising-packages"></a>Customising Packages   </h3>  </div> </div></div><p>Some packages in Nixpkgs have options to enable or disable optional
-functionality or change other aspects of the package. For instance, the
-Firefox wrapper package (which provides Firefox with a set of plugins
-such as the Adobe Flash player) has an option to enable the Google Talk
-plugin. It can be set in <code class="literal">configuration.nix</code> as follows:
-<code class="literal">nixpkgs.config.firefox.enableGoogleTalkPlugin = true;</code></p><div class="warning"><h3 class="title">Warning</h3><p>Unfortunately, Nixpkgs currently lacks a way to query available
-configuration options.</p></div><div class="note"><h3 class="title">Note</h3><p>Alternatively, many packages come with extensions one might add.
+functionality or change other aspects of the package.</p><div class="warning"><h3 class="title">Warning</h3><p>Unfortunately, Nixpkgs currently lacks a way to query available
+configuration options.</p></div><div class="note"><h3 class="title">Note</h3><p>For example, many packages come with extensions one might add.
 Examples include:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><a class="link" href="https://search.nixos.org/packages/query=passExtensions.pass-otp"  target="_top"><code class="literal">passExtensions.pass-otp</code></a></p></li><li class="listitem"><p><a class="link" href="https://search.nixos.org/packages/query=python310Packages.requests"  target="_top"><code class="literal">python310Packages.requests</code></a></p></li></ul></div><p>You can use them like this:</p><pre class="programlisting">
 environment.systemPackages = with pkgs; [
   sl
