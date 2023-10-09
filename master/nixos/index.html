@@ -4258,7 +4258,7 @@ let
   clientConfig.&quot;m.homeserver&quot;.base_url = baseUrl;
   serverConfig.&quot;m.server&quot; = &quot;${fqdn}:443&quot;;
   mkWellKnown = data: &#x27;&#x27;
-    add_header Content-Type application/json;
+    default_type application/json;
     add_header Access-Control-Allow-Origin *;
     return 200 &#x27;${builtins.toJSON data}&#x27;;
   &#x27;&#x27;;
