@@ -1589,7 +1589,7 @@ ways to make ICD files visible to the ICD loader. The first is through
 the <code class="literal">OCL_ICD_VENDORS</code> environment variable. This variable can contain a
 directory which is scanned by the ICL loader for ICD files. For example:</p><pre class="programlisting">
 $ export \
-  OCL_ICD_VENDORS=`nix-build &#x27;&lt;nixpkgs&gt;&#x27; --no-out-link -A rocm-opencl-icd`/etc/OpenCL/vendors/
+  OCL_ICD_VENDORS=`nix-build &#x27;&lt;nixpkgs&gt;&#x27; --no-out-link -A rocmPackages.clr.icd`/etc/OpenCL/vendors/
 </pre><p>The second mechanism is to add the OpenCL driver package to
 <a class="xref" href="options.html#opt-hardware.opengl.extraPackages"  ><code class="option">hardware.opengl.extraPackages</code></a>.
 This links the ICD file under <code class="literal">/run/opengl-driver</code>, where it will be visible
@@ -1603,11 +1603,11 @@ Platform Name        AMD Accelerated Parallel Processing
 Platform Vendor      Advanced Micro Devices, Inc.
 </pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-gpu-accel-opencl-amd"></a>AMD   </h3>  </div> </div></div><p>Modern AMD <a class="link" href="https://en.wikipedia.org/wiki/Graphics_Core_Next"  target="_top">Graphics Core
 Next</a> (GCN) GPUs are
-supported through the rocm-opencl-icd package. Adding this package to
+supported through the rocmPackages.clr.icd package. Adding this package to
 <a class="xref" href="options.html#opt-hardware.opengl.extraPackages"  ><code class="option">hardware.opengl.extraPackages</code></a>
 enables OpenCL support:</p><pre class="programlisting">
 hardware.opengl.extraPackages = [
-  rocm-opencl-icd
+  rocmPackages.clr.icd
 ];
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-gpu-accel-opencl-intel"></a>Intel   </h3>  </div> </div></div><p><a class="link" href="https://en.wikipedia.org/wiki/List_of_Intel_graphics_processing_units#Gen8"  target="_top">Intel Gen8 and later
@@ -6905,7 +6905,7 @@ possible to override a type merge function for custom needs.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-option-types-custom"></a>Custom types   </h3>  </div> </div></div><p>Custom types can be created with the <code class="literal">mkOptionType</code> function. As type
 creation includes some more complex topics such as submodule handling,
 it is recommended to get familiar with <code class="literal">types.nix</code> code before creating
-a new type.</p><p>The only required parameter is <code class="literal">name</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>A string representation of the type function name.</p></dd><dt><span class="term"><code class="literal">definition</code></span></dt><dd><p>Description of the type used in documentation. Give information of
+a new type.</p><p>The only required parameter is <code class="literal">name</code>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>A string representation of the type function name.</p></dd><dt><span class="term"><code class="literal">description</code></span></dt><dd><p>Description of the type used in documentation. Give information of
 the type and any of its arguments.</p></dd><dt><span class="term"><code class="literal">check</code></span></dt><dd><p>A function to type check the definition value. Takes the definition
 value as a parameter and returns a boolean indicating the type check
 result, <code class="literal">true</code> for success and <code class="literal">false</code> for failure.</p></dd><dt><span class="term"><code class="literal">merge</code></span></dt><dd><p>A function to merge multiple definitions values. Takes two
