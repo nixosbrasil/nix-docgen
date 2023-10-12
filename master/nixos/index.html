@@ -1399,8 +1399,8 @@ alternative one by picking one of the following lines:</p><pre class="programlis
 services.xserver.displayManager.sddm.enable = true;
 services.xserver.displayManager.gdm.enable = true;
 </pre><p>You can set the keyboard layout (and optionally the layout variant):</p><pre class="programlisting">
-services.xserver.layout = &quot;de&quot;;
-services.xserver.xkbVariant = &quot;neo&quot;;
+services.xserver.xkb.layout = &quot;de&quot;;
+services.xserver.xkb.variant = &quot;neo&quot;;
 </pre><p>The X server is started automatically at boot time. If you don’t want
 this to happen, you can set:</p><pre class="programlisting">
 services.xserver.autorun = false;
@@ -1516,7 +1516,7 @@ $ echo &quot;$(nix-build --no-out-link &#x27;&lt;nixpkgs&gt;&#x27; -A xorg.xkeyb
 layout should be ready to use. You can try it by e.g. running
 <code class="literal">setxkbmap us-greek</code> and then type <code class="literal">&lt;alt&gt;+a</code> (it may not get applied in
 your terminal straight away). To change the default, the usual
-<code class="literal">services.xserver.layout</code> option can still be used.</p><p>A layout can have several other components besides <code class="literal">xkb_symbols</code>, for
+<code class="literal">services.xserver.xkb.layout</code> option can still be used.</p><p>A layout can have several other components besides <code class="literal">xkb_symbols</code>, for
 example we will define new keycodes for some multimedia key and bind
 these to some symbol.</p><p>Use the <span class="emphasis"><em>xev</em></span> utility from <code class="literal">pkgs.xorg.xev</code> to find the codes of the keys
 of interest, then create a <code class="literal">media-key</code> file to hold the keycodes
@@ -6590,7 +6590,7 @@ lib.mkOption {
   description = lib.mdDoc &quot;Whether to enable magic.&quot;;
 }
 </pre></div></div><br class="example-break" />
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-option-declarations-util-mkPackageOption"></a><code class="literal">mkPackageOption</code>, <code class="literal">mkPackageOptionMD</code>   </h4>  </div> </div></div><p>Usage:</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-option-declarations-util-mkPackageOption"></a><code class="literal">mkPackageOption</code>   </h4>  </div> </div></div><p>Usage:</p><pre class="programlisting">
 mkPackageOption pkgs &quot;name&quot; { default = [ &quot;path&quot; &quot;in&quot; &quot;pkgs&quot; ]; example = &quot;literal example&quot;; }
 </pre><p>Creates an Option attribute set for an option that specifies the package a module should use for some purpose.</p><p><span class="strong"><strong>Note</strong></span>: You shouldn’t necessarily make package options for all of your modules. You can always overwrite a specific package throughout nixpkgs by using <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#chap-overlays"  target="_top">nixpkgs overlays</a>.</p><p>The package is specified in the third argument under <code class="literal">default</code> as a list of strings
 representing its attribute path in nixpkgs (or another package set).
@@ -6601,9 +6601,9 @@ and serves as the fallback value for the <code class="literal">default</code> ar
 append arbitrary text to the generated description.
 You can also pass an <code class="literal">example</code> value, either a literal string or an attribute path.</p><p>The default argument can be omitted if the provided name is
 an attribute of pkgs (if name is a string) or a
-valid attribute path in pkgs (if name is a list).</p><p>If you wish to explicitly provide no default, pass <code class="literal">null</code> as <code class="literal">default</code>.</p><p>During the transition to CommonMark documentation <code class="literal">mkPackageOption</code> creates an option with a DocBook description attribute, once the transition is completed it will create a CommonMark description instead. <code class="literal">mkPackageOptionMD</code> always creates an option with a CommonMark description attribute and will be removed some time after the transition is completed.</p><p><a id="ex-options-declarations-util-mkPackageOption" />
+valid attribute path in pkgs (if name is a list).</p><p>If you wish to explicitly provide no default, pass <code class="literal">null</code> as <code class="literal">default</code>.</p><p><a id="ex-options-declarations-util-mkPackageOption" />
 Examples:</p><div class="example"><a id="ex-options-declarations-util-mkPackageOption-hello" /><p class="title"><strong>Example 15. Simple <code class="literal">mkPackageOption</code> usage</strong></p><div class="example-contents"><pre class="programlisting">
-lib.mkPackageOptionMD pkgs &quot;hello&quot; { }
+lib.mkPackageOption pkgs &quot;hello&quot; { }
 # is like
 lib.mkOption {
   type = lib.types.package;
@@ -6612,7 +6612,7 @@ lib.mkOption {
   description = lib.mdDoc &quot;The hello package to use.&quot;;
 }
 </pre></div></div><br class="example-break" /><div class="example"><a id="ex-options-declarations-util-mkPackageOption-ghc" /><p class="title"><strong>Example 16. <code class="literal">mkPackageOption</code> with explicit default and example</strong></p><div class="example-contents"><pre class="programlisting">
-lib.mkPackageOptionMD pkgs &quot;GHC&quot; {
+lib.mkPackageOption pkgs &quot;GHC&quot; {
   default = [ &quot;ghc&quot; ];
   example = &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
 }
