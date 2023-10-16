@@ -3690,7 +3690,7 @@ server itself, and those that affect its surroundings. Options that affect the
 sync server are <code class="literal">capacity</code>, which configures how many accounts may be active on
 this instance, and <code class="literal">url</code>, which holds the URL under which the sync server can be
 accessed. The <code class="literal">url</code> can be configured automatically when using nginx.</p><p>Options that affect the surroundings of the sync server are <code class="literal">enableNginx</code>,
-<code class="literal">enableTLS</code> and <code class="literal">hostnam</code>. If <code class="literal">enableNginx</code> is set the sync server module will
+<code class="literal">enableTLS</code> and <code class="literal">hostname</code>. If <code class="literal">enableNginx</code> is set the sync server module will
 automatically add an nginx virtual host to the system using <code class="literal">hostname</code> as the
 domain and set <code class="literal">url</code> accordingly. If <code class="literal">enableTLS</code> is set the module will also
 enable ACME certificates on the new virtual host and force all connections to
