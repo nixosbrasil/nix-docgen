@@ -7497,7 +7497,7 @@ most likely break your system. This section lists a few of them and what they
 do:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">binsh</code> creates <code class="literal">/bin/sh</code> which points to the runtime shell</p></li><li class="listitem"><p><code class="literal">etc</code> sets up the contents of <code class="literal">/etc</code>, this includes systemd units and
 excludes <code class="literal">/etc/passwd</code>, <code class="literal">/etc/group</code>, and <code class="literal">/etc/shadow</code> (which are managed by
 the <code class="literal">users</code> snippet)</p></li><li class="listitem"><p><code class="literal">hostname</code> sets the system’s hostname in the kernel (not in <code class="literal">/etc</code>)</p></li><li class="listitem"><p><code class="literal">modprobe</code> sets the path to the <code class="literal">modprobe</code> binary for module auto-loading</p></li><li class="listitem"><p><code class="literal">nix</code> prepares the nix store and adds a default initial channel</p></li><li class="listitem"><p><code class="literal">specialfs</code> is responsible for mounting filesystems like <code class="literal">/proc</code> and <code class="literal">sys</code></p></li><li class="listitem"><p><code class="literal">users</code> creates and removes users and groups by managing <code class="literal">/etc/passwd</code>,
-<code class="literal">/etc/group</code> and <code class="literal">/etc/shadow</code>. This also creates home directories</p></li><li class="listitem"><p><code class="literal">usrbinenv</code> creates <code class="literal">/usr/bin/env</code></p></li><li class="listitem"><p><code class="literal">var</code> creates some directories in <code class="literal">/var</code> that are not service-specific</p></li><li class="listitem"><p><code class="literal">wrappers</code> creates setuid wrappers like <code class="literal">ping</code> and <code class="literal">sudo</code></p></li></ul></div>
+<code class="literal">/etc/group</code> and <code class="literal">/etc/shadow</code>. This also creates home directories</p></li><li class="listitem"><p><code class="literal">usrbinenv</code> creates <code class="literal">/usr/bin/env</code></p></li><li class="listitem"><p><code class="literal">var</code> creates some directories in <code class="literal">/var</code> that are not service-specific</p></li><li class="listitem"><p><code class="literal">wrappers</code> creates setuid wrappers like <code class="literal">sudo</code></p></li></ul></div>
 </div>
 
 </div>
@@ -7509,7 +7509,7 @@ worthy contribution to the project.</p><div class="section"> <div class="titlepa
 subdirectory of the Nixpkgs repository.</p><p>You can quickly validate your edits with <code class="literal">make</code>:</p><pre class="programlisting">
 $ cd /path/to/nixpkgs/nixos/doc/manual
 $ nix-shell
-nix-shell$ make
+nix-shell$ devmode
 </pre><p>Once you are done making modifications to the manual, it’s important to
 build it before committing. You can do that as follows:</p><pre class="programlisting">
 nix-build nixos/release.nix -A manual.x86_64-linux

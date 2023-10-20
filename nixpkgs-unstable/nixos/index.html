@@ -7509,7 +7509,7 @@ worthy contribution to the project.</p><div class="section"> <div class="titlepa
 subdirectory of the Nixpkgs repository.</p><p>You can quickly validate your edits with <code class="literal">make</code>:</p><pre class="programlisting">
 $ cd /path/to/nixpkgs/nixos/doc/manual
 $ nix-shell
-nix-shell$ make
+nix-shell$ devmode
 </pre><p>Once you are done making modifications to the manual, it’s important to
 build it before committing. You can do that as follows:</p><pre class="programlisting">
 nix-build nixos/release.nix -A manual.x86_64-linux
