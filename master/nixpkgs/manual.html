@@ -3087,16 +3087,25 @@ installPhase() {
 }
 
 genericBuild
-</pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-building-stdenv-package-in-nix-shell"></a>Building a <code class="literal">stdenv</code> package in <code class="literal">nix-shell</code>   </h3>  </div> </div></div><p>To build a <code class="literal">stdenv</code> package in a <a class="link" href="https://nixos.org/manual/nix/unstable/command-ref/nix-shell.html"  target="_top"><code class="literal">nix-shell</code></a>, use</p><pre class="programlisting">
+</pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-building-stdenv-package-in-nix-shell"></a>Building a <code class="literal">stdenv</code> package in <code class="literal">nix-shell</code>   </h3>  </div> </div></div><p>To build a <code class="literal">stdenv</code> package in a <a class="link" href="https://nixos.org/manual/nix/unstable/command-ref/nix-shell.html"  target="_top"><code class="literal">nix-shell</code></a>, enter a shell, find the <a class="link" href="#sec-stdenv-phases" title="Phases" >phases</a> you wish to build, then invoke <code class="literal">genericBuild</code> manually:</p><p>Go to an empty directory, invoke <code class="literal">nix-shell</code> with the desired package, and from inside the shell, set the output variables to a writable directory:</p><pre class="programlisting">
+cd &quot;$(mktemp -d)&quot;
 nix-shell &#x27;&lt;nixpkgs&gt;&#x27; -A some_package
-eval &quot;${unpackPhase:-unpackPhase}&quot;
-cd $sourceRoot
-eval &quot;${patchPhase:-patchPhase}&quot;
-eval &quot;${configurePhase:-configurePhase}&quot;
-eval &quot;${buildPhase:-buildPhase}&quot;
+export out=$(pwd)/out
+</pre><p>Next, invoke the desired parts of the build.
+First, run the phases that generate a working copy of the sources, which will change directory to the sources for you:</p><pre class="programlisting">
+phases=&quot;${prePhases[*]:-} unpackPhase patchPhase&quot; genericBuild
+</pre><p>Then, run more phases up until the failure is reached.
+For example, if the failure is in the build phase, the following phases would be required:</p><pre class="programlisting">
+phases=&quot;${preConfigurePhases[*]:-} configurePhase ${preBuildPhases[*]:-} buildPhase&quot; genericBuild
+</pre><p>Re-run a single phase as many times as necessary to examine the failure like so:</p><pre class="programlisting">
+phases=&quot;buildPhase&quot; genericBuild
 </pre><p>To modify a <a class="link" href="#sec-stdenv-phases" title="Phases" >phase</a>, first print it with</p><pre class="programlisting">
+echo &quot;$buildPhase&quot;
+</pre><p>Or, if that is empty, for instance, if it is using a function:</p><pre class="programlisting">
 type buildPhase
-</pre><p>then change it in a text editor, and paste it back to the terminal.</p>
+</pre><p>then change it in a text editor, and paste it back to the terminal.</p><div class="note"><h3 class="title">Note</h3><p>This method may have some inconsistencies in environment variables and behaviour compared to a normal build within the <a class="link" href="https://nixos.org/manual/nix/unstable/language/derivations#builder-execution"  target="_top">Nix build sandbox</a>.
+The following is a non-exhaustive list of such differences:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">TMP</code>, <code class="literal">TMPDIR</code>, and similar variables likely point to non-empty directories that the build might conflict with files in.</p></li><li class="listitem"><p>Output store paths are not writable, so the variables for outputs need to be overridden to writable paths.</p></li><li class="listitem"><p>Other environment variables may be inconsistent with a <code class="literal">nix-build</code> either due to <code class="literal">nix-shell</code>’s initialization script or due to the use of <code class="literal">nix-shell</code> without the <code class="literal">--pure</code> option.</p></li></ul></div><p>If the build fails differently inside the shell than in the sandbox, consider using <a class="link" href="#breakpointhook" title="breakpointHook" ><code class="literal">breakpointHook</code></a> and invoking <code class="literal">nix-build</code> instead.
+The <a class="link" href="https://nixos.org/manual/nix/unstable/command-ref/conf-file#opt--keep-failed"  target="_top"><code class="literal">--keep-failed</code></a> option for <code class="literal">nix-build</code> may also be useful to examine the build directory of a failed build.</p></div>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-tools-of-stdenv"></a>Tools provided by <code class="literal">stdenv</code>   </h2>  </div> </div></div><p>The standard environment provides the following packages:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>The GNU C Compiler, configured with C and C++ support.</p></li><li class="listitem"><p>GNU coreutils (contains a few dozen standard Unix commands).</p></li><li class="listitem"><p>GNU findutils (contains <code class="literal">find</code>).</p></li><li class="listitem"><p>GNU diffutils (contains <code class="literal">diff</code>, <code class="literal">cmp</code>).</p></li><li class="listitem"><p>GNU <code class="literal">sed</code>.</p></li><li class="listitem"><p>GNU <code class="literal">grep</code>.</p></li><li class="listitem"><p>GNU <code class="literal">awk</code>.</p></li><li class="listitem"><p>GNU <code class="literal">tar</code>.</p></li><li class="listitem"><p><code class="literal">gzip</code>, <code class="literal">bzip2</code> and <code class="literal">xz</code>.</p></li><li class="listitem"><p>GNU Make.</p></li><li class="listitem"><p>Bash. This is the shell used for all builders in the Nix Packages collection. Not using <code class="literal">/bin/sh</code> removes a large source of portability problems.</p></li><li class="listitem"><p>The <code class="literal">patch</code> command.</p></li></ul></div><p>On Linux, <code class="literal">stdenv</code> also includes the <code class="literal">patchelf</code> utility.</p>
