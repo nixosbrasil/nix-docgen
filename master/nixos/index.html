@@ -7505,7 +7505,7 @@ and advanced boot workflows such as SecureBoot and potentially more.</p><p>You c
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-experimental-bootspec-external-bootloaders"></a>External bootloaders   </h2>  </div> </div></div><p>It is possible to enable your own bootloader through <a class="link" href="options.html#opt-boot.loader.external.installHook"  target="_top"><code class="literal">boot.loader.external.installHook</code></a> which can wrap an existing bootloader.</p><p>Currently, there is no good story to compose existing bootloaders to enrich their features, e.g. SecureBoot, etc. It will be necessary to reimplement or reuse existing parts.</p>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-switching-systems"></a>What happens during a system switch?   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-unit-handling">Unit handling</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-activation-script">Activation script</a> </span></dt> </dl></div><p>Running <code class="literal">nixos-rebuild switch</code> is one of the more common tasks under NixOS.
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-switching-systems"></a>What happens during a system switch?   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-unit-handling">Unit handling</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-activation-script">Activation script</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-non-switchable-system">Non Switchable Systems</a> </span></dt> </dl></div><p>Running <code class="literal">nixos-rebuild switch</code> is one of the more common tasks under NixOS.
 This chapter explains some of the internals of this command to make it simpler
 for new module developers to configure their units correctly and to make it
 easier to understand what is happening and why for curious administrators.</p><p><code class="literal">nixos-rebuild</code>, like many deployment solutions, calls <code class="literal">switch-to-configuration</code>
@@ -7620,6 +7620,19 @@ the <code class="literal">users</code> snippet)</p></li><li class="listitem"><p>
 <code class="literal">/etc/group</code> and <code class="literal">/etc/shadow</code>. This also creates home directories</p></li><li class="listitem"><p><code class="literal">usrbinenv</code> creates <code class="literal">/usr/bin/env</code></p></li><li class="listitem"><p><code class="literal">var</code> creates some directories in <code class="literal">/var</code> that are not service-specific</p></li><li class="listitem"><p><code class="literal">wrappers</code> creates setuid wrappers like <code class="literal">sudo</code></p></li></ul></div>
 </div>
 
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-non-switchable-system"></a>Non Switchable Systems   </h2>  </div> </div></div><p>In certain systems, most notably image based appliances, updates are handled
+outside the system. This means that you do not need to rebuild your
+configuration on the system itself anymore.</p><p>If you want to build such a system, you can use the <code class="literal">image-based-appliance</code>
+profile:</p><pre class="programlisting">
+{ modulesPath, ... }: {
+  imports = [ &quot;${modulesPath}/profiles/image-based-appliance.nix&quot; ]
+}
+</pre><p>The most notable deviation of this profile from a standard NixOS configuration
+is that after building it, you cannot switch <span class="emphasis"><em>to</em></span> the configuration anymore.
+The profile sets <code class="literal">config.system.switch.enable = false;</code>, which excludes
+<code class="literal">switch-to-configuration</code>, the central script called by <code class="literal">nixos-rebuild</code>, from
+your system. Removing this script makes the image lighter and slightly more
+secure.</p>
 </div>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-writing-documentation"></a>Writing NixOS Documentation   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-writing-docs-building-the-manual">Building the Manual</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-writing-docs-editing-docbook-xml">Editing DocBook XML</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-writing-docs-creating-a-topic">Creating a Topic</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-writing-docs-adding-a-topic">Adding a Topic to the Book</a> </span></dt> </dl></div><p>As NixOS grows, so too does the need for a catalogue and explanation of
 its extensive functionality. Collecting pertinent information from
@@ -8049,6 +8062,34 @@ function that evaluates to a(n) list of package</p>
 <p><span class="emphasis"><em>Example:</em></span></p><pre class="programlisting">p: [ p.numpy ]
 
 </pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/driver.nix" target="_top">
+nixos/lib/testing/driver.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-globalTimeout"></a><a class="term" href="index.html#test-opt-globalTimeout"><code class="option">globalTimeout</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>A global timeout for the complete test, expressed in seconds.
+Beyond that timeout, every resource will be killed and released and the test will fail.</p><p>By default, we use a 1 hour timeout.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+signed integer</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">3600</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">600</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">

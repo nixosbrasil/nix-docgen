@@ -8205,9 +8205,9 @@ Let’s present the luarocks way first and the manual one in a second time.</p><
 The site proposes two types of packages, the <code class="literal">rockspec</code> and the <code class="literal">src.rock</code>
 (equivalent of a <a class="link" href="https://github.com/luarocks/luarocks/wiki/Rockspec-format"  target="_top">rockspec</a> but with the source).</p><p>Luarocks-based packages are generated in <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/pkgs/development/lua-modules/generated-packages.nix"  target="_top">pkgs/development/lua-modules/generated-packages.nix</a> from
 the whitelist maintainers/scripts/luarocks-packages.csv and updated by running
-the script
-<a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/maintainers/scripts/update-luarocks-packages"  target="_top">maintainers/scripts/update-luarocks-packages</a>:</p><pre class="programlisting">
-./maintainers/scripts/update-luarocks-packages update
+the package <code class="literal">luarocks-packages-updater</code>:</p><pre class="programlisting">
+
+nix-shell -p luarocks-packages-updater --run luarocks-packages-updater
 </pre><p><a class="link" href="https://github.com/nix-community/luarocks"  target="_top">luarocks2nix</a> is a tool capable of generating nix derivations from both rockspec and src.rock (and favors the src.rock).
 The automation only goes so far though and some packages need to be customized.
 These customizations go in <a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/pkgs/development/lua-modules/overrides.nix"  target="_top">pkgs/development/lua-modules/overrides.nix</a>.
