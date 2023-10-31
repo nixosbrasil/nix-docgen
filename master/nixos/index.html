@@ -4971,8 +4971,8 @@ $ flatpak run org.freedesktop.Bustle
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="module-postgresql"></a>PostgreSQL   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-postgres-configuring">Configuring</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-upgrading">Upgrading</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-options">Options</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-plugins">Plugins</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-jit">JIT (Just-In-Time compilation)</a> </span></dt> </dl></div><p><span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/databases/postgresql.nix</code></p><p><span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="http://www.postgresql.org/docs/"  target="_top">http://www.postgresql.org/docs/</a></p><p>PostgreSQL is an advanced, free relational database.
 </p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-postgres-configuring"></a>Configuring   </h2>  </div> </div></div><p>To enable PostgreSQL, add the following to your <code class="filename">configuration.nix</code>:</p><pre class="programlisting">
 services.postgresql.enable = true;
-services.postgresql.package = pkgs.postgresql_11;
-</pre><p>Note that you are required to specify the desired version of PostgreSQL (e.g. <code class="literal">pkgs.postgresql_11</code>). Since upgrading your PostgreSQL version requires a database dump and reload (see below), NixOS cannot provide a default value for <a class="xref" href="options.html#opt-services.postgresql.package"  ><code class="option">services.postgresql.package</code></a> such as the most recent release of PostgreSQL.</p><p>By default, PostgreSQL stores its databases in <code class="filename">/var/lib/postgresql/$psqlSchema</code>. You can override this using <a class="xref" href="options.html#opt-services.postgresql.dataDir"  ><code class="option">services.postgresql.dataDir</code></a>, e.g.</p><pre class="programlisting">
+services.postgresql.package = pkgs.postgresql_15;
+</pre><p>Note that you are required to specify the desired version of PostgreSQL (e.g. <code class="literal">pkgs.postgresql_15</code>). Since upgrading your PostgreSQL version requires a database dump and reload (see below), NixOS cannot provide a default value for <a class="xref" href="options.html#opt-services.postgresql.package"  ><code class="option">services.postgresql.package</code></a> such as the most recent release of PostgreSQL.</p><p>By default, PostgreSQL stores its databases in <code class="filename">/var/lib/postgresql/$psqlSchema</code>. You can override this using <a class="xref" href="options.html#opt-services.postgresql.dataDir"  ><code class="option">services.postgresql.dataDir</code></a>, e.g.</p><pre class="programlisting">
 services.postgresql.dataDir = &quot;/data/postgresql&quot;;
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-postgres-upgrading"></a>Upgrading   </h2>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>The steps below demonstrate how to upgrade from an older version to <code class="literal">pkgs.postgresql_13</code>.
@@ -5021,38 +5021,38 @@ $ ./analyze_new_cluster.sh
 $ ./delete_old_cluster.sh
 </pre></li></ol></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-postgres-options"></a>Options   </h2>  </div> </div></div><p>A complete list of options for the PostgreSQL module may be found <a class="link" href="options.html#opt-services.postgresql.enable"  >here</a>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-postgres-plugins"></a>Plugins   </h2>  </div> </div></div><p>Plugins collection for each PostgreSQL version can be accessed with <code class="literal">.pkgs</code>. For example, for <code class="literal">pkgs.postgresql_11</code> package, its plugin collection is accessed by <code class="literal">pkgs.postgresql_11.pkgs</code>:</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-postgres-plugins"></a>Plugins   </h2>  </div> </div></div><p>Plugins collection for each PostgreSQL version can be accessed with <code class="literal">.pkgs</code>. For example, for <code class="literal">pkgs.postgresql_15</code> package, its plugin collection is accessed by <code class="literal">pkgs.postgresql_15.pkgs</code>:</p><pre class="programlisting">
 $ nix repl &#x27;&lt;nixpkgs&gt;&#x27;
 
 Loading &#x27;&lt;nixpkgs&gt;&#x27;...
 Added 10574 variables.
 
-nix-repl&gt; postgresql_11.pkgs.&lt;TAB&gt;&lt;TAB&gt;
-postgresql_11.pkgs.cstore_fdw        postgresql_11.pkgs.pg_repack
-postgresql_11.pkgs.pg_auto_failover  postgresql_11.pkgs.pg_safeupdate
-postgresql_11.pkgs.pg_bigm           postgresql_11.pkgs.pg_similarity
-postgresql_11.pkgs.pg_cron           postgresql_11.pkgs.pg_topn
-postgresql_11.pkgs.pg_hll            postgresql_11.pkgs.pgjwt
-postgresql_11.pkgs.pg_partman        postgresql_11.pkgs.pgroonga
+nix-repl&gt; postgresql_15.pkgs.&lt;TAB&gt;&lt;TAB&gt;
+postgresql_15.pkgs.cstore_fdw        postgresql_15.pkgs.pg_repack
+postgresql_15.pkgs.pg_auto_failover  postgresql_15.pkgs.pg_safeupdate
+postgresql_15.pkgs.pg_bigm           postgresql_15.pkgs.pg_similarity
+postgresql_15.pkgs.pg_cron           postgresql_15.pkgs.pg_topn
+postgresql_15.pkgs.pg_hll            postgresql_15.pkgs.pgjwt
+postgresql_15.pkgs.pg_partman        postgresql_15.pkgs.pgroonga
 ...
 </pre><p>To add plugins via NixOS configuration, set <code class="literal">services.postgresql.extraPlugins</code>:</p><pre class="programlisting">
-services.postgresql.package = pkgs.postgresql_11;
-services.postgresql.extraPlugins = with pkgs.postgresql_11.pkgs; [
+services.postgresql.package = pkgs.postgresql_12;
+services.postgresql.extraPlugins = with pkgs.postgresql_12.pkgs; [
   pg_repack
   postgis
 ];
 </pre><p>You can build custom PostgreSQL-with-plugins (to be used outside of NixOS) using function <code class="literal">.withPackages</code>. For example, creating a custom PostgreSQL package in an overlay can look like:</p><pre class="programlisting">
 self: super: {
-  postgresql_custom = self.postgresql_11.withPackages (ps: [
+  postgresql_custom = self.postgresql_12.withPackages (ps: [
     ps.pg_repack
     ps.postgis
   ]);
 }
 </pre><p>Here’s a recipe on how to override a particular plugin through an overlay:</p><pre class="programlisting">
 self: super: {
-  postgresql_11 = super.postgresql_11.override { this = self.postgresql_11; } // {
-    pkgs = super.postgresql_11.pkgs // {
-      pg_repack = super.postgresql_11.pkgs.pg_repack.overrideAttrs (_: {
+  postgresql_15 = super.postgresql_15.override { this = self.postgresql_15; } // {
+    pkgs = super.postgresql_15.pkgs // {
+      pg_repack = super.postgresql_15.pkgs.pg_repack.overrideAttrs (_: {
         name = &quot;pg_repack-v20181024&quot;;
         src = self.fetchzip {
           url = &quot;https://github.com/reorg/pg_repack/archive/923fa2f3c709a506e111cc963034bf2fd127aa00.tar.gz&quot;;
