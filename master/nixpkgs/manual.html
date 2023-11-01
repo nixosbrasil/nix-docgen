@@ -1816,7 +1816,7 @@ nix-repl&gt; f = self: {
   bar = &quot;bar&quot;;
   foobar = self.foo + self.bar;
 }
-</pre><p>This is where <code class="literal">fix</code> comes in, it contains the syntactic that’s not in <code class="literal">f</code> anymore.</p><pre class="programlisting">
+</pre><p>This is where <code class="literal">fix</code> comes in, it contains the syntactic recursion that’s not in <code class="literal">f</code> anymore.</p><pre class="programlisting">
 nix-repl&gt; fix = f:
   let self = f self; in self;
 </pre><p>By applying <code class="literal">fix</code> we get the final result.</p><pre class="programlisting">
