@@ -1596,7 +1596,7 @@ qt.style = &quot;gtk2&quot;;
 </pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="custom-xkb-layouts"></a>Custom XKB layouts   </h2>  </div> </div></div><p>It is possible to install custom <a class="link" href="https://en.wikipedia.org/wiki/X_keyboard_extension"  target="_top"> XKB
 </a> keyboard layouts
-using the option <code class="literal">services.xserver.extraLayouts</code>.</p><p>As a first example, we are going to create a layout based on the basic
+using the option <code class="literal">services.xserver.xkb.extraLayouts</code>.</p><p>As a first example, we are going to create a layout based on the basic
 US layout, with an additional layer to type some greek symbols by
 pressing the right-alt key.</p><p>Create a file called <code class="literal">us-greek</code> with the following content (under a
 directory called <code class="literal">symbols</code>; it’s an XKB peculiarity that will help with
@@ -1613,7 +1613,7 @@ xkb_symbols &quot;us-greek&quot;
   key &lt;LatZ&gt; { [ z, Z, Greek_zeta  ] };
 };
 </pre><p>A minimal layout specification must include the following:</p><pre class="programlisting">
-services.xserver.extraLayouts.us-greek = {
+services.xserver.xkb.extraLayouts.us-greek = {
   description = &quot;US layout with alt-gr greek&quot;;
   languages   = [ &quot;eng&quot; ];
   symbolsFile = /yourpath/symbols/us-greek;
@@ -1648,7 +1648,7 @@ xkb_symbols &quot;media&quot;
  key &lt;volDown&gt; { [ XF86AudioRaiseVolume ] };
 }
 </pre><p>As before, to install the layout do</p><pre class="programlisting">
-services.xserver.extraLayouts.media = {
+services.xserver.xkb.extraLayouts.media = {
   description  = &quot;Multimedia keys remapping&quot;;
   languages    = [ &quot;eng&quot; ];
   symbolsFile  = /path/to/media-key;
