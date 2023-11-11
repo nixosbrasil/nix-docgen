@@ -628,7 +628,7 @@ virtual machine at least once without the right users, otherwise the
 changes will not get picked up. You can forward ports on the host to the
 guest. For instance, the following will forward host port 2222 to guest
 port 22 (SSH):</p><pre class="programlisting">
-$ QEMU_NET_OPTS=&quot;hostfwd=tcp::2222-:22&quot; ./result/bin/run-*-vm
+$ QEMU_NET_OPTS=&quot;hostfwd=tcp:127.0.0.1:2222-127.0.0.1:22&quot; ./result/bin/run-*-vm
 </pre><p>allowing you to log in via SSH (assuming you have set the appropriate
 passwords or SSH authorized keys):</p><pre class="programlisting">
 $ ssh -p 2222 localhost
@@ -7954,7 +7954,9 @@ the guest session.</p></dd><dt><span class="term">shutdown()</span></dt><dd><p>S
 not wait for the machine to finish booting.</p></dd><dt><span class="term">succeed()</span></dt><dd><p>Execute a shell command, raising an exception if the exit status is
 not zero, otherwise returning the standard output. Similar to <code class="literal">execute</code>,
 except that the timeout is <code class="literal">None</code> by default. See <code class="literal">execute</code> for details on
-command execution.</p></dd><dt><span class="term">systemctl(q, user)</span></dt><dd><p>Runs <code class="literal">systemctl</code> commands with optional support for
+command execution.</p></dd><dt><span class="term">switch_root()</span></dt><dd><p>Transition from stage 1 to stage 2. This requires the
+machine to be configured with <code class="literal">testing.initrdBackdoor = true</code>
+and <code class="literal">boot.initrd.systemd.enable = true</code>.</p></dd><dt><span class="term">systemctl(q, user)</span></dt><dd><p>Runs <code class="literal">systemctl</code> commands with optional support for
 <code class="literal">systemctl --user</code></p><pre class="programlisting">
 # run `systemctl list-jobs --no-pager`
 machine.systemctl(&quot;list-jobs --no-pager&quot;)
@@ -8696,6 +8698,11 @@ using:</p><pre class="programlisting">
 &gt;&gt;&gt; machine.shell_interact(&quot;tcp:127.0.0.1:4444&quot;)
 </pre><p>Once the connection is established, you can enter commands in the socat terminal
 where socat is running.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-nixos-test-port-forwarding"></a>Port forwarding to NixOS test VMs   </h3>  </div> </div></div><p>If your test has only a single VM, you may use e.g.</p><pre class="programlisting">
+$ QEMU_NET_OPTS=&quot;hostfwd=tcp:127.0.0.1:2222-127.0.0.1:22&quot; ./result/bin/nixos-test-driver
+</pre><p>to port-forward a port in the VM (here <code class="literal">22</code>) to the host machine (here port <code class="literal">2222</code>).</p><p>This naturally does not work when multiple machines are involved,
+since a single port on the host cannot forward to multiple VMs.</p><p>If the test defines multiple machines, you may opt to <span class="emphasis"><em>temporarily</em></span> set
+<code class="literal">virtualisation.forwardPorts</code> in the test definition for debugging.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-nixos-test-reuse-vm-state"></a>Reuse VM state   </h3>  </div> </div></div><p>You can re-use the VM states coming from a previous run by setting the
 <code class="literal">--keep-vm-state</code> flag.</p><pre class="programlisting">
 $ ./result/bin/nixos-test-driver --keep-vm-state
