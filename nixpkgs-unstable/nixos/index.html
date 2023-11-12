@@ -371,7 +371,7 @@ diskutil eject /dev/diskX
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-booting-from-pxe"></a>Booting from the “netboot” media (PXE)   </h3>  </div> </div></div><p>Advanced users may wish to install NixOS using an existing PXE or iPXE
 setup.</p><p>These instructions assume that you have an existing PXE or iPXE
-infrastructure and simply want to add the NixOS installer as another
+infrastructure and want to add the NixOS installer as another
 option. To build the necessary files from your current version of nixpkgs,
 you can run:</p><pre class="programlisting">
 nix-build -A netboot.x86_64-linux &#x27;&lt;nixpkgs/nixos/release.nix&gt;&#x27;
@@ -1046,8 +1046,8 @@ including them from <code class="literal">configuration.nix</code>, e.g.:</p><pr
 </pre><p>Note that both <code class="literal">configuration.nix</code> and <code class="literal">kde.nix</code> define the option
 <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a>. When multiple modules define an
 option, NixOS will try to <span class="emphasis"><em>merge</em></span> the definitions. In the case of
-<a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a>, that’s easy: the lists of
-packages can simply be concatenated. The value in <code class="literal">configuration.nix</code> is
+<a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a> the lists of packages will be
+concatenated. The value in <code class="literal">configuration.nix</code> is
 merged last, so for list-type options, it will appear at the end of the
 merged list. If you want it to appear first, you can use <code class="literal">mkBefore</code>:</p><pre class="programlisting">
 boot.kernelModules = mkBefore [ &quot;kvm-intel&quot; ];
@@ -1136,7 +1136,7 @@ nixos.firefox   firefox-23.0   Mozilla Firefox - the browser, reloaded
 </pre><p>The first column in the output is the <span class="emphasis"><em>attribute name</em></span>, such as
 <code class="literal">nixos.thunderbird</code>.</p><p>Note: the <code class="literal">nixos</code> prefix tells us that we want to get the package from
 the <code class="literal">nixos</code> channel and works only in CLI tools. In declarative
-configuration use <code class="literal">pkgs</code> prefix (variable).</p><p>To “uninstall” a package, simply remove it from
+configuration use <code class="literal">pkgs</code> prefix (variable).</p><p>To “uninstall” a package, remove it from
 <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a> and run <code class="literal">nixos-rebuild switch</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-customising-packages"></a>Customising Packages   </h3>  </div> </div></div><p>Some packages in Nixpkgs have options to enable or disable optional
 functionality or change other aspects of the package.</p><div class="warning"><h3 class="title">Warning</h3><p>Unfortunately, Nixpkgs currently lacks a way to query available
 configuration options.</p></div><div class="note"><h3 class="title">Note</h3><p>For example, many packages come with extensions one might add.
@@ -1862,7 +1862,7 @@ services.picom = {
 manually (system wide), put them into your
 <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a> from <code class="literal">pkgs.xfce</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-xfce-thunar-plugins"></a>Thunar   </h2>  </div> </div></div><p>Thunar (the Xfce file manager) is automatically enabled when Xfce is
 enabled. To enable Thunar without enabling Xfce, use the configuration
-option <a class="xref" href="options.html#opt-programs.thunar.enable"  ><code class="option">programs.thunar.enable</code></a> instead of simply adding
+option <a class="xref" href="options.html#opt-programs.thunar.enable"  ><code class="option">programs.thunar.enable</code></a> instead of adding
 <code class="literal">pkgs.xfce.thunar</code> to <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a>.</p><p>If you’d like to add extra plugins to Thunar, add them to
 <a class="xref" href="options.html#opt-programs.thunar.plugins"  ><code class="option">programs.thunar.plugins</code></a>. You shouldn’t just add them to
 <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a>.</p>
@@ -7796,7 +7796,7 @@ formats, which makes a good starting point. Here is an example of Pandoc
 invocation to convert GitHub-Flavoured MarkDown to DocBook 5 XML:</p><pre class="programlisting">
 pandoc -f markdown_github -t docbook5 docs.md -o my-section.md
 </pre><p>Pandoc can also quickly convert a single <code class="literal">section.xml</code> to HTML, which is
-helpful when drafting.</p><p>Sometimes writing valid DocBook is simply too difficult. In this case,
+helpful when drafting.</p><p>Sometimes writing valid DocBook is too difficult. In this case,
 submit your documentation updates in a <a class="link" href="https://github.com/NixOS/nixpkgs/issues/new"  target="_top">GitHub
 Issue</a> and someone will
 handle the conversion to XML for you.</p>
