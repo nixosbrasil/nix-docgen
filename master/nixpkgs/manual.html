@@ -7767,7 +7767,7 @@ nativeBuildInputs = [ gcj ant ];
 </pre><p>Here, Ant will automatically use <code class="literal">gij</code> (the GNU Java Runtime) instead of
 the OpenJRE.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="language-javascript"></a>Javascript   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#javascript-introduction">Introduction</a> </span></dt><dt> <span class="section">  <a href="#javascript-finding-examples">Getting unstuck / finding code examples</a> </span></dt><dt> <span class="section">  <a href="#javascript-tools-overview">Tools overview</a> </span></dt><dt> <span class="section">  <a href="#javascript-general-principles">General principles</a> </span></dt><dt> <span class="section">  <a href="#javascript-packages-nixpkgs">Javascript packages inside nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#javascript-tool-specific">Tool specific instructions</a> </span></dt><dt> <span class="section">  <a href="#javascript-outside-nixpkgs">Outside Nixpkgs</a> </span></dt> </dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="javascript-introduction"></a>Introduction   </h3>  </div> </div></div><p>This contains instructions on how to package javascript applications.</p><p>The various tools available will be listed in the <a class="link" href="#javascript-tools-overview" title="Tools overview" >tools-overview</a>. Some general principles for packaging will follow. Finally some tool specific instructions will be given.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="javascript-finding-examples"></a>Getting unstuck / finding code examples   </h3>  </div> </div></div><p>If you find you are lacking inspiration for packing javascript applications, the links below might prove useful. Searching online for prior art can be helpful if you are running into solved problems.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="javascript-finding-examples-github"></a>Github   </h4>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Searching Nix files for <code class="literal">mkYarnPackage</code>: <a class="link" href="https://github.com/search?q=mkYarnPackage+language%3ANix&amp;type=code"  target="_top">https://github.com/search?q=mkYarnPackage+language%3ANix&amp;type=code</a></p></li><li class="listitem"><p>Searching just <code class="literal">flake.nix</code> files for <code class="literal">mkYarnPackage</code>: <a class="link" href="https://github.com/search?q=mkYarnPackage+filename%3Aflake.nix&amp;type=code"  target="_top">https://github.com/search?q=mkYarnPackage+filename%3Aflake.nix&amp;type=code</a></p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="javascript-finding-examples"></a>Getting unstuck / finding code examples   </h3>  </div> </div></div><p>If you find you are lacking inspiration for packing javascript applications, the links below might prove useful. Searching online for prior art can be helpful if you are running into solved problems.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="javascript-finding-examples-github"></a>Github   </h4>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Searching Nix files for <code class="literal">mkYarnPackage</code>: <a class="link" href="https://github.com/search?q=mkYarnPackage+language%3ANix&amp;type=code"  target="_top">https://github.com/search?q=mkYarnPackage+language%3ANix&amp;type=code</a></p></li><li class="listitem"><p>Searching just <code class="literal">flake.nix</code> files for <code class="literal">mkYarnPackage</code>: <a class="link" href="https://github.com/search?q=mkYarnPackage+path%3A**%2Fflake.nix&amp;type=code"  target="_top">https://github.com/search?q=mkYarnPackage+path%3A**%2Fflake.nix&amp;type=code</a></p></li></ul></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="javascript-finding-examples-gitlab"></a>Gitlab   </h4>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Searching Nix files for <code class="literal">mkYarnPackage</code>: <a class="link" href="https://gitlab.com/search?scope=blobs&amp;search=mkYarnPackage+extension%3Anix"  target="_top">https://gitlab.com/search?scope=blobs&amp;search=mkYarnPackage+extension%3Anix</a></p></li><li class="listitem"><p>Searching just <code class="literal">flake.nix</code> files for <code class="literal">mkYarnPackage</code>: <a class="link" href="https://gitlab.com/search?scope=blobs&amp;search=mkYarnPackage+filename%3Aflake.nix"  target="_top">https://gitlab.com/search?scope=blobs&amp;search=mkYarnPackage+filename%3Aflake.nix</a></p></li></ul></div>
 </div>
 
@@ -10702,7 +10702,7 @@ bundlerApp {
 
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="rust"></a>Rust   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#compiling-rust-applications-with-cargo"><code class="literal">buildRustPackage</code>: Compiling Rust applications with Cargo</a> </span></dt><dt> <span class="section">  <a href="#compiling-rust-crates-using-nix-instead-of-cargo"><code class="literal">buildRustCrate</code>: Compiling Rust crates using Nix instead of Cargo</a> </span></dt><dt> <span class="section">  <a href="#using-community-maintained-rust-toolchains">Using community maintained Rust toolchains</a> </span></dt> </dl></div><p>To install the rust compiler and cargo put</p><pre class="programlisting">
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="rust"></a>Rust   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#compiling-rust-applications-with-cargo"><code class="literal">buildRustPackage</code>: Compiling Rust applications with Cargo</a> </span></dt><dt> <span class="section">  <a href="#compiling-rust-crates-using-nix-instead-of-cargo"><code class="literal">buildRustCrate</code>: Compiling Rust crates using Nix instead of Cargo</a> </span></dt><dt> <span class="section">  <a href="#using-community-maintained-rust-toolchains">Using community maintained Rust toolchains</a> </span></dt><dt> <span class="section">  <a href="#using-git-bisect-on-the-rust-compiler">Using <code class="literal">git bisect</code> on the Rust compiler</a> </span></dt> </dl></div><p>To install the rust compiler and cargo put</p><pre class="programlisting">
 environment.systemPackages = [
   rustc
   cargo
@@ -11337,6 +11337,51 @@ rustPlatform.buildRustPackage rec {
 and cross compilation in its <a class="link" href="https://github.com/nix-community/fenix#examples"  target="_top">Examples</a> section.</p>
 </div>
 
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="using-git-bisect-on-the-rust-compiler"></a>Using <code class="literal">git bisect</code> on the Rust compiler   </h3>  </div> </div></div><p>Sometimes an upgrade of the Rust compiler (<code class="literal">rustc</code>) will break a
+downstream package.  In these situations, being able to <code class="literal">git bisect</code>
+the <code class="literal">rustc</code> version history to find the offending commit is quite
+useful.  Nixpkgs makes it easy to do this.</p><p>First, roll back your nixpkgs to a commit in which its <code class="literal">rustc</code> used
+<span class="emphasis"><em>the most recent one which doesn’t have the problem.</em></span>  You’ll need
+to do this because of <code class="literal">rustc</code>’s extremely aggressive
+version-pinning.</p><p>Next, add the following overlay, updating the Rust version to the
+one in your rolled-back nixpkgs, and replacing <code class="literal">/git/scratch/rust</code>
+with the path into which you have <code class="literal">git clone</code>d the <code class="literal">rustc</code> git
+repository:</p><pre class="programlisting">
+ (final: prev: /*lib.optionalAttrs prev.stdenv.targetPlatform.isAarch64*/ {
+   rust_1_72 =
+     lib.updateManyAttrsByPath [{
+       path = [ &quot;packages&quot; &quot;stable&quot; ];
+       update = old: old.overrideScope(final: prev: {
+         rustc = prev.rustc.overrideAttrs (_: {
+           src = lib.cleanSource /git/scratch/rust;
+           # do *not* put passthru.isReleaseTarball=true here
+         });
+       });
+     }]
+       prev.rust_1_72;
+ })
+</pre><p>If the problem you’re troubleshooting only manifests when
+cross-compiling you can uncomment the <code class="literal">lib.optionalAttrs</code> in the
+example above, and replace <code class="literal">isAarch64</code> with the target that is
+having problems.  This will speed up your bisect quite a bit, since
+the host compiler won’t need to be rebuilt.</p><p>Now, you can start a <code class="literal">git bisect</code> in the directory where you checked
+out the <code class="literal">rustc</code> source code.  It is recommended to select the
+endpoint commits by searching backwards from <code class="literal">origin/master</code> for the
+<span class="emphasis"><em>commits which added the release notes for the versions in
+question.</em></span>  If you set the endpoints to commits on the release
+branches (i.e. the release tags), git-bisect will often get confused
+by the complex merge-commit structures it will need to traverse.</p><p>The command loop you’ll want to use for bisecting looks like this:</p><pre class="programlisting">
+git bisect {good,bad}  # depending on result of last build
+git submodule update --init
+CARGO_NET_OFFLINE=false cargo vendor \
+  --sync ./src/tools/cargo/Cargo.toml \
+  --sync ./src/tools/rust-analyzer/Cargo.toml \
+  --sync ./compiler/rustc_codegen_cranelift/Cargo.toml \
+  --sync ./src/bootstrap/Cargo.toml
+nix-build $NIXPKGS -A package-broken-by-rust-changes
+</pre><p>The <code class="literal">git submodule update --init</code> and <code class="literal">cargo vendor</code> commands above
+require network access, so they can’t be performed from within the
+<code class="literal">rustc</code> derivation, unfortunately.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="swift"></a>Swift   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#ssec-swift-module-search-paths">Module search paths</a> </span></dt><dt> <span class="section">  <a href="#ssec-swift-core-libraries">Core libraries</a> </span></dt><dt> <span class="section">  <a href="#ssec-swift-packaging-with-swiftpm">Packaging with SwiftPM</a> </span></dt><dt> <span class="section">  <a href="#ssec-swift-considerations-for-custom-build-tools">Considerations for custom build tools</a> </span></dt> </dl></div><p>The Swift compiler is provided by the <code class="literal">swift</code> package:</p><pre class="programlisting">

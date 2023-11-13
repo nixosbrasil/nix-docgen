@@ -628,11 +628,14 @@ virtual machine at least once without the right users, otherwise the
 changes will not get picked up. You can forward ports on the host to the
 guest. For instance, the following will forward host port 2222 to guest
 port 22 (SSH):</p><pre class="programlisting">
-$ QEMU_NET_OPTS=&quot;hostfwd=tcp::2222-:22&quot; ./result/bin/run-*-vm
+$ QEMU_NET_OPTS=&quot;hostfwd=tcp:127.0.0.1:2222-:22&quot; ./result/bin/run-*-vm
 </pre><p>allowing you to log in via SSH (assuming you have set the appropriate
 passwords or SSH authorized keys):</p><pre class="programlisting">
 $ ssh -p 2222 localhost
-</pre>
+</pre><p>Such port forwardings connect via the VM’s virtual network interface.
+Thus they cannot connect to ports that are only bound to the VM’s
+loopback interface (<code class="literal">127.0.0.1</code>), and the VM’s NixOS firewall
+must be configured to allow these connections.</p>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-upgrading"></a>Upgrading NixOS   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-upgrading-automatic">Automatic Upgrades</a> </span></dt> </dl></div><p>The best way to keep your NixOS installation up to date is to use one of
 the NixOS <span class="emphasis"><em>channels</em></span>. A channel is a Nix mechanism for distributing Nix
 expressions and associated binaries. The NixOS channels are updated
@@ -2154,12 +2157,12 @@ is out of maintenance, the latest supported kernel version is 5.15 because it’
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="module-services-subversion"></a>Subversion   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-subversion-apache-httpd">Subversion inside Apache HTTP</a> </span></dt> </dl></div><p><a class="link" href="https://subversion.apache.org/"  target="_top">Subversion</a> is a centralized
-version-control system. It can use a <a class="link" href="http://svnbook.red-bean.com/en/1.7/svn-book.html#svn.serverconfig.choosing"  target="_top">variety of
+version-control system. It can use a <a class="link" href="https://svnbook.red-bean.com/en/1.7/svn-book.html#svn.serverconfig.choosing"  target="_top">variety of
 protocols</a>
 for communication between client and server.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-subversion-apache-httpd"></a>Subversion inside Apache HTTP   </h2>  </div> </div></div><p>This section focuses on configuring a web-based server on top of the
 Apache HTTP server, which uses
 <a class="link" href="http://www.webdav.org/"  target="_top">WebDAV</a>/<a class="link" href="http://www.webdav.org/deltav/WWW10/deltav-intro.htm"  target="_top">DeltaV</a>
-for communication.</p><p>For more information on the general setup, please refer to the <a class="link" href="http://svnbook.red-bean.com/en/1.7/svn-book.html#svn.serverconfig.httpd"  target="_top">the
+for communication.</p><p>For more information on the general setup, please refer to the <a class="link" href="https://svnbook.red-bean.com/en/1.7/svn-book.html#svn.serverconfig.httpd"  target="_top">the
 appropriate section of the Subversion
 book</a>.</p><p>To configure, include in <code class="literal">/etc/nixos/configuration.nix</code> code to activate
 Apache HTTP, setting <a class="xref" href="options.html#opt-services.httpd.adminAddr"  ><code class="option">services.httpd.adminAddr</code></a>
@@ -2501,7 +2504,7 @@ server using <a class="link" href="https://php-fpm.org/"  target="_top"><code cl
 and <code class="literal">nginx</code>. The <code class="literal">config</code> attribute set is
 used by the imperative installer and all values are written to an additional file
 to ensure that changes can be applied by changing the module’s options.</p><p>In case the application serves multiple domains (those are checked with
-<a class="link" href="http://php.net/manual/en/reserved.variables.server.php"  target="_top"><code class="literal">$_SERVER[&#x27;HTTP_HOST&#x27;]</code></a>)
+<a class="link" href="https://www.php.net/manual/en/reserved.variables.server.php"  target="_top"><code class="literal">$_SERVER[&#x27;HTTP_HOST&#x27;]</code></a>)
 it’s needed to add them to
 <a class="link" href="options.html#opt-services.nextcloud.config.extraTrustedDomains"  ><code class="literal">services.nextcloud.config.extraTrustedDomains</code></a>.</p><p>Auto updates for Nextcloud apps can be enabled using
 <a class="link" href="options.html#opt-services.nextcloud.autoUpdateApps.enable"  ><code class="literal">services.nextcloud.autoUpdateApps</code></a>.</p>
@@ -5107,7 +5110,7 @@ $ flatpak search bustle
 $ flatpak install flathub org.freedesktop.Bustle
 $ flatpak run org.freedesktop.Bustle
 </pre><p>Again, GNOME Software offers graphical interface for these tasks.</p>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="module-postgresql"></a>PostgreSQL   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-postgres-configuring">Configuring</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-upgrading">Upgrading</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-options">Options</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-plugins">Plugins</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-jit">JIT (Just-In-Time compilation)</a> </span></dt> </dl></div><p><span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/databases/postgresql.nix</code></p><p><span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="http://www.postgresql.org/docs/"  target="_top">http://www.postgresql.org/docs/</a></p><p>PostgreSQL is an advanced, free relational database.
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="module-postgresql"></a>PostgreSQL   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-postgres-configuring">Configuring</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-upgrading">Upgrading</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-options">Options</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-plugins">Plugins</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-postgres-jit">JIT (Just-In-Time compilation)</a> </span></dt> </dl></div><p><span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/databases/postgresql.nix</code></p><p><span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="https://www.postgresql.org/docs/"  target="_top">https://www.postgresql.org/docs/</a></p><p>PostgreSQL is an advanced, free relational database.
 </p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-postgres-configuring"></a>Configuring   </h2>  </div> </div></div><p>To enable PostgreSQL, add the following to your <code class="filename">configuration.nix</code>:</p><pre class="programlisting">
 services.postgresql.enable = true;
 services.postgresql.package = pkgs.postgresql_15;
@@ -5881,7 +5884,7 @@ evaluation failure will be thrown if both <code class="literal">custom</code> an
 <code class="literal">oh-my-zsh</code> there are several pitfalls to keep in mind:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>To comply with the default structure of <code class="literal">ZSH</code> the entire
 output needs to be written to <code class="literal">$out/share/zsh.</code></p></li><li class="listitem"><p>Completion scripts are supposed to be stored at
 <code class="literal">$out/share/zsh/site-functions</code>. This directory is part of the
-<a class="link" href="http://zsh.sourceforge.net/Doc/Release/Functions.html"  target="_top"><code class="literal">fpath</code></a>
+<a class="link" href="https://zsh.sourceforge.io/Doc/Release/Functions.html"  target="_top"><code class="literal">fpath</code></a>
 and the package should be compatible with pure <code class="literal">ZSH</code>
 setups. The module will automatically link the contents of
 <code class="literal">site-functions</code> to completions directory in the proper
@@ -7788,10 +7791,10 @@ nix-build nixos/release.nix -A manual.x86_64-linux
 </pre><p>When this command successfully finishes, it will tell you where the
 manual got generated. The HTML will be accessible through the <code class="literal">result</code>
 symlink at <code class="literal">./result/share/doc/nixos/index.html</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-writing-docs-editing-docbook-xml"></a>Editing DocBook XML   </h2>  </div> </div></div><p>For general information on how to write in DocBook, see <a class="link" href="http://www.docbook.org/tdg5/en/html/docbook.html"  target="_top">DocBook 5: The
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-writing-docs-editing-docbook-xml"></a>Editing DocBook XML   </h2>  </div> </div></div><p>For general information on how to write in DocBook, see <a class="link" href="https://tdg.docbook.org/tdg/5.1/"  target="_top">DocBook 5: The
 Definitive Guide</a>.</p><p>Emacs nXML Mode is very helpful for editing DocBook XML because it
 validates the document as you write, and precisely locates errors. To
-use it, see <a class="xref" href="index.html#sec-emacs-docbook-xml" title="Editing DocBook 5 XML Documents" >the section called “Editing DocBook 5 XML Documents”</a>.</p><p><a class="link" href="http://pandoc.org"  target="_top">Pandoc</a> can generate DocBook XML from a multitude of
+use it, see <a class="xref" href="index.html#sec-emacs-docbook-xml" title="Editing DocBook 5 XML Documents" >the section called “Editing DocBook 5 XML Documents”</a>.</p><p><a class="link" href="https://pandoc.org/"  target="_top">Pandoc</a> can generate DocBook XML from a multitude of
 formats, which makes a good starting point. Here is an example of Pandoc
 invocation to convert GitHub-Flavoured MarkDown to DocBook 5 XML:</p><pre class="programlisting">
 pandoc -f markdown_github -t docbook5 docs.md -o my-section.md
@@ -7801,9 +7804,9 @@ submit your documentation updates in a <a class="link" href="https://github.com/
 Issue</a> and someone will
 handle the conversion to XML for you.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-writing-docs-creating-a-topic"></a>Creating a Topic   </h2>  </div> </div></div><p>You can use an existing topic as a basis for the new topic or create a
-topic from scratch.</p><p>Keep the following guidelines in mind when you create and add a topic:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>The NixOS <a class="link" href="http://www.docbook.org/tdg5/en/html/book.html"  target="_top"><code class="literal">book</code></a>
+topic from scratch.</p><p>Keep the following guidelines in mind when you create and add a topic:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>The NixOS <a class="link" href="https://tdg.docbook.org/tdg/5.0/book.html"  target="_top"><code class="literal">book</code></a>
 element is in <code class="literal">nixos/doc/manual/manual.xml</code>. It includes several
-<a class="link" href="http://www.docbook.org/tdg5/en/html/book.html"  target="_top"><code class="literal">parts</code></a> which are in
+<a class="link" href="https://tdg.docbook.org/tdg/5.0/book.html"  target="_top"><code class="literal">parts</code></a> which are in
 subdirectories.</p></li><li class="listitem"><p>Store the topic file in the same directory as the <code class="literal">part</code> to which it
 belongs. If your topic is about configuring a NixOS module, then the
 XML file can be stored alongside the module definition <code class="literal">nix</code> file.</p></li><li class="listitem"><p>If you include multiple words in the file name, separate the words
@@ -7954,7 +7957,9 @@ the guest session.</p></dd><dt><span class="term">shutdown()</span></dt><dd><p>S
 not wait for the machine to finish booting.</p></dd><dt><span class="term">succeed()</span></dt><dd><p>Execute a shell command, raising an exception if the exit status is
 not zero, otherwise returning the standard output. Similar to <code class="literal">execute</code>,
 except that the timeout is <code class="literal">None</code> by default. See <code class="literal">execute</code> for details on
-command execution.</p></dd><dt><span class="term">systemctl(q, user)</span></dt><dd><p>Runs <code class="literal">systemctl</code> commands with optional support for
+command execution.</p></dd><dt><span class="term">switch_root()</span></dt><dd><p>Transition from stage 1 to stage 2. This requires the
+machine to be configured with <code class="literal">testing.initrdBackdoor = true</code>
+and <code class="literal">boot.initrd.systemd.enable = true</code>.</p></dd><dt><span class="term">systemctl(q, user)</span></dt><dd><p>Runs <code class="literal">systemctl</code> commands with optional support for
 <code class="literal">systemctl --user</code></p><pre class="programlisting">
 # run `systemctl list-jobs --no-pager`
 machine.systemctl(&quot;list-jobs --no-pager&quot;)
@@ -8696,6 +8701,14 @@ using:</p><pre class="programlisting">
 &gt;&gt;&gt; machine.shell_interact(&quot;tcp:127.0.0.1:4444&quot;)
 </pre><p>Once the connection is established, you can enter commands in the socat terminal
 where socat is running.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-nixos-test-port-forwarding"></a>Port forwarding to NixOS test VMs   </h3>  </div> </div></div><p>If your test has only a single VM, you may use e.g.</p><pre class="programlisting">
+$ QEMU_NET_OPTS=&quot;hostfwd=tcp:127.0.0.1:2222-:22&quot; ./result/bin/nixos-test-driver
+</pre><p>to port-forward a port in the VM (here <code class="literal">22</code>) to the host machine (here port <code class="literal">2222</code>).</p><p>This naturally does not work when multiple machines are involved,
+since a single port on the host cannot forward to multiple VMs.</p><p>If the test defines multiple machines, you may opt to <span class="emphasis"><em>temporarily</em></span> set
+<code class="literal">virtualisation.forwardPorts</code> in the test definition for debugging.</p><p>Such port forwardings connect via the VM’s virtual network interface.
+Thus they cannot connect to ports that are only bound to the VM’s
+loopback interface (<code class="literal">127.0.0.1</code>), and the VM’s NixOS firewall
+must be configured to allow these connections.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-nixos-test-reuse-vm-state"></a>Reuse VM state   </h3>  </div> </div></div><p>You can re-use the VM states coming from a previous run by setting the
 <code class="literal">--keep-vm-state</code> flag.</p><pre class="programlisting">
 $ ./result/bin/nixos-test-driver --keep-vm-state
