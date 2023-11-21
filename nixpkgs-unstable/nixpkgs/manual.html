@@ -3351,9 +3351,11 @@ export out=$(pwd)/out
 First, run the phases that generate a working copy of the sources, which will change directory to the sources for you:</p><pre class="programlisting">
 phases=&quot;${prePhases[*]:-} unpackPhase patchPhase&quot; genericBuild
 </pre><p>Then, run more phases up until the failure is reached.
-For example, if the failure is in the build phase, the following phases would be required:</p><pre class="programlisting">
-phases=&quot;${preConfigurePhases[*]:-} configurePhase ${preBuildPhases[*]:-} buildPhase&quot; genericBuild
-</pre><p>Re-run a single phase as many times as necessary to examine the failure like so:</p><pre class="programlisting">
+If the failure is in the build or check phase, the following phases would be required:</p><pre class="programlisting">
+phases=&quot;${preConfigurePhases[*]:-} configurePhase ${preBuildPhases[*]:-} buildPhase checkPhase&quot; genericBuild
+</pre><p>Use this command to run all install phases:</p><pre class="programlisting">
+phases=&quot;${preInstallPhases[*]:-} installPhase ${preFixupPhases[*]:-} fixupPhase installCheckPhase&quot; genericBuild
+</pre><p>Single phase can be re-run as many times as necessary to examine the failure like so:</p><pre class="programlisting">
 phases=&quot;buildPhase&quot; genericBuild
 </pre><p>To modify a <a class="link" href="#sec-stdenv-phases" title="Phases" >phase</a>, first print it with</p><pre class="programlisting">
 echo &quot;$buildPhase&quot;
