@@ -7,7 +7,7 @@
  <title>NixOS Manual</title>
 <link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" />
 <script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script>
- <meta name="generator" content="nixos-render-docs 23.11pre-git" />
+ <meta name="generator" content="nixos-render-docs 24.05pre-git" />
  <link rel="home" href="index.html" title="NixOS Manual" />
  <link rel="next" href="options.html" title="Appendix A. Configuration Options" />
  </head>
@@ -29,7 +29,7 @@
   <div class="titlepage">
    <div>
    <div><h1 class="title"><a id="book-nixos-manual"></a>NixOS Manual</h1></div>
-   <div><h2 class="subtitle">Version 23.11</h2></div>
+   <div><h2 class="subtitle">Version 24.05</h2></div>
    </div>
    <hr />
   </div>
@@ -2312,7 +2312,7 @@ services.xserver.desktopManager.gnome = {
 
     # Favorite apps in gnome-shell
     [org.gnome.shell]
-    favorite-apps=[&#x27;org.gnome.Photos.desktop&#x27;, &#x27;org.gnome.Nautilus.desktop&#x27;]
+    favorite-apps=[&#x27;org.gnome.Console.desktop&#x27;, &#x27;org.gnome.Nautilus.desktop&#x27;]
   &#x27;&#x27;;
 
   extraGSettingsOverridePackages = [
@@ -5165,6 +5165,7 @@ be installed. If you run GNOME, this will be handled automatically for you;
 in other cases, you will need to add something like the following to your
 <code class="filename">configuration.nix</code>:</p><pre class="programlisting">
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.config.common.default = &quot;gtk&quot;;
 </pre><p>Then, you will need to add a repository, for example,
 <a class="link" href="https://github.com/flatpak/flatpak/wiki"  target="_top">Flathub</a>,
 either using the following commands:</p><pre class="programlisting">
