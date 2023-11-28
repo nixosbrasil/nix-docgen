@@ -4446,7 +4446,7 @@ recommended.
 If you experience issues with your instance using <code class="literal">services.gitea</code>,
 <span class="strong"><strong>DO NOT</strong></span> report them to the <code class="literal">services.gitea</code> module maintainers.
 <span class="strong"><strong>DO</strong></span> report them to the <code class="literal">services.forgejo</code> module maintainers instead.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-forgejo-migration-gitea"></a>Migration from Gitea   </h2>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>Migrating is, while not strictly necessary at this point, highly recommended.
-Both modules and projects are likely to divide further with each release.
+Both modules and projects are likely to diverge further with each release.
 Which might lead to an even more involved migration.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="module-forgejo-migration-gitea-default"></a>Full-Migration   </h3>  </div> </div></div><p>This will migrate the state directory (data), rename and chown the database and
 delete the gitea user.</p><div class="note"><h3 class="title">Note</h3><p>This will also change the git remote ssh-url user from <code class="literal">gitea@</code> to <code class="literal">forgejo@</code>,
 when using the host’s openssh server (default) instead of the integrated one.</p></div><p>Instructions for PostgreSQL (default). Adapt accordingly for other databases:</p><pre class="programlisting">
