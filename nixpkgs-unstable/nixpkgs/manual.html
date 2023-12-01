@@ -8683,56 +8683,78 @@ NixOS 😀 is super cool 😃!
 
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="nim"></a>Nim   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#nim-overview">Overview</a> </span></dt><dt> <span class="section">  <a href="#nim-program-packages-in-nixpkgs">Nim program packages in Nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#nim-library-packages-in-nixpkgs">Nim library packages in Nixpkgs</a> </span></dt><dt> <span class="section">  <a href="#buildnimpackage-parameters"><code class="literal">buildNimPackage</code> parameters</a> </span></dt> </dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="nim-overview"></a>Overview   </h3>  </div> </div></div><p>The Nim compiler, a builder function, and some packaged libraries are available
-in Nixpkgs. Until now each compiler release has been effectively backwards
-compatible so only the latest version is available.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="nim-program-packages-in-nixpkgs"></a>Nim program packages in Nixpkgs   </h3>  </div> </div></div><p>Nim programs can be built using <code class="literal">nimPackages.buildNimPackage</code>. In the
-case of packages not containing exported library code the attribute
-<code class="literal">nimBinOnly</code> should be set to <code class="literal">true</code>.</p><p>The following example shows a Nim program that depends only on Nim libraries:</p><pre class="programlisting">
-{ lib, nimPackages, fetchFromGitHub }:
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="nim"></a>Nim   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#buildnimpackage-parameters"><code class="literal">buildNimPackage</code> parameters</a> </span></dt><dt> <span class="section">  <a href="#nim-lockfiles">Lockfiles</a> </span></dt><dt> <span class="section">  <a href="#nimoverrides">Lockfile dependency overrides</a> </span></dt> </dl></div><p>The Nim compiler and a builder function is available.
+Nim programs are built using <code class="literal">buildNimPackage</code> and a lockfile containing Nim dependencies.</p><p>The following example shows a Nim program that depends only on Nim libraries:</p><pre class="programlisting">
+{ lib, buildNimPackage, fetchFromGitHub }:
 
-nimPackages.buildNimPackage (finalAttrs: {
+buildNimPackage { } (finalAttrs: {
   pname = &quot;ttop&quot;;
-  version = &quot;1.0.1&quot;;
-  nimBinOnly = true;
+  version = &quot;1.2.7&quot;;
 
   src = fetchFromGitHub {
     owner = &quot;inv2004&quot;;
     repo = &quot;ttop&quot;;
     rev = &quot;v${finalAttrs.version}&quot;;
-    hash = &quot;sha256-x4Uczksh6p3XX/IMrOFtBxIleVHdAPX9e8n32VAUTC4=&quot;;
+    hash = &quot;sha256-oPdaUqh6eN1X5kAYVvevOndkB/xnQng9QVLX9bu5P5E=&quot;;
   };
 
-  buildInputs = with nimPackages; [ asciigraph illwill parsetoml zippy ];
+  lockFile = ./lock.json;
 
+  nimFlags = [
+    &quot;-d:NimblePkgVersion=${finalAttrs.version}&quot;
+  ];
 })
-</pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="nim-library-packages-in-nixpkgs"></a>Nim library packages in Nixpkgs   </h3>  </div> </div></div><p>Nim libraries can also be built using <code class="literal">nimPackages.buildNimPackage</code>, but
-often the product of a fetcher is sufficient to satisfy a dependency.
-The <code class="literal">fetchgit</code>, <code class="literal">fetchFromGitHub</code>, and <code class="literal">fetchNimble</code> functions yield an
-output that can be discovered during the <code class="literal">configurePhase</code> of <code class="literal">buildNimPackage</code>.</p><p>Nim library packages are listed in
-<a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/nim-packages.nix"  target="_top">pkgs/top-level/nim-packages.nix</a> and implemented at
-<a class="link" href="https://github.com/NixOS/nixpkgs/tree/master/pkgs/development/nim-packages"  target="_top">pkgs/development/nim-packages</a>.</p><p>The following example shows a Nim library that propagates a dependency on a
-non-Nim package:</p><pre class="programlisting">
-{ lib, buildNimPackage, fetchNimble, SDL2 }:
-
-buildNimPackage (finalAttrs: {
-  pname = &quot;sdl2&quot;;
-  version = &quot;2.0.4&quot;;
-  src = fetchNimble {
-    inherit (finalAttrs) pname version;
-    hash = &quot;sha256-Vtcj8goI4zZPQs2TbFoBFlcR5UqDtOldaXSH/+/xULk=&quot;;
-  };
-  propagatedBuildInputs = [ SDL2 ];
-})
-</pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="buildnimpackage-parameters"></a><code class="literal">buildNimPackage</code> parameters   </h3>  </div> </div></div><p>All parameters from <code class="literal">stdenv.mkDerivation</code> function are still supported. The
-following are specific to <code class="literal">buildNimPackage</code>:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><code class="literal">nimBinOnly ? false</code>: If <code class="literal">true</code> then build only the programs listed in
-the Nimble file in the packages sources.</p></li><li class="listitem"><p><code class="literal">nimbleFile</code>: Specify the Nimble file location of the package being built
+</pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="buildnimpackage-parameters"></a><code class="literal">buildNimPackage</code> parameters   </h3>  </div> </div></div><p>The <code class="literal">buildNimPackage</code> function takes an attrset of parameters that are passed on to <code class="literal">stdenv.mkDerivation</code>.</p><p>The following parameters are specific to <code class="literal">buildNimPackage</code>:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">lockFile</code>: JSON formatted lockfile.</p></li><li class="listitem"><p><code class="literal">nimbleFile</code>: Specify the Nimble file location of the package being built
 rather than discover the file at build-time.</p></li><li class="listitem"><p><code class="literal">nimRelease ? true</code>: Build the package in <span class="emphasis"><em>release</em></span> mode.</p></li><li class="listitem"><p><code class="literal">nimDefines ? []</code>: A list of Nim defines. Key-value tuples are not supported.</p></li><li class="listitem"><p><code class="literal">nimFlags ? []</code>: A list of command line arguments to pass to the Nim compiler.
-Use this to specify defines with arguments in the form of <code class="literal">-d:${name}=${value}</code>.</p></li><li class="listitem"><p><code class="literal">nimDoc</code> ? false`: Build and install HTML documentation.</p></li><li class="listitem"><p><code class="literal">buildInputs</code> ? []: The packages listed here will be searched for <code class="literal">*.nimble</code>
-files which are used to populate the Nim library path. Otherwise the standard
-behavior is in effect.</p></li></ul></div>
+Use this to specify defines with arguments in the form of <code class="literal">-d:${name}=${value}</code>.</p></li><li class="listitem"><p><code class="literal">nimDoc</code> ? false`: Build and install HTML documentation.</p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="nim-lockfiles"></a>Lockfiles   </h3>  </div> </div></div><p>Nim lockfiles are created with the <code class="literal">nim_lk</code> utility.
+Run <code class="literal">nim_lk</code> with the source directory as an argument and it will print a lockfile to stdout.</p><pre class="programlisting">
+$ cd nixpkgs
+$ nix build -f . ttop.src
+$ nix run -f . nim_lk ./result | jq --sort-keys &gt; pkgs/by-name/tt/ttop/lock.json
+</pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="nimoverrides"></a>Lockfile dependency overrides   </h3>  </div> </div></div><p>The <code class="literal">buildNimPackage</code> function matches the libraries specified by <code class="literal">lockFile</code> to attrset of override functions that are then applied to the package derivation.
+The default overrides are maintained as the top-level <code class="literal">nimOverrides</code> attrset at <code class="literal">pkgs/top-level/nim-overrides.nix</code>.</p><p>For example, to propagate a dependency on SDL2 for lockfiles that select the Nim <code class="literal">sdl2</code> library, an overlay is added to the set in the <code class="literal">nim-overrides.nix</code> file:</p><pre class="programlisting">
+{ lib
+/* … */
+, SDL2
+/* … */
+}:
+
+{
+  /* … */
+  sdl2 =
+    lockAttrs:
+    finalAttrs:
+    { buildInputs ? [ ], ... }:
+    {
+      buildInputs = buildInputs ++ [ SDL2 ];
+    };
+  /* … */
+}
+</pre><p>The annotations in the <code class="literal">nim-overrides.nix</code> set are functions that take three arguments and return a new attrset to be overlayed on the package being built.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>lockAttrs: the attrset for this library from within a lockfile. This can be used to implement library version constraints, such as marking libraries as broken or insecure.</p></li><li class="listitem"><p>finalAttrs: the final attrset passed by <code class="literal">buildNimPackage</code> to <code class="literal">stdenv.mkDerivation</code>.</p></li><li class="listitem"><p>prevAttrs: the attrset produced by initial arguments to <code class="literal">buildNimPackage</code> and any preceding lockfile overlays.</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="nimoverrides-overrides"></a>Overriding an Nim library override   </h4>  </div> </div></div><p>The <code class="literal">nimOverrides</code> attrset makes it possible to modify overrides in a few different ways.</p><p>Override a package internal to its definition:</p><pre class="programlisting">
+{ lib, buildNimPackage, nimOverrides, libressl }:
+
+let
+  buildNimPackage&#x27; = buildNimPackage.override {
+    nimOverrides = nimOverrides.override { openssl = libressl; };
+  };
+in buildNimPackage&#x27; (finalAttrs: {
+  pname = &quot;foo&quot;;
+  # …
+})
+
+</pre><p>Override a package externally:</p><pre class="programlisting">
+{ pkgs }: {
+  foo = pkgs.foo.override {
+    buildNimPackage = pkgs.buildNimPackage.override {
+      nimOverrides = pkgs.nimOverrides.override { openssl = libressl; };
+    };
+  };
+}
+</pre>
+</div>
+
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-language-ocaml"></a>OCaml   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#sec-language-ocaml-user-guide">User guide</a> </span></dt><dt> <span class="section">  <a href="#sec-language-ocaml-packaging">Packaging guide</a> </span></dt> </dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-language-ocaml-user-guide"></a>User guide   </h3>  </div> </div></div><p>OCaml libraries are available in attribute sets of the form <code class="literal">ocaml-ng.ocamlPackages_X_XX</code> where X is to be replaced with the desired compiler version. For example, ocamlgraph compiled with OCaml 4.12 can be found in <code class="literal">ocaml-ng.ocamlPackages_4_12.ocamlgraph</code>. The compiler itself is also located in this set, under the name <code class="literal">ocaml</code>.</p><p>If you don’t care about the exact compiler version, <code class="literal">ocamlPackages</code> is a top-level alias pointing to a recent version of OCaml.</p><p>OCaml applications are usually available top-level, and not inside <code class="literal">ocamlPackages</code>. Notable exceptions are build tools that must be built with the same compiler version as the compiler you intend to use like <code class="literal">dune</code> or <code class="literal">ocaml-lsp</code>.</p><p>To open a shell able to build a typical OCaml project, put the dependencies in <code class="literal">buildInputs</code> and add <code class="literal">ocamlPackages.ocaml</code> and <code class="literal">ocamlPackages.findlib</code> to <code class="literal">nativeBuildInputs</code> at least.
