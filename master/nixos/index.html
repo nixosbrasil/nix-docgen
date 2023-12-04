@@ -1254,8 +1254,8 @@ to <code class="literal">configuration.nix</code>:</p><pre><code class="programl
 fileSystems.&quot;/&quot;.device = &quot;/dev/mapper/crypted&quot;;
 </code></pre><p>Should grub be used as bootloader, and <code class="literal">/boot</code> is located on an
 encrypted partition, it is necessary to add the following grub option:</p><pre><code class="programlisting nix">boot.loader.grub.enableCryptodisk = true;
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-luks-file-systems-fido2"></a>FIDO2   </h3>  </div> </div></div><p>NixOS also supports unlocking your LUKS-Encrypted file system using a
-FIDO2 compatible token. In the following example, we will create a new
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-luks-file-systems-fido2"></a>FIDO2   </h3>  </div> </div></div><p>NixOS also supports unlocking your LUKS-Encrypted file system using a FIDO2
+compatible token.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-luks-file-systems-fido2-legacy"></a>Without systemd in initrd   </h4>  </div> </div></div><p>In the following example, we will create a new
 FIDO2 credential and add it as a new key to our existing device
 <code class="literal">/dev/sda2</code>:</p><pre><code class="programlisting ShellSession"># export FIDO2_LABEL=&quot;/dev/sda2 @ $HOSTNAME&quot;
 # fido2luks credential &quot;$FIDO2_LABEL&quot;
@@ -1274,6 +1274,26 @@ boot.initrd.luks.devices.&quot;/dev/sda2&quot;.fido2.credential = &quot;f1d00200
 you might want to enable it only when your device is PIN protected, such
 as <a class="link" href="https://trezor.io/"  target="_top">Trezor</a>.</p><pre><code class="programlisting nix">boot.initrd.luks.devices.&quot;/dev/sda2&quot;.fido2.passwordLess = true;
 </code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sec-luks-file-systems-fido2-systemd"></a>systemd Stage 1   </h4>  </div> </div></div><p>If systemd stage 1 is enabled, it handles unlocking of LUKS-enrypted volumes
+during boot. The following example enables systemd stage1 and adds support for
+unlocking the existing LUKS2 volume <code class="literal">root</code> using any enrolled FIDO2 compatible
+tokens.</p><pre><code class="programlisting nix">boot.initrd = {
+  luks.devices.root = {
+    crypttabExtraOpts = [ &quot;fido2-device=auto&quot; ];
+    device = &quot;/dev/sda2&quot;;
+  };
+  systemd.enable = true;
+};
+</code></pre><p>All tokens that should be used for unlocking the LUKS2-encrypted volume must
+first be enrolled using <a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd-cryptenroll.html"  target="_top">systemd-cryptenroll</a>.
+In the following example, a new key slot for the first discovered token is
+added to the LUKS volume.</p><pre><code class="programlisting ShellSession"># systemd-cryptenroll --fido2-device=auto /dev/sda2
+</code></pre><p>Existing key slots are left intact, unless <code class="literal">--wipe-slot=</code> is specified. It is
+recommened to add a recovery key that should be stored in a secure physical
+location and can be entered wherever a password would be entered.</p><pre><code class="programlisting ShellSession"># systemd-cryptenroll --recovery-key /dev/sda2
+</code></pre>
+</div>
+
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-sshfs-file-systems"></a>SSHFS File Systems   </h2>  </div> </div></div><p><a class="link" href="https://github.com/libfuse/sshfs"  target="_top">SSHFS</a> is a <a class="link" href="https://en.wikipedia.org/wiki/Filesystem_in_Userspace"  target="_top">FUSE</a> filesystem that allows easy access to directories on a remote machine using the SSH File Transfer Protocol (SFTP).
