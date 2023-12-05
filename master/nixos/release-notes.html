@@ -56,7 +56,8 @@ binary, but the previous build used a wrapper script that would store them in
 <code class="literal">~/.config/unity3d/srylain Inc_/Clone Hero</code>.</p></li><li class="listitem"><p><code class="literal">services.mastodon</code> doesn’t support providing a TCP port to its <code class="literal">streaming</code>
 component anymore, as upstream implemented parallelization by running
 multiple instances instead of running multiple processes in one instance.
-Please create a PR if you are interested in this feature.</p></li><li class="listitem"><p>The <code class="literal">services.hostapd</code> module was rewritten to support <code class="literal">passwordFile</code> like
+Please create a PR if you are interested in this feature.<br />Due to this, the desired number of such instances
+<code class="option">services.mastodon.streamingProcesses</code> now needs to be declared explicitly.</p></li><li class="listitem"><p>The <code class="literal">services.hostapd</code> module was rewritten to support <code class="literal">passwordFile</code> like
 options, WPA3-SAE, and management of multiple interfaces. This breaks
 compatibility with older configurations.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: circle;"><li class="listitem"><p><code class="literal">hostapd</code> is now started with additional systemd sandbox/hardening options
 for better security.</p></li><li class="listitem"><p><code class="literal">services.hostapd.interface</code> was replaced with a per-radio and per-bss
