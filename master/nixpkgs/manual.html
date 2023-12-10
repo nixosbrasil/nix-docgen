@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
- <title>Nixpkgs Manual</title>
+ <title>Nixpkgs Reference Manual</title>
 <link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" />
 <script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script>
  <meta name="generator" content="nixos-render-docs" />
@@ -16,7 +16,7 @@
  <div class="book">
   <div class="titlepage">
    <div>
-   <div><h1 class="title"><a id="nixpkgs-manual"></a>Nixpkgs Manual</h1></div>
+   <div><h1 class="title"><a id="nixpkgs-manual"></a>Nixpkgs Reference Manual</h1></div>
    <div><h2 class="subtitle">Version 24.05pre-git</h2></div>
    </div>
    <hr />
@@ -26,11 +26,8 @@
 <a class="link" href="https://nixos.org/nix/"  target="_top">Nix package manager</a>, released under a
 <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/COPYING"  target="_top">permissive MIT license</a>.
 Packages are available for several platforms, and can be used with the Nix
-package manager on most GNU/Linux distributions as well as <a class="link" href="https://nixos.org/nixos"  target="_top">NixOS</a>.</p><p>This manual primarily describes how to write packages for the Nix Packages collection
-(Nixpkgs). Thus it’s mainly for packagers and developers who want to add packages to
-Nixpkgs. If you like to learn more about the Nix package manager and the Nix
-expression language, then you are kindly referred to the <a class="link" href="https://nixos.org/nix/manual/"  target="_top">Nix manual</a>.
-The NixOS distribution is documented in the <a class="link" href="https://nixos.org/nixos/manual/"  target="_top">NixOS manual</a>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h1 class="title" style="clear: both">     <a id="overview-of-nixpkgs"></a>Overview of Nixpkgs   </h1>  </div> </div></div><p>Nix expressions describe how to build packages from source and are collected in
+package manager on most GNU/Linux distributions as well as <a class="link" href="https://nixos.org/nixos"  target="_top">NixOS</a>.</p><p>This document is the user <a class="link" href="https://nix.dev/contributing/documentation/diataxis#reference"  target="_top"><span class="emphasis"><em>reference</em></span></a> manual for Nixpkgs.
+It describes entire public interface of Nixpkgs in a concise and orderly manner, and all relevant behaviors, with examples and cross-references.</p><p>To discover other kinds of documentation:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><a class="link" href="https://nix.dev/"  target="_top">nix.dev</a>: Tutorials and guides for getting things done with Nix</p></li><li class="listitem"><p><a class="link" href="https://search.nixos.org/options"  target="_top">NixOS <span class="strong"><strong>Option Search</strong></span></a> and reference documentation</p></li><li class="listitem"><p><a class="link" href="https://search.nixos.org/packages"  target="_top">Nixpkgs <span class="strong"><strong>Package Search</strong></span></a></p></li><li class="listitem"><p><a class="link" href="https://nixos.org/manual/nixos/stable/"  target="_top"><span class="strong"><strong>NixOS</strong></span> manual</a>: Reference documentation for the NixOS Linux distribution</p></li><li class="listitem"><p><a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md"  target="_top"><code class="literal">CONTRIBUTING.md</code></a>: Contributing to Nixpkgs, including this manual</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h1 class="title" style="clear: both">     <a id="overview-of-nixpkgs"></a>Overview of Nixpkgs   </h1>  </div> </div></div><p>Nix expressions describe how to build packages from source and are collected in
 the <a class="link" href="https://github.com/NixOS/nixpkgs"  target="_top">nixpkgs repository</a>. Also included in the
 collection are Nix expressions for
 <a class="link" href="https://nixos.org/nixos/manual/index.html#sec-writing-modules"  target="_top">NixOS modules</a>.
