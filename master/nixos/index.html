@@ -546,7 +546,8 @@ GRUB 2 boot screen by giving it a different <span class="emphasis"><em>profile n
 </code></pre><p>which causes the new configuration (and previous ones created using
 <code class="literal">-p test</code>) to show up in the GRUB submenu “NixOS - Profile ‘test’”.
 This can be useful to separate test configurations from “stable”
-configurations.</p><p>Finally, you can do</p><pre><code class="programlisting ShellSession">$ nixos-rebuild build
+configurations.</p><p>A repl, or read-eval-print loop, is also available. You can inspect your configuration and use the Nix language with</p><pre><code class="programlisting ShellSession"># nixos-rebuild repl
+</code></pre><p>Your configuration is loaded into the <code class="literal">config</code> variable. Use tab for autocompletion, use the <code class="literal">:r</code> command to reload the configuration files. See <code class="literal">:?</code> or <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-repl.html"  target="_top"><code class="literal">nix repl</code> in the Nix manual</a> to learn more.</p><p>Finally, you can do</p><pre><code class="programlisting ShellSession">$ nixos-rebuild build
 </code></pre><p>to build the configuration but nothing more. This is useful to see
 whether everything compiles cleanly.</p><p>If you have a machine that supports hardware virtualisation, you can
 also test the new configuration in a sandbox by building and running a
