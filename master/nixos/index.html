@@ -5468,7 +5468,7 @@ set up credentials with your provider/server for use with lego.</p>
 <code class="literal">enableACME = true;</code> in a virtualHost config. We first create self-signed
 placeholder certificates in place of the real ACME certs. The placeholder
 certs are overwritten when the ACME certs arrive. For
-<code class="literal">foo.example.com</code> the config would look like this:</p><pre><code class="programlisting">security.acme.acceptTerms = true;
+<code class="literal">foo.example.com</code> the config would look like this:</p><pre><code class="programlisting nix">security.acme.acceptTerms = true;
 security.acme.defaults.email = &quot;admin+acme@example.com&quot;;
 services.nginx = {
   enable = true;
@@ -5502,7 +5502,7 @@ to using them with Nginx. The attribute names are all the same, just replace
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-security-acme-configuring"></a>Manual configuration of HTTP-01 validation   </h2>  </div> </div></div><p>First off you will need to set up a virtual host to serve the challenges.
 This example uses a vhost called <code class="literal">certs.example.com</code>, with
 the intent that you will generate certs for all your vhosts and redirect
-everyone to HTTPS.</p><pre><code class="programlisting">security.acme.acceptTerms = true;
+everyone to HTTPS.</p><pre><code class="programlisting nix">security.acme.acceptTerms = true;
 security.acme.defaults.email = &quot;admin+acme@example.com&quot;;
 
 # /var/lib/acme/.challenges must be writable by the ACME user
@@ -5545,7 +5545,7 @@ services.httpd = {
     };
   };
 }
-</code></pre><p>Now you need to configure ACME to generate a certificate.</p><pre><code class="programlisting">security.acme.certs.&quot;foo.example.com&quot; = {
+</code></pre><p>Now you need to configure ACME to generate a certificate.</p><pre><code class="programlisting nix">security.acme.certs.&quot;foo.example.com&quot; = {
   webroot = &quot;/var/lib/acme/.challenges&quot;;
   email = &quot;foo@example.com&quot;;
   # Ensure that the web server you use can read the generated certs
@@ -5566,7 +5566,7 @@ ACME servers will only hand out wildcard certs over DNS validation.
 There are a number of supported DNS providers and servers you can utilise,
 see the <a class="link" href="https://go-acme.github.io/lego/dns/"  target="_top">lego docs</a>
 for provider/server specific configuration values. For the sake of these
-docs, we will provide a fully self-hosted example using bind.</p><pre><code class="programlisting">services.bind = {
+docs, we will provide a fully self-hosted example using bind.</p><pre><code class="programlisting nix">services.bind = {
   enable = true;
   extraConfig = &#x27;&#x27;
     include &quot;/var/lib/secrets/dnskeys.conf&quot;;
@@ -5593,7 +5593,7 @@ security.acme.certs.&quot;example.com&quot; = {
 };
 </code></pre><p>The <code class="filename">dnskeys.conf</code> and <code class="filename">certs.secret</code>
 must be kept secure and thus you should not keep their contents in your
-Nix config. Instead, generate them one time with a systemd service:</p><pre><code class="programlisting">systemd.services.dns-rfc2136-conf = {
+Nix config. Instead, generate them one time with a systemd service:</p><pre><code class="programlisting nix">systemd.services.dns-rfc2136-conf = {
   requiredBy = [&quot;acme-example.com.service&quot; &quot;bind.service&quot;];
   before = [&quot;acme-example.com.service&quot; &quot;bind.service&quot;];
   unitConfig = {
@@ -5633,7 +5633,7 @@ supported and part of the module’s test suite for Nginx + Apache.</p><p>You mu
 first, however instead of setting the options for one certificate
 (e.g. <a class="xref" href="options.html#opt-security.acme.certs._name_.dnsProvider"  ><code class="option">security.acme.certs.&lt;name&gt;.dnsProvider</code></a>)
 you will set them as defaults
-(e.g. <a class="xref" href="options.html#opt-security.acme.defaults.dnsProvider"  ><code class="option">security.acme.defaults.dnsProvider</code></a>).</p><pre><code class="programlisting"># Configure ACME appropriately
+(e.g. <a class="xref" href="options.html#opt-security.acme.defaults.dnsProvider"  ><code class="option">security.acme.defaults.dnsProvider</code></a>).</p><pre><code class="programlisting nix"># Configure ACME appropriately
 security.acme.acceptTerms = true;
 security.acme.defaults.email = &quot;admin+acme@example.com&quot;;
 security.acme.defaults = {
@@ -5662,7 +5662,7 @@ There is no way to change the user the ACME module uses (it will always be
 <code class="literal">acme</code>), however you can use systemd’s
 <code class="literal">LoadCredential</code> feature to resolve this elegantly.
 Below is an example configuration for OpenSMTPD, but this pattern
-can be applied to any service.</p><pre><code class="programlisting"># Configure ACME however you like (DNS or HTTP validation), adding
+can be applied to any service.</p><pre><code class="programlisting nix"># Configure ACME however you like (DNS or HTTP validation), adding
 # the following configuration for the relevant certificate.
 # Note: You cannot use `systemctl reload` here as that would mean
 # the LoadCredential configuration below would be skipped and
@@ -5706,7 +5706,7 @@ to generate fresh ones.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-security-acme-fix-jws"></a>Fixing JWS Verification error   </h2>  </div> </div></div><p>It is possible that your account credentials file may become corrupt and need
 to be regenerated. In this scenario lego will produce the error <code class="literal">JWS verification error</code>.
 The solution is to simply delete the associated accounts file and
-re-run the affected service(s).</p><pre><code class="programlisting"># Find the accounts folder for the certificate
+re-run the affected service(s).</p><pre><code class="programlisting shell"># Find the accounts folder for the certificate
 systemctl cat acme-example.com.service | grep -Po &#x27;accounts/[^:]*&#x27;
 export accountdir=&quot;$(!!)&quot;
 # Move this folder to some place else

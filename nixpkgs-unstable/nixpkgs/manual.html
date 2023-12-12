@@ -1285,14 +1285,14 @@ versionAtLeast &quot;1.1&quot; &quot;1.2&quot;
 </code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L706"  target="_top">lib/strings.nix:706</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.getName"></a><code class="literal">lib.strings.getName</code>   </h4>  </div> </div></div><p>This function takes an argument that’s either a derivation or a
 derivation’s “name” attribute and extracts the name part from that
-argument.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">x</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.getName" /><p class="title"><strong>Example 86. <code class="literal">lib.strings.getName</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">getName &quot;youtube-dl-2016.01.01&quot;
+argument.</p><div class="example"><a id="function-library-example-lib.strings.getName" /><p class="title"><strong>Example 86. <code class="literal">lib.strings.getName</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">getName &quot;youtube-dl-2016.01.01&quot;
 =&gt; &quot;youtube-dl&quot;
 getName pkgs.youtube-dl
 =&gt; &quot;youtube-dl&quot;
 </code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L718"  target="_top">lib/strings.nix:718</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.strings.getVersion"></a><code class="literal">lib.strings.getVersion</code>   </h4>  </div> </div></div><p>This function takes an argument that’s either a derivation or a
 derivation’s “name” attribute and extracts the version part from that
-argument.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">x</code></span></dt><dd><p>Function argument</p></dd></dl></div><div class="example"><a id="function-library-example-lib.strings.getVersion" /><p class="title"><strong>Example 87. <code class="literal">lib.strings.getVersion</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">getVersion &quot;youtube-dl-2016.01.01&quot;
+argument.</p><div class="example"><a id="function-library-example-lib.strings.getVersion" /><p class="title"><strong>Example 87. <code class="literal">lib.strings.getVersion</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">getVersion &quot;youtube-dl-2016.01.01&quot;
 =&gt; &quot;2016.01.01&quot;
 getVersion pkgs.youtube-dl
 =&gt; &quot;2016.01.01&quot;
