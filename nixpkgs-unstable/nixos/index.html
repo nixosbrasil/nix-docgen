@@ -2211,7 +2211,7 @@ delete a file, where <code class="literal">delete_token</code> and <code class="
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="module-services-nextcloud"></a>Nextcloud   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-nextcloud-basic-usage">Basic usage</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-pitfalls-during-upgrade">Common problems</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-httpd">Using an alternative webserver as reverse-proxy (e.g. <code class="literal">httpd</code>)</a> </span></dt><dt> <span class="section">  <a href="index.html#installing-apps-php-extensions-nextcloud">Installing Apps and PHP extensions</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-maintainer-info">Maintainer information</a> </span></dt> </dl></div><p><a class="link" href="https://nextcloud.com/"  target="_top">Nextcloud</a> is an open-source,
 self-hostable cloud platform. The server setup can be automated using
 <a class="link" href="options.html#opt-services.nextcloud.enable"  >services.nextcloud</a>. A
-desktop client is packaged at <code class="literal">pkgs.nextcloud-client</code>.</p><p>The current default by NixOS is <code class="literal">nextcloud27</code> which is also the latest
+desktop client is packaged at <code class="literal">pkgs.nextcloud-client</code>.</p><p>The current default by NixOS is <code class="literal">nextcloud28</code> which is also the latest
 major version available.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-nextcloud-basic-usage"></a>Basic usage   </h2>  </div> </div></div><p>Nextcloud is a PHP-based application which requires an HTTP server
 (<a class="link" href="options.html#opt-services.nextcloud.enable"  ><code class="literal">services.nextcloud</code></a>
 and optionally supports
@@ -4251,13 +4251,13 @@ copy of the Element web client. See the
 <a class="link" href="https://matrix.org/docs/projects/try-matrix-now.html"  target="_top">Try Matrix Now!</a>
 overview page for links to Element Apps for Android and iOS,
 desktop clients, as well as bridges to other networks and other projects
-around Matrix.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-matrix-synapse"></a>Synapse Homeserver   </h2>  </div> </div></div><p><a class="link" href="https://github.com/matrix-org/synapse"  target="_top">Synapse</a> is
+around Matrix.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-matrix-synapse"></a>Synapse Homeserver   </h2>  </div> </div></div><p><a class="link" href="https://github.com/element-hq/synapse"  target="_top">Synapse</a> is
 the reference homeserver implementation of Matrix from the core development
 team at matrix.org. The following configuration example will set up a
 synapse server for the <code class="literal">example.org</code> domain, served from
 the host <code class="literal">myhostname.example.org</code>. For more information,
 please refer to the
-<a class="link" href="https://matrix-org.github.io/synapse/latest/setup/installation.html"  target="_top">installation instructions of Synapse</a> .</p><pre><code class="programlisting">{ pkgs, lib, config, ... }:
+<a class="link" href="https://element-hq.github.io/synapse/latest/setup/installation.html"  target="_top">installation instructions of Synapse</a> .</p><pre><code class="programlisting">{ pkgs, lib, config, ... }:
 let
   fqdn = &quot;${config.networking.hostName}.${config.networking.domain}&quot;;
   baseUrl = &quot;https://${fqdn}&quot;;
@@ -4303,7 +4303,7 @@ in {
         # the domain (i.e. example.org from @foo:example.org) and the federation port
         # is 8448.
         # Further reference can be found in the docs about delegation under
-        # https://matrix-org.github.io/synapse/latest/delegate.html
+        # https://element-hq.github.io/synapse/latest/delegate.html
         locations.&quot;= /.well-known/matrix/server&quot;.extraConfig = mkWellKnown serverConfig;
         # This is usually needed for homeserver discovery (from e.g. other Matrix clients).
         # Further reference can be found in the upstream docs at
@@ -4379,7 +4379,7 @@ by <code class="literal">matrix-synapse</code>.</p></li><li class="listitem"><p>
 }
 </code></pre></li></ul></div></div><div class="note"><h3 class="title">Note</h3><p>It’s also possible to user alternative authentication mechanism such as
 <a class="link" href="https://github.com/matrix-org/matrix-synapse-ldap3"  target="_top">LDAP (via <code class="literal">matrix-synapse-ldap3</code>)</a>
-or <a class="link" href="https://matrix-org.github.io/synapse/latest/openid.html"  target="_top">OpenID</a>.</p></div>
+or <a class="link" href="https://element-hq.github.io/synapse/latest/openid.html"  target="_top">OpenID</a>.</p></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-matrix-element-web"></a>Element (formerly known as Riot) Web Client   </h2>  </div> </div></div><p><a class="link" href="https://github.com/vector-im/riot-web/"  target="_top">Element Web</a> is
 the reference web client for Matrix and developed by the core team at
 matrix.org. Element was formerly known as Riot.im, see the
