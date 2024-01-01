@@ -2243,7 +2243,7 @@ used by the imperative installer and all values are written to an additional fil
 to ensure that changes can be applied by changing the module’s options.</p><p>In case the application serves multiple domains (those are checked with
 <a class="link" href="https://www.php.net/manual/en/reserved.variables.server.php"  target="_top"><code class="literal">$_SERVER[&#x27;HTTP_HOST&#x27;]</code></a>)
 it’s needed to add them to
-<a class="link" href="options.html#opt-services.nextcloud.config.extraTrustedDomains"  ><code class="literal">services.nextcloud.config.extraTrustedDomains</code></a>.</p><p>Auto updates for Nextcloud apps can be enabled using
+<a class="link" href="options.html#opt-services.nextcloud.extraOptions.trusted_domains"  ><code class="literal">services.nextcloud.extraOptions.trusted_domains</code></a>.</p><p>Auto updates for Nextcloud apps can be enabled using
 <a class="link" href="options.html#opt-services.nextcloud.autoUpdateApps.enable"  ><code class="literal">services.nextcloud.autoUpdateApps</code></a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-services-nextcloud-pitfalls-during-upgrade"></a>Common problems   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>General notes.</strong></span>
 Unfortunately Nextcloud appears to be very stateful when it comes to
@@ -4899,7 +4899,7 @@ which runs the server.</p><pre><code class="programlisting">{ ... }:
     port = 20123;
     # See note below about security
     environmentFile = pkgs.writeText &quot;livebook.env&quot; &#x27;&#x27;
-      LIVEBOOK_PASSWORD = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;;
+      LIVEBOOK_PASSWORD = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
     &#x27;&#x27;;
   };
 }
@@ -4909,7 +4909,13 @@ recommended.</p><p>Putting the password in the Nix configuration like above is a
 way to get started but it is not recommended in the real world because
 the <code class="literal">livebook.env</code> file will be added to the world-readable Nix store.
 A better approach would be to put the password in some secure
-user-readable location and set <code class="literal">environmentFile = /home/user/secure/livebook.env</code>.</p></div>
+user-readable location and set <code class="literal">environmentFile = /home/user/secure/livebook.env</code>.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="module-services-livebook-extra-dependencies"></a>Extra dependencies   </h3>  </div> </div></div><p>By default, the Livebook service is run with minimum dependencies, but
+some features require additional packages.  For example, the machine
+learning Kinos require <code class="literal">gcc</code> and <code class="literal">gnumake</code>.  To add these, use
+<code class="literal">extraPackages</code>:</p><pre><code class="programlisting">services.livebook.extraPackages = with pkgs; [ gcc gnumake ];
+</code></pre>
+</div>
+
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="module-services-blackfire"></a>Blackfire profiler   </h2>  </div> </div></div><p><span class="emphasis"><em>Source:</em></span> <code class="filename">modules/services/development/blackfire.nix</code></p><p><span class="emphasis"><em>Upstream documentation:</em></span> <a class="link" href="https://blackfire.io/docs/introduction"  target="_top">https://blackfire.io/docs/introduction</a></p><p><a class="link" href="https://blackfire.io"  target="_top">Blackfire</a> is a proprietary tool for profiling applications. There are several languages supported by the product but currently only PHP support is packaged in Nixpkgs. The back-end consists of a module that is loaded into the language runtime (called <span class="emphasis"><em>probe</em></span>) and a service (<span class="emphasis"><em>agent</em></span>) that the probe connects to and that sends the profiles to the server.</p><p>To use it, you will need to enable the agent and the probe on your server. The exact method will depend on the way you use PHP but here is an example of NixOS configuration for PHP-FPM:</p><pre><code class="programlisting">let

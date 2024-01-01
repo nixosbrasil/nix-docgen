@@ -10020,7 +10020,7 @@ no maintainer, so maintenance falls back to the package set maintainers.</p><div
 and create update commits, and supports the <code class="literal">fetchPypi</code>, <code class="literal">fetchurl</code> and
 <code class="literal">fetchFromGitHub</code> fetchers. When updating lots of packages that are
 hosted on GitHub, exporting a <code class="literal">GITHUB_API_TOKEN</code> is highly recommended.</p><p>Updating packages in bulk leads to lots of breakages, which is why a
-stabilization period on the <code class="literal">python-unstable</code> branch is required.</p><p>If a package is fragile and often breaks during these bulks updates, it
+stabilization period on the <code class="literal">python-updates</code> branch is required.</p><p>If a package is fragile and often breaks during these bulks updates, it
 may be reasonable to set <code class="literal">passthru.skipBulkUpdate = true</code> in the
 derivation. This decision should not be made on a whim and should
 always be supported by a qualifying comment.</p><p>Once the branch is sufficiently stable it should normally be merged
