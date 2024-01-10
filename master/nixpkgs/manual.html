@@ -4392,21 +4392,24 @@ diskImageFuns.ubuntu2004x86_64 { extraPackages = [ &quot;firefox&quot; ]; size =
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="vm-tools-diskImages"></a><code class="literal">vmTools.diskImages</code>   </h3>  </div> </div></div><p>Shorthand for <code class="literal">vmTools.diskImageFuns.&lt;attr&gt; { }</code>.</p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-checkpoint-build"></a>pkgs.checkpointBuildTools   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#sec-checkpoint-build-example">Example</a> </span></dt> </dl></div><p><code class="literal">pkgs.checkpointBuildTools</code> provides a way to build derivations incrementally. It consists of two functions to make checkpoint builds using Nix possible.</p><p>For hermeticity, Nix derivations do not allow any state to carry over between builds, making a transparent incremental build within a derivation impossible.</p><p>However, we can tell Nix explicitly what the previous build state was, by representing that previous state as a derivation output. This allows the passed build state to be used for an incremental build.</p><p>To change a normal derivation to a checkpoint based build, these steps must be taken:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>apply <code class="literal">prepareCheckpointBuild</code> on the desired derivation
-e.g.:</p></li></ul></div><pre><code class="programlisting nix">checkpointArtifacts = (pkgs.checkpointBuildTools.prepareCheckpointBuild pkgs.virtualbox);
-</code></pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>change something you want in the sources of the package. (e.g. using a source override)</p></li></ul></div><pre><code class="programlisting nix">changedVBox = pkgs.virtualbox.overrideAttrs (old: {
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-checkpoint-build"></a>pkgs.checkpointBuildTools   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#sec-checkpoint-build-example">Example</a> </span></dt> </dl></div><p><code class="literal">pkgs.checkpointBuildTools</code> provides a way to build derivations incrementally. It consists of two functions to make checkpoint builds using Nix possible.</p><p>For hermeticity, Nix derivations do not allow any state to be carried over between builds, making a transparent incremental build within a derivation impossible.</p><p>However, we can tell Nix explicitly what the previous build state was, by representing that previous state as a derivation output. This allows the passed build state to be used for an incremental build.</p><p>To change a normal derivation to a checkpoint based build, these steps must be taken:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>apply <code class="literal">prepareCheckpointBuild</code> on the desired derivation, e.g.</p></li></ul></div><pre><code class="programlisting nix">checkpointArtifacts = (pkgs.checkpointBuildTools.prepareCheckpointBuild pkgs.virtualbox);
+</code></pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>change something you want in the sources of the package, e.g. use a source override:</p></li></ul></div><pre><code class="programlisting nix">changedVBox = pkgs.virtualbox.overrideAttrs (old: {
   src = path/to/vbox/sources;
-}
-</code></pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>use <code class="literal">mkCheckpointedBuild changedVBox buildOutput</code></p></li><li class="listitem"><p>enjoy shorter build times</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-checkpoint-build-example"></a>Example   </h3>  </div> </div></div><pre><code class="programlisting nix">{ pkgs ? import &lt;nixpkgs&gt; {} }: with (pkgs) checkpointBuildTools;
+});
+</code></pre><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>use <code class="literal">mkCheckpointBuild changedVBox checkpointArtifacts</code></p></li><li class="listitem"><p>enjoy shorter build times</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-checkpoint-build-example"></a>Example   </h3>  </div> </div></div><pre><code class="programlisting nix">{ pkgs ? import &lt;nixpkgs&gt; {} }:
 let
-  helloCheckpoint = checkpointBuildTools.prepareCheckpointBuild pkgs.hello;
+  inherit (pkgs.checkpointBuildTools)
+    prepareCheckpointBuild
+    mkCheckpointBuild
+    ;
+  helloCheckpoint = prepareCheckpointBuild pkgs.hello;
   changedHello = pkgs.hello.overrideAttrs (_: {
     doCheck = false;
     patchPhase = &#x27;&#x27;
       sed -i &#x27;s/Hello, world!/Hello, Nix!/g&#x27; src/hello.c
     &#x27;&#x27;;
   });
-in checkpointBuildTools.mkCheckpointBuild changedHello helloCheckpoint
+in mkCheckpointBuild changedHello helloCheckpoint
 </code></pre>
 </div>
 
