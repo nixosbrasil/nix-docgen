@@ -5571,7 +5571,7 @@ services.nginx = {
       };
     };
   };
-}
+};
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-security-acme-httpd"></a>Using ACME certificates in Apache/httpd   </h2>  </div> </div></div><p>Using ACME certificates with Apache virtual hosts is identical
 to using them with Nginx. The attribute names are all the same, just replace
@@ -5601,7 +5601,7 @@ services.nginx = {
       };
     };
   };
-}
+};
 # Alternative config for Apache
 users.users.wwwrun.extraGroups = [ &quot;acme&quot; ];
 services.httpd = {
@@ -5621,7 +5621,7 @@ services.httpd = {
       &#x27;&#x27;;
     };
   };
-}
+};
 </code></pre><p>Now you need to configure ACME to generate a certificate.</p><pre><code class="programlisting nix">security.acme.certs.&quot;foo.example.com&quot; = {
   webroot = &quot;/var/lib/acme/.challenges&quot;;
   email = &quot;foo@example.com&quot;;
@@ -5656,7 +5656,7 @@ docs, we will provide a fully self-hosted example using bind.</p><pre><code clas
       extraConfig = &quot;allow-update { key rfc2136key.example.com.; };&quot;;
     }
   ];
-}
+};
 
 # Now we can configure ACME
 security.acme.acceptTerms = true;
@@ -5730,7 +5730,7 @@ services.nginx = {
       acmeRoot = null;
     };
   };
-}
+};
 </code></pre><p>And that’s it! Next time your configuration is rebuilt, or when
 you add a new virtualHost, it will be DNS-01 validated.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="module-security-acme-root-owned"></a>Using ACME with services demanding root owned certificates   </h2>  </div> </div></div><p>Some services refuse to start if the configured certificate files
@@ -6420,7 +6420,7 @@ container:</p><pre><code class="programlisting ShellSession"># nixos-container r
 Linux foo 3.4.82 #1-NixOS SMP Thu Mar 20 14:44:05 UTC 2014 x86_64 GNU/Linux
 </code></pre><p>There are several ways to change the configuration of the container.
 First, on the host, you can edit
-<code class="literal">/var/lib/container/name/etc/nixos/configuration.nix</code>, and run</p><pre><code class="programlisting ShellSession"># nixos-container update foo
+<code class="literal">/var/lib/nixos-containers/foo/etc/nixos/configuration.nix</code>, and run</p><pre><code class="programlisting ShellSession"># nixos-container update foo
 </code></pre><p>This will build and activate the new configuration. You can also specify
 a new configuration on the command line:</p><pre><code class="programlisting ShellSession"># nixos-container update foo --config &#x27;
   services.httpd.enable = true;
@@ -7545,7 +7545,7 @@ mount or the nix store). The current systemd state is inspected, the difference
 between the current system and the desired configuration is calculated and
 actions are generated to get to this state. There are a lot of nuances that can
 be controlled by the units which are explained here.</p><p>After calculating what should be done, the actions are carried out. The order
-of actions is always the same:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Stop units (<code class="literal">systemctl stop</code>)</p></li><li class="listitem"><p>Run activation script (<code class="literal">$out/activate</code>)</p></li><li class="listitem"><p>See if the activation script requested more units to restart</p></li><li class="listitem"><p>Restart systemd if needed (<code class="literal">systemd daemon-reexec</code>)</p></li><li class="listitem"><p>Forget about the failed state of units (<code class="literal">systemctl reset-failed</code>)</p></li><li class="listitem"><p>Reload systemd (<code class="literal">systemctl daemon-reload</code>)</p></li><li class="listitem"><p>Reload systemd user instances (<code class="literal">systemctl --user daemon-reload</code>)</p></li><li class="listitem"><p>Set up tmpfiles (<code class="literal">systemd-tmpfiles --create</code>)</p></li><li class="listitem"><p>Reload units (<code class="literal">systemctl reload</code>)</p></li><li class="listitem"><p>Restart units (<code class="literal">systemctl restart</code>)</p></li><li class="listitem"><p>Start units (<code class="literal">systemctl start</code>)</p></li><li class="listitem"><p>Inspect what changed during these actions and print units that failed and
+of actions is always the same:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Stop units (<code class="literal">systemctl stop</code>)</p></li><li class="listitem"><p>Run activation script (<code class="literal">$out/activate</code>)</p></li><li class="listitem"><p>See if the activation script requested more units to restart</p></li><li class="listitem"><p>Restart systemd if needed (<code class="literal">systemd daemon-reexec</code>)</p></li><li class="listitem"><p>Forget about the failed state of units (<code class="literal">systemctl reset-failed</code>)</p></li><li class="listitem"><p>Reload systemd (<code class="literal">systemctl daemon-reload</code>)</p></li><li class="listitem"><p>Reload systemd user instances (<code class="literal">systemctl --user daemon-reload</code>)</p></li><li class="listitem"><p>Reactivate sysinit (<code class="literal">systemctl restart sysinit-reactivation.target</code>)</p></li><li class="listitem"><p>Reload units (<code class="literal">systemctl reload</code>)</p></li><li class="listitem"><p>Restart units (<code class="literal">systemctl restart</code>)</p></li><li class="listitem"><p>Start units (<code class="literal">systemctl start</code>)</p></li><li class="listitem"><p>Inspect what changed during these actions and print units that failed and
 that were newly started</p></li></ul></div><p>By default, some units are filtered from the outputs to make it less spammy.
 This can be disabled for development or testing by setting the environment variable
 <code class="literal">STC_DISPLAY_ALL_UNITS=1</code></p><p>Most of these actions are either self-explaining but some of them have to do
@@ -7591,7 +7591,31 @@ service is socket-activated, as outlined in the following steps.</p></li><li cla
 and socket-activated. If <code class="literal">X-StopIfChanged</code> is <span class="strong"><strong>not</strong></span> set, the service
 is <span class="strong"><strong>restart</strong></span>ed with the others. If it is set, both the service and the
 socket are <span class="strong"><strong>stop</strong></span>ped and the socket is <span class="strong"><strong>start</strong></span>ed, leaving socket
-activation to start the service when it’s needed.</p></li></ul></div></li></ul></div>
+activation to start the service when it’s needed.</p></li></ul></div></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-sysinit-reactivation"></a>Sysinit reactivation   </h3>  </div> </div></div><p><a class="link" href="https://www.freedesktop.org/software/systemd/man/latest/systemd.special.html#sysinit.target"  target="_top"><code class="literal">sysinit.target</code></a>
+is a systemd target that encodes system initialization (i.e. early startup). A
+few units that need to run very early in the bootup process are ordered to
+finish before this target is reached. Probably the most notable one of these is
+<code class="literal">systemd-tmpfiles-setup.service</code>. We will refer to these units as “sysinit
+units”.</p><p>“Normal” systemd units, by default, are ordered AFTER <code class="literal">sysinit.target</code>. In
+other words, these “normal” units expect all services ordered before
+<code class="literal">sysinit.target</code> to have finished without explicity declaring this dependency
+relationship for each dependency. See the <a class="link" href="https://www.freedesktop.org/software/systemd/man/latest/bootup.html"  target="_top">systemd
+bootup</a>
+for more details on the bootup process.</p><p>When restarting both a unit ordered before <code class="literal">sysinit.target</code> as well as one
+after, this presents a problem because they would be started at the same time
+as they do not explicitly declare their dependency relations.</p><p>To solve this, NixOS has an artificial <code class="literal">sysinit-reactivation.target</code> which
+allows you to ensure that services ordered before <code class="literal">sysinit.target</code> are
+restarted correctly. This applies both to the ordering between these sysinit
+services as well as ensuring that sysinit units are restarted before “normal”
+units.</p><p>To make an existing sysinit service restart correctly during system switch, you
+have to declare:</p><pre><code class="programlisting nix">systemd.services.my-sysinit = {
+  requiredBy = [ &quot;sysinit-reactivation.target&quot; ];
+  before = [ &quot;sysinit-reactivation.target&quot; ];
+  restartTriggers = [ config.environment.etc.&quot;my-sysinit.d&quot;.source ];
+};
+</code></pre><p>You need to configure appropriate <code class="literal">restartTriggers</code> specific to your service.</p>
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-activation-script"></a>Activation script   </h2>  </div> </div></div><p>The activation script is a bash script called to activate the new
 configuration which resides in a NixOS system in <code class="literal">$out/activate</code>. Since its
 contents depend on your system configuration, the contents may differ.
