@@ -6361,10 +6361,12 @@ buildDartApplication rec {
 to be of a specific version.</p><p>For the second method, the <code class="literal">packageRun</code> function from the <code class="literal">dartConfigHook</code> can be used.
 This is an alternative to <code class="literal">dart run</code> that does not rely on Pub.</p><p>e.g., for <code class="literal">build_runner</code>:</p><pre><code class="programlisting bash">packageRun build_runner build
 </code></pre><p>Do <span class="emphasis"><em>not</em></span> use <code class="literal">dart run &lt;package_name&gt;</code>, as this will attempt to download dependencies with Pub.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-dart-applications-nix-shell"></a>Usage with nix-shell   </h4>  </div> </div></div><p>As <code class="literal">buildDartApplication</code> provides dependencies instead of <code class="literal">pub get</code>, Dart needs to be explicitly told where to find them.</p><p>Run the following commands in the source directory to configure Dart appropriately.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-dart-applications-nix-shell"></a>Usage with nix-shell   </h4>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="ssec-dart-applications-nix-shell-deps"></a>Using dependencies from the Nix store   </h5>  </div> </div></div><p>As <code class="literal">buildDartApplication</code> provides dependencies instead of <code class="literal">pub get</code>, Dart needs to be explicitly told where to find them.</p><p>Run the following commands in the source directory to configure Dart appropriately.
 Do not use <code class="literal">pub</code> after doing so; it will download the dependencies itself and overwrite these changes.</p><pre><code class="programlisting bash">cp --no-preserve=all &quot;$pubspecLockFilePath&quot; pubspec.lock
 mkdir -p .dart_tool &amp;&amp; cp --no-preserve=all &quot;$packageConfig&quot; .dart_tool/package_config.json
 </code></pre>
+</div>
+
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-dart-flutter"></a>Flutter applications   </h3>  </div> </div></div><p>The function <code class="literal">buildFlutterApplication</code> builds Flutter applications.</p><p>See the <a class="link" href="#ssec-dart-applications" title="Dart applications" >Dart documentation</a> for more details on required files and arguments.</p><pre><code class="programlisting nix">{  flutter, fetchFromGitHub }:
@@ -6372,6 +6374,9 @@ mkdir -p .dart_tool &amp;&amp; cp --no-preserve=all &quot;$packageConfig&quot; .
 flutter.buildFlutterApplication {
   pname = &quot;firmware-updater&quot;;
   version = &quot;unstable-2023-04-30&quot;;
+
+  # To build for the Web, use the targetFlutterPlatform argument.
+  # targetFlutterPlatform = &quot;web&quot;;
 
   src = fetchFromGitHub {
     owner = &quot;canonical&quot;;
@@ -6383,7 +6388,12 @@ flutter.buildFlutterApplication {
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 }
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-dart-flutter-nix-shell"></a>Usage with nix-shell   </h4>  </div> </div></div><p>See the <a class="link" href="#ssec-dart-applications-nix-shell" title="Usage with nix-shell" >Dart documentation</a> for nix-shell instructions.</p>
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-dart-flutter-nix-shell"></a>Usage with nix-shell   </h4>  </div> </div></div><p>Flutter-specific <code class="literal">nix-shell</code> usage notes are included here. See the <a class="link" href="#ssec-dart-applications-nix-shell" title="Usage with nix-shell" >Dart documentation</a> for general <code class="literal">nix-shell</code> instructions.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="ssec-dart-flutter-nix-shell-enter"></a>Entering the shell   </h5>  </div> </div></div><p>By default, dependencies for only the <code class="literal">targetFlutterPlatform</code> are available in the
+build environment. This is useful for keeping closures small, but be problematic
+during development. It’s common, for example, to build Web apps for Linux during
+development to take advantage of native features such as stateful hot reload.</p><p>To enter a shell with all the usual target platforms available, use the <code class="literal">multiShell</code> attribute.</p><p>e.g. <code class="literal">nix-shell &#x27;&lt;nixpkgs&gt;&#x27; -A fluffychat-web.multiShell</code>.</p>
+</div>
+
 </div>
 
 </div>

@@ -1161,7 +1161,7 @@ version by doing:</p><pre><code class="programlisting ShellSession">$ nix-env -u
 </code></pre><p><code class="literal">nix-env</code> has many more flags. For details, see the nix-env(1) manpage or
 the Nix manual.</p>
 </div>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-user-management"></a>User Management   </h2>  </div> </div></div><p>NixOS supports both declarative and imperative styles of user
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-user-management"></a>User Management   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-systemd-sysusers">Create users and groups with <code class="literal">systemd-sysusers</code></a> </span></dt> </dl></div><p>NixOS supports both declarative and imperative styles of user
 management. In the declarative style, users are specified in
 <code class="literal">configuration.nix</code>. For instance, the following states that a user
 account named <code class="literal">alice</code> shall exist:</p><pre><code class="programlisting nix">users.users.alice = {
@@ -1206,7 +1206,11 @@ Retype new UNIX password: ***
 </code></pre><p>A user can be deleted using <code class="literal">userdel</code>:</p><pre><code class="programlisting ShellSession"># userdel -r alice
 </code></pre><p>The flag <code class="literal">-r</code> deletes the user’s home directory. Accounts can be
 modified using <code class="literal">usermod</code>. Unix groups can be managed using <code class="literal">groupadd</code>,
-<code class="literal">groupmod</code> and <code class="literal">groupdel</code>.</p>
+<code class="literal">groupmod</code> and <code class="literal">groupdel</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-systemd-sysusers"></a>Create users and groups with <code class="literal">systemd-sysusers</code>   </h2>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>This is experimental.</p></div><p>Instead of using a custom perl script to create users and groups, you can use
+systemd-sysusers:</p><pre><code class="programlisting nix">systemd.sysusers.enable = true;
+</code></pre><p>The primary benefit of this is to remove a dependency on perl.</p>
+</div>
+
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="ch-file-systems"></a>File Systems   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-luks-file-systems">LUKS-Encrypted File Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-sshfs-file-systems">SSHFS File Systems</a> </span></dt> </dl></div><p>You can define file systems using the <code class="literal">fileSystems</code> configuration
 option. For instance, the following definition causes NixOS to mount the
 Ext4 file system on device <code class="literal">/dev/disk/by-label/data</code> onto the mount
@@ -6040,7 +6044,7 @@ etc…</p><p>The following snippet can be used to configure Hime:</p><pre><code 
 </code></pre>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="ch-profiles"></a>Profiles   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-profile-all-hardware">All Hardware</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-base">Base</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-clone-config">Clone Config</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-demo">Demo</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-docker-container">Docker Container</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-graphical">Graphical</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-hardened">Hardened</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-headless">Headless</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-installation-device">Installation Device</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-minimal">Minimal</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-qemu-guest">QEMU Guest</a> </span></dt> </dl></div><p>In some cases, it may be desirable to take advantage of commonly-used,
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="ch-profiles"></a>Profiles   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-profile-all-hardware">All Hardware</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-base">Base</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-clone-config">Clone Config</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-demo">Demo</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-docker-container">Docker Container</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-graphical">Graphical</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-hardened">Hardened</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-headless">Headless</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-installation-device">Installation Device</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-perlless">Perlless</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-minimal">Minimal</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-profile-qemu-guest">QEMU Guest</a> </span></dt> </dl></div><p>In some cases, it may be desirable to take advantage of commonly-used,
 predefined configurations provided by nixpkgs, but different from those
 that come as default. This is a role fulfilled by NixOS’s Profiles,
 which come as files living in <code class="literal">&lt;nixpkgs/nixos/modules/profiles&gt;</code>. That
@@ -6115,6 +6119,11 @@ Passwordless <code class="literal">sudo</code> is enabled too.
 enabled, but configured to not autostart.</p><p>It is explained how to login, start the ssh server, and if available,
 how to start the display manager.</p><p>Several settings are tweaked so that the installer has a better chance of
 succeeding under low-memory environments.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-perlless"></a>Perlless   </h2>  </div> </div></div><div class="warning"><h3 class="title">Warning</h3><p>If you enable this profile, you will NOT be able to switch to a new
+configuration and thus you will not be able to rebuild your system with
+nixos-rebuild!</p></div><p>Render your system completely perlless (i.e. without the perl interpreter). This
+includes a mechanism so that your build fails if it contains a Nix store path
+that references the string “perl”.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-profile-minimal"></a>Minimal   </h2>  </div> </div></div><p>This profile defines a small NixOS configuration. It does not contain any
 graphical stuff. It’s a very short file that enables
 <a class="link" href="options.html#opt-environment.noXlibs"  >noXlibs</a>, sets
@@ -7602,7 +7611,7 @@ and advanced boot workflows such as SecureBoot and potentially more.</p><p>You c
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-experimental-bootspec-external-bootloaders"></a>External bootloaders   </h2>  </div> </div></div><p>It is possible to enable your own bootloader through <a class="link" href="options.html#opt-boot.loader.external.installHook"  target="_top"><code class="literal">boot.loader.external.installHook</code></a> which can wrap an existing bootloader.</p><p>Currently, there is no good story to compose existing bootloaders to enrich their features, e.g. SecureBoot, etc. It will be necessary to reimplement or reuse existing parts.</p>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-switching-systems"></a>What happens during a system switch?   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-unit-handling">Unit handling</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-activation-script">Activation script</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-non-switchable-system">Non Switchable Systems</a> </span></dt> </dl></div><p>Running <code class="literal">nixos-rebuild switch</code> is one of the more common tasks under NixOS.
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-switching-systems"></a>What happens during a system switch?   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-unit-handling">Unit handling</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-activation-script">Activation script</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-non-switchable-system">Non Switchable Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-etc-overlay"><code class="literal">/etc</code> via overlay filesystem</a> </span></dt> </dl></div><p>Running <code class="literal">nixos-rebuild switch</code> is one of the more common tasks under NixOS.
 This chapter explains some of the internals of this command to make it simpler
 for new module developers to configure their units correctly and to make it
 easier to understand what is happening and why for curious administrators.</p><p><code class="literal">nixos-rebuild</code>, like many deployment solutions, calls <code class="literal">switch-to-configuration</code>
@@ -7752,6 +7761,19 @@ The profile sets <code class="literal">config.system.switch.enable = false;</cod
 <code class="literal">switch-to-configuration</code>, the central script called by <code class="literal">nixos-rebuild</code>, from
 your system. Removing this script makes the image lighter and slightly more
 secure.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-etc-overlay"></a><code class="literal">/etc</code> via overlay filesystem   </h2>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>This is experimental and requires a kernel version &gt;= 6.6 because it uses
+new overlay features and relies on the new mount API.</p></div><p>Instead of using a custom perl script to activate <code class="literal">/etc</code>, you activate it via an
+overlay filesystem:</p><pre><code class="programlisting nix">system.etc.overlay.enable = true;
+</code></pre><p>Using an overlay has two benefits:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p>it removes a dependency on perl</p></li><li class="listitem"><p>it makes activation faster (up to a few seconds)</p></li></ol></div><p>By default, the <code class="literal">/etc</code> overlay is mounted writable (i.e. there is a writable
+upper layer). However, you can also mount <code class="literal">/etc</code> immutably (i.e. read-only) by
+setting:</p><pre><code class="programlisting nix">system.etc.overlay.mutable = false;
+</code></pre><p>The overlay is atomically replaced during system switch. However, files that
+have been modified will NOT be overwritten. This is the biggest change compared
+to the perl-based system.</p><p>If you manually make changes to <code class="literal">/etc</code> on your system and then switch to a new
+configuration where <code class="literal">system.etc.overlay.mutable = false;</code>, you will not be able
+to see the previously made changes in <code class="literal">/etc</code> anymore. However the changes are
+not completely gone, they are still in the upperdir of the previous overlay in
+<code class="literal">/.rw-etc/upper</code>.</p>
 </div>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-writing-documentation"></a>Writing NixOS Documentation   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-writing-docs-building-the-manual">Building the Manual</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-writing-docs-editing-docbook-xml">Editing DocBook XML</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-writing-docs-creating-a-topic">Creating a Topic</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-writing-docs-adding-a-topic">Adding a Topic to the Book</a> </span></dt> </dl></div><p>As NixOS grows, so too does the need for a catalogue and explanation of
 its extensive functionality. Collecting pertinent information from
