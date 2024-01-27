@@ -5055,20 +5055,24 @@ which runs the server.</p><pre><code class="programlisting">{ ... }:
 {
   services.livebook = {
     enableUserService = true;
-    port = 20123;
+    environment = {
+      LIVEBOOK_PORT = 20123;
+      LIVEBOOK_PASSWORD = &quot;mypassword&quot;;
+    };
     # See note below about security
-    environmentFile = pkgs.writeText &quot;livebook.env&quot; &#x27;&#x27;
-      LIVEBOOK_PASSWORD = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
-    &#x27;&#x27;;
+    environmentFile = &quot;/var/lib/livebook.env&quot;;
   };
 }
 </code></pre><div class="note"><h3 class="title">Note</h3><p>The Livebook server has the ability to run any command as the user it
 is running under, so securing access to it with a password is highly
-recommended.</p><p>Putting the password in the Nix configuration like above is an easy
-way to get started but it is not recommended in the real world because
-the <code class="literal">livebook.env</code> file will be added to the world-readable Nix store.
-A better approach would be to put the password in some secure
-user-readable location and set <code class="literal">environmentFile = /home/user/secure/livebook.env</code>.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="module-services-livebook-extra-dependencies"></a>Extra dependencies   </h3>  </div> </div></div><p>By default, the Livebook service is run with minimum dependencies, but
+recommended.</p><p>Putting the password in the Nix configuration like above is an easy way to get
+started but it is not recommended in the real world because the resulting
+environment variables can be read by unprivileged users.  A better approach
+would be to put the password in some secure user-readable location and set
+<code class="literal">environmentFile = /home/user/secure/livebook.env</code>.</p></div><p>The <a class="link" href="https://hexdocs.pm/livebook/readme.html#environment-variables"  target="_top">Livebook
+documentation</a>
+lists all the applicable environment variables. It is recommended to at least
+set <code class="literal">LIVEBOOK_PASSWORD</code> or <code class="literal">LIVEBOOK_TOKEN_ENABLED=false</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="module-services-livebook-extra-dependencies"></a>Extra dependencies   </h3>  </div> </div></div><p>By default, the Livebook service is run with minimum dependencies, but
 some features require additional packages.  For example, the machine
 learning Kinos require <code class="literal">gcc</code> and <code class="literal">gnumake</code>.  To add these, use
 <code class="literal">extraPackages</code>:</p><pre><code class="programlisting">services.livebook.extraPackages = with pkgs; [ gcc gnumake ];
@@ -7975,7 +7979,10 @@ machine.systemctl(&quot;list-jobs --no-pager&quot;, &quot;any-user&quot;)
 serial console output.
 This method is useful when OCR is not possible or inaccurate.</p></dd><dt><span class="term">wait_for_file(filename, timeout)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr, timeout)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
 (default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_open_unix_socket(addr, is_datagram, timeout)</span></dt><dd><p>Wait until a process is listening on the given UNIX-domain socket
-(default to a UNIX-domain stream socket).</p></dd><dt><span class="term">wait_for_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions matches the textual
+(default to a UNIX-domain stream socket).</p></dd><dt><span class="term">wait_for_qmp_event(event_filter, timeout)</span></dt><dd><p>Wait for a QMP event which you can filter with the <code class="literal">event_filter</code> function.
+The function takes as an input a dictionary of the event and if it returns True, we return that event,
+if it does not, we wait for the next event and retry.</p><p>It will skip all events received in the meantime, if you want to keep them,
+you have to do the bookkeeping yourself and store them somewhere.</p><p>By default, it will wait up to 10 minutes, <code class="literal">timeout</code> is in seconds.</p></dd><dt><span class="term">wait_for_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions matches the textual
 contents of the screen by using optical character recognition (see
 <code class="literal">get_screen_text</code> and <code class="literal">get_screen_text_variants</code>).</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">wait_for_unit(unit, user, timeout)</span></dt><dd><p>Wait for a systemd unit to get into “active” state.
 Throws exceptions on “failed” and “inactive” states as well as after
