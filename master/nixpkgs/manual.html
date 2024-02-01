@@ -5460,7 +5460,7 @@ For this reason, it is disabled by default.</p><p>The preferred solution is to m
 Some test suites hardcode a value for <code class="literal">host</code> though, so a patch may be required. If you can upstream the patch, you can make <code class="literal">host</code> default to the <code class="literal">PGHOST</code> environment variable when set. Otherwise, you can patch it locally to omit the <code class="literal">host</code> connection string parameter altogether.</p><div class="note"><h3 class="title">Note</h3><p>The error <code class="literal">libpq: failed (could not receive data from server: Connection refused</code> is generally an indication that the test suite is trying to connect through TCP.</p></div>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-python"></a>Python   </h2>  </div> </div></div><p>Adds the <code class="literal">lib/${python.libPrefix}/site-packages</code> subdirectory of each build input to the <code class="literal">PYTHONPATH</code> environment variable.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="setup-hook-python"></a>Python   </h2>  </div> </div></div><p>Adds the <code class="literal">python.sitePackages</code> subdirectory (i.e. <code class="literal">lib/pythonX.Y/site-packages</code>) of each build input to the <code class="literal">PYTHONPATH</code> environment variable.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="scons"></a>scons   </h2>  </div> </div></div><p>Overrides the build, install, and check phases. This uses the scons build system as a replacement for make. scons does not provide a configure phase, so everything is managed at build and install time.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="tetex-tex-live"></a>teTeX / TeX Live   </h2>  </div> </div></div><p>Adds the <code class="literal">share/texmf-nix</code> subdirectory of each build input to the <code class="literal">TEXINPUTS</code> environment variable.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="unzip"></a>unzip   </h2>  </div> </div></div><p>This setup hook will allow you to unzip .zip files specified in <code class="literal">$src</code>. There are many similar packages like <code class="literal">unrar</code>, <code class="literal">undmg</code>, etc.</p>
@@ -7729,10 +7729,12 @@ in
   in
 
   {
-    haskell = lib.recursiveUpdate prev.haskell {
-      compiler.${ghcName} = prev.haskell.compiler.${ghcName}.override {
-        # Unfortunately, the GHC setting is named differently for historical reasons
-        enableProfiledLibs = enableProfiling;
+    haskell = prev.haskell // {
+      compiler = prev.haskell.compiler // {
+        ${ghcName} = prev.haskell.compiler.${ghcName}.override {
+          # Unfortunately, the GHC setting is named differently for historical reasons
+          enableProfiledLibs = enableProfiling;
+        };
       };
     };
   })
@@ -7744,31 +7746,33 @@ in
   in
 
   {
-    haskell = lib.recursiveUpdate prev.haskell {
-      packages.${ghcName} = prev.haskell.packages.${ghcName}.override {
-        overrides = hfinal: hprev: {
-          mkDerivation = args: hprev.mkDerivation (args // {
-            # Since we are forcing our ideas upon mkDerivation, this change will
-            # affect every package in the package set.
-            enableLibraryProfiling = enableProfiling;
+    haskell = prev.haskell // {
+      packages = prev.haskell.packages // {
+        ${ghcName} = prev.haskell.packages.${ghcName}.override {
+          overrides = hfinal: hprev: {
+            mkDerivation = args: hprev.mkDerivation (args // {
+              # Since we are forcing our ideas upon mkDerivation, this change will
+              # affect every package in the package set.
+              enableLibraryProfiling = enableProfiling;
 
-            # To actually use profiling on an executable, executable profiling
-            # needs to be enabled for the executable you want to profile. You
-            # can either do this globally or…
-            enableExecutableProfiling = enableProfiling;
-          });
+              # To actually use profiling on an executable, executable profiling
+              # needs to be enabled for the executable you want to profile. You
+              # can either do this globally or…
+              enableExecutableProfiling = enableProfiling;
+            });
 
-          # …only for the package that contains an executable you want to profile.
-          # That saves on unnecessary rebuilds for packages that you only depend
-          # on for their library, but also contain executables (e.g. pandoc).
-          my-executable = haskellLib.enableExecutableProfiling hprev.my-executable;
+            # …only for the package that contains an executable you want to profile.
+            # That saves on unnecessary rebuilds for packages that you only depend
+            # on for their library, but also contain executables (e.g. pandoc).
+            my-executable = haskellLib.enableExecutableProfiling hprev.my-executable;
 
-          # If you are disabling profiling to save on build time, but want to
-          # retain the ability to substitute from the binary cache. Drop the
-          # override for mkDerivation above and instead have an override like
-          # this for the specific packages you are building locally and want
-          # to make cheaper to build.
-          my-library = haskellLib.disableLibraryProfiling hprev.my-library;
+            # If you are disabling profiling to save on build time, but want to
+            # retain the ability to substitute from the binary cache. Drop the
+            # override for mkDerivation above and instead have an override like
+            # this for the specific packages you are building locally and want
+            # to make cheaper to build.
+            my-library = haskellLib.disableLibraryProfiling hprev.my-library;
+          };
         };
       };
     };
