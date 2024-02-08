@@ -717,7 +717,7 @@ image with a new one or by updating partitions via an A/B scheme. See the
 <a class="link" href="https://chromium.googlesource.com/aosp/platform/system/update_engine/+/HEAD/README.md"  target="_top">Chrome OS update process</a> for an example of how to achieve
 this. The appliance image built in the following example does not contain a
 <code class="literal">configuration.nix</code> and thus you will not be able to call <code class="literal">nixos-rebuild</code> from
-this system.</p><pre><code class="programlisting nix">let
+this system. Furthermore, it uses a <a class="link" href="https://uapi-group.org/specifications/specs/unified_kernel_image/"  target="_top">Unified Kernel Image</a>.</p><pre><code class="programlisting nix">let
   pkgs = import &lt;nixpkgs&gt; { };
   efiArch = pkgs.stdenv.hostPlatform.efiArch;
 in
@@ -738,18 +738,8 @@ in
             &quot;/EFI/BOOT/BOOT${lib.toUpper efiArch}.EFI&quot;.source =
               &quot;${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${efiArch}.efi&quot;;
 
-            &quot;/loader/entries/nixos.conf&quot;.source = pkgs.writeText &quot;nixos.conf&quot; &#x27;&#x27;
-              title NixOS
-              linux /EFI/nixos/kernel.efi
-              initrd /EFI/nixos/initrd.efi
-              options init=${config.system.build.toplevel}/init ${toString config.boot.kernelParams}
-            &#x27;&#x27;;
-
-            &quot;/EFI/nixos/kernel.efi&quot;.source =
-              &quot;${config.boot.kernelPackages.kernel}/${config.system.boot.loader.kernelFile}&quot;;
-
-            &quot;/EFI/nixos/initrd.efi&quot;.source =
-              &quot;${config.system.build.initialRamdisk}/${config.system.boot.loader.initrdFile}&quot;;
+            &quot;/EFI/Linux/${config.system.boot.loader.ukiFile}&quot;.source =
+              &quot;${config.system.build.uki}/${config.system.boot.loader.ukiFile}&quot;;
           };
           repartConfig = {
             Type = &quot;esp&quot;;
