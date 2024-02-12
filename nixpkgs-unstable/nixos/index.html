@@ -1201,7 +1201,7 @@ systemd-sysusers:</p><pre><code class="programlisting nix">systemd.sysusers.enab
 </code></pre><p>The primary benefit of this is to remove a dependency on perl.</p>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="ch-file-systems"></a>File Systems   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-luks-file-systems">LUKS-Encrypted File Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-sshfs-file-systems">SSHFS File Systems</a> </span></dt> </dl></div><p>You can define file systems using the <code class="literal">fileSystems</code> configuration
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="ch-file-systems"></a>File Systems   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-luks-file-systems">LUKS-Encrypted File Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-sshfs-file-systems">SSHFS File Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-overlayfs">Overlayfs</a> </span></dt> </dl></div><p>You can define file systems using the <code class="literal">fileSystems</code> configuration
 option. For instance, the following definition causes NixOS to mount the
 Ext4 file system on device <code class="literal">/dev/disk/by-label/data</code> onto the mount
 point <code class="literal">/data</code>:</p><pre><code class="programlisting nix">fileSystems.&quot;/data&quot; =
@@ -1353,6 +1353,24 @@ This is due to the way systemd converts paths into unit names.</p></div>
 
 </div>
 
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-overlayfs"></a>Overlayfs   </h2>  </div> </div></div><p>NixOS offers a convenient abstraction to create both read-only as well writable
+overlays.</p><pre><code class="programlisting nix">fileSystems = {
+  &quot;/writable-overlay&quot; = {
+    overlay = {
+      lowerdir = [ writableOverlayLowerdir ];
+      upperdir = &quot;/.rw-writable-overlay/upper&quot;;
+      workdir = &quot;/.rw-writable-overlay/work&quot;;
+    };
+    # Mount the writable overlay in the initrd.
+    neededForBoot = true;
+  };
+  &quot;/readonly-overlay&quot;.overlay.lowerdir = [
+    writableOverlayLowerdir
+    writableOverlayLowerdir2
+  ];
+};
+</code></pre><p>If <code class="literal">upperdir</code> and <code class="literal">workdir</code> are not null, they will be created before the
+overlay is mounted.</p><p>To mount an overlay as read-only, you need to provide at least two <code class="literal">lowerdir</code>s.</p>
 </div>
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="sec-x11"></a>X Window System   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-x11-auto-login">Auto-login</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-x11--graphics-cards-intel">Intel Graphics drivers</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-x11-graphics-cards-nvidia">Proprietary NVIDIA drivers</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-x11--graphics-cards-amd">Proprietary AMD drivers</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-x11-touchpads">Touchpads</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-x11-gtk-and-qt-themes">GTK/Qt themes</a> </span></dt><dt> <span class="section">  <a href="index.html#custom-xkb-layouts">Custom XKB layouts</a> </span></dt> </dl></div><p>The X Window System (X11) provides the basis of NixOS’ graphical user
 interface. It can be enabled as follows:</p><pre><code class="programlisting nix">services.xserver.enable = true;
@@ -4572,8 +4590,9 @@ then enable <code class="literal">services.matrix-synapse.settings.enable_regist
 Otherwise, or you can generate a registration secret with
 <span class="command"><strong>pwgen -s 64 1</strong></span> and set it with
 <a class="xref" href="options.html#opt-services.matrix-synapse.settings.registration_shared_secret"  ><code class="option">services.matrix-synapse.settings.registration_shared_secret</code></a>.
-To create a new user or admin, run the following after you have set the secret
-and have rebuilt NixOS:</p><pre><code class="programlisting ShellSession">$ nix-shell -p matrix-synapse
+To create a new user or admin from the terminal your client listener
+must be configured to use TCP sockets. Then you can run the following
+after you have set the secret and have rebuilt NixOS:</p><pre><code class="programlisting ShellSession">$ nix-shell -p matrix-synapse
 $ register_new_matrix_user -k your-registration-shared-secret http://localhost:8008
 New user localpart: your-username
 Password:
@@ -7124,7 +7143,7 @@ that value will be returned instead of throwing an error. So if the
 type of <code class="literal">foo.attr</code> was <code class="literal">lazyAttrsOf (nullOr int)</code>, <code class="literal">null</code> would be
 returned instead for the same <code class="literal">mkIf false</code> definition.</p></div></dd><dt><span class="term"><code class="literal">types.nullOr</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p><code class="literal">null</code> or type <span class="emphasis"><em><code class="literal">t</code></em></span>. Multiple definitions are merged according to
 type <span class="emphasis"><em><code class="literal">t</code></em></span>.</p></dd><dt><span class="term"><code class="literal">types.uniq</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span> cannot be merged. It is used to ensure option
-definitions are declared only once.</p></dd><dt><span class="term"><code class="literal">types.unique</code> <code class="literal">{ message = m }</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span> cannot be merged. Prints the message <span class="emphasis"><em><code class="literal">m</code></em></span>, after
+definitions are provided only once.</p></dd><dt><span class="term"><code class="literal">types.unique</code> <code class="literal">{ message = m }</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span> cannot be merged. Prints the message <span class="emphasis"><em><code class="literal">m</code></em></span>, after
 the line <code class="literal">The option &lt;option path&gt; is defined multiple times.</code> and before
 a list of definition locations.</p></dd><dt><span class="term"><code class="literal">types.either</code> <span class="emphasis"><em><code class="literal">t1 t2</code></em></span></span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type <span class="emphasis"><em><code class="literal">t2</code></em></span>, e.g. <code class="literal">with types; either int str</code>.
 Multiple definitions cannot be merged.</p></dd><dt><span class="term"><code class="literal">types.oneOf</code> [ <span class="emphasis"><em><code class="literal">t1 t2</code></em></span> … ]</span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type <span class="emphasis"><em><code class="literal">t2</code></em></span> and so forth, e.g.
