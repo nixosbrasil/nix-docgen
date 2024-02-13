@@ -10947,42 +10947,30 @@ for ~2 months before attempting to update the package set. And this will
 allow for ~7 months for Python applications to support the latest interpreter.</p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-language-qt"></a>Qt   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#qt-default-nix">Nix expression for a Qt package (default.nix)</a> </span></dt><dt> <span class="section">  <a href="#qt-runtime-dependencies">Locating runtime dependencies</a> </span></dt> </dl></div><p>Writing Nix expressions for Qt libraries and applications is largely similar as for other C++ software.
-This section assumes some knowledge of the latter.</p><p>The major caveat with Qt applications is that Qt uses a plugin system to load additional modules at runtime,
-from a list of well-known locations. In Nixpkgs, we patch QtCore to instead use an environment variable,
-and wrap Qt applications to set it to the right paths. This effectively makes the runtime dependencies
-pure and explicit at build-time, at the cost of introducing an extra indirection.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)   </h3>  </div> </div></div><pre><code class="programlisting nix">{ stdenv, lib, qtbase, wrapQtAppsHook }:
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-language-qt"></a>Qt   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#qt-default-nix">Nix expression for a Qt package (default.nix)</a> </span></dt><dt> <span class="section">  <a href="#qt-versions">Packages supporting multiple Qt versions</a> </span></dt><dt> <span class="section">  <a href="#qt-runtime-dependencies">Locating additional runtime dependencies</a> </span></dt> </dl></div><p>Writing Nix expressions for Qt libraries and applications is largely similar as for other C++ software.
+This section assumes some knowledge of the latter.</p><p>The major caveat with Qt applications is that Qt uses a plugin system to load additional modules at runtime.
+In Nixpkgs, we wrap Qt applications to inject environment variables telling Qt where to discover the required plugins and QML modules.</p><p>This effectively makes the runtime dependencies pure and explicit at build-time, at the cost of introducing
+an extra indirection.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)   </h3>  </div> </div></div><pre><code class="programlisting nix">{ stdenv, lib, qt6, wrapQtAppsHook }:
 
 stdenv.mkDerivation {
   pname = &quot;myapp&quot;;
   version = &quot;1.0&quot;;
 
-  buildInputs = [ qtbase ];
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  buildInputs = [ qt6.qtbase ];
+  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
 }
-</code></pre><p>It is important to import Qt modules directly, that is: <code class="literal">qtbase</code>, <code class="literal">qtdeclarative</code>, etc. <span class="emphasis"><em>Do not</em></span> import Qt package sets such as <code class="literal">qt5</code> because the Qt versions of dependencies may not be coherent, causing build and runtime failures.</p><p>Additionally all Qt packages must include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>, or you must explicitly set <code class="literal">dontWrapQtApps</code>.</p><p><code class="literal">pkgs.callPackage</code> does not provide injections for <code class="literal">qtbase</code> or the like.
-Instead you want to either use <code class="literal">pkgs.libsForQt5.callPackage</code>, or <code class="literal">pkgs.qt6Packages.callPackage</code>, depending on the Qt version you want to use.</p><p>For example (from <a class="link" href="https://github.com/NixOS/nixpkgs/blob/2f9286912cb215969ece465147badf6d07aa43fe/pkgs/top-level/all-packages.nix#L30106"  target="_top">here</a>)</p><pre><code class="programlisting nix">  zeal-qt5 = libsForQt5.callPackage ../data/documentation/zeal { };
-  zeal-qt6 = qt6Packages.callPackage ../data/documentation/zeal { };
-  zeal = zeal-qt5;
-</code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-runtime-dependencies"></a>Locating runtime dependencies   </h3>  </div> </div></div><p>Qt applications must be wrapped to find runtime dependencies.
-Include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>:</p><pre><code class="programlisting nix">{ stdenv, wrapQtAppsHook }:
+</code></pre><p>Any Qt package should include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>, or explicitly set <code class="literal">dontWrapQtApps</code> to bypass generating the wrappers.</p><div class="note"><h3 class="title">Note</h3><p>Graphical Linux applications should also include <code class="literal">qtwayland</code> in <code class="literal">buildInputs</code>, to ensure the Wayland platform plugin is available.</p><p>This may become default in the future, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/269674"  target="_top">NixOS/nixpkgs#269674</a>.</p></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-versions"></a>Packages supporting multiple Qt versions   </h3>  </div> </div></div><p>If your package is a library that can be built with multiple Qt versions, you may want to take Qt modules as separate arguments (<code class="literal">qtbase</code>, <code class="literal">qtdeclarative</code> etc.), and invoke the package from <code class="literal">pkgs/top-level/qt5-packages.nix</code> or <code class="literal">pkgs/top-level/qt6-packages.nix</code> using the respective <code class="literal">callPackage</code> functions.</p><p>Applications should generally be built with upstream’s preferred Qt version.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-runtime-dependencies"></a>Locating additional runtime dependencies   </h3>  </div> </div></div><p>Add entries to <code class="literal">qtWrapperArgs</code> are to modify the wrappers created by
+<code class="literal">wrapQtAppsHook</code>:</p><pre><code class="programlisting nix">{ stdenv, qt6 }:
 
 stdenv.mkDerivation {
   # ...
-  nativeBuildInputs = [ wrapQtAppsHook ];
-}
-</code></pre><p>Add entries to <code class="literal">qtWrapperArgs</code> are to modify the wrappers created by
-<code class="literal">wrapQtAppsHook</code>:</p><pre><code class="programlisting nix">{ stdenv, wrapQtAppsHook }:
-
-stdenv.mkDerivation {
-  # ...
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
   qtWrapperArgs = [ &#x27;&#x27;--prefix PATH : /path/to/bin&#x27;&#x27; ];
 }
-</code></pre><p>The entries are passed as arguments to <a class="link" href="#fun-wrapProgram" title="wrapProgram &lt;executable&gt; &lt;makeWrapperArgs&gt;" >wrapProgram</a>.</p><p>Set <code class="literal">dontWrapQtApps</code> to stop applications from being wrapped automatically.
-Wrap programs manually with <code class="literal">wrapQtApp</code>, using the syntax of
-<a class="link" href="#fun-wrapProgram" title="wrapProgram &lt;executable&gt; &lt;makeWrapperArgs&gt;" >wrapProgram</a>:</p><pre><code class="programlisting nix">{ stdenv, lib, wrapQtAppsHook }:
+</code></pre><p>The entries are passed as arguments to <a class="link" href="#fun-wrapProgram" title="wrapProgram &lt;executable&gt; &lt;makeWrapperArgs&gt;" >wrapProgram</a>.</p><p>If you need more control over the wrapping process, set <code class="literal">dontWrapQtApps</code> to disable automatic wrapper generation,
+and then create wrappers manually in <code class="literal">fixupPhase</code>, using <code class="literal">wrapQtApp</code>, which itself is a small wrapper over <a class="link" href="#fun-wrapProgram" title="wrapProgram &lt;executable&gt; &lt;makeWrapperArgs&gt;" >wrapProgram</a>:</p><p>The <code class="literal">makeWrapper</code> arguments required for Qt are also exposed in the environment as <code class="literal">$qtWrapperArgs</code>.</p><pre><code class="programlisting nix">{ stdenv, lib, wrapQtAppsHook }:
 
 stdenv.mkDerivation {
   # ...
