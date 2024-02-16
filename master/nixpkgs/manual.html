@@ -4777,14 +4777,14 @@ in appimageTools.wrapType2 {
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-pkgs-dockerTools"></a>pkgs.dockerTools   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-buildImage">buildImage</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-buildLayeredImage">buildLayeredImage</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-streamLayeredImage">streamLayeredImage</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-pullImage">pullImage</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-exportImage">exportImage</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-helpers">Environment Helpers</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-buildNixShellImage">buildNixShellImage</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-dockerTools-streamNixShellImage">streamNixShellImage</a> </span></dt> </dl></div><p><code class="literal">pkgs.dockerTools</code> is a set of functions for creating and manipulating Docker images according to the <a class="link" href="https://github.com/moby/moby/blob/46f7ab808b9504d735d600e259ca0723f76fb164/image/spec/spec.md#image-json-field-descriptions"  target="_top">Docker Image Specification v1.3.0</a>.
 Docker itself is not used to perform any of the operations done by these functions.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-dockerTools-buildImage"></a>buildImage   </h3>  </div> </div></div><p>This function builds a Docker-compatible repository tarball containing a single image.
-As such, the result is suitable for being loaded in Docker with <code class="literal">docker load</code> (see <a class="xref" href="#ex-dockerTools-buildImage" title="Example 263. Building a Docker image" >Example 263</a> for how to do this).</p><p>This function will create a single layer for all files (and dependencies) that are specified in its argument.
+As such, the result is suitable for being loaded in Docker with <code class="literal">docker image load</code> (see <a class="xref" href="#ex-dockerTools-buildImage" title="Example 263. Building a Docker image" >Example 263</a> for how to do this).</p><p>This function will create a single layer for all files (and dependencies) that are specified in its argument.
 Only new dependencies that are not already in the existing layers will be copied.
 If you prefer to create multiple layers for the files and dependencies you want to add to the image, see <a class="xref" href="#ssec-pkgs-dockerTools-buildLayeredImage" title="buildLayeredImage" >the section called “buildLayeredImage”</a> or <a class="xref" href="#ssec-pkgs-dockerTools-streamLayeredImage" title="streamLayeredImage" >the section called “streamLayeredImage”</a> instead.</p><p>This function allows a script to be run during the layer generation process, allowing custom behaviour to affect the final results of the image (see the documentation of the <code class="literal">runAsRoot</code> and <code class="literal">extraCommands</code> attributes).</p><p>The resulting repository tarball will list a single image as specified by the <code class="literal">name</code> and <code class="literal">tag</code> attributes.
 By default, that image will use a static creation date (see documentation for the <code class="literal">created</code> attribute).
 This allows <code class="literal">buildImage</code> to produce reproducible images.</p><div class="tip"><h3 class="title">Tip</h3><p>When running an image built with <code class="literal">buildImage</code>, you might encounter certain errors depending on what you included in the image, especially if you did not start with any base image.</p><p>If you encounter errors similar to <code class="literal">getProtocolByName: does not exist (no such protocol name: tcp)</code>, you may need to add the contents of <code class="literal">pkgs.iana-etc</code> in the <code class="literal">copyToRoot</code> attribute.
 Similarly, if you encounter errors similar to <code class="literal">Error_Protocol (&quot;certificate has unknown CA&quot;,True,UnknownCa)</code>, you may need to add the contents of <code class="literal">pkgs.cacert</code> in the <code class="literal">copyToRoot</code> attribute.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-pkgs-dockerTools-buildImage-inputs"></a>Inputs   </h4>  </div> </div></div><p><code class="literal">buildImage</code> expects an argument with the following attributes:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code> (String)</span></dt><dd><p>The name of the generated image.</p></dd><dt><span class="term"><code class="literal">tag</code> (String or Null; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Tag of the generated image.
 If <code class="literal">null</code>, the hash of the nix derivation will be used as the tag.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">fromImage</code> (Path or Null; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>The repository tarball of an image to be used as the base for the generated image.
-It must be a valid Docker image, such as one exported by <code class="literal">docker save</code>, or another image built with the <code class="literal">dockerTools</code> utility functions.
+It must be a valid Docker image, such as one exported by <code class="literal">docker image save</code>, or another image built with the <code class="literal">dockerTools</code> utility functions.
 This can be seen as an equivalent of <code class="literal">FROM fromImage</code> in a <code class="literal">Dockerfile</code>.
 A value of <code class="literal">null</code> can be seen as an equivalent of <code class="literal">FROM scratch</code>.</p><p>If specified, the layer created by <code class="literal">buildImage</code> will be appended to the layers defined in the base image, resulting in an image with at least two layers (one or more layers from the base image, and the layer created by <code class="literal">buildImage</code>).
 Otherwise, the resulting image with contain the single layer created by <code class="literal">buildImage</code>.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">fromImageName</code> (String or Null; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Used to specify the image within the repository tarball in case it contains multiple images.
@@ -4802,7 +4802,7 @@ Those functions allow scripts to be run as root without access to the <code clas
 Copying their dependencies into the generated image is a step that happens after <code class="literal">runAsRoot</code> finishes running.</p></div><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">extraCommands</code> (String; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>A bash script that will run before the layer created by <code class="literal">buildImage</code> is finalised.
 The script will be run on some (opaque) working directory which will become <code class="literal">/</code> once the layer is created.
 This is similar to <code class="literal">runAsRoot</code>, but the script specified in <code class="literal">extraCommands</code> is <span class="strong"><strong>not</strong></span> run as root, and does not involve creating a VM.
-It is simply run as part of building the derivation that outputs the layer created by <code class="literal">buildImage</code>.</p><p>See <a class="xref" href="#ex-dockerTools-buildImage-extraCommands" title="Example 265. Building a Docker image with extraCommands" >Example 265</a> for how to work with this attribute, and subtle differences compared to <code class="literal">runAsRoot</code>.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">&quot;&quot;</code>.</p></dd><dt><span class="term"><code class="literal">config</code> (Attribute Set; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Used to specify the configuration of the containers that will be started off the generated image.
+It is simply run as part of building the derivation that outputs the layer created by <code class="literal">buildImage</code>.</p><p>See <a class="xref" href="#ex-dockerTools-buildImage-extraCommands" title="Example 265. Building a Docker image with extraCommands" >Example 265</a> for how to work with this attribute, and subtle differences compared to <code class="literal">runAsRoot</code>.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">&quot;&quot;</code>.</p></dd><dt><span class="term"><code class="literal">config</code> (Attribute Set or Null; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Used to specify the configuration of the containers that will be started off the generated image.
 Must be an attribute set, with each attribute as listed in the <a class="link" href="https://github.com/moby/moby/blob/46f7ab808b9504d735d600e259ca0723f76fb164/image/spec/spec.md#image-json-field-descriptions"  target="_top">Docker Image Specification v1.3.0</a>.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">architecture</code> (String; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Used to specify the image architecture.
 This is useful for multi-architecture builds that don’t need cross compiling.
 If specified, its value should follow the <a class="link" href="https://github.com/opencontainers/image-spec/blob/main/config.md#properties"  target="_top">OCI Image Configuration Specification</a>, which should still be compatible with Docker.
@@ -4847,7 +4847,7 @@ Cooking the image...
 Finished.
 /nix/store/p4dsg62inh9d2ksy3c7bv58xa851dasr-docker-image-redis.tar.gz
 
-$ docker load -i /nix/store/p4dsg62inh9d2ksy3c7bv58xa851dasr-docker-image-redis.tar.gz
+$ docker image load -i /nix/store/p4dsg62inh9d2ksy3c7bv58xa851dasr-docker-image-redis.tar.gz
 (some output removed for clarity)
 Loaded image: redis:latest
 </code></pre></div></div><br class="example-break" /><div class="example"><a id="ex-dockerTools-buildImage-runAsRoot" /><p class="title"><strong>Example 264. Building a Docker image with <code class="literal">runAsRoot</code></strong></p><div class="example-contents"><p>The following package builds a Docker image with the <code class="literal">hello</code> executable from the <code class="literal">hello</code> package.
@@ -4910,7 +4910,7 @@ dockerTools.buildImage {
 
   config.Cmd = [ &quot;/bin/hello&quot; ];
 }
-</code></pre><p>After importing the generated repository tarball with Docker, its CLI will display a reasonable date and sort the images as expected:</p><pre><code class="programlisting ShellSession">$ docker images
+</code></pre><p>After importing the generated repository tarball with Docker, its CLI will display a reasonable date and sort the images as expected:</p><pre><code class="programlisting shell">$ docker image ls
 REPOSITORY   TAG      IMAGE ID       CREATED              SIZE
 hello        latest   de2bf4786de6   About a minute ago   25.2MB
 </code></pre></div></div><br class="example-break" />
@@ -4918,7 +4918,7 @@ hello        latest   de2bf4786de6   About a minute ago   25.2MB
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-dockerTools-buildLayeredImage"></a>buildLayeredImage   </h3>  </div> </div></div><p><code class="literal">buildLayeredImage</code> uses <a class="link" href="#ssec-pkgs-dockerTools-streamLayeredImage" title="streamLayeredImage" ><code class="literal">streamLayeredImage</code></a> underneath to build a compressed Docker-compatible repository tarball.
 Basically, <code class="literal">buildLayeredImage</code> runs the script created by <code class="literal">streamLayeredImage</code> to save the compressed image in the Nix store.
-<code class="literal">buildLayeredImage</code> supports the same options as <code class="literal">streamLayeredImage</code>, see <a class="link" href="#ssec-pkgs-dockerTools-streamLayeredImage" title="streamLayeredImage" ><code class="literal">streamLayeredImage</code></a> for details.</p><div class="note"><h3 class="title">Note</h3><p>Despite the similar name, <a class="link" href="#ssec-pkgs-dockerTools-buildImage" title="buildImage" ><code class="literal">buildImage</code></a> works completely differently from <code class="literal">buildLayeredImage</code> and <code class="literal">streamLayeredImage</code>.</p><p>Even though some of the arguments may seem related, they cannot be interchanged.</p></div><p>You can use this function to load an image in Docker with <code class="literal">docker load</code>.
+<code class="literal">buildLayeredImage</code> supports the same options as <code class="literal">streamLayeredImage</code>, see <a class="link" href="#ssec-pkgs-dockerTools-streamLayeredImage" title="streamLayeredImage" ><code class="literal">streamLayeredImage</code></a> for details.</p><div class="note"><h3 class="title">Note</h3><p>Despite the similar name, <a class="link" href="#ssec-pkgs-dockerTools-buildImage" title="buildImage" ><code class="literal">buildImage</code></a> works completely differently from <code class="literal">buildLayeredImage</code> and <code class="literal">streamLayeredImage</code>.</p><p>Even though some of the arguments may seem related, they cannot be interchanged.</p></div><p>You can load the result of this function in Docker with <code class="literal">docker image load</code>.
 See <a class="xref" href="#ex-dockerTools-buildLayeredImage-hello" title="Example 267. Building a layered Docker image" >Example 267</a> to see how to do that.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-pkgs-dockerTools-buildLayeredImage-examples"></a>Examples   </h4>  </div> </div></div><div class="example"><a id="ex-dockerTools-buildLayeredImage-hello" /><p class="title"><strong>Example 267. Building a layered Docker image</strong></p><div class="example-contents"><p>The following package builds a layered Docker image that runs the <code class="literal">hello</code> executable from the <code class="literal">hello</code> package.
 The Docker image will have name <code class="literal">hello</code> and tag <code class="literal">latest</code>.</p><pre><code class="programlisting nix">{ dockerTools, hello }:
 dockerTools.buildLayeredImage {
@@ -4943,29 +4943,29 @@ Adding manifests...
 Done.
 /nix/store/hxcz7snvw7f8rzhbh6mv8jq39d992905-hello.tar.gz
 
-$ docker load -i /nix/store/hxcz7snvw7f8rzhbh6mv8jq39d992905-hello.tar.gz
+$ docker image load -i /nix/store/hxcz7snvw7f8rzhbh6mv8jq39d992905-hello.tar.gz
 (some output removed for clarity)
 Loaded image: hello:latest
 </code></pre></div></div><br class="example-break" />
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-dockerTools-streamLayeredImage"></a>streamLayeredImage   </h3>  </div> </div></div><p><code class="literal">streamLayeredImage</code> builds a <span class="strong"><strong>script</strong></span> which, when run, will stream to stdout a Docker-compatible repository tarball containing a single image, using multiple layers to improve sharing between images.
-This means that <code class="literal">streamLayeredImage</code> does not output an image into the Nix store, but only a script that builds the image, saving on IO and disk/cache space, particularly with large images.</p><p>You can use this function to load an image in Docker with <code class="literal">docker load</code>.
+This means that <code class="literal">streamLayeredImage</code> does not output an image into the Nix store, but only a script that builds the image, saving on IO and disk/cache space, particularly with large images.</p><p>You can load the result of this function in Docker with <code class="literal">docker image load</code>.
 See <a class="xref" href="#ex-dockerTools-streamLayeredImage-hello" title="Example 268. Streaming a layered Docker image" >Example 268</a> to see how to do that.</p><p>For this function, you specify a <a class="link" href="https://nixos.org/manual/nix/stable/store/store-path"  target="_top">store path</a> or a list of store paths to be added to the image, and the functions will automatically include any dependencies of those paths in the image.
 The function will attempt to create one layer per object in the Nix store that needs to be added to the image.
 In case there are more objects to include than available layers, the function will put the most <a class="link" href="https://github.com/NixOS/nixpkgs/tree/release-23.11/pkgs/build-support/references-by-popularity"  target="_top">“popular”</a> objects in their own layers, and group all remaining objects into a single layer.</p><p>An additional layer will be created with symlinks to the store paths you specified to be included in the image.
 These symlinks are built with <a class="link" href="#trivial-builder-symlinkJoin" title="symlinkJoin" ><code class="literal">symlinkJoin</code></a>, so they will be included in the root of the image.
 See <a class="xref" href="#ex-dockerTools-streamLayeredImage-exploringlayers" title="Example 269. Exploring the layers in an image built with streamLayeredImage" >Example 269</a> to understand how these symlinks are laid out in the generated image.</p><p><code class="literal">streamLayeredImage</code> allows scripts to be run when creating the additional layer with symlinks, allowing custom behaviour to affect the final results of the image (see the documentation of the <code class="literal">extraCommands</code> and <code class="literal">fakeRootCommands</code> attributes).</p><p>The resulting repository tarball will list a single image as specified by the <code class="literal">name</code> and <code class="literal">tag</code> attributes.
 By default, that image will use a static creation date (see documentation for the <code class="literal">created</code> attribute).
-This allows the function to produce reproducible images.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-pkgs-dockerTools-streamLayeredImage-inputs"></a>Inputs   </h4>  </div> </div></div><p><code class="literal">streamLayeredImage</code> expects one argument with the following attributes:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code> (String)</span></dt><dd><p>The name of the generated image.</p></dd><dt><span class="term"><code class="literal">tag</code> (String; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Tag of the generated image.
+This allows the function to produce reproducible images.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-pkgs-dockerTools-streamLayeredImage-inputs"></a>Inputs   </h4>  </div> </div></div><p><code class="literal">streamLayeredImage</code> expects one argument with the following attributes:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code> (String)</span></dt><dd><p>The name of the generated image.</p></dd><dt><span class="term"><code class="literal">tag</code> (String or Null; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Tag of the generated image.
 If <code class="literal">null</code>, the hash of the nix derivation will be used as the tag.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">fromImage</code>(Path or Null; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>The repository tarball of an image to be used as the base for the generated image.
-It must be a valid Docker image, such as one exported by <code class="literal">docker save</code>, or another image built with the <code class="literal">dockerTools</code> utility functions.
+It must be a valid Docker image, such as one exported by <code class="literal">docker image save</code>, or another image built with the <code class="literal">dockerTools</code> utility functions.
 This can be seen as an equivalent of <code class="literal">FROM fromImage</code> in a <code class="literal">Dockerfile</code>.
 A value of <code class="literal">null</code> can be seen as an equivalent of <code class="literal">FROM scratch</code>.</p><p>If specified, the created layers will be appended to the layers defined in the base image.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">contents</code> (Path or List of Paths; <span class="emphasis"><em>optional</em></span>) <a id="dockerTools-buildLayeredImage-arg-contents" /></span></dt><dd><p>Directories whose contents will be added to the generated image.
 Things that coerce to paths (e.g. a derivation) can also be used.
 This can be seen as an equivalent of <code class="literal">ADD contents/ /</code> in a <code class="literal">Dockerfile</code>.</p><p>All the contents specified by <code class="literal">contents</code> will be added as a final layer in the generated image.
 They will be added as links to the actual files (e.g. links to the store paths).
-The actual files will be added in previous layers.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">[]</code></p></dd><dt><span class="term"><code class="literal">config</code> (Attribute Set; <span class="emphasis"><em>optional</em></span>) <a id="dockerTools-buildLayeredImage-arg-config" /></span></dt><dd><p>Used to specify the configuration of the containers that will be started off the generated image.
+The actual files will be added in previous layers.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">[]</code></p></dd><dt><span class="term"><code class="literal">config</code> (Attribute Set or Null; <span class="emphasis"><em>optional</em></span>) <a id="dockerTools-buildLayeredImage-arg-config" /></span></dt><dd><p>Used to specify the configuration of the containers that will be started off the generated image.
 Must be an attribute set, with each attribute as listed in the <a class="link" href="https://github.com/moby/moby/blob/46f7ab808b9504d735d600e259ca0723f76fb164/image/spec/spec.md#image-json-field-descriptions"  target="_top">Docker Image Specification v1.3.0</a>.</p><p>If any packages are used directly in <code class="literal">config</code>, they will be automatically included in the generated image.
 See <a class="xref" href="#ex-dockerTools-streamLayeredImage-configclosure" title="Example 270. Building a layered Docker image with packages directly in config" >Example 270</a> for an example.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">null</code>.</p></dd><dt><span class="term"><code class="literal">architecture</code> (String; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Used to specify the image architecture.
 This is useful for multi-architecture builds that don’t need cross compiling.
@@ -4999,12 +4999,12 @@ dockerTools.streamLayeredImage {
   config.Cmd = [ &quot;/bin/hello&quot; ];
 }
 </code></pre><p>The result of building this package is a script.
-Running this script and piping it into <code class="literal">docker load</code> gives you the same image that was built in <a class="xref" href="#ex-dockerTools-buildLayeredImage-hello" title="Example 267. Building a layered Docker image" >Example 267</a>.
+Running this script and piping it into <code class="literal">docker image load</code> gives you the same image that was built in <a class="xref" href="#ex-dockerTools-buildLayeredImage-hello" title="Example 267. Building a layered Docker image" >Example 267</a>.
 Note that in this case, the image is never added to the Nix store, but instead streamed directly into Docker.</p><pre><code class="programlisting shell">$ nix-build
 (output removed for clarity)
 /nix/store/wsz2xl8ckxnlb769irvq6jv1280dfvxd-stream-hello
 
-$ /nix/store/wsz2xl8ckxnlb769irvq6jv1280dfvxd-stream-hello | docker load
+$ /nix/store/wsz2xl8ckxnlb769irvq6jv1280dfvxd-stream-hello | docker image load
 No &#x27;fromImage&#x27; provided
 Creating layer 1 from paths: [&#x27;/nix/store/i93s7xxblavsacpy82zdbn4kplsyq48l-libunistring-1.1&#x27;]
 Creating layer 2 from paths: [&#x27;/nix/store/ji01n9vinnj22nbrb86nx8a1ssgpilx8-libidn2-2.3.4&#x27;]
@@ -5073,7 +5073,7 @@ dockerTools.streamLayeredImage {
 </code></pre></div></div><br class="example-break" /><p><a id="ssec-pkgs-dockerTools-fetchFromRegistry" /></p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-dockerTools-pullImage"></a>pullImage   </h3>  </div> </div></div><p>This function is similar to the <code class="literal">docker pull</code> command, which means it can be used to pull a Docker image from a registry that implements the <a class="link" href="https://distribution.github.io/distribution/spec/api/"  target="_top">Docker Registry HTTP API V2</a>.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-dockerTools-pullImage"></a>pullImage   </h3>  </div> </div></div><p>This function is similar to the <code class="literal">docker image pull</code> command, which means it can be used to pull a Docker image from a registry that implements the <a class="link" href="https://distribution.github.io/distribution/spec/api/"  target="_top">Docker Registry HTTP API V2</a>.
 By default, the <code class="literal">docker.io</code> registry is used.</p><p>The image will be downloaded as an uncompressed Docker-compatible repository tarball, which is suitable for use with other <code class="literal">dockerTools</code> functions such as <a class="link" href="#ssec-pkgs-dockerTools-buildImage" title="buildImage" ><code class="literal">buildImage</code></a>, <a class="link" href="#ssec-pkgs-dockerTools-buildLayeredImage" title="buildLayeredImage" ><code class="literal">buildLayeredImage</code></a>, and <a class="link" href="#ssec-pkgs-dockerTools-streamLayeredImage" title="streamLayeredImage" ><code class="literal">streamLayeredImage</code></a>.</p><p>This function requires two different types of hashes/digests to be specified:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>One of them is used to identify a unique image within the registry (see the documentation for the <code class="literal">imageDigest</code> attribute).</p></li><li class="listitem"><p>The other is used by Nix to ensure the contents of the output haven’t changed (see the documentation for the <code class="literal">sha256</code> attribute).</p></li></ul></div><p>Both hashes are required because they must uniquely identify some content in two completely different systems (the Docker registry and the Nix store), but their values will not be the same.
 See <a class="xref" href="#ex-dockerTools-pullImage-nixprefetchdocker" title="Example 273. Finding the digest and hash values to use for dockerTools.pullImage" >Example 273</a> for a tool that can help gather these values.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-pkgs-dockerTools-pullImage-inputs"></a>Inputs   </h4>  </div> </div></div><p><code class="literal">pullImage</code> expects a single argument with the following attributes:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">imageName</code> (String)</span></dt><dd><p>Specifies the name of the image to be downloaded, as well as the registry endpoint.
 By default, the <code class="literal">docker.io</code> registry is used.
@@ -5228,7 +5228,7 @@ The helpers in this section are packages that provide some of these commonly-nee
 For more details on how that works, see the documentation for the function you’re using.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sssec-pkgs-dockerTools-helpers-usrBinEnv"></a>usrBinEnv   </h4>  </div> </div></div><p>This provides the <code class="literal">env</code> utility at <code class="literal">/usr/bin/env</code>.
 This is currently implemented by linking to the <code class="literal">env</code> binary from the <code class="literal">coreutils</code> package, but is considered an implementation detail that could change in the future.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sssec-pkgs-dockerTools-helpers-binSh"></a>binSh   </h4>  </div> </div></div><p>This provides a <code class="literal">/bin/sh</code> link to the <code class="literal">bash</code> binary from the <code class="literal">bashInteractive</code> package.
-Because of this, it supports cases such as running a command interactively in a container (for example by running <code class="literal">docker run -it &lt;image_name&gt;</code>).</p>
+Because of this, it supports cases such as running a command interactively in a container (for example by running <code class="literal">docker container run -it &lt;image_name&gt;</code>).</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sssec-pkgs-dockerTools-helpers-caCertificates"></a>caCertificates   </h4>  </div> </div></div><p>This adds trusted root TLS/SSL certificates from the <code class="literal">cacert</code> package in multiple locations in an attempt to be compatible with binaries built for multiple Linux distributions.
 The locations currently used are:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">/etc/ssl/certs/ca-bundle.crt</code></p></li><li class="listitem"><p><code class="literal">/etc/ssl/certs/ca-certificates.crt</code></p></li><li class="listitem"><p><code class="literal">/etc/pki/tls/certs/ca-bundle.crt</code></p></li></ul></div><p><a id="ssec-pkgs-dockerTools-fakeNss" /></p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="sssec-pkgs-dockerTools-helpers-fakeNss"></a>fakeNss   </h4>  </div> </div></div><p>This is a re-export of the <code class="literal">fakeNss</code> package from Nixpkgs.
@@ -5254,9 +5254,9 @@ dockerTools.buildImage {
 This is made possible by <code class="literal">binSh</code>.</p><pre><code class="programlisting shell">$ nix-build
 (some output removed for clarity)
 /nix/store/2p0i3i04cgjlk71hsn7ll4kxaxxiv4qg-docker-image-env-helpers.tar.gz
-$ docker load -i /nix/store/2p0i3i04cgjlk71hsn7ll4kxaxxiv4qg-docker-image-env-helpers.tar.gz
+$ docker image load -i /nix/store/2p0i3i04cgjlk71hsn7ll4kxaxxiv4qg-docker-image-env-helpers.tar.gz
 (output removed for clarity)
-$ docker run --rm -it env-helpers:latest /bin/sh
+$ docker container run --rm -it env-helpers:latest /bin/sh
 sh-5.2# help
 GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
 (rest of output removed for clarity)
@@ -5280,9 +5280,9 @@ dockerTools.buildLayeredImage {
 This is made possible by <code class="literal">binSh</code>.</p><pre><code class="programlisting shell">$ nix-build
 (some output removed for clarity)
 /nix/store/rpf47f4z5b9qr4db4ach9yr4b85hjhxq-env-helpers.tar.gz
-$ docker load -i /nix/store/rpf47f4z5b9qr4db4ach9yr4b85hjhxq-env-helpers.tar.gz
+$ docker image load -i /nix/store/rpf47f4z5b9qr4db4ach9yr4b85hjhxq-env-helpers.tar.gz
 (output removed for clarity)
-$ docker run --rm -it env-helpers:latest /bin/sh
+$ docker container run --rm -it env-helpers:latest /bin/sh
 sh-5.2# help
 GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
 (rest of output removed for clarity)
@@ -5345,10 +5345,10 @@ dockerTools.buildNixShellImage {
 (some output removed for clarity)
 /nix/store/pkj1sgzaz31wl0pbvbg3yp5b3kxndqms-hello-2.12.1-env.tar.gz
 
-$ docker load -i /nix/store/pkj1sgzaz31wl0pbvbg3yp5b3kxndqms-hello-2.12.1-env.tar.gz
+$ docker image load -i /nix/store/pkj1sgzaz31wl0pbvbg3yp5b3kxndqms-hello-2.12.1-env.tar.gz
 (some output removed for clarity)
 Loaded image: hello-2.12.1-env:latest
-</code></pre><p>After starting an interactive container, the derivation can be built by running <code class="literal">buildDerivation</code>, and the output can be executed as expected:</p><pre><code class="programlisting shell">$ docker run -it hello-2.12.1-env:latest
+</code></pre><p>After starting an interactive container, the derivation can be built by running <code class="literal">buildDerivation</code>, and the output can be executed as expected:</p><pre><code class="programlisting shell">$ docker container run -it hello-2.12.1-env:latest
 [nix-shell:~]$ buildDerivation
 Running phase: unpackPhase
 unpacking source archive /nix/store/pa10z4ngm0g83kx9mssrqzz30s84vq7k-hello-2.12.1.tar.gz
@@ -5393,14 +5393,14 @@ dockerTools.streamNixShellImage {
   tag = &quot;latest&quot;;
 }
 </code></pre><p>The result of building this package is a script.
-Running this script and piping it into <code class="literal">docker load</code> gives you the same image that was built in <a class="xref" href="#ex-dockerTools-buildNixShellImage-hello" title="Example 282. Building a Docker image with buildNixShellImage with the build environment for the hello package" >Example 282</a>.</p><pre><code class="programlisting shell">$ nix-build
+Running this script and piping it into <code class="literal">docker image load</code> gives you the same image that was built in <a class="xref" href="#ex-dockerTools-buildNixShellImage-hello" title="Example 282. Building a Docker image with buildNixShellImage with the build environment for the hello package" >Example 282</a>.</p><pre><code class="programlisting shell">$ nix-build
 (some output removed for clarity)
 /nix/store/8vhznpz2frqazxnd8pgdvf38jscdypax-stream-hello-2.12.1-env
 
-$ /nix/store/8vhznpz2frqazxnd8pgdvf38jscdypax-stream-hello-2.12.1-env | docker load
+$ /nix/store/8vhznpz2frqazxnd8pgdvf38jscdypax-stream-hello-2.12.1-env | docker image load
 (some output removed for clarity)
 Loaded image: hello-2.12.1-env:latest
-</code></pre><p>After starting an interactive container, the derivation can be built by running <code class="literal">buildDerivation</code>, and the output can be executed as expected:</p><pre><code class="programlisting shell">$ docker run -it hello-2.12.1-env:latest
+</code></pre><p>After starting an interactive container, the derivation can be built by running <code class="literal">buildDerivation</code>, and the output can be executed as expected:</p><pre><code class="programlisting shell">$ docker container run -it hello-2.12.1-env:latest
 [nix-shell:~]$ buildDerivation
 Running phase: unpackPhase
 unpacking source archive /nix/store/pa10z4ngm0g83kx9mssrqzz30s84vq7k-hello-2.12.1.tar.gz
@@ -5428,14 +5428,14 @@ dockerTools.streamNixShellImage {
     ];
   });
 }
-</code></pre><p>The result of building this package is a script which can be run and piped into <code class="literal">docker load</code> to load the generated image.</p><pre><code class="programlisting shell">$ nix-build
+</code></pre><p>The result of building this package is a script which can be run and piped into <code class="literal">docker image load</code> to load the generated image.</p><pre><code class="programlisting shell">$ nix-build
 (some output removed for clarity)
 /nix/store/h5abh0vljgzg381lna922gqknx6yc0v7-stream-hello-2.12.1-env
 
-$ /nix/store/h5abh0vljgzg381lna922gqknx6yc0v7-stream-hello-2.12.1-env | docker load
+$ /nix/store/h5abh0vljgzg381lna922gqknx6yc0v7-stream-hello-2.12.1-env | docker image load
 (some output removed for clarity)
 Loaded image: hello-2.12.1-env:latest
-</code></pre><p>After starting an interactive container, we can verify the extra package is available by running <code class="literal">cowsay</code>:</p><pre><code class="programlisting shell">$ docker run -it hello-2.12.1-env:latest
+</code></pre><p>After starting an interactive container, we can verify the extra package is available by running <code class="literal">cowsay</code>:</p><pre><code class="programlisting shell">$ docker container run -it hello-2.12.1-env:latest
 [nix-shell:~]$ cowsay &quot;Hello, world!&quot;
  _______________
 &lt; Hello, world! &gt;
@@ -5458,14 +5458,14 @@ dockerTools.streamNixShellImage {
     &#x27;&#x27;;
   });
 }
-</code></pre><p>The result of building this package is a script which can be run and piped into <code class="literal">docker load</code> to load the generated image.</p><pre><code class="programlisting shell">$ nix-build
+</code></pre><p>The result of building this package is a script which can be run and piped into <code class="literal">docker image load</code> to load the generated image.</p><pre><code class="programlisting shell">$ nix-build
 (some output removed for clarity)
 /nix/store/iz4dhdvgzazl5vrgyz719iwjzjy6xlx1-stream-hello-2.12.1-env
 
-$ /nix/store/iz4dhdvgzazl5vrgyz719iwjzjy6xlx1-stream-hello-2.12.1-env | docker load
+$ /nix/store/iz4dhdvgzazl5vrgyz719iwjzjy6xlx1-stream-hello-2.12.1-env | docker image load
 (some output removed for clarity)
 Loaded image: hello-2.12.1-env:latest
-</code></pre><p>After starting an interactive container, we can see the result of the <code class="literal">shellHook</code>:</p><pre><code class="programlisting shell">$ docker run -it hello-2.12.1-env:latest
+</code></pre><p>After starting an interactive container, we can see the result of the <code class="literal">shellHook</code>:</p><pre><code class="programlisting shell">$ docker container run -it hello-2.12.1-env:latest
 Hello, world!
 
 [nix-shell:~]$
@@ -11226,11 +11226,11 @@ rustPlatform.buildRustPackage rec {
     maintainers = [];
   };
 }
-</code></pre><p><code class="literal">buildRustPackage</code> requires either the <code class="literal">cargoHash</code> or the <code class="literal">cargoSha256</code>
-attribute which is computed over all crate sources of this package.
-<code class="literal">cargoSha256</code> is used for traditional Nix SHA-256 hashes. <code class="literal">cargoHash</code> should
-instead be used for <a class="link" href="https://www.w3.org/TR/SRI/"  target="_top">SRI</a> hashes and should be
-preferred. For example:</p><pre><code class="programlisting nix">  cargoHash = &quot;sha256-l1vL2ZdtDRxSGvP0X/l3nMw8+6WF67KPutJEzUROjg8=&quot;;
+</code></pre><p><code class="literal">buildRustPackage</code> requires either a <code class="literal">cargoHash</code> (preferred) or a
+<code class="literal">cargoSha256</code> attribute, computed over all crate sources of this package.
+<code class="literal">cargoHash</code> supports <a class="link" href="https://www.w3.org/TR/SRI/"  target="_top">SRI</a> hashes and should be
+preferred over <code class="literal">cargoSha256</code> which was used for traditional Nix SHA-256 hashes.
+For example:</p><pre><code class="programlisting nix">  cargoHash = &quot;sha256-l1vL2ZdtDRxSGvP0X/l3nMw8+6WF67KPutJEzUROjg8=&quot;;
 </code></pre><p>Exception: If the application has cargo <code class="literal">git</code> dependencies, the <code class="literal">cargoHash</code>/<code class="literal">cargoSha256</code>
 approach will not work, and you will need to copy the <code class="literal">Cargo.lock</code> file of the application
 to nixpkgs and continue with the next section for specifying the options of the <code class="literal">cargoLock</code>
@@ -11238,8 +11238,8 @@ section.</p><p>Both types of hashes are permitted when contributing to nixpkgs. 
 Cargo hash is obtained by inserting a fake checksum into the
 expression and building the package once. The correct checksum can
 then be taken from the failed build. A fake hash can be used for
-<code class="literal">cargoSha256</code> as follows:</p><pre><code class="programlisting nix">  cargoSha256 = lib.fakeSha256;
-</code></pre><p>For <code class="literal">cargoHash</code> you can use:</p><pre><code class="programlisting nix">  cargoHash = lib.fakeHash;
+<code class="literal">cargoHash</code> as follows:</p><pre><code class="programlisting nix">  cargoHash = lib.fakeHash;
+</code></pre><p>For <code class="literal">cargoSha256</code> you can use:</p><pre><code class="programlisting nix">  cargoSha256 = lib.fakeSha256;
 </code></pre><p>Per the instructions in the <a class="link" href="https://doc.rust-lang.org/cargo/guide/cargo-toml-vs-cargo-lock.html"  target="_top">Cargo Book</a>
 best practices guide, Rust applications should always commit the <code class="literal">Cargo.lock</code>
 file in git to ensure a reproducible build. However, a few packages do not, and
@@ -11250,7 +11250,7 @@ attribute, and fail the build if not. It will also will compress the vendor
 directory into a tar.gz archive.</p><p>The tarball with vendored dependencies contains a directory with the
 package’s <code class="literal">name</code>, which is normally composed of <code class="literal">pname</code> and
 <code class="literal">version</code>. This means that the vendored dependencies hash
-(<code class="literal">cargoSha256</code>/<code class="literal">cargoHash</code>) is dependent on the package name and
+(<code class="literal">cargoHash</code>/<code class="literal">cargoSha256</code>) is dependent on the package name and
 version. The <code class="literal">cargoDepsName</code> attribute can be used to use another name
 for the directory of vendored dependencies. For example, the hash can
 be made invariant to the version by setting <code class="literal">cargoDepsName</code> to
@@ -11268,7 +11268,7 @@ be made invariant to the version by setting <code class="literal">cargoDepsName<
 
   # ...
 }
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="importing-a-cargo.lock-file"></a>Importing a <code class="literal">Cargo.lock</code> file   </h4>  </div> </div></div><p>Using <code class="literal">cargoSha256</code> or <code class="literal">cargoHash</code> is tedious when using
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="importing-a-cargo.lock-file"></a>Importing a <code class="literal">Cargo.lock</code> file   </h4>  </div> </div></div><p>Using a vendored hash (<code class="literal">cargoHash</code>/<code class="literal">cargoSha256</code>) is tedious when using
 <code class="literal">buildRustPackage</code> within a project, since it requires that the hash
 is updated after every change to <code class="literal">Cargo.lock</code>. Therefore,
 <code class="literal">buildRustPackage</code> also supports vendoring dependencies directly from
@@ -12367,7 +12367,7 @@ builders-use-substitutes = true
             host.pkgs = pkgs;
             darwin-builder.workingDirectory = &quot;/var/lib/darwin-builder&quot;;
           };
-        };
+        }
       ];
     };
   in {
