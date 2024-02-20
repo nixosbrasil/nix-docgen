@@ -4809,7 +4809,7 @@ If specified, its value should follow the <a class="link" href="https://github.c
 According to the linked specification, all possible values for <code class="literal">$GOARCH</code> in <a class="link" href="https://go.dev/doc/install/source#environment"  target="_top">the Go docs</a> should be valid, but will commonly be one of <code class="literal">386</code>, <code class="literal">amd64</code>, <code class="literal">arm</code>, or <code class="literal">arm64</code>.</p><p><span class="emphasis"><em>Default value:</em></span> the same value from <code class="literal">pkgs.go.GOARCH</code>.</p></dd><dt><span class="term"><code class="literal">diskSize</code> (Number; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Controls the disk size (in megabytes) of the VM used to run the script specified in <code class="literal">runAsRoot</code>.
 This attribute is ignored if <code class="literal">runAsRoot</code> is <code class="literal">null</code>.</p><p><span class="emphasis"><em>Default value:</em></span> 1024.</p></dd><dt><span class="term"><code class="literal">buildVMMemorySize</code> (Number; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Controls the amount of memory (in megabytes) provisioned for the VM used to run the script specified in <code class="literal">runAsRoot</code>.
 This attribute is ignored if <code class="literal">runAsRoot</code> is <code class="literal">null</code>.</p><p><span class="emphasis"><em>Default value:</em></span> 512.</p></dd><dt><span class="term"><code class="literal">created</code> (String; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Specifies the time of creation of the generated image.
-This should be either a date and time formatted according to <a class="link" href="https://en.wikipedia.org/wiki/ISO_8601"  target="_top">ISO-8601</a> or <code class="literal">&quot;now&quot;</code>, in which case <code class="literal">buildImage</code> will use the current date.</p><p>See <a class="xref" href="#ex-dockerTools-buildImage-creatednow" title="Example 266. Building a Docker image with a creation date set to the current time" >Example 266</a> for how to use <code class="literal">&quot;now&quot;</code>.</p><div class="caution"><h3 class="title">Caution</h3><p>Using <code class="literal">&quot;now&quot;</code> means that the generated image will not be reproducible anymore (because the date will always change whenever it’s built).</p></div><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">&quot;1970-01-01T00:00:01Z&quot;</code>.</p></dd><dt><span class="term"><code class="literal">uid</code> (Number; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>The uid of the user that will own the files packed in the new layer built by <code class="literal">buildImage</code>.</p><p><span class="emphasis"><em>Default value:</em></span> 0.</p></dd><dt><span class="term"><code class="literal">gid</code> (Number; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>The gid of the group that will own the files packed in the new layer built by <code class="literal">buildImage</code>.</p><p><span class="emphasis"><em>Default value:</em></span> 0.</p></dd><dt><span class="term"><code class="literal">contents</code> <span class="strong"><strong>DEPRECATED</strong></span></span></dt><dd><p>This attribute is deprecated, and users are encouraged to use <code class="literal">copyToRoot</code> instead.</p></dd></dl></div>
+This should be either a date and time formatted according to <a class="link" href="https://en.wikipedia.org/wiki/ISO_8601"  target="_top">ISO-8601</a> or <code class="literal">&quot;now&quot;</code>, in which case <code class="literal">buildImage</code> will use the current date.</p><p>See <a class="xref" href="#ex-dockerTools-buildImage-creatednow" title="Example 266. Building a Docker image with a creation date set to the current time" >Example 266</a> for how to use <code class="literal">&quot;now&quot;</code>.</p><div class="caution"><h3 class="title">Caution</h3><p>Using <code class="literal">&quot;now&quot;</code> means that the generated image will not be reproducible anymore (because the date will always change whenever it’s built).</p></div><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">&quot;1970-01-01T00:00:01Z&quot;</code>.</p></dd><dt><span class="term"><code class="literal">uid</code> (Number; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>The uid of the user that will own the files packed in the new layer built by <code class="literal">buildImage</code>.</p><p><span class="emphasis"><em>Default value:</em></span> 0.</p></dd><dt><span class="term"><code class="literal">gid</code> (Number; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>The gid of the group that will own the files packed in the new layer built by <code class="literal">buildImage</code>.</p><p><span class="emphasis"><em>Default value:</em></span> 0.</p></dd><dt><span class="term"><code class="literal">compressor</code> (String; <span class="emphasis"><em>optional</em></span>)</span></dt><dd><p>Selects the algorithm used to compress the image.</p><p><span class="emphasis"><em>Default value:</em></span> <code class="literal">&quot;gz&quot;</code>.<br /><span class="emphasis"><em>Possible values:</em></span> <code class="literal">&quot;none&quot;</code>, <code class="literal">&quot;gz&quot;</code>, <code class="literal">&quot;zstd&quot;</code>.</p></dd><dt><span class="term"><code class="literal">contents</code> <span class="strong"><strong>DEPRECATED</strong></span></span></dt><dd><p>This attribute is deprecated, and users are encouraged to use <code class="literal">copyToRoot</code> instead.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="ssec-pkgs-dockerTools-buildImage-passthru-outputs"></a>Passthru outputs   </h4>  </div> </div></div><p><code class="literal">buildImage</code> defines a few <a class="link" href="#var-stdenv-passthru" title="passthru" ><code class="literal">passthru</code></a> attributes:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">buildArgs</code> (Attribute Set)</span></dt><dd><p>The argument passed to <code class="literal">buildImage</code> itself.
 This allows you to inspect all attributes specified in the argument, as described above.</p></dd><dt><span class="term"><code class="literal">layer</code> (Attribute Set)</span></dt><dd><p>The derivation with the layer created by <code class="literal">buildImage</code>.
 This allows easier inspection of the contents added by <code class="literal">buildImage</code> in the generated image.</p></dd><dt><span class="term"><code class="literal">imageTag</code> (String)</span></dt><dd><p>The tag of the generated image.
@@ -9670,11 +9670,11 @@ buildPythonPackage rec {
     rm testing/test_argcomplete.py
   &#x27;&#x27;;
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     attrs
     py
     setuptools
@@ -9705,7 +9705,7 @@ appears more than once in dependency tree. Default is <code class="literal">true
 interpreter version.</p></li><li class="listitem"><p><code class="literal">dontWrapPythonPrograms ? false</code>: Skip wrapping of Python programs.</p></li><li class="listitem"><p><code class="literal">permitUserSite ? false</code>: Skip setting the <code class="literal">PYTHONNOUSERSITE</code> environment
 variable in wrapped programs.</p></li><li class="listitem"><p><code class="literal">pyproject</code>: Whether the pyproject format should be used. When set to <code class="literal">true</code>,
 <code class="literal">pypaBuildHook</code> will be used, and you can add the required build dependencies
-from <code class="literal">build-system.requires</code> to <code class="literal">nativeBuildInputs</code>. Note that the pyproject
+from <code class="literal">build-system.requires</code> to <code class="literal">build-system</code>. Note that the pyproject
 format falls back to using <code class="literal">setuptools</code>, so you can use <code class="literal">pyproject = true</code>
 even if the package only has a <code class="literal">setup.py</code>. When set to <code class="literal">false</code>, you can
 use the existing [hooks](#setup-hooks0 or provide your own logic to build the
@@ -9723,14 +9723,15 @@ in <code class="literal">pythonPath</code> are not propagated (contrary to <a cl
 created when the filenames end with <code class="literal">.py</code>.</p></li><li class="listitem"><p><code class="literal">setupPyGlobalFlags ? []</code>: List of flags passed to <code class="literal">setup.py</code> command.</p></li><li class="listitem"><p><code class="literal">setupPyBuildFlags ? []</code>: List of flags passed to <code class="literal">setup.py build_ext</code> command.</p></li></ul></div><p>The <a class="link" href="#sec-using-stdenv" title="Using stdenv" ><code class="literal">stdenv.mkDerivation</code></a> function accepts various parameters for describing
 build inputs (see “Specifying dependencies”). The following are of special
 interest for Python packages, either because these are primarily used, or
-because their behaviour is different:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">nativeBuildInputs ? []</code>: Build-time only dependencies. Typically executables
-as well as the items listed in <code class="literal">setup_requires</code>.</p></li><li class="listitem"><p><code class="literal">buildInputs ? []</code>: Build and/or run-time dependencies that need to be
+because their behaviour is different:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">nativeBuildInputs ? []</code>: Build-time only dependencies. Typically executables.</p></li><li class="listitem"><p><code class="literal">build-system ? []</code>: Build-time only Python dependencies. Items listed in <code class="literal">build-system.requires</code>/<code class="literal">setup_requires</code>.</p></li><li class="listitem"><p><code class="literal">buildInputs ? []</code>: Build and/or run-time dependencies that need to be
 compiled for the host machine. Typically non-Python libraries which are being
 linked.</p></li><li class="listitem"><p><code class="literal">nativeCheckInputs ? []</code>: Dependencies needed for running the <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a>. These
 are added to <a class="link" href="#var-stdenv-nativeBuildInputs" title="nativeBuildInputs" ><code class="literal">nativeBuildInputs</code></a> when <a class="link" href="#var-stdenv-doCheck" title="doCheck" ><code class="literal">doCheck = true</code></a>. Items listed in
-<code class="literal">tests_require</code> go here.</p></li><li class="listitem"><p><code class="literal">propagatedBuildInputs ? []</code>: Aside from propagating dependencies,
+<code class="literal">tests_require</code> go here.</p></li><li class="listitem"><p><code class="literal">dependencies ? []</code>: Aside from propagating dependencies,
 <code class="literal">buildPythonPackage</code> also injects code into and wraps executables with the
-paths included in this list. Items listed in <code class="literal">install_requires</code> go here.</p></li></ul></div>
+paths included in this list. Items listed in <code class="literal">install_requires</code> go here.</p></li><li class="listitem"><p><code class="literal">optional-dependencies ? { }</code>: Optional feature flagged dependencies.  Items listed in <code class="literal">extras_requires</code> go here.</p></li></ul></div><p>Aside from propagating dependencies,
+<code class="literal">buildPythonPackage</code> also injects code into and wraps executables with the
+paths included in this list. Items listed in <code class="literal">extras_requires</code> go here.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h6 class="title" >     <a id="overriding-python-packages"></a>Overriding Python packages   </h6>  </div> </div></div><p>The <code class="literal">buildPythonPackage</code> function has a <code class="literal">overridePythonAttrs</code> method that can be
 used to override the package. In the following example we create an environment
 where we have the <code class="literal">blaze</code> package using an older version of <code class="literal">pandas</code>. We
@@ -9792,11 +9793,12 @@ python3Packages.buildPythonApplication rec {
     hash  = &quot;sha256-Pe229rT0aHwA98s+nTHQMEFKZPo/yw6sot8MivFDvAw=&quot;;
   };
 
-  nativeBuildInputs = with python3Packages; [
+  build-system = with python3Packages; [
     setuptools
+    wheel
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     tornado
     python-daemon
   ];
@@ -9876,10 +9878,10 @@ need them, you have to use <a class="link" href="#python.buildenv-function" titl
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="setup-hooks"></a>Setup hooks   </h5>  </div> </div></div><p>The following are setup hooks specifically for Python packages. Most of these
 are used in <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">eggUnpackhook</code> to move an egg to the correct folder so it can be installed
 with the <code class="literal">eggInstallHook</code></p></li><li class="listitem"><p><code class="literal">eggBuildHook</code> to skip building for eggs.</p></li><li class="listitem"><p><code class="literal">eggInstallHook</code> to install eggs.</p></li><li class="listitem"><p><code class="literal">pipBuildHook</code> to build a wheel using <code class="literal">pip</code> and PEP 517. Note a build system
-(e.g. <code class="literal">setuptools</code> or <code class="literal">flit</code>) should still be added as <code class="literal">nativeBuildInput</code>.</p></li><li class="listitem"><p><code class="literal">pypaBuildHook</code> to build a wheel using
+(e.g. <code class="literal">setuptools</code> or <code class="literal">flit</code>) should still be added as <code class="literal">build-system</code>.</p></li><li class="listitem"><p><code class="literal">pypaBuildHook</code> to build a wheel using
 <a class="link" href="https://pypa-build.readthedocs.io/en/latest/index.html"  target="_top"><code class="literal">pypa/build</code></a> and
 PEP 517/518. Note a build system (e.g. <code class="literal">setuptools</code> or <code class="literal">flit</code>) should still
-be added as <code class="literal">nativeBuildInput</code>.</p></li><li class="listitem"><p><code class="literal">pipInstallHook</code> to install wheels.</p></li><li class="listitem"><p><code class="literal">pytestCheckHook</code> to run tests with <code class="literal">pytest</code>. See <a class="link" href="#using-pytestcheckhook" title="Using pytestCheckHook" >example usage</a>.</p></li><li class="listitem"><p><code class="literal">pythonCatchConflictsHook</code> to check whether a Python package is not already existing.</p></li><li class="listitem"><p><code class="literal">pythonImportsCheckHook</code> to check whether importing the listed modules works.</p></li><li class="listitem"><p><code class="literal">pythonRelaxDepsHook</code> will relax Python dependencies restrictions for the package.
+be added as <code class="literal">build-system</code>.</p></li><li class="listitem"><p><code class="literal">pipInstallHook</code> to install wheels.</p></li><li class="listitem"><p><code class="literal">pytestCheckHook</code> to run tests with <code class="literal">pytest</code>. See <a class="link" href="#using-pytestcheckhook" title="Using pytestCheckHook" >example usage</a>.</p></li><li class="listitem"><p><code class="literal">pythonCatchConflictsHook</code> to check whether a Python package is not already existing.</p></li><li class="listitem"><p><code class="literal">pythonImportsCheckHook</code> to check whether importing the listed modules works.</p></li><li class="listitem"><p><code class="literal">pythonRelaxDepsHook</code> will relax Python dependencies restrictions for the package.
 See <a class="link" href="#using-pythonrelaxdepshook" title="Using pythonRelaxDepsHook" >example usage</a>.</p></li><li class="listitem"><p><code class="literal">pythonRemoveBinBytecode</code> to remove bytecode from the <code class="literal">/bin</code> folder.</p></li><li class="listitem"><p><code class="literal">setuptoolsBuildHook</code> to build a wheel using <code class="literal">setuptools</code>.</p></li><li class="listitem"><p><code class="literal">setuptoolsCheckHook</code> to run tests with <code class="literal">python setup.py test</code>.</p></li><li class="listitem"><p><code class="literal">sphinxHook</code> to build documentation and manpages using Sphinx.</p></li><li class="listitem"><p><code class="literal">venvShellHook</code> to source a Python 3 <code class="literal">venv</code> at the <code class="literal">venvDir</code> location. A
 <code class="literal">venv</code> is created if it does not yet exist. <code class="literal">postVenvCreation</code> can be used to
 to run commands only after venv is first created.</p></li><li class="listitem"><p><code class="literal">wheelUnpackHook</code> to move a wheel to the correct folder so it can be installed
@@ -10118,7 +10120,7 @@ buildPythonPackage rec {
     hash = &quot;sha256-CP3V73yWSArRHBLUct4hrNMjWZlvaaUlkpm1QP66RWA=&quot;;
   };
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     wheel
   ];
@@ -10167,7 +10169,7 @@ and adds it along with a <code class="literal">numpy</code> package to a Python 
         hash = &quot;sha256-CP3V73yWSArRHBLUct4hrNMjWZlvaaUlkpm1QP66RWA=&quot;;
       };
 
-      nativeBuildInputs = [
+      build-system = [
         python311.pkgs.setuptools
         python311.pkgs.wheel
       ];
@@ -10196,13 +10198,8 @@ of <a class="link" href="#python.withpackages-function" title="python.withPackag
 <code class="literal">ps.numpy</code> to select numpy from the nixpkgs package set (<code class="literal">ps</code>). We did not take
 <code class="literal">toolz</code> from the Nixpkgs package set this time, but instead took our own version
 that we introduced with the <code class="literal">let</code> expression.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="handling-dependencies"></a>Handling dependencies   </h5>  </div> </div></div><p>Our example, <code class="literal">toolz</code>, does not have any dependencies on other Python packages or
-system libraries. According to the manual, <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> uses the
-arguments <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a> and <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a> to specify dependencies. If
-something is exclusively a build-time dependency, then the dependency should be
-included in <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a>, but if it is (also) a runtime dependency, then it
-should be added to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>. Test dependencies are considered
-build-time dependencies and passed to <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a>.</p><p>The following example shows which arguments are given to <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> in
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="handling-dependencies"></a>Handling dependencies   </h5>  </div> </div></div><p>Our example, <code class="literal">toolz</code>, does not have any dependencies on other Python packages or system libraries.
+<a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> uses the the following arguments in the following circumstances:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">dependencies</code> - For Python runtime dependencies.</p></li><li class="listitem"><p><code class="literal">build-system</code> - For Python build-time requirements.</p></li><li class="listitem"><p><a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a> - For non-Python build-time requirements.</p></li><li class="listitem"><p><a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a> - For test dependencies</p></li></ul></div><p>Dependencies can belong to multiple arguments, for example if something is both a build time requirement &amp; a runtime dependency.</p><p>The following example shows which arguments are given to <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> in
 order to build <a class="link" href="https://github.com/blaze/datashape"  target="_top"><code class="literal">datashape</code></a>.</p><pre><code class="programlisting nix">{ lib
 , buildPythonPackage
 , fetchPypi
@@ -10227,12 +10224,12 @@ buildPythonPackage rec {
     hash = &quot;sha256-FLLvdm1MllKrgTGC6Gb0k0deZeVYvtCCLji/B7uhong=&quot;;
   };
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     wheel
   ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     multipledispatch
     numpy
     python-dateutil
@@ -10253,7 +10250,7 @@ buildPythonPackage rec {
 </code></pre><p>We can see several runtime dependencies, <code class="literal">numpy</code>, <code class="literal">multipledispatch</code>, and
 <code class="literal">python-dateutil</code>. Furthermore, we have <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a> with <code class="literal">pytest</code>.
 <code class="literal">pytest</code> is a test runner and is only used during the <a class="link" href="#ssec-check-phase" title="The check phase" ><code class="literal">checkPhase</code></a> and is
-therefore not added to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>.</p><p>In the previous case we had only dependencies on other Python packages to consider.
+therefore not added to <code class="literal">dependencies</code>.</p><p>In the previous case we had only dependencies on other Python packages to consider.
 Occasionally you have also system libraries to consider. E.g., <code class="literal">lxml</code> provides
 Python bindings to <code class="literal">libxml2</code> and <code class="literal">libxslt</code>. These libraries are only required
 when building the bindings and are therefore added as <a class="link" href="#var-stdenv-buildInputs" title="buildInputs" ><code class="literal">buildInputs</code></a>.</p><pre><code class="programlisting nix">{ lib
@@ -10275,7 +10272,7 @@ buildPythonPackage rec {
     hash = &quot;sha256-s9NiusRxFydHzaNRMjjxFcvWxfi45jGb9ql6eJJyQJk=&quot;;
   };
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     wheel
   ];
@@ -10325,7 +10322,7 @@ buildPythonPackage rec {
     hash = &quot;sha256-9ru2r6kwhUCaskiFoaPNuJCfCVoUL01J40byvRt4kHQ=&quot;;
   };
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     wheel
   ];
@@ -10336,7 +10333,7 @@ buildPythonPackage rec {
     fftwLongDouble
   ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     numpy
     scipy
   ];
@@ -10532,17 +10529,17 @@ refer to a local source instead using <code class="literal">src = ./path/to/sour
 is a local source, and if the local source has a <code class="literal">setup.py</code>, then development
 mode is activated.</p><p>In the following example, we create a simple environment that has a Python 3.11
 version of our package in it, as well as its dependencies and other packages we
-like to have in the environment, all specified with <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>.
-Indeed, we can just add any package we like to have in our environment to
-<a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a>.</p><pre><code class="programlisting nix">with import &lt;nixpkgs&gt; {};
+like to have in the environment, all specified with <code class="literal">dependencies</code>.</p><pre><code class="programlisting nix">with import &lt;nixpkgs&gt; {};
 with python311Packages;
 
 buildPythonPackage rec {
   name = &quot;mypackage&quot;;
   src = ./path/to/package/source;
-  propagatedBuildInputs = [
+  dependencies = [
     pytest
     numpy
+  ];
+  propagatedBuildInputs = [
     pkgs.libsndfile
   ];
 }
@@ -10574,7 +10571,7 @@ buildPythonPackage rec {
     hash = &quot;sha256-CP3V73yWSArRHBLUct4hrNMjWZlvaaUlkpm1QP66RWA=&quot;;
   };
 
-  nativeBuildInputs = [
+  build-system = [
     setuptools
     wheel
   ];
@@ -10833,7 +10830,7 @@ this snippet:</p><pre><code class="programlisting nix">  myPythonPackages = pyth
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="how-to-use-intels-mkl-with-numpy-and-scipy"></a>How to use Intel’s MKL with numpy and scipy?   </h4>  </div> </div></div><p>MKL can be configured using an overlay. See the section “<a class="link" href="#sec-overlays-alternatives-blas-lapack" title="BLAS/LAPACK" >Using overlays to
 configure alternatives</a>”.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="what-inputs-do-setup_requires-install_requires-and-tests_require-map-to"></a>What inputs do <code class="literal">setup_requires</code>, <code class="literal">install_requires</code> and <code class="literal">tests_require</code> map to?   </h4>  </div> </div></div><p>In a <code class="literal">setup.py</code> or <code class="literal">setup.cfg</code> it is common to declare dependencies:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">setup_requires</code> corresponds to <a class="link" href="#var-stdenv-nativeBuildInputs" title="nativeBuildInputs" ><code class="literal">nativeBuildInputs</code></a></p></li><li class="listitem"><p><code class="literal">install_requires</code> corresponds to <a class="link" href="#var-stdenv-propagatedBuildInputs" title="propagatedBuildInputs" ><code class="literal">propagatedBuildInputs</code></a></p></li><li class="listitem"><p><code class="literal">tests_require</code> corresponds to <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a></p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="what-inputs-do-setup_requires-install_requires-and-tests_require-map-to"></a>What inputs do <code class="literal">setup_requires</code>, <code class="literal">install_requires</code> and <code class="literal">tests_require</code> map to?   </h4>  </div> </div></div><p>In a <code class="literal">setup.py</code> or <code class="literal">setup.cfg</code> it is common to declare dependencies:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">setup_requires</code> corresponds to <code class="literal">build-system</code></p></li><li class="listitem"><p><code class="literal">install_requires</code> corresponds to <code class="literal">dependencies</code></p></li><li class="listitem"><p><code class="literal">tests_require</code> corresponds to <a class="link" href="#var-stdenv-nativeCheckInputs" title="nativeCheckInputs" ><code class="literal">nativeCheckInputs</code></a></p></li></ul></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="optimizations"></a>How to enable interpreter optimizations?   </h4>  </div> </div></div><p>The Python interpreters are by default not built with optimizations enabled, because
 the builds are in that case not reproducible. To enable optimizations, override the
 interpreter of interest, e.g using</p><pre><code class="programlisting">let
@@ -10847,15 +10844,13 @@ in mypython
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="python-optional-dependencies"></a>How to add optional dependencies?   </h4>  </div> </div></div><p>Some packages define optional dependencies for additional features. With
 <code class="literal">setuptools</code> this is called <code class="literal">extras_require</code> and <code class="literal">flit</code> calls it
-<code class="literal">extras-require</code>, while PEP 621 calls these <code class="literal">optional-dependencies</code>. A
-method for supporting this is by declaring the extras of a package in its
-<code class="literal">passthru</code>, e.g. in case of the package <code class="literal">dask</code></p><pre><code class="programlisting nix">passthru.optional-dependencies = {
+<code class="literal">extras-require</code>, while PEP 621 calls these <code class="literal">optional-dependencies</code>.</p><pre><code class="programlisting nix">optional-dependencies = {
   complete = [ distributed ];
 };
-</code></pre><p>and letting the package requiring the extra add the list to its dependencies</p><pre><code class="programlisting nix">propagatedBuildInputs = [
+</code></pre><p>and letting the package requiring the extra add the list to its dependencies</p><pre><code class="programlisting nix">dependencies = [
   ...
 ] ++ dask.optional-dependencies.complete;
-</code></pre><p>Note this method is preferred over adding parameters to builders, as that can
+</code></pre><p>This method is using <code class="literal">passthru</code>, meaning that changing <code class="literal">optional-dependencies</code> of a package won’t cause it to rebuild.</p><p>Note this method is preferred over adding parameters to builders, as that can
 result in packages depending on different variants and thereby causing
 collisions.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="tools"></a>How to contribute a Python package to nixpkgs?   </h4>  </div> </div></div><p>Packages inside nixpkgs must use the <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> or <a class="link" href="#buildpythonapplication-function" title="buildPythonApplication function" ><code class="literal">buildPythonApplication</code></a> function directly,
