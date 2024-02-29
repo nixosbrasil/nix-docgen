@@ -7572,7 +7572,21 @@ and returning a set with JSON-specific attributes <code class="literal">type</co
 and returning a set with YAML-specific attributes <code class="literal">type</code> and
 <code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p></dd><dt><span class="term"><code class="literal">pkgs.formats.ini</code> { <span class="emphasis"><em><code class="literal">listsAsDuplicateKeys</code></em></span> ? false, <span class="emphasis"><em><code class="literal">listToValue</code></em></span> ? null, ... }</span></dt><dd><p>A function taking an attribute set with values</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">listsAsDuplicateKeys</code></span></dt><dd><p>A boolean for controlling whether list values can be used to
 represent duplicate INI keys</p></dd><dt><span class="term"><code class="literal">listToValue</code></span></dt><dd><p>A function for turning a list of values into a single value.</p></dd></dl></div><p>It returns a set with INI-specific attributes <code class="literal">type</code> and <code class="literal">generate</code>
-as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p></dd><dt><span class="term"><code class="literal">pkgs.formats.toml</code> { }</span></dt><dd><p>A function taking an empty attribute set (for future extensibility)
+as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.
+The type of the input is an <span class="emphasis"><em>attrset</em></span> of sections; key-value pairs where
+the key is the section name and the value is the corresponding content
+which is also an <span class="emphasis"><em>attrset</em></span> of key-value pairs for the actual key-value
+mappings of the INI format.
+The values of the INI atoms are subject to the above parameters (e.g. lists
+may be transformed into multiple key-value pairs depending on
+<code class="literal">listToValue</code>).</p></dd><dt><span class="term"><code class="literal">pkgs.formats.iniWithGlobalSection</code> { <span class="emphasis"><em><code class="literal">listsAsDuplicateKeys</code></em></span> ? false, <span class="emphasis"><em><code class="literal">listToValue</code></em></span> ? null, ... }</span></dt><dd><p>A function taking an attribute set with values</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">listsAsDuplicateKeys</code></span></dt><dd><p>A boolean for controlling whether list values can be used to
+represent duplicate INI keys</p></dd><dt><span class="term"><code class="literal">listToValue</code></span></dt><dd><p>A function for turning a list of values into a single value.</p></dd></dl></div><p>It returns a set with INI-specific attributes <code class="literal">type</code> and <code class="literal">generate</code>
+as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.
+The type of the input is an <span class="emphasis"><em>attrset</em></span> of the structure
+<code class="literal">{ sections = {}; globalSection = {}; }</code> where <span class="emphasis"><em>sections</em></span> are several
+sections as with <span class="emphasis"><em>pkgs.formats.ini</em></span> and <span class="emphasis"><em>globalSection</em></span> being just a single
+attrset of key-value pairs for a single section, the global section which
+preceedes the section definitions.</p></dd><dt><span class="term"><code class="literal">pkgs.formats.toml</code> { }</span></dt><dd><p>A function taking an empty attribute set (for future extensibility)
 and returning a set with TOML-specific attributes <code class="literal">type</code> and
 <code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p></dd><dt><span class="term"><code class="literal">pkgs.formats.elixirConf { elixir ? pkgs.elixir }</code></span></dt><dd><p>A function taking an attribute set with values</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">elixir</code></span></dt><dd><p>The Elixir package which will be used to format the generated output</p></dd></dl></div><p>It returns a set with Elixir-Config-specific attributes <code class="literal">type</code>, <code class="literal">lib</code>, and
 <code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p><p>The <code class="literal">lib</code> attribute contains functions to be used in settings, for
