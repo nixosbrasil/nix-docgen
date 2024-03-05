@@ -10980,7 +10980,7 @@ allow for ~7 months for Python applications to support the latest interpreter.</
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-language-qt"></a>Qt   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#qt-default-nix">Nix expression for a Qt package (default.nix)</a> </span></dt><dt> <span class="section">  <a href="#qt-versions">Packages supporting multiple Qt versions</a> </span></dt><dt> <span class="section">  <a href="#qt-runtime-dependencies">Locating additional runtime dependencies</a> </span></dt> </dl></div><p>Writing Nix expressions for Qt libraries and applications is largely similar as for other C++ software.
 This section assumes some knowledge of the latter.</p><p>The major caveat with Qt applications is that Qt uses a plugin system to load additional modules at runtime.
 In Nixpkgs, we wrap Qt applications to inject environment variables telling Qt where to discover the required plugins and QML modules.</p><p>This effectively makes the runtime dependencies pure and explicit at build-time, at the cost of introducing
-an extra indirection.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)   </h3>  </div> </div></div><pre><code class="programlisting nix">{ stdenv, lib, qt6, wrapQtAppsHook }:
+an extra indirection.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-default-nix"></a>Nix expression for a Qt package (default.nix)   </h3>  </div> </div></div><pre><code class="programlisting nix">{ stdenv, qt6 }:
 
 stdenv.mkDerivation {
   pname = &quot;myapp&quot;;
@@ -10989,7 +10989,7 @@ stdenv.mkDerivation {
   buildInputs = [ qt6.qtbase ];
   nativeBuildInputs = [ qt6.wrapQtAppsHook ];
 }
-</code></pre><p>Any Qt package should include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>, or explicitly set <code class="literal">dontWrapQtApps</code> to bypass generating the wrappers.</p><div class="note"><h3 class="title">Note</h3><p>Graphical Linux applications should also include <code class="literal">qtwayland</code> in <code class="literal">buildInputs</code>, to ensure the Wayland platform plugin is available.</p><p>This may become default in the future, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/269674"  target="_top">NixOS/nixpkgs#269674</a>.</p></div>
+</code></pre><p>The same goes for Qt 5 where libraries and tools are under <code class="literal">libsForQt5</code>.</p><p>Any Qt package should include <code class="literal">wrapQtAppsHook</code> in <code class="literal">nativeBuildInputs</code>, or explicitly set <code class="literal">dontWrapQtApps</code> to bypass generating the wrappers.</p><div class="note"><h3 class="title">Note</h3><p>Qt 6 graphical applications should also include <code class="literal">qtwayland</code> in <code class="literal">buildInputs</code> on Linux (but not on platforms e.g. Darwin, where <code class="literal">qtwayland</code> is not available), to ensure the Wayland platform plugin is available.</p><p>This may become default in the future, see <a class="link" href="https://github.com/NixOS/nixpkgs/pull/269674"  target="_top">NixOS/nixpkgs#269674</a>.</p></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-versions"></a>Packages supporting multiple Qt versions   </h3>  </div> </div></div><p>If your package is a library that can be built with multiple Qt versions, you may want to take Qt modules as separate arguments (<code class="literal">qtbase</code>, <code class="literal">qtdeclarative</code> etc.), and invoke the package from <code class="literal">pkgs/top-level/qt5-packages.nix</code> or <code class="literal">pkgs/top-level/qt6-packages.nix</code> using the respective <code class="literal">callPackage</code> functions.</p><p>Applications should generally be built with upstream’s preferred Qt version.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="qt-runtime-dependencies"></a>Locating additional runtime dependencies   </h3>  </div> </div></div><p>Add entries to <code class="literal">qtWrapperArgs</code> are to modify the wrappers created by
 <code class="literal">wrapQtAppsHook</code>:</p><pre><code class="programlisting nix">{ stdenv, qt6 }:
@@ -11789,8 +11789,8 @@ The below snippet demonstrates invoking <code class="literal">buildRustPackage</
 };
 let
   rustPlatform = makeRustPlatform {
-    cargo = rust-bin.stable.latest.minimal;
-    rustc = rust-bin.stable.latest.minimal;
+    cargo = rust-bin.selectLatestNightlyWith (toolchain: toolchain.default);
+    rustc = rust-bin.selectLatestNightlyWith (toolchain: toolchain.default);
   };
 in
 
