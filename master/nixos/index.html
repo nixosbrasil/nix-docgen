@@ -6833,9 +6833,8 @@ the service. The functions <code class="literal">utils.escapeSystemdExecArg</cod
 Exec directives</a> for an example. When using these
 functions system environment substitution should <span class="emphasis"><em>not</em></span> be disabled explicitly.</p><div class="example"><a id="locate-example" /><p class="title"><strong>Example 12. NixOS Module for the “locate” Service</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) concatStringsSep mkIf mkOption optionalString types;
   cfg = config.services.locate;
 in {
   options.services.locate = {
@@ -6886,9 +6885,7 @@ in {
       };
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><a id="exec-escaping-example" /><p class="title"><strong>Example 13. Escaping in Exec directives</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ config, lib, pkgs, utils, ... }:
-
-with lib;
+</code></pre></div></div><br class="example-break" /><div class="example"><a id="exec-escaping-example" /><p class="title"><strong>Example 13. Escaping in Exec directives</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ config, pkgs, utils, ... }:
 
 let
   cfg = config.services.echo;
@@ -7469,9 +7466,8 @@ nixos-unstable unless explicitly configured to do so.</p><pre><code class="progr
 existing module. Importing this module will disable the original module
 without having to know its implementation details.</p><pre><code class="programlisting nix">{ config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkIf mkOption types;
   cfg = config.programs.man;
 in
 
@@ -8733,7 +8729,11 @@ a build that starts a QEMU/KVM virtual machine containing a NixOS
 system. The virtual machine mounts the Nix store of the host; this makes
 VM creation very fast, as no disk image needs to be created. Afterwards,
 you can view a log of the test:</p><pre><code class="programlisting ShellSession">$ nix-store --read-log result
-</code></pre>
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="sec-running-nixos-tests-requirements"></a>System Requirements   </h3>  </div> </div></div><p>NixOS tests require virtualization support.
+This means that the machine must have <code class="literal">kvm</code> in its <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=system-features#conf-system-features"  target="_top">system features</a> list, or <code class="literal">apple-virt</code> in case of macOS.
+These features are autodetected locally, but <code class="literal">apple-virt</code> is only autodetected since Nix 2.19.0.</p><p>Features of <span class="strong"><strong>remote builders</strong></span> must additionally be configured manually on the client, e.g. on NixOS with <a class="link" href="https://search.nixos.org/options?show=nix.buildMachines.*.supportedFeatures&amp;sort=alpha_asc&amp;query=nix.buildMachines"  target="_top"><code class="literal">nix.buildMachines.*.supportedFeatures</code></a> or through general <a class="link" href="https://nixos.org/manual/nix/stable/advanced-topics/distributed-builds"  target="_top">Nix configuration</a>.</p><p>If you run the tests on a <span class="strong"><strong>macOS</strong></span> machine, you also need a “remote” builder for Linux; possibly a VM. <a class="link" href="https://daiderd.com/nix-darwin/"  target="_top">nix-darwin</a> users may enable <a class="link" href="https://daiderd.com/nix-darwin/manual/index.html#opt-nix.linux-builder.enable"  target="_top"><code class="literal">nix.linux-builder.enable</code></a> to launch such a VM.</p>
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-running-nixos-tests-interactively"></a>Running Tests interactively   </h2>  </div> </div></div><p>The test itself can be run interactively. This is particularly useful
 when developing or debugging a test:</p><pre><code class="programlisting ShellSession">$ nix-build . -A nixosTests.login.driverInteractive
 $ ./result/bin/nixos-test-driver
