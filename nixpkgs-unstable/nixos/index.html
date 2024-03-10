@@ -1436,7 +1436,8 @@ services.xserver.deviceSection = &#x27;&#x27;
 better 3D performance than the X.org drivers. It is not enabled by
 default because it’s not free software. You can enable it as follows:</p><pre><code class="programlisting nix">services.xserver.videoDrivers = [ &quot;nvidia&quot; ];
 </code></pre><p>Or if you have an older card, you may have to use one of the legacy
-drivers:</p><pre><code class="programlisting nix">services.xserver.videoDrivers = [ &quot;nvidiaLegacy390&quot; ];
+drivers:</p><pre><code class="programlisting nix">services.xserver.videoDrivers = [ &quot;nvidiaLegacy470&quot; ];
+services.xserver.videoDrivers = [ &quot;nvidiaLegacy390&quot; ];
 services.xserver.videoDrivers = [ &quot;nvidiaLegacy340&quot; ];
 services.xserver.videoDrivers = [ &quot;nvidiaLegacy304&quot; ];
 </code></pre><p>You may need to reboot after enabling this driver to prevent a clash
