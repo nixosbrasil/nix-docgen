@@ -730,7 +730,7 @@ Intended to be used to augment asserts with helpful error messages.</p><div clas
 stderr&gt; error: nope
 assert assertMsg (&quot;foo&quot; == &quot;bar&quot;) &quot;foo is not bar, silly&quot;; &quot;&quot;
 stderr&gt; error: foo is not bar, silly
-</code></pre></div></div><br class="example-break" /><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">pred</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">msg</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L39"  target="_top">lib/asserts.nix:39</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L39"  target="_top">lib/asserts.nix:39</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.asserts.assertOneOf"></a><code class="literal">lib.asserts.assertOneOf</code>   </h4>  </div> </div></div><p>Specialized <code class="literal">assertMsg</code> for checking if <code class="literal">val</code> is one of the elements
@@ -743,7 +743,7 @@ stderr&gt; error: sslLibrary must be one of [
 stderr&gt;   &quot;openssl&quot;
 stderr&gt;   &quot;bearssl&quot;
 stderr&gt; ], but is: &quot;libressl&quot;
-</code></pre></div></div><br class="example-break" /><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">val</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">xs</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L83"  target="_top">lib/asserts.nix:83</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L83"  target="_top">lib/asserts.nix:83</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.asserts.assertEachOneOf"></a><code class="literal">lib.asserts.assertEachOneOf</code>   </h4>  </div> </div></div><p>Specialized <code class="literal">assertMsg</code> for checking if every one of <code class="literal">vals</code> is one of the elements
@@ -759,7 +759,7 @@ stderr&gt; ], but is: [
 stderr&gt;   &quot;libressl&quot;
 stderr&gt;   &quot;bearssl&quot;
 stderr&gt; ]
-</code></pre></div></div><br class="example-break" /><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">vals</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">xs</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L135"  target="_top">lib/asserts.nix:135</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L135"  target="_top">lib/asserts.nix:135</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div>
@@ -966,7 +966,7 @@ Also, the first argument of the mapping function is a <span class="emphasis"><em
   { n = { a = &quot;A&quot;; m = { b = &quot;B&quot;; c = &quot;C&quot;; }; }; d = &quot;D&quot;; }
 </code></pre><p>evaluates to</p><pre><code class="programlisting nix">{ n = { a = &quot;n-a-A&quot;; m = { b = &quot;n-m-b-B&quot;; c = &quot;n-m-c-C&quot;; }; }; d = &quot;d-D&quot;; }
 </code></pre></div></div><br class="example-break" /><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="auto-generated-8-1.23.1"></a>Type   </h5>  </div> </div></div><pre><code class="programlisting">mapAttrsRecursive :: ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet
-</code></pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>A function that, given an attribute path as a list of strings and the corresponding attribute value, returns a new value.</p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>Attribute set to recursively map over.</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L707"  target="_top">lib/attrsets.nix:707</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L707"  target="_top">lib/attrsets.nix:707</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.mapAttrsRecursiveCond"></a><code class="literal">lib.attrsets.mapAttrsRecursiveCond</code>   </h4>  </div> </div></div><p>Like <code class="literal">mapAttrsRecursive</code>, but it takes an additional predicate that tells it whether to recurse into an attribute set.
@@ -977,7 +977,7 @@ Derivatons are identified as attribute sets that contain <code class="literal">{
   (x: x.name)
   attrs
 </code></pre></div></div><br class="example-break" /><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="auto-generated-8-1.24.1"></a>Type   </h5>  </div> </div></div><pre><code class="programlisting">mapAttrsRecursiveCond :: (AttrSet -&gt; Bool) -&gt; ([String] -&gt; a -&gt; b) -&gt; AttrSet -&gt; AttrSet
-</code></pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">cond</code></span></dt><dd><p>A function that, given the attribute set the recursion is currently at, determines if to recurse deeper into that attribute set.</p></dd><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>A function that, given an attribute path as a list of strings and the corresponding attribute value, returns a new value. The attribute value is either an attribute set for which <code class="literal">cond</code> returns false, or something other than an attribute set.</p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>Attribute set to recursively map over.</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L738"  target="_top">lib/attrsets.nix:738</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/attrsets.nix#L738"  target="_top">lib/attrsets.nix:738</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.attrsets.genAttrs"></a><code class="literal">lib.attrsets.genAttrs</code>   </h4>  </div> </div></div><p><span class="strong"><strong>Type</strong></span>: <code class="literal">genAttrs :: [ String ] -&gt; (String -&gt; Any) -&gt; AttrSet</code></p><p>Generate an attribute set by mapping a function over a list of
@@ -3071,7 +3071,7 @@ in
 </code></pre><p>evaluates to</p><pre><code class="programlisting nix">[ 3 4 ]
 </code></pre></div></div><br class="example-break" />
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <a id="auto-generated-22-1.7.4"></a>Type   </h5>  </div> </div></div><pre><code class="programlisting">makeScope :: (AttrSet -&gt; ((AttrSet -&gt; a) | Path) -&gt; AttrSet -&gt; a) -&gt; (AttrSet -&gt; AttrSet) -&gt; scope
-</code></pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">newScope</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/customisation.nix#L433"  target="_top">lib/customisation.nix:433</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/customisation.nix#L433"  target="_top">lib/customisation.nix:433</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <a id="function-library-lib.customisation.makeScopeWithSplicing"></a><code class="literal">lib.customisation.makeScopeWithSplicing</code>   </h4>  </div> </div></div><p>backward compatibility with old uncurried form; deprecated</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">splicePackages</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">newScope</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">otherSplices</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">keep</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">extra</code></span></dt><dd><p>Function argument</p></dd><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/customisation.nix#L447"  target="_top">lib/customisation.nix:447</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>

@@ -8124,7 +8124,7 @@ added using the parameter <code class="literal">extraPythonPackages</code>. For 
 
   testScript = &#x27;&#x27;
     import numpy as np
-    assert str(np.zeros(4) == &quot;array([0., 0., 0., 0.])&quot;)
+    assert str(np.zeros(4)) == &quot;[0. 0. 0. 0.]&quot;
   &#x27;&#x27;;
 }
 </code></pre><p>In that case, <code class="literal">numpy</code> is chosen from the generic <code class="literal">python3Packages</code>.</p>
