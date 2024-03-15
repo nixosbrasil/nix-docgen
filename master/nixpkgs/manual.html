@@ -4889,7 +4889,7 @@ in mkCheckpointBuild changedHello helloCheckpoint
 </div>
 
 </div>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-images"></a>Images   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-ociTools">pkgs.ociTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-snapTools">pkgs.snapTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-portableService">pkgs.portableService</a> </span></dt><dt> <span class="section">  <a href="#sec-make-disk-image"><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-binary-cache">pkgs.mkBinaryCache</a> </span></dt> </dl></div><p>This chapter describes tools for creating various types of images.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-pkgs-appimageTools"></a>pkgs.appimageTools   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#ssec-pkgs-appimageTools-wrapping">Wrapping</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-appimageTools-extracting">Extracting</a> </span></dt> </dl></div><p><code class="literal">pkgs.appimageTools</code> is a set of functions for extracting and wrapping <a class="link" href="https://appimage.org/"  target="_top">AppImage</a> files.
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 class="title" >     <a id="chap-images"></a>Images   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="#sec-pkgs-appimageTools">pkgs.appimageTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-dockerTools">pkgs.dockerTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-ociTools">pkgs.ociTools</a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-portableService">pkgs.portableService</a> </span></dt><dt> <span class="section">  <a href="#sec-make-disk-image"><code class="literal">&lt;nixpkgs/nixos/lib/make-disk-image.nix&gt;</code></a> </span></dt><dt> <span class="section">  <a href="#sec-pkgs-binary-cache">pkgs.mkBinaryCache</a> </span></dt> </dl></div><p>This chapter describes tools for creating various types of images.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-pkgs-appimageTools"></a>pkgs.appimageTools   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#ssec-pkgs-appimageTools-wrapping">Wrapping</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-appimageTools-extracting">Extracting</a> </span></dt> </dl></div><p><code class="literal">pkgs.appimageTools</code> is a set of functions for extracting and wrapping <a class="link" href="https://appimage.org/"  target="_top">AppImage</a> files.
 They are meant to be used if traditional packaging from source is infeasible, or if it would take too long.
 To quickly run an AppImage file, <code class="literal">pkgs.appimage-run</code> can be used as well.</p><div class="warning"><h3 class="title">Warning</h3><p>The <code class="literal">appimageTools</code> API is unstable and may be subject to backwards-incompatible changes in the future.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-appimageTools-wrapping"></a>Wrapping   </h3>  </div> </div></div><p>Use <code class="literal">wrapType2</code> to wrap any AppImage.
 This will create a FHS environment with many packages <a class="link" href="https://github.com/AppImage/pkg2appimage/blob/master/excludelist"  target="_top">expected to exist</a> for the AppImage to work.
@@ -5726,51 +5726,6 @@ GNU bash, version 5.2.26(1)-release (x86_64-pc-linux-gnu)
 </code></pre></div></div><br class="example-break" />
 </div>
 
-</div>
-
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-pkgs-snapTools"></a>pkgs.snapTools   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#ssec-pkgs-snapTools-makeSnap-signature">The makeSnap Function</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-snapTools-build-a-snap-hello">Build a Hello World Snap</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-snapTools-build-a-snap-firefox">Build a Graphical Snap</a> </span></dt> </dl></div><p><code class="literal">pkgs.snapTools</code> is a set of functions for creating Snapcraft images. Snap and Snapcraft is not used to perform these operations.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-snapTools-makeSnap-signature"></a>The makeSnap Function   </h3>  </div> </div></div><p><code class="literal">makeSnap</code> takes a single named argument, <code class="literal">meta</code>. This argument mirrors <a class="link" href="https://docs.snapcraft.io/snap-format"  target="_top">the upstream <code class="literal">snap.yaml</code> format</a> exactly.</p><p>The <code class="literal">base</code> should not be specified, as <code class="literal">makeSnap</code> will force set it.</p><p>Currently, <code class="literal">makeSnap</code> does not support creating GUI stubs.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-snapTools-build-a-snap-hello"></a>Build a Hello World Snap   </h3>  </div> </div></div><p>The following expression packages GNU Hello as a Snapcraft snap.</p><pre><code class="programlisting  {#ex-snapTools-buildSnap-hello .nix}">let
-  inherit (import &lt;nixpkgs&gt; { }) snapTools hello;
-in snapTools.makeSnap {
-  meta = {
-    name = &quot;hello&quot;;
-    summary = hello.meta.description;
-    description = hello.meta.longDescription;
-    architectures = [ &quot;amd64&quot; ];
-    confinement = &quot;strict&quot;;
-    apps.hello.command = &quot;${hello}/bin/hello&quot;;
-  };
-}
-</code></pre><p><code class="literal">nix-build</code> this expression and install it with <code class="literal">snap install ./result --dangerous</code>. <code class="literal">hello</code> will now be the Snapcraft version of the package.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 class="title" >     <a id="ssec-pkgs-snapTools-build-a-snap-firefox"></a>Build a Graphical Snap   </h3>  </div> </div></div><p>Graphical programs require many more integrations with the host. This example uses Firefox as an example because it is one of the most complicated programs we could package.</p><pre><code class="programlisting  {#ex-snapTools-buildSnap-firefox .nix}">let
-  inherit (import &lt;nixpkgs&gt; { }) snapTools firefox;
-in snapTools.makeSnap {
-  meta = {
-    name = &quot;nix-example-firefox&quot;;
-    summary = firefox.meta.description;
-    architectures = [ &quot;amd64&quot; ];
-    apps.nix-example-firefox = {
-      command = &quot;${firefox}/bin/firefox&quot;;
-      plugs = [
-        &quot;pulseaudio&quot;
-        &quot;camera&quot;
-        &quot;browser-support&quot;
-        &quot;avahi-observe&quot;
-        &quot;cups-control&quot;
-        &quot;desktop&quot;
-        &quot;desktop-legacy&quot;
-        &quot;gsettings&quot;
-        &quot;home&quot;
-        &quot;network&quot;
-        &quot;mount-observe&quot;
-        &quot;removable-media&quot;
-        &quot;x11&quot;
-      ];
-    };
-    confinement = &quot;strict&quot;;
-  };
-}
-</code></pre><p><code class="literal">nix-build</code> this expression and install it with <code class="literal">snap install ./result --dangerous</code>. <code class="literal">nix-example-firefox</code> will now be the Snapcraft version of the Firefox package.</p><p>The specific meaning behind plugs can be looked up in the <a class="link" href="https://docs.snapcraft.io/supported-interfaces"  target="_top">Snapcraft interface documentation</a>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 class="title" style="clear: both">     <a id="sec-pkgs-portableService"></a>pkgs.portableService   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#ssec-pkgs-portableService-inputs">Inputs</a> </span></dt><dt> <span class="section">  <a href="#ssec-pkgs-portableService-examples">Examples</a> </span></dt> </dl></div><p><code class="literal">pkgs.portableService</code> is a function to create <a class="link" href="https://systemd.io/PORTABLE_SERVICES/"  target="_top">Portable Services</a> in a read-only, immutable, <code class="literal">squashfs</code> raw disk image.
