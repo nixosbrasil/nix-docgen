@@ -1912,12 +1912,13 @@ accₙ₊₁
 
 ### Or ignoring builtins.seq
 op (op (... (op (op (op acc₀ x₀) x₁) x₂) ...) xₙ₋₁) xₙ
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.6.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">op</code></span></dt><dd><p>The binary operation to run, where the two arguments are:</p></dd></dl></div><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p><code class="literal">acc</code>: The current accumulator value: Either the initial one for the first iteration, or the result of the previous iteration</p></li><li class="listitem"><p><code class="literal">x</code>: The corresponding list element for this iteration</p></li></ol></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">acc</code></span></dt><dd><p>The initial accumulator value</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>The list to fold</p></dd></dl></div>
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.6.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">op</code></span></dt><dd><p>The binary operation to run, where the two arguments are:</p></dd></dl></div><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p><code class="literal">acc</code>: The current accumulator value: Either the initial one for the first iteration, or the result of the previous iteration</p></li><li class="listitem"><p><code class="literal">x</code>: The corresponding list element for this iteration</p></li></ol></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">acc</code></span></dt><dd><p>The initial accumulator value.</p><p>The accumulator value is evaluated in any case before the first iteration starts.</p><p>To avoid evaluation even before the <code class="literal">list</code> argument is given an eta expansion can be used:</p><pre><code class="programlisting nix">list: lib.foldl&#x27; op acc list
+</code></pre></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>The list to fold</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.6.2"></span>Type   </h5>  </div> </div></div><pre><code class="programlisting">foldl&#x27; :: (acc -&gt; x -&gt; acc) -&gt; acc -&gt; [x] -&gt; acc
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.6.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 136. <code class="literal">lib.lists.foldl&#x27;</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">foldl&#x27; (acc: x: acc + x) 0 [1 2 3]
 =&gt; 6
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L254"  target="_top">lib/lists.nix:254</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L262"  target="_top">lib/lists.nix:262</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.imap0"></span><code class="literal">lib.lists.imap0</code>   </h4>  </div> </div></div><p>Map with index starting from 0</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.7.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>2. Function argument</p></dd></dl></div>
@@ -1925,7 +1926,7 @@ op (op (... (op (op (op acc₀ x₀) x₁) x₂) ...) xₙ₋₁) xₙ
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.7.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 137. <code class="literal">lib.lists.imap0</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">imap0 (i: v: &quot;${v}-${toString i}&quot;) [&quot;a&quot; &quot;b&quot;]
 =&gt; [ &quot;a-0&quot; &quot;b-1&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L295"  target="_top">lib/lists.nix:295</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L301"  target="_top">lib/lists.nix:301</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.imap1"></span><code class="literal">lib.lists.imap1</code>   </h4>  </div> </div></div><p>Map with index starting from 1</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.8.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">f</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>2. Function argument</p></dd></dl></div>
@@ -1933,14 +1934,14 @@ op (op (... (op (op (op acc₀ x₀) x₁) x₂) ...) xₙ₋₁) xₙ
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.8.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 138. <code class="literal">lib.lists.imap1</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">imap1 (i: v: &quot;${v}-${toString i}&quot;) [&quot;a&quot; &quot;b&quot;]
 =&gt; [ &quot;a-1&quot; &quot;b-2&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L328"  target="_top">lib/lists.nix:328</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L334"  target="_top">lib/lists.nix:334</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.concatMap"></span><code class="literal">lib.lists.concatMap</code>   </h4>  </div> </div></div><p>Map and concatenate the result.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.9.1"></span>Type   </h5>  </div> </div></div><pre><code class="programlisting">concatMap :: (a -&gt; [b]) -&gt; [a] -&gt; [b]
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.9.2"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 139. <code class="literal">lib.lists.concatMap</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">concatMap (x: [x] ++ [&quot;z&quot;]) [&quot;a&quot; &quot;b&quot;]
 =&gt; [ &quot;a&quot; &quot;z&quot; &quot;b&quot; &quot;z&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L350"  target="_top">lib/lists.nix:350</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L356"  target="_top">lib/lists.nix:356</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.flatten"></span><code class="literal">lib.lists.flatten</code>   </h4>  </div> </div></div><p>Flatten the argument into a single list; that is, nested lists are
@@ -1949,7 +1950,7 @@ spliced into the top-level lists.</p><div class="section"> <div class="titlepage
 =&gt; [1 2 3 4 5]
 flatten 1
 =&gt; [1]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L377"  target="_top">lib/lists.nix:377</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L383"  target="_top">lib/lists.nix:383</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.remove"></span><code class="literal">lib.lists.remove</code>   </h4>  </div> </div></div><p>Remove elements equal to ‘e’ from a list.  Useful for buildInputs.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.11.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">e</code></span></dt><dd><p>Element to remove from <code class="literal">list</code></p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>The list</p></dd></dl></div>
@@ -1957,7 +1958,7 @@ flatten 1
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.11.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 141. <code class="literal">lib.lists.remove</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">remove 3 [ 1 3 4 3 ]
 =&gt; [ 1 4 ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L413"  target="_top">lib/lists.nix:413</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L419"  target="_top">lib/lists.nix:419</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.findSingle"></span><code class="literal">lib.lists.findSingle</code>   </h4>  </div> </div></div><p>Find the sole element in the list matching the specified
@@ -1971,7 +1972,7 @@ findSingle (x: x == 3) &quot;none&quot; &quot;multiple&quot; [ 1 3 ]
 =&gt; 3
 findSingle (x: x == 3) &quot;none&quot; &quot;multiple&quot; [ 1 9 ]
 =&gt; &quot;none&quot;
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L463"  target="_top">lib/lists.nix:463</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L469"  target="_top">lib/lists.nix:469</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.findFirstIndex"></span><code class="literal">lib.lists.findFirstIndex</code>   </h4>  </div> </div></div><p>Find the first index in the list matching the specified
@@ -1982,7 +1983,7 @@ predicate or return <code class="literal">default</code> if no such element exis
 =&gt; 1
 findFirstIndex (x: x &gt; 9) null [ 0 6 4 ]
 =&gt; null
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L510"  target="_top">lib/lists.nix:510</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L516"  target="_top">lib/lists.nix:516</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.findFirst"></span><code class="literal">lib.lists.findFirst</code>   </h4>  </div> </div></div><p>Find the first element in the list matching the specified
@@ -1993,7 +1994,7 @@ predicate or return <code class="literal">default</code> if no such element exis
 =&gt; 6
 findFirst (x: x &gt; 9) 7 [ 1 6 4 ]
 =&gt; 7
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L584"  target="_top">lib/lists.nix:584</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L590"  target="_top">lib/lists.nix:590</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.any"></span><code class="literal">lib.lists.any</code>   </h4>  </div> </div></div><p>Return true if function <code class="literal">pred</code> returns true for at least one
@@ -2004,7 +2005,7 @@ element of <code class="literal">list</code>.</p><div class="section"> <div clas
 =&gt; true
 any isString [ 1 { } ]
 =&gt; false
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L629"  target="_top">lib/lists.nix:629</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L635"  target="_top">lib/lists.nix:635</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.all"></span><code class="literal">lib.lists.all</code>   </h4>  </div> </div></div><p>Return true if function <code class="literal">pred</code> returns true for all elements of
@@ -2015,7 +2016,7 @@ any isString [ 1 { } ]
 =&gt; true
 all (x: x &lt; 3) [ 1 2 3 ]
 =&gt; false
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L664"  target="_top">lib/lists.nix:664</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L670"  target="_top">lib/lists.nix:670</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.count"></span><code class="literal">lib.lists.count</code>   </h4>  </div> </div></div><p>Count how many elements of <code class="literal">list</code> match the supplied predicate
@@ -2024,7 +2025,7 @@ function.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.17.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 147. <code class="literal">lib.lists.count</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">count (x: x == 3) [ 3 2 3 4 6 ]
 =&gt; 2
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L693"  target="_top">lib/lists.nix:693</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L699"  target="_top">lib/lists.nix:699</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.optional"></span><code class="literal">lib.lists.optional</code>   </h4>  </div> </div></div><p>Return a singleton list or an empty list, depending on a boolean
@@ -2036,7 +2037,7 @@ value.  Useful when building lists with optional elements
 =&gt; [ &quot;foo&quot; ]
 optional false &quot;foo&quot;
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L730"  target="_top">lib/lists.nix:730</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L736"  target="_top">lib/lists.nix:736</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.optionals"></span><code class="literal">lib.lists.optionals</code>   </h4>  </div> </div></div><p>Return a list or an empty list, depending on a boolean value.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.19.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">cond</code></span></dt><dd><p>Condition</p></dd><dt><span class="term"><code class="literal">elems</code></span></dt><dd><p>List to return if condition is true</p></dd></dl></div>
@@ -2046,7 +2047,7 @@ optional false &quot;foo&quot;
 =&gt; [ 2 3 ]
 optionals false [ 2 3 ]
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L764"  target="_top">lib/lists.nix:764</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L770"  target="_top">lib/lists.nix:770</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.toList"></span><code class="literal">lib.lists.toList</code>   </h4>  </div> </div></div><p>If argument is a list, return it; else, wrap it in a singleton
@@ -2056,7 +2057,7 @@ reconsider if there isn’t a more “well-typed” approach.</p><div class="sec
 =&gt; [ 1 2 ]
 toList &quot;hi&quot;
 =&gt; [ &quot;hi &quot;]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L793"  target="_top">lib/lists.nix:793</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L799"  target="_top">lib/lists.nix:799</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.range"></span><code class="literal">lib.lists.range</code>   </h4>  </div> </div></div><p>Return a list of integers from <code class="literal">first</code> up to and including <code class="literal">last</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.21.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">first</code></span></dt><dd><p>First integer in the range</p></dd><dt><span class="term"><code class="literal">last</code></span></dt><dd><p>Last integer in the range</p></dd></dl></div>
@@ -2066,7 +2067,7 @@ toList &quot;hi&quot;
 =&gt; [ 2 3 4 ]
 range 3 2
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L827"  target="_top">lib/lists.nix:827</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L833"  target="_top">lib/lists.nix:833</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.replicate"></span><code class="literal">lib.lists.replicate</code>   </h4>  </div> </div></div><p>Return a list with <code class="literal">n</code> copies of an element.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.22.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">n</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">elem</code></span></dt><dd><p>2. Function argument</p></dd></dl></div>
@@ -2076,7 +2077,7 @@ range 3 2
 =&gt; [ &quot;a&quot; &quot;a&quot; &quot;a&quot; ]
 replicate 2 true
 =&gt; [ true true ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L867"  target="_top">lib/lists.nix:867</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L873"  target="_top">lib/lists.nix:873</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.partition"></span><code class="literal">lib.lists.partition</code>   </h4>  </div> </div></div><p>Splits the elements of a list in two lists, <code class="literal">right</code> and
@@ -2085,7 +2086,7 @@ replicate 2 true
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.23.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 153. <code class="literal">lib.lists.partition</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">partition (x: x &gt; 2) [ 5 1 2 3 4 ]
 =&gt; { right = [ 5 3 4 ]; wrong = [ 1 2 ]; }
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L900"  target="_top">lib/lists.nix:900</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L906"  target="_top">lib/lists.nix:906</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.groupBy-prime"></span><code class="literal">lib.lists.groupBy&#x27;</code>   </h4>  </div> </div></div><p>Splits the elements of a list into many lists, using the return value of a predicate.
@@ -2106,7 +2107,7 @@ groupBy (x: x.name) [ {name = &quot;icewm&quot;; script = &quot;icewm &amp;&quot
 
 groupBy&#x27; builtins.add 0 (x: boolToString (x &gt; 2)) [ 5 1 2 3 4 ]
 =&gt; { true = 12; false = 3; }
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L950"  target="_top">lib/lists.nix:950</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L956"  target="_top">lib/lists.nix:956</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.zipListsWith"></span><code class="literal">lib.lists.zipListsWith</code>   </h4>  </div> </div></div><p>Merges two lists of the same size together. If the sizes aren’t the same
@@ -2116,7 +2117,7 @@ by the first argument.</p><div class="section"> <div class="titlepage">  <div>  
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.25.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 155. <code class="literal">lib.lists.zipListsWith</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">zipListsWith (a: b: a + b) [&quot;h&quot; &quot;l&quot;] [&quot;e&quot; &quot;o&quot;]
 =&gt; [&quot;he&quot; &quot;lo&quot;]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L996"  target="_top">lib/lists.nix:996</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1002"  target="_top">lib/lists.nix:1002</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.zipLists"></span><code class="literal">lib.lists.zipLists</code>   </h4>  </div> </div></div><p>Merges two lists of the same size together. If the sizes aren’t the same
@@ -2125,7 +2126,7 @@ the merging stops at the shortest.</p><div class="section"> <div class="titlepag
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.26.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 156. <code class="literal">lib.lists.zipLists</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">zipLists [ 1 2 ] [ &quot;a&quot; &quot;b&quot; ]
 =&gt; [ { fst = 1; snd = &quot;a&quot;; } { fst = 2; snd = &quot;b&quot;; } ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1034"  target="_top">lib/lists.nix:1034</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1040"  target="_top">lib/lists.nix:1040</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.reverseList"></span><code class="literal">lib.lists.reverseList</code>   </h4>  </div> </div></div><p>Reverse the order of the elements of a list.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.27.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">xs</code></span></dt><dd><p>1. Function argument</p></dd></dl></div>
@@ -2133,7 +2134,7 @@ the merging stops at the shortest.</p><div class="section"> <div class="titlepag
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.27.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 157. <code class="literal">lib.lists.reverseList</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">reverseList [ &quot;b&quot; &quot;o&quot; &quot;j&quot; ]
 =&gt; [ &quot;j&quot; &quot;o&quot; &quot;b&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1062"  target="_top">lib/lists.nix:1062</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1068"  target="_top">lib/lists.nix:1068</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.listDfs"></span><code class="literal">lib.lists.listDfs</code>   </h4>  </div> </div></div><p>Depth-First Search (DFS) for lists <code class="literal">list != []</code>.</p><p><code class="literal">before a b == true</code> means that <code class="literal">b</code> depends on <code class="literal">a</code> (there’s an
@@ -2149,7 +2150,7 @@ listDfs true hasPrefix [ &quot;/home/user&quot; &quot;other&quot; &quot;/&quot; 
        loops   = [ &quot;/&quot; ];              # and continues to these elements
        visited = [ &quot;/&quot; &quot;/home/user&quot; ]; # elements leading to the cycle (in reverse order)
        rest    = [ &quot;/home&quot; &quot;other&quot; ];  # everything else
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1107"  target="_top">lib/lists.nix:1107</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1113"  target="_top">lib/lists.nix:1113</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.toposort"></span><code class="literal">lib.lists.toposort</code>   </h4>  </div> </div></div><p>Sort a list based on a partial ordering using DFS. This
@@ -2167,7 +2168,7 @@ toposort hasPrefix [ &quot;other&quot; &quot;/home/user&quot; &quot;/home&quot; 
   == { result = [ &quot;other&quot; &quot;/&quot; &quot;/home&quot; &quot;/home/user&quot; ]; }
 
 toposort (a: b: a &lt; b) [ 3 2 1 ] == { result = [ 1 2 3 ]; }
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1164"  target="_top">lib/lists.nix:1164</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1170"  target="_top">lib/lists.nix:1170</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.sort"></span><code class="literal">lib.lists.sort</code>   </h4>  </div> </div></div><p>Sort a list based on a comparator function which compares two
@@ -2179,7 +2180,7 @@ default comparison on a function-derived property, and may be more efficient.</p
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.30.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 160. <code class="literal">lib.lists.sort</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">sort (p: q: p &lt; q) [ 5 3 7 ]
 =&gt; [ 3 5 7 ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1219"  target="_top">lib/lists.nix:1219</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1225"  target="_top">lib/lists.nix:1225</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.sortOn"></span><code class="literal">lib.lists.sortOn</code>   </h4>  </div> </div></div><p>Sort a list based on the default comparison of a derived property <code class="literal">b</code>.</p><p>The items are returned in <code class="literal">b</code>-increasing order.</p><p><span class="strong"><strong>Performance</strong></span>:</p><p>The passed function <code class="literal">f</code> is only evaluated once per item,
@@ -2190,7 +2191,7 @@ unlike an unprepared <a class="link" href="#function-library-lib.lists.sort" tit
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.31.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 161. <code class="literal">lib.lists.sortOn</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">sortOn stringLength [ &quot;aa&quot; &quot;b&quot; &quot;cccc&quot; ]
 =&gt; [ &quot;b&quot; &quot;aa&quot; &quot;cccc&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1265"  target="_top">lib/lists.nix:1265</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1271"  target="_top">lib/lists.nix:1271</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.compareLists"></span><code class="literal">lib.lists.compareLists</code>   </h4>  </div> </div></div><p>Compare two lists element-by-element.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.32.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">cmp</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">a</code></span></dt><dd><p>2. Function argument</p></dd><dt><span class="term"><code class="literal">b</code></span></dt><dd><p>3. Function argument</p></dd></dl></div>
@@ -2202,7 +2203,7 @@ compareLists compare [ &quot;a&quot; ] []
 =&gt; 1
 compareLists compare [ &quot;a&quot; &quot;b&quot; ] [ &quot;a&quot; &quot;c&quot; ]
 =&gt; -1
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1313"  target="_top">lib/lists.nix:1313</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1319"  target="_top">lib/lists.nix:1319</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.naturalSort"></span><code class="literal">lib.lists.naturalSort</code>   </h4>  </div> </div></div><p>Sort list using “Natural sorting”.
@@ -2213,7 +2214,7 @@ naturalSort [&quot;10.46.133.149&quot; &quot;10.5.16.62&quot; &quot;10.54.16.25&
 =&gt; [&quot;10.5.16.62&quot; &quot;10.46.133.149&quot; &quot;10.54.16.25&quot;]
 naturalSort [&quot;v0.2&quot; &quot;v0.15&quot; &quot;v0.0.9&quot;]
 =&gt; [ &quot;v0.0.9&quot; &quot;v0.2&quot; &quot;v0.15&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1352"  target="_top">lib/lists.nix:1352</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1358"  target="_top">lib/lists.nix:1358</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.take"></span><code class="literal">lib.lists.take</code>   </h4>  </div> </div></div><p>Return the first (at most) N elements of a list.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.34.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">count</code></span></dt><dd><p>Number of elements to take</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>Input list</p></dd></dl></div>
@@ -2223,7 +2224,7 @@ naturalSort [&quot;v0.2&quot; &quot;v0.15&quot; &quot;v0.0.9&quot;]
 =&gt; [ &quot;a&quot; &quot;b&quot; ]
 take 2 [ ]
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1393"  target="_top">lib/lists.nix:1393</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1399"  target="_top">lib/lists.nix:1399</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.drop"></span><code class="literal">lib.lists.drop</code>   </h4>  </div> </div></div><p>Remove the first (at most) N elements of a list.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.35.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">count</code></span></dt><dd><p>Number of elements to drop</p></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>Input list</p></dd></dl></div>
@@ -2233,7 +2234,7 @@ take 2 [ ]
 =&gt; [ &quot;c&quot; &quot;d&quot; ]
 drop 2 [ ]
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1429"  target="_top">lib/lists.nix:1429</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1435"  target="_top">lib/lists.nix:1435</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.hasPrefix"></span><code class="literal">lib.lists.hasPrefix</code>   </h4>  </div> </div></div><p>Whether the first list is a prefix of the second list.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.36.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list1</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">list2</code></span></dt><dd><p>2. Function argument</p></dd></dl></div>
@@ -2243,7 +2244,7 @@ drop 2 [ ]
 =&gt; true
 hasPrefix [ 0 1 ] [ 1 2 3 4 ]
 =&gt; false
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1466"  target="_top">lib/lists.nix:1466</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1472"  target="_top">lib/lists.nix:1472</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.removePrefix"></span><code class="literal">lib.lists.removePrefix</code>   </h4>  </div> </div></div><p>Remove the first list as a prefix from the second list.
@@ -2254,7 +2255,7 @@ Error if the first list isn’t a prefix of the second list.</p><div class="sect
 =&gt; [ 3 4 ]
 removePrefix [ 0 1 ] [ 1 2 3 4 ]
 =&gt; &lt;error&gt;
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1504"  target="_top">lib/lists.nix:1504</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1510"  target="_top">lib/lists.nix:1510</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.sublist"></span><code class="literal">lib.lists.sublist</code>   </h4>  </div> </div></div><p>Return a list consisting of at most <code class="literal">count</code> elements of <code class="literal">list</code>,
@@ -2265,7 +2266,7 @@ starting at index <code class="literal">start</code>.</p><div class="section"> <
 =&gt; [ &quot;b&quot; &quot;c&quot; &quot;d&quot; ]
 sublist 1 3 [ ]
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1549"  target="_top">lib/lists.nix:1549</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1555"  target="_top">lib/lists.nix:1555</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.commonPrefix"></span><code class="literal">lib.lists.commonPrefix</code>   </h4>  </div> </div></div><p>The common prefix of two lists.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.39.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list1</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">list2</code></span></dt><dd><p>2. Function argument</p></dd></dl></div>
@@ -2277,7 +2278,7 @@ commonPrefix [ 1 2 3 ] [ 1 2 3 4 5 ]
 =&gt; [ 1 2 3 ]
 commonPrefix [ 1 2 3 ] [ 4 5 6 ]
 =&gt; [ ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1595"  target="_top">lib/lists.nix:1595</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1601"  target="_top">lib/lists.nix:1601</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.last"></span><code class="literal">lib.lists.last</code>   </h4>  </div> </div></div><p>Return the last element of a list.</p><p>This function throws an error if the list is empty.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.40.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>1. Function argument</p></dd></dl></div>
@@ -2285,7 +2286,7 @@ commonPrefix [ 1 2 3 ] [ 4 5 6 ]
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.40.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 170. <code class="literal">lib.lists.last</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">last [ 1 2 3 ]
 =&gt; 3
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1638"  target="_top">lib/lists.nix:1638</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1644"  target="_top">lib/lists.nix:1644</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.init"></span><code class="literal">lib.lists.init</code>   </h4>  </div> </div></div><p>Return all elements but the last.</p><p>This function throws an error if the list is empty.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.41.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>1. Function argument</p></dd></dl></div>
@@ -2293,12 +2294,12 @@ commonPrefix [ 1 2 3 ] [ 4 5 6 ]
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.41.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 171. <code class="literal">lib.lists.init</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">init [ 1 2 3 ]
 =&gt; [ 1 2 ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1671"  target="_top">lib/lists.nix:1671</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1677"  target="_top">lib/lists.nix:1677</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.crossLists"></span><code class="literal">lib.lists.crossLists</code>   </h4>  </div> </div></div><p>Return the image of the cross product of some lists by a function.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.42.1"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 172. <code class="literal">lib.lists.crossLists</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">crossLists (x:y: &quot;${toString x}${toString y}&quot;) [[1 2] [3 4]]
 =&gt; [ &quot;13&quot; &quot;14&quot; &quot;23&quot; &quot;24&quot; ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1691"  target="_top">lib/lists.nix:1691</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1697"  target="_top">lib/lists.nix:1697</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.unique"></span><code class="literal">lib.lists.unique</code>   </h4>  </div> </div></div><p>Remove duplicate elements from the <code class="literal">list</code>. O(n^2) complexity.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.43.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>Input list</p></dd></dl></div>
@@ -2306,7 +2307,7 @@ commonPrefix [ 1 2 3 ] [ 4 5 6 ]
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.43.3"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 173. <code class="literal">lib.lists.unique</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">unique [ 3 2 3 4 ]
 =&gt; [ 3 2 4 ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1723"  target="_top">lib/lists.nix:1723</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1729"  target="_top">lib/lists.nix:1729</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.allUnique"></span><code class="literal">lib.lists.allUnique</code>   </h4>  </div> </div></div><p>Check if list contains only unique elements. O(n^2) complexity.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.44.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>1. Function argument</p></dd></dl></div>
@@ -2316,23 +2317,23 @@ commonPrefix [ 1 2 3 ] [ 4 5 6 ]
 =&gt; false
 allUnique [ 3 2 4 1 ]
 =&gt; true
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1754"  target="_top">lib/lists.nix:1754</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1760"  target="_top">lib/lists.nix:1760</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.intersectLists"></span><code class="literal">lib.lists.intersectLists</code>   </h4>  </div> </div></div><p>Intersects list ‘list1’ and another list (<code class="literal">list2</code>).</p><p>O(nm) complexity.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.45.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">list1</code></span></dt><dd><p>First list</p></dd><dt><span class="term"><code class="literal">list2</code></span></dt><dd><p>Second list</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.45.2"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 175. <code class="literal">lib.lists.intersectLists</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">intersectLists [ 1 2 3 ] [ 6 3 2 ]
 =&gt; [ 3 2 ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1784"  target="_top">lib/lists.nix:1784</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1790"  target="_top">lib/lists.nix:1790</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.subtractLists"></span><code class="literal">lib.lists.subtractLists</code>   </h4>  </div> </div></div><p>Subtracts list ‘e’ from another list (<code class="literal">list2</code>).</p><p>O(nm) complexity.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.46.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">e</code></span></dt><dd><p>First list</p></dd><dt><span class="term"><code class="literal">list2</code></span></dt><dd><p>Second list</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.46.2"></span>Examples   </h5>  </div> </div></div><div class="example"><span  ></span><p class="title"><strong>Example 176. <code class="literal">lib.lists.subtractLists</code> usage example</strong></p><div class="example-contents"><pre><code class="programlisting nix">subtractLists [ 3 2 ] [ 1 2 3 4 5 3 ]
 =&gt; [ 1 4 5 ]
-</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1813"  target="_top">lib/lists.nix:1813</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+</code></pre></div></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1819"  target="_top">lib/lists.nix:1819</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 class="title" >     <span id="function-library-lib.lists.mutuallyExclusive"></span><code class="literal">lib.lists.mutuallyExclusive</code>   </h4>  </div> </div></div><p>Test if two lists have no common element.
-It should be slightly more efficient than (intersectLists a b == [])</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.47.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">a</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">b</code></span></dt><dd><p>2. Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1829"  target="_top">lib/lists.nix:1829</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
+It should be slightly more efficient than (intersectLists a b == [])</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 class="title" >     <span id="auto-generated-13-1.47.1"></span>Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">a</code></span></dt><dd><p>1. Function argument</p></dd><dt><span class="term"><code class="literal">b</code></span></dt><dd><p>2. Function argument</p></dd></dl></div><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L1835"  target="_top">lib/lists.nix:1835</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
 
 </div>
