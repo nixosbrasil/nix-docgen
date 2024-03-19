@@ -8772,7 +8772,7 @@ buildNpmPackage {
   export HOME=$(mktemp -d)
   yarn --offline build
 &#x27;&#x27;;
-</code></pre><p>The dist phase is also trying to build a binary, the only way to override it is with:</p><pre><code class="programlisting nix">distPhase = &quot;true&quot;;
+</code></pre><p>The <code class="literal">distPhase</code> is packing the package’s dependencies in a tarball using <code class="literal">yarn pack</code>. You can disable it using:</p><pre><code class="programlisting nix">doDist = false;
 </code></pre><p>The configure phase can sometimes fail because it makes many assumptions which may not always apply. One common override is:</p><pre><code class="programlisting nix">configurePhase = &#x27;&#x27;
   ln -s $node_modules node_modules
 &#x27;&#x27;;
