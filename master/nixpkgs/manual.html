@@ -4912,7 +4912,7 @@ The store path will include the the name, and it will be a directory.</p><div cl
     echo &quot;hi&quot;
   &#x27;&#x27;;
   executable = true;
-  destination = &quot;bin/my-script&quot;
+  destination = &quot;bin/my-script&quot;;
 }
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="trivial-builder-writeShellScript" class="title" ><code class="literal">writeShellScript</code>   </h3>  </div> </div></div><p>Write a Bash script to the store.</p><p><code class="literal">writeShellScript</code> takes the following arguments:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">name</code> (String)</span></dt><dd><p>The name used in the Nix store path.</p></dd><dt><span class="term"><code class="literal">text</code> (String)</span></dt><dd><p>The contents of the file.</p></dd></dl></div><p>The created file is marked as executable.
@@ -4942,7 +4942,7 @@ The store path will include the the name, and it will be a directory.</p><p>This
     echo &quot;hi&quot;
   &#x27;&#x27;;
   executable = true;
-  destination = &quot;bin/my-script&quot;
+  destination = &quot;bin/my-script&quot;;
 }
 </code></pre>
 </div>
@@ -12311,6 +12311,60 @@ buildPythonPackage rec {
   format = &quot;pyproject&quot;;
 
   nativeBuildInputs = with rustPlatform; [ cargoSetupHook maturinBuildHook ];
+
+  # ...
+}
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="rust-package-built-with-meson" class="title" >Rust package built with <code class="literal">meson</code>   </h5>  </div> </div></div><p>Some projects, especially GNOME applications, are built with the Meson Build System instead of calling Cargo directly. Using <code class="literal">rustPlatform.buildRustPackage</code> may successfully build the main program, but related files will be missing. Instead, you need to set up Cargo dependencies with <code class="literal">fetchCargoTarball</code> and <code class="literal">cargoSetupHook</code> and leave the rest to Meson. <code class="literal">rust</code> and <code class="literal">cargo</code> are still needed in <code class="literal">nativeBuildInputs</code> for Meson to use.</p><pre><code class="programlisting nix">{ lib
+, stdenv
+, fetchFromGitLab
+, meson
+, ninja
+, pkg-config
+, rustPlatform
+, rustc
+, cargo
+, wrapGAppsHook4
+, blueprint-compiler
+, libadwaita
+, libsecret
+, tracker
+}:
+
+stdenv.mkDerivation rec {
+  pname = &quot;health&quot;;
+  version = &quot;0.95.0&quot;;
+
+  src = fetchFromGitLab {
+    domain = &quot;gitlab.gnome.org&quot;;
+    owner = &quot;World&quot;;
+    repo = &quot;health&quot;;
+    rev = version;
+    hash = &quot;sha256-PrNPprSS98yN8b8yw2G6hzTSaoE65VbsM3q7FVB4mds=&quot;;
+  };
+
+  cargoDeps = rustPlatform.fetchCargoTarball {
+    inherit src;
+    name = &quot;${pname}-${version}&quot;;
+    hash = &quot;sha256-8fa3fa+sFi5H+49B5sr2vYPkp9C9s6CcE0zv4xB8gww=&quot;;
+  };
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    pkg-config
+    rustPlatform.cargoSetupHook
+    rustc
+    cargo
+    wrapGAppsHook4
+    blueprint-compiler
+  ];
+
+  buildInputs = [
+    libadwaita
+    libsecret
+    tracker
+  ];
 
   # ...
 }
