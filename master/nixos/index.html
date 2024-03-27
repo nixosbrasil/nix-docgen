@@ -1435,11 +1435,9 @@ services.xserver.deviceSection = &#x27;&#x27;
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-x11-graphics-cards-nvidia" class="title" style="clear: both">Proprietary NVIDIA drivers   </h2>  </div> </div></div><p>NVIDIA provides a proprietary driver for its graphics cards that has
 better 3D performance than the X.org drivers. It is not enabled by
 default because it’s not free software. You can enable it as follows:</p><pre><code class="programlisting nix">services.xserver.videoDrivers = [ &quot;nvidia&quot; ];
-</code></pre><p>Or if you have an older card, you may have to use one of the legacy
-drivers:</p><pre><code class="programlisting nix">services.xserver.videoDrivers = [ &quot;nvidiaLegacy470&quot; ];
-services.xserver.videoDrivers = [ &quot;nvidiaLegacy390&quot; ];
-services.xserver.videoDrivers = [ &quot;nvidiaLegacy340&quot; ];
-services.xserver.videoDrivers = [ &quot;nvidiaLegacy304&quot; ];
+</code></pre><p>If you have an older card, you may have to use one of the legacy drivers:</p><pre><code class="programlisting nix">hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_340;
 </code></pre><p>You may need to reboot after enabling this driver to prevent a clash
 with other kernel modules.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-x11--graphics-cards-amd" class="title" style="clear: both">Proprietary AMD drivers   </h2>  </div> </div></div><p>AMD provides a proprietary driver for its graphics cards that is not
