@@ -9587,7 +9587,8 @@ interpreter. E.g., the <code class="literal">busted</code> package corresponding
 is <code class="literal">lua.pkgs.busted</code>, and the lua 5.2 version is <code class="literal">lua5_2.pkgs.busted</code>.
 The main package set contains aliases to these package sets, e.g.
 <code class="literal">luaPackages</code> refers to <code class="literal">lua5_1.pkgs</code> and <code class="literal">lua52Packages</code> to
-<code class="literal">lua5_2.pkgs</code>.</p>
+<code class="literal">lua5_2.pkgs</code>.</p><p>Note that nixpkgs patches the non-luajit interpreters to avoid referring to
+<code class="literal">/usr</code> and have <code class="literal">;;</code> (a <a class="link" href="https://www.lua.org/manual/5.1/manual.html#pdf-package.path"  target="_top">placeholder</a> replaced with the default LUA_PATH) work correctly.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="installing-lua-and-packages" class="title" >Installing Lua and packages   </h4>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="lua-environment-defined-in-separate-.nix-file" class="title" >Lua environment defined in separate <code class="literal">.nix</code> file   </h5>  </div> </div></div><p>Create a file, e.g. <code class="literal">build.nix</code>, with the following expression</p><pre><code class="programlisting nix">with import &lt;nixpkgs&gt; {};
 
 lua5_2.withPackages (ps: with ps; [ busted luafilesystem ])
