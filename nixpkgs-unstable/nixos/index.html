@@ -274,15 +274,15 @@ $ passwd eelco
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-installation-manual-summary" class="title" >Installation summary   </h3>  </div> </div></div><p><span id="sec-installation-summary"></span> </p><p>To summarise, <a class="link" href="index.html#ex-install-sequence" title="Example 3. Commands for Installing NixOS on /dev/sda" >Example: Commands for Installing NixOS on <code class="literal">/dev/sda</code></a>
 shows a typical sequence of commands for installing NixOS on an empty hard
 drive (here <code class="literal">/dev/sda</code>). <a class="link" href="index.html#ex-config" title="Example 4. Example: NixOS Configuration" >Example: NixOS Configuration</a> shows a
-corresponding configuration Nix expression.</p><div class="example"><span id="ex-partition-scheme-MBR" ></span><p class="title"><strong>Example 1. Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (MBR)</strong></p><div class="example-contents"><pre><code class="programlisting ShellSession"># parted /dev/sda -- mklabel msdos
+corresponding configuration Nix expression.</p><div class="example"><span id="ex-partition-scheme-MBR" ></span><details><summary><span class="title"><strong>Example 1. Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (MBR)</strong></span></summary><div class="example-contents"><pre><code class="programlisting ShellSession"># parted /dev/sda -- mklabel msdos
 # parted /dev/sda -- mkpart primary 1MB -8GB
 # parted /dev/sda -- mkpart primary linux-swap -8GB 100%
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-partition-scheme-UEFI" ></span><p class="title"><strong>Example 2. Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (UEFI)</strong></p><div class="example-contents"><pre><code class="programlisting ShellSession"># parted /dev/sda -- mklabel gpt
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-partition-scheme-UEFI" ></span><details><summary><span class="title"><strong>Example 2. Example partition schemes for NixOS on <code class="literal">/dev/sda</code> (UEFI)</strong></span></summary><div class="example-contents"><pre><code class="programlisting ShellSession"># parted /dev/sda -- mklabel gpt
 # parted /dev/sda -- mkpart root ext4 512MB -8GB
 # parted /dev/sda -- mkpart swap linux-swap -8GB 100%
 # parted /dev/sda -- mkpart ESP fat32 1MB 512MB
 # parted /dev/sda -- set 3 esp on
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-install-sequence" ></span><p class="title"><strong>Example 3. Commands for Installing NixOS on <code class="literal">/dev/sda</code></strong></p><div class="example-contents"><p>With a partitioned disk.</p><pre><code class="programlisting ShellSession"># mkfs.ext4 -L nixos /dev/sda1
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-install-sequence" ></span><details><summary><span class="title"><strong>Example 3. Commands for Installing NixOS on <code class="literal">/dev/sda</code></strong></span></summary><div class="example-contents"><p>With a partitioned disk.</p><pre><code class="programlisting ShellSession"># mkfs.ext4 -L nixos /dev/sda1
 # mkswap -L swap /dev/sda2
 # swapon /dev/sda2
 # mkfs.fat -F 32 -n boot /dev/sda3        # (for UEFI systems only)
@@ -293,7 +293,7 @@ corresponding configuration Nix expression.</p><div class="example"><span id="ex
 # nano /mnt/etc/nixos/configuration.nix
 # nixos-install
 # reboot
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-config" ></span><p class="title"><strong>Example 4. Example: NixOS Configuration</strong></p><div class="example-contents"><pre><code class="programlisting ShellSession">{ config, pkgs, ... }: {
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-config" ></span><details><summary><span class="title"><strong>Example 4. Example: NixOS Configuration</strong></span></summary><div class="example-contents"><pre><code class="programlisting ShellSession">{ config, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -310,7 +310,7 @@ corresponding configuration Nix expression.</p><div class="example"><span id="ex
   # Enable the OpenSSH server.
   services.sshd.enable = true;
 }
-</code></pre></div></div><br class="example-break" />
+</code></pre></div></details></div><br class="example-break" />
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-installation-additional-notes" class="title" style="clear: both">Additional installation notes   </h2>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-booting-from-usb" class="title" >Booting from a USB flash drive   </h3>  </div> </div></div><p>The image has to be written verbatim to the USB flash drive for it to be
@@ -5264,7 +5264,7 @@ declare the set of Emacs packages you need using the derivations from
 Nixpkgs. The rest of this section discusses declarative installation of
 Emacs packages through nixpkgs.</p><p>The first step to declare the list of packages you want in your Emacs
 installation is to create a dedicated derivation. This can be done in a
-dedicated <code class="filename">emacs.nix</code> file such as:</p><div class="example"><span id="ex-emacsNix" ></span><p class="title"><strong>Example 5. Nix expression to build Emacs with packages (<code class="literal">emacs.nix</code>)</strong></p><div class="example-contents"><pre><code class="programlisting nix">/*
+dedicated <code class="filename">emacs.nix</code> file such as:</p><div class="example"><span id="ex-emacsNix" ></span><details><summary><span class="title"><strong>Example 5. Nix expression to build Emacs with packages (<code class="literal">emacs.nix</code>)</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">/*
 This is a nix expression to build Emacs and some Emacs packages I like
 from source on any distribution where Nix is installed. This will install
 all the dependencies from the nixpkgs repository and build the binary files
@@ -5316,7 +5316,7 @@ in
   ++ [
     pkgs.notmuch   # From main packages set
   ])
-</code></pre></div></div><br class="example-break" /><p>The result of this configuration will be an <span class="command"><strong>emacs</strong></span>
+</code></pre></div></details></div><br class="example-break" /><p>The result of this configuration will be an <span class="command"><strong>emacs</strong></span>
 command which launches Emacs with all of your chosen packages in the
 <code class="varname">load-path</code>.</p><p>You can check that it works by executing this in a terminal:</p><pre><code class="programlisting ShellSession">$ nix-build emacs.nix
 $ ./result/bin/emacs -q
@@ -5325,37 +5325,37 @@ can use all the packages you want in this Emacs instance. For example, try
 switching to the zerodark theme through <code class="literal">M-x load-theme &lt;RET&gt; zerodark &lt;RET&gt; y</code>.</p><div class="tip"><h3 class="title">Tip</h3><p>A few popular extensions worth checking out are: auctex, company,
 edit-server, flycheck, helm, iedit, magit, multiple-cursors, projectile,
 and yasnippet.</p></div><p>The list of available packages in the various ELPA repositories can be seen
-with the following commands:</p><div class="example"><span id="module-services-emacs-querying-packages" ></span><p class="title"><strong>Example 6. Querying Emacs packages</strong></p><div class="example-contents"><pre><code class="programlisting">nix-env -f &quot;&lt;nixpkgs&gt;&quot; -qaP -A emacs.pkgs.elpaPackages
+with the following commands:</p><div class="example"><span id="module-services-emacs-querying-packages" ></span><details><summary><span class="title"><strong>Example 6. Querying Emacs packages</strong></span></summary><div class="example-contents"><pre><code class="programlisting">nix-env -f &quot;&lt;nixpkgs&gt;&quot; -qaP -A emacs.pkgs.elpaPackages
 nix-env -f &quot;&lt;nixpkgs&gt;&quot; -qaP -A emacs.pkgs.melpaPackages
 nix-env -f &quot;&lt;nixpkgs&gt;&quot; -qaP -A emacs.pkgs.melpaStablePackages
 nix-env -f &quot;&lt;nixpkgs&gt;&quot; -qaP -A emacs.pkgs.orgPackages
-</code></pre></div></div><br class="example-break" /><p>If you are on NixOS, you can install this particular Emacs for all users by
+</code></pre></div></details></div><br class="example-break" /><p>If you are on NixOS, you can install this particular Emacs for all users by
 putting the <code class="literal">emacs.nix</code> file in <code class="literal">/etc/nixos</code> and adding it to the list of
 system packages (see <a class="xref" href="index.html#sec-declarative-package-mgmt" title="Declarative Package Management" >the section called “Declarative Package Management”</a>). Simply modify your
-file <code class="filename">configuration.nix</code> to make it contain:</p><div class="example"><span id="module-services-emacs-configuration-nix" ></span><p class="title"><strong>Example 7. Custom Emacs in <code class="literal">configuration.nix</code></strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+file <code class="filename">configuration.nix</code> to make it contain:</p><div class="example"><span id="module-services-emacs-configuration-nix" ></span><details><summary><span class="title"><strong>Example 7. Custom Emacs in <code class="literal">configuration.nix</code></strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
  environment.systemPackages = [
    # [...]
    (import ./emacs.nix { inherit pkgs; })
   ];
 }
-</code></pre></div></div><br class="example-break" /><p>In this case, the next <span class="command"><strong>nixos-rebuild switch</strong></span> will take
+</code></pre></div></details></div><br class="example-break" /><p>In this case, the next <span class="command"><strong>nixos-rebuild switch</strong></span> will take
 care of adding your <span class="command"><strong>emacs</strong></span> to the <code class="varname">PATH</code>
 environment variable (see <a class="xref" href="index.html#sec-changing-config" title="Changing the Configuration" ><em>Changing the Configuration</em></a>).</p><p>If you are not on NixOS or want to install this particular Emacs only for
 yourself, you can do so by putting <code class="literal">emacs.nix</code> in <code class="literal">~/.config/nixpkgs</code> and
 adding it to your <code class="filename">~/.config/nixpkgs/config.nix</code> (see
-<a class="link" href="https://nixos.org/nixpkgs/manual/#sec-modify-via-packageOverrides"  target="_top">Nixpkgs manual</a>):</p><div class="example"><span id="module-services-emacs-config-nix" ></span><p class="title"><strong>Example 8. Custom Emacs in <code class="literal">~/.config/nixpkgs/config.nix</code></strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+<a class="link" href="https://nixos.org/nixpkgs/manual/#sec-modify-via-packageOverrides"  target="_top">Nixpkgs manual</a>):</p><div class="example"><span id="module-services-emacs-config-nix" ></span><details><summary><span class="title"><strong>Example 8. Custom Emacs in <code class="literal">~/.config/nixpkgs/config.nix</code></strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   packageOverrides = super: let self = super.pkgs; in {
     myemacs = import ./emacs.nix { pkgs = self; };
   };
 }
-</code></pre></div></div><br class="example-break" /><p>In this case, the next <code class="literal">nix-env -f &#x27;&lt;nixpkgs&gt;&#x27; -iA myemacs</code> will take care of adding your emacs to the
+</code></pre></div></details></div><br class="example-break" /><p>In this case, the next <code class="literal">nix-env -f &#x27;&lt;nixpkgs&gt;&#x27; -iA myemacs</code> will take care of adding your emacs to the
 <code class="varname">PATH</code> environment variable.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="module-services-emacs-advanced" class="title" >Advanced Emacs Configuration   </h3>  </div> </div></div><p>If you want, you can tweak the Emacs package itself from your
 <code class="filename">emacs.nix</code>. For example, if you want to have a
 GTK 3-based Emacs instead of the default GTK 2-based binary and remove the
 automatically generated <code class="filename">emacs.desktop</code> (useful if you
 only use <span class="command"><strong>emacsclient</strong></span>), you can change your file
-<code class="filename">emacs.nix</code> in this way:</p><div class="example"><span id="ex-emacsGtk3Nix" ></span><p class="title"><strong>Example 9. Custom Emacs build</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ pkgs ? import &lt;nixpkgs&gt; {} }:
+<code class="filename">emacs.nix</code> in this way:</p><div class="example"><span id="ex-emacsGtk3Nix" ></span><details><summary><span class="title"><strong>Example 9. Custom Emacs build</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{ pkgs ? import &lt;nixpkgs&gt; {} }:
 let
   myEmacs = (pkgs.emacs.override {
     # Use gtk3 instead of the default gtk2
@@ -5369,7 +5369,7 @@ let
     &#x27;&#x27;;
   });
 in [ /* ... */ ]
-</code></pre></div></div><br class="example-break" /><p>After building this file as shown in <a class="xref" href="index.html#ex-emacsNix" title="Example 5. Nix expression to build Emacs with packages (emacs.nix)" >Example 5</a>, you
+</code></pre></div></details></div><br class="example-break" /><p>After building this file as shown in <a class="xref" href="index.html#ex-emacsNix" title="Example 5. Nix expression to build Emacs with packages (emacs.nix)" >Example 5</a>, you
 will get an GTK 3-based Emacs binary pre-loaded with your favorite packages.</p>
 </div>
 
@@ -5438,7 +5438,7 @@ included.</p><p>To install the DocBook 5.0 schemas, either add
 <code class="literal">nix-env -f &#x27;&lt;nixpkgs&gt;&#x27; -iA docbook5</code>
 (<a class="link" href="index.html#sec-ad-hoc-packages" title="Ad-Hoc Package Management" >Nix</a>).</p><p>Then customize the variable <code class="varname">rng-schema-locating-files</code> to
 include <code class="filename">~/.emacs.d/schemas.xml</code> and put the following
-text into that file:</p><div class="example"><span id="ex-emacs-docbook-xml" ></span><p class="title"><strong>Example 10. nXML Schema Configuration (<code class="literal">~/.emacs.d/schemas.xml</code>)</strong></p><div class="example-contents"><pre><code class="programlisting xml">&lt;?xml version=&quot;1.0&quot;?&gt;
+text into that file:</p><div class="example"><span id="ex-emacs-docbook-xml" ></span><details><summary><span class="title"><strong>Example 10. nXML Schema Configuration (<code class="literal">~/.emacs.d/schemas.xml</code>)</strong></span></summary><div class="example-contents"><pre><code class="programlisting xml">&lt;?xml version=&quot;1.0&quot;?&gt;
 &lt;!--
   To let emacs find this file, evaluate:
   (add-to-list &#x27;rng-schema-locating-files &quot;~/.emacs.d/schemas.xml&quot;)
@@ -5455,7 +5455,7 @@ text into that file:</p><div class="example"><span id="ex-emacs-docbook-xml" ></
              uri=&quot;../.nix-profile/share/xml/docbook-5.0/rng/docbookxi.rnc&quot;/&gt;
   --&gt;
 &lt;/locatingRules&gt;
-</code></pre></div></div><br class="example-break" />
+</code></pre></div></details></div><br class="example-break" />
 </div>
 
 </div>
@@ -7229,7 +7229,7 @@ NixOS modules:</p><pre><code class="programlisting nix">{ config, pkgs, ... }:
 }
 </code></pre><p>This is actually an <span class="emphasis"><em>abbreviated</em></span> form of module that only defines
 options, but does not declare any. The structure of full NixOS modules
-is shown in <a class="link" href="index.html#ex-module-syntax" title="Example 11. Structure of NixOS Modules" >Example: Structure of NixOS Modules</a>.</p><div class="example"><span id="ex-module-syntax" ></span><p class="title"><strong>Example 11. Structure of NixOS Modules</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ config, pkgs, ... }:
+is shown in <a class="link" href="index.html#ex-module-syntax" title="Example 11. Structure of NixOS Modules" >Example: Structure of NixOS Modules</a>.</p><div class="example"><span id="ex-module-syntax" ></span><details><summary><span class="title"><strong>Example 11. Structure of NixOS Modules</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{ config, pkgs, ... }:
 
 {
   imports =
@@ -7244,7 +7244,7 @@ is shown in <a class="link" href="index.html#ex-module-syntax" title="Example 1
     # option definitions
   };
 }
-</code></pre></div></div><br class="example-break" /><p>The meaning of each part is as follows.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>The first line makes the current Nix expression a function. The variable
+</code></pre></div></details></div><br class="example-break" /><p>The meaning of each part is as follows.</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>The first line makes the current Nix expression a function. The variable
 <code class="literal">pkgs</code> contains Nixpkgs (by default, it takes the <code class="literal">nixpkgs</code> entry of
 <code class="literal">NIX_PATH</code>, see the <a class="link" href="https://nixos.org/manual/nix/stable/#sec-common-env"  target="_top">Nix manual</a>
 for further details), while <code class="literal">config</code> contains the full system
@@ -7272,7 +7272,7 @@ directive, e.g. when using an <code class="literal">extraArgs</code> option to p
 the service. The functions <code class="literal">utils.escapeSystemdExecArg</code> and
 <code class="literal">utils.escapeSystemdExecArgs</code> are provided for this, see <a class="link" href="index.html#exec-escaping-example" title="Example 13. Escaping in Exec directives" >Example: Escaping in
 Exec directives</a> for an example. When using these
-functions system environment substitution should <span class="emphasis"><em>not</em></span> be disabled explicitly.</p><div class="example"><span id="locate-example" ></span><p class="title"><strong>Example 12. NixOS Module for the “locate” Service</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ config, lib, pkgs, ... }:
+functions system environment substitution should <span class="emphasis"><em>not</em></span> be disabled explicitly.</p><div class="example"><span id="locate-example" ></span><details><summary><span class="title"><strong>Example 12. NixOS Module for the “locate” Service</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{ config, lib, pkgs, ... }:
 
 let
   inherit (lib) concatStringsSep mkIf mkOption optionalString types;
@@ -7326,7 +7326,7 @@ in {
       };
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="exec-escaping-example" ></span><p class="title"><strong>Example 13. Escaping in Exec directives</strong></p><div class="example-contents"><pre><code class="programlisting nix">{ config, pkgs, utils, ... }:
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="exec-escaping-example" ></span><details><summary><span class="title"><strong>Example 13. Escaping in Exec directives</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{ config, pkgs, utils, ... }:
 
 let
   cfg = config.services.echo;
@@ -7347,7 +7347,7 @@ in {
       &#x27;&#x27;;
     };
 }
-</code></pre></div></div><br class="example-break" /><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-option-declarations" class="title" style="clear: both">Option Declarations   </h2>  </div> </div></div><p>An option declaration specifies the name, type and description of a
+</code></pre></div></details></div><br class="example-break" /><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-option-declarations" class="title" style="clear: both">Option Declarations   </h2>  </div> </div></div><p>An option declaration specifies the name, type and description of a
 NixOS configuration option. It is invalid to define an option that
 hasn’t been declared in any module. An option declaration generally
 looks like this:</p><pre><code class="programlisting nix">{
@@ -7379,7 +7379,7 @@ a plain English description in <a class="link" href="https://nixos.org/nixpkgs/m
 You can use <code class="literal">lib.literalExpression</code> and <code class="literal">lib.literalMD</code> in the same way
 as in <code class="literal">defaultText</code>.</p></dd><dt><span class="term"><code class="literal">description</code></span></dt><dd><p>A textual description of the option in <a class="link" href="https://nixos.org/nixpkgs/manual/#sec-contributing-markup"  target="_top">Nixpkgs-flavored Markdown</a> format that will be
 included in the NixOS manual.</p></dd></dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-option-declarations-util" class="title" >Utility functions for common option patterns   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-option-declarations-util-mkEnableOption" class="title" ><code class="literal">mkEnableOption</code>   </h4>  </div> </div></div><p>Creates an Option attribute set for a boolean value option i.e an
-option to be toggled on or off.</p><p>This function takes a single string argument, the name of the thing to be toggled.</p><p>The option’s description is “Whether to enable &lt;name&gt;.”.</p><p>For example:</p><div class="example"><span id="ex-options-declarations-util-mkEnableOption-magic" ></span><p class="title"><strong>Example 14. <code class="literal">mkEnableOption</code> usage</strong></p><div class="example-contents"><pre><code class="programlisting nix">lib.mkEnableOption &quot;magic&quot;
+option to be toggled on or off.</p><p>This function takes a single string argument, the name of the thing to be toggled.</p><p>The option’s description is “Whether to enable &lt;name&gt;.”.</p><p>For example:</p><div class="example"><span id="ex-options-declarations-util-mkEnableOption-magic" ></span><details><summary><span class="title"><strong>Example 14. <code class="literal">mkEnableOption</code> usage</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">lib.mkEnableOption &quot;magic&quot;
 # is like
 lib.mkOption {
   type = lib.types.bool;
@@ -7387,7 +7387,7 @@ lib.mkOption {
   example = true;
   description = &quot;Whether to enable magic.&quot;;
 }
-</code></pre></div></div><br class="example-break" />
+</code></pre></div></details></div><br class="example-break" />
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-option-declarations-util-mkPackageOption" class="title" ><code class="literal">mkPackageOption</code>   </h4>  </div> </div></div><p>Usage:</p><pre><code class="programlisting nix">mkPackageOption pkgs &quot;name&quot; { default = [ &quot;path&quot; &quot;in&quot; &quot;pkgs&quot; ]; example = &quot;literal example&quot;; }
 </code></pre><p>Creates an Option attribute set for an option that specifies the package a module should use for some purpose.</p><p><span class="strong"><strong>Note</strong></span>: You shouldn’t necessarily make package options for all of your modules. You can always overwrite a specific package throughout nixpkgs by using <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#chap-overlays"  target="_top">nixpkgs overlays</a>.</p><p>The package is specified in the third argument under <code class="literal">default</code> as a list of strings
 representing its attribute path in nixpkgs (or another package set).
@@ -7399,7 +7399,7 @@ append arbitrary text to the generated description.
 You can also pass an <code class="literal">example</code> value, either a literal string or an attribute path.</p><p>The default argument can be omitted if the provided name is
 an attribute of pkgs (if name is a string) or a
 valid attribute path in pkgs (if name is a list).</p><p>If you wish to explicitly provide no default, pass <code class="literal">null</code> as <code class="literal">default</code>.</p><p><span id="ex-options-declarations-util-mkPackageOption"></span>
-Examples:</p><div class="example"><span id="ex-options-declarations-util-mkPackageOption-hello" ></span><p class="title"><strong>Example 15. Simple <code class="literal">mkPackageOption</code> usage</strong></p><div class="example-contents"><pre><code class="programlisting nix">lib.mkPackageOption pkgs &quot;hello&quot; { }
+Examples:</p><div class="example"><span id="ex-options-declarations-util-mkPackageOption-hello" ></span><details><summary><span class="title"><strong>Example 15. Simple <code class="literal">mkPackageOption</code> usage</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">lib.mkPackageOption pkgs &quot;hello&quot; { }
 # is like
 lib.mkOption {
   type = lib.types.package;
@@ -7407,7 +7407,7 @@ lib.mkOption {
   defaultText = lib.literalExpression &quot;pkgs.hello&quot;;
   description = &quot;The hello package to use.&quot;;
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-ghc" ></span><p class="title"><strong>Example 16. <code class="literal">mkPackageOption</code> with explicit default and example</strong></p><div class="example-contents"><pre><code class="programlisting nix">lib.mkPackageOption pkgs &quot;GHC&quot; {
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-ghc" ></span><details><summary><span class="title"><strong>Example 16. <code class="literal">mkPackageOption</code> with explicit default and example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">lib.mkPackageOption pkgs &quot;GHC&quot; {
   default = [ &quot;ghc&quot; ];
   example = &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
 }
@@ -7419,7 +7419,7 @@ lib.mkOption {
   example = lib.literalExpression &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
   description = &quot;The GHC package to use.&quot;;
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-extraDescription" ></span><p class="title"><strong>Example 17. <code class="literal">mkPackageOption</code> with additional description text</strong></p><div class="example-contents"><pre><code class="programlisting nix">mkPackageOption pkgs [ &quot;python39Packages&quot; &quot;pytorch&quot; ] {
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-extraDescription" ></span><details><summary><span class="title"><strong>Example 17. <code class="literal">mkPackageOption</code> with additional description text</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">mkPackageOption pkgs [ &quot;python39Packages&quot; &quot;pytorch&quot; ] {
   extraDescription = &quot;This is an example and doesn&#x27;t actually do anything.&quot;;
 }
 # is like
@@ -7429,7 +7429,7 @@ lib.mkOption {
   defaultText = lib.literalExpression &quot;pkgs.python39Packages.pytorch&quot;;
   description = &quot;The pytorch package to use. This is an example and doesn&#x27;t actually do anything.&quot;;
 }
-</code></pre></div></div><br class="example-break" />
+</code></pre></div></details></div><br class="example-break" />
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-option-declarations-eot" class="title" >Extensible Option Types   </h3>  </div> </div></div><p>Extensible option types is a feature that allow to extend certain types
@@ -7454,23 +7454,23 @@ and to extend it in each backend module
 (<a class="link" href="index.html#ex-option-declaration-eot-backend-gdm" title="Example 19. Extending services.xserver.displayManager.enable in the gdm module" >Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</a>,
 <a class="link" href="index.html#ex-option-declaration-eot-backend-sddm" title="Example 20. Extending services.xserver.displayManager.enable in the sddm module" >Example: Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</a>).</p><p>As a result, <code class="literal">displayManager.enable</code> option values can be added without
 changing the main service module file and the type system automatically
-enforces that there can only be a single display manager enabled.</p><div class="example"><span id="ex-option-declaration-eot-service" ></span><p class="title"><strong>Example 18. Extensible type placeholder in the service module</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+enforces that there can only be a single display manager enabled.</p><div class="example"><span id="ex-option-declaration-eot-service" ></span><details><summary><span class="title"><strong>Example 18. Extensible type placeholder in the service module</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   services.xserver.displayManager.enable = mkOption {
     description = &quot;Display manager to use&quot;;
     type = with types; nullOr (enum [ ]);
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-option-declaration-eot-backend-gdm" ></span><p class="title"><strong>Example 19. Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-option-declaration-eot-backend-gdm" ></span><details><summary><span class="title"><strong>Example 19. Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">gdm</code> module</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   services.xserver.displayManager.enable = mkOption {
     type = with types; nullOr (enum [ &quot;gdm&quot; ]);
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-option-declaration-eot-backend-sddm" ></span><p class="title"><strong>Example 20. Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-option-declaration-eot-backend-sddm" ></span><details><summary><span class="title"><strong>Example 20. Extending <code class="literal">services.xserver.displayManager.enable</code> in the <code class="literal">sddm</code> module</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   services.xserver.displayManager.enable = mkOption {
     type = with types; nullOr (enum [ &quot;sddm&quot; ]);
   };
 }
-</code></pre></div></div><br class="example-break" /><p>The placeholder declaration is a standard <code class="literal">mkOption</code> declaration, but it
+</code></pre></div></details></div><br class="example-break" /><p>The placeholder declaration is a standard <code class="literal">mkOption</code> declaration, but it
 is important that extensible option declarations only use the <code class="literal">type</code>
 argument.</p><p>Extensible option types work with any of the composed variants of <code class="literal">enum</code>
 such as <code class="literal">with types; nullOr (enum [ &quot;foo&quot; &quot;bar&quot; ])</code> or <code class="literal">with types; listOf (enum [ &quot;foo&quot; &quot;bar&quot; ])</code>.</p>
@@ -7489,7 +7489,7 @@ paths, the more specific <code class="literal">types.package</code> should be pr
 path like <code class="literal">pkgs.hello</code> or a descendant like <code class="literal">&quot;${pkgs.hello}/bin/hello&quot;</code>.</p></dd><dt><span class="term"><code class="literal">types.package</code></span></dt><dd><p>A top-level store path. This can be an attribute set pointing
 to a store path, like a derivation or a flake input.</p></dd><dt><span class="term"><code class="literal">types.enum</code> <span class="emphasis"><em><code class="literal">l</code></em></span></span></dt><dd><p>One element of the list <span class="emphasis"><em><code class="literal">l</code></em></span>, e.g. <code class="literal">types.enum [ &quot;left&quot; &quot;right&quot; ]</code>.
 Multiple definitions cannot be merged.</p></dd><dt><span class="term"><code class="literal">types.anything</code></span></dt><dd><p>A type that accepts any value and recursively merges attribute sets
-together. This type is recommended when the option type is unknown.</p><div class="example"><span id="ex-types-anything" ></span><p class="title"><strong>Example 21. <code class="literal">types.anything</code></strong></p><div class="example-contents"><p>Two definitions of this type like</p><pre><code class="programlisting nix">{
+together. This type is recommended when the option type is unknown.</p><div class="example"><span id="ex-types-anything" ></span><details><summary><span class="title"><strong>Example 21. <code class="literal">types.anything</code></strong></span></summary><div class="example-contents"><p>Two definitions of this type like</p><pre><code class="programlisting nix">{
   str = lib.mkDefault &quot;foo&quot;;
   pkg.hello = pkgs.hello;
   fun.fun = x: x + 1;
@@ -7505,7 +7505,7 @@ together. This type is recommended when the option type is unknown.</p><div clas
   pkg.hello = pkgs.hello;
   fun.fun = x: x + 2;
 }
-</code></pre></div></div><br class="example-break" /></dd><dt><span class="term"><code class="literal">types.raw</code></span></dt><dd><p>A type which doesn’t do any checking, merging or nested evaluation. It
+</code></pre></div></details></div><br class="example-break" /></dd><dt><span class="term"><code class="literal">types.raw</code></span></dt><dd><p>A type which doesn’t do any checking, merging or nested evaluation. It
 accepts a single arbitrary value that is not recursed into, making it
 useful for values coming from outside the module system, such as package
 sets or arbitrary data. Options of this type are still evaluated according
@@ -7604,7 +7604,7 @@ modularity.</p><p>The option set can be defined directly
 (<a class="link" href="index.html#ex-submodule-direct" title="Example 22. Directly defined submodule" >Example: Directly defined submodule</a>) or as reference
 (<a class="link" href="index.html#ex-submodule-reference" title="Example 23. Submodule defined as a reference" >Example: Submodule defined as a reference</a>).</p><p>Note that even if your submodule’s options all have a default value,
 you will still need to provide a default value (e.g. an empty attribute set)
-if you want to allow users to leave it undefined.</p><div class="example"><span id="ex-submodule-direct" ></span><p class="title"><strong>Example 22. Directly defined submodule</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+if you want to allow users to leave it undefined.</p><div class="example"><span id="ex-submodule-direct" ></span><details><summary><span class="title"><strong>Example 22. Directly defined submodule</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   options.mod = mkOption {
     description = &quot;submodule example&quot;;
     type = with types; submodule {
@@ -7619,7 +7619,7 @@ if you want to allow users to leave it undefined.</p><div class="example"><span 
     };
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-submodule-reference" ></span><p class="title"><strong>Example 23. Submodule defined as a reference</strong></p><div class="example-contents"><pre><code class="programlisting nix">let
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-submodule-reference" ></span><details><summary><span class="title"><strong>Example 23. Submodule defined as a reference</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">let
   modOptions = {
     options = {
       foo = mkOption {
@@ -7637,11 +7637,11 @@ in
     type = with types; submodule modOptions;
   };
 }
-</code></pre></div></div><br class="example-break" /><p>The <code class="literal">submodule</code> type is especially interesting when used with composed
+</code></pre></div></details></div><br class="example-break" /><p>The <code class="literal">submodule</code> type is especially interesting when used with composed
 types like <code class="literal">attrsOf</code> or <code class="literal">listOf</code>. When composed with <code class="literal">listOf</code>
 (<a class="link" href="index.html#ex-submodule-listof-declaration" title="Example 24. Declaration of a list of submodules" >Example: Declaration of a list of submodules</a>), <code class="literal">submodule</code> allows
 multiple definitions of the submodule option set
-(<a class="link" href="index.html#ex-submodule-listof-definition" title="Example 25. Definition of a list of submodules" >Example: Definition of a list of submodules</a>).</p><div class="example"><span id="ex-submodule-listof-declaration" ></span><p class="title"><strong>Example 24. Declaration of a list of submodules</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+(<a class="link" href="index.html#ex-submodule-listof-definition" title="Example 25. Definition of a list of submodules" >Example: Definition of a list of submodules</a>).</p><div class="example"><span id="ex-submodule-listof-declaration" ></span><details><summary><span class="title"><strong>Example 24. Declaration of a list of submodules</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   options.mod = mkOption {
     description = &quot;submodule example&quot;;
     type = with types; listOf (submodule {
@@ -7656,16 +7656,16 @@ multiple definitions of the submodule option set
     });
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-submodule-listof-definition" ></span><p class="title"><strong>Example 25. Definition of a list of submodules</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-submodule-listof-definition" ></span><details><summary><span class="title"><strong>Example 25. Definition of a list of submodules</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   config.mod = [
     { foo = 1; bar = &quot;one&quot;; }
     { foo = 2; bar = &quot;two&quot;; }
   ];
 }
-</code></pre></div></div><br class="example-break" /><p>When composed with <code class="literal">attrsOf</code>
+</code></pre></div></details></div><br class="example-break" /><p>When composed with <code class="literal">attrsOf</code>
 (<a class="link" href="index.html#ex-submodule-attrsof-declaration" title="Example 26. Declaration of attribute sets of submodules" >Example: Declaration of attribute sets of submodules</a>), <code class="literal">submodule</code> allows
 multiple named definitions of the submodule option set
-(<a class="link" href="index.html#ex-submodule-attrsof-definition" title="Example 27. Definition of attribute sets of submodules" >Example: Definition of attribute sets of submodules</a>).</p><div class="example"><span id="ex-submodule-attrsof-declaration" ></span><p class="title"><strong>Example 26. Declaration of attribute sets of submodules</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+(<a class="link" href="index.html#ex-submodule-attrsof-definition" title="Example 27. Definition of attribute sets of submodules" >Example: Definition of attribute sets of submodules</a>).</p><div class="example"><span id="ex-submodule-attrsof-declaration" ></span><details><summary><span class="title"><strong>Example 26. Declaration of attribute sets of submodules</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   options.mod = mkOption {
     description = &quot;submodule example&quot;;
     type = with types; attrsOf (submodule {
@@ -7680,22 +7680,22 @@ multiple named definitions of the submodule option set
     });
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-submodule-attrsof-definition" ></span><p class="title"><strong>Example 27. Definition of attribute sets of submodules</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-submodule-attrsof-definition" ></span><details><summary><span class="title"><strong>Example 27. Definition of attribute sets of submodules</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   config.mod.one = { foo = 1; bar = &quot;one&quot;; };
   config.mod.two = { foo = 2; bar = &quot;two&quot;; };
 }
-</code></pre></div></div><br class="example-break" />
+</code></pre></div></details></div><br class="example-break" />
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-option-types-extending" class="title" >Extending types   </h3>  </div> </div></div><p>Types are mainly characterized by their <code class="literal">check</code> and <code class="literal">merge</code> functions.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">check</code></span></dt><dd><p>The function to type check the value. Takes a value as parameter and
 return a boolean. It is possible to extend a type check with the
 <code class="literal">addCheck</code> function (<a class="link" href="index.html#ex-extending-type-check-1" title="Example 28. Adding a type check" >Example: Adding a type check</a>),
 or to fully override the check function
-(<a class="link" href="index.html#ex-extending-type-check-2" title="Example 29. Overriding a type check" >Example: Overriding a type check</a>).</p><div class="example"><span id="ex-extending-type-check-1" ></span><p class="title"><strong>Example 28. Adding a type check</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+(<a class="link" href="index.html#ex-extending-type-check-2" title="Example 29. Overriding a type check" >Example: Overriding a type check</a>).</p><div class="example"><span id="ex-extending-type-check-1" ></span><details><summary><span class="title"><strong>Example 28. Adding a type check</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   byte = mkOption {
     description = &quot;An integer between 0 and 255.&quot;;
     type = types.addCheck types.int (x: x &gt;= 0 &amp;&amp; x &lt;= 255);
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="example"><span id="ex-extending-type-check-2" ></span><p class="title"><strong>Example 29. Overriding a type check</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+</code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-extending-type-check-2" ></span><details><summary><span class="title"><strong>Example 29. Overriding a type check</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   nixThings = mkOption {
     description = &quot;words that start with &#x27;nix&#x27;&quot;;
     type = types.str // {
@@ -7703,7 +7703,7 @@ or to fully override the check function
     };
   };
 }
-</code></pre></div></div><br class="example-break" /></dd><dt><span class="term"><code class="literal">merge</code></span></dt><dd><p>Function to merge the options values when multiple values are set.
+</code></pre></div></details></div><br class="example-break" /></dd><dt><span class="term"><code class="literal">merge</code></span></dt><dd><p>Function to merge the options values when multiple values are set.
 The function takes two parameters, <code class="literal">loc</code> the option path as a list
 of strings, and <code class="literal">defs</code> the list of defined values as a list. It is
 possible to override a type merge function for custom needs.</p></dd></dl></div>
@@ -7973,7 +7973,7 @@ define a freeform type. By doing this, all assignments without an
 associated option will be merged using the freeform type and combined
 into the resulting <code class="literal">config</code> set. Since this feature nullifies name
 checking for entire option trees, it is only recommended for use in
-submodules.</p><div class="example"><span id="ex-freeform-module" ></span><p class="title"><strong>Example 30. Freeform submodule</strong></p><div class="example-contents"><p>The following shows a submodule assigning a freeform type that allows
+submodules.</p><div class="example"><span id="ex-freeform-module" ></span><details><summary><span class="title"><strong>Example 30. Freeform submodule</strong></span></summary><div class="example-contents"><p>The following shows a submodule assigning a freeform type that allows
 arbitrary attributes with <code class="literal">str</code> values below <code class="literal">settings</code>, but also
 declares an option for the <code class="literal">settings.port</code> attribute to have it
 type-checked and assign a default value. See
@@ -8008,7 +8008,7 @@ for a more complete example.</p><pre><code class="programlisting nix">{ lib, con
   # Not allowed because the port option doesn&#x27;t allow strings
   # settings.port = &quot;443&quot;;
 }
-</code></pre></div></div><br class="example-break" /><div class="note"><h3 class="title">Note</h3><p>Freeform attributes cannot depend on other attributes of the same set
+</code></pre></div></details></div><br class="example-break" /><div class="note"><h3 class="title">Note</h3><p>Freeform attributes cannot depend on other attributes of the same set
 without infinite recursion:</p><pre><code class="programlisting nix">{
   # This throws infinite recursion encountered
   settings.logLevel = lib.mkIf (config.settings.port == 80) &quot;debug&quot;;
@@ -8073,7 +8073,7 @@ These functions all return an attribute set with these values:</p><div class="va
 This attribute is optional. It may contain inside a <code class="literal">types</code> attribute
 containing types specific to this format.</p></dd><dt><span class="term"><code class="literal">generate</code> <span class="emphasis"><em><code class="literal">filename jsonValue</code></em></span></span></dt><dd><p>A function that can render a value of the format to a file. Returns
 a file path.</p><div class="note"><h3 class="title">Note</h3><p>This function puts the value contents in the Nix store. So this
-should be avoided for secrets.</p></div></dd></dl></div><div class="example"><span id="ex-settings-nix-representable" ></span><p class="title"><strong>Example 31. Module with conventional <code class="literal">settings</code> option</strong></p><div class="example-contents"><p>The following shows a module for an example program that uses a JSON
+should be avoided for secrets.</p></div></dd></dl></div><div class="example"><span id="ex-settings-nix-representable" ></span><details><summary><span class="title"><strong>Example 31. Module with conventional <code class="literal">settings</code> option</strong></span></summary><div class="example-contents"><p>The following shows a module for an example program that uses a JSON
 configuration file. It demonstrates how above values can be used, along
 with some other related best practices. See the comments for
 explanations.</p><pre><code class="programlisting nix">{ options, config, lib, pkgs, ... }:
@@ -8128,12 +8128,12 @@ in {
     # ...
   };
 }
-</code></pre></div></div><br class="example-break" /><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-settings-attrs-options" class="title" >Option declarations for attributes   </h4>  </div> </div></div><p>Some <code class="literal">settings</code> attributes may deserve some extra care. They may need a
+</code></pre></div></details></div><br class="example-break" /><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-settings-attrs-options" class="title" >Option declarations for attributes   </h4>  </div> </div></div><p>Some <code class="literal">settings</code> attributes may deserve some extra care. They may need a
 different type, default or merging behavior, or they are essential
 options that should show their documentation in the manual. This can be
 done using <a class="xref" href="index.html#sec-freeform-modules" title="Freeform modules" >the section called “Freeform modules”</a>.</p><p>We extend above example using freeform modules to declare an option for
 the port, which will enforce it to be a valid integer and make it show
-up in the manual.</p><div class="example"><span id="ex-settings-typed-attrs" ></span><p class="title"><strong>Example 32. Declaring a type-checked <code class="literal">settings</code> attribute</strong></p><div class="example-contents"><pre><code class="programlisting nix">{
+up in the manual.</p><div class="example"><span id="ex-settings-typed-attrs" ></span><details><summary><span class="title"><strong>Example 32. Declaring a type-checked <code class="literal">settings</code> attribute</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   settings = lib.mkOption {
     type = lib.types.submodule {
 
@@ -8158,7 +8158,7 @@ up in the manual.</p><div class="example"><span id="ex-settings-typed-attrs" ></
     &#x27;&#x27;;
   };
 }
-</code></pre></div></div><br class="example-break" />
+</code></pre></div></details></div><br class="example-break" />
 </div>
 
 </div>
@@ -8922,6 +8922,52 @@ list of raw value</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/meta.nix" target="_top">
+nixos/lib/testing/meta.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-meta.platforms"></a><a class="term" href="index.html#test-opt-meta.platforms"><code class="option">meta.platforms</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Sets the <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#var-meta-platforms"  target="_top"><code class="literal">meta.platforms</code></a> attribute on the <a class="link" href="index.html#test-opt-test"  ><code class="option">test</code></a> derivation.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of raw value</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting">[
+  &quot;aarch64-linux&quot;
+  &quot;armv5tel-linux&quot;
+  &quot;armv6l-linux&quot;
+  &quot;armv7a-linux&quot;
+  &quot;armv7l-linux&quot;
+  &quot;i686-linux&quot;
+  &quot;loongarch64-linux&quot;
+  &quot;m68k-linux&quot;
+  &quot;microblaze-linux&quot;
+  &quot;microblazeel-linux&quot;
+  &quot;mips-linux&quot;
+  &quot;mips64-linux&quot;
+  &quot;mips64el-linux&quot;
+  &quot;mipsel-linux&quot;
+  &quot;powerpc64-linux&quot;
+  &quot;powerpc64le-linux&quot;
+  &quot;riscv32-linux&quot;
+  &quot;riscv64-linux&quot;
+  &quot;s390-linux&quot;
+  &quot;s390x-linux&quot;
+  &quot;x86_64-linux&quot;
+]
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
