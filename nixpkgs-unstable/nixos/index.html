@@ -964,7 +964,7 @@ including them from <code class="literal">configuration.nix</code>, e.g.:</p><pr
 <code class="literal">kde.nix</code>. The latter might look like this:</p><pre><code class="programlisting nix">{ config, pkgs, ... }:
 
 { services.xserver.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
   environment.systemPackages = [ pkgs.vim ];
 }
@@ -1475,7 +1475,7 @@ Thus you should pick one or more of the following lines:</p><pre><code class="pr
 </code></pre><p>NixOS’s default <span class="emphasis"><em>display manager</em></span> (the program that provides a graphical
 login prompt and manages the X server) is LightDM. You can select an
 alternative one by picking one of the following lines:</p><pre><code class="programlisting nix">{
-  services.xserver.displayManager.sddm.enable = true;
+  services.displayManager.sddm.enable = true;
   services.xserver.displayManager.gdm.enable = true;
 }
 </code></pre><p>You can set the keyboard layout (and optionally the layout variant):</p><pre><code class="programlisting nix">{
@@ -1498,13 +1498,13 @@ you already have to provide a password to decrypt your disk, entering a
 second password to login can be redundant.</p><p>To enable auto-login, you need to define your default window manager and
 desktop environment. If you wanted no desktop environment and i3 as your
 your window manager, you’d define:</p><pre><code class="programlisting nix">{
-  services.xserver.displayManager.defaultSession = &quot;none+i3&quot;;
+  services.displayManager.defaultSession = &quot;none+i3&quot;;
 }
 </code></pre><p>Every display manager in NixOS supports auto-login, here is an example
 using lightdm for a user <code class="literal">alice</code>:</p><pre><code class="programlisting nix">{
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = &quot;alice&quot;;
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = &quot;alice&quot;;
 }
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-x11--graphics-cards-intel" class="title" style="clear: both">Intel Graphics drivers   </h2>  </div> </div></div><p>There are two choices for Intel Graphics drivers in X.org: <code class="literal">modesetting</code>
@@ -1821,7 +1821,7 @@ report missing symbols.</p>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="sec-xfce" class="title" >Xfce Desktop Environment   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-xfce-thunar-plugins">Thunar</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-xfce-troubleshooting">Troubleshooting</a> </span></dt> </dl></div><p>To enable the Xfce Desktop Environment, set</p><pre><code class="programlisting nix">{
   services.xserver.desktopManager.xfce.enable = true;
-  services.xserver.displayManager.defaultSession = &quot;xfce&quot;;
+  services.displayManager.defaultSession = &quot;xfce&quot;;
 }
 </code></pre><p>Optionally, <span class="emphasis"><em>picom</em></span> can be enabled for nice graphical effects, some
 example settings:</p><pre><code class="programlisting nix">{
@@ -6590,7 +6590,7 @@ copying over <code class="literal">configuration.nix</code> should be disabled b
 setting <code class="literal">installer.cloneConfig</code> to <code class="literal">false</code>.
 For example, this is done in <code class="literal">sd-image-aarch64-installer.nix</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-demo" class="title" style="clear: both">Demo   </h2>  </div> </div></div><p>This profile just enables a <code class="literal">demo</code> user, with password <code class="literal">demo</code>, uid <code class="literal">1000</code>, <code class="literal">wheel</code> group and
-<a class="link" href="options.html#opt-services.xserver.displayManager.autoLogin"  >autologin in the SDDM display manager</a>.</p>
+<a class="link" href="options.html#opt-services.displayManager.autoLogin"  >autologin in the SDDM display manager</a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-docker-container" class="title" style="clear: both">Docker Container   </h2>  </div> </div></div><p>This is the profile from which the Docker images are generated. It prepares a
 working system by importing the <a class="link" href="index.html#sec-profile-minimal" title="Minimal" >Minimal</a> and
 <a class="link" href="index.html#sec-profile-clone-config" title="Clone Config" >Clone Config</a> profiles, and
@@ -6598,7 +6598,7 @@ setting appropriate configuration options that are useful inside a container
 context, like <a class="xref" href="options.html#opt-boot.isContainer"  ><code class="option">boot.isContainer</code></a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-graphical" class="title" style="clear: both">Graphical   </h2>  </div> </div></div><p>Defines a NixOS configuration with the Plasma 5 desktop. It’s used by the
 graphical installation CD.</p><p>It sets <a class="xref" href="options.html#opt-services.xserver.enable"  ><code class="option">services.xserver.enable</code></a>,
-<a class="xref" href="options.html#opt-services.xserver.displayManager.sddm.enable"  ><code class="option">services.xserver.displayManager.sddm.enable</code></a>,
+<a class="xref" href="options.html#opt-services.displayManager.sddm.enable"  ><code class="option">services.displayManager.sddm.enable</code></a>,
 <a class="xref" href="options.html#opt-services.xserver.desktopManager.plasma5.enable"  ><code class="option">services.xserver.desktopManager.plasma5.enable</code></a>,
 and <a class="xref" href="options.html#opt-services.xserver.libinput.enable"  ><code class="option">services.xserver.libinput.enable</code></a> to true. It also
 includes glxinfo and firefox in the system packages list.</p>
