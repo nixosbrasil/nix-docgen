@@ -7488,7 +7488,8 @@ coerced to a string. Even if derivations can be considered as
 paths, the more specific <code class="literal">types.package</code> should be preferred.</p></dd><dt><span class="term"><code class="literal">types.pathInStore</code></span></dt><dd><p>A path that is contained in the Nix store. This can be a top-level store
 path like <code class="literal">pkgs.hello</code> or a descendant like <code class="literal">&quot;${pkgs.hello}/bin/hello&quot;</code>.</p></dd><dt><span class="term"><code class="literal">types.package</code></span></dt><dd><p>A top-level store path. This can be an attribute set pointing
 to a store path, like a derivation or a flake input.</p></dd><dt><span class="term"><code class="literal">types.enum</code> <span class="emphasis"><em><code class="literal">l</code></em></span></span></dt><dd><p>One element of the list <span class="emphasis"><em><code class="literal">l</code></em></span>, e.g. <code class="literal">types.enum [ &quot;left&quot; &quot;right&quot; ]</code>.
-Multiple definitions cannot be merged.</p></dd><dt><span class="term"><code class="literal">types.anything</code></span></dt><dd><p>A type that accepts any value and recursively merges attribute sets
+Multiple definitions cannot be merged.</p><p>If you want to pair these values with more information, possibly of
+distinct types, consider using a <a class="link" href="index.html#sec-option-types-sums" title="Sum types" >sum type</a>.</p></dd><dt><span class="term"><code class="literal">types.anything</code></span></dt><dd><p>A type that accepts any value and recursively merges attribute sets
 together. This type is recommended when the option type is unknown.</p><div class="example"><span id="ex-types-anything" ></span><details><summary><span class="title"><strong>Example 21. <code class="literal">types.anything</code></strong></span></summary><div class="example-contents"><p>Two definitions of this type like</p><pre><code class="programlisting nix">{
   str = lib.mkDefault &quot;foo&quot;;
   pkg.hello = pkgs.hello;
@@ -7573,6 +7574,50 @@ as submodules.</p><p>One use case for this type is the type of a “default” m
 user to affect all submodules in an <code class="literal">attrsOf submodule</code> at once. This is
 more convenient and discoverable than expecting the module user to
 type-merge with the <code class="literal">attrsOf submodule</code> option.</p></dd></dl></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-option-types-unions" class="title" >Union types   </h3>  </div> </div></div><p>A union of types is a type such that a value is valid when it is valid for at least one of those types.</p><p>If some values are instances of more than one of the types, it is not possible to distinguish which type they are meant to be instances of. If that’s needed, consider using a <a class="link" href="index.html#sec-option-types-sums" title="Sum types" >sum type</a>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">types.either</code> <span class="emphasis"><em><code class="literal">t1 t2</code></em></span></span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type <span class="emphasis"><em><code class="literal">t2</code></em></span>, e.g. <code class="literal">with types; either int str</code>.
+Multiple definitions cannot be merged.</p></dd><dt><span class="term"><code class="literal">types.oneOf</code> [ <span class="emphasis"><em><code class="literal">t1 t2</code></em></span> … ]</span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type <span class="emphasis"><em><code class="literal">t2</code></em></span> and so forth, e.g.
+<code class="literal">with types; oneOf [ int str bool ]</code>. Multiple definitions cannot be
+merged.</p></dd><dt><span class="term"><code class="literal">types.nullOr</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p><code class="literal">null</code> or type <span class="emphasis"><em><code class="literal">t</code></em></span>. Multiple definitions are merged according to
+type <span class="emphasis"><em><code class="literal">t</code></em></span>.</p></dd></dl></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-option-types-sums" class="title" >Sum types   </h3>  </div> </div></div><p>A sum type can be thought of, conceptually, as a <span class="emphasis"><em><code class="literal">types.enum</code></em></span> where each valid item is paired with at least a type, through some value syntax.
+Nix does not have a built-in syntax for this pairing of a label and a type or value, so sum types may be represented in multiple ways.</p><p>If the you’re interested in can be distinguished without a label, you may simplify your value syntax with a <a class="link" href="index.html#sec-option-types-unions" title="Union types" >union type</a> instead.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">types.attrTag</code> <span class="emphasis"><em><code class="literal">{ attr1 = option1; attr2 = option2; ... }</code></em></span></span></dt><dd><p>An attribute set containing one attribute, whose name must be picked from
+the attribute set (<code class="literal">attr1</code>, etc) and whose value consists of definitions that are valid for the corresponding option (<code class="literal">option1</code>, etc).</p><p>This type appears in the documentation as <span class="emphasis"><em>attribute-tagged union</em></span>.</p><p>Example:</p><pre><code class="programlisting nix">{ lib, ... }:
+let inherit (lib) type mkOption;
+in {
+  options.toyRouter.rules = mkOption {
+    description = &#x27;&#x27;
+      Rules for a fictional packet routing service.
+    &#x27;&#x27;;
+    type = types.attrsOf (
+      types.attrTag {
+        bounce = mkOption {
+          description = &quot;Send back a packet explaining why it wasn&#x27;t forwarded.&quot;;
+          type = types.submodule {
+            options.errorMessage = mkOption { … };
+          };
+        };
+        forward = mkOption {
+          description = &quot;Forward the packet.&quot;;
+          type = types.submodule {
+            options.destination = mkOption { … };
+          };
+        };
+        ignore = types.mkOption {
+          description = &quot;Drop the packet without sending anything back.&quot;;
+          type = types.submodule {};
+        };
+      });
+  };
+  config.toyRouter.rules = {
+    http = {
+      bounce = {
+        errorMessage = &quot;Unencrypted HTTP is banned. You must always use https://.&quot;;
+      };
+    };
+    ssh = { drop = {}; };
+  };
+}
+</code></pre></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-option-types-composed" class="title" >Composed types   </h3>  </div> </div></div><p>Composed types are types that take a type as parameter. <code class="literal">listOf    int</code> and <code class="literal">either int str</code> are examples of composed types.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">types.listOf</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>A list of <span class="emphasis"><em><code class="literal">t</code></em></span> type, e.g. <code class="literal">types.listOf         int</code>. Multiple definitions are merged with list concatenation.</p></dd><dt><span class="term"><code class="literal">types.attrsOf</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>An attribute set of where all the values are of <span class="emphasis"><em><code class="literal">t</code></em></span> type. Multiple
 definitions result in the joined attribute set.</p><div class="note"><h3 class="title">Note</h3><p>This type is <span class="emphasis"><em>strict</em></span> in its values, which in turn means attributes
 cannot depend on other attributes. See <code class="literal">          types.lazyAttrsOf</code> for a lazy version.</p></div></dd><dt><span class="term"><code class="literal">types.lazyAttrsOf</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>An attribute set of where all the values are of <span class="emphasis"><em><code class="literal">t</code></em></span> type. Multiple
@@ -7584,14 +7629,10 @@ option <code class="literal">foo</code> of this type and a definition
 throw an error. For types <span class="emphasis"><em><code class="literal">t</code></em></span> that have an <code class="literal">emptyValue</code> defined,
 that value will be returned instead of throwing an error. So if the
 type of <code class="literal">foo.attr</code> was <code class="literal">lazyAttrsOf (nullOr int)</code>, <code class="literal">null</code> would be
-returned instead for the same <code class="literal">mkIf false</code> definition.</p></div></dd><dt><span class="term"><code class="literal">types.nullOr</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p><code class="literal">null</code> or type <span class="emphasis"><em><code class="literal">t</code></em></span>. Multiple definitions are merged according to
-type <span class="emphasis"><em><code class="literal">t</code></em></span>.</p></dd><dt><span class="term"><code class="literal">types.uniq</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span> cannot be merged. It is used to ensure option
+returned instead for the same <code class="literal">mkIf false</code> definition.</p></div></dd><dt><span class="term"><code class="literal">types.uniq</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span> cannot be merged. It is used to ensure option
 definitions are provided only once.</p></dd><dt><span class="term"><code class="literal">types.unique</code> <code class="literal">{ message = m }</code> <span class="emphasis"><em><code class="literal">t</code></em></span></span></dt><dd><p>Ensures that type <span class="emphasis"><em><code class="literal">t</code></em></span> cannot be merged. Prints the message <span class="emphasis"><em><code class="literal">m</code></em></span>, after
 the line <code class="literal">The option &lt;option path&gt; is defined multiple times.</code> and before
-a list of definition locations.</p></dd><dt><span class="term"><code class="literal">types.either</code> <span class="emphasis"><em><code class="literal">t1 t2</code></em></span></span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type <span class="emphasis"><em><code class="literal">t2</code></em></span>, e.g. <code class="literal">with types; either int str</code>.
-Multiple definitions cannot be merged.</p></dd><dt><span class="term"><code class="literal">types.oneOf</code> [ <span class="emphasis"><em><code class="literal">t1 t2</code></em></span> … ]</span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">t1</code></em></span> or type <span class="emphasis"><em><code class="literal">t2</code></em></span> and so forth, e.g.
-<code class="literal">with types; oneOf [ int str bool ]</code>. Multiple definitions cannot be
-merged.</p></dd><dt><span class="term"><code class="literal">types.coercedTo</code> <span class="emphasis"><em><code class="literal">from f to</code></em></span></span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">to</code></em></span> or type <span class="emphasis"><em><code class="literal">from</code></em></span> which will be coerced to type <span class="emphasis"><em><code class="literal">to</code></em></span> using
+a list of definition locations.</p></dd><dt><span class="term"><code class="literal">types.coercedTo</code> <span class="emphasis"><em><code class="literal">from f to</code></em></span></span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">to</code></em></span> or type <span class="emphasis"><em><code class="literal">from</code></em></span> which will be coerced to type <span class="emphasis"><em><code class="literal">to</code></em></span> using
 function <span class="emphasis"><em><code class="literal">f</code></em></span> which takes an argument of type <span class="emphasis"><em><code class="literal">from</code></em></span> and return a
 value of type <span class="emphasis"><em><code class="literal">to</code></em></span>. Can be used to preserve backwards compatibility
 of an option if its type was changed.</p></dd></dl></div>
