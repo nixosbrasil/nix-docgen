@@ -191,7 +191,7 @@ example:</p><pre><code class="programlisting ShellSession"># mkfs.fat -F 32 -n b
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-installation-manual-installing" class="title" >Installing   </h3>  </div> </div></div><p><span id="sec-installation-installing"></span> </p><div class="orderedlist"><ol class="orderedlist "  type="1"><li class="listitem"><p>Mount the target file system on which NixOS should be installed on
 <code class="literal">/mnt</code>, e.g.</p><pre><code class="programlisting ShellSession"># mount /dev/disk/by-label/nixos /mnt
 </code></pre></li><li class="listitem"><p><span class="strong"><strong>UEFI systems</strong></span></p><p>Mount the boot file system on <code class="literal">/mnt/boot</code>, e.g.</p><pre><code class="programlisting ShellSession"># mkdir -p /mnt/boot
-# mount /dev/disk/by-label/boot /mnt/boot
+# mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 </code></pre></li><li class="listitem"><p>If your machine has a limited amount of memory, you may want to
 activate swap devices now (<code class="literal">swapon device</code>).
 The installer (or rather, the build actions that it
@@ -288,7 +288,7 @@ corresponding configuration Nix expression.</p><div class="example"><span id="ex
 # mkfs.fat -F 32 -n boot /dev/sda3        # (for UEFI systems only)
 # mount /dev/disk/by-label/nixos /mnt
 # mkdir -p /mnt/boot                      # (for UEFI systems only)
-# mount /dev/disk/by-label/boot /mnt/boot # (for UEFI systems only)
+# mount -o umask=077 /dev/disk/by-label/boot /mnt/boot # (for UEFI systems only)
 # nixos-generate-config --root /mnt
 # nano /mnt/etc/nixos/configuration.nix
 # nixos-install
