@@ -4838,7 +4838,16 @@ overview page for links to Element Apps for Android and iOS,
 desktop clients, as well as bridges to other networks and other projects
 around Matrix.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-matrix-synapse" class="title" style="clear: both">Synapse Homeserver   </h2>  </div> </div></div><p><a class="link" href="https://github.com/element-hq/synapse"  target="_top">Synapse</a> is
 the reference homeserver implementation of Matrix from the core development
-team at matrix.org. The following configuration example will set up a
+team at matrix.org.</p><p>Before deploying synapse server, a postgresql database must be set up.
+For that, please make sure that postgresql is running and the following
+SQL statements to create a user &amp; database called <code class="literal">matrix-synapse</code> were
+executed before synapse starts up:</p><pre><code class="programlisting sql">CREATE ROLE &quot;matrix-synapse&quot;;
+CREATE DATABASE &quot;matrix-synapse&quot; WITH OWNER &quot;matrix-synapse&quot;
+  TEMPLATE template0
+  LC_COLLATE = &quot;C&quot;
+  LC_CTYPE = &quot;C&quot;;
+</code></pre><p>Usually, it’s sufficient to do this once manually before
+continuing with the installation.</p><p>Please make sure to set a different password.</p><p>The following configuration example will set up a
 synapse server for the <code class="literal">example.org</code> domain, served from
 the host <code class="literal">myhostname.example.org</code>. For more information,
 please refer to the
@@ -4859,13 +4868,6 @@ in {
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.postgresql.enable = true;
-  services.postgresql.initialScript = pkgs.writeText &quot;synapse-init.sql&quot; &#x27;&#x27;
-    CREATE ROLE &quot;matrix-synapse&quot; WITH LOGIN PASSWORD &#x27;synapse&#x27;;
-    CREATE DATABASE &quot;matrix-synapse&quot; WITH OWNER &quot;matrix-synapse&quot;
-      TEMPLATE template0
-      LC_COLLATE = &quot;C&quot;
-      LC_CTYPE = &quot;C&quot;;
-  &#x27;&#x27;;
 
   services.nginx = {
     enable = true;
