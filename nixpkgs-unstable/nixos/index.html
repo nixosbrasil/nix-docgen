@@ -920,7 +920,7 @@ in
 {
   services.httpd.virtualHosts =
     { &quot;blog.example.org&quot; = (commonConfig // { documentRoot = &quot;/webroot/blog.example.org&quot;; });
-      &quot;wiki.example.org&quot; = (commonConfig // { documentRoot = &quot;/webroot/wiki.example.com&quot;; });
+      &quot;wiki.example.org&quot; = (commonConfig // { documentRoot = &quot;/webroot/wiki.example.org&quot;; });
     };
 }
 </code></pre><p>The <code class="literal">let commonConfig = ...</code> defines a variable named <code class="literal">commonConfig</code>. The <code class="literal">//</code> operator merges two attribute sets, so the configuration of the second virtual host is the set <code class="literal">commonConfig</code> extended with the document root option.</p><p>You can write a <code class="literal">let</code> wherever an expression is allowed. Thus, you also could have written:</p><pre><code class="programlisting nix">{
@@ -1560,11 +1560,11 @@ set:</p><pre><code class="programlisting nix">{
 with other kernel modules.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-x11-touchpads" class="title" style="clear: both">Touchpads   </h2>  </div> </div></div><p>Support for Synaptics touchpads (found in many laptops such as the Dell
 Latitude series) can be enabled as follows:</p><pre><code class="programlisting nix">{
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 }
 </code></pre><p>The driver has many options (see <a class="xref" href="options.html" title="Appendix A. Configuration Options" >Appendix&nbsp;A</a>).
 For instance, the following disables tap-to-click behavior:</p><pre><code class="programlisting nix">{
-  services.xserver.libinput.touchpad.tapping = false;
+  services.libinput.touchpad.tapping = false;
 }
 </code></pre><p>Note: the use of <code class="literal">services.xserver.synaptics</code> is deprecated since NixOS
 17.09.</p>
@@ -6611,7 +6611,7 @@ context, like <a class="xref" href="options.html#opt-boot.isContainer"  ><code c
 graphical installation CD.</p><p>It sets <a class="xref" href="options.html#opt-services.xserver.enable"  ><code class="option">services.xserver.enable</code></a>,
 <a class="xref" href="options.html#opt-services.displayManager.sddm.enable"  ><code class="option">services.displayManager.sddm.enable</code></a>,
 <a class="xref" href="options.html#opt-services.xserver.desktopManager.plasma5.enable"  ><code class="option">services.xserver.desktopManager.plasma5.enable</code></a>,
-and <a class="xref" href="options.html#opt-services.xserver.libinput.enable"  ><code class="option">services.xserver.libinput.enable</code></a> to true. It also
+and <a class="xref" href="options.html#opt-services.libinput.enable"  ><code class="option">services.libinput.enable</code></a> to true. It also
 includes glxinfo and firefox in the system packages list.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-hardened" class="title" style="clear: both">Hardened   </h2>  </div> </div></div><p>A profile with most (vanilla) hardening options enabled by default,
 potentially at the cost of stability, features and performance.</p><p>This includes a hardened kernel, and limiting the system information

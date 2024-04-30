@@ -11254,7 +11254,6 @@ buildPythonPackage rec {
     homepage = &quot;https://github.com/pytoolz/toolz&quot;;
     description = &quot;List processing tools and functional utilities&quot;;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
   };
 }
 </code></pre><p>What happens here? The function <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a> is called and as argument
@@ -11359,7 +11358,6 @@ buildPythonPackage rec {
     homepage = &quot;https://github.com/ContinuumIO/datashape&quot;;
     description = &quot;A data description language&quot;;
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fridh ];
   };
 }
 </code></pre><p>We can see several runtime dependencies, <code class="literal">numpy</code>, <code class="literal">multipledispatch</code>, and
@@ -11466,7 +11464,6 @@ buildPythonPackage rec {
     description = &quot;A pythonic wrapper around FFTW, the FFT library, presenting a unified interface for all the supported transforms&quot;;
     homepage = &quot;http://hgomersall.github.com/pyFFTW&quot;;
     license = with lib.licenses; [ bsd2 bsd3 ];
-    maintainers = with lib.maintainers; [ fridh ];
   };
 }
 </code></pre><p>Note also the line <a class="link" href="#var-stdenv-doCheck" title="doCheck" ><code class="literal">doCheck = false;</code></a>, we explicitly disabled running the test-suite.</p>
@@ -11695,7 +11692,6 @@ buildPythonPackage rec {
     homepage = &quot;https://github.com/pytoolz/toolz/&quot;;
     description = &quot;List processing tools and functional utilities&quot;;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
   };
 }
 </code></pre><p>It takes an argument <a class="link" href="#buildpythonpackage-function" title="buildPythonPackage function" ><code class="literal">buildPythonPackage</code></a>. We now call this function using
