@@ -10711,19 +10711,23 @@ in {
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-pkg-config" class="title" style="clear: both">pkg-config   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#pkg-config-writing-packages">Writing packages providing pkg-config modules</a> </span></dt><dt> <span class="section">  <a href="#sec-pkg-config-usage">Accessing packages via pkg-config module name</a> </span></dt> </dl></div><p><span class="emphasis"><em>pkg-config</em></span> is a unified interface for declaring and querying built C/C++ libraries.</p><p>Nixpkgs provides a couple of facilities for working with this tool.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="pkg-config-writing-packages" class="title" >Writing packages providing pkg-config modules   </h3>  </div> </div></div><p>Packages should set <code class="literal">meta.pkgConfigModules</code> with the list of package config modules they provide.
-They should also use <code class="literal">testers.testMetaPkgConfig</code> to check that the final built package matches that list.
-Additionally, the <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#validatepkgconfig"  target="_top"><code class="literal">validatePkgConfig</code> setup hook</a>, will do extra checks on to-be-installed pkg-config modules.</p><p>A good example of all these things is zlib:</p><pre><code class="programlisting nix">{ pkg-config, testers, ... }:
+They should also use <code class="literal">testers.hasPkgConfigModules</code> to check that the final built package matches that list,
+and optionally check that the pkgconf modules’ version metadata matches the derivation’s.
+Additionally, the <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#validatepkgconfig"  target="_top"><code class="literal">validatePkgConfig</code> setup hook</a>, will do extra checks on to-be-installed pkg-config modules.</p><p>A good example of all these things is miniz:</p><pre><code class="programlisting nix">{ pkg-config, testers, ... }:
 
 stdenv.mkDerivation (finalAttrs: {
   /* ... */
 
   nativeBuildInputs = [ pkg-config validatePkgConfig ];
 
-  passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+  passthru.tests.pkg-config = testers.hasPkgConfigModules {
+    package = finalAttrs.finalPackage;
+    versionCheck = true;
+  };
 
   meta = {
     /* ... */
-    pkgConfigModules = [ &quot;zlib&quot; ];
+    pkgConfigModules = [ &quot;miniz&quot; ];
   };
 })
 </code></pre>
