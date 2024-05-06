@@ -4029,10 +4029,10 @@ a completely open ACL, set <code class="literal">acl = [ &quot;pattern readwrite
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli" class="title" >Jottacloud Command-line Tool   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-jotta-cli-quick-start">Quick Start</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-jotta-cli-example-configuration">Example Configuration</a> </span></dt> </dl></div><p>The <a class="link" href="https://docs.jottacloud.com/en/articles/1436834-jottacloud-command-line-tool"  target="_top">Jottacloud Command-line Tool</a> is a headless <a class="link" href="https://jottacloud.com"  target="_top">Jottacloud</a> client.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli-quick-start" class="title" style="clear: both">Quick Start   </h2>  </div> </div></div><pre><code class="programlisting nix">{
-  user.services.jotta-cli.enable = true;
+  services.jotta-cli.enable = true;
 }
 </code></pre><p>This adds <code class="literal">jotta-cli</code> to <code class="literal">environment.systemPackages</code> and starts a user service that runs <code class="literal">jottad</code> with the default options.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli-example-configuration" class="title" style="clear: both">Example Configuration   </h2>  </div> </div></div><pre><code class="programlisting nix">user.services.jotta-cli = {
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli-example-configuration" class="title" style="clear: both">Example Configuration   </h2>  </div> </div></div><pre><code class="programlisting nix">services.jotta-cli = {
   enable = true;
   options = [ &quot;slow&quot; ];
   package = pkgs.jotta-cli;
