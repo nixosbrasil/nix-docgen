@@ -2680,8 +2680,6 @@ by default and requires logs written to a file.</p></li></ul></div><p>The logrea
 it complains loudly now. So nothing actionable here by default. Alternatively you can</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>disable the logreader application to shut up the “error”.</p><p>We can’t really do that by default since whether apps are enabled/disabled is part
 of the application’s state and tracked inside the database.</p></li><li class="listitem"><p>set <a class="xref" href="options.html#opt-services.nextcloud.settings.log_type"  ><code class="option">services.nextcloud.settings.log_type</code></a> to “file” to be able to view logs
 from the admin panel.</p></li></ul></div>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="module-services-nextcloud-warning-wellknown-caldav" class="title" >Your web server is not properly set up to resolve <code class="literal">.well-known</code> URLs, failed on: <code class="literal">/.well-known/caldav</code>   </h3>  </div> </div></div><p>This warning appearing seems to be an upstream issue and is being sorted out
-in <a class="link" href="https://github.com/nextcloud/server/issues/45033"  target="_top">nextcloud/server#45033</a>.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-nextcloud-maintainer-info" class="title" style="clear: both">Maintainer information   </h2>  </div> </div></div><p>As stated in the previous paragraph, we must provide a clean upgrade-path for Nextcloud
@@ -4029,10 +4027,10 @@ a completely open ACL, set <code class="literal">acl = [ &quot;pattern readwrite
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli" class="title" >Jottacloud Command-line Tool   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-jotta-cli-quick-start">Quick Start</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-jotta-cli-example-configuration">Example Configuration</a> </span></dt> </dl></div><p>The <a class="link" href="https://docs.jottacloud.com/en/articles/1436834-jottacloud-command-line-tool"  target="_top">Jottacloud Command-line Tool</a> is a headless <a class="link" href="https://jottacloud.com"  target="_top">Jottacloud</a> client.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli-quick-start" class="title" style="clear: both">Quick Start   </h2>  </div> </div></div><pre><code class="programlisting nix">{
-  user.services.jotta-cli.enable = true;
+  services.jotta-cli.enable = true;
 }
 </code></pre><p>This adds <code class="literal">jotta-cli</code> to <code class="literal">environment.systemPackages</code> and starts a user service that runs <code class="literal">jottad</code> with the default options.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli-example-configuration" class="title" style="clear: both">Example Configuration   </h2>  </div> </div></div><pre><code class="programlisting nix">user.services.jotta-cli = {
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-jotta-cli-example-configuration" class="title" style="clear: both">Example Configuration   </h2>  </div> </div></div><pre><code class="programlisting nix">services.jotta-cli = {
   enable = true;
   options = [ &quot;slow&quot; ];
   package = pkgs.jotta-cli;
