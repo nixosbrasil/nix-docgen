@@ -384,9 +384,9 @@ the default installer image, you can build your own <code class="literal">config
 <code class="literal">netboot-base.nix</code>).</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-installing-virtualbox-guest" class="title" >Installing in a VirtualBox guest   </h3>  </div> </div></div><p>Installing NixOS into a VirtualBox guest is convenient for users who
 want to try NixOS without installing it on bare metal. If you want to
-use a pre-made VirtualBox appliance, it is available at <a class="link" href="https://nixos.org/nixos/download.html"  target="_top">the downloads
-page</a>. If you want to set up a
-VirtualBox guest manually, follow these instructions:</p><div class="orderedlist"><ol class="orderedlist "  type="1"><li class="listitem"><p>Add a New Machine in VirtualBox with OS Type “Linux / Other Linux”</p></li><li class="listitem"><p>Base Memory Size: 768 MB or higher.</p></li><li class="listitem"><p>New Hard Disk of 8 GB or higher.</p></li><li class="listitem"><p>Mount the CD-ROM with the NixOS ISO (by clicking on CD/DVD-ROM)</p></li><li class="listitem"><p>Click on Settings / System / Processor and enable PAE/NX</p></li><li class="listitem"><p>Click on Settings / System / Acceleration and enable “VT-x/AMD-V”
+use a pre-made VirtualBox appliance, it is available at <a class="link" href="https://nixos.org/download/#nixos-virtualbox"  target="_top">the downloads
+page</a>. If you want to set
+up a VirtualBox guest manually, follow these instructions:</p><div class="orderedlist"><ol class="orderedlist "  type="1"><li class="listitem"><p>Add a New Machine in VirtualBox with OS Type “Linux / Other Linux”</p></li><li class="listitem"><p>Base Memory Size: 768 MB or higher.</p></li><li class="listitem"><p>New Hard Disk of 8 GB or higher.</p></li><li class="listitem"><p>Mount the CD-ROM with the NixOS ISO (by clicking on CD/DVD-ROM)</p></li><li class="listitem"><p>Click on Settings / System / Processor and enable PAE/NX</p></li><li class="listitem"><p>Click on Settings / System / Acceleration and enable “VT-x/AMD-V”
 acceleration</p></li><li class="listitem"><p>Click on Settings / Display / Screen and select VMSVGA as Graphics
 Controller</p></li><li class="listitem"><p>Save the settings, start the virtual machine, and continue
 installation like normal</p></li></ol></div><p>There are a few modifications you should make in configuration.nix.
@@ -605,8 +605,8 @@ and as such contain few GUI applications.</p></li></ul></div><p>To see what chan
 contains the channel’s latest version and includes ISO images and
 VirtualBox appliances.) Please note that during the release process,
 channels that are not yet released will be present here as well. See the
-Getting NixOS page <a class="link" href="https://nixos.org/nixos/download.html"  target="_top">https://nixos.org/nixos/download.html</a> to find the
-newest supported stable release.</p><p>When you first install NixOS, you’re automatically subscribed to the
+Getting NixOS page <a class="link" href="https://nixos.org/download/"  target="_top">https://nixos.org/download/</a> to find the newest
+supported stable release.</p><p>When you first install NixOS, you’re automatically subscribed to the
 NixOS channel that corresponds to your installation source. For
 instance, if you installed from a 23.11 ISO, you will be subscribed to
 the <code class="literal">nixos-23.11</code> channel. To see which NixOS channel you’re subscribed

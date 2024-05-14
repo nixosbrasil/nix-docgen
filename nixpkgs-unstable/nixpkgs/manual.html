@@ -4532,7 +4532,7 @@ Hydra will never create prebuilt binaries for these platform types, even if they
 In general it is preferable to set <code class="literal">meta.platforms = lib.platforms.all</code> and then exclude any platforms on which the package is known not to build.
 For example, a package which requires dynamic linking and cannot be linked statically could use this:</p><pre><code class="programlisting nix">{
   meta.platforms = lib.platforms.all;
-  meta.badPlatforms = [ lib.systems.inspect.patterns.isStatic ];
+  meta.badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
 }
 </code></pre><p>The <a class="link" href="https://github.com/NixOS/nixpkgs/blob/b03ac42b0734da3e7be9bf8d94433a5195734b19/lib/meta.nix#L95-L106"  target="_top"><code class="literal">lib.meta.availableOn</code></a> function can be used to test whether or not a package is available (i.e. buildable) on a given platform.
 Some packages use this to automatically detect the maximum set of features with which they can be built.
