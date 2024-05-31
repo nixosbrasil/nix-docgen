@@ -10404,7 +10404,7 @@ NixOS 😀 is super cool 😃!
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="nim" class="title" style="clear: both">Nim   </h2>  </div> </div></div><div class="toc"> <dl class="toc">  <dt> <span class="section">  <a href="#buildnimpackage-parameters"><code class="literal">buildNimPackage</code> parameters</a> </span></dt><dt> <span class="section">  <a href="#nim-lockfiles">Lockfiles</a> </span></dt><dt> <span class="section">  <a href="#nim-overrides">Overriding Nim packages</a> </span></dt><dt> <span class="section">  <a href="#nim-lock-overrides">Lockfile dependency overrides</a> </span></dt> </dl></div><p>The Nim compiler and a builder function is available.
 Nim programs are built using <code class="literal">buildNimPackage</code> and a lockfile containing Nim dependencies.</p><p>The following example shows a Nim program that depends only on Nim libraries:</p><pre><code class="programlisting nix">{ lib, buildNimPackage, fetchFromGitHub }:
 
-buildNimPackage { } (finalAttrs: {
+buildNimPackage (finalAttrs: {
   pname = &quot;ttop&quot;;
   version = &quot;1.2.7&quot;;
 
@@ -10447,14 +10447,13 @@ The default overrides are maintained as the top-level <code class="literal">nimO
   /* … */
   sdl2 =
     lockAttrs:
-    finalAttrs:
     { buildInputs ? [ ], ... }:
     {
       buildInputs = buildInputs ++ [ SDL2 ];
     };
   /* … */
 }
-</code></pre><p>The annotations in the <code class="literal">nim-overrides.nix</code> set are functions that take three arguments and return a new attrset to be overlayed on the package being built.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>lockAttrs: the attrset for this library from within a lockfile. This can be used to implement library version constraints, such as marking libraries as broken or insecure.</p></li><li class="listitem"><p>finalAttrs: the final attrset passed by <code class="literal">buildNimPackage</code> to <code class="literal">stdenv.mkDerivation</code>.</p></li><li class="listitem"><p>prevAttrs: the attrset produced by initial arguments to <code class="literal">buildNimPackage</code> and any preceding lockfile overlays.</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="nim-lock-overrides-overrides" class="title" >Overriding an Nim library override   </h4>  </div> </div></div><p>The <code class="literal">nimOverrides</code> attrset makes it possible to modify overrides in a few different ways.</p><p>Override a package internal to its definition:</p><pre><code class="programlisting nix">{ lib, buildNimPackage, nimOverrides, libressl }:
+</code></pre><p>The annotations in the <code class="literal">nim-overrides.nix</code> set are functions that take two arguments and return a new attrset to be overlayed on the package being built.</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>lockAttrs: the attrset for this library from within a lockfile. This can be used to implement library version constraints, such as marking libraries as broken or insecure.</p></li><li class="listitem"><p>prevAttrs: the attrset produced by initial arguments to <code class="literal">buildNimPackage</code> and any preceding lockfile overlays.</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="nim-lock-overrides-overrides" class="title" >Overriding an Nim library override   </h4>  </div> </div></div><p>The <code class="literal">nimOverrides</code> attrset makes it possible to modify overrides in a few different ways.</p><p>Override a package internal to its definition:</p><pre><code class="programlisting nix">{ lib, buildNimPackage, nimOverrides, libressl }:
 
 let
   buildNimPackage&#x27; = buildNimPackage.override {
