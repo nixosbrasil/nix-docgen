@@ -7834,9 +7834,9 @@ mkdir -p .dart_tool &amp;&amp; cp --no-preserve=all &quot;$packageConfig&quot; .
 
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-dart-flutter" class="title" >Flutter applications   </h3>  </div> </div></div><p>The function <code class="literal">buildFlutterApplication</code> builds Flutter applications.</p><p>See the <a class="link" href="#ssec-dart-applications" title="Dart applications" >Dart documentation</a> for more details on required files and arguments.</p><pre><code class="programlisting nix">{  flutter, fetchFromGitHub }:
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-dart-flutter" class="title" >Flutter applications   </h3>  </div> </div></div><p>The function <code class="literal">buildFlutterApplication</code> builds Flutter applications.</p><p>See the <a class="link" href="#ssec-dart-applications" title="Dart applications" >Dart documentation</a> for more details on required files and arguments.</p><p><code class="literal">flutter</code> in Nixpkgs always points to <code class="literal">flutterPackages.stable</code>, which is the latest packaged version. To avoid unforeseen breakage during upgrade, packages in Nixpkgs should use a specific flutter version, such as <code class="literal">flutter319</code> and <code class="literal">flutter322</code>, instead of using <code class="literal">flutter</code> directly.</p><pre><code class="programlisting nix">{  flutter, fetchFromGitHub }:
 
-flutter.buildFlutterApplication {
+flutter322.buildFlutterApplication {
   pname = &quot;firmware-updater&quot;;
   version = &quot;0-unstable-2023-04-30&quot;;
 
