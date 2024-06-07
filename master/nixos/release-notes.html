@@ -47,7 +47,9 @@ Then, follow the instructions on the <a class="link" href="https://github.com/ma
 If you need to upgrade to 24.11 without having completed the migration, consider the security implications of weak password hashes on your user accounts, and add the following to your configuration:</p><pre><code class="programlisting nix">services.portunus.package      = pkgs.portunus.override { libxcrypt = pkgs.libxcrypt-legacy; };
 services.portunus.ldap.package = pkgs.openldap.override { libxcrypt = pkgs.libxcrypt-legacy; };
 </code></pre></li></ul></div>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-24.11-notable-changes" class="title" >Other Notable Changes   </h3>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>To facilitate dependency injection, the <code class="literal">imgui</code> package now builds a static archive using vcpkg’ CMake rules.
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-release-24.11-notable-changes" class="title" >Other Notable Changes   </h3>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><code class="literal">hareHook</code> has been added as the language framework for Hare. From now on, it,
+not the <code class="literal">hare</code> package, should be added to <code class="literal">nativeBuildInputs</code> when building
+Hare programs.</p></li><li class="listitem"><p>To facilitate dependency injection, the <code class="literal">imgui</code> package now builds a static archive using vcpkg’ CMake rules.
 The derivation now installs “impl” headers selectively instead of by a wildcard.
 Use <code class="literal">imgui.src</code> if you just want to access the unpacked sources.</p></li></ul></div>
 </div>

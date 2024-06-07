@@ -773,14 +773,14 @@ stderr&gt; ]
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-functions-library-attrsets" class="title" >lib.attrsets: attribute set functions   </h3>  </div> </div></div><p>Operations on attribute sets.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="function-library-lib.attrsets.attrByPath" class="title" ><code class="literal">lib.attrsets.attrByPath</code>   </h4>  </div> </div></div><p>Return an attribute from nested attribute sets.</p><p>Nix has an <a class="link" href="https://nixos.org/manual/nix/stable/language/operators#attribute-selection"  target="_top">attribute selection operator <code class="literal">. or</code></a> which is sufficient for such queries, as long as the number of attributes is static. For example:</p><pre><code class="programlisting nix">(x.a.b or 6) == attrByPath [&quot;a&quot; &quot;b&quot;] 6 x
-### and
+# and
 (x.${f p}.&quot;example.com&quot; or 6) == attrByPath [ (f p) &quot;example.com&quot; ] 6 x
 </code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.1.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">attrPath</code></span></dt><dd><p>A list of strings representing the attribute path to return from <code class="literal">set</code></p></dd><dt><span class="term"><code class="literal">default</code></span></dt><dd><p>Default value if <code class="literal">attrPath</code> does not resolve to an existing value</p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>The nested attribute set to select values from</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.1.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">attrByPath :: [String] -&gt; Any -&gt; AttrSet -&gt; Any
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.1.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 4. <code class="literal">lib.attrsets.attrByPath</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">x = { a = { b = 3; }; }
-### [&quot;a&quot; &quot;b&quot;] is equivalent to x.a.b
-### 6 is a default value to return if the path does not exist in attrset
+# [&quot;a&quot; &quot;b&quot;] is equivalent to x.a.b
+# 6 is a default value to return if the path does not exist in attrset
 attrByPath [&quot;a&quot; &quot;b&quot;] 6 x
 =&gt; 3
 attrByPath [&quot;z&quot; &quot;z&quot;] 6 x
@@ -789,7 +789,7 @@ attrByPath [&quot;z&quot; &quot;z&quot;] 6 x
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="function-library-lib.attrsets.hasAttrByPath" class="title" ><code class="literal">lib.attrsets.hasAttrByPath</code>   </h4>  </div> </div></div><p>Return if an attribute from nested attribute set exists.</p><p>Nix has a <a class="link" href="https://nixos.org/manual/nix/stable/language/operators#has-attribute"  target="_top">has attribute operator <code class="literal">?</code></a>, which is sufficient for such queries, as long as the number of attributes is static. For example:</p><pre><code class="programlisting nix">(x?a.b) == hasAttrByPath [&quot;a&quot; &quot;b&quot;] x
-### and
+# and
 (x?${f p}.&quot;example.com&quot;) == hasAttrByPath [ (f p) &quot;example.com&quot; ] x
 </code></pre><p><span class="strong"><strong>Laws</strong></span>:</p><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><pre><code class="programlisting nix">hasAttrByPath [] x == true
 </code></pre></li></ol></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.2.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">attrPath</code></span></dt><dd><p>A list of strings representing the attribute path to check from <code class="literal">set</code></p></dd><dt><span class="term"><code class="literal">e</code></span></dt><dd><p>The nested attribute set to check</p></dd></dl></div>
@@ -833,7 +833,7 @@ attrsets.longestValidPathPrefix [&quot;z&quot; &quot;z&quot;] (throw &quot;no ne
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="function-library-lib.attrsets.getAttrFromPath" class="title" ><code class="literal">lib.attrsets.getAttrFromPath</code>   </h4>  </div> </div></div><p>Like <code class="literal">attrByPath</code>, but without a default value. If it doesn’t find the
 path it will throw an error.</p><p>Nix has an <a class="link" href="https://nixos.org/manual/nix/stable/language/operators#attribute-selection"  target="_top">attribute selection operator</a> which is sufficient for such queries, as long as the number of attributes is static. For example:</p><pre><code class="programlisting nix">x.a.b == getAttrByPath [&quot;a&quot; &quot;b&quot;] x
-### and
+# and
 x.${f p}.&quot;example.com&quot; == getAttrByPath [ (f p) &quot;example.com&quot; ] x
 </code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.5.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">attrPath</code></span></dt><dd><p>A list of strings representing the attribute path to get from <code class="literal">set</code></p></dd><dt><span class="term"><code class="literal">set</code></span></dt><dd><p>The nested attribute set to find the value in.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.5.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">getAttrFromPath :: [String] -&gt; AttrSet -&gt; Any
@@ -1189,12 +1189,12 @@ replaced by the value of the second attribute set.</p><div class="section"> <div
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.34.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">recursiveUpdateUntil :: ( [ String ] -&gt; AttrSet -&gt; AttrSet -&gt; Bool ) -&gt; AttrSet -&gt; AttrSet -&gt; AttrSet
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-8-1.34.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 36. <code class="literal">lib.attrsets.recursiveUpdateUntil</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">recursiveUpdateUntil (path: l: r: path == [&quot;foo&quot;]) {
-##  # first attribute set
+  # first attribute set
   foo.bar = 1;
   foo.baz = 2;
   bar = 3;
 } {
-##  #second attribute set
+  #second attribute set
   foo.bar = 1;
   foo.quz = 2;
   baz = 4;
@@ -1815,16 +1815,16 @@ constructs a function that always returns a static value.</p><div class="section
   ]
 =&gt; 8
 
-### ideal to do text transformations
+# ideal to do text transformations
 pipe [ &quot;a/b&quot; &quot;a/c&quot; ] [
 
-##  # create the cp command
+  # create the cp command
   (map (file: &#x27;&#x27;cp &quot;${src}/${file}&quot; $out\n&#x27;&#x27;))
 
-##  # concatenate all commands into one string
+  # concatenate all commands into one string
   lib.concatStrings
 
-##  # make that string into a nix derivation
+  # make that string into a nix derivation
   (pkgs.runCommand &quot;copy-to-out&quot; {})
 
 ]
@@ -1949,7 +1949,7 @@ cmp &quot;fooa&quot; &quot;fooz&quot; =&gt; -1
 
 cmp &quot;f&quot; &quot;a&quot; =&gt; 1
 cmp &quot;fooa&quot; &quot;a&quot; =&gt; -1
-### while
+# while
 compare &quot;fooa&quot; &quot;a&quot; =&gt; 1
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/trivial.nix#L616"  target="_top">lib/trivial.nix:616</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -2133,32 +2133,32 @@ in extends overlay f;
   g = extends overlay f;
 in fix g
 </code></pre><div class="note"><h3 class="title">Note</h3><p>The argument to the given fixed-point function after applying an overlay will <span class="emphasis"><em>not</em></span> refer to its own return value, but rather to the value after evaluating the overlay function.</p><p>The given fixed-point function is called with a separate argument than if it was evaluated with <code class="literal">lib.fix</code>.</p></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 132. Extend a fixed-point function with an overlay</strong></span></summary><div class="example-contents"><p>Define a fixed-point function <code class="literal">f</code> that expects its own output as the argument <code class="literal">final</code>:</p><pre><code class="programlisting nix-repl">f = final: {
-##  # Constant value a
+  # Constant value a
   a = 1;
 
-##  # b depends on the final value of a, available as final.a
+  # b depends on the final value of a, available as final.a
   b = final.a + 2;
 }
 </code></pre><p>Evaluate this using <a class="link" href="#function-library-lib.fixedPoints.fix" title="lib.fixedPoints.fix" ><code class="literal">lib.fix</code></a> to get the final result:</p><pre><code class="programlisting nix-repl">fix f
 =&gt; { a = 1; b = 3; }
 </code></pre><p>An overlay represents a modification or extension of such a fixed-point function.
 Here’s an example of an overlay:</p><pre><code class="programlisting nix-repl">overlay = final: prev: {
-##  # Modify the previous value of a, available as prev.a
+  # Modify the previous value of a, available as prev.a
   a = prev.a + 10;
 
-##  # Extend the attribute set with c, letting it depend on the final values of a and b
+  # Extend the attribute set with c, letting it depend on the final values of a and b
   c = final.a + final.b;
 }
 </code></pre><p>Use <code class="literal">extends overlay f</code> to apply the overlay to the fixed-point function <code class="literal">f</code>.
 This produces a new fixed-point function <code class="literal">g</code> with the combined behavior of <code class="literal">f</code> and <code class="literal">overlay</code>:</p><pre><code class="programlisting nix-repl">g = extends overlay f
 </code></pre><p>The result is a function, so we can’t print it directly, but it’s the same as:</p><pre><code class="programlisting nix-repl">g&#x27; = final: {
-##  # The constant from f, but changed with the overlay
+  # The constant from f, but changed with the overlay
   a = 1 + 10;
 
-##  # Unchanged from f
+  # Unchanged from f
   b = final.a + 2;
 
-##  # Extended in the overlay
+  # Extended in the overlay
   c = final.a + final.b;
 }
 </code></pre><p>Evaluate this using <a class="link" href="#function-library-lib.fixedPoints.fix" title="lib.fixedPoints.fix" ><code class="literal">lib.fix</code></a> again to get the final result:</p><pre><code class="programlisting nix-repl">fix g
@@ -2244,7 +2244,7 @@ Same as <code class="literal">map</code>, but arguments flipped.</p><div class="
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-13-1.3.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 136. <code class="literal">lib.lists.foldr</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">concat = foldr (a: b: a + b) &quot;z&quot;
 concat [ &quot;a&quot; &quot;b&quot; &quot;c&quot; ]
 =&gt; &quot;abcz&quot;
-### different types
+# different types
 strange = foldr (int: str: toString (int + 1) + str) &quot;a&quot;
 strange [ 1 2 3 4 ]
 =&gt; &quot;2345a&quot;
@@ -2258,7 +2258,7 @@ strange [ 1 2 3 4 ]
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-13-1.5.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 137. <code class="literal">lib.lists.foldl</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">lconcat = foldl (a: b: a + b) &quot;z&quot;
 lconcat [ &quot;a&quot; &quot;b&quot; &quot;c&quot; ]
 =&gt; &quot;zabc&quot;
-### different types
+# different types
 lstrange = foldl (str: int: str + toString (int + 1)) &quot;a&quot;
 lstrange [ 1 2 3 4 ]
 =&gt; &quot;a2345&quot;
@@ -2280,7 +2280,7 @@ but with the added benefit that <code class="literal">foldl&#x27;</code> itself 
 in
 accₙ₊₁
 
-### Or ignoring builtins.seq
+# Or ignoring builtins.seq
 op (op (... (op (op (op acc₀ x₀) x₁) x₂) ...) xₙ₋₁) xₙ
 </code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-13-1.6.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">op</code></span></dt><dd><p>The binary operation to run, where the two arguments are:</p></dd></dl></div><div class="orderedlist"><ol class="orderedlist compact"  type="1"><li class="listitem"><p><code class="literal">acc</code>: The current accumulator value: Either the initial one for the first iteration, or the result of the previous iteration</p></li><li class="listitem"><p><code class="literal">x</code>: The corresponding list element for this iteration</p></li></ol></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">acc</code></span></dt><dd><p>The initial accumulator value.</p><p>The accumulator value is evaluated in any case before the first iteration starts.</p><p>To avoid evaluation even before the <code class="literal">list</code> argument is given an eta expansion can be used:</p><pre><code class="programlisting nix">list: lib.foldl&#x27; op acc list
 </code></pre></dd><dt><span class="term"><code class="literal">list</code></span></dt><dd><p>The list to fold</p></dd></dl></div>
@@ -2753,7 +2753,7 @@ trace: mystring foo
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-14-1.3.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">traceVal :: a -&gt; a
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-14-1.3.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 182. <code class="literal">lib.debug.traceVal</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">traceVal 42
-### trace: 42
+# trace: 42
 =&gt; 42
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L141"  target="_top">lib/debug.nix:141</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3270,7 +3270,7 @@ This is in contrast to using <a class="link" href="https://nixos.org/manual/nix/
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="function-library-lib.fileset.maybeMissing" class="title" ><code class="literal">lib.fileset.maybeMissing</code>   </h4>  </div> </div></div><p>Create a file set from a path that may or may not exist:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>If the path does exist, the path is <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >coerced to a file set</a>.</p></li><li class="listitem"><p>If the path does not exist, a file set containing no files is returned.</p></li></ul></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.3.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">path</code></span></dt><dd><p>1. Function argument</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.3.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">maybeMissing :: Path -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.3.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 208. <code class="literal">lib.fileset.maybeMissing</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### All files in the current directory, but excluding main.o if it exists
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.3.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 208. <code class="literal">lib.fileset.maybeMissing</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># All files in the current directory, but excluding main.o if it exists
 difference ./. (maybeMissing ./main.o)
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L189"  target="_top">lib/fileset/default.nix:189</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3321,7 +3321,7 @@ trace:   - run.sh (regular)
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="function-library-lib.fileset.toSource" class="title" ><code class="literal">lib.fileset.toSource</code>   </h4>  </div> </div></div><p>Add the local files contained in <code class="literal">fileset</code> to the store as a single <a class="link" href="https://nixos.org/manual/nix/stable/glossary#gloss-store-path"  target="_top">store path</a> rooted at <code class="literal">root</code>.</p><p>The result is the store path as a string-like value, making it usable e.g. as the <code class="literal">src</code> of a derivation, or in string interpolation:</p><pre><code class="programlisting nix">stdenv.mkDerivation {
   src = lib.fileset.toSource { ... };
-##  # ...
+  # ...
 }
 </code></pre><p>The name of the store path is always <code class="literal">source</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.6.1" class="title" >Inputs   </h5>  </div> </div></div><p>Takes an attribute set with the following attributes</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">root</code> (Path; <span class="emphasis"><em>required</em></span>)</span></dt><dd><p>The local directory <a class="link" href="https://nixos.org/manual/nix/stable/language/values.html#type-path"  target="_top">path</a> that will correspond to the root of the resulting store path.
 Paths in <a class="link" href="https://nixos.org/manual/nix/stable/language/values.html#type-string"  target="_top">strings</a>, including Nix store paths, cannot be passed as <code class="literal">root</code>.
@@ -3335,16 +3335,16 @@ which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coe
   fileset :: FileSet,
 } -&gt; SourceLike
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.6.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 211. <code class="literal">lib.fileset.toSource</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Import the current directory into the store
-### but only include files under ./src
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.6.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 211. <code class="literal">lib.fileset.toSource</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Import the current directory into the store
+# but only include files under ./src
 toSource {
   root = ./.;
   fileset = ./src;
 }
 =&gt; &quot;/nix/store/...-source&quot;
 
-### Import the current directory into the store
-### but only include ./Makefile and all files under ./src
+# Import the current directory into the store
+# but only include ./Makefile and all files under ./src
 toSource {
   root = ./.;
   fileset = union
@@ -3353,7 +3353,7 @@ toSource {
 }
 =&gt; &quot;/nix/store/...-source&quot;
 
-### Trying to include a file outside the root will fail
+# Trying to include a file outside the root will fail
 toSource {
   root = ./.;
   fileset = unions [
@@ -3364,7 +3364,7 @@ toSource {
 }
 =&gt; &lt;error&gt;
 
-### The root needs to point to a directory that contains all the files
+# The root needs to point to a directory that contains all the files
 toSource {
   root = ../.;
   fileset = unions [
@@ -3375,7 +3375,7 @@ toSource {
 }
 =&gt; &quot;/nix/store/...-source&quot;
 
-### The root has to be a local filesystem path
+# The root has to be a local filesystem path
 toSource {
   root = &quot;/nix/store/...-source&quot;;
   fileset = ./.;
@@ -3405,12 +3405,12 @@ See also <a class="link" href="https://en.wikipedia.org/wiki/Union_(set_theory)"
 with the first argument being evaluated first if needed.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.8.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">fileset1</code></span></dt><dd><p>The first file set. This argument can also be a path, which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to a file set</a>.</p></dd><dt><span class="term"><code class="literal">fileset2</code></span></dt><dd><p>The second file set. This argument can also be a path, which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to a file set</a>.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.8.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">union :: FileSet -&gt; FileSet -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.8.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 213. <code class="literal">lib.fileset.union</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Create a file set containing the file `Makefile`
-### and all files recursively in the `src` directory
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.8.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 213. <code class="literal">lib.fileset.union</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Create a file set containing the file `Makefile`
+# and all files recursively in the `src` directory
 union ./Makefile ./src
 
-### Create a file set containing the file `Makefile`
-### and the LICENSE file from the parent directory
+# Create a file set containing the file `Makefile`
+# and the LICENSE file from the parent directory
 union ./Makefile ../LICENSE
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L569"  target="_top">lib/fileset/default.nix:569</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3422,21 +3422,21 @@ See also <a class="link" href="https://en.wikipedia.org/wiki/Union_(set_theory)"
 with earlier elements being evaluated first if needed.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.9.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">filesets</code></span></dt><dd><p>A list of file sets. The elements can also be paths, which get <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to file sets</a>.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.9.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">unions :: [ FileSet ] -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.9.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 214. <code class="literal">lib.fileset.unions</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Create a file set containing selected files
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.9.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 214. <code class="literal">lib.fileset.unions</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Create a file set containing selected files
 unions [
-##  # Include the single file `Makefile` in the current directory
-##  # This errors if the file doesn&#x27;t exist
+  # Include the single file `Makefile` in the current directory
+  # This errors if the file doesn&#x27;t exist
   ./Makefile
 
-##  # Recursively include all files in the `src/code` directory
-##  # If this directory is empty this has no effect
+  # Recursively include all files in the `src/code` directory
+  # If this directory is empty this has no effect
   ./src/code
 
-##  # Include the files `run.sh` and `unit.c` from the `tests` directory
+  # Include the files `run.sh` and `unit.c` from the `tests` directory
   ./tests/run.sh
   ./tests/unit.c
 
-##  # Include the `LICENSE` file from the parent directory
+  # Include the `LICENSE` file from the parent directory
   ../LICENSE
 ]
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L632"  target="_top">lib/fileset/default.nix:632</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
@@ -3447,7 +3447,7 @@ See also <a class="link" href="https://en.wikipedia.org/wiki/Intersection_(set_t
 with the first argument being evaluated first if needed.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.10.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">fileset1</code></span></dt><dd><p>The first file set. This argument can also be a path, which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to a file set</a>.</p></dd><dt><span class="term"><code class="literal">fileset2</code></span></dt><dd><p>The second file set. This argument can also be a path, which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to a file set</a>.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.10.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">intersection :: FileSet -&gt; FileSet -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.10.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 215. <code class="literal">lib.fileset.intersection</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Limit the selected files to the ones in ./., so only ./src and ./Makefile
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.10.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 215. <code class="literal">lib.fileset.intersection</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Limit the selected files to the ones in ./., so only ./src and ./Makefile
 intersection ./. (unions [ ../LICENSE ./src ./Makefile ])
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L683"  target="_top">lib/fileset/default.nix:683</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3457,16 +3457,16 @@ See also <a class="link" href="https://en.wikipedia.org/wiki/Complement_(set_the
 with the first argument being evaluated first if needed.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.11.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">positive</code></span></dt><dd><p>The positive file set. The result can only contain files that are also in this file set.  This argument can also be a path, which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to a file set</a>.</p></dd><dt><span class="term"><code class="literal">negative</code></span></dt><dd><p>The negative file set. The result will never contain files that are also in this file set.  This argument can also be a path, which gets <a class="link" href="#sec-fileset-path-coercion" title="Implicit coercion from paths to file sets" >implicitly coerced to a file set</a>.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.11.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">union :: FileSet -&gt; FileSet -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.11.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 216. <code class="literal">lib.fileset.difference</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Create a file set containing all files from the current directory,
-### except ones under ./tests
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.11.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 216. <code class="literal">lib.fileset.difference</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Create a file set containing all files from the current directory,
+# except ones under ./tests
 difference ./. ./tests
 
 let
-##  # A set of Nix-related files
+  # A set of Nix-related files
   nixFiles = unions [ ./default.nix ./nix ./tests/default.nix ];
 in
-### Create a file set containing all files under ./tests, except ones in `nixFiles`,
-### meaning only without ./tests/default.nix
+# Create a file set containing all files under ./tests, except ones in `nixFiles`,
+# meaning only without ./tests/default.nix
 difference ./tests nixFiles
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L746"  target="_top">lib/fileset/default.nix:746</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3486,16 +3486,16 @@ This matches result of calling <a class="link" href="https://nixos.org/manual/ni
   -&gt; Path
   -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.12.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 217. <code class="literal">lib.fileset.fileFilter</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Include all regular `default.nix` files in the current directory
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.12.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 217. <code class="literal">lib.fileset.fileFilter</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Include all regular `default.nix` files in the current directory
 fileFilter (file: file.name == &quot;default.nix&quot;) ./.
 
-### Include all non-Nix files from the current directory
+# Include all non-Nix files from the current directory
 fileFilter (file: ! file.hasExt &quot;nix&quot;) ./.
 
-### Include all files that start with a &quot;.&quot; in the current directory
+# Include all files that start with a &quot;.&quot; in the current directory
 fileFilter (file: hasPrefix &quot;.&quot; file.name) ./.
 
-### Include all regular files (not symlinks or others) in the current directory
+# Include all regular files (not symlinks or others) in the current directory
 fileFilter (file: file.type == &quot;regular&quot;) ./.
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L829"  target="_top">lib/fileset/default.nix:829</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3505,24 +3505,24 @@ This does not import any of the files into the store.</p><p>This can be used to 
 Turning the result of this function back into a source using <code class="literal">toSource</code> will therefore not preserve empty directories.</p></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.13.1" class="title" >Inputs   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">source</code></span></dt><dd><p>1. Function argument</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.13.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">fromSource :: SourceLike -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.13.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 218. <code class="literal">lib.fileset.fromSource</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### There&#x27;s no cleanSource-like function for file sets yet,
-### but we can just convert cleanSource to a file set and use it that way
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.13.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 218. <code class="literal">lib.fileset.fromSource</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># There&#x27;s no cleanSource-like function for file sets yet,
+# but we can just convert cleanSource to a file set and use it that way
 toSource {
   root = ./.;
   fileset = fromSource (lib.sources.cleanSource ./.);
 }
 
-### Keeping a previous sourceByRegex (which could be migrated to `lib.fileset.unions`),
-### but removing a subdirectory using file set functions
+# Keeping a previous sourceByRegex (which could be migrated to `lib.fileset.unions`),
+# but removing a subdirectory using file set functions
 difference
   (fromSource (lib.sources.sourceByRegex ./. [
     &quot;^README\.md$&quot;
-##    # This regex includes everything in ./doc
+    # This regex includes everything in ./doc
     &quot;^doc(/.*)?$&quot;
   ])
   ./doc/generated
 
-### Use cleanSource, but limit it to only include ./Makefile and files under ./src
+# Use cleanSource, but limit it to only include ./Makefile and files under ./src
 intersection
   (fromSource (lib.sources.cleanSource ./.))
   (unions [
@@ -3536,11 +3536,11 @@ intersection
 This directory must contain a <code class="literal">.git</code> file or subdirectory.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.14.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">gitTracked :: Path -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.14.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 219. <code class="literal">lib.fileset.gitTracked</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Include all files tracked by the Git repository in the current directory
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.14.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 219. <code class="literal">lib.fileset.gitTracked</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Include all files tracked by the Git repository in the current directory
 gitTracked ./.
 
-### Include only files tracked by the Git repository in the parent directory
-### that are also in the current directory
+# Include only files tracked by the Git repository in the parent directory
+# that are also in the current directory
 intersection ./. (gitTracked ../.)
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L969"  target="_top">lib/fileset/default.nix:969</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -3559,8 +3559,8 @@ If <code class="literal">true</code>, this is equivalent to passing the <a class
 This directory must contain a <code class="literal">.git</code> file or subdirectory.</p></dd></dl></div></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.15.2" class="title" >Type   </h5>  </div> </div></div><pre><code class="programlisting">gitTrackedWith :: { recurseSubmodules :: Bool ? false } -&gt; Path -&gt; FileSet
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.15.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 220. <code class="literal">lib.fileset.gitTrackedWith</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">### Include all files tracked by the Git repository in the current directory
-### and any submodules under it
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="auto-generated-18-1.15.3" class="title" >Examples   </h5>  </div> </div></div><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 220. <code class="literal">lib.fileset.gitTrackedWith</code> usage example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix"># Include all files tracked by the Git repository in the current directory
+# and any submodules under it
 gitTracked { recurseSubmodules = true; } ./.
 </code></pre></div></details></div><br class="example-break" /><p>Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/fileset/default.nix#L1031"  target="_top">lib/fileset/default.nix:1031</a> in <code class="literal">&lt;nixpkgs&gt;</code>.</p>
 </div>
@@ -6671,14 +6671,14 @@ in
 in
   make-disk-image {
     inherit pkgs lib;
-    config = evalConfig {
+    inherit (evalConfig {
       modules = [
         {
           fileSystems.&quot;/&quot; = { device = &quot;/dev/vda&quot;; fsType = &quot;ext4&quot;; autoFormat = true; };
           boot.grub.device = &quot;/dev/vda&quot;;
         }
       ];
-    };
+    }) config;
     format = &quot;qcow2&quot;;
     onlyNixStore = false;
     partitionTableType = &quot;legacy+gpt&quot;;
@@ -7834,9 +7834,9 @@ mkdir -p .dart_tool &amp;&amp; cp --no-preserve=all &quot;$packageConfig&quot; .
 
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-dart-flutter" class="title" >Flutter applications   </h3>  </div> </div></div><p>The function <code class="literal">buildFlutterApplication</code> builds Flutter applications.</p><p>See the <a class="link" href="#ssec-dart-applications" title="Dart applications" >Dart documentation</a> for more details on required files and arguments.</p><pre><code class="programlisting nix">{  flutter, fetchFromGitHub }:
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-dart-flutter" class="title" >Flutter applications   </h3>  </div> </div></div><p>The function <code class="literal">buildFlutterApplication</code> builds Flutter applications.</p><p>See the <a class="link" href="#ssec-dart-applications" title="Dart applications" >Dart documentation</a> for more details on required files and arguments.</p><p><code class="literal">flutter</code> in Nixpkgs always points to <code class="literal">flutterPackages.stable</code>, which is the latest packaged version. To avoid unforeseen breakage during upgrade, packages in Nixpkgs should use a specific flutter version, such as <code class="literal">flutter319</code> and <code class="literal">flutter322</code>, instead of using <code class="literal">flutter</code> directly.</p><pre><code class="programlisting nix">{  flutter, fetchFromGitHub }:
 
-flutter.buildFlutterApplication {
+flutter322.buildFlutterApplication {
   pname = &quot;firmware-updater&quot;;
   version = &quot;0-unstable-2023-04-30&quot;;
 
