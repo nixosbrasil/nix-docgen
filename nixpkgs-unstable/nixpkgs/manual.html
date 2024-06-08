@@ -9759,6 +9759,47 @@ buildNpmPackage {
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="javascript-node2nix-pitfalls" class="title" >Pitfalls   </h5>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>If upstream package.json does not have a “version” attribute, <code class="literal">node2nix</code> will crash. You will need to add it like shown in <a class="link" href="#javascript-upstream-package-json" title="Try to use upstream package.json" >the package.json section</a>.</p></li><li class="listitem"><p><code class="literal">node2nix</code> has some <a class="link" href="https://github.com/svanderburg/node2nix/issues/238"  target="_top">bugs</a> related to working with lock files from npm distributed with <code class="literal">nodejs_16</code>.</p></li><li class="listitem"><p><code class="literal">node2nix</code> does not like missing packages from npm. If you see something like <code class="literal">Cannot resolve version: vue-loader-v16@undefined</code> then you might want to try another tool. The package might have been pulled off of npm.</p></li></ul></div>
 </div>
 
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="javascript-pnpm" class="title" >pnpm   </h4>  </div> </div></div><p>Pnpm is available as the top-level package <code class="literal">pnpm</code>. Additionally, there are variants pinned to certain major versions, like <code class="literal">pnpm_8</code> and <code class="literal">pnpm_9</code>, which support different sets of lock file versions.</p><p>When packaging an application that includes a <code class="literal">pnpm-lock.yaml</code>, you need to fetch the pnpm store for that project using a fixed-output-derivation. The functions <code class="literal">pnpm_8.fetchDeps</code> and <code class="literal">pnpm_9.fetchDeps</code> can create this pnpm store derivation. In conjunction, the setup hooks <code class="literal">pnpm_8.configHook</code> and <code class="literal">pnpm_9.configHook</code> will prepare the build environment to install the prefetched dependencies store. Here is an example for a package that contains a <code class="literal">package.json</code> and a <code class="literal">pnpm-lock.yaml</code> files using the above <code class="literal">pnpm_</code> attributes:</p><pre><code class="programlisting nix">{
+  stdenv,
+  nodejs,
+  # This is pinned as { pnpm = pnpm_9; }
+  pnpm
+}:
+
+stdenv.mkDerivation (finalAttrs: {
+  pname = &quot;foo&quot;;
+  version = &quot;0-unstable-1980-01-01&quot;;
+
+  src = ...;
+
+  nativeBuildInputs = [
+    nodejs
+    pnpm.configHook
+  ];
+
+  pnpmDeps = pnpm.fetchDeps {
+    inherit (finalAttrs) pname version src;
+    hash = &quot;...&quot;;
+  };
+})
+</code></pre><p>NOTE: It is highly recommended to use a pinned version of pnpm (i.e. <code class="literal">pnpm_8</code> or <code class="literal">pnpm_9</code>), to increase future reproducibility. It might also be required to use an older version, if the package needs support for a certain lock file version.</p><p>In case you are patching <code class="literal">package.json</code> or <code class="literal">pnpm-lock.yaml</code>, make sure to pass <code class="literal">finalAttrs.patches</code> to the function as well (i.e. <code class="literal">inherit (finalAttrs) patches</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="javascript-pnpm-sourceRoot" class="title" >Dealing with <code class="literal">sourceRoot</code>   </h5>  </div> </div></div><p>NOTE: Nixpkgs pnpm tooling doesn’t support building projects with a <code class="literal">pnpm-workspace.yaml</code>, or building monorepos. It maybe possible to use <code class="literal">pnpm.fetchDeps</code> for these projects, but it may be hard or impossible to produce a binary from such projects (<a class="link" href="https://github.com/NixOS/nixpkgs/pull/290715#issuecomment-2144543728"  target="_top">an example attempt</a>).</p><p>If the pnpm project is in a subdirectory, you can just define <code class="literal">sourceRoot</code> or <code class="literal">setSourceRoot</code> for <code class="literal">fetchDeps</code>. Note, that projects using <code class="literal">pnpm-workspace.yaml</code> are currently not supported, and will probably not work using this approach.
+If <code class="literal">sourceRoot</code> is different between the parent derivation and <code class="literal">fetchDeps</code>, you will have to set <code class="literal">pnpmRoot</code> to effectively be the same location as it is in <code class="literal">fetchDeps</code>.</p><p>Assuming the following directory structure, we can define <code class="literal">sourceRoot</code> and <code class="literal">pnpmRoot</code> as follows:</p><pre><code class="programlisting">.
+├── frontend
+│   ├── ...
+│   ├── package.json
+│   └── pnpm-lock.yaml
+└── ...
+</code></pre><pre><code class="programlisting nix">  ...
+  pnpmDeps = pnpm.fetchDeps {
+    ...
+    sourceRoot = &quot;${finalAttrs.src.name}/frontend&quot;;
+  };
+
+  # by default the working directory is the extracted source
+  pnpmRoot = &quot;frontend&quot;;
+</code></pre>
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="javascript-yarn2nix" class="title" >yarn2nix   </h4>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="javascript-yarn2nix-preparation" class="title" >Preparation   </h5>  </div> </div></div><p>You will need at least a <code class="literal">yarn.lock</code> file. If upstream does not have one you need to generate it and reference it in your package definition.</p><p>If the downloaded files contain the <code class="literal">package.json</code> and <code class="literal">yarn.lock</code> files they can be used like this:</p><pre><code class="programlisting nix">{
   offlineCache = fetchYarnDeps {
     yarnLock = src + &quot;/yarn.lock&quot;;
