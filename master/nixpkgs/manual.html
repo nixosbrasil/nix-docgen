@@ -9184,10 +9184,31 @@ that may refer to other Haskell packages’ store paths (like libraries and
 documentation). This dramatically reduces the closure size of the resulting
 derivation. Note that the executables are only statically linked against their
 Haskell dependencies, but will still link dynamically against libc, GMP and
-other system library dependencies. If dependencies use their Cabal-generated
-<code class="literal">Paths_*</code> module, this may not work as well if GHC’s dead code elimination
-is unable to remove the references to the dependency’s store path that module
-contains.</p></dd><dt><span class="term"><code class="literal">enableSeparateBinOutput drv</code></span></dt><dd><p>Install executables produced by <code class="literal">drv</code> to a separate <code class="literal">bin</code> output. This
+other system library dependencies.</p><p>If the library being built or its dependencies use their Cabal-generated
+<code class="literal">Paths_*</code> module, this may not work as well if GHC’s dead code elimination is
+unable to remove the references to the dependency’s store path that module
+contains. (See <a class="link" href="https://github.com/NixOS/nixpkgs/issues/164630"  target="_top">nixpkgs#164630</a> for more information.)</p><p>Importing the <code class="literal">Paths_*</code> module may cause builds to fail with this message:</p><pre><code class="programlisting">error: output &#x27;/nix/store/64k8iw0ryz76qpijsnl9v87fb26v28z8-my-haskell-package-1.0.0.0&#x27; is not allowed to refer to the following paths:
+         /nix/store/5q5s4a07gaz50h04zpfbda8xjs8wrnhg-ghc-9.6.3
+</code></pre><p>If that happens, first disable the check for GHC references and rebuild the
+derivation:</p><pre><code class="programlisting nix">pkgs.haskell.lib.overrideCabal
+  (pkgs.haskell.lib.justStaticExecutables my-haskell-package)
+  (drv: {
+    disallowGhcReference = false;
+  })
+</code></pre><p>Then use <code class="literal">strings</code> to determine which libraries are responsible:</p><pre><code class="programlisting">$ nix-build ...
+$ strings result/bin/my-haskell-binary | grep /nix/store/
+...
+/nix/store/n7ciwdlg8yyxdhbrgd6yc2d8ypnwpmgq-hs-opentelemetry-sdk-0.0.3.6/bin
+...
+</code></pre><p>Finally, use <code class="literal">remove-references-to</code> to delete those store paths from the produced output:</p><pre><code class="programlisting nix">pkgs.haskell.lib.overrideCabal
+  (pkgs.haskell.lib.justStaticExecutables my-haskell-package)
+  (drv: {
+    postInstall = &#x27;&#x27;
+      ${drv.postInstall or &quot;&quot;}
+      remove-references-to -t ${pkgs.haskellPackages.hs-opentelemetry-sdk}
+    &#x27;&#x27;;
+  })
+</code></pre></dd></dl></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">enableSeparateBinOutput drv</code></span></dt><dd><p>Install executables produced by <code class="literal">drv</code> to a separate <code class="literal">bin</code> output. This
 has a similar effect as <code class="literal">justStaticExecutables</code>, but preserves the libraries
 and documentation in the <code class="literal">out</code> output alongside the <code class="literal">bin</code> output with a
 much smaller closure size.</p></dd><dt><span class="term"><code class="literal">markBroken drv</code></span></dt><dd><p>Sets the <code class="literal">broken</code> flag to <code class="literal">true</code> for <code class="literal">drv</code>.</p></dd><dt><span class="term"><code class="literal">markUnbroken drv</code>, <code class="literal">unmarkBroken drv</code></span></dt><dd><p>Set the <code class="literal">broken</code> flag to <code class="literal">false</code> for <code class="literal">drv</code>.</p></dd><dt><span class="term"><code class="literal">doDistribute drv</code></span></dt><dd><p>Updates <code class="literal">hydraPlatforms</code> so that Hydra will build <code class="literal">drv</code>. This is

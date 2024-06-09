@@ -38,7 +38,12 @@ which is part of the new free-form <code class="literal">services.forgejo.secret
 <code class="literal">extraConfig</code> is now removed.</p></li><li class="listitem"><p>Legacy package <code class="literal">stalwart-mail_0_6</code> was dropped, please note the
 <a class="link" href="https://github.com/stalwartlabs/mail-server/blob/main/UPGRADING.md"  target="_top">manual upgrade process</a>
 before changing the package to <code class="literal">pkgs.stalwart-mail</code> in
-<a class="link" href="options.html#opt-services.stalwart-mail.package"  ><code class="literal">services.stalwart-mail.package</code></a>.</p></li><li class="listitem"><p>The <code class="literal">stalwart-mail</code> module now uses RocksDB as the default storage backend
+<a class="link" href="options.html#opt-services.stalwart-mail.package"  ><code class="literal">services.stalwart-mail.package</code></a>.</p></li><li class="listitem"><p><code class="literal">haskell.lib.compose.justStaticExecutables</code> now disallows references to GHC in the
+output by default, to alert users to closure size issues caused by
+<a class="link" href="https://github.com/NixOS/nixpkgs/issues/164630"  target="_top">#164630</a>. See <a class="link" href="https://nixos.org/manual/nixpkgs/unstable/#haskell-packaging-helpers"  target="_top">“Packaging
+Helpers” in the Haskell section of the Nixpkgs
+manual</a>
+for information on working around <code class="literal">output &#x27;...&#x27; is not allowed to refer to the following paths</code> errors caused by this change.</p></li><li class="listitem"><p>The <code class="literal">stalwart-mail</code> module now uses RocksDB as the default storage backend
 for <code class="literal">stateVersion</code> ≥ 24.11. (It was previously using SQLite for structured
 data and the filesystem for blobs).</p></li><li class="listitem"><p><code class="literal">zx</code> was updated to v8, which introduces several breaking changes.
 See the <a class="link" href="https://github.com/google/zx/releases/tag/8.0.0"  target="_top">v8 changelog</a> for more information.</p></li><li class="listitem"><p>The <code class="literal">portunus</code> package and service do not support weak password hashes anymore.
