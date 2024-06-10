@@ -9408,7 +9408,7 @@ machine: Terminal is ready (there is no initial prompt):
 $ hostname
 machine
 </code></pre><p>As an alternative, you can proxy the guest shell to a local TCP server by first
-starting a TCP server in a terminal using the command:</p><pre><code class="programlisting ShellSession">$ socat &#x27;READLINE,PROMPT=$ &#x27; tcp-listen:4444,reuseaddr`
+starting a TCP server in a terminal using the command:</p><pre><code class="programlisting ShellSession">$ socat &#x27;READLINE,PROMPT=$ &#x27; tcp-listen:4444,reuseaddr
 </code></pre><p>In the terminal where the test driver is running, connect to this server by
 using:</p><pre><code class="programlisting py">&gt;&gt;&gt; machine.shell_interact(&quot;tcp:127.0.0.1:4444&quot;)
 </code></pre><p>Once the connection is established, you can enter commands in the socat terminal
