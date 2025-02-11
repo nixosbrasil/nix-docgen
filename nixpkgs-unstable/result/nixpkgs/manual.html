@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Nixpkgs Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /></head><body><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737322687056"></a>Nixpkgs Manual</h1></div><div><h2 class="subtitle">Version 21.05pre-git
-  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#preface">1. Preface</a></span></dt><dt><span class="part"><a href="#idm140737322629712">I. Using Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-packageconfig">2. Global configuration</a></span></dt><dt><span class="chapter"><a href="#chap-overlays">3. Overlays</a></span></dt><dt><span class="chapter"><a href="#chap-overrides">4. Overriding</a></span></dt><dt><span class="chapter"><a href="#chap-functions">5. Functions reference</a></span></dt></dl></dd><dt><span class="part"><a href="#idm140737320517440">II. Standard environment</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-stdenv">6. The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">7. Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">8. Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">9. Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">10. Platform Notes</a></span></dt></dl></dd><dt><span class="part"><a href="#idm140737319434160">III. Builders</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-pkgs-fetchers">11. Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">12. Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-special">13. Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">14. Images</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">15. Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">16. Packages</a></span></dt></dl></dd><dt><span class="part"><a href="#idm140737316306416">IV. Contributing to Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-quick-start">17. Quick Start to Adding a Package</a></span></dt><dt><span class="chapter"><a href="#chap-conventions">18. Coding conventions</a></span></dt><dt><span class="chapter"><a href="#chap-submitting-changes">19. Submitting changes</a></span></dt><dt><span class="chapter"><a href="#chap-vulnerability-roundup">20. Vulnerability Roundup</a></span></dt><dt><span class="chapter"><a href="#chap-reviewing-contributions">21. Reviewing contributions</a></span></dt><dt><span class="chapter"><a href="#chap-contributing">22. Contributing to this documentation</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><strong>List of Figures</strong></p><dl><dt>19.1. <a href="#idm140737315787920">Staging workflow</a></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>5.1. <a href="#function-library-lib.asserts.assertMsg-example-false">Printing when the predicate is false</a></dt><dt>5.2. <a href="#function-library-lib.asserts.assertOneOf-example">Ensuring a user provided a possible value</a></dt><dt>5.3. <a href="#function-library-lib.attrset.attrByPath-example-value-exists">Extracting a value from a nested attribute set</a></dt><dt>5.4. <a href="#function-library-lib.attrset.attrByPath-example-default-value">No value at the path, instead using the default</a></dt><dt>5.5. <a href="#function-library-lib.attrsets.hasAttrByPath-example">A nested value does exist inside a set</a></dt><dt>5.6. <a href="#function-library-lib.attrsets.setAttrByPath-example">Creating a new nested attribute set</a></dt><dt>5.7. <a href="#function-library-lib.attrsets.getAttrPath-example-success">Succesfully getting a value from an attribute set</a></dt><dt>5.8. <a href="#function-library-lib.attrsets.getAttrPath-example-throw">Throwing after failing to get a value from an attribute set</a></dt><dt>5.9. <a href="#function-library-lib.attrsets.attrVals-example-success">Getting several values from an attribute set</a></dt><dt>5.10. <a href="#function-library-lib.attrsets.attrVals-failure">Getting missing values from an attribute set</a></dt><dt>5.11. <a href="#function-library-lib.attrsets.attrValues-example"></a></dt><dt>5.12. <a href="#function-library-lib.attrsets.catAttrs-example">Collect an attribute from a list of attribute sets.</a></dt><dt>5.13. <a href="#function-library-lib.attrsets.filterAttrs-example">Filtering an attributeset</a></dt><dt>5.14. <a href="#function-library-lib.attrsets.filterAttrsRecursive-example">Recursively filtering an attribute set</a></dt><dt>5.15. <a href="#function-library-lib.attrsets.foldAttrs-example">Combining an attribute of lists in to one attribute set</a></dt><dt>5.16. <a href="#function-library-lib.attrsets.collect-example-lists">Collecting all lists from an attribute set</a></dt><dt>5.17. <a href="#function-library-lib.attrsets.collect-example-outpath">Collecting all attribute-sets which contain the <code class="literal">outPath</code> attribute name.</a></dt><dt>5.18. <a href="#function-library-lib.attrsets.nameValuePair-example">Creating a name value pair</a></dt><dt>5.19. <a href="#function-library-lib.attrsets.mapAttrs-example">Modifying each value of an attribute set</a></dt><dt>5.20. <a href="#function-library-lib.attrsets.mapAttrs-prime-example">Change the name and value of each attribute of an attribute set</a></dt><dt>5.21. <a href="#function-library-lib.attrsets.mapAttrsToList-example">Combine attribute values and names in to a list</a></dt><dt>5.22. <a href="#function-library-lib.attrsets.mapAttrsRecursive-example">A contrived example of using <code class="function">lib.attrsets.mapAttrsRecursive</code></a></dt><dt>5.23. <a href="#function-library-lib.attrsets.mapAttrsRecursiveCond-example">Only convert attribute values to JSON if the containing attribute set is marked for recursion</a></dt><dt>5.24. <a href="#function-library-lib.attrsets.genAttrs-example">Generate an attrset based on names only</a></dt><dt>5.25. <a href="#function-library-lib.attrsets.isDerivation-example-true">A package is a derivation</a></dt><dt>5.26. <a href="#function-library-lib.attrsets.isDerivation-example-false">Anything else is not a derivation</a></dt><dt>5.27. <a href="#function-library-lib.attrsets.optionalAttrs-example-true">Return the provided attribute set when <code class="varname">cond</code> is true</a></dt><dt>5.28. <a href="#function-library-lib.attrsets.optionalAttrs-example-false">Return an empty attribute set when <code class="varname">cond</code> is false</a></dt><dt>5.29. <a href="#function-library-lib.attrsets.zipAttrsWithNames-example">Summing a list of attribute sets of numbers</a></dt><dt>5.30. <a href="#function-library-lib.attrsets.zipAttrsWith-example">Summing a list of attribute sets of numbers</a></dt><dt>5.31. <a href="#function-library-lib.attrsets.zipAttrs-example">Combining a list of attribute sets</a></dt><dt>5.32. <a href="#function-library-lib.attrsets.recursiveUpdateUntil-example">Recursively merging two attribute sets</a></dt><dt>5.33. <a href="#function-library-lib.attrsets.recursiveUpdate-example">Recursively merging two attribute sets</a></dt><dt>5.34. <a href="#function-library-lib.attrsets.recurseIntoAttrs-example">Making Nix look inside an attribute set</a></dt><dt>5.35. <a href="#function-library-lib.attrsets.cartesianProductOfSets-example">Creating the cartesian product of a list of attribute values</a></dt><dt>5.36. <a href="#idm140737321904448"><code class="function">lib.strings.concatStrings</code> usage example</a></dt><dt>5.37. <a href="#idm140737321893120"><code class="function">lib.strings.concatMapStrings</code> usage example</a></dt><dt>5.38. <a href="#idm140737321881792"><code class="function">lib.strings.concatImapStrings</code> usage example</a></dt><dt>5.39. <a href="#idm140737321870512"><code class="function">lib.strings.intersperse</code> usage example</a></dt><dt>5.40. <a href="#idm140737321863776"><code class="function">lib.strings.concatStringsSep</code> usage example</a></dt><dt>5.41. <a href="#idm140737321850336"><code class="function">lib.strings.concatMapStringsSep</code> usage example</a></dt><dt>5.42. <a href="#idm140737321836848"><code class="function">lib.strings.concatImapStringsSep</code> usage example</a></dt><dt>5.43. <a href="#idm140737321825440"><code class="function">lib.strings.makeSearchPath</code> usage example</a></dt><dt>5.44. <a href="#idm140737321812080"><code class="function">lib.strings.makeSearchPathOutput</code> usage example</a></dt><dt>5.45. <a href="#idm140737321805872"><code class="function">lib.strings.makeLibraryPath</code> usage example</a></dt><dt>5.46. <a href="#idm140737321799600"><code class="function">lib.strings.makeBinPath</code> usage example</a></dt><dt>5.47. <a href="#idm140737321788112"><code class="function">lib.strings.optionalString</code> usage example</a></dt><dt>5.48. <a href="#idm140737321776864"><code class="function">lib.strings.hasPrefix</code> usage example</a></dt><dt>5.49. <a href="#idm140737321765584"><code class="function">lib.strings.hasSuffix</code> usage example</a></dt><dt>5.50. <a href="#idm140737321754336"><code class="function">lib.strings.hasInfix</code> usage example</a></dt><dt>5.51. <a href="#idm140737321745088"><code class="function">lib.strings.stringToCharacters</code> usage example</a></dt><dt>5.52. <a href="#idm140737321733600"><code class="function">lib.strings.stringAsChars</code> usage example</a></dt><dt>5.53. <a href="#idm140737321724368"><code class="function">lib.strings.escape</code> usage example</a></dt><dt>5.54. <a href="#idm140737321715024"><code class="function">lib.strings.escapeShellArg</code> usage example</a></dt><dt>5.55. <a href="#idm140737321708224"><code class="function">lib.strings.escapeShellArgs</code> usage example</a></dt><dt>5.56. <a href="#idm140737321699008"><code class="function">lib.strings.escapeNixString</code> usage example</a></dt><dt>5.57. <a href="#idm140737321692272"><code class="function">lib.strings.escapeRegex</code> usage example</a></dt><dt>5.58. <a href="#idm140737321683088"><code class="function">lib.strings.escapeNixIdentifier</code> usage example</a></dt><dt>5.59. <a href="#idm140737321676272"><code class="function">lib.strings.toLower</code> usage example</a></dt><dt>5.60. <a href="#idm140737321669680"><code class="function">lib.strings.toUpper</code> usage example</a></dt><dt>5.61. <a href="#idm140737321658464"><code class="function">lib.strings.addContextFrom</code> usage example</a></dt><dt>5.62. <a href="#idm140737321647824"><code class="function">lib.strings.splitString</code> usage example</a></dt><dt>5.63. <a href="#idm140737321636416"><code class="function">lib.strings.removePrefix</code> usage example</a></dt><dt>5.64. <a href="#idm140737321625040"><code class="function">lib.strings.removeSuffix</code> usage example</a></dt><dt>5.65. <a href="#idm140737321614576"><code class="function">lib.strings.versionOlder</code> usage example</a></dt><dt>5.66. <a href="#idm140737321604144"><code class="function">lib.strings.versionAtLeast</code> usage example</a></dt><dt>5.67. <a href="#idm140737321595504"><code class="function">lib.strings.getName</code> usage example</a></dt><dt>5.68. <a href="#idm140737321587024"><code class="function">lib.strings.getVersion</code> usage example</a></dt><dt>5.69. <a href="#idm140737321576608"><code class="function">lib.strings.nameFromURL</code> usage example</a></dt><dt>5.70. <a href="#idm140737321566000"><code class="function">lib.strings.enableFeature</code> usage example</a></dt><dt>5.71. <a href="#idm140737321553104"><code class="function">lib.strings.enableFeatureAs</code> usage example</a></dt><dt>5.72. <a href="#idm140737321542352"><code class="function">lib.strings.withFeature</code> usage example</a></dt><dt>5.73. <a href="#idm140737321529776"><code class="function">lib.strings.withFeatureAs</code> usage example</a></dt><dt>5.74. <a href="#idm140737321515808"><code class="function">lib.strings.fixedWidthString</code> usage example</a></dt><dt>5.75. <a href="#idm140737321505328"><code class="function">lib.strings.fixedWidthNumber</code> usage example</a></dt><dt>5.76. <a href="#idm140737321496784"><code class="function">lib.strings.floatToString</code> usage example</a></dt><dt>5.77. <a href="#idm140737321481472"><code class="function">lib.strings.isStorePath</code> usage example</a></dt><dt>5.78. <a href="#idm140737321472080"><code class="function">lib.strings.toInt</code> usage example</a></dt><dt>5.79. <a href="#idm140737321465408"><code class="function">lib.strings.readPathsFromFile</code> usage example</a></dt><dt>5.80. <a href="#idm140737321455776"><code class="function">lib.strings.fileContents</code> usage example</a></dt><dt>5.81. <a href="#idm140737321446336"><code class="function">lib.strings.sanitizeDerivationName</code> usage example</a></dt><dt>5.82. <a href="#idm140737321423808"><code class="function">lib.trivial.const</code> usage example</a></dt><dt>5.83. <a href="#idm140737321412544"><code class="function">lib.trivial.pipe</code> usage example</a></dt><dt>5.84. <a href="#idm140737321349008"><code class="function">lib.trivial.mergeAttrs</code> usage example</a></dt><dt>5.85. <a href="#idm140737321335936"><code class="function">lib.trivial.flip</code> usage example</a></dt><dt>5.86. <a href="#idm140737321325568"><code class="function">lib.trivial.mapNullable</code> usage example</a></dt><dt>5.87. <a href="#idm140737321267264"><code class="function">lib.trivial.mod</code> usage example</a></dt><dt>5.88. <a href="#idm140737321240480"><code class="function">lib.trivial.splitByAndCompare</code> usage example</a></dt><dt>5.89. <a href="#idm140737321170704"><code class="function">lib.lists.singleton</code> usage example</a></dt><dt>5.90. <a href="#idm140737321159472"><code class="function">lib.lists.forEach</code> usage example</a></dt><dt>5.91. <a href="#idm140737321145936"><code class="function">lib.lists.foldr</code> usage example</a></dt><dt>5.92. <a href="#idm140737321128000"><code class="function">lib.lists.foldl</code> usage example</a></dt><dt>5.93. <a href="#idm140737321110912"><code class="function">lib.lists.imap0</code> usage example</a></dt><dt>5.94. <a href="#idm140737321099744"><code class="function">lib.lists.imap1</code> usage example</a></dt><dt>5.95. <a href="#idm140737321092960"><code class="function">lib.lists.concatMap</code> usage example</a></dt><dt>5.96. <a href="#idm140737321084448"><code class="function">lib.lists.flatten</code> usage example</a></dt><dt>5.97. <a href="#idm140737321075152"><code class="function">lib.lists.remove</code> usage example</a></dt><dt>5.98. <a href="#idm140737321059696"><code class="function">lib.lists.findSingle</code> usage example</a></dt><dt>5.99. <a href="#idm140737321045952"><code class="function">lib.lists.findFirst</code> usage example</a></dt><dt>5.100. <a href="#idm140737321039184"><code class="function">lib.lists.any</code> usage example</a></dt><dt>5.101. <a href="#idm140737321032464"><code class="function">lib.lists.all</code> usage example</a></dt><dt>5.102. <a href="#idm140737321023184"><code class="function">lib.lists.count</code> usage example</a></dt><dt>5.103. <a href="#idm140737321012064"><code class="function">lib.lists.optional</code> usage example</a></dt><dt>5.104. <a href="#idm140737321000704"><code class="function">lib.lists.optionals</code> usage example</a></dt><dt>5.105. <a href="#idm140737320992272"><code class="function">lib.lists.toList</code> usage example</a></dt><dt>5.106. <a href="#idm140737320980944"><code class="function">lib.lists.range</code> usage example</a></dt><dt>5.107. <a href="#idm140737320973984"><code class="function">lib.lists.partition</code> usage example</a></dt><dt>5.108. <a href="#idm140737320958896"><code class="function">lib.lists.groupBy'</code> usage example</a></dt><dt>5.109. <a href="#idm140737320944192"><code class="function">lib.lists.zipListsWith</code> usage example</a></dt><dt>5.110. <a href="#idm140737320937312"><code class="function">lib.lists.zipLists</code> usage example</a></dt><dt>5.111. <a href="#idm140737320928080"><code class="function">lib.lists.reverseList</code> usage example</a></dt><dt>5.112. <a href="#idm140737320915040"><code class="function">lib.lists.listDfs</code> usage example</a></dt><dt>5.113. <a href="#idm140737320903136"><code class="function">lib.lists.toposort</code> usage example</a></dt><dt>5.114. <a href="#idm140737320896160"><code class="function">lib.lists.sort</code> usage example</a></dt><dt>5.115. <a href="#idm140737320883792"><code class="function">lib.lists.compareLists</code> usage example</a></dt><dt>5.116. <a href="#idm140737320875152"><code class="function">lib.lists.naturalSort</code> usage example</a></dt><dt>5.117. <a href="#idm140737320865680"><code class="function">lib.lists.take</code> usage example</a></dt><dt>5.118. <a href="#idm140737320854368"><code class="function">lib.lists.drop</code> usage example</a></dt><dt>5.119. <a href="#idm140737320841040"><code class="function">lib.lists.sublist</code> usage example</a></dt><dt>5.120. <a href="#idm140737320831216"><code class="function">lib.lists.last</code> usage example</a></dt><dt>5.121. <a href="#idm140737320821472"><code class="function">lib.lists.init</code> usage example</a></dt><dt>5.122. <a href="#idm140737320815440"><code class="function">lib.lists.crossLists</code> usage example</a></dt><dt>5.123. <a href="#idm140737320808656"><code class="function">lib.lists.unique</code> usage example</a></dt><dt>5.124. <a href="#idm140737320800176"><code class="function">lib.lists.intersectLists</code> usage example</a></dt><dt>5.125. <a href="#idm140737320791648"><code class="function">lib.lists.subtractLists</code> usage example</a></dt><dt>5.126. <a href="#idm140737320766912"><code class="function">lib.debug.traceIf</code> usage example</a></dt><dt>5.127. <a href="#idm140737320755600"><code class="function">lib.debug.traceValFn</code> usage example</a></dt><dt>5.128. <a href="#idm140737320748768"><code class="function">lib.debug.traceVal</code> usage example</a></dt><dt>5.129. <a href="#idm140737320737536"><code class="function">lib.debug.traceSeq</code> usage example</a></dt><dt>5.130. <a href="#idm140737320724752"><code class="function">lib.debug.traceSeqN</code> usage example</a></dt><dt>5.131. <a href="#idm140737320681296"><code class="function">lib.debug.traceFnSeqN</code> usage example</a></dt><dt>5.132. <a href="#idm140737320664432"><code class="function">lib.debug.testAllTrue</code> usage example</a></dt><dt>5.133. <a href="#idm140737320655024"><code class="function">lib.options.isOption</code> usage example</a></dt><dt>5.134. <a href="#idm140737320623056"><code class="function">lib.options.mkOption</code> usage example</a></dt><dt>5.135. <a href="#idm140737320614336"><code class="function">lib.options.mkEnableOption</code> usage example</a></dt><dt>5.136. <a href="#idm140737320591024"><code class="function">lib.options.getValues</code> usage example</a></dt><dt>5.137. <a href="#idm140737320584160"><code class="function">lib.options.getFiles</code> usage example</a></dt><dt>5.138. <a href="#idm140737320561376"><code class="function">lib.options.showOption</code> usage example</a></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Chapter 1. Preface</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#overview-of-nixpkgs">1.1. Overview of Nixpkgs</a></span></dt></dl></div><p>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Nixpkgs Manual</title><link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="overrides.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" /><script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><meta name="generator" content="DocBook XSL Stylesheets V1.79.2" /></head><body><div class="book"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737322691264"></a>Nixpkgs Manual</h1></div><div><h2 class="subtitle">Version 21.05pre-git
+  </h2></div></div><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#preface">1. Preface</a></span></dt><dt><span class="part"><a href="#idm140737322633456">I. Using Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-packageconfig">2. Global configuration</a></span></dt><dt><span class="chapter"><a href="#chap-overlays">3. Overlays</a></span></dt><dt><span class="chapter"><a href="#chap-overrides">4. Overriding</a></span></dt><dt><span class="chapter"><a href="#chap-functions">5. Functions reference</a></span></dt></dl></dd><dt><span class="part"><a href="#idm140737320520080">II. Standard environment</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-stdenv">6. The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">7. Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">8. Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">9. Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">10. Platform Notes</a></span></dt></dl></dd><dt><span class="part"><a href="#idm140737319427680">III. Builders</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-pkgs-fetchers">11. Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">12. Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-special">13. Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">14. Images</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">15. Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">16. Packages</a></span></dt></dl></dd><dt><span class="part"><a href="#idm140737316363584">IV. Contributing to Nixpkgs</a></span></dt><dd><dl><dt><span class="chapter"><a href="#chap-quick-start">17. Quick Start to Adding a Package</a></span></dt><dt><span class="chapter"><a href="#chap-conventions">18. Coding conventions</a></span></dt><dt><span class="chapter"><a href="#chap-submitting-changes">19. Submitting changes</a></span></dt><dt><span class="chapter"><a href="#chap-vulnerability-roundup">20. Vulnerability Roundup</a></span></dt><dt><span class="chapter"><a href="#chap-reviewing-contributions">21. Reviewing contributions</a></span></dt><dt><span class="chapter"><a href="#chap-contributing">22. Contributing to this documentation</a></span></dt></dl></dd></dl></div><div class="list-of-figures"><p><strong>List of Figures</strong></p><dl><dt>19.1. <a href="#idm140737315778544">Staging workflow</a></dt></dl></div><div class="list-of-examples"><p><strong>List of Examples</strong></p><dl><dt>5.1. <a href="#function-library-lib.asserts.assertMsg-example-false">Printing when the predicate is false</a></dt><dt>5.2. <a href="#function-library-lib.asserts.assertOneOf-example">Ensuring a user provided a possible value</a></dt><dt>5.3. <a href="#function-library-lib.attrset.attrByPath-example-value-exists">Extracting a value from a nested attribute set</a></dt><dt>5.4. <a href="#function-library-lib.attrset.attrByPath-example-default-value">No value at the path, instead using the default</a></dt><dt>5.5. <a href="#function-library-lib.attrsets.hasAttrByPath-example">A nested value does exist inside a set</a></dt><dt>5.6. <a href="#function-library-lib.attrsets.setAttrByPath-example">Creating a new nested attribute set</a></dt><dt>5.7. <a href="#function-library-lib.attrsets.getAttrPath-example-success">Succesfully getting a value from an attribute set</a></dt><dt>5.8. <a href="#function-library-lib.attrsets.getAttrPath-example-throw">Throwing after failing to get a value from an attribute set</a></dt><dt>5.9. <a href="#function-library-lib.attrsets.attrVals-example-success">Getting several values from an attribute set</a></dt><dt>5.10. <a href="#function-library-lib.attrsets.attrVals-failure">Getting missing values from an attribute set</a></dt><dt>5.11. <a href="#function-library-lib.attrsets.attrValues-example"></a></dt><dt>5.12. <a href="#function-library-lib.attrsets.catAttrs-example">Collect an attribute from a list of attribute sets.</a></dt><dt>5.13. <a href="#function-library-lib.attrsets.filterAttrs-example">Filtering an attributeset</a></dt><dt>5.14. <a href="#function-library-lib.attrsets.filterAttrsRecursive-example">Recursively filtering an attribute set</a></dt><dt>5.15. <a href="#function-library-lib.attrsets.foldAttrs-example">Combining an attribute of lists in to one attribute set</a></dt><dt>5.16. <a href="#function-library-lib.attrsets.collect-example-lists">Collecting all lists from an attribute set</a></dt><dt>5.17. <a href="#function-library-lib.attrsets.collect-example-outpath">Collecting all attribute-sets which contain the <code class="literal">outPath</code> attribute name.</a></dt><dt>5.18. <a href="#function-library-lib.attrsets.nameValuePair-example">Creating a name value pair</a></dt><dt>5.19. <a href="#function-library-lib.attrsets.mapAttrs-example">Modifying each value of an attribute set</a></dt><dt>5.20. <a href="#function-library-lib.attrsets.mapAttrs-prime-example">Change the name and value of each attribute of an attribute set</a></dt><dt>5.21. <a href="#function-library-lib.attrsets.mapAttrsToList-example">Combine attribute values and names in to a list</a></dt><dt>5.22. <a href="#function-library-lib.attrsets.mapAttrsRecursive-example">A contrived example of using <code class="function">lib.attrsets.mapAttrsRecursive</code></a></dt><dt>5.23. <a href="#function-library-lib.attrsets.mapAttrsRecursiveCond-example">Only convert attribute values to JSON if the containing attribute set is marked for recursion</a></dt><dt>5.24. <a href="#function-library-lib.attrsets.genAttrs-example">Generate an attrset based on names only</a></dt><dt>5.25. <a href="#function-library-lib.attrsets.isDerivation-example-true">A package is a derivation</a></dt><dt>5.26. <a href="#function-library-lib.attrsets.isDerivation-example-false">Anything else is not a derivation</a></dt><dt>5.27. <a href="#function-library-lib.attrsets.optionalAttrs-example-true">Return the provided attribute set when <code class="varname">cond</code> is true</a></dt><dt>5.28. <a href="#function-library-lib.attrsets.optionalAttrs-example-false">Return an empty attribute set when <code class="varname">cond</code> is false</a></dt><dt>5.29. <a href="#function-library-lib.attrsets.zipAttrsWithNames-example">Summing a list of attribute sets of numbers</a></dt><dt>5.30. <a href="#function-library-lib.attrsets.zipAttrsWith-example">Summing a list of attribute sets of numbers</a></dt><dt>5.31. <a href="#function-library-lib.attrsets.zipAttrs-example">Combining a list of attribute sets</a></dt><dt>5.32. <a href="#function-library-lib.attrsets.recursiveUpdateUntil-example">Recursively merging two attribute sets</a></dt><dt>5.33. <a href="#function-library-lib.attrsets.recursiveUpdate-example">Recursively merging two attribute sets</a></dt><dt>5.34. <a href="#function-library-lib.attrsets.recurseIntoAttrs-example">Making Nix look inside an attribute set</a></dt><dt>5.35. <a href="#function-library-lib.attrsets.cartesianProductOfSets-example">Creating the cartesian product of a list of attribute values</a></dt><dt>5.36. <a href="#idm140737321907328"><code class="function">lib.strings.concatStrings</code> usage example</a></dt><dt>5.37. <a href="#idm140737321896064"><code class="function">lib.strings.concatMapStrings</code> usage example</a></dt><dt>5.38. <a href="#idm140737321884560"><code class="function">lib.strings.concatImapStrings</code> usage example</a></dt><dt>5.39. <a href="#idm140737321873216"><code class="function">lib.strings.intersperse</code> usage example</a></dt><dt>5.40. <a href="#idm140737321866432"><code class="function">lib.strings.concatStringsSep</code> usage example</a></dt><dt>5.41. <a href="#idm140737321853056"><code class="function">lib.strings.concatMapStringsSep</code> usage example</a></dt><dt>5.42. <a href="#idm140737321839552"><code class="function">lib.strings.concatImapStringsSep</code> usage example</a></dt><dt>5.43. <a href="#idm140737321828144"><code class="function">lib.strings.makeSearchPath</code> usage example</a></dt><dt>5.44. <a href="#idm140737321814752"><code class="function">lib.strings.makeSearchPathOutput</code> usage example</a></dt><dt>5.45. <a href="#idm140737321808656"><code class="function">lib.strings.makeLibraryPath</code> usage example</a></dt><dt>5.46. <a href="#idm140737321802448"><code class="function">lib.strings.makeBinPath</code> usage example</a></dt><dt>5.47. <a href="#idm140737321790960"><code class="function">lib.strings.optionalString</code> usage example</a></dt><dt>5.48. <a href="#idm140737321779648"><code class="function">lib.strings.hasPrefix</code> usage example</a></dt><dt>5.49. <a href="#idm140737321768432"><code class="function">lib.strings.hasSuffix</code> usage example</a></dt><dt>5.50. <a href="#idm140737321757136"><code class="function">lib.strings.hasInfix</code> usage example</a></dt><dt>5.51. <a href="#idm140737321747888"><code class="function">lib.strings.stringToCharacters</code> usage example</a></dt><dt>5.52. <a href="#idm140737321736512"><code class="function">lib.strings.stringAsChars</code> usage example</a></dt><dt>5.53. <a href="#idm140737321727280"><code class="function">lib.strings.escape</code> usage example</a></dt><dt>5.54. <a href="#idm140737321717968"><code class="function">lib.strings.escapeShellArg</code> usage example</a></dt><dt>5.55. <a href="#idm140737321711088"><code class="function">lib.strings.escapeShellArgs</code> usage example</a></dt><dt>5.56. <a href="#idm140737321701872"><code class="function">lib.strings.escapeNixString</code> usage example</a></dt><dt>5.57. <a href="#idm140737321695024"><code class="function">lib.strings.escapeRegex</code> usage example</a></dt><dt>5.58. <a href="#idm140737321685856"><code class="function">lib.strings.escapeNixIdentifier</code> usage example</a></dt><dt>5.59. <a href="#idm140737321679120"><code class="function">lib.strings.toLower</code> usage example</a></dt><dt>5.60. <a href="#idm140737321672464"><code class="function">lib.strings.toUpper</code> usage example</a></dt><dt>5.61. <a href="#idm140737321661296"><code class="function">lib.strings.addContextFrom</code> usage example</a></dt><dt>5.62. <a href="#idm140737321650752"><code class="function">lib.strings.splitString</code> usage example</a></dt><dt>5.63. <a href="#idm140737321639392"><code class="function">lib.strings.removePrefix</code> usage example</a></dt><dt>5.64. <a href="#idm140737321627952"><code class="function">lib.strings.removeSuffix</code> usage example</a></dt><dt>5.65. <a href="#idm140737321617344"><code class="function">lib.strings.versionOlder</code> usage example</a></dt><dt>5.66. <a href="#idm140737321606912"><code class="function">lib.strings.versionAtLeast</code> usage example</a></dt><dt>5.67. <a href="#idm140737321598320"><code class="function">lib.strings.getName</code> usage example</a></dt><dt>5.68. <a href="#idm140737321589840"><code class="function">lib.strings.getVersion</code> usage example</a></dt><dt>5.69. <a href="#idm140737321579360"><code class="function">lib.strings.nameFromURL</code> usage example</a></dt><dt>5.70. <a href="#idm140737321568784"><code class="function">lib.strings.enableFeature</code> usage example</a></dt><dt>5.71. <a href="#idm140737321555824"><code class="function">lib.strings.enableFeatureAs</code> usage example</a></dt><dt>5.72. <a href="#idm140737321545008"><code class="function">lib.strings.withFeature</code> usage example</a></dt><dt>5.73. <a href="#idm140737321532384"><code class="function">lib.strings.withFeatureAs</code> usage example</a></dt><dt>5.74. <a href="#idm140737321518432"><code class="function">lib.strings.fixedWidthString</code> usage example</a></dt><dt>5.75. <a href="#idm140737321507888"><code class="function">lib.strings.fixedWidthNumber</code> usage example</a></dt><dt>5.76. <a href="#idm140737321499392"><code class="function">lib.strings.floatToString</code> usage example</a></dt><dt>5.77. <a href="#idm140737321484096"><code class="function">lib.strings.isStorePath</code> usage example</a></dt><dt>5.78. <a href="#idm140737321474720"><code class="function">lib.strings.toInt</code> usage example</a></dt><dt>5.79. <a href="#idm140737321468048"><code class="function">lib.strings.readPathsFromFile</code> usage example</a></dt><dt>5.80. <a href="#idm140737321458480"><code class="function">lib.strings.fileContents</code> usage example</a></dt><dt>5.81. <a href="#idm140737321449040"><code class="function">lib.strings.sanitizeDerivationName</code> usage example</a></dt><dt>5.82. <a href="#idm140737321426480"><code class="function">lib.trivial.const</code> usage example</a></dt><dt>5.83. <a href="#idm140737321415040"><code class="function">lib.trivial.pipe</code> usage example</a></dt><dt>5.84. <a href="#idm140737321351568"><code class="function">lib.trivial.mergeAttrs</code> usage example</a></dt><dt>5.85. <a href="#idm140737321338320"><code class="function">lib.trivial.flip</code> usage example</a></dt><dt>5.86. <a href="#idm140737321327888"><code class="function">lib.trivial.mapNullable</code> usage example</a></dt><dt>5.87. <a href="#idm140737321269408"><code class="function">lib.trivial.mod</code> usage example</a></dt><dt>5.88. <a href="#idm140737321242576"><code class="function">lib.trivial.splitByAndCompare</code> usage example</a></dt><dt>5.89. <a href="#idm140737321172624"><code class="function">lib.lists.singleton</code> usage example</a></dt><dt>5.90. <a href="#idm140737321161392"><code class="function">lib.lists.forEach</code> usage example</a></dt><dt>5.91. <a href="#idm140737321147696"><code class="function">lib.lists.foldr</code> usage example</a></dt><dt>5.92. <a href="#idm140737321129712"><code class="function">lib.lists.foldl</code> usage example</a></dt><dt>5.93. <a href="#idm140737321112816"><code class="function">lib.lists.imap0</code> usage example</a></dt><dt>5.94. <a href="#idm140737321101648"><code class="function">lib.lists.imap1</code> usage example</a></dt><dt>5.95. <a href="#idm140737321094928"><code class="function">lib.lists.concatMap</code> usage example</a></dt><dt>5.96. <a href="#idm140737321086528"><code class="function">lib.lists.flatten</code> usage example</a></dt><dt>5.97. <a href="#idm140737321077296"><code class="function">lib.lists.remove</code> usage example</a></dt><dt>5.98. <a href="#idm140737321061904"><code class="function">lib.lists.findSingle</code> usage example</a></dt><dt>5.99. <a href="#idm140737321048160"><code class="function">lib.lists.findFirst</code> usage example</a></dt><dt>5.100. <a href="#idm140737321041328"><code class="function">lib.lists.any</code> usage example</a></dt><dt>5.101. <a href="#idm140737321034528"><code class="function">lib.lists.all</code> usage example</a></dt><dt>5.102. <a href="#idm140737321025200"><code class="function">lib.lists.count</code> usage example</a></dt><dt>5.103. <a href="#idm140737321013968"><code class="function">lib.lists.optional</code> usage example</a></dt><dt>5.104. <a href="#idm140737321002608"><code class="function">lib.lists.optionals</code> usage example</a></dt><dt>5.105. <a href="#idm140737320994288"><code class="function">lib.lists.toList</code> usage example</a></dt><dt>5.106. <a href="#idm140737320983072"><code class="function">lib.lists.range</code> usage example</a></dt><dt>5.107. <a href="#idm140737320976224"><code class="function">lib.lists.partition</code> usage example</a></dt><dt>5.108. <a href="#idm140737320961024"><code class="function">lib.lists.groupBy'</code> usage example</a></dt><dt>5.109. <a href="#idm140737320946208"><code class="function">lib.lists.zipListsWith</code> usage example</a></dt><dt>5.110. <a href="#idm140737320939296"><code class="function">lib.lists.zipLists</code> usage example</a></dt><dt>5.111. <a href="#idm140737320930000"><code class="function">lib.lists.reverseList</code> usage example</a></dt><dt>5.112. <a href="#idm140737320916960"><code class="function">lib.lists.listDfs</code> usage example</a></dt><dt>5.113. <a href="#idm140737320905072"><code class="function">lib.lists.toposort</code> usage example</a></dt><dt>5.114. <a href="#idm140737320898272"><code class="function">lib.lists.sort</code> usage example</a></dt><dt>5.115. <a href="#idm140737320885904"><code class="function">lib.lists.compareLists</code> usage example</a></dt><dt>5.116. <a href="#idm140737320877152"><code class="function">lib.lists.naturalSort</code> usage example</a></dt><dt>5.117. <a href="#idm140737320867696"><code class="function">lib.lists.take</code> usage example</a></dt><dt>5.118. <a href="#idm140737320856448"><code class="function">lib.lists.drop</code> usage example</a></dt><dt>5.119. <a href="#idm140737320843232"><code class="function">lib.lists.sublist</code> usage example</a></dt><dt>5.120. <a href="#idm140737320833312"><code class="function">lib.lists.last</code> usage example</a></dt><dt>5.121. <a href="#idm140737320823568"><code class="function">lib.lists.init</code> usage example</a></dt><dt>5.122. <a href="#idm140737320817536"><code class="function">lib.lists.crossLists</code> usage example</a></dt><dt>5.123. <a href="#idm140737320810736"><code class="function">lib.lists.unique</code> usage example</a></dt><dt>5.124. <a href="#idm140737320802384"><code class="function">lib.lists.intersectLists</code> usage example</a></dt><dt>5.125. <a href="#idm140737320793872"><code class="function">lib.lists.subtractLists</code> usage example</a></dt><dt>5.126. <a href="#idm140737320769248"><code class="function">lib.debug.traceIf</code> usage example</a></dt><dt>5.127. <a href="#idm140737320758032"><code class="function">lib.debug.traceValFn</code> usage example</a></dt><dt>5.128. <a href="#idm140737320751248"><code class="function">lib.debug.traceVal</code> usage example</a></dt><dt>5.129. <a href="#idm140737320740080"><code class="function">lib.debug.traceSeq</code> usage example</a></dt><dt>5.130. <a href="#idm140737320727296"><code class="function">lib.debug.traceSeqN</code> usage example</a></dt><dt>5.131. <a href="#idm140737320683984"><code class="function">lib.debug.traceFnSeqN</code> usage example</a></dt><dt>5.132. <a href="#idm140737320667120"><code class="function">lib.debug.testAllTrue</code> usage example</a></dt><dt>5.133. <a href="#idm140737320657648"><code class="function">lib.options.isOption</code> usage example</a></dt><dt>5.134. <a href="#idm140737320625616"><code class="function">lib.options.mkOption</code> usage example</a></dt><dt>5.135. <a href="#idm140737320616896"><code class="function">lib.options.mkEnableOption</code> usage example</a></dt><dt>5.136. <a href="#idm140737320593328"><code class="function">lib.options.getValues</code> usage example</a></dt><dt>5.137. <a href="#idm140737320586496"><code class="function">lib.options.getFiles</code> usage example</a></dt><dt>5.138. <a href="#idm140737320563728"><code class="function">lib.options.showOption</code> usage example</a></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h1 class="title"><a id="preface"></a>Chapter 1. Preface</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#overview-of-nixpkgs">1.1. Overview of Nixpkgs</a></span></dt></dl></div><p>
    The Nix Packages collection (Nixpkgs) is a set of thousands of packages for the <a class="link" href="https://nixos.org/nix/" target="_top">Nix package manager</a>, released under a <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/COPYING" target="_top">permissive MIT/X11 license</a>. Packages are available for several platforms, and can be used with the Nix package manager on most GNU/Linux distributions as well as <a class="link" href="https://nixos.org/nixos" target="_top">NixOS</a>.
   </p><p>
    This manual primarily describes how to write packages for the Nix Packages collection (Nixpkgs). Thus it’s mainly for packagers and developers who want to add packages to Nixpkgs. If you like to learn more about the Nix package manager and the Nix expression language, then you are kindly referred to the <a class="link" href="https://nixos.org/nix/manual/" target="_top">Nix manual</a>. The NixOS distribution is documented in the <a class="link" href="https://nixos.org/nixos/manual/" target="_top">NixOS manual</a>.
@@ -14,7 +14,7 @@
     The tests are conducted by a cluster called <a class="link" href="https://nixos.org/hydra/" target="_top">Hydra</a>, which also builds binary packages from the Nix expressions in Nixpkgs for <code class="literal">x86_64-linux</code>, <code class="literal">i686-linux</code> and <code class="literal">x86_64-darwin</code>. The binaries are made available via a <a class="link" href="https://cache.nixos.org" target="_top">binary cache</a>.
    </p><p>
     The current Nix expressions of the channels are available in the <a class="link" href="https://github.com/NixOS/nixpkgs" target="_top"><code class="literal">nixpkgs</code></a> repository in branches that correspond to the channel names (e.g. <code class="literal">nixos-19.09-small</code>).
-   </p></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737322629712"></a>Part I. Using Nixpkgs</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-packageconfig">2. Global configuration</a></span></dt><dt><span class="chapter"><a href="#chap-overlays">3. Overlays</a></span></dt><dt><span class="chapter"><a href="#chap-overrides">4. Overriding</a></span></dt><dt><span class="chapter"><a href="#chap-functions">5. Functions reference</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-packageconfig"></a>Chapter 2. Global configuration</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-allow-broken">2.1. Installing broken packages</a></span></dt><dt><span class="section"><a href="#sec-allow-unsupported-system">2.2. Installing packages on unsupported systems</a></span></dt><dt><span class="section"><a href="#sec-allow-unfree">2.3. Installing unfree packages</a></span></dt><dt><span class="section"><a href="#sec-allow-insecure">2.4. Installing insecure packages</a></span></dt><dt><span class="section"><a href="#sec-modify-via-packageOverrides">2.5. Modify packages via <code class="literal">packageOverrides</code></a></span></dt><dt><span class="section"><a href="#sec-declarative-package-management">2.6. Declarative Package Management</a></span></dt></dl></div><p>
+   </p></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737322633456"></a>Part I. Using Nixpkgs</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-packageconfig">2. Global configuration</a></span></dt><dt><span class="chapter"><a href="#chap-overlays">3. Overlays</a></span></dt><dt><span class="chapter"><a href="#chap-overrides">4. Overriding</a></span></dt><dt><span class="chapter"><a href="#chap-functions">5. Functions reference</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-packageconfig"></a>Chapter 2. Global configuration</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-allow-broken">2.1. Installing broken packages</a></span></dt><dt><span class="section"><a href="#sec-allow-unsupported-system">2.2. Installing packages on unsupported systems</a></span></dt><dt><span class="section"><a href="#sec-allow-unfree">2.3. Installing unfree packages</a></span></dt><dt><span class="section"><a href="#sec-allow-insecure">2.4. Installing insecure packages</a></span></dt><dt><span class="section"><a href="#sec-modify-via-packageOverrides">2.5. Modify packages via <code class="literal">packageOverrides</code></a></span></dt><dt><span class="section"><a href="#sec-declarative-package-management">2.6. Declarative Package Management</a></span></dt></dl></div><p>
     Nix comes with certain defaults about what packages can and cannot be installed, based on a package's metadata. By default, Nix will prevent installation if any of the following criteria are true:
    </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
       The package is thought to be broken, and has had its <code class="literal">meta.broken</code> set to <code class="literal">true</code>.
@@ -1301,7 +1301,7 @@ cartesianProductOfSets { a = [ 1 2 ]; b = [ 10 20 ]; }
 </pre></div></div><br class="example-break" /></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-strings"></a>5.1.3. String manipulation functions</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatStrings"></a>5.1.3.1. <code class="function">lib.strings.concatStrings</code></h4></div><div><h5 class="subtitle"><code class="literal">concatStrings :: [string] -&gt; string</code>
       </h5></div></div></div><p>
        Concatenate a list of strings.
-      </p><div class="example"><a id="idm140737321904448"></a><p class="title"><strong>Example 5.36. <code class="function">lib.strings.concatStrings</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321907328"></a><p class="title"><strong>Example 5.36. <code class="function">lib.strings.concatStrings</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatStrings ["foo" "bar"]
 =&gt; "foobar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatStrings"></a>
@@ -1317,7 +1317,7 @@ concatStrings ["foo" "bar"]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321893120"></a><p class="title"><strong>Example 5.37. <code class="function">lib.strings.concatMapStrings</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321896064"></a><p class="title"><strong>Example 5.37. <code class="function">lib.strings.concatMapStrings</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatMapStrings (x: "a" + x) ["foo" "bar"]
 =&gt; "afooabar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatMapStrings"></a>
@@ -1333,7 +1333,7 @@ concatMapStrings (x: "a" + x) ["foo" "bar"]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321881792"></a><p class="title"><strong>Example 5.38. <code class="function">lib.strings.concatImapStrings</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321884560"></a><p class="title"><strong>Example 5.38. <code class="function">lib.strings.concatImapStrings</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatImapStrings (pos: x: "${toString pos}-${x}") ["foo" "bar"]
 =&gt; "1-foo2-bar"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatImapStrings"></a>
@@ -1349,7 +1349,7 @@ concatImapStrings (pos: x: "${toString pos}-${x}") ["foo" "bar"]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Input list
-         </p></dd></dl></div><div class="example"><a id="idm140737321870512"></a><p class="title"><strong>Example 5.39. <code class="function">lib.strings.intersperse</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321873216"></a><p class="title"><strong>Example 5.39. <code class="function">lib.strings.intersperse</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 intersperse "/" ["usr" "local" "bin"]
 =&gt; ["usr" "/" "local" "/" "bin"].
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.intersperse"></a>
@@ -1357,7 +1357,7 @@ intersperse "/" ["usr" "local" "bin"]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.concatStringsSep"></a>5.1.3.5. <code class="function">lib.strings.concatStringsSep</code></h4></div><div><h5 class="subtitle"><code class="literal">concatStringsSep :: string -&gt; [string] -&gt; string</code>
       </h5></div></div></div><p>
        Concatenate a list of strings with a separator between each element
-      </p><div class="example"><a id="idm140737321863776"></a><p class="title"><strong>Example 5.40. <code class="function">lib.strings.concatStringsSep</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321866432"></a><p class="title"><strong>Example 5.40. <code class="function">lib.strings.concatStringsSep</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatStringsSep "/" ["usr" "local" "bin"]
 =&gt; "usr/local/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatStringsSep"></a>
@@ -1377,7 +1377,7 @@ concatStringsSep "/" ["usr" "local" "bin"]
          <code class="varname">list</code>
         </span></dt><dd><p>
           List of input strings
-         </p></dd></dl></div><div class="example"><a id="idm140737321850336"></a><p class="title"><strong>Example 5.41. <code class="function">lib.strings.concatMapStringsSep</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321853056"></a><p class="title"><strong>Example 5.41. <code class="function">lib.strings.concatMapStringsSep</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatMapStringsSep "-" (x: toUpper x)  ["foo" "bar" "baz"]
 =&gt; "FOO-BAR-BAZ"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatMapStringsSep"></a>
@@ -1397,7 +1397,7 @@ concatMapStringsSep "-" (x: toUpper x)  ["foo" "bar" "baz"]
          <code class="varname">list</code>
         </span></dt><dd><p>
           List of input strings
-         </p></dd></dl></div><div class="example"><a id="idm140737321836848"></a><p class="title"><strong>Example 5.42. <code class="function">lib.strings.concatImapStringsSep</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321839552"></a><p class="title"><strong>Example 5.42. <code class="function">lib.strings.concatImapStringsSep</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatImapStringsSep "-" (pos: x: toString (x / pos)) [ 6 6 6 ]
 =&gt; "6-3-2"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.concatImapStringsSep"></a>
@@ -1413,7 +1413,7 @@ concatImapStringsSep "-" (pos: x: toString (x / pos)) [ 6 6 6 ]
          <code class="varname">paths</code>
         </span></dt><dd><p>
           List of base paths
-         </p></dd></dl></div><div class="example"><a id="idm140737321825440"></a><p class="title"><strong>Example 5.43. <code class="function">lib.strings.makeSearchPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321828144"></a><p class="title"><strong>Example 5.43. <code class="function">lib.strings.makeSearchPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 makeSearchPath "bin" ["/root" "/usr" "/usr/local"]
 =&gt; "/root/bin:/usr/bin:/usr/local/bin"
 makeSearchPath "bin" [""]
@@ -1435,14 +1435,14 @@ makeSearchPath "bin" [""]
          <code class="varname">pkgs</code>
         </span></dt><dd><p>
           List of packages
-         </p></dd></dl></div><div class="example"><a id="idm140737321812080"></a><p class="title"><strong>Example 5.44. <code class="function">lib.strings.makeSearchPathOutput</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321814752"></a><p class="title"><strong>Example 5.44. <code class="function">lib.strings.makeSearchPathOutput</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 makeSearchPathOutput "dev" "bin" [ pkgs.openssl pkgs.zlib ]
 =&gt; "/nix/store/9rz8gxhzf8sw4kf2j2f1grr49w8zx5vj-openssl-1.0.1r-dev/bin:/nix/store/wwh7mhwh269sfjkm6k5665b5kgp7jrk2-zlib-1.2.8/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.makeSearchPathOutput"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L158" target="_top">lib/strings.nix:158</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.makeLibraryPath"></a>5.1.3.10. <code class="function">lib.strings.makeLibraryPath</code></h4></div></div></div><p>
        Construct a library search path (such as RPATH) containing the libraries for a set of packages
-      </p><div class="example"><a id="idm140737321805872"></a><p class="title"><strong>Example 5.45. <code class="function">lib.strings.makeLibraryPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321808656"></a><p class="title"><strong>Example 5.45. <code class="function">lib.strings.makeLibraryPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 makeLibraryPath [ "/usr" "/usr/local" ]
 =&gt; "/usr/lib:/usr/local/lib"
 pkgs = import &lt;nixpkgs&gt; { }
@@ -1452,7 +1452,7 @@ makeLibraryPath [ pkgs.openssl pkgs.zlib ]
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/strings.nix#L176" target="_top">lib/strings.nix:176</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.makeBinPath"></a>5.1.3.11. <code class="function">lib.strings.makeBinPath</code></h4></div></div></div><p>
        Construct a binary search path (such as $PATH) containing the binaries for a set of packages.
-      </p><div class="example"><a id="idm140737321799600"></a><p class="title"><strong>Example 5.46. <code class="function">lib.strings.makeBinPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321802448"></a><p class="title"><strong>Example 5.46. <code class="function">lib.strings.makeBinPath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 makeBinPath ["/root" "/usr" "/usr/local"]
 =&gt; "/root/bin:/usr/bin:/usr/local/bin"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.makeBinPath"></a>
@@ -1468,7 +1468,7 @@ makeBinPath ["/root" "/usr" "/usr/local"]
          <code class="varname">string</code>
         </span></dt><dd><p>
           String to return if condition is true
-         </p></dd></dl></div><div class="example"><a id="idm140737321788112"></a><p class="title"><strong>Example 5.47. <code class="function">lib.strings.optionalString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321790960"></a><p class="title"><strong>Example 5.47. <code class="function">lib.strings.optionalString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 optionalString true "some-string"
 =&gt; "some-string"
 optionalString false "some-string"
@@ -1486,7 +1486,7 @@ optionalString false "some-string"
          <code class="varname">str</code>
         </span></dt><dd><p>
           Input string
-         </p></dd></dl></div><div class="example"><a id="idm140737321776864"></a><p class="title"><strong>Example 5.48. <code class="function">lib.strings.hasPrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321779648"></a><p class="title"><strong>Example 5.48. <code class="function">lib.strings.hasPrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 hasPrefix "foo" "foobar"
 =&gt; true
 hasPrefix "foo" "barfoo"
@@ -1504,7 +1504,7 @@ hasPrefix "foo" "barfoo"
          <code class="varname">content</code>
         </span></dt><dd><p>
           Input string
-         </p></dd></dl></div><div class="example"><a id="idm140737321765584"></a><p class="title"><strong>Example 5.49. <code class="function">lib.strings.hasSuffix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321768432"></a><p class="title"><strong>Example 5.49. <code class="function">lib.strings.hasSuffix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 hasSuffix "foo" "foobar"
 =&gt; false
 hasSuffix "foo" "barfoo"
@@ -1522,7 +1522,7 @@ hasSuffix "foo" "barfoo"
          <code class="varname">content</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321754336"></a><p class="title"><strong>Example 5.50. <code class="function">lib.strings.hasInfix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321757136"></a><p class="title"><strong>Example 5.50. <code class="function">lib.strings.hasInfix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 hasInfix "bc" "abcd"
 =&gt; true
 hasInfix "ab" "abcd"
@@ -1540,7 +1540,7 @@ hasInfix "foo" "abcd"
          <code class="varname">s</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321745088"></a><p class="title"><strong>Example 5.51. <code class="function">lib.strings.stringToCharacters</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321747888"></a><p class="title"><strong>Example 5.51. <code class="function">lib.strings.stringToCharacters</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 stringToCharacters ""
 =&gt; [ ]
 stringToCharacters "abc"
@@ -1560,7 +1560,7 @@ stringToCharacters "💩"
          <code class="varname">s</code>
         </span></dt><dd><p>
           Input string
-         </p></dd></dl></div><div class="example"><a id="idm140737321733600"></a><p class="title"><strong>Example 5.52. <code class="function">lib.strings.stringAsChars</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321736512"></a><p class="title"><strong>Example 5.52. <code class="function">lib.strings.stringAsChars</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 stringAsChars (x: if x == "a" then "i" else x) "nax"
 =&gt; "nix"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.stringAsChars"></a>
@@ -1572,7 +1572,7 @@ stringAsChars (x: if x == "a" then "i" else x) "nax"
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321724368"></a><p class="title"><strong>Example 5.53. <code class="function">lib.strings.escape</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321727280"></a><p class="title"><strong>Example 5.53. <code class="function">lib.strings.escape</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 escape ["(" ")"] "(foo)"
 =&gt; "\\(foo\\)"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escape"></a>
@@ -1584,7 +1584,7 @@ escape ["(" ")"] "(foo)"
          <code class="varname">arg</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321715024"></a><p class="title"><strong>Example 5.54. <code class="function">lib.strings.escapeShellArg</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321717968"></a><p class="title"><strong>Example 5.54. <code class="function">lib.strings.escapeShellArg</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 escapeShellArg "esc'ape\nme"
 =&gt; "'esc'\\''ape\nme'"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeShellArg"></a>
@@ -1592,7 +1592,7 @@ escapeShellArg "esc'ape\nme"
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeShellArgs"></a>5.1.3.20. <code class="function">lib.strings.escapeShellArgs</code></h4></div><div><h5 class="subtitle"><code class="literal">escapeShellArgs :: [string] -&gt; string</code>
       </h5></div></div></div><p>
        Quote all arguments to be safely passed to the Bourne shell.
-      </p><div class="example"><a id="idm140737321708224"></a><p class="title"><strong>Example 5.55. <code class="function">lib.strings.escapeShellArgs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321711088"></a><p class="title"><strong>Example 5.55. <code class="function">lib.strings.escapeShellArgs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 escapeShellArgs ["one" "two three" "four'five"]
 =&gt; "'one' 'two three' 'four'\\''five'"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeShellArgs"></a>
@@ -1604,7 +1604,7 @@ escapeShellArgs ["one" "two three" "four'five"]
          <code class="varname">s</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321699008"></a><p class="title"><strong>Example 5.56. <code class="function">lib.strings.escapeNixString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321701872"></a><p class="title"><strong>Example 5.56. <code class="function">lib.strings.escapeNixString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 escapeNixString "hello\${}\n"
 =&gt; "\"hello\\\${}\\n\""
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeNixString"></a>
@@ -1612,7 +1612,7 @@ escapeNixString "hello\${}\n"
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.escapeRegex"></a>5.1.3.22. <code class="function">lib.strings.escapeRegex</code></h4></div><div><h5 class="subtitle"><code class="literal">string -&gt; string</code>
       </h5></div></div></div><p>
        Turn a string into an exact regular expression
-      </p><div class="example"><a id="idm140737321692272"></a><p class="title"><strong>Example 5.57. <code class="function">lib.strings.escapeRegex</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321695024"></a><p class="title"><strong>Example 5.57. <code class="function">lib.strings.escapeRegex</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 escapeRegex "[^a-z]*"
 =&gt; "\\[\\^a-z]\\*"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.escapeRegex"></a>
@@ -1624,7 +1624,7 @@ escapeRegex "[^a-z]*"
          <code class="varname">s</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321683088"></a><p class="title"><strong>Example 5.58. <code class="function">lib.strings.escapeNixIdentifier</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321685856"></a><p class="title"><strong>Example 5.58. <code class="function">lib.strings.escapeNixIdentifier</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 escapeNixIdentifier "hello"
 =&gt; "hello"
 escapeNixIdentifier "0abc"
@@ -1634,7 +1634,7 @@ escapeNixIdentifier "0abc"
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toLower"></a>5.1.3.24. <code class="function">lib.strings.toLower</code></h4></div><div><h5 class="subtitle"><code class="literal">toLower :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to lower-case.
-      </p><div class="example"><a id="idm140737321676272"></a><p class="title"><strong>Example 5.59. <code class="function">lib.strings.toLower</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321679120"></a><p class="title"><strong>Example 5.59. <code class="function">lib.strings.toLower</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 toLower "HOME"
 =&gt; "home"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toLower"></a>
@@ -1642,7 +1642,7 @@ toLower "HOME"
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.strings.toUpper"></a>5.1.3.25. <code class="function">lib.strings.toUpper</code></h4></div><div><h5 class="subtitle"><code class="literal">toUpper :: string -&gt; string</code>
       </h5></div></div></div><p>
        Converts an ASCII string to upper-case.
-      </p><div class="example"><a id="idm140737321669680"></a><p class="title"><strong>Example 5.60. <code class="function">lib.strings.toUpper</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321672464"></a><p class="title"><strong>Example 5.60. <code class="function">lib.strings.toUpper</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 toUpper "home"
 =&gt; "HOME"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.toUpper"></a>
@@ -1659,7 +1659,7 @@ toUpper "home"
          <code class="varname">b</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321658464"></a><p class="title"><strong>Example 5.61. <code class="function">lib.strings.addContextFrom</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321661296"></a><p class="title"><strong>Example 5.61. <code class="function">lib.strings.addContextFrom</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 pkgs = import &lt;nixpkgs&gt; { };
 addContextFrom pkgs.coreutils "bar"
 =&gt; "bar"
@@ -1675,7 +1675,7 @@ addContextFrom pkgs.coreutils "bar"
          <code class="varname">_s</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321647824"></a><p class="title"><strong>Example 5.62. <code class="function">lib.strings.splitString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321650752"></a><p class="title"><strong>Example 5.62. <code class="function">lib.strings.splitString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 splitString "." "foo.bar.baz"
 =&gt; [ "foo" "bar" "baz" ]
 splitString "/" "/usr/local/bin"
@@ -1693,7 +1693,7 @@ splitString "/" "/usr/local/bin"
          <code class="varname">str</code>
         </span></dt><dd><p>
           Input string
-         </p></dd></dl></div><div class="example"><a id="idm140737321636416"></a><p class="title"><strong>Example 5.63. <code class="function">lib.strings.removePrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321639392"></a><p class="title"><strong>Example 5.63. <code class="function">lib.strings.removePrefix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 removePrefix "foo." "foo.bar.baz"
 =&gt; "bar.baz"
 removePrefix "xxx" "foo.bar.baz"
@@ -1711,7 +1711,7 @@ removePrefix "xxx" "foo.bar.baz"
          <code class="varname">str</code>
         </span></dt><dd><p>
           Input string
-         </p></dd></dl></div><div class="example"><a id="idm140737321625040"></a><p class="title"><strong>Example 5.64. <code class="function">lib.strings.removeSuffix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321627952"></a><p class="title"><strong>Example 5.64. <code class="function">lib.strings.removeSuffix</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 removeSuffix "front" "homefront"
 =&gt; "home"
 removeSuffix "xxx" "homefront"
@@ -1728,7 +1728,7 @@ removeSuffix "xxx" "homefront"
          <code class="varname">v2</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321614576"></a><p class="title"><strong>Example 5.65. <code class="function">lib.strings.versionOlder</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321617344"></a><p class="title"><strong>Example 5.65. <code class="function">lib.strings.versionOlder</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 versionOlder "1.1" "1.2"
 =&gt; true
 versionOlder "1.1" "1.1"
@@ -1745,7 +1745,7 @@ versionOlder "1.1" "1.1"
          <code class="varname">v2</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321604144"></a><p class="title"><strong>Example 5.66. <code class="function">lib.strings.versionAtLeast</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321606912"></a><p class="title"><strong>Example 5.66. <code class="function">lib.strings.versionAtLeast</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 versionAtLeast "1.1" "1.0"
 =&gt; true
 versionAtLeast "1.1" "1.1"
@@ -1760,7 +1760,7 @@ versionAtLeast "1.1" "1.2"
          <code class="varname">x</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321595504"></a><p class="title"><strong>Example 5.67. <code class="function">lib.strings.getName</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321598320"></a><p class="title"><strong>Example 5.67. <code class="function">lib.strings.getName</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 getName "youtube-dl-2016.01.01"
 =&gt; "youtube-dl"
 getName pkgs.youtube-dl
@@ -1773,7 +1773,7 @@ getName pkgs.youtube-dl
          <code class="varname">x</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321587024"></a><p class="title"><strong>Example 5.68. <code class="function">lib.strings.getVersion</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321589840"></a><p class="title"><strong>Example 5.68. <code class="function">lib.strings.getVersion</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 getVersion "youtube-dl-2016.01.01"
 =&gt; "2016.01.01"
 getVersion pkgs.youtube-dl
@@ -1790,7 +1790,7 @@ getVersion pkgs.youtube-dl
          <code class="varname">sep</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321576608"></a><p class="title"><strong>Example 5.69. <code class="function">lib.strings.nameFromURL</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321579360"></a><p class="title"><strong>Example 5.69. <code class="function">lib.strings.nameFromURL</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2" "-"
 =&gt; "nix"
 nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2" "_"
@@ -1807,7 +1807,7 @@ nameFromURL "https://nixos.org/releases/nix/nix-1.7/nix-1.7-x86_64-linux.tar.bz2
          <code class="varname">feat</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321566000"></a><p class="title"><strong>Example 5.70. <code class="function">lib.strings.enableFeature</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321568784"></a><p class="title"><strong>Example 5.70. <code class="function">lib.strings.enableFeature</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 enableFeature true "shared"
 =&gt; "--enable-shared"
 enableFeature false "shared"
@@ -1828,7 +1828,7 @@ enableFeature false "shared"
          <code class="varname">value</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321553104"></a><p class="title"><strong>Example 5.71. <code class="function">lib.strings.enableFeatureAs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321555824"></a><p class="title"><strong>Example 5.71. <code class="function">lib.strings.enableFeatureAs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 enableFeatureAs true "shared" "foo"
 =&gt; "--enable-shared=foo"
 enableFeatureAs false "shared" (throw "ignored")
@@ -1845,7 +1845,7 @@ enableFeatureAs false "shared" (throw "ignored")
          <code class="varname">feat</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321542352"></a><p class="title"><strong>Example 5.72. <code class="function">lib.strings.withFeature</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321545008"></a><p class="title"><strong>Example 5.72. <code class="function">lib.strings.withFeature</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 withFeature true "shared"
 =&gt; "--with-shared"
 withFeature false "shared"
@@ -1866,7 +1866,7 @@ withFeature false "shared"
          <code class="varname">value</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321529776"></a><p class="title"><strong>Example 5.73. <code class="function">lib.strings.withFeatureAs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321532384"></a><p class="title"><strong>Example 5.73. <code class="function">lib.strings.withFeatureAs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 withFeatureAs true "shared" "foo"
 =&gt; "--with-shared=foo"
 withFeatureAs false "shared" (throw "ignored")
@@ -1890,7 +1890,7 @@ withFeatureAs false "shared" (throw "ignored")
          <code class="varname">str</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321515808"></a><p class="title"><strong>Example 5.74. <code class="function">lib.strings.fixedWidthString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321518432"></a><p class="title"><strong>Example 5.74. <code class="function">lib.strings.fixedWidthString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 fixedWidthString 5 "0" (toString 15)
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthString"></a>
@@ -1905,7 +1905,7 @@ fixedWidthString 5 "0" (toString 15)
          <code class="varname">n</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321505328"></a><p class="title"><strong>Example 5.75. <code class="function">lib.strings.fixedWidthNumber</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321507888"></a><p class="title"><strong>Example 5.75. <code class="function">lib.strings.fixedWidthNumber</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 fixedWidthNumber 5 15
 =&gt; "00015"
 </pre></div></div><br class="example-break" /><p><a id="lib.strings.fixedWidthNumber"></a>
@@ -1916,7 +1916,7 @@ fixedWidthNumber 5 15
          <code class="varname">float</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321496784"></a><p class="title"><strong>Example 5.76. <code class="function">lib.strings.floatToString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321499392"></a><p class="title"><strong>Example 5.76. <code class="function">lib.strings.floatToString</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 floatToString 0.000001
 =&gt; "0.000001"
 floatToString 0.0000001
@@ -1938,7 +1938,7 @@ floatToString 0.0000001
          <code class="varname">x</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321481472"></a><p class="title"><strong>Example 5.77. <code class="function">lib.strings.isStorePath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321484096"></a><p class="title"><strong>Example 5.77. <code class="function">lib.strings.isStorePath</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 isStorePath "/nix/store/d945ibfx9x185xf04b890y4f9g3cbb63-python-2.7.11/bin/python"
 =&gt; false
 isStorePath "/nix/store/d945ibfx9x185xf04b890y4f9g3cbb63-python-2.7.11"
@@ -1956,7 +1956,7 @@ isStorePath [] || isStorePath 42 || isStorePath {} || …
          <code class="varname">str</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321472080"></a><p class="title"><strong>Example 5.78. <code class="function">lib.strings.toInt</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321474720"></a><p class="title"><strong>Example 5.78. <code class="function">lib.strings.toInt</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 toInt "1337"
 =&gt; 1337
 toInt "-4"
@@ -1969,7 +1969,7 @@ toInt "3.14"
        Read a list of paths from `file`, relative to the `rootPath`. Lines beginning with `#` are treated as comments and ignored. Whitespace is significant.
       </p><p>
        NOTE: This function is not performant and should be avoided.
-      </p><div class="example"><a id="idm140737321465408"></a><p class="title"><strong>Example 5.79. <code class="function">lib.strings.readPathsFromFile</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321468048"></a><p class="title"><strong>Example 5.79. <code class="function">lib.strings.readPathsFromFile</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 readPathsFromFile /prefix
 ./pkgs/development/libraries/qt-5/5.4/qtbase/series
 =&gt; [ "/prefix/dlopen-resolv.patch" "/prefix/tzdir.patch"
@@ -1986,7 +1986,7 @@ readPathsFromFile /prefix
          <code class="varname">file</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321455776"></a><p class="title"><strong>Example 5.80. <code class="function">lib.strings.fileContents</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321458480"></a><p class="title"><strong>Example 5.80. <code class="function">lib.strings.fileContents</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 $ echo "1.0" &gt; ./version
 
 fileContents ./version
@@ -2000,7 +2000,7 @@ fileContents ./version
          <code class="varname">string</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321446336"></a><p class="title"><strong>Example 5.81. <code class="function">lib.strings.sanitizeDerivationName</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321449040"></a><p class="title"><strong>Example 5.81. <code class="function">lib.strings.sanitizeDerivationName</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 sanitizeDerivationName "../hello.bar # foo"
 =&gt; "-hello.bar-foo"
 sanitizeDerivationName ""
@@ -2031,7 +2031,7 @@ sanitizeDerivationName pkgs.hello
          <code class="varname">y</code>
         </span></dt><dd><p>
           Value to ignore
-         </p></dd></dl></div><div class="example"><a id="idm140737321423808"></a><p class="title"><strong>Example 5.82. <code class="function">lib.trivial.const</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321426480"></a><p class="title"><strong>Example 5.82. <code class="function">lib.trivial.const</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 let f = const 5; in f 10
 =&gt; 5
 </pre></div></div><br class="example-break" /><p><a id="lib.trivial.const"></a>
@@ -2047,7 +2047,7 @@ let f = const 5; in f 10
          <code class="varname">functions</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321412544"></a><p class="title"><strong>Example 5.83. <code class="function">lib.trivial.pipe</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321415040"></a><p class="title"><strong>Example 5.83. <code class="function">lib.trivial.pipe</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 pipe 2 [
 (x: x + 2)  # 2 + 2 = 4
 (x: x * 2)  # 4 * 2 = 8
@@ -2149,7 +2149,7 @@ final value.
          <code class="varname">y</code>
         </span></dt><dd><p>
           Right attribute set (higher precedence for equal keys)
-         </p></dd></dl></div><div class="example"><a id="idm140737321349008"></a><p class="title"><strong>Example 5.84. <code class="function">lib.trivial.mergeAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321351568"></a><p class="title"><strong>Example 5.84. <code class="function">lib.trivial.mergeAttrs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mergeAttrs { a = 1; b = 2; } { b = 3; c = 4; }
 =&gt; { a = 1; b = 3; c = 4; }
 </pre></div></div><br class="example-break" /><p><a id="lib.trivial.mergeAttrs"></a>
@@ -2169,7 +2169,7 @@ mergeAttrs { a = 1; b = 2; } { b = 3; c = 4; }
          <code class="varname">b</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321335936"></a><p class="title"><strong>Example 5.85. <code class="function">lib.trivial.flip</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321338320"></a><p class="title"><strong>Example 5.85. <code class="function">lib.trivial.flip</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 flip concat [1] [2]
 =&gt; [ 2 1 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.trivial.flip"></a>
@@ -2184,7 +2184,7 @@ flip concat [1] [2]
          <code class="varname">a</code>
         </span></dt><dd><p>
           Argument to check for null before passing it to `f`
-         </p></dd></dl></div><div class="example"><a id="idm140737321325568"></a><p class="title"><strong>Example 5.86. <code class="function">lib.trivial.mapNullable</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321327888"></a><p class="title"><strong>Example 5.86. <code class="function">lib.trivial.mapNullable</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mapNullable (x: x+1) null
 =&gt; null
 mapNullable (x: x+1) 22
@@ -2257,7 +2257,7 @@ mapNullable (x: x+1) 22
          <code class="varname">int</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321267264"></a><p class="title"><strong>Example 5.87. <code class="function">lib.trivial.mod</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321269408"></a><p class="title"><strong>Example 5.87. <code class="function">lib.trivial.mod</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mod 11 10
 =&gt; 1
 mod 1 10
@@ -2301,7 +2301,7 @@ mod 1 10
          <code class="varname">b</code>
         </span></dt><dd><p>
           Second value to compare
-         </p></dd></dl></div><div class="example"><a id="idm140737321240480"></a><p class="title"><strong>Example 5.88. <code class="function">lib.trivial.splitByAndCompare</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321242576"></a><p class="title"><strong>Example 5.88. <code class="function">lib.trivial.splitByAndCompare</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 let cmp = splitByAndCompare (hasPrefix "foo") compare compare; in
 
 cmp "a" "z" =&gt; -1
@@ -2402,7 +2402,7 @@ compare "fooa" "a" =&gt; 1
          <code class="varname">x</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321170704"></a><p class="title"><strong>Example 5.89. <code class="function">lib.lists.singleton</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321172624"></a><p class="title"><strong>Example 5.89. <code class="function">lib.lists.singleton</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 singleton "foo"
 =&gt; [ "foo" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.singleton"></a>
@@ -2418,7 +2418,7 @@ singleton "foo"
          <code class="varname">f</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321159472"></a><p class="title"><strong>Example 5.90. <code class="function">lib.lists.forEach</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321161392"></a><p class="title"><strong>Example 5.90. <code class="function">lib.lists.forEach</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 forEach [ 1 2 ] (x:
 toString x
 )
@@ -2440,7 +2440,7 @@ toString x
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321145936"></a><p class="title"><strong>Example 5.91. <code class="function">lib.lists.foldr</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321147696"></a><p class="title"><strong>Example 5.91. <code class="function">lib.lists.foldr</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concat = foldr (a: b: a + b) "z"
 concat [ "a" "b" "c" ]
 =&gt; "abcz"
@@ -2469,7 +2469,7 @@ strange [ 1 2 3 4 ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321128000"></a><p class="title"><strong>Example 5.92. <code class="function">lib.lists.foldl</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321129712"></a><p class="title"><strong>Example 5.92. <code class="function">lib.lists.foldl</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 lconcat = foldl (a: b: a + b) "z"
 lconcat [ "a" "b" "c" ]
 =&gt; "zabc"
@@ -2497,7 +2497,7 @@ lstrange [ 1 2 3 4 ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321110912"></a><p class="title"><strong>Example 5.93. <code class="function">lib.lists.imap0</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321112816"></a><p class="title"><strong>Example 5.93. <code class="function">lib.lists.imap0</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 imap0 (i: v: "${v}-${toString i}") ["a" "b"]
 =&gt; [ "a-0" "b-1" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.imap0"></a>
@@ -2513,7 +2513,7 @@ imap0 (i: v: "${v}-${toString i}") ["a" "b"]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321099744"></a><p class="title"><strong>Example 5.94. <code class="function">lib.lists.imap1</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321101648"></a><p class="title"><strong>Example 5.94. <code class="function">lib.lists.imap1</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 imap1 (i: v: "${v}-${toString i}") ["a" "b"]
 =&gt; [ "a-1" "b-2" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.imap1"></a>
@@ -2521,7 +2521,7 @@ imap1 (i: v: "${v}-${toString i}") ["a" "b"]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.concatMap"></a>5.1.5.9. <code class="function">lib.lists.concatMap</code></h4></div><div><h5 class="subtitle"><code class="literal">concatMap :: (a -&gt; [b]) -&gt; [a] -&gt; [b]</code>
       </h5></div></div></div><p>
        Map and concatenate the result.
-      </p><div class="example"><a id="idm140737321092960"></a><p class="title"><strong>Example 5.95. <code class="function">lib.lists.concatMap</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321094928"></a><p class="title"><strong>Example 5.95. <code class="function">lib.lists.concatMap</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 concatMap (x: [x] ++ ["z"]) ["a" "b"]
 =&gt; [ "a" "z" "b" "z" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.concatMap"></a>
@@ -2532,7 +2532,7 @@ concatMap (x: [x] ++ ["z"]) ["a" "b"]
          <code class="varname">x</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321084448"></a><p class="title"><strong>Example 5.96. <code class="function">lib.lists.flatten</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321086528"></a><p class="title"><strong>Example 5.96. <code class="function">lib.lists.flatten</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 flatten [1 [2 [3] 4] 5]
 =&gt; [1 2 3 4 5]
 flatten 1
@@ -2546,7 +2546,7 @@ flatten 1
          <code class="varname">e</code>
         </span></dt><dd><p>
           Element to remove from the list
-         </p></dd></dl></div><div class="example"><a id="idm140737321075152"></a><p class="title"><strong>Example 5.97. <code class="function">lib.lists.remove</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321077296"></a><p class="title"><strong>Example 5.97. <code class="function">lib.lists.remove</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 remove 3 [ 1 3 4 3 ]
 =&gt; [ 1 4 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.remove"></a>
@@ -2570,7 +2570,7 @@ remove 3 [ 1 3 4 3 ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Input list
-         </p></dd></dl></div><div class="example"><a id="idm140737321059696"></a><p class="title"><strong>Example 5.98. <code class="function">lib.lists.findSingle</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321061904"></a><p class="title"><strong>Example 5.98. <code class="function">lib.lists.findSingle</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 findSingle (x: x == 3) "none" "multiple" [ 1 3 3 ]
 =&gt; "multiple"
 findSingle (x: x == 3) "none" "multiple" [ 1 3 ]
@@ -2594,7 +2594,7 @@ findSingle (x: x == 3) "none" "multiple" [ 1 9 ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Input list
-         </p></dd></dl></div><div class="example"><a id="idm140737321045952"></a><p class="title"><strong>Example 5.99. <code class="function">lib.lists.findFirst</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321048160"></a><p class="title"><strong>Example 5.99. <code class="function">lib.lists.findFirst</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 findFirst (x: x &gt; 3) 7 [ 1 6 4 ]
 =&gt; 6
 findFirst (x: x &gt; 9) 7 [ 1 6 4 ]
@@ -2604,7 +2604,7 @@ findFirst (x: x &gt; 9) 7 [ 1 6 4 ]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.any"></a>5.1.5.14. <code class="function">lib.lists.any</code></h4></div><div><h5 class="subtitle"><code class="literal">any :: (a -&gt; bool) -&gt; [a] -&gt; bool</code>
       </h5></div></div></div><p>
        Return true if function `pred` returns true for at least one element of `list`.
-      </p><div class="example"><a id="idm140737321039184"></a><p class="title"><strong>Example 5.100. <code class="function">lib.lists.any</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321041328"></a><p class="title"><strong>Example 5.100. <code class="function">lib.lists.any</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 any isString [ 1 "a" { } ]
 =&gt; true
 any isString [ 1 { } ]
@@ -2614,7 +2614,7 @@ any isString [ 1 { } ]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.all"></a>5.1.5.15. <code class="function">lib.lists.all</code></h4></div><div><h5 class="subtitle"><code class="literal">all :: (a -&gt; bool) -&gt; [a] -&gt; bool</code>
       </h5></div></div></div><p>
        Return true if function `pred` returns true for all elements of `list`.
-      </p><div class="example"><a id="idm140737321032464"></a><p class="title"><strong>Example 5.101. <code class="function">lib.lists.all</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737321034528"></a><p class="title"><strong>Example 5.101. <code class="function">lib.lists.all</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 all (x: x &lt; 3) [ 1 2 ]
 =&gt; true
 all (x: x &lt; 3) [ 1 2 3 ]
@@ -2628,7 +2628,7 @@ all (x: x &lt; 3) [ 1 2 3 ]
          <code class="varname">pred</code>
         </span></dt><dd><p>
           Predicate
-         </p></dd></dl></div><div class="example"><a id="idm140737321023184"></a><p class="title"><strong>Example 5.102. <code class="function">lib.lists.count</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321025200"></a><p class="title"><strong>Example 5.102. <code class="function">lib.lists.count</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 count (x: x == 3) [ 3 2 3 4 6 ]
 =&gt; 2
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.count"></a>
@@ -2644,7 +2644,7 @@ count (x: x == 3) [ 3 2 3 4 6 ]
          <code class="varname">elem</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737321012064"></a><p class="title"><strong>Example 5.103. <code class="function">lib.lists.optional</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321013968"></a><p class="title"><strong>Example 5.103. <code class="function">lib.lists.optional</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 optional true "foo"
 =&gt; [ "foo" ]
 optional false "foo"
@@ -2662,7 +2662,7 @@ optional false "foo"
          <code class="varname">elems</code>
         </span></dt><dd><p>
           List to return if condition is true
-         </p></dd></dl></div><div class="example"><a id="idm140737321000704"></a><p class="title"><strong>Example 5.104. <code class="function">lib.lists.optionals</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737321002608"></a><p class="title"><strong>Example 5.104. <code class="function">lib.lists.optionals</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 optionals true [ 2 3 ]
 =&gt; [ 2 3 ]
 optionals false [ 2 3 ]
@@ -2675,7 +2675,7 @@ optionals false [ 2 3 ]
          <code class="varname">x</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320992272"></a><p class="title"><strong>Example 5.105. <code class="function">lib.lists.toList</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320994288"></a><p class="title"><strong>Example 5.105. <code class="function">lib.lists.toList</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 toList [ 1 2 ]
 =&gt; [ 1 2 ]
 toList "hi"
@@ -2693,7 +2693,7 @@ toList "hi"
          <code class="varname">last</code>
         </span></dt><dd><p>
           Last integer in the range
-         </p></dd></dl></div><div class="example"><a id="idm140737320980944"></a><p class="title"><strong>Example 5.106. <code class="function">lib.lists.range</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320983072"></a><p class="title"><strong>Example 5.106. <code class="function">lib.lists.range</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 range 2 4
 =&gt; [ 2 3 4 ]
 range 3 2
@@ -2703,7 +2703,7 @@ range 3 2
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.partition"></a>5.1.5.21. <code class="function">lib.lists.partition</code></h4></div><div><h5 class="subtitle"><code class="literal">(a -&gt; bool) -&gt; [a] -&gt; { right :: [a], wrong :: [a] }</code>
       </h5></div></div></div><p>
        Splits the elements of a list in two lists, `right` and `wrong`, depending on the evaluation of a predicate.
-      </p><div class="example"><a id="idm140737320973984"></a><p class="title"><strong>Example 5.107. <code class="function">lib.lists.partition</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320976224"></a><p class="title"><strong>Example 5.107. <code class="function">lib.lists.partition</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 partition (x: x &gt; 2) [ 5 1 2 3 4 ]
 =&gt; { right = [ 5 3 4 ]; wrong = [ 1 2 ]; }
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.partition"></a>
@@ -2728,7 +2728,7 @@ partition (x: x &gt; 2) [ 5 1 2 3 4 ]
          <code class="varname">lst</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320958896"></a><p class="title"><strong>Example 5.108. <code class="function">lib.lists.groupBy'</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320961024"></a><p class="title"><strong>Example 5.108. <code class="function">lib.lists.groupBy'</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 groupBy (x: boolToString (x &gt; 2)) [ 5 1 2 3 4 ]
 =&gt; { true = [ 5 3 4 ]; false = [ 1 2 ]; }
 groupBy (x: x.name) [ {name = "icewm"; script = "icewm &amp;";}
@@ -2761,7 +2761,7 @@ groupBy' builtins.add 0 (x: boolToString (x &gt; 2)) [ 5 1 2 3 4 ]
          <code class="varname">snd</code>
         </span></dt><dd><p>
           Second list
-         </p></dd></dl></div><div class="example"><a id="idm140737320944192"></a><p class="title"><strong>Example 5.109. <code class="function">lib.lists.zipListsWith</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320946208"></a><p class="title"><strong>Example 5.109. <code class="function">lib.lists.zipListsWith</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 zipListsWith (a: b: a + b) ["h" "l"] ["e" "o"]
 =&gt; ["he" "lo"]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.zipListsWith"></a>
@@ -2769,7 +2769,7 @@ zipListsWith (a: b: a + b) ["h" "l"] ["e" "o"]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.zipLists"></a>5.1.5.24. <code class="function">lib.lists.zipLists</code></h4></div><div><h5 class="subtitle"><code class="literal">zipLists :: [a] -&gt; [b] -&gt; [{ fst :: a, snd :: b}]</code>
       </h5></div></div></div><p>
        Merges two lists of the same size together. If the sizes aren't the same the merging stops at the shortest.
-      </p><div class="example"><a id="idm140737320937312"></a><p class="title"><strong>Example 5.110. <code class="function">lib.lists.zipLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320939296"></a><p class="title"><strong>Example 5.110. <code class="function">lib.lists.zipLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 zipLists [ 1 2 ] [ "a" "b" ]
 =&gt; [ { fst = 1; snd = "a"; } { fst = 2; snd = "b"; } ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.zipLists"></a>
@@ -2781,7 +2781,7 @@ zipLists [ 1 2 ] [ "a" "b" ]
          <code class="varname">xs</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320928080"></a><p class="title"><strong>Example 5.111. <code class="function">lib.lists.reverseList</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320930000"></a><p class="title"><strong>Example 5.111. <code class="function">lib.lists.reverseList</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 
 reverseList [ "b" "o" "j" ]
 =&gt; [ "j" "o" "b" ]
@@ -2803,7 +2803,7 @@ reverseList [ "b" "o" "j" ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320915040"></a><p class="title"><strong>Example 5.112. <code class="function">lib.lists.listDfs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320916960"></a><p class="title"><strong>Example 5.112. <code class="function">lib.lists.listDfs</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 listDfs true hasPrefix [ "/home/user" "other" "/" "/home" ]
 == { minimal = "/";                  # minimal element
 visited = [ "/home/user" ];     # seen elements (in reverse order)
@@ -2829,7 +2829,7 @@ rest    = [ "/home" "other" ];  # everything else
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320903136"></a><p class="title"><strong>Example 5.113. <code class="function">lib.lists.toposort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320905072"></a><p class="title"><strong>Example 5.113. <code class="function">lib.lists.toposort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 
 toposort hasPrefix [ "/home/user" "other" "/" "/home" ]
 == { result = [ "/" "/home" "/home/user" "other" ]; }
@@ -2846,7 +2846,7 @@ toposort (a: b: a &lt; b) [ 3 2 1 ] == { result = [ 1 2 3 ]; }
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L454" target="_top">lib/lists.nix:454</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.sort"></a>5.1.5.28. <code class="function">lib.lists.sort</code></h4></div></div></div><p>
        Sort a list based on a comparator function which compares two elements and returns true if the first argument is strictly below the second argument. The returned list is sorted in an increasing order. The implementation does a quick-sort.
-      </p><div class="example"><a id="idm140737320896160"></a><p class="title"><strong>Example 5.114. <code class="function">lib.lists.sort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320898272"></a><p class="title"><strong>Example 5.114. <code class="function">lib.lists.sort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 sort (a: b: a &lt; b) [ 5 3 7 ]
 =&gt; [ 3 5 7 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.sort"></a>
@@ -2865,7 +2865,7 @@ sort (a: b: a &lt; b) [ 5 3 7 ]
          <code class="varname">b</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320883792"></a><p class="title"><strong>Example 5.115. <code class="function">lib.lists.compareLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320885904"></a><p class="title"><strong>Example 5.115. <code class="function">lib.lists.compareLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 compareLists compare [] []
 =&gt; 0
 compareLists compare [] [ "a" ]
@@ -2882,7 +2882,7 @@ compareLists compare [ "a" "b" ] [ "a" "c" ]
          <code class="varname">lst</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320875152"></a><p class="title"><strong>Example 5.116. <code class="function">lib.lists.naturalSort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320877152"></a><p class="title"><strong>Example 5.116. <code class="function">lib.lists.naturalSort</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 naturalSort ["disk11" "disk8" "disk100" "disk9"]
 =&gt; ["disk8" "disk9" "disk11" "disk100"]
 naturalSort ["10.46.133.149" "10.5.16.62" "10.54.16.25"]
@@ -2898,7 +2898,7 @@ naturalSort ["v0.2" "v0.15" "v0.0.9"]
          <code class="varname">count</code>
         </span></dt><dd><p>
           Number of elements to take
-         </p></dd></dl></div><div class="example"><a id="idm140737320865680"></a><p class="title"><strong>Example 5.117. <code class="function">lib.lists.take</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320867696"></a><p class="title"><strong>Example 5.117. <code class="function">lib.lists.take</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 take 2 [ "a" "b" "c" "d" ]
 =&gt; [ "a" "b" ]
 take 2 [ ]
@@ -2916,7 +2916,7 @@ take 2 [ ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Input list
-         </p></dd></dl></div><div class="example"><a id="idm140737320854368"></a><p class="title"><strong>Example 5.118. <code class="function">lib.lists.drop</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320856448"></a><p class="title"><strong>Example 5.118. <code class="function">lib.lists.drop</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 drop 2 [ "a" "b" "c" "d" ]
 =&gt; [ "c" "d" ]
 drop 2 [ ]
@@ -2938,7 +2938,7 @@ drop 2 [ ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Input list
-         </p></dd></dl></div><div class="example"><a id="idm140737320841040"></a><p class="title"><strong>Example 5.119. <code class="function">lib.lists.sublist</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320843232"></a><p class="title"><strong>Example 5.119. <code class="function">lib.lists.sublist</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 sublist 1 3 [ "a" "b" "c" "d" "e" ]
 =&gt; [ "b" "c" "d" ]
 sublist 1 3 [ ]
@@ -2954,7 +2954,7 @@ sublist 1 3 [ ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320831216"></a><p class="title"><strong>Example 5.120. <code class="function">lib.lists.last</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320833312"></a><p class="title"><strong>Example 5.120. <code class="function">lib.lists.last</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 last [ 1 2 3 ]
 =&gt; 3
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.last"></a>
@@ -2968,14 +2968,14 @@ last [ 1 2 3 ]
          <code class="varname">list</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320821472"></a><p class="title"><strong>Example 5.121. <code class="function">lib.lists.init</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320823568"></a><p class="title"><strong>Example 5.121. <code class="function">lib.lists.init</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 init [ 1 2 3 ]
 =&gt; [ 1 2 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.init"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/lists.nix#L621" target="_top">lib/lists.nix:621</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.crossLists"></a>5.1.5.36. <code class="function">lib.lists.crossLists</code></h4></div></div></div><p>
        Return the image of the cross product of some lists by a function.
-      </p><div class="example"><a id="idm140737320815440"></a><p class="title"><strong>Example 5.122. <code class="function">lib.lists.crossLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320817536"></a><p class="title"><strong>Example 5.122. <code class="function">lib.lists.crossLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 crossLists (x:y: "${toString x}${toString y}") [[1 2] [3 4]]
 =&gt; [ "13" "14" "23" "24" ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.crossLists"></a>
@@ -2983,7 +2983,7 @@ crossLists (x:y: "${toString x}${toString y}") [[1 2] [3 4]]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.lists.unique"></a>5.1.5.37. <code class="function">lib.lists.unique</code></h4></div><div><h5 class="subtitle"><code class="literal">unique :: [a] -&gt; [a]</code>
       </h5></div></div></div><p>
        Remove duplicate elements from the list. O(n^2) complexity.
-      </p><div class="example"><a id="idm140737320808656"></a><p class="title"><strong>Example 5.123. <code class="function">lib.lists.unique</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320810736"></a><p class="title"><strong>Example 5.123. <code class="function">lib.lists.unique</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 unique [ 3 2 3 4 ]
 =&gt; [ 3 2 4 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.unique"></a>
@@ -2994,7 +2994,7 @@ unique [ 3 2 3 4 ]
          <code class="varname">e</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320800176"></a><p class="title"><strong>Example 5.124. <code class="function">lib.lists.intersectLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320802384"></a><p class="title"><strong>Example 5.124. <code class="function">lib.lists.intersectLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 intersectLists [ 1 2 3 ] [ 6 3 2 ]
 =&gt; [ 3 2 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.intersectLists"></a>
@@ -3005,7 +3005,7 @@ intersectLists [ 1 2 3 ] [ 6 3 2 ]
          <code class="varname">e</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320791648"></a><p class="title"><strong>Example 5.125. <code class="function">lib.lists.subtractLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320793872"></a><p class="title"><strong>Example 5.125. <code class="function">lib.lists.subtractLists</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 subtractLists [ 3 2 ] [ 1 2 3 4 5 3 ]
 =&gt; [ 1 4 5 ]
 </pre></div></div><br class="example-break" /><p><a id="lib.lists.subtractLists"></a>
@@ -3037,7 +3037,7 @@ subtractLists [ 3 2 ] [ 1 2 3 4 5 3 ]
          <code class="varname">x</code>
         </span></dt><dd><p>
           Value to return
-         </p></dd></dl></div><div class="example"><a id="idm140737320766912"></a><p class="title"><strong>Example 5.126. <code class="function">lib.debug.traceIf</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320769248"></a><p class="title"><strong>Example 5.126. <code class="function">lib.debug.traceIf</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 traceIf true "hello" 3
 trace: hello
 =&gt; 3
@@ -3054,7 +3054,7 @@ trace: hello
          <code class="varname">x</code>
         </span></dt><dd><p>
           Value to trace and return
-         </p></dd></dl></div><div class="example"><a id="idm140737320755600"></a><p class="title"><strong>Example 5.127. <code class="function">lib.debug.traceValFn</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320758032"></a><p class="title"><strong>Example 5.127. <code class="function">lib.debug.traceValFn</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 traceValFn (v: "mystring ${v}") "foo"
 trace: mystring foo
 =&gt; "foo"
@@ -3063,7 +3063,7 @@ trace: mystring foo
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.debug.traceVal"></a>5.1.6.3. <code class="function">lib.debug.traceVal</code></h4></div><div><h5 class="subtitle"><code class="literal">traceVal :: a -&gt; a</code>
       </h5></div></div></div><p>
        Trace the supplied value and return it.
-      </p><div class="example"><a id="idm140737320748768"></a><p class="title"><strong>Example 5.128. <code class="function">lib.debug.traceVal</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320751248"></a><p class="title"><strong>Example 5.128. <code class="function">lib.debug.traceVal</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 traceVal 42
 # trace: 42
 =&gt; 42
@@ -3080,7 +3080,7 @@ traceVal 42
          <code class="varname">y</code>
         </span></dt><dd><p>
           The value to return
-         </p></dd></dl></div><div class="example"><a id="idm140737320737536"></a><p class="title"><strong>Example 5.129. <code class="function">lib.debug.traceSeq</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320740080"></a><p class="title"><strong>Example 5.129. <code class="function">lib.debug.traceSeq</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 trace { a.b.c = 3; } null
 trace: { a = &lt;CODE&gt;; }
 =&gt; null
@@ -3103,7 +3103,7 @@ trace: { a = { b = { c = 3; }; }; }
          <code class="varname">y</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320724752"></a><p class="title"><strong>Example 5.130. <code class="function">lib.debug.traceSeqN</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320727296"></a><p class="title"><strong>Example 5.130. <code class="function">lib.debug.traceSeqN</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 traceSeqN 2 { a.b.c = 3; } null
 trace: { a = { b = {…}; }; }
 =&gt; null
@@ -3165,7 +3165,7 @@ trace: { a = { b = {…}; }; }
          <code class="varname">v</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320681296"></a><p class="title"><strong>Example 5.131. <code class="function">lib.debug.traceFnSeqN</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320683984"></a><p class="title"><strong>Example 5.131. <code class="function">lib.debug.traceFnSeqN</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 traceFnSeqN 2 "id" (x: x) { a.b.c = 3; }
 trace: { fn = "id"; from = { a.b = {…}; }; to = { a.b = {…}; }; }
 =&gt; { a.b.c = 3; }
@@ -3189,14 +3189,14 @@ trace: { fn = "id"; from = { a.b = {…}; }; to = { a.b = {…}; }; }
          <code class="varname">expr</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320664432"></a><p class="title"><strong>Example 5.132. <code class="function">lib.debug.testAllTrue</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320667120"></a><p class="title"><strong>Example 5.132. <code class="function">lib.debug.testAllTrue</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 { testX = allTrue [ true ]; }
 </pre></div></div><br class="example-break" /><p><a id="lib.debug.testAllTrue"></a>
        Located at <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix#L204" target="_top">lib/debug.nix:204</a> in <code class="literal">&lt;nixpkgs&gt;</code>.
       </p></div></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="sec-functions-library-options"></a>5.1.7. NixOS / nixpkgs option handling</h3></div></div></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.isOption"></a>5.1.7.1. <code class="function">lib.options.isOption</code></h4></div><div><h5 class="subtitle"><code class="literal">isOption :: a -&gt; bool</code>
       </h5></div></div></div><p>
        Returns true when the given argument is an option
-      </p><div class="example"><a id="idm140737320655024"></a><p class="title"><strong>Example 5.133. <code class="function">lib.options.isOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320657648"></a><p class="title"><strong>Example 5.133. <code class="function">lib.options.isOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 isOption 1             // =&gt; false
 isOption (mkOption {}) // =&gt; true
 </pre></div></div><br class="example-break" /><p><a id="lib.options.isOption"></a>
@@ -3253,7 +3253,7 @@ isOption (mkOption {}) // =&gt; true
             <code class="varname">options</code>
            </span></dt><dd><p>
              Deprecated, used by types.optionSet.
-            </p></dd></dl></div></dd></dl></div><div class="example"><a id="idm140737320623056"></a><p class="title"><strong>Example 5.134. <code class="function">lib.options.mkOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+            </p></dd></dl></div></dd></dl></div><div class="example"><a id="idm140737320625616"></a><p class="title"><strong>Example 5.134. <code class="function">lib.options.mkOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mkOption { }  // =&gt; { _type = "option"; }
 mkOption { defaultText = "foo"; } // =&gt; { _type = "option"; defaultText = "foo"; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkOption"></a>
@@ -3264,7 +3264,7 @@ mkOption { defaultText = "foo"; } // =&gt; { _type = "option"; defaultText = "fo
          <code class="varname">name</code>
         </span></dt><dd><p>
           Name for the created option
-         </p></dd></dl></div><div class="example"><a id="idm140737320614336"></a><p class="title"><strong>Example 5.135. <code class="function">lib.options.mkEnableOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320616896"></a><p class="title"><strong>Example 5.135. <code class="function">lib.options.mkEnableOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 mkEnableOption "foo"
 =&gt; { _type = "option"; default = false; description = "Whether to enable foo."; example = true; type = { ... }; }
 </pre></div></div><br class="example-break" /><p><a id="lib.options.mkEnableOption"></a>
@@ -3294,7 +3294,7 @@ mkEnableOption "foo"
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getValues"></a>5.1.7.6. <code class="function">lib.options.getValues</code></h4></div><div><h5 class="subtitle"><code class="literal">getValues :: [ { value :: a } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "value" keys of the given list.
-      </p><div class="example"><a id="idm140737320591024"></a><p class="title"><strong>Example 5.136. <code class="function">lib.options.getValues</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320593328"></a><p class="title"><strong>Example 5.136. <code class="function">lib.options.getValues</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 getValues [ { value = 1; } { value = 2; } ] // =&gt; [ 1 2 ]
 getValues [ ]                               // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getValues"></a>
@@ -3302,7 +3302,7 @@ getValues [ ]                               // =&gt; [ ]
       </p></div><div class="section"><div class="titlepage"><div><div><h4 class="title"><a id="function-library-lib.options.getFiles"></a>5.1.7.7. <code class="function">lib.options.getFiles</code></h4></div><div><h5 class="subtitle"><code class="literal">getFiles :: [ { file :: a } ] -&gt; [a]</code>
       </h5></div></div></div><p>
        Extracts values of all "file" keys of the given list
-      </p><div class="example"><a id="idm140737320584160"></a><p class="title"><strong>Example 5.137. <code class="function">lib.options.getFiles</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+      </p><div class="example"><a id="idm140737320586496"></a><p class="title"><strong>Example 5.137. <code class="function">lib.options.getFiles</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 getFiles [ { file = "file1"; } { file = "file2"; } ] // =&gt; [ "file1" "file2" ]
 getFiles [ ]                                         // =&gt; [ ]
 </pre></div></div><br class="example-break" /><p><a id="lib.options.getFiles"></a>
@@ -3331,7 +3331,7 @@ getFiles [ ]                                         // =&gt; [ ]
          <code class="varname">parts</code>
         </span></dt><dd><p>
           Function argument
-         </p></dd></dl></div><div class="example"><a id="idm140737320561376"></a><p class="title"><strong>Example 5.138. <code class="function">lib.options.showOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
+         </p></dd></dl></div><div class="example"><a id="idm140737320563728"></a><p class="title"><strong>Example 5.138. <code class="function">lib.options.showOption</code> usage example</strong></p><div class="example-contents"><pre class="programlisting">
 (showOption ["foo" "bar" "baz"]) == "foo.bar.baz"
 (showOption ["foo" "bar.baz" "tux"]) == "foo.bar.baz.tux"
 
@@ -3446,7 +3446,7 @@ gitignoreFilter = ign: root: filterPattern (gitignoreToPatterns ign) root;
 gitignoreFilterRecursiveSource = filter: patterns: root:
 # OR
 gitignoreRecursiveSource = gitignoreFilterSourcePure (_: _: true);
-  </pre></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737320517440"></a>Part II. Standard environment</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-stdenv">6. The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">7. Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">8. Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">9. Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">10. Platform Notes</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-stdenv"></a>Chapter 6. The Standard Environment</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-using-stdenv">6.1. Using <code class="literal">stdenv</code></a></span></dt><dt><span class="section"><a href="#sec-tools-of-stdenv">6.2. Tools provided by <code class="literal">stdenv</code></a></span></dt><dt><span class="section"><a href="#ssec-stdenv-dependencies">6.3. Specifying dependencies</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-attributes">6.4. Attributes</a></span></dt><dt><span class="section"><a href="#sec-stdenv-phases">6.5. Phases</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-functions">6.6. Shell functions</a></span></dt><dt><span class="section"><a href="#ssec-setup-hooks">6.7. Package setup hooks</a></span></dt><dt><span class="section"><a href="#sec-purity-in-nixpkgs">6.8. Purity in Nixpkgs</a></span></dt><dt><span class="section"><a href="#sec-hardening-in-nixpkgs">6.9. Hardening in Nixpkgs</a></span></dt></dl></div><p>
+  </pre></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737320520080"></a>Part II. Standard environment</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-stdenv">6. The Standard Environment</a></span></dt><dt><span class="chapter"><a href="#chap-meta">7. Meta-attributes</a></span></dt><dt><span class="chapter"><a href="#chap-multiple-output">8. Multiple-output packages</a></span></dt><dt><span class="chapter"><a href="#chap-cross">9. Cross-compilation</a></span></dt><dt><span class="chapter"><a href="#chap-platform-notes">10. Platform Notes</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-stdenv"></a>Chapter 6. The Standard Environment</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-using-stdenv">6.1. Using <code class="literal">stdenv</code></a></span></dt><dt><span class="section"><a href="#sec-tools-of-stdenv">6.2. Tools provided by <code class="literal">stdenv</code></a></span></dt><dt><span class="section"><a href="#ssec-stdenv-dependencies">6.3. Specifying dependencies</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-attributes">6.4. Attributes</a></span></dt><dt><span class="section"><a href="#sec-stdenv-phases">6.5. Phases</a></span></dt><dt><span class="section"><a href="#ssec-stdenv-functions">6.6. Shell functions</a></span></dt><dt><span class="section"><a href="#ssec-setup-hooks">6.7. Package setup hooks</a></span></dt><dt><span class="section"><a href="#sec-purity-in-nixpkgs">6.8. Purity in Nixpkgs</a></span></dt><dt><span class="section"><a href="#sec-hardening-in-nixpkgs">6.9. Hardening in Nixpkgs</a></span></dt></dl></div><p>
     The standard build environment in the Nix Packages collection provides an environment for building Unix packages that does a lot of common build tasks automatically. In fact, for Unix packages that use the standard <code class="literal">./configure; make; make install</code> build interface, you don’t need to write a build script at all; the standard environment does everything automatically. If <code class="literal">stdenv</code> doesn’t do what you need automatically, you can easily customise or override the various build phases.
    </p><div class="section"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="sec-using-stdenv"></a>6.1. Using <code class="literal">stdenv</code></h2></div></div></div><p>
      To build a package with the standard environment, you use the function <code class="literal">stdenv.mkDerivation</code>, instead of the primitive built-in function <code class="literal">derivation</code>, e.g.
@@ -3557,11 +3557,11 @@ genericBuild
      As described in the Nix manual, almost any <code class="literal">*.drv</code> store path in a derivation’s attribute set will induce a dependency on that derivation. <code class="literal">mkDerivation</code>, however, takes a few attributes intended to, between them, include all the dependencies of a package. This is done both for structure and consistency, but also so that certain other setup can take place. For example, certain dependencies need their bin directories added to the <code class="literal">PATH</code>. That is built-in, but other setup is done via a pluggable mechanism that works in conjunction with these dependency attributes. See <a class="xref" href="#ssec-setup-hooks" title="6.7. Package setup hooks">Section 6.7, “Package setup hooks”</a> for details.
     </p><p>
      Dependencies can be broken down along three axes: their host and target platforms relative to the new derivation’s, and whether they are propagated. The platform distinctions are motivated by cross compilation; see <a class="xref" href="#chap-cross" title="Chapter 9. Cross-compilation">Chapter 9, <em>Cross-compilation</em></a> for exactly what each platform means.
-     <a href="#ftn.idm140737320463072" class="footnote" id="idm140737320463072"><sup class="footnote">[1]</sup></a>
+     <a href="#ftn.idm140737320465744" class="footnote" id="idm140737320465744"><sup class="footnote">[1]</sup></a>
      But even if one is not cross compiling, the platforms imply whether or not the dependency is needed at run-time or build-time, a concept that makes perfect sense outside of cross compilation. By default, the run-time/build-time distinction is just a hint for mental clarity, but with <code class="literal">strictDeps</code> set it is mostly enforced even in the native case.
     </p><p>
      The extension of <code class="literal">PATH</code> with dependencies, alluded to above, proceeds according to the relative platforms alone. The process is carried out only for dependencies whose host platform matches the new derivation’s build platform i.e. dependencies which run on the platform where the new derivation will be built.
-     <a href="#ftn.idm140737320459600" class="footnote" id="idm140737320459600"><sup class="footnote">[2]</sup></a>
+     <a href="#ftn.idm140737320462272" class="footnote" id="idm140737320462272"><sup class="footnote">[2]</sup></a>
      For each dependency &lt;dep&gt; of those dependencies, <code class="literal">dep/bin</code>, if present, is added to the <code class="literal">PATH</code> environment variable.
     </p><p>
      The dependency is propagated when it forces some of its other-transitive (non-immediate) downstream dependencies to also take it on as an immediate dependency. Nix itself already takes a package’s transitive dependencies into account, but this propagation ensures nixpkgs-specific infrastructure like setup hooks (mentioned above) also are run as if the propagated dependency.
@@ -3569,7 +3569,7 @@ genericBuild
      It is important to note that dependencies are not necessarily propagated as the same sort of dependency that they were before, but rather as the corresponding sort so that the platform rules still line up. The exact rules for dependency propagation can be given by assigning to each dependency two integers based one how its host and target platforms are offset from the depending derivation’s platforms. Those offsets are given below in the descriptions of each dependency list attribute. Algorithmically, we traverse propagated inputs, accumulating every propagated dependency’s propagated dependencies and adjusting them to account for the <span class="quote">“<span class="quote">shift in perspective</span>”</span> described by the current dependency’s platform offsets. This results in sort a transitive closure of the dependency relation, with the offsets being approximately summed when two dependency links are combined. We also prune transitive dependencies whose combined offsets go out-of-bounds, which can be viewed as a filter over that transitive closure removing dependencies that are blatantly absurd.
     </p><p>
      We can define the process precisely with <a class="link" href="https://en.wikipedia.org/wiki/Natural_deduction" target="_top">Natural Deduction</a> using the inference rules. This probably seems a bit obtuse, but so is the bash code that actually implements it!
-     <a href="#ftn.idm140737320451168" class="footnote" id="idm140737320451168"><sup class="footnote">[3]</sup></a>
+     <a href="#ftn.idm140737320453888" class="footnote" id="idm140737320453888"><sup class="footnote">[3]</sup></a>
      They’re confusing in very different ways so… hopefully if something doesn’t make sense in one presentation, it will in the other!
     </p><pre class="programlisting">
 let mapOffset(h, t, i) = i + (if i &lt;= 0 then h else t - 1)
@@ -3770,7 +3770,7 @@ passthru.updateScript = [ ../../update.sh pname "--requested-release=unstable" ]
         By default, the flag <code class="literal">--disable-dependency-tracking</code> is added to the configure flags to speed up Automake-based builds. If this is undesirable, set this variable to true.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontFixLibtool"></a>6.5.4.1.9. <code class="literal">dontFixLibtool</code></h5></div></div></div><p>
         By default, the configure phase applies some special hackery to all files called <code class="literal">ltmain.sh</code> before running the configure script in order to improve the purity of Libtool-based packages
-        <a href="#ftn.idm140737320244640" class="footnote" id="idm140737320244640"><sup class="footnote">[4]</sup></a>
+        <a href="#ftn.idm140737320247008" class="footnote" id="idm140737320247008"><sup class="footnote">[4]</sup></a>
         . If this is undesirable, set this variable to true.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-dontDisableStatic"></a>6.5.4.1.10. <code class="literal">dontDisableStatic</code></h5></div></div></div><p>
         By default, when the configure script has <code class="literal">--enable-static</code>, the option <code class="literal">--disable-static</code> is added to the configure flags.
@@ -3778,7 +3778,7 @@ passthru.updateScript = [ ../../update.sh pname "--requested-release=unstable" ]
         If this is undesirable, set this variable to true.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-configurePlatforms"></a>6.5.4.1.11. <code class="literal">configurePlatforms</code></h5></div></div></div><p>
         By default, when cross compiling, the configure script has <code class="literal">--build=...</code> and <code class="literal">--host=...</code> passed. Packages can instead pass <code class="literal">[ "build" "host" "target" ]</code> or a subset to control exactly which platform flags are passed. Compilers and other tools can use this to also pass the target platform.
-        <a href="#ftn.idm140737320236144" class="footnote" id="idm140737320236144"><sup class="footnote">[5]</sup></a>
+        <a href="#ftn.idm140737320238560" class="footnote" id="idm140737320238560"><sup class="footnote">[5]</sup></a>
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-preConfigure"></a>6.5.4.1.12. <code class="literal">preConfigure</code></h5></div></div></div><p>
         Hook executed at the start of the configure phase.
        </p></div><div class="section"><div class="titlepage"><div><div><h5 class="title"><a id="var-stdenv-postConfigure"></a>6.5.4.1.13. <code class="literal">postConfigure</code></h5></div></div></div><p>
@@ -4038,7 +4038,7 @@ addEnvHooks "$hostOffset" myBashFunction
       The Bintools Wrapper was only just recently split off from CC Wrapper, so the division of labor is still being worked out. For example, it shouldn’t care about the C standard library, but just take a derivation with the dynamic loader (which happens to be the glibc on linux). Dependency finding however is a task both wrappers will continue to need to share, and probably the most important to understand. It is currently accomplished by collecting directories of host-platform dependencies (i.e. <code class="literal">buildInputs</code> and <code class="literal">nativeBuildInputs</code>) in environment variables. The Bintools Wrapper’s setup hook causes any <code class="literal">lib</code> and <code class="literal">lib64</code> subdirectories to be added to <code class="literal">NIX_LDFLAGS</code>. Since the CC Wrapper and the Bintools Wrapper use the same strategy, most of the Bintools Wrapper code is sparsely commented and refers to the CC Wrapper. But the CC Wrapper’s code, by contrast, has quite lengthy comments. The Bintools Wrapper merely cites those, rather than repeating them, to avoid falling out of sync.
      </p><p>
       A final task of the setup hook is defining a number of standard environment variables to tell build systems which executables fulfill which purpose. They are defined to just be the base name of the tools, under the assumption that the Bintools Wrapper’s binaries will be on the path. Firstly, this helps poorly-written packages, e.g. ones that look for just <code class="literal">gcc</code> when <code class="literal">CC</code> isn’t defined yet <code class="literal">clang</code> is to be used. Secondly, this helps packages not get confused when cross-compiling, in which case multiple Bintools Wrappers may simultaneously be in use.
-      <a href="#ftn.idm140737322700688" class="footnote" id="idm140737322700688"><sup class="footnote">[6]</sup></a>
+      <a href="#ftn.idm140737322705184" class="footnote" id="idm140737322705184"><sup class="footnote">[6]</sup></a>
       <code class="literal">BUILD_</code>- and <code class="literal">TARGET_</code>-prefixed versions of the normal environment variable are defined for additional Bintools Wrappers, properly disambiguating them.
      </p><p>
       A problem with this final task is that the Bintools Wrapper is honest and defines <code class="literal">LD</code> as <code class="literal">ld</code>. Most packages, however, firstly use the C compiler for linking, secondly use <code class="literal">LD</code> anyways, defining it as the C compiler, and thirdly, only so define <code class="literal">LD</code> when it is undefined as a fallback. This triple-threat means Bintools Wrapper will break those packages, as LD is already defined as the actual linker which the package won’t override yet doesn’t want to use. The workaround is to define, just for the problematic package, <code class="literal">LD</code> as the C compiler. A good way to do this would be <code class="literal">preConfigure = "LD=$CC"</code>.
@@ -4212,17 +4212,17 @@ intel_drv.so: undefined symbol: vgaHWFreeHWRec
       Adds the <code class="literal">-fPIE</code> compiler and <code class="literal">-pie</code> linker options. Position Independent Executables are needed to take advantage of Address Space Layout Randomization, supported by modern kernel versions. While ASLR can already be enforced for data areas in the stack and heap (brk and mmap), the code areas must be compiled as position-independent. Shared libraries already do this with the <code class="literal">pic</code> flag, so they gain ASLR automatically, but binary .text regions need to be build with <code class="literal">pie</code> to gain ASLR. When this happens, ROP attacks are much harder since there are no static locations to bounce off of during a memory corruption attack.
      </p><p>
       For more in-depth information on these hardening flags and hardening in general, refer to the <a class="link" href="https://wiki.debian.org/Hardening" target="_top">Debian Wiki</a>, <a class="link" href="https://wiki.ubuntu.com/Security/Features" target="_top">Ubuntu Wiki</a>, <a class="link" href="https://wiki.gentoo.org/wiki/Project:Hardened" target="_top">Gentoo Wiki</a>, and the <a class="link" href="https://wiki.archlinux.org/index.php/DeveloperWiki:Security" target="_top">Arch Wiki</a>.
-     </p></div></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.idm140737320463072" class="footnote"><p><a href="#idm140737320463072" class="para"><sup class="para">[1] </sup></a>
+     </p></div></div><div class="footnotes"><br /><hr style="width:100; text-align:left;margin-left: 0" /><div id="ftn.idm140737320465744" class="footnote"><p><a href="#idm140737320465744" class="para"><sup class="para">[1] </sup></a>
        The build platform is ignored because it is a mere implementation detail of the package satisfying the dependency: As a general programming principle, dependencies are always <span class="emphasis"><em>specified</em></span> as interfaces, not concrete implementation.
-      </p></div><div id="ftn.idm140737320459600" class="footnote"><p><a href="#idm140737320459600" class="para"><sup class="para">[2] </sup></a>
+      </p></div><div id="ftn.idm140737320462272" class="footnote"><p><a href="#idm140737320462272" class="para"><sup class="para">[2] </sup></a>
        Currently, this means for native builds all dependencies are put on the <code class="literal">PATH</code>. But in the future that may not be the case for sake of matching cross: the platforms would be assumed to be unique for native and cross builds alike, so only the <code class="literal">depsBuild*</code> and <code class="literal">nativeBuildInputs</code> would be added to the <code class="literal">PATH</code>.
-      </p></div><div id="ftn.idm140737320451168" class="footnote"><p><a href="#idm140737320451168" class="para"><sup class="para">[3] </sup></a>
+      </p></div><div id="ftn.idm140737320453888" class="footnote"><p><a href="#idm140737320453888" class="para"><sup class="para">[3] </sup></a>
        The <code class="literal">findInputs</code> function, currently residing in <code class="literal">pkgs/stdenv/generic/setup.sh</code>, implements the propagation logic.
-      </p></div><div id="ftn.idm140737320244640" class="footnote"><p><a href="#idm140737320244640" class="para"><sup class="para">[4] </sup></a>
+      </p></div><div id="ftn.idm140737320247008" class="footnote"><p><a href="#idm140737320247008" class="para"><sup class="para">[4] </sup></a>
           It clears the <code class="literal">sys_lib_*search_path</code> variables in the Libtool script to prevent Libtool from using libraries in <code class="literal">/usr/lib</code> and such.
-         </p></div><div id="ftn.idm140737320236144" class="footnote"><p><a href="#idm140737320236144" class="para"><sup class="para">[5] </sup></a>
+         </p></div><div id="ftn.idm140737320238560" class="footnote"><p><a href="#idm140737320238560" class="para"><sup class="para">[5] </sup></a>
           Eventually these will be passed building natively as well, to improve determinism: build-time guessing, as is done today, is a risk of impurity.
-         </p></div><div id="ftn.idm140737322700688" class="footnote"><p><a href="#idm140737322700688" class="para"><sup class="para">[6] </sup></a>
+         </p></div><div id="ftn.idm140737322705184" class="footnote"><p><a href="#idm140737322705184" class="para"><sup class="para">[6] </sup></a>
         Each wrapper targets a single platform, so if binaries for multiple platforms are needed, the underlying binaries must be wrapped multiple times. As this is a property of the wrapper itself, the multiple wrappings are needed whether or not the same underlying binaries can target multiple platforms.
        </p></div></div></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-meta"></a>Chapter 7. Meta-attributes</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#sec-standard-meta-attributes">7.1. Standard meta-attributes</a></span></dt><dt><span class="section"><a href="#sec-meta-license">7.2. Licenses</a></span></dt></dl></div><p>
     Nix packages can declare <span class="emphasis"><em>meta-attributes</em></span> that contain information about a package such as a description, its homepage, its license, and so on. For instance, the GNU Hello package has a <code class="literal">meta</code> declaration like this:
@@ -4669,7 +4669,7 @@ stdenv.mkDerivation {
 }
 </pre><p>
        The package <code class="literal">xcbuild</code> can be used to build projects that really depend on Xcode. However, this replacement is not 100% compatible with Xcode and can occasionally cause issues.
-      </p></li></ul></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737319434160"></a>Part III. Builders</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-pkgs-fetchers">11. Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">12. Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-special">13. Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">14. Images</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">15. Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">16. Packages</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-pkgs-fetchers"></a>Chapter 11. Fetchers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#fetchsvn">11.1. <code class="literal">fetchsvn</code></a></span></dt><dt><span class="section"><a href="#fetchgit">11.2. <code class="literal">fetchgit</code></a></span></dt><dt><span class="section"><a href="#fetchfossil">11.3. <code class="literal">fetchfossil</code></a></span></dt><dt><span class="section"><a href="#fetchcvs">11.4. <code class="literal">fetchcvs</code></a></span></dt><dt><span class="section"><a href="#fetchhg">11.5. <code class="literal">fetchhg</code></a></span></dt><dt><span class="section"><a href="#fetchfromgithub">11.6. <code class="literal">fetchFromGitHub</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitlab">11.7. <code class="literal">fetchFromGitLab</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitiles">11.8. <code class="literal">fetchFromGitiles</code></a></span></dt><dt><span class="section"><a href="#fetchfrombitbucket">11.9. <code class="literal">fetchFromBitbucket</code></a></span></dt><dt><span class="section"><a href="#fetchfromsavannah">11.10. <code class="literal">fetchFromSavannah</code></a></span></dt><dt><span class="section"><a href="#fetchfromrepoorcz">11.11. <code class="literal">fetchFromRepoOrCz</code></a></span></dt><dt><span class="section"><a href="#fetchfromsourcehut">11.12. <code class="literal">fetchFromSourcehut</code></a></span></dt></dl></div><p>
+      </p></li></ul></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737319427680"></a>Part III. Builders</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-pkgs-fetchers">11. Fetchers</a></span></dt><dt><span class="chapter"><a href="#chap-trivial-builders">12. Trivial builders</a></span></dt><dt><span class="chapter"><a href="#chap-special">13. Special builders</a></span></dt><dt><span class="chapter"><a href="#chap-images">14. Images</a></span></dt><dt><span class="chapter"><a href="#chap-language-support">15. Languages and frameworks</a></span></dt><dt><span class="chapter"><a href="#chap-packages">16. Packages</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-pkgs-fetchers"></a>Chapter 11. Fetchers</h2></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="section"><a href="#fetchsvn">11.1. <code class="literal">fetchsvn</code></a></span></dt><dt><span class="section"><a href="#fetchgit">11.2. <code class="literal">fetchgit</code></a></span></dt><dt><span class="section"><a href="#fetchfossil">11.3. <code class="literal">fetchfossil</code></a></span></dt><dt><span class="section"><a href="#fetchcvs">11.4. <code class="literal">fetchcvs</code></a></span></dt><dt><span class="section"><a href="#fetchhg">11.5. <code class="literal">fetchhg</code></a></span></dt><dt><span class="section"><a href="#fetchfromgithub">11.6. <code class="literal">fetchFromGitHub</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitlab">11.7. <code class="literal">fetchFromGitLab</code></a></span></dt><dt><span class="section"><a href="#fetchfromgitiles">11.8. <code class="literal">fetchFromGitiles</code></a></span></dt><dt><span class="section"><a href="#fetchfrombitbucket">11.9. <code class="literal">fetchFromBitbucket</code></a></span></dt><dt><span class="section"><a href="#fetchfromsavannah">11.10. <code class="literal">fetchFromSavannah</code></a></span></dt><dt><span class="section"><a href="#fetchfromrepoorcz">11.11. <code class="literal">fetchFromRepoOrCz</code></a></span></dt><dt><span class="section"><a href="#fetchfromsourcehut">11.12. <code class="literal">fetchFromSourcehut</code></a></span></dt></dl></div><p>
     When using Nix, you will frequently need to download source code and other files from the internet. Nixpkgs comes with a few helper functions that allow you to fetch fixed-output derivations in a structured way.
    </p><p>
     The two fetcher primitives are <code class="literal">fetchurl</code> and <code class="literal">fetchzip</code>. Both of these have two required arguments, a URL and a hash. The hash is typically <code class="literal">sha256</code>, although many more hash algorithms are supported. Nixpkgs contributors are currently recommended to use <code class="literal">sha256</code>. This hash will be used by Nix to identify your source. A typical usage of fetchurl is provided below.
@@ -11229,7 +11229,7 @@ cd pkgs/servers/x11/xorg
       For each of the tarballs in the <code class="literal">.list</code> files, the script downloads it, unpacks it, and searches its <code class="literal">configure.ac</code> and <code class="literal">*.pc.in</code> files for dependencies. This information is used to generate <code class="literal">default.nix</code>. The generator caches downloaded tarballs between runs. Pay close attention to the <code class="literal">NOT FOUND: $NAME</code> messages at the end of the run, since they may indicate missing dependencies. (Some might be optional dependencies, however.)
      </p></div><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="overriding-the-generator"></a>16.20.4. Overriding the Generator</h3></div></div></div><p>
       If the expression for a package requires derivation attributes that the generator cannot figure out automatically (say, <code class="literal">patches</code> or a <code class="literal">postInstall</code> hook), you should modify <code class="literal">pkgs/servers/x11/xorg/overrides.nix</code>.
-     </p></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737316306416"></a>Part IV. Contributing to Nixpkgs</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-quick-start">17. Quick Start to Adding a Package</a></span></dt><dt><span class="chapter"><a href="#chap-conventions">18. Coding conventions</a></span></dt><dt><span class="chapter"><a href="#chap-submitting-changes">19. Submitting changes</a></span></dt><dt><span class="chapter"><a href="#chap-vulnerability-roundup">20. Vulnerability Roundup</a></span></dt><dt><span class="chapter"><a href="#chap-reviewing-contributions">21. Reviewing contributions</a></span></dt><dt><span class="chapter"><a href="#chap-contributing">22. Contributing to this documentation</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-quick-start"></a>Chapter 17. Quick Start to Adding a Package</h2></div></div></div><p>
+     </p></div></div></div></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="idm140737316363584"></a>Part IV. Contributing to Nixpkgs</h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="chapter"><a href="#chap-quick-start">17. Quick Start to Adding a Package</a></span></dt><dt><span class="chapter"><a href="#chap-conventions">18. Coding conventions</a></span></dt><dt><span class="chapter"><a href="#chap-submitting-changes">19. Submitting changes</a></span></dt><dt><span class="chapter"><a href="#chap-vulnerability-roundup">20. Vulnerability Roundup</a></span></dt><dt><span class="chapter"><a href="#chap-reviewing-contributions">21. Reviewing contributions</a></span></dt><dt><span class="chapter"><a href="#chap-contributing">22. Contributing to this documentation</a></span></dt></dl></div><div class="chapter"><div class="titlepage"><div><div><h2 class="title"><a id="chap-quick-start"></a>Chapter 17. Quick Start to Adding a Package</h2></div></div></div><p>
     To add a package to Nixpkgs:
    </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>
       Checkout the Nixpkgs source tree:
@@ -11997,7 +11997,7 @@ nix run nixpkgs.nixpkgs-review -c nixpkgs-review rev HEAD
        Hydra builds for master and staging should not be used as testing platform, it’s a build farm for changes that have been already tested.
       </p></li><li class="listitem"><p>
        When changing the bootloader installation process, extra care must be taken. Grub installations cannot be rolled back, hence changes may break people’s installations forever. For any non-trivial change to the bootloader please file a PR asking for review, especially from @edolstra.
-      </p></li></ul></div><div class="figure"><a id="idm140737315787920"></a><p class="title"><strong>Figure 19.1. Staging workflow</strong></p><div class="figure-contents"><div class="mediaobject"><img src="media/10b31ca7f016ce921774f44c40fe884399373649.svg" alt="Staging workflow" /></div></div></div><br class="figure-break" /><p>
+      </p></li></ul></div><div class="figure"><a id="idm140737315778544"></a><p class="title"><strong>Figure 19.1. Staging workflow</strong></p><div class="figure-contents"><div class="mediaobject"><img src="media/10b31ca7f016ce921774f44c40fe884399373649.svg" alt="Staging workflow" /></div></div></div><br class="figure-break" /><p>
      <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/.github/workflows/merge-staging.yml" target="_top">This GitHub Action</a> brings changes from <code class="literal">master</code> to <code class="literal">staging-next</code> and from <code class="literal">staging-next</code> to <code class="literal">staging</code> every 6 hours.
     </p><div class="section"><div class="titlepage"><div><div><h3 class="title"><a id="submitting-changes-master-branch"></a>19.7.1. Master branch</h3></div></div></div><p>
       The <code class="literal">master</code> branch is the main development branch. It should only see non-breaking commits that do not cause mass rebuilds.
