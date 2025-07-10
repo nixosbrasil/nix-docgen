@@ -14,7 +14,6 @@ import logging
 import sys
 import shlex
 
-# Configuração básica de logging (será ajustada no main)
 logger = logging.getLogger("nix-docgen")
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
@@ -24,20 +23,20 @@ IS_VERBOSE = False
 
 def norm_branch(branch):
     """
-    Normaliza o nome do branch para uso em paths/IDs.
-    Substitui /, : por -
+    Normalizes the branch name for use in paths/IDs.
+    Replaces /, : with -
     """
     return branch.replace('/', '-').replace(':', '-')
 
 
 def run_subprocess(cmd, capture=True, **kwargs):
     """
-    Executa subprocess.run com stderr visível se IS_VERBOSE, senão suprime stderr.
-    Se capture=True, captura stdout, senão passa para sys.stdout.
-    Outros kwargs são repassados normalmente.
+    Runs subprocess.run with stderr visible if IS_VERBOSE, otherwise suppresses stderr.
+    If capture=True, captures stdout, otherwise passes to sys.stdout.
+    Other kwargs are passed normally.
     """
     cmd_str = [str(x) for x in cmd]
-    logger.debug(f"Executando comando: {shlex.join(cmd_str)}")
+    logger.debug(f"Running command: {shlex.join(cmd_str)}")
     if 'stderr' not in kwargs:
         kwargs['stderr'] = None if IS_VERBOSE else subprocess.PIPE
     if 'stdout' not in kwargs:
@@ -59,9 +58,9 @@ def build_rev_attribute(rev, attribute):
 
 def render_index_html(context):
     """
-    Renderiza o template index.html.jinja com o contexto fornecido.
-    :param context: dict com as variáveis para o template (ex: generated_at, branches)
-    :return: string com o HTML renderizado
+    Renders the index.html.jinja template with the provided context.
+    :param context: dict with variables for the template (e.g.: generated_at, branches)
+    :return: string with the rendered HTML
     """
     loader = jinja2.FileSystemLoader(str(SCRIPT_DIR))
     env = jinja2.Environment(loader=loader)
@@ -71,9 +70,9 @@ def render_index_html(context):
 
 def render_info_plist(rev):
     """
-    Renderiza o template Info.plist.jinja apenas com o parâmetro rev.
-    :param rev: string com o valor do campo rev
-    :return: string com o Info.plist renderizado
+    Renders the Info.plist.jinja template with only the rev parameter.
+    :param rev: string with the value for the rev field
+    :return: string with the rendered Info.plist
     """
     loader = jinja2.FileSystemLoader(str(SCRIPT_DIR))
     env = jinja2.Environment(loader=loader)
@@ -82,23 +81,24 @@ def render_info_plist(rev):
 
 
 def process_branch_list(branches):
-    logger.info(f"Processando lista de branches: {branches}")
+    logger.info(f"Processing branch list: {branches}")
     branches = set(branches)
     if 'stable' in branches:
-        logger.info("Substituindo 'stable' pelo branch estável configurado.")
+        logger.info("Replacing 'stable' with the configured stable branch.")
         branches.remove('stable')
-        branches.add('nixos-25.05')  # Aqui você pode automatizar a escolha do branch estável
+        # TODO: proper logic
+        branches.add('nixos-25.05')
     return branches
 
 def assert_equal(a, b):
-    assert a == b, f"[ASSERTION FAILED] Esperado: {b!r}, Obtido: {a!r} (Retornado pela função: {a!r})"
+    assert a == b, f"[ASSERTION FAILED] Expected: {b!r}, Got: {a!r} (Returned by function: {a!r})"
 
 assert_equal(process_branch_list(["a", "b"]), {"a", "b"})
 assert_equal('stable' not in process_branch_list(["a", "stable"]), True)
 
 def generate_zeal(branch: str, nixpkgs: Path, output_file: Path):
     """
-    Gera um docset Zeal/Dash a partir da árvore nixpkgs extraída, empacotando tudo em output_file (.tgz).
+    Generates a Zeal/Dash docset from the extracted nixpkgs tree, packaging everything into output_file (.tgz).
     """
     def remove_ansi_escape_codes(text):
         ansi_escape = re.compile(r'''
@@ -201,7 +201,6 @@ def generate_zeal(branch: str, nixpkgs: Path, output_file: Path):
         resources = contents / 'Resources'
         documents = resources / 'Documents'
         documents.mkdir(parents=True, exist_ok=True)
-        # Gera o index do Zeal/Dash (banco e HTML)
         index_db = resources / 'docSet.dsidx'
         output_html = documents / 'index.html'
         generate_zeal_index(
@@ -210,22 +209,19 @@ def generate_zeal(branch: str, nixpkgs: Path, output_file: Path):
             index_db=index_db,
             branch=branch
         )
-        # Copia Info.plist para dentro do docset
-        contents.mkdir(exist_ok=True)
         (contents / 'Info.plist').write_text(render_info_plist(branch), encoding='utf-8')
-        # Empacota tudo em tarball
         with tarfile.open(output_file, 'w:gz') as tar:
             tar.add(docset_root, arcname='nixpkgs.docset')
 
 def build_branches(branches):
     branches = process_branch_list(branches)
-    logger.info(f"Buildando branches: {branches}")
+    logger.info(f"Building branches: {branches}")
     target_dir = SCRIPT_DIR / 'target'
     if target_dir.exists():
         shutil.rmtree(target_dir)
     target_dir.mkdir(exist_ok=True)
     
-    logger.info(f"Gerando index.html em {target_dir / 'index.html'}")
+    logger.info(f"Generating index.html at {target_dir / 'index.html'}")
     context = {
         'generated_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         'branches': [{'name': norm_branch(b)} for b in branches]
@@ -234,7 +230,7 @@ def build_branches(branches):
 
     for branch in branches:
         norm = norm_branch(branch)
-        logger.info(f"Buildando branch: {branch} (normalizado: {norm})")
+        logger.info(f"Building branch: {branch} (normalized: {norm})")
 
         nixpkgs_docs = build_rev_attribute(branch, "htmlDocs.nixpkgsManual.x86_64-linux")
         nixos_docs = build_rev_attribute(branch, "htmlDocs.nixosManual.x86_64-linux")
@@ -256,16 +252,16 @@ def build_branches(branches):
 
 def main():
     global IS_VERBOSE
-    parser = argparse.ArgumentParser(description="Gera documentação e docsets para múltiplos branches do nixpkgs.")
+    parser = argparse.ArgumentParser(description="Generates documentation and docsets for multiple nixpkgs branches.")
     parser.add_argument(
         "branches",
         nargs='+',
-        help="Lista de branches ou revisões do nixpkgs para processar (ex: master release-23.05 23.11 ou 'stable')"
+        help="List of nixpkgs branches or revisions to process (e.g.: master release-23.05 23.11 or 'stable')"
     )
     parser.add_argument(
         "--verbose", "-v",
         action="store_true",
-        help="Ativa logging detalhado (DEBUG)"
+        help="Enable detailed logging (DEBUG)"
     )
     args = parser.parse_args()
     IS_VERBOSE = args.verbose
