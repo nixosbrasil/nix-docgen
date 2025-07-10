@@ -104,7 +104,8 @@ def generate_zeal(branch: str, output_file: Path):
         key = key.strip()
         value = value.strip()
         OBJECTS[key] = value
-        DB.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) values (?, ?, ?);', (key, kind, f"#{key}"))
+        print(kind, key, value)
+        DB.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) values (?, ?, ?);', (key, kind, value))
 
 
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -132,20 +133,44 @@ def generate_zeal(branch: str, output_file: Path):
 
         NIXOS_INDEX_FILE = output_file.parent / "nixos" / "index.html"
         NIXOS_INDEX = bs4.BeautifulSoup(NIXOS_INDEX_FILE.read_text())
-        for item in NIXOS_INDEX.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']):
-            if 'id' not in item:
-                continue
-            item_id = item['id']
-            register_section(DB, item.text, str(NIXOS_INDEX_FILE.relative_to(output_file.parent)) + "#" + str(item_id), kind='Section')
 
-        # TODO: generate index
+        DOC_NAME = "NixOS Manual"
+        SECTION_NAME = "Preface"
+        for section in NIXOS_INDEX.select_one('div.toc').findChildren():
+            if section.name == "dt":
+                outer_link = section.select_one("a")
+                if outer_link is None:
+                    continue
+                outer_link = str(NIXOS_INDEX_FILE.relative_to(output_file.parent).parent) + "/" + outer_link.attrs['href']
+                
+                SECTION_NAME = section.text
+                register_section(DB, f"{DOC_NAME} > {SECTION_NAME}", outer_link, kind="Section")
+            if section.name == "dd":
+                for item in section.select("span.chapter"):
+                    inner_link = item.find("a", recursive=True)
+                    inner_link = inner_link.attrs['href']
+                    inner_link = str(NIXOS_INDEX_FILE.relative_to(output_file.parent).parent) + "/" + inner_link
+                    register_section(DB, f"{DOC_NAME} > {SECTION_NAME} > {item.text}", inner_link, kind="Guide")
+
+        DOC_NAME = "NixOS Options"
+        NIXOS_OPTIONS_FILE = output_file.parent / "nixos" / "options.html"
+        NIXOS_OPTIONS = bs4.BeautifulSoup(NIXOS_OPTIONS_FILE.read_text())
+        for section in NIXOS_OPTIONS.select("a.term"):
+            option_name = section.text
+            outer_link = section
+            if outer_link is None:
+                continue
+            print(outer_link)
+            outer_link = str(NIXOS_OPTIONS_FILE.relative_to(output_file.parent).parent) + "/" + outer_link.attrs['href']
+            register_section(DB, f"{DOC_NAME} > {option_name}", outer_link, kind="Option")
+
         conn.commit()
         conn.close()
         (contents / 'Info.plist').write_text(render_info_plist(branch), encoding='utf-8')
         with tarfile.open(output_file, 'w:gz') as tar:
             shutil.copytree(output_file.parent / "nixpkgs", documents/"nixpkgs", symlinks=True)
             shutil.copytree(output_file.parent / "nixos", documents/"nixos", symlinks=True)
-            (output_file / "index.html").write_text("<h1>Foi</h1>")
+            # (documents / "index.html").write_text("<h1>Foi</h1>")
             tar.add(docset_root, arcname='nixpkgs.docset')
 
 def build_branches(branches):
