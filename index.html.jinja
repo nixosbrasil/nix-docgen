@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Available built documentation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakura.css/css/sakura.css" type="text/css">
+</head>
+<body>
+    <h1>nixpkgs/NixOS documentation</h1>
+    <p>Generated at {{ generated_at }}</p>
+    {% for branch in branches %}
+        <section id="branch-{{ branch.name }}">
+            <h1><b>Branch:</b> {{ branch.name }}</h1>
+            <ul>
+                <li><a href="{{ branch.name }}/nixpkgs/manual.html">nixpkgs manual</a></li>
+                <li><a href="{{ branch.name }}/nixpkgs/nixpkgs-manual.epub">nixpkgs manual (epub)</a></li>
+                <li><a href="{{ branch.name }}/nixos/index.html">NixOS documentation</a></li>
+                <li><a href="{{ branch.name }}/nixos/options.html">NixOS options</a></li>
+                <li><a href="{{ branch.name }}/nixos/release-notes.html">NixOS release notes</a></li>
+                <li><a href="{{ branch.name }}/nixpkgs.docset.tgz">Zeal/Dash docset</a></li>
+            </ul>
+        </section>
+    {% endfor %}
+</body>
+</html>
