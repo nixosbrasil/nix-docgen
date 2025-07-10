@@ -1,0 +1,10 @@
+[project]
+name = "nix-docgen"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "beautifulsoup4>=4.13.4",
+    "jinja2>=3.1.6",
+]
