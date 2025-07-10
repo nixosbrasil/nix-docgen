@@ -131,8 +131,30 @@ def generate_zeal(branch: str, output_file: Path):
         DB.execute('CREATE TABLE searchIndex(id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);')
         DB.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);')
 
+        NIXPKGS_INDEX_FILE = output_file.parent / "nixpkgs" / "index.html" # manual.html is renamed
+        NIXPKGS_INDEX = bs4.BeautifulSoup(NIXPKGS_INDEX_FILE.read_text())
+        DOC_NAME = "Nixpkgs Manual"
+        SECTION_NAME = "Preface"
+        for section in NIXPKGS_INDEX.select_one('div.toc').findChildren():
+            if section.name == "dt":
+                outer_link = section.select_one("a")
+                if outer_link is None:
+                    continue
+                outer_link = str(NIXPKGS_INDEX_FILE.relative_to(output_file.parent).parent) + "/" + outer_link.attrs['href']
+                
+                SECTION_NAME = section.text
+                register_section(DB, f"{DOC_NAME} > {SECTION_NAME}", outer_link, kind="Section")
+            if section.name == "dd":
+                for item in section.select("span.chapter"):
+                    inner_link = item.find("a", recursive=True)
+                    inner_link = inner_link.attrs['href']
+                    inner_link = str(NIXPKGS_INDEX_FILE.relative_to(output_file.parent).parent) + "/" + inner_link
+                    register_section(DB, f"{DOC_NAME} > {SECTION_NAME} > {item.text}", inner_link, kind="Guide")
+
+
         NIXOS_INDEX_FILE = output_file.parent / "nixos" / "index.html"
         NIXOS_INDEX = bs4.BeautifulSoup(NIXOS_INDEX_FILE.read_text())
+        
 
         DOC_NAME = "NixOS Manual"
         SECTION_NAME = "Preface"
@@ -205,6 +227,9 @@ def build_branches(branches):
                 destination = branch_target / item.relative_to(doc_dir)
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.symlink_to(item)
+        NIXPKGS_MANUAL: Path = branch_target / "nixpkgs" / "manual.html"
+        if NIXPKGS_MANUAL.exists():
+            NIXPKGS_MANUAL.rename(NIXPKGS_MANUAL.parent / "index.html")
         generate_zeal(
             branch, branch_target / "nixpkgs.docset.tgz"
         )
