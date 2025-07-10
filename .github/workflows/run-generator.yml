@@ -29,7 +29,10 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - run: uv run main.py nixos-unstable stable master
+      - name: Generate assets
+        env:
+          BASE_URL: https://nixosbrasil.github.io/nix-docgen
+        run: uv run main.py nixos-unstable stable master --base-url "$BASE_URL"
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
