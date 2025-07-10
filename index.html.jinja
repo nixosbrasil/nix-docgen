@@ -13,12 +13,12 @@
         <section id="branch-{{ branch.name }}">
             <h1><b>Branch:</b> {{ branch.name }}</h1>
             <ul>
-                <li><a href="{{ branch.name }}/nixpkgs/manual.html">nixpkgs manual</a></li>
-                <li><a href="{{ branch.name }}/nixpkgs/nixpkgs-manual.epub">nixpkgs manual (epub)</a></li>
-                <li><a href="{{ branch.name }}/nixos/index.html">NixOS documentation</a></li>
-                <li><a href="{{ branch.name }}/nixos/options.html">NixOS options</a></li>
-                <li><a href="{{ branch.name }}/nixos/release-notes.html">NixOS release notes</a></li>
-                <li><a href="{{ branch.name }}/nixpkgs.docset.tgz">Zeal/Dash docset</a></li>
+                <li><a href="{{prefix}}{{ branch.name }}/nixpkgs/manual.html">nixpkgs manual</a></li>
+                <li><a href="{{prefix}}{{ branch.name }}/nixpkgs/nixpkgs-manual.epub">nixpkgs manual (epub)</a></li>
+                <li><a href="{{prefix}}{{ branch.name }}/nixos/index.html">NixOS documentation</a></li>
+                <li><a href="{{prefix}}{{ branch.name }}/nixos/options.html">NixOS options</a></li>
+                <li><a href="{{prefix}}{{ branch.name }}/nixos/release-notes.html">NixOS release notes</a></li>
+                <li><a href="{{prefix}}{{ branch.name }}/docset.xml">Zeal/Dash docset</a></li>
             </ul>
         </section>
     {% endfor %}
