@@ -104,7 +104,7 @@ def generate_zeal(branch: str, output_file: Path):
         key = key.strip()
         value = value.strip()
         OBJECTS[key] = value
-        print(kind, key, value)
+        logger.debug(f"register_section: {kind} {key} {value}")
         DB.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) values (?, ?, ?);', (key, kind, value))
 
 
@@ -182,7 +182,6 @@ def generate_zeal(branch: str, output_file: Path):
             outer_link = section
             if outer_link is None:
                 continue
-            print(outer_link)
             outer_link = str(NIXOS_OPTIONS_FILE.relative_to(output_file.parent).parent) + "/" + outer_link.attrs['href']
             register_section(DB, f"{DOC_NAME} > {option_name}", outer_link, kind="Option")
 
