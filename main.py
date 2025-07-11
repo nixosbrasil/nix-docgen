@@ -25,6 +25,40 @@ SCRIPT_DIR = Path(__file__).parent.resolve()
 IS_VERBOSE = False
 BASE_URL = "http://localhost:1313"
 
+class ColoredFormatter(logging.Formatter):
+    """Custom formatter with colors for different log levels"""
+    
+    COLORS = {
+        'DEBUG': '\033[1m',    # Bold
+        'INFO': '\033[34m',    # Blue
+        'WARNING': '\033[33m', # Yellow
+        'ERROR': '\033[31m',   # Red
+        'CRITICAL': '\033[41;37m' # Red background, white text
+    }
+    RESET = '\033[0m'
+    
+    LEVEL_SYMBOLS = {
+        'DEBUG': 'D',
+        'INFO': '*',
+        'WARNING': '!',
+        'ERROR': 'X',
+        'CRITICAL': 'C'
+    }
+    
+    def format(self, record):
+        color = self.COLORS.get(record.levelname, '')
+        symbol = self.LEVEL_SYMBOLS.get(record.levelname, record.levelname[0])
+        record.levelname = f"{color}{symbol}{self.RESET}"
+        return super().format(record)
+
+
+def copy_deep(origin: Path, destination: Path):
+    """Copy directory tree from origin to destination using shutil.copy for files"""
+    current_copystat = shutil.copystat
+    shutil.copystat = lambda x, y: None
+    shutil.copytree(origin, destination, copy_function=shutil.copy)
+    shutil.copystat = current_copystat
+
 
 def norm_branch(branch):
     """
@@ -189,8 +223,8 @@ def generate_zeal(branch: str, output_file: Path):
         conn.close()
         (contents / 'Info.plist').write_text(render_info_plist(branch), encoding='utf-8')
         with tarfile.open(output_file, 'w:gz') as tar:
-            shutil.copytree(output_file.parent / "nixpkgs", documents/"nixpkgs", symlinks=True)
-            shutil.copytree(output_file.parent / "nixos", documents/"nixos", symlinks=True)
+            copy_deep(output_file.parent / "nixpkgs", documents/"nixpkgs")
+            copy_deep(output_file.parent / "nixos", documents/"nixos")
             # (documents / "index.html").write_text("<h1>Foi</h1>")
             tar.add(docset_root, arcname='nixpkgs.docset')
 
@@ -220,12 +254,8 @@ def build_branches(branches):
         (branch_target / "nixpkgs.docset.xml").write_text(render_docset_xml(branch))
         for source in [nixpkgs_docs, nixos_docs]:
             doc_dir = (source / "share" / "doc")
-            for item in doc_dir.glob('**/*'):
-                if item.is_dir():
-                    continue
-                destination = branch_target / item.relative_to(doc_dir)
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                destination.symlink_to(item)
+            for item in doc_dir.iterdir():
+                copy_deep(item, branch_target / item.name)
         NIXPKGS_MANUAL: Path = branch_target / "nixpkgs" / "manual.html"
         if NIXPKGS_MANUAL.exists():
             NIXPKGS_MANUAL.rename(NIXPKGS_MANUAL.parent / "index.html")
@@ -258,8 +288,11 @@ def main():
     BASE_URL = args.base_url
     logging.basicConfig(
         level=logging.DEBUG if args.verbose else logging.INFO,
-        format='[%(levelname)s] %(message)s'
+        format='%(levelname)s%(name)s: %(message)s'
     )
+    # Apply colored formatter
+    for handler in logging.root.handlers:
+        handler.setFormatter(ColoredFormatter('%(levelname)s\033[4m%(name)s\033[0m: %(message)s'))
     if not args.branches:
         parser.print_help()
         return
