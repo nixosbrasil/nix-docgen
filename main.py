@@ -218,7 +218,7 @@ def build_branches(branches):
         nixos_docs = build_rev_attribute(branch, "htmlDocs.nixosManual.x86_64-linux")
         branch_target = target_dir / norm
         branch_target.mkdir(parents=True, exist_ok=True)
-        (branch_target / "docset.xml").write_text(render_docset_xml(branch))
+        (branch_target / "nixpkgs.docset.xml").write_text(render_docset_xml(branch))
         for source in [nixpkgs_docs, nixos_docs]:
             doc_dir = (source / "share" / "doc")
             for item in doc_dir.glob('**/*'):
