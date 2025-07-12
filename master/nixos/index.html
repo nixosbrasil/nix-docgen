@@ -9600,7 +9600,7 @@ pkgs.testers.runNixOSTest {
 </code></pre><p><code class="literal">runNixOSTest</code> returns a derivation that runs the test.</p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-nodes" class="title" >Configuring the nodes   </h3>  </div> </div></div><p>There are a few special NixOS options for test VMs:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">virtualisation.memorySize</code></span></dt><dd><p>The memory of the VM in megabytes.</p></dd><dt><span class="term"><code class="literal">virtualisation.vlans</code></span></dt><dd><p>The virtual networks to which the VM is connected. See
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-nodes" class="title" >Configuring the nodes   </h3>  </div> </div></div><p>There are a few special NixOS options for test VMs:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">virtualisation.memorySize</code></span></dt><dd><p>The memory of the VM in MiB (1024×1024 bytes).</p></dd><dt><span class="term"><code class="literal">virtualisation.vlans</code></span></dt><dd><p>The virtual networks to which the VM is connected. See
 <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/nat.nix"  target="_top"><code class="literal">nat.nix</code></a>
 for an example.</p></dd><dt><span class="term"><code class="literal">virtualisation.writableStore</code></span></dt><dd><p>By default, the Nix store in the VM is not writable. If you enable
 this option, a writable union file system is mounted on top of the

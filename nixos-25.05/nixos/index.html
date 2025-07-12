@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <title>NixOS Manual</title>
 <link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" />
-<script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><script src="./anchor.min.js" type="text/javascript"></script><script src="./anchor-use.js" type="text/javascript"></script><script src="/nix/store/j1ns4l82vc49k50w8kzy7y1kkf6zqlwj-nixos-manual-html/share/doc/nixos/index-redirects.js" type="text/javascript"></script>
+<script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><script src="./anchor.min.js" type="text/javascript"></script><script src="./anchor-use.js" type="text/javascript"></script><script src="/nix/store/ivzr8wcc6zbwfbbhi28j02rgn0v5x7vh-nixos-manual-html/share/doc/nixos/index-redirects.js" type="text/javascript"></script>
  <meta name="generator" content="nixos-render-docs 25.05pre-git" />
  <link rel="home" href="index.html" title="NixOS Manual" />
  <link rel="next" href="options.html" title="Appendix A. Configuration Options" />
@@ -2637,7 +2637,7 @@ delete a file, where <code class="literal">delete_token</code> and <code class="
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-pict-rs-missing" class="title" style="clear: both">Missing   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Configuring the secure-api-key is not included yet. The envisioned basic use case is consumption on localhost by other services without exposing the service to the internet.</p></li></ul></div>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-nextcloud" class="title" >Nextcloud   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-nextcloud-basic-usage">Basic usage</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-pitfalls-during-upgrade">Common problems</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-httpd">Using an alternative webserver as reverse-proxy (e.g. <code class="literal">httpd</code>)</a> </span></dt><dt> <span class="section">  <a href="index.html#installing-apps-php-extensions-nextcloud">Installing Apps and PHP extensions</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-known-warnings">Known warnings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-maintainer-info">Maintainer information</a> </span></dt> </dl></div><p><a class="link" href="https://nextcloud.com/"  target="_top">Nextcloud</a> is an open-source,
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-nextcloud" class="title" >Nextcloud   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-nextcloud-basic-usage">Basic usage</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-occ"><code class="literal">nextcloud-occ</code></a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-pitfalls-during-upgrade">Common problems</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-httpd">Using an alternative webserver as reverse-proxy (e.g. <code class="literal">httpd</code>)</a> </span></dt><dt> <span class="section">  <a href="index.html#installing-apps-php-extensions-nextcloud">Installing Apps and PHP extensions</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-known-warnings">Known warnings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-nextcloud-maintainer-info">Maintainer information</a> </span></dt> </dl></div><p><a class="link" href="https://nextcloud.com/"  target="_top">Nextcloud</a> is an open-source,
 self-hostable cloud platform. The server setup can be automated using
 <a class="link" href="options.html#opt-services.nextcloud.enable"  >services.nextcloud</a>. A
 desktop client is packaged at <code class="literal">pkgs.nextcloud-client</code>.</p><p>The current default by NixOS is <code class="literal">nextcloud31</code> which is also the latest
@@ -2674,6 +2674,25 @@ to ensure that changes can be applied by changing the module’s options.</p><p>
 it’s needed to add them to
 <a class="link" href="options.html#opt-services.nextcloud.settings.trusted_domains"  ><code class="literal">services.nextcloud.settings.trusted_domains</code></a>.</p><p>Auto updates for Nextcloud apps can be enabled using
 <a class="link" href="options.html#opt-services.nextcloud.autoUpdateApps.enable"  ><code class="literal">services.nextcloud.autoUpdateApps</code></a>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-nextcloud-occ" class="title" style="clear: both"><code class="literal">nextcloud-occ</code>   </h2>  </div> </div></div><p>The management command <a class="link" href="https://docs.nextcloud.com/server/stable/admin_manual/occ_command.html"  target="_top"><code class="literal">occ</code></a> can be
+invoked by using the <code class="literal">nextcloud-occ</code> wrapper that’s globally available on a system with Nextcloud enabled.</p><p>It requires elevated permissions to become the <code class="literal">nextcloud</code> user. Given the way the privilege
+escalation is implemented, parameters passed via the environment to Nextcloud (e.g. <code class="literal">OC_PASS</code>) are
+currently ignored.</p><p>Custom service units that need to run <code class="literal">nextcloud-occ</code> either need elevated privileges
+or the systemd configuration from <code class="literal">nextcloud-setup.service</code> (recommended):</p><pre><code class="programlisting nix">{ config, ... }: {
+  systemd.services.my-custom-service = {
+    script = &#x27;&#x27;
+      nextcloud-occ …
+    &#x27;&#x27;;
+    serviceConfig = {
+      inherit (config.systemd.services.nextcloud-cron.serviceConfig)
+        User
+        LoadCredential
+        KillMode;
+    };
+  };
+}
+</code></pre><p>Please note that the options required are subject to change. Please make sure to read the
+release notes when upgrading.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-nextcloud-pitfalls-during-upgrade" class="title" style="clear: both">Common problems   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p><span class="strong"><strong>General notes.</strong></span>
 Unfortunately Nextcloud appears to be very stateful when it comes to
 managing its own configuration. The config file lives in the home directory
