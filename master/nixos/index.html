@@ -4232,6 +4232,7 @@ the same time.</p><div class="section"> <div class="titlepage">  <div>   <div>  
 which describes all settings.</p><p>Example configuration:</p><pre><code class="programlisting nix">{
   services.pihole-ftl = {
     enable = true;
+    openFirewallDNS = true;
     openFirewallDHCP = true;
     queryLogDeleter.enable = true;
     lists = [
