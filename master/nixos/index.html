@@ -9814,6 +9814,36 @@ See <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#function-libr
  <dl class="variablelist">
 <dt>
  <span class="term">
+ <a id="test-opt-enableDebugHook"></a><a class="term" href="index.html#test-opt-enableDebugHook"><code class="option">enableDebugHook</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Halt test execution after any test fail and provide the possibility to
+hook into the sandbox to connect with either the test driver via
+<code class="literal">telnet localhost 4444</code> or with the VMs via SSH and vsocks (see also
+<code class="literal">sshBackdoor.enable</code>).</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">false</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="test-opt-enableOCR"></a><a class="term" href="index.html#test-opt-enableOCR"><code class="option">enableOCR</code>
   </a>
  </span>
@@ -10460,7 +10490,7 @@ nixos/lib/testing/driver.nix
 boolean</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">false</code></p>
+<code class="literal">config.enableDebugHook</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -10546,6 +10576,32 @@ nixos/lib/testing/testScript.nix
 </dd>
  </dl>
 </div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-test-sandbox-breakpoint" class="title" >Accessing VMs in the sandbox with SSH   </h3>  </div> </div></div><p>As explained in <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test machines" >the section called “SSH Access for test machines”</a>, it’s possible to configure an
+SSH backdoor based on AF_VSOCK. This can be used to SSH into a VM of a running
+build in a sandbox.</p><p>This can be done when something in the test fails, e.g.</p><pre><code class="programlisting nix">{
+  nodes.machine = {};
+
+  sshBackdoor.enable = true;
+  enableDebugHook = true;
+
+  testScript = &#x27;&#x27;
+    start_all()
+    machine.succeed(&quot;false&quot;) # this will fail
+  &#x27;&#x27;;
+}
+</code></pre><p>For the AF_VSOCK feature to work, <code class="literal">/dev/vhost-vsock</code> is needed in the sandbox
+which can be done with e.g.</p><pre><code class="programlisting">nix-build -A nixosTests.foo --option sandbox-paths /dev/vhost-vsock
+</code></pre><p>This will halt the test execution on a test-failure and print instructions
+on how to enter the sandbox shell of the VM test. Inside, one can log into
+e.g. <code class="literal">machine</code> with</p><pre><code class="programlisting">ssh -F ./ssh_config vsock/3
+</code></pre><p>As described in <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test machines" >the section called “SSH Access for test machines”</a>, the numbers for vsock start at
+<code class="literal">3</code> instead of <code class="literal">1</code>. So the first VM in the network (sorted alphabetically) can
+be accessed with <code class="literal">vsock/3</code>.</p><p>Alternatively, it’s possible to explicitly set a breakpoint with
+<code class="literal">debug.breakpoint()</code>. This also has the benefit, that one can step through
+<code class="literal">testScript</code> with <code class="literal">pdb</code> like this:</p><pre><code class="programlisting">$ sudo /nix/store/eeeee-attach &lt;id&gt;
+bash# telnet 127.0.0.1 4444
+pdb$ …
+</code></pre>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-running-nixos-tests" class="title" style="clear: both">Running Tests   </h2>  </div> </div></div><p>You can run tests using <code class="literal">nix-build</code>. For example, to run the test
