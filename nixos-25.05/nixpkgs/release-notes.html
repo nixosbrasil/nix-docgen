@@ -136,8 +136,8 @@ containing the final arguments including overrides.
 This allows packaging configuration to be overridden in a consistent manner by
 providing an alternative to <code class="literal">rec {}</code> syntax.</p></li><li class="listitem"><p>Caddy can now be built with plugins by using <code class="literal">caddy.withPlugins</code>, a <code class="literal">passthru</code> function that accepts an attribute set as a parameter. The <code class="literal">plugins</code> argument represents a list of Caddy plugins, with each Caddy plugin being a versioned module. The <code class="literal">hash</code> argument represents the <code class="literal">vendorHash</code> of the resulting Caddy source code with the plugins added.</p><p>Example:</p><pre><code class="programlisting nix">let
   pkgs = import &lt;nixpkgs&gt; { };
-in
 
+in
 pkgs.caddy.withPlugins {
   plugins = [
     # tagged upstream
