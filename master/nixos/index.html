@@ -6028,12 +6028,14 @@ an existing, securely configured Postfix setup, as it does not automatically con
 {
   services.postfix = {
     enable = true;
-    relayDomains = [ &quot;hash:/var/lib/mailman/data/postfix_domains&quot; ];
-    sslCert = config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/full.pem&quot;;
-    sslKey = config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/key.pem&quot;;
-    config = {
+    settings.main = {
       transport_maps = [ &quot;hash:/var/lib/mailman/data/postfix_lmtp&quot; ];
       local_recipient_maps = [ &quot;hash:/var/lib/mailman/data/postfix_lmtp&quot; ];
+      relay_domains = [ &quot;hash:/var/lib/mailman/data/postfix_domains&quot; ];
+      smtpd_tls_chain_files = [
+        config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/full.pem&quot;
+        config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/key.pem&quot;
+      ];
     };
   };
   services.mailman = {
