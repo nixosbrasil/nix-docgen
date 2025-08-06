@@ -6033,8 +6033,8 @@ an existing, securely configured Postfix setup, as it does not automatically con
       local_recipient_maps = [ &quot;hash:/var/lib/mailman/data/postfix_lmtp&quot; ];
       relay_domains = [ &quot;hash:/var/lib/mailman/data/postfix_domains&quot; ];
       smtpd_tls_chain_files = [
-        config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/full.pem&quot;
-        config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/key.pem&quot;
+        (config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/full.pem&quot;)
+        (config.security.acme.certs.&quot;lists.example.org&quot;.directory + &quot;/key.pem&quot;)
       ];
     };
   };
@@ -11041,11 +11041,18 @@ The <code class="literal">submodule</code> is pre-loaded with two modules:</p><d
     };
   };
 }
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-portability" class="title" style="clear: both">Portability   </h2>  </div> </div></div><p>It is possible to write service modules that are portable. This is done by either avoiding the <code class="literal">systemd</code> option tree, or by defining process-manager-specific definitions in an optional way:</p><pre><code class="programlisting nix">{ config, options, lib, ... }: {
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-portability" class="title" style="clear: both">Portability   </h2>  </div> </div></div><p>It is possible to write service modules that are portable. This is done by either avoiding the <code class="literal">systemd</code> option tree, or by defining process-manager-specific definitions in an optional way:</p><pre><code class="programlisting nix">{
+  config,
+  options,
+  lib,
+  ...
+}:
+{
   _class = &quot;service&quot;;
   config = {
     process.argv = [ (lib.getExe config.foo.program) ];
-  } // lib.optionalAttrs (options?systemd) {
+  }
+  // lib.optionalAttrs (options ? systemd) {
     # ... systemd-specific definitions ...
   };
 }
