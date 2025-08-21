@@ -11032,7 +11032,7 @@ $ nix-build &#x27;&lt;nixpkgs&gt;&#x27; -A nixos-install
 </code></pre><p>To start a login shell in the new NixOS installation in <code class="literal">/mnt</code>:</p><pre><code class="programlisting ShellSession">$ nix-build &#x27;&lt;nixpkgs&gt;&#x27; -A nixos-enter
 # ./result/bin/nixos-enter
 </code></pre>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="modular-services" class="title" >Modular Services   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#modular-service-portability">Portability</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-composition">Composition and Ownership</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-migration">Migration</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-options-portable">Portable Service Options</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-options-systemd">Systemd-specific Service Options</a> </span></dt> </dl></div><p>Status: in development. This functionality is new in NixOS 25.11, and significant changes should be expected. We’d love to hear your feedback in <a class="link" href="https://github.com/NixOS/nixpkgs/pull/372170"  target="_top">https://github.com/NixOS/nixpkgs/pull/372170</a></p><p>Traditionally, NixOS services were defined using sets of options <span class="emphasis"><em>in</em></span> modules, not <span class="emphasis"><em>as</em></span> modules. This made them non-modular, resulting in problems with composability, reuse, and portability.</p><p>A configuration management framework is an application of <code class="literal">evalModules</code> with the <code class="literal">class</code> and <code class="literal">specialArgs</code> input attribute set to particular values.
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="modular-services" class="title" >Modular Services   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#modular-service-portability">Portability</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-composition">Composition and Ownership</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-migration">Migration</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-review">Writing and Reviewing a Modular Service</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-options-portable">Portable Service Options</a> </span></dt><dt> <span class="section">  <a href="index.html#modular-service-options-systemd">Systemd-specific Service Options</a> </span></dt> </dl></div><p>Status: in development. This functionality is new in NixOS 25.11, and significant changes should be expected. We’d love to hear your feedback in <a class="link" href="https://github.com/NixOS/nixpkgs/pull/372170"  target="_top">https://github.com/NixOS/nixpkgs/pull/372170</a></p><p>Traditionally, NixOS services were defined using sets of options <span class="emphasis"><em>in</em></span> modules, not <span class="emphasis"><em>as</em></span> modules. This made them non-modular, resulting in problems with composability, reuse, and portability.</p><p>A configuration management framework is an application of <code class="literal">evalModules</code> with the <code class="literal">class</code> and <code class="literal">specialArgs</code> input attribute set to particular values.
 NixOS is such a configuration management framework, and so are <a class="link" href="https://github.com/nix-community/home-manager"  target="_top">Home Manager</a> and <a class="link" href="https://github.com/lnl7/nix-darwin"  target="_top"><code class="literal">nix-darwin</code></a>.</p><p>The service management component of a configuration management framework is the set of module options that connects Nix expressions with the underlying service (or process) manager.
 For NixOS this is the module wrapping <a class="link" href="https://systemd.io/"  target="_top"><code class="literal">systemd</code></a>, on <code class="literal">nix-darwin</code> this is the module wrapping <a class="link" href="https://en.wikipedia.org/wiki/Launchd"  target="_top"><code class="literal">launchd</code></a>.</p><p>A <span class="emphasis"><em>modular service</em></span> is a <a class="link" href="https://nixos.org/manual/nixpkgs/stable/index.html#module-system"  target="_top">module</a> that defines values for a core set of options declared in the service management component of a configuration management framework, including which program to run.
 Since it’s a module, it can be composed with other modules via <code class="literal">imports</code> to extend its functionality.</p><p>NixOS provides two options into which such modules can be plugged:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">system.services.&lt;name&gt;</code></p></li><li class="listitem"><p>an option for user services (TBD)</p></li></ul></div><p>Crucially, these options have the type <a class="link" href="index.html#sec-option-types-composed" title="Composed types" ><code class="literal">attrsOf</code></a> <a class="link" href="index.html#sec-option-types-submodule" title="Submodule types" ><code class="literal">submodule</code></a>.
@@ -11069,6 +11069,7 @@ This can be achieved in two ways:</p><div class="orderedlist"><ol class="ordered
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-migration" class="title" style="clear: both">Migration   </h2>  </div> </div></div><p>Many services could be migrated to the modular service system, but even when the modular service system is mature, it is not necessary to migrate all services.
 For instance, many system-wide services are a mandatory part of a desktop system, and it doesn’t make sense to have multiple instances of them.
 Moving their logic into separate Nix files may still be beneficial for the efficient evaluation of configurations that don’t use those services, but that is a rather minor benefit, unless modular services potentially become the standard way to define services.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-review" class="title" style="clear: both">Writing and Reviewing a Modular Service   </h2>  </div> </div></div><p>Refer to the contributor documentation in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/README-modular-services.md"  target="_top"><code class="literal">nixos/README-modular-services.md</code></a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-options-portable" class="title" style="clear: both">Portable Service Options   </h2>  </div> </div></div><div class="variablelist">
 <a id="service-options"></a>
  <dl class="variablelist">
@@ -11111,6 +11112,27 @@ lazy attribute set of raw value</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/lib/modules.nix" target="_top">
 &lt;nixpkgs/lib/modules.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-meta"></a><a class="term" href="index.html#service-opt-meta"><code class="option">meta</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The maintainers of this module. This is currently a placeholder option whose value may not evaluate to anything useful until https://github.com/NixOS/nixpkgs/pull/431450 is available and used here.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+unspecified value</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/service.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/service.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -11211,6 +11233,27 @@ lazy attribute set of raw value</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/lib/modules.nix" target="_top">
 &lt;nixpkgs/lib/modules.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-meta"></a><a class="term" href="index.html#systemd-service-opt-meta"><code class="option">meta</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The maintainers of this module. This is currently a placeholder option whose value may not evaluate to anything useful until https://github.com/NixOS/nixpkgs/pull/431450 is available and used here.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+unspecified value</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/service.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/service.nix&gt;
 </a></code>
 </td></tr>
 </table>

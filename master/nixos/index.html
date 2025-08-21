@@ -11129,6 +11129,160 @@ lazy attribute set of raw value</p>
 </dd>
 <dt>
  <span class="term">
+ <a id="service-opt-configData"></a><a class="term" href="index.html#service-opt-configData"><code class="option">configData</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Configuration data files for the service</p><p>These files are made available to the service and can be updated without restarting the service process, enabling configuration reloading.
+The service manager implementation determines how these files are exposed to the service (e.g., via a specific directory path).
+This path is available in the <code class="literal">path</code> sub-option for each <code class="literal">configData.&lt;name&gt;</code> entry.</p><p>This is particularly useful for services that support configuration reloading via signals (e.g., SIGHUP) or which pick up changes automatically, so that no downtime is required in order to reload the service.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+lazy attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  &quot;server.conf&quot; = {
+    text = &#x27;&#x27;
+      port = 8080
+      workers = 4
+    &#x27;&#x27;;
+  };
+  &quot;ssl/cert.pem&quot; = {
+    source = ./cert.pem;
+  };
+}
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-configData._name_.enable"></a><a class="term" href="index.html#service-opt-configData._name_.enable"><code class="option">configData.&lt;name&gt;.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether this configuration file should be generated.
+This option allows specific configuration files to be disabled.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-configData._name_.name"></a><a class="term" href="index.html#service-opt-configData._name_.name"><code class="option">configData.&lt;name&gt;.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Name of the configuration file (relative to the service’s configuration directory). Defaults to the attribute name.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-configData._name_.path"></a><a class="term" href="index.html#service-opt-configData._name_.path"><code class="option">configData.&lt;name&gt;.path</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The actual path where this configuration file will be available.
+This is determined by the service manager implementation.</p><p>On NixOS it is an absolute path.
+Other service managers may provide a relative path, in order to be unprivileged and/or relocatable.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string <span class="emphasis"><em>(read only)</em></span></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-configData._name_.source"></a><a class="term" href="index.html#service-opt-configData._name_.source"><code class="option">configData.&lt;name&gt;.source</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Path of the source file.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+absolute path</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-configData._name_.text"></a><a class="term" href="index.html#service-opt-configData._name_.text"><code class="option">configData.&lt;name&gt;.text</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Text content of the configuration file.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or strings concatenated with “\n”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="service-opt-meta"></a><a class="term" href="index.html#service-opt-meta"><code class="option">meta</code>
   </a>
  </span>
@@ -11244,6 +11398,160 @@ lazy attribute set of raw value</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/lib/modules.nix" target="_top">
 &lt;nixpkgs/lib/modules.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-configData"></a><a class="term" href="index.html#systemd-service-opt-configData"><code class="option">configData</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Configuration data files for the service</p><p>These files are made available to the service and can be updated without restarting the service process, enabling configuration reloading.
+The service manager implementation determines how these files are exposed to the service (e.g., via a specific directory path).
+This path is available in the <code class="literal">path</code> sub-option for each <code class="literal">configData.&lt;name&gt;</code> entry.</p><p>This is particularly useful for services that support configuration reloading via signals (e.g., SIGHUP) or which pick up changes automatically, so that no downtime is required in order to reload the service.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+lazy attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">{ }</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
+  &quot;server.conf&quot; = {
+    text = &#x27;&#x27;
+      port = 8080
+      workers = 4
+    &#x27;&#x27;;
+  };
+  &quot;ssl/cert.pem&quot; = {
+    source = ./cert.pem;
+  };
+}
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-configData._name_.enable"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.enable"><code class="option">configData.&lt;name&gt;.enable</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether this configuration file should be generated.
+This option allows specific configuration files to be disabled.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-configData._name_.name"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.name"><code class="option">configData.&lt;name&gt;.name</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Name of the configuration file (relative to the service’s configuration directory). Defaults to the attribute name.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-configData._name_.path"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.path"><code class="option">configData.&lt;name&gt;.path</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>The actual path where this configuration file will be available.
+This is determined by the service manager implementation.</p><p>On NixOS it is an absolute path.
+Other service managers may provide a relative path, in order to be unprivileged and/or relocatable.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+string <span class="emphasis"><em>(read only)</em></span></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-configData._name_.source"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.source"><code class="option">configData.&lt;name&gt;.source</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Path of the source file.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+absolute path</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="systemd-service-opt-configData._name_.text"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.text"><code class="option">configData.&lt;name&gt;.text</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Text content of the configuration file.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+null or strings concatenated with “\n”</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">null</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
+&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
 </a></code>
 </td></tr>
 </table>
