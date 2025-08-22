@@ -974,7 +974,7 @@ including them from <code class="literal">configuration.nix</code>, e.g.:</p><pr
 {
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
   environment.systemPackages = [ pkgs.vim ];
 }
 </code></pre><p>Note that both <code class="literal">configuration.nix</code> and <code class="literal">kde.nix</code> define the option
@@ -1482,7 +1482,7 @@ also specify a driver manually, e.g.</p><pre><code class="programlisting nix">{ 
 </code></pre><p>to enable X.org’s <code class="literal">xf86-video-r128</code> driver.</p><p>You also need to enable at least one desktop or window manager.
 Otherwise, you can only log into a plain undecorated <code class="literal">xterm</code> window.
 Thus you should pick one or more of the following lines:</p><pre><code class="programlisting nix">{
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
   services.desktopManager.gnome.enable = true;
   services.xserver.desktopManager.mate.enable = true;
@@ -7604,10 +7604,10 @@ working system by importing the <a class="link" href="index.html#sec-profile-min
 <a class="link" href="index.html#sec-profile-clone-config" title="Clone Config" >Clone Config</a> profiles, and
 setting appropriate configuration options that are useful inside a container
 context, like <a class="xref" href="options.html#opt-boot.isContainer"  ><code class="option">boot.isContainer</code></a>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-graphical" class="title" style="clear: both">Graphical   </h2>  </div> </div></div><p>Defines a NixOS configuration with the Plasma 5 desktop. It’s used by the
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-graphical" class="title" style="clear: both">Graphical   </h2>  </div> </div></div><p>Defines a NixOS configuration with the Plasma 6 desktop. It’s used by the
 graphical installation CD.</p><p>It sets <a class="xref" href="options.html#opt-services.xserver.enable"  ><code class="option">services.xserver.enable</code></a>,
 <a class="xref" href="options.html#opt-services.displayManager.sddm.enable"  ><code class="option">services.displayManager.sddm.enable</code></a>,
-<a class="xref" href="options.html#opt-services.xserver.desktopManager.plasma5.enable"  ><code class="option">services.xserver.desktopManager.plasma5.enable</code></a>,
+<a class="xref" href="options.html#opt-services.desktopManager.plasma6.enable"  ><code class="option">services.desktopManager.plasma6.enable</code></a>,
 and <a class="xref" href="options.html#opt-services.libinput.enable"  ><code class="option">services.libinput.enable</code></a> to true. It also
 includes glxinfo and firefox in the system packages list.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-hardened" class="title" style="clear: both">Hardened   </h2>  </div> </div></div><p>A profile with most (vanilla) hardening options enabled by default,
@@ -11283,21 +11283,28 @@ null or strings concatenated with “\n”</p>
 </dd>
 <dt>
  <span class="term">
- <a id="service-opt-meta"></a><a class="term" href="index.html#service-opt-meta"><code class="option">meta</code>
+ <a id="service-opt-meta.maintainers"></a><a class="term" href="index.html#service-opt-meta.maintainers"><code class="option">meta.maintainers</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>The maintainers of this module. This is currently a placeholder option whose value may not evaluate to anything useful until https://github.com/NixOS/nixpkgs/pull/431450 is available and used here.</p>
+<p>List of maintainers of each module.
+This option should be defined at most once per module.</p><p>The option value is not a list of maintainers, but an attribute set that maps module file names to lists of maintainers.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-unspecified value</p>
+list of (maintainer)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">[ lib.maintainers.alice lib.maintainers.bob ]</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
 <tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/service.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/service.nix&gt;
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/modules/generic/meta-maintainers.nix" target="_top">
+&lt;nixpkgs/modules/generic/meta-maintainers.nix&gt;
 </a></code>
 </td></tr>
 </table>
@@ -11558,21 +11565,28 @@ null or strings concatenated with “\n”</p>
 </dd>
 <dt>
  <span class="term">
- <a id="systemd-service-opt-meta"></a><a class="term" href="index.html#systemd-service-opt-meta"><code class="option">meta</code>
+ <a id="systemd-service-opt-meta.maintainers"></a><a class="term" href="index.html#systemd-service-opt-meta.maintainers"><code class="option">meta.maintainers</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>The maintainers of this module. This is currently a placeholder option whose value may not evaluate to anything useful until https://github.com/NixOS/nixpkgs/pull/431450 is available and used here.</p>
+<p>List of maintainers of each module.
+This option should be defined at most once per module.</p><p>The option value is not a list of maintainers, but an attribute set that maps module file names to lists of maintainers.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-unspecified value</p>
+list of (maintainer)</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">[ lib.maintainers.alice lib.maintainers.bob ]</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
 <tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/service.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/service.nix&gt;
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/modules/generic/meta-maintainers.nix" target="_top">
+&lt;nixpkgs/modules/generic/meta-maintainers.nix&gt;
 </a></code>
 </td></tr>
 </table>
