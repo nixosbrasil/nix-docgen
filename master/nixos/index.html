@@ -1065,7 +1065,7 @@ nixos.firefox   firefox-23.0   Mozilla Firefox - the browser, reloaded
 </code></pre><p>The first column in the output is the <span class="emphasis"><em>attribute name</em></span>, such as
 <code class="literal">nixos.thunderbird</code>.</p><p>Note: the <code class="literal">nixos</code> prefix tells us that we want to get the package from
 the <code class="literal">nixos</code> channel and works only in CLI tools. In declarative
-configuration use <code class="literal">pkgs</code> prefix (variable).</p><p>To “uninstall” a package, remove it from
+configuration, use <code class="literal">pkgs</code> prefix (variable).</p><p>To “uninstall” a package, remove it from
 <a class="xref" href="options.html#opt-environment.systemPackages"  ><code class="option">environment.systemPackages</code></a> and run <code class="literal">nixos-rebuild switch</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-customising-packages" class="title" >Customising Packages   </h3>  </div> </div></div><p>The Nixpkgs configuration for a NixOS system is set by the <code class="option">nixpkgs.config</code> option.</p><div class="example"><span  ></span><details><summary><span class="title"><strong>Example 6. Globally allow unfree packages</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">{
   nixpkgs.config = {
     allowUnfree = true;
@@ -7577,7 +7577,7 @@ which come as files living in <code class="literal">&lt;nixpkgs/nixos/modules/pr
 is to say, expected usage is to add them to the imports list of your
 <code class="literal">/etc/configuration.nix</code> as such:</p><pre><code class="programlisting nix">{ imports = [ &lt;nixpkgs/nixos/modules/profiles/profile-name.nix&gt; ]; }
 </code></pre><p>Even if some of these profiles seem only useful in the context of
-install media, many are actually intended to be used in real installs.</p><p>What follows is a brief explanation on the purpose and use-case for each
+install media, many are actually intended to be used in real installs.</p><p>What follows is a brief explanation of the purpose and use-case for each
 profile. Detailing each option configured by each one is out of scope.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-profile-all-hardware" class="title" style="clear: both">All Hardware   </h2>  </div> </div></div><p>Enables all hardware supported by NixOS: i.e., all firmware is included, and
 all devices from which one may boot are enabled in the initrd. Its primary
 use is in the NixOS installation CDs.</p><p>The enabled kernel modules include support for SATA and PATA, SCSI
@@ -7771,7 +7771,7 @@ node Kubernetes cluster for dev or testing purposes:</p><pre><code class="progra
 and <a class="xref" href="options.html#opt-services.kubernetes.easyCerts"  ><code class="option">services.kubernetes.easyCerts</code></a>
 to true. This sets up flannel as CNI and activates automatic PKI bootstrapping.</p><div class="note"><h3 class="title">Note</h3><p>It is mandatory to configure:
 <a class="xref" href="options.html#opt-services.kubernetes.masterAddress"  ><code class="option">services.kubernetes.masterAddress</code></a>.
-The masterAddress must be resolveable and routeable by all cluster nodes.
+The masterAddress must be resolvable and routable by all cluster nodes.
 In single node clusters, this can be set to <code class="literal">localhost</code>.</p></div><p>Role-based access control (RBAC) authorization mode is enabled by
 default. This means that anonymous requests to the apiserver secure port
 will expectedly cause a permission denied error. All cluster components
@@ -11080,7 +11080,7 @@ This can be achieved in two ways:</p><div class="orderedlist"><ol class="ordered
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-migration" class="title" style="clear: both">Migration   </h2>  </div> </div></div><p>Many services could be migrated to the modular service system, but even when the modular service system is mature, it is not necessary to migrate all services.
 For instance, many system-wide services are a mandatory part of a desktop system, and it doesn’t make sense to have multiple instances of them.
 Moving their logic into separate Nix files may still be beneficial for the efficient evaluation of configurations that don’t use those services, but that is a rather minor benefit, unless modular services potentially become the standard way to define services.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-review" class="title" style="clear: both">Writing and Reviewing a Modular Service   </h2>  </div> </div></div><p>Refer to the contributor documentation in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/README-modular-services.md"  target="_top"><code class="literal">nixos/README-modular-services.md</code></a>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-review" class="title" style="clear: both">Writing and Reviewing a Modular Service   </h2>  </div> </div></div><p>A typical service module consists of the following:</p><p>For more details, refer to the contributor documentation in <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/README-modular-services.md"  target="_top"><code class="literal">nixos/README-modular-services.md</code></a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="modular-service-options-portable" class="title" style="clear: both">Portable Service Options   </h2>  </div> </div></div><div class="variablelist">
 <a id="service-options"></a>
  <dl class="variablelist">
@@ -11405,245 +11405,6 @@ lazy attribute set of raw value</p>
 <tr><td>
 <code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/lib/modules.nix" target="_top">
 &lt;nixpkgs/lib/modules.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-configData"></a><a class="term" href="index.html#systemd-service-opt-configData"><code class="option">configData</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Configuration data files for the service</p><p>These files are made available to the service and can be updated without restarting the service process, enabling configuration reloading.
-The service manager implementation determines how these files are exposed to the service (e.g., via a specific directory path).
-This path is available in the <code class="literal">path</code> sub-option for each <code class="literal">configData.&lt;name&gt;</code> entry.</p><p>This is particularly useful for services that support configuration reloading via signals (e.g., SIGHUP) or which pick up changes automatically, so that no downtime is required in order to reload the service.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-lazy attribute set of (submodule)</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">{ }</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting">{
-  &quot;server.conf&quot; = {
-    text = &#x27;&#x27;
-      port = 8080
-      workers = 4
-    &#x27;&#x27;;
-  };
-  &quot;ssl/cert.pem&quot; = {
-    source = ./cert.pem;
-  };
-}
-
-</code></pre>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/config-data.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-configData._name_.enable"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.enable"><code class="option">configData.&lt;name&gt;.enable</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Whether this configuration file should be generated.
-This option allows specific configuration files to be disabled.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-boolean</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">true</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-configData._name_.name"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.name"><code class="option">configData.&lt;name&gt;.name</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Name of the configuration file (relative to the service’s configuration directory). Defaults to the attribute name.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-string</p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-configData._name_.path"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.path"><code class="option">configData.&lt;name&gt;.path</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>The actual path where this configuration file will be available.
-This is determined by the service manager implementation.</p><p>On NixOS it is an absolute path.
-Other service managers may provide a relative path, in order to be unprivileged and/or relocatable.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-string <span class="emphasis"><em>(read only)</em></span></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-configData._name_.source"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.source"><code class="option">configData.&lt;name&gt;.source</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Path of the source file.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-absolute path</p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-configData._name_.text"></a><a class="term" href="index.html#systemd-service-opt-configData._name_.text"><code class="option">configData.&lt;name&gt;.text</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Text content of the configuration file.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-null or strings concatenated with “\n”</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">null</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/config-data-item.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/config-data-item.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-meta.maintainers"></a><a class="term" href="index.html#systemd-service-opt-meta.maintainers"><code class="option">meta.maintainers</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>List of maintainers of each module.
-This option should be defined at most once per module.</p><p>The option value is not a list of maintainers, but an attribute set that maps module file names to lists of maintainers.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-list of (maintainer)</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">[ ]</code></p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">[ lib.maintainers.alice lib.maintainers.bob ]</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/modules/generic/meta-maintainers.nix" target="_top">
-&lt;nixpkgs/modules/generic/meta-maintainers.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-process.argv"></a><a class="term" href="index.html#systemd-service-opt-process.argv"><code class="option">process.argv</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>Command filename and arguments for starting this service.
-This is a raw command-line that should not contain any shell escaping.
-If expansion of environmental variables is required then use
-a shell script or <code class="literal">importas</code> from <code class="literal">pkgs.execline</code>.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-list of (string or absolute path convertible to it)</p>
-
-<p><span class="emphasis"><em>Example:</em></span>
-<code class="literal">[ (lib.getExe config.package) &quot;--nobackground&quot; ]</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/service.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/service.nix&gt;
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
- <a id="systemd-service-opt-services"></a><a class="term" href="index.html#systemd-service-opt-services"><code class="option">services</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>A collection of <a class="link" href="https://nixos.org/manual/nixos/unstable/#modular-services"  target="_top">modular services</a> that are configured in one go.</p><p>You could consider the sub-service relationship to be an ownership relation.
-It <span class="strong"><strong>does not</strong></span> automatically create any other relationship between services (e.g. systemd slices), unless perhaps such a behavior is explicitly defined and enabled in another option.</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-attribute set of (submodule)</p>
-
-<p><span class="emphasis"><em>Default:</em></span>
-<code class="literal">{ }</code></p>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/portable/service.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/portable/service.nix&gt;
-</a></code>
-</td></tr>
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/nixos/modules/system/service/systemd/service.nix" target="_top">
-&lt;nixpkgs/nixos/modules/system/service/systemd/service.nix&gt;
 </a></code>
 </td></tr>
 </table>
