@@ -8547,7 +8547,7 @@ Examples:</p><div class="example"><span id="ex-options-declarations-util-mkPacka
 </code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-ghc" ></span><details><summary><span class="title"><strong>Example 17. <code class="literal">mkPackageOption</code> with explicit default and example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">lib.mkPackageOption pkgs &quot;GHC&quot;
   {
     default = [ &quot;ghc&quot; ];
-    example = &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
+    example = &quot;pkgs.haskellPackages.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
   }
   # is like
   lib.mkOption
@@ -8555,7 +8555,7 @@ Examples:</p><div class="example"><span id="ex-options-declarations-util-mkPacka
     type = lib.types.package;
     default = pkgs.ghc;
     defaultText = lib.literalExpression &quot;pkgs.ghc&quot;;
-    example = lib.literalExpression &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
+    example = lib.literalExpression &quot;pkgs.haskellPackages.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
     description = &quot;The GHC package to use.&quot;;
   }
 </code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-extraDescription" ></span><details><summary><span class="title"><strong>Example 18. <code class="literal">mkPackageOption</code> with additional description text</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">mkPackageOption pkgs [ &quot;python312Packages&quot; &quot;torch&quot; ]
