@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <title>NixOS Manual</title>
 <link rel="stylesheet" type="text/css" href="style.css" /><link rel="stylesheet" type="text/css" href="highlightjs/mono-blue.css" />
-<script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><script src="./anchor.min.js" type="text/javascript"></script><script src="./anchor-use.js" type="text/javascript"></script><script src="/nix/store/isg8jh37z2f1x2dw638j4hv6g3vcxxy2-nixos-manual-html/share/doc/nixos/index-redirects.js" type="text/javascript"></script>
+<script src="./highlightjs/highlight.pack.js" type="text/javascript"></script><script src="./highlightjs/loader.js" type="text/javascript"></script><script src="./anchor.min.js" type="text/javascript"></script><script src="./anchor-use.js" type="text/javascript"></script><script src="/nix/store/vwr9pldy6pxs319wjzd02f0di7ikmjch-nixos-manual-html/share/doc/nixos/index-redirects.js" type="text/javascript"></script>
  <meta name="generator" content="nixos-render-docs 25.05pre-git" />
  <link rel="home" href="index.html" title="NixOS Manual" />
  <link rel="next" href="options.html" title="Appendix A. Configuration Options" />
@@ -2643,8 +2643,8 @@ it’s needed to add them to
 <a class="link" href="options.html#opt-services.nextcloud.autoUpdateApps.enable"  ><code class="literal">services.nextcloud.autoUpdateApps</code></a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-nextcloud-occ" class="title" style="clear: both"><code class="literal">nextcloud-occ</code>   </h2>  </div> </div></div><p>The management command <a class="link" href="https://docs.nextcloud.com/server/stable/admin_manual/occ_command.html"  target="_top"><code class="literal">occ</code></a> can be
 invoked by using the <code class="literal">nextcloud-occ</code> wrapper that’s globally available on a system with Nextcloud enabled.</p><p>It requires elevated permissions to become the <code class="literal">nextcloud</code> user. Given the way the privilege
-escalation is implemented, parameters passed via the environment to Nextcloud (e.g. <code class="literal">OC_PASS</code>) are
-currently ignored.</p><p>Custom service units that need to run <code class="literal">nextcloud-occ</code> either need elevated privileges
+escalation is implemented, parameters passed via the environment to Nextcloud are
+currently ignored, except for <code class="literal">OC_PASS</code> and <code class="literal">NC_PASS</code>.</p><p>Custom service units that need to run <code class="literal">nextcloud-occ</code> either need elevated privileges
 or the systemd configuration from <code class="literal">nextcloud-setup.service</code> (recommended):</p><pre><code class="programlisting nix">{ config, ... }:
 {
   systemd.services.my-custom-service = {
