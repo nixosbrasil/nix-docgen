@@ -1222,7 +1222,7 @@ version by doing:</p><pre><code class="programlisting ShellSession">$ nix-env -u
 </code></pre><p><code class="literal">nix-env</code> has many more flags. For details, see the nix-env(1) manpage or
 the Nix manual.</p>
 </div>
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="sec-user-management" class="title" >User Management   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-systemd-sysusers">Create users and groups with <code class="literal">systemd-sysusers</code></a> </span></dt><dt> <span class="section">  <a href="index.html#sec-userborn">Manage users and groups with <code class="literal">userborn</code></a> </span></dt> </dl></div><p>NixOS supports both declarative and imperative styles of user
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="sec-user-management" class="title" >User Management   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-systemd-sysusers">Create users and groups with <code class="literal">systemd-sysusers</code></a> </span></dt><dt> <span class="section">  <a href="index.html#sec-userborn">Manage users and groups with <code class="literal">userborn</code></a> </span></dt><dt> <span class="section">  <a href="index.html#sec-restrict-usage-time">Restrict usage time</a> </span></dt> </dl></div><p>NixOS supports both declarative and imperative styles of user
 management. In the declarative style, users are specified in
 <code class="literal">configuration.nix</code>. For instance, the following states that a user
 account named <code class="literal">alice</code> shall exist:</p><pre><code class="programlisting nix">{
@@ -1289,6 +1289,9 @@ location to <code class="literal">/etc</code>:</p><pre><code class="programlisti
 original files are by default stored in <code class="literal">/var/lib/nixos</code>.</p><p>Userborn implements immutable users by re-mounting the password files
 read-only. This means that unlike when using the Perl script, trying to add a
 new user (e.g. via <code class="literal">useradd</code>) will fail right away.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-restrict-usage-time" class="title" style="clear: both">Restrict usage time   </h2>  </div> </div></div><p><a class="link" href="https://mjasnik.gitlab.io/timekpr-next/"  target="_top">Timekpr-nExT</a> is a screen time managing application that helps optimizing time spent at computer for your subordinates, children or even for yourself.</p><p>You can enable it via:</p><pre><code class="programlisting nix">{ services.timekpr.enable = true; }
+</code></pre><p>This will install the <code class="literal">timekpr</code> package and start the <code class="literal">timekpr</code> service.
+You can then use the <code class="literal">timekpra</code> application to configure time limits for users.</p>
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="ch-file-systems" class="title" >File Systems   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-luks-file-systems">LUKS-Encrypted File Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-sshfs-file-systems">SSHFS File Systems</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-overlayfs">Overlayfs</a> </span></dt> </dl></div><p>You can define file systems using the <code class="literal">fileSystems</code> configuration
@@ -8547,7 +8550,7 @@ Examples:</p><div class="example"><span id="ex-options-declarations-util-mkPacka
 </code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-ghc" ></span><details><summary><span class="title"><strong>Example 17. <code class="literal">mkPackageOption</code> with explicit default and example</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">lib.mkPackageOption pkgs &quot;GHC&quot;
   {
     default = [ &quot;ghc&quot; ];
-    example = &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
+    example = &quot;pkgs.haskellPackages.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
   }
   # is like
   lib.mkOption
@@ -8555,7 +8558,7 @@ Examples:</p><div class="example"><span id="ex-options-declarations-util-mkPacka
     type = lib.types.package;
     default = pkgs.ghc;
     defaultText = lib.literalExpression &quot;pkgs.ghc&quot;;
-    example = lib.literalExpression &quot;pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
+    example = lib.literalExpression &quot;pkgs.haskellPackages.ghc.withPackages (hkgs: [ hkgs.primes ])&quot;;
     description = &quot;The GHC package to use.&quot;;
   }
 </code></pre></div></details></div><br class="example-break" /><div class="example"><span id="ex-options-declarations-util-mkPackageOption-extraDescription" ></span><details><summary><span class="title"><strong>Example 18. <code class="literal">mkPackageOption</code> with additional description text</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">mkPackageOption pkgs [ &quot;python312Packages&quot; &quot;torch&quot; ]
