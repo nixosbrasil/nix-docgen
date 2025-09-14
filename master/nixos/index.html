@@ -9875,7 +9875,8 @@ retrieving the return code.</p><p>A timeout for the command can be specified (in
 <code class="literal">timeout</code> parameter, e.g., <code class="literal">execute(cmd, timeout=10)</code> or
 <code class="literal">execute(cmd, timeout=None)</code>. The default is 900 seconds.</p></dd><dt><span class="term">fail()</span></dt><dd><p>Like <code class="literal">succeed</code>, but raising an exception if the command returns a zero
 status.</p></dd><dt><span class="term">forward_port(host_port, guest_port)</span></dt><dd><p>Forward a TCP port on the host to a TCP port on the guest.
-Useful during interactive testing.</p></dd><dt><span class="term">get_screen_text()</span></dt><dd><p>Return a textual representation of what is currently visible on the
+Useful during interactive testing.</p></dd><dt><span class="term">get_console_log()</span></dt><dd><p>Get the full console output from the machine since boot.
+Returns all serial console output as a single string.</p></dd><dt><span class="term">get_screen_text()</span></dt><dd><p>Return a textual representation of what is currently visible on the
 machine’s screen using optical character recognition.</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">get_screen_text_variants()</span></dt><dd><p>Return a list of different interpretations of what is currently
 visible on the machine’s screen using optical character
 recognition. The number and order of the interpretations is not
@@ -9908,7 +9909,7 @@ machine.systemctl(&quot;list-jobs --no-pager&quot;, &quot;any-user&quot;)
 </code></pre></dd><dt><span class="term">unblock()</span></dt><dd><p>Undo the effect of <code class="literal">block</code>.</p></dd><dt><span class="term">wait_for_closed_port(port, addr, timeout)</span></dt><dd><p>Wait until nobody is listening on the given TCP port and IP address
 (default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_console_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions match a line of the
 serial console output.
-This method is useful when OCR is not possible or inaccurate.</p></dd><dt><span class="term">wait_for_file(filename, timeout)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr, timeout)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
+This method is useful when OCR is not possible or inaccurate.</p><p>When this method returns, the console output that includes the match has already become part of get_console_log().</p></dd><dt><span class="term">wait_for_file(filename, timeout)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr, timeout)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
 (default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_open_unix_socket(addr, is_datagram, timeout)</span></dt><dd><p>Wait until a process is listening on the given UNIX-domain socket
 (default to a UNIX-domain stream socket).</p></dd><dt><span class="term">wait_for_qmp_event(event_filter, timeout)</span></dt><dd><p>Wait for a QMP event which you can filter with the <code class="literal">event_filter</code> function.
 The function takes as an input a dictionary of the event and if it returns True, we return that event,
