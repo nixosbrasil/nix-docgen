@@ -656,7 +656,7 @@ Done. The disk image can be found in /nix/store/[hash]-nixos-image-amazon-25.05p
   };
 }
 </code></pre></div></details></div><br class="example-break" />
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="sec-image-repart" class="title" >Building Images via <code class="literal">systemd-repart</code>   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-image-repart-store-partition">Nix Store Partition</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-image-repart-appliance">Appliance Image</a> </span></dt> </dl></div><p>You can build disk images in NixOS with the <code class="literal">image.repart</code> option provided by
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="sec-image-repart" class="title" >Building Images via <code class="literal">systemd-repart</code>   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#sec-image-repart-store-paths">Nix Store Paths</a> </span></dt><dt> <span class="section">  <a href="index.html#sec-image-repart-appliance">Appliance Image</a> </span></dt> </dl></div><p>You can build disk images in NixOS with the <code class="literal">image.repart</code> option provided by
 the module <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/image/repart.nix"  target="_top">image/repart.nix</a>. This module uses <code class="literal">systemd-repart</code> to build the
 images and exposes it’s entire interface via the <code class="literal">repartConfig</code> option.</p><p>An example of how to build an image:</p><pre><code class="programlisting nix">{ config, modulesPath, ... }:
 {
@@ -687,16 +687,18 @@ images and exposes it’s entire interface via the <code class="literal">repartC
   };
 
 }
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-image-repart-store-partition" class="title" style="clear: both">Nix Store Partition   </h2>  </div> </div></div><p>You can define a partition that only contains the Nix store and then mount it
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-image-repart-store-paths" class="title" style="clear: both">Nix Store Paths   </h2>  </div> </div></div><p>If you want to rewrite Nix store paths, e.g., to remove the <code class="literal">/nix/store</code> prefix
+or to nest it below a parent path, you can do that through the
+<code class="literal">nixStorePrefix</code> option.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-image-repart-store-partition" class="title" >Nix Store Partition   </h3>  </div> </div></div><p>You can define a partition that only contains the Nix store and then mount it
 under <code class="literal">/nix/store</code>. Because the <code class="literal">/nix/store</code> part of the paths is already
-determined by the mount point, you have to set <code class="literal">stripNixStorePrefix = true;</code> so
-that the prefix is stripped from the paths before copying them into the image.</p><pre><code class="programlisting nix">{
+determined by the mount point, you have to set <code class="literal">nixStorePrefix = &quot;/&quot;</code> so
+that <code class="literal">/nix/store</code> is stripped from the paths before copying them into the image.</p><pre><code class="programlisting nix">{
   fileSystems.&quot;/nix/store&quot;.device = &quot;/dev/disk/by-partlabel/nix-store&quot;;
 
   image.repart.partitions = {
     &quot;store&quot; = {
       storePaths = [ config.system.build.toplevel ];
-      stripNixStorePrefix = true;
+      nixStorePrefix = &quot;/&quot;;
       repartConfig = {
         Type = &quot;linux-generic&quot;;
         Label = &quot;nix-store&quot;;
@@ -706,6 +708,38 @@ that the prefix is stripped from the paths before copying them into the image.</
   };
 }
 </code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-image-repart-store-subvolume" class="title" >Nix Store Subvolume   </h3>  </div> </div></div><p>Alternatively, you can create a Btrfs subvolume <code class="literal">/@nix-store</code> containing the
+Nix store and mount it on <code class="literal">/nix/store</code>:</p><pre><code class="programlisting nix">{
+  fileSystems.&quot;/&quot; = {
+    device = &quot;/dev/disk/by-partlabel/root&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [ &quot;subvol=/@&quot; ];
+  };
+
+  fileSystems.&quot;/nix/store&quot; = {
+    device = &quot;/dev/disk/by-partlabel/root&quot;;
+    fsType = &quot;btrfs&quot;;
+    options = [ &quot;subvol=/@nix-store&quot; ];
+  };
+
+  image.repart.partitions = {
+    &quot;root&quot; = {
+      storePaths = [ config.system.build.toplevel ];
+      nixStorePrefix = &quot;/@nix-store&quot;;
+      repartConfig = {
+        Type = &quot;root&quot;;
+        Label = &quot;root&quot;;
+        Format = &quot;btrfs&quot;;
+        Subvolumes = &quot;/@ /@nix-store&quot;;
+        MakeDirectories = &quot;/@ /@nix-store&quot;;
+        # ...
+      };
+    };
+  };
+}
+</code></pre>
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-image-repart-appliance" class="title" style="clear: both">Appliance Image   </h2>  </div> </div></div><p>The <code class="literal">image/repart.nix</code> module can also be used to build self-contained <a class="link" href="https://en.wikipedia.org/wiki/Software_appliance"  target="_top">software
 appliances</a>.</p><p>The generation based update mechanism of NixOS is not suited for appliances.
 Updates of appliances are usually either performed by replacing the entire
