@@ -5474,7 +5474,10 @@ frontend proxy:</p><pre><code class="programlisting nix">{
     virtualHosts.&quot;git.example.com&quot; = {
       enableACME = true;
       forceSSL = true;
-      locations.&quot;/&quot;.proxyPass = &quot;http://unix:/run/gitlab/gitlab-workhorse.socket&quot;;
+      locations.&quot;/&quot; = {
+        proxyPass = &quot;http://unix:/run/gitlab/gitlab-workhorse.socket&quot;;
+        proxyWebsockets = true;
+      };
     };
   };
 }

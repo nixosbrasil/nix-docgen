@@ -2234,9 +2234,9 @@ If you’d like to do this manually in dconf, change the values of the following
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-gnome-shell-extensions" class="title" style="clear: both">Shell Extensions   </h2>  </div> </div></div><p>Most Shell extensions are packaged under the <code class="literal">gnomeExtensions</code> attribute.
 Some packages that include Shell extensions, like <code class="literal">gpaste</code>, don’t have their extension decoupled under this attribute.</p><p>You can install them like any other package:</p><pre><code class="programlisting nix">{
   environment.systemPackages = [
-    gnomeExtensions.dash-to-dock
-    gnomeExtensions.gsconnect
-    gnomeExtensions.mpris-indicator-button
+    pkgs.gnomeExtensions.dash-to-dock
+    pkgs.gnomeExtensions.gsconnect
+    pkgs.gnomeExtensions.mpris-indicator-button
   ];
 }
 </code></pre><p>Unfortunately, we lack a way for these to be managed in a completely declarative way.
