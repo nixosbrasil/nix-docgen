@@ -1781,11 +1781,7 @@ Client Driver</em></span> (ICD) mechanism. ICD files for Vulkan are JSON files t
 specify the path to the driver library and the supported Vulkan version.
 All successfully loaded drivers are exposed to the application as
 different GPUs. In NixOS, there are two ways to make ICD files visible
-to Vulkan applications: an environment variable and a module option.</p><p>The first option is through the <code class="literal">VK_ICD_FILENAMES</code> environment variable.
-This variable can contain multiple JSON files, separated by <code class="literal">:</code>. For
-example:</p><pre><code class="programlisting ShellSession">$ export \
-  VK_ICD_FILENAMES=`nix-build &#x27;&lt;nixpkgs&gt;&#x27; --no-out-link -A amdvlk`/share/vulkan/icd.d/amd_icd64.json
-</code></pre><p>The second mechanism is to add the Vulkan driver package to
+to Vulkan applications: an environment variable and a module option.</p><p>The way to do this is to add the Vulkan driver package to
 <a class="xref" href="options.html#opt-hardware.graphics.extraPackages"  ><code class="option">hardware.graphics.extraPackages</code></a>.
 This links the ICD file under <code class="literal">/run/opengl-driver</code>, where it will be
 visible to the ICD loader.</p><p>The proper installation of Vulkan drivers can be verified through the
@@ -1803,22 +1799,7 @@ GPU1:
 </code></pre><p>A simple graphical application that uses Vulkan is <code class="literal">vkcube</code> from the
 vulkan-tools package.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-gpu-accel-vulkan-amd" class="title" >AMD   </h3>  </div> </div></div><p>Modern AMD <a class="link" href="https://en.wikipedia.org/wiki/Graphics_Core_Next"  target="_top">Graphics Core
 Next</a> (GCN) GPUs are
-supported through either radv, which is part of mesa, or the amdvlk
-package. Adding the amdvlk package to
-<a class="xref" href="options.html#opt-hardware.graphics.extraPackages"  ><code class="option">hardware.graphics.extraPackages</code></a>
-makes amdvlk the default driver and hides radv and lavapipe from the device list.
-A specific driver can be forced as follows:</p><pre><code class="programlisting nix">{
-  hardware.graphics.extraPackages = [ pkgs.amdvlk ];
-
-  # To enable Vulkan support for 32-bit applications, also add:
-  hardware.graphics.extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
-
-  # Force radv
-  environment.variables.AMD_VULKAN_ICD = &quot;RADV&quot;;
-  # Or
-  environment.variables.VK_ICD_FILENAMES = &quot;/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json&quot;;
-}
-</code></pre>
+supported through the RADV driver, which is part of mesa.</p>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-gpu-accel-va-api" class="title" style="clear: both">VA-API   </h2>  </div> </div></div><p><a class="link" href="https://www.intel.com/content/www/us/en/developer/articles/technical/linuxmedia-vaapi.html"  target="_top">VA-API (Video Acceleration API)</a>
@@ -9468,7 +9449,19 @@ precedes the section definitions.</p><p>The attribute <code class="literal">lib.
 and returning a set with TOML-specific attributes <code class="literal">type</code> and
 <code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p></dd><dt><span class="term"><code class="literal">pkgs.formats.xml</code> { format ? “badgerfish”, withHeader ? true}</span></dt><dd><p>A function taking an attribute set with values
 and returning a set with XML-specific attributes <code class="literal">type</code> and
-<code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">format</code></span></dt><dd><p>Input format. Because XML can not be translated one-to-one, we have to use intermediate formats. Possible values:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">&quot;badgerfish&quot;</code>: Uses <a class="link" href="http://www.sklar.com/badgerfish/"  target="_top">badgerfish</a> conversion.</p></li></ul></div></dd><dt><span class="term"><code class="literal">withHeader</code></span></dt><dd><p>Outputs the xml with header.</p></dd></dl></div></dd><dt><span class="term"><code class="literal">pkgs.formats.cdn</code> { }</span></dt><dd><p>A function taking an empty attribute set (for future extensibility)
+<code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">format</code></span></dt><dd><p>Input format. Because XML can not be translated one-to-one, we have to use intermediate formats. Possible values:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">&quot;badgerfish&quot;</code>: Uses <a class="link" href="http://www.sklar.com/badgerfish/"  target="_top">badgerfish</a> conversion.</p></li></ul></div></dd><dt><span class="term"><code class="literal">withHeader</code></span></dt><dd><p>Outputs the xml with header.</p></dd></dl></div></dd><dt><span class="term"><code class="literal">pkgs.formats.pythonVars</code> { }</span></dt><dd><p>A function taking an empty attribute set (for future extensibility)
+and returning a set with python variable specific attributes <code class="literal">type</code>, <code class="literal">lib</code>, and
+<code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p><p>The <code class="literal">lib</code> attribute contains functions to be used in settings, for
+generating special Python values:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">mkRaw pythonCode</code></span></dt><dd><p>Outputs the given string as raw Python code</p></dd></dl></div><p><code class="literal">_imports</code></p><p><code class="literal">_imports</code> is a special value you can set to specify additional modules to be
+imported on top of the file.</p><p><code class="literal">Example usage:</code></p><pre><code class="programlisting nix">  let
+    format = pkgs.formats.pythonVars { };
+  in {
+    _imports = [ &quot;re&quot; ];
+
+    conditional = format.lib.mkRaw &quot;1 if True else 2&quot;;
+    function_result = format.lib.mkRaw &quot;re.findall(r&#x27;\\bf[a-z]*&#x27;, &#x27;which foot or hand fell fastest&#x27;)&quot;;
+  }
+</code></pre></dd><dt><span class="term"><code class="literal">pkgs.formats.cdn</code> { }</span></dt><dd><p>A function taking an empty attribute set (for future extensibility)
 and returning a set with <a class="link" href="https://github.com/dzikoysk/cdn"  target="_top">CDN</a>-specific
 attributes <code class="literal">type</code> and <code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p></dd><dt><span class="term"><code class="literal">pkgs.formats.elixirConf { elixir ? pkgs.elixir }</code></span></dt><dd><p>A function taking an attribute set with values</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">elixir</code></span></dt><dd><p>The Elixir package which will be used to format the generated output</p></dd></dl></div><p>It returns a set with Elixir-Config-specific attributes <code class="literal">type</code>, <code class="literal">lib</code>, and
 <code class="literal">generate</code> as specified <a class="link" href="index.html#pkgs-formats-result"  >below</a>.</p><p>The <code class="literal">lib</code> attribute contains functions to be used in settings, for
