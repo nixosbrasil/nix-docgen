@@ -2815,54 +2815,7 @@ for details.</p><p>A workaround is to disable chunked uploads with
 However, it’s possible to use e.g. <code class="literal">httpd</code> by explicitly disabling
 <code class="literal">nginx</code> using <a class="xref" href="options.html#opt-services.nginx.enable"  ><code class="option">services.nginx.enable</code></a> and fixing the
 settings <code class="literal">listen.owner</code> &amp; <code class="literal">listen.group</code> in the
-<a class="link" href="options.html#opt-services.phpfpm.pools"  >corresponding <code class="literal">phpfpm</code> pool</a>.</p><p>An exemplary configuration may look like this:</p><pre><code class="programlisting nix">{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-{
-  services.nginx.enable = false;
-  services.nextcloud = {
-    enable = true;
-    hostName = &quot;localhost&quot;;
-
-    # further, required options
-  };
-  services.phpfpm.pools.nextcloud.settings = {
-    &quot;listen.owner&quot; = config.services.httpd.user;
-    &quot;listen.group&quot; = config.services.httpd.group;
-  };
-  services.httpd = {
-    enable = true;
-    adminAddr = &quot;webmaster@localhost&quot;;
-    extraModules = [ &quot;proxy_fcgi&quot; ];
-    virtualHosts.&quot;localhost&quot; = {
-      documentRoot = config.services.nextcloud.package;
-      extraConfig = &#x27;&#x27;
-        &lt;Directory &quot;${config.services.nextcloud.package}&quot;&gt;
-          &lt;FilesMatch &quot;\.php$&quot;&gt;
-            &lt;If &quot;-f %{REQUEST_FILENAME}&quot;&gt;
-              SetHandler &quot;proxy:unix:${config.services.phpfpm.pools.nextcloud.socket}|fcgi://localhost/&quot;
-            &lt;/If&gt;
-          &lt;/FilesMatch&gt;
-          &lt;IfModule mod_rewrite.c&gt;
-            RewriteEngine On
-            RewriteBase /
-            RewriteRule ^index\.php$ - [L]
-            RewriteCond %{REQUEST_FILENAME} !-f
-            RewriteCond %{REQUEST_FILENAME} !-d
-            RewriteRule . /index.php [L]
-          &lt;/IfModule&gt;
-          DirectoryIndex index.php
-          Require all granted
-          Options +FollowSymLinks
-        &lt;/Directory&gt;
-      &#x27;&#x27;;
-    };
-  };
-}
-</code></pre>
+<a class="link" href="options.html#opt-services.phpfpm.pools"  ><code class="literal">phpfpm</code> pool <code class="literal">nextcloud</code></a>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="installing-apps-php-extensions-nextcloud" class="title" style="clear: both">Installing Apps and PHP extensions   </h2>  </div> </div></div><p>Nextcloud apps are installed statefully through the web interface.
 Some apps may require extra PHP extensions to be installed.
 This can be configured with the <a class="xref" href="options.html#opt-services.nextcloud.phpExtraExtensions"  ><code class="option">services.nextcloud.phpExtraExtensions</code></a> setting.</p><p>Alternatively, extra apps can also be declared with the <a class="xref" href="options.html#opt-services.nextcloud.extraApps"  ><code class="option">services.nextcloud.extraApps</code></a> setting.
