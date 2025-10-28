@@ -4792,7 +4792,25 @@ For ACME for example:</p><pre><code class="programlisting nix">{ services.crab-h
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-anubis" class="title" >Anubis   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-anubis-quickstart">Quickstart</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-anubis-configuration">Configuration</a> </span></dt> </dl></div><p><a class="link" href="https://anubis.techaro.lol"  target="_top">Anubis</a> is a scraper defense software that blocks AI scrapers. It is designed to sit
 between a reverse proxy and the service to be protected.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-anubis-quickstart" class="title" style="clear: both">Quickstart   </h2>  </div> </div></div><p>This module is designed to use Unix domain sockets as the socket paths can be automatically configured for multiple
-instances, but TCP sockets are also supported.</p><p>A minimal configuration with <a class="link" href="options.html#opt-services.nginx.enable"  >nginx</a> may look like the following:</p><pre><code class="programlisting nix">{ config, ... }:
+instances, but TCP sockets are also supported.</p><p>Configuring multiple instances may look like the following.</p><p>Notes:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Each instance as its runtime directory set to <code class="literal">anubis/anubis-&lt;instance name&gt;</code>.</p></li><li class="listitem"><p>When a single instance is declared with unix sockets, the runtime directory <code class="literal">anubis</code> is allowed for backward
+compatibility.</p></li></ul></div><pre><code class="programlisting nix">{
+  services.anubis.instances.&quot;instance-1&quot; = {
+    # Runtime directory: &quot;anubis/anubis-instance-1&quot;.
+    settings = {
+      BIND = &quot;/run/anubis/anubis-instance-1/anubis.sock&quot;;
+      TARGET = &quot;http://localhost:8001&quot;;
+    };
+  };
+
+  services.anubis.instances.&quot;instance-2&quot; = {
+    # Runtime directory: &quot;anubis/anubis-instance-2&quot;.
+    settings = {
+      BIND = &quot;/run/anubis/anubis-instance-2/anubis.sock&quot;;
+      TARGET = &quot;http://localhost:8002&quot;;
+    };
+  };
+}
+</code></pre><p>A minimal configuration with <a class="link" href="options.html#opt-services.nginx.enable"  >nginx</a> may look like the following:</p><pre><code class="programlisting nix">{ config, ... }:
 {
   services.anubis.instances.default.settings.TARGET = &quot;http://localhost:8000&quot;;
 
