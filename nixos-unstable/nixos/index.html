@@ -6695,6 +6695,40 @@ postgresql_15.pkgs.pg_partman        postgresql_15.pkgs.pgroonga
     };
   };
 }
+</code></pre><p>You can add a custom PostgreSQL extension to an environment by calling <code class="literal">postgresqlPackages.callPackage</code> on the derivation.
+In addition to the correct <code class="literal">postgresql</code> package, <code class="literal">callPackage</code> will provide additional functions to build those extensions:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">postgresqlBuildExtension</code>, extending <code class="literal">mkDerivation</code> for C and SQL extensions.</p></li><li class="listitem"><p><code class="literal">buildPgrxExtension</code>, extending <code class="literal">mkDerivation</code> for pgrx (Rust) extensions.</p></li><li class="listitem"><p><code class="literal">postgresqlTestExtension</code>, a helper to test these extensions on a PostgreSQL instance.</p></li></ul></div><p>We can define our extension as such:</p><pre><code class="programlisting nix"># my-extension.nix
+{
+  postgresql,
+  postgresqlBuildExtension,
+  # other regular mkDerivation arguments
+  fetchFromGitHub,
+}:
+postgresqlBuildExtension (finalAttrs: {
+  pname = &quot;myext&quot;;
+  # ...
+  src = fetchFromGitHub {
+    # ...
+  };
+  meta = {
+    platforms = postgresql.meta.platforms;
+    # other meta properties
+  };
+})
+</code></pre><p>We can then build it with <code class="literal">callPackage</code>, for instance in a NixOS config:</p><pre><code class="programlisting nix">{
+  services.postgresql.extensions =
+    ps: with ps; [
+      pg_repack
+      postgis
+      (ps.callPackage ./my-extension.nix { })
+    ];
+}
+</code></pre><p>Or to include it in a shell environment:</p><pre><code class="programlisting nix">{
+  postgresql_custom = self.postgresql_17.withPackages (ps: [
+    ps.pg_repack
+    ps.postgis
+    (ps.callPackage ./my-extension.nix { })
+  ]);
+}
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-postgres-pls" class="title" style="clear: both">Procedural Languages   </h2>  </div> </div></div><p>PostgreSQL ships the additional procedural languages PL/Perl, PL/Python and PL/Tcl as extensions.
 They are packaged as plugins and can be made available in the same way as external extensions:</p><pre><code class="programlisting nix">{
