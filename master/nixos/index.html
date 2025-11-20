@@ -389,9 +389,9 @@ $ . $HOME/.nix-profile/etc/profile.d/nix.sh # …or open a fresh shell
 </code></pre><p>More details in the <a class="link" href="https://nixos.org/nix/manual/#chap-quick-start"  target="_top"> Nix
 manual</a></p></li><li class="listitem"><p>Switch to the NixOS channel:</p><p>If you’ve just installed Nix on a non-NixOS distribution, you will
 be on the <code class="literal">nixpkgs</code> channel by default.</p><pre><code class="programlisting ShellSession">$ nix-channel --list
-nixpkgs https://nixos.org/channels/nixpkgs-unstable
+nixpkgs https://channels.nixos.org/nixpkgs-unstable
 </code></pre><p>As that channel gets released without running the NixOS tests, it
-will be safer to use the <code class="literal">nixos-*</code> channels instead:</p><pre><code class="programlisting ShellSession">$ nix-channel --add https://nixos.org/channels/nixos-&lt;version&gt; nixpkgs
+will be safer to use the <code class="literal">nixos-*</code> channels instead:</p><pre><code class="programlisting ShellSession">$ nix-channel --add https://channels.nixos.org/nixos-&lt;version&gt; nixpkgs
 </code></pre><p>Where <code class="literal">&lt;version&gt;</code> corresponds to the latest version available on <a class="link" href="https://channels.nixos.org/"  target="_top">channels.nixos.org</a>.</p><p>You may want to throw in a <code class="literal">nix-channel --update</code> for good measure.</p></li><li class="listitem"><p>Install the NixOS installation tools:</p><p>You’ll need <code class="literal">nixos-generate-config</code> and <code class="literal">nixos-install</code>, but this
 also makes some man pages and <code class="literal">nixos-enter</code> available, just in case
 you want to chroot into your NixOS partition. NixOS installs these
@@ -9231,7 +9231,7 @@ nixos-unstable unless explicitly configured to do so.</p><pre><code class="progr
 
   imports = [
     # Use postgresql service from nixos-unstable channel.
-    # sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
+    # sudo nix-channel --add https://channels.nixos.org/nixos-unstable nixos-unstable
     &lt;nixos-unstable/nixos/modules/services/databases/postgresql.nix&gt;
   ];
 
