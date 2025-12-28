@@ -6670,7 +6670,7 @@ Best practice is to name the map after the database role it manages to avoid nam
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-postgres-upgrading" class="title" style="clear: both">Upgrading   </h2>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>The steps below demonstrate how to upgrade from an older version to <code class="literal">pkgs.postgresql_15</code>.
 These instructions are also applicable to other versions.</p></div><p>Major PostgreSQL upgrades require a downtime and a few imperative steps to be called. This is the case because
 each major version has some internal changes in the databases’ state. Because of that,
-NixOS places the state into <code class="filename">/var/lib/postgresql/&lt;version&gt;</code> where each <code class="literal">version</code>
+NixOS places the state into <code class="filename">/var/lib/postgresql/$psqlSchema</code> where <code class="literal">$psqlSchema</code>
 can be obtained like this:</p><pre><code class="programlisting">$ nix-instantiate --eval -A postgresql_15.psqlSchema
 &quot;15&quot;
 </code></pre><p>For an upgrade, a script like this can be used to simplify the process:</p><pre><code class="programlisting nix">{
