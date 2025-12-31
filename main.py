@@ -4,6 +4,7 @@ import json
 import time
 import jinja2
 import subprocess
+import functools
 from datetime import datetime
 from pathlib import Path
 import sqlite3
@@ -113,14 +114,55 @@ def render_info_plist(rev):
     return render_template('Info.plist.jinja', {'rev': rev})
 
 
+@functools.lru_cache(maxsize=1)
+def get_latest_stable_branch():
+    """
+    Fetches the latest stable NixOS branch from the upstream repository.
+    Returns a string like 'nixos-23.11'.
+    """
+    logger.info("Fetching latest stable branch from https://github.com/NixOS/nixpkgs")
+    try:
+        cmd = ["git", "ls-remote", "--heads", "https://github.com/NixOS/nixpkgs"]
+        output = subprocess.check_output(cmd, text=True, stderr=subprocess.PIPE, timeout=30)
+
+        branches = []
+        pattern = re.compile(r"refs/heads/nixos-(\d+\.\d+)$")
+
+        for line in output.splitlines():
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            ref = parts[1]
+            match = pattern.match(ref)
+            if match:
+                branches.append(match.group(1))
+
+        if not branches:
+            logger.error("No stable branches found in git ls-remote output.")
+            return "nixos-25.05" # Fallback
+
+        def version_key(v):
+            return [int(x) for x in v.split('.')]
+
+        branches.sort(key=version_key)
+        latest_version = branches[-1]
+        latest_branch = f"nixos-{latest_version}"
+        logger.info(f"Latest stable branch detected: {latest_branch}")
+        return latest_branch
+
+    except Exception as e:
+        logger.error(f"Failed to fetch latest stable branch: {e}")
+        return "nixos-25.05" # Fallback
+
+
 def process_branch_list(branches):
     logger.info(f"Processing branch list: {branches}")
     branches = set(branches)
     if 'stable' in branches:
         logger.info("Replacing 'stable' with the configured stable branch.")
         branches.remove('stable')
-        # TODO: proper logic
-        branches.add('nixos-25.05')
+        latest = get_latest_stable_branch()
+        branches.add(latest)
     return branches
 
 def assert_equal(a, b):
