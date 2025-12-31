@@ -5,6 +5,7 @@ import time
 import jinja2
 import subprocess
 import functools
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 import sqlite3
@@ -120,25 +121,24 @@ def get_latest_stable_branch():
     Fetches the latest stable NixOS branch from the upstream repository.
     Returns a string like 'nixos-23.11'.
     """
-    logger.info("Fetching latest stable branch from https://github.com/NixOS/nixpkgs")
+    logger.info("Fetching latest stable branch from GitHub API")
+    url = "https://api.github.com/repos/NixOS/nixpkgs/git/matching-refs/heads/nixos-"
     try:
-        cmd = ["git", "ls-remote", "--heads", "https://github.com/NixOS/nixpkgs"]
-        output = subprocess.check_output(cmd, text=True, stderr=subprocess.PIPE, timeout=30)
+        with urllib.request.urlopen(url, timeout=30) as response:
+            data = json.loads(response.read().decode())
 
         branches = []
-        pattern = re.compile(r"refs/heads/nixos-(\d+\.\d+)$")
+        # pattern matches strings like "refs/heads/nixos-23.11"
+        pattern = re.compile(r"^refs/heads/nixos-(\d+\.\d+)$")
 
-        for line in output.splitlines():
-            parts = line.split()
-            if len(parts) < 2:
-                continue
-            ref = parts[1]
+        for item in data:
+            ref = item.get("ref", "")
             match = pattern.match(ref)
             if match:
                 branches.append(match.group(1))
 
         if not branches:
-            logger.error("No stable branches found in git ls-remote output.")
+            logger.error("No stable branches found in GitHub API response.")
             return "nixos-25.05" # Fallback
 
         def version_key(v):
