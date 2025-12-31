@@ -4,6 +4,8 @@ import json
 import time
 import jinja2
 import subprocess
+import functools
+import urllib.request
 from datetime import datetime
 from pathlib import Path
 import sqlite3
@@ -113,14 +115,53 @@ def render_info_plist(rev):
     return render_template('Info.plist.jinja', {'rev': rev})
 
 
+@functools.lru_cache(maxsize=1)
+def get_latest_stable_branch():
+    """
+    Fetches the latest stable NixOS branch from the upstream repository.
+    Returns a string like 'nixos-23.11'.
+    """
+    logger.info("Fetching latest stable branch from GitHub API")
+    url = "https://api.github.com/repos/NixOS/nixpkgs/git/matching-refs/heads/nixos-"
+    try:
+        with urllib.request.urlopen(url, timeout=30) as response:
+            data = json.loads(response.read().decode())
+
+        branches = []
+        # pattern matches strings like "refs/heads/nixos-23.11"
+        pattern = re.compile(r"^refs/heads/nixos-(\d+\.\d+)$")
+
+        for item in data:
+            ref = item.get("ref", "")
+            match = pattern.match(ref)
+            if match:
+                branches.append(match.group(1))
+
+        if not branches:
+            raise RuntimeError("No stable branches found in GitHub API response.")
+
+        def version_key(v):
+            return [int(x) for x in v.split('.')]
+
+        branches.sort(key=version_key)
+        latest_version = branches[-1]
+        latest_branch = f"nixos-{latest_version}"
+        logger.info(f"Latest stable branch detected: {latest_branch}")
+        return latest_branch
+
+    except Exception as e:
+        logger.error(f"Failed to fetch latest stable branch: {e}")
+        raise
+
+
 def process_branch_list(branches):
     logger.info(f"Processing branch list: {branches}")
     branches = set(branches)
     if 'stable' in branches:
         logger.info("Replacing 'stable' with the configured stable branch.")
         branches.remove('stable')
-        # TODO: proper logic
-        branches.add('nixos-25.05')
+        latest = get_latest_stable_branch()
+        branches.add(latest)
     return branches
 
 def assert_equal(a, b):
