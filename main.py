@@ -138,8 +138,7 @@ def get_latest_stable_branch():
                 branches.append(match.group(1))
 
         if not branches:
-            logger.error("No stable branches found in GitHub API response.")
-            return "nixos-25.05" # Fallback
+            raise RuntimeError("No stable branches found in GitHub API response.")
 
         def version_key(v):
             return [int(x) for x in v.split('.')]
@@ -152,7 +151,7 @@ def get_latest_stable_branch():
 
     except Exception as e:
         logger.error(f"Failed to fetch latest stable branch: {e}")
-        return "nixos-25.05" # Fallback
+        raise
 
 
 def process_branch_list(branches):
