@@ -2904,7 +2904,7 @@ Postgres will be initialized on that same instance automatically.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-missing" class="title" style="clear: both">Missing   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Exposing with nginx is not implemented yet.</p></li><li class="listitem"><p>This has been tested using a local database with a unix socket connection. Using different database settings will likely require modifications</p></li></ul></div>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak" class="title" >Keycloak   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-keycloak-admin">Administration</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-database">Database access</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-hostname">Hostname</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-tls">Setting up TLS/SSL</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-themes">Themes</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-settings">Configuration file settings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-example-config">Example configuration</a> </span></dt> </dl></div><p><a class="link" href="https://www.keycloak.org/"  target="_top">Keycloak</a> is an
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak" class="title" >Keycloak   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-keycloak-admin">Administration</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-database">Database access</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-unix-socket">Unix socket authentication</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-hostname">Hostname</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-tls">Setting up TLS/SSL</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-themes">Themes</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-settings">Configuration file settings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-example-config">Example configuration</a> </span></dt> </dl></div><p><a class="link" href="https://www.keycloak.org/"  target="_top">Keycloak</a> is an
 open source identity and access management server with support for
 <a class="link" href="https://openid.net/connect/"  target="_top">OpenID Connect</a>,
 <a class="link" href="https://oauth.net/2/"  target="_top">OAUTH 2.0</a> and
@@ -2938,6 +2938,19 @@ are kept at their defaults, the database role
 <code class="literal">keycloak</code> with that password is provisioned
 on the local database instance.</p><div class="warning"><h3 class="title">Warning</h3><p>The path should be provided as a string, not a Nix path, since Nix
 paths are copied into the world readable Nix store.</p></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak-unix-socket" class="title" style="clear: both">Unix socket authentication   </h2>  </div> </div></div><p>For PostgreSQL, Keycloak can connect via Unix socket using peer
+authentication, avoiding the need for a database password.</p><p>To use Unix sockets, set <a class="xref" href="options.html#opt-services.keycloak.database.host"  ><code class="option">services.keycloak.database.host</code></a>
+to the PostgreSQL socket directory (e.g., <code class="literal">/run/postgresql</code>) and
+add the required junixsocket plugins:</p><pre><code class="programlisting nix">{
+  services.keycloak = {
+    database.host = &quot;/run/postgresql&quot;;
+    plugins = with pkgs.keycloak.plugins; [
+      junixsocket-common
+      junixsocket-native-common
+    ];
+  };
+}
+</code></pre><div class="note"><h3 class="title">Note</h3><p>Unix socket authentication is only supported for PostgreSQL.</p></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak-hostname" class="title" style="clear: both">Hostname   </h2>  </div> </div></div><p>The hostname is used to build the public URL used as base for
 all frontend requests and must be configured through
 <a class="xref" href="options.html#opt-services.keycloak.settings.hostname"  ><code class="option">services.keycloak.settings.hostname</code></a>.</p><div class="note"><h3 class="title">Note</h3><p>If you’re migrating an old Wildfly based Keycloak instance
@@ -9876,27 +9889,12 @@ snippets accordingly. As a simple example:</p><pre><code class="programlisting n
 snippet. The special variable <code class="literal">supportsDryActivation</code> can be set so the snippet
 is also run when <code class="literal">nixos-rebuild dry-activate</code> is run. To differentiate between
 real and dry activation, the <code class="literal">$NIXOS_ACTION</code> environment variable can be
-read which is set to <code class="literal">dry-activate</code> when a dry activation is done.</p><p>An activation script can write to special files instructing
-<code class="literal">switch-to-configuration</code> to restart/reload units. The script will take these
-requests into account and will incorporate the unit configuration as described
-above. This means that the activation script will “fake” a modified unit file
-and <code class="literal">switch-to-configuration</code> will act accordingly. By doing so, configuration
-like <a class="link" href="options.html#opt-systemd.services"  >systemd.services.&lt;name&gt;.restartIfChanged</a> is
-respected. Since the activation script is run <span class="strong"><strong>after</strong></span> services are already
-stopped, <a class="link" href="options.html#opt-systemd.services"  >systemd.services.&lt;name&gt;.stopIfChanged</a>
-cannot be taken into account anymore and the unit is always restarted instead
-of being stopped and started afterwards.</p><p>The files that can be written to are <code class="literal">/run/nixos/activation-restart-list</code> and
-<code class="literal">/run/nixos/activation-reload-list</code> with their respective counterparts for
-dry activation being <code class="literal">/run/nixos/dry-activation-restart-list</code> and
-<code class="literal">/run/nixos/dry-activation-reload-list</code>. Those files can contain
-newline-separated lists of unit names where duplicates are being ignored. These
-files are not create automatically and activation scripts must take the
-possibility into account that they have to create them first.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-activation-script-nixos-snippets" class="title" >NixOS snippets   </h3>  </div> </div></div><p>There are some snippets NixOS enables by default because disabling them would
+read which is set to <code class="literal">dry-activate</code> when a dry activation is done.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-activation-script-nixos-snippets" class="title" >NixOS snippets   </h3>  </div> </div></div><p>There are some snippets NixOS enables by default because disabling them would
 most likely break your system. This section lists a few of them and what they
 do:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p><code class="literal">binsh</code> creates <code class="literal">/bin/sh</code> which points to the runtime shell</p></li><li class="listitem"><p><code class="literal">etc</code> sets up the contents of <code class="literal">/etc</code>, this includes systemd units and
 excludes <code class="literal">/etc/passwd</code>, <code class="literal">/etc/group</code>, and <code class="literal">/etc/shadow</code> (which are managed by
-the <code class="literal">users</code> snippet)</p></li><li class="listitem"><p><code class="literal">hostname</code> sets the system’s hostname in the kernel (not in <code class="literal">/etc</code>)</p></li><li class="listitem"><p><code class="literal">modprobe</code> sets the path to the <code class="literal">modprobe</code> binary for module auto-loading</p></li><li class="listitem"><p><code class="literal">nix</code> prepares the nix store and adds a default initial channel</p></li><li class="listitem"><p><code class="literal">specialfs</code> is responsible for mounting filesystems like <code class="literal">/proc</code> and <code class="literal">sys</code></p></li><li class="listitem"><p><code class="literal">users</code> creates and removes users and groups by managing <code class="literal">/etc/passwd</code>,
-<code class="literal">/etc/group</code> and <code class="literal">/etc/shadow</code>. This also creates home directories</p></li><li class="listitem"><p><code class="literal">usrbinenv</code> creates <code class="literal">/usr/bin/env</code></p></li><li class="listitem"><p><code class="literal">var</code> creates some directories in <code class="literal">/var</code> that are not service-specific</p></li><li class="listitem"><p><code class="literal">wrappers</code> creates setuid wrappers like <code class="literal">sudo</code></p></li></ul></div>
+the <code class="literal">users</code> snippet)</p></li><li class="listitem"><p><code class="literal">modprobe</code> sets the path to the <code class="literal">modprobe</code> binary for module auto-loading</p></li><li class="listitem"><p><code class="literal">specialfs</code> is responsible for mounting filesystems like <code class="literal">/proc</code> and <code class="literal">sys</code></p></li><li class="listitem"><p><code class="literal">users</code> creates and removes users and groups by managing <code class="literal">/etc/passwd</code>,
+<code class="literal">/etc/group</code> and <code class="literal">/etc/shadow</code>. This also creates home directories</p></li><li class="listitem"><p><code class="literal">usrbinenv</code> creates <code class="literal">/usr/bin/env</code></p></li></ul></div>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-non-switchable-system" class="title" style="clear: both">Non Switchable Systems   </h2>  </div> </div></div><p>In certain systems, most notably image based appliances, updates are handled
