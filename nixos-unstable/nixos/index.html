@@ -4869,16 +4869,42 @@ compatibility.</p></li></ul></div><pre><code class="programlisting nix">{
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-anubis-configuration" class="title" style="clear: both">Configuration   </h2>  </div> </div></div><p>It is possible to configure default settings for all instances of Anubis, via <code class="option">services.anubis.defaultOptions</code>.</p><pre><code class="programlisting nix">{
   services.anubis.defaultOptions = {
-    botPolicy = {
-      dnsbl = false;
-    };
     settings.DIFFICULTY = 3;
   };
 }
-</code></pre><p>Note that at the moment, a custom bot policy is not merged with the baked-in one. That means to only override a setting
-like <code class="literal">dnsbl</code>, copying the entire bot policy is required. Check
-<a class="link" href="https://github.com/TecharoHQ/anubis/blob/1509b06cb921aff842e71fbb6636646be6ed5b46/cmd/anubis/botPolicies.json"  target="_top">the upstream repository</a>
-for the policy.</p>
+</code></pre><p>By default, this module uses Anubis’s built-in policy (<code class="literal">botPolicies.yaml</code>), which includes sensible defaults for bot
+rules, thresholds, status codes, and storage backend. A custom policy file is only generated when you explicitly
+customize the policy via <code class="option">services.anubis.instances.&lt;name&gt;.policy</code>.</p><p>To add custom bot rules while keeping the defaults:</p><pre><code class="programlisting nix">{
+  services.anubis.instances.default = {
+    settings.TARGET = &quot;http://localhost:8000&quot;;
+    policy.extraBots = [
+      {
+        name = &quot;my-allowed-bot&quot;;
+        user_agent_regex = &quot;MyBot/.*&quot;;
+        action = &quot;ALLOW&quot;;
+      }
+    ];
+  };
+}
+</code></pre><p>To opt out of the default bot rules entirely and define your own:</p><pre><code class="programlisting nix">{
+  services.anubis.instances.default = {
+    settings.TARGET = &quot;http://localhost:8000&quot;;
+    policy = {
+      useDefaultBotRules = false;
+      extraBots = [
+        {
+          name = &quot;my-rule&quot;;
+          path_regex = &quot;.*&quot;;
+          action = &quot;CHALLENGE&quot;;
+        }
+      ];
+    };
+  };
+}
+</code></pre><div class="note"><h3 class="title">Note</h3><p>When you customize the policy, a custom policy file is generated. This file imports the default bot rules via
+<code class="literal">(data)/meta/default-config.yaml</code> when <code class="option">services.anubis.instances.&lt;name&gt;.policy.useDefaultBotRules</code> is enabled,
+but uses Anubis’s simpler legacy threshold instead of the 5-tier thresholds from <code class="literal">botPolicies.yaml</code>. If you need custom
+thresholds, specify them in <code class="option">services.anubis.instances.&lt;name&gt;.policy.settings</code>.</p></div><p>See <a class="link" href="https://anubis.techaro.lol/docs/admin/policies"  target="_top">the upstream documentation</a> for all available policy options.</p>
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-amule" class="title" >aMule   </h2>  </div> </div></div><p><a class="link" href="https://www.amule.org/"  target="_top">aMule</a> is a free and open-source peer-to-peer file sharing client that supports the eD2k and Kad networks.
@@ -7262,7 +7288,7 @@ In such cases, you may wish to set <code class="literal">ekCertLess = true;</cod
 
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-security-acme" class="title" >SSL/TLS Certificates with ACME   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-security-acme-prerequisites">Prerequisites</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-nginx">Using ACME certificates in Nginx</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-httpd">Using ACME certificates in Apache/httpd</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-configuring">Manual configuration of HTTP-01 validation</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-config-dns">Configuring ACME for DNS validation</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-config-dns-with-vhosts">Using DNS validation with web server virtual hosts</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-root-owned">Using ACME with services demanding root owned certificates</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-regenerate">Regenerating certificates</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-fix-jws">Fixing JWS Verification error</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-reload-dependencies">Ensuring dependencies for services that need to be reloaded when a certificate challenges</a> </span></dt> </dl></div><p>NixOS supports automatic domain validation &amp; certificate retrieval and
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-security-acme" class="title" >SSL/TLS Certificates with ACME   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-security-acme-prerequisites">Prerequisites</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-nginx">Using ACME certificates in Nginx</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-httpd">Using ACME certificates in Apache/httpd</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-configuring">Manual configuration of HTTP-01 validation</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-config-dns">Configuring ACME for DNS validation</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-config-dns-with-vhosts">Using DNS validation with web server virtual hosts</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-root-owned">Using ACME with services demanding root owned certificates</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-regenerate">Regenerating certificates</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-fix-jws">Fixing JWS Verification error</a> </span></dt><dt> <span class="section">  <a href="index.html#module-security-acme-reload-dependencies">Ensuring dependencies for services that need to be reloaded when a certificate changes</a> </span></dt> </dl></div><p>NixOS supports automatic domain validation &amp; certificate retrieval and
 renewal using the ACME protocol. Any provider can be used, but by default
 NixOS uses Let’s Encrypt. The alternative ACME client
 <a class="link" href="https://go-acme.github.io/lego/"  target="_top">lego</a> is used under
@@ -7563,7 +7589,7 @@ systemd-tmpfiles --create
 # Note: Do this for all certs that share the same account email address
 systemctl start acme-example.com.service
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-security-acme-reload-dependencies" class="title" style="clear: both">Ensuring dependencies for services that need to be reloaded when a certificate challenges   </h2>  </div> </div></div><p>Services that depend on ACME certificates and need to be reloaded can use one of two approaches to reload upon successfull certificate acquisition or renewal:</p><div class="orderedlist"><ol class="orderedlist "  type="1"><li class="listitem"><p><span class="strong"><strong>Using the <code class="literal">security.acme.certs.&lt;name&gt;.reloadServices</code> option</strong></span>: This will cause <code class="literal">systemctl try-reload-or-restart</code> to be run for the listed services.</p></li><li class="listitem"><p><span class="strong"><strong>Using a separate reload unit</strong></span>: if you need perform more complex actions you can implement a separate reload unit but need to ensure that it lists the <code class="literal">acme-renew-&lt;name&gt;.service</code> unit both as <code class="literal">wantedBy</code> AND <code class="literal">after</code>. See the nginx module implementation with its <code class="literal">nginx-config-reload</code> service.</p></li></ol></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-security-acme-reload-dependencies" class="title" style="clear: both">Ensuring dependencies for services that need to be reloaded when a certificate changes   </h2>  </div> </div></div><p>Services that depend on ACME certificates and need to be reloaded can use one of two approaches to reload upon successfull certificate acquisition or renewal:</p><div class="orderedlist"><ol class="orderedlist "  type="1"><li class="listitem"><p><span class="strong"><strong>Using the <code class="literal">security.acme.certs.&lt;name&gt;.reloadServices</code> option</strong></span>: This will cause <code class="literal">systemctl try-reload-or-restart</code> to be run for the listed services.</p></li><li class="listitem"><p><span class="strong"><strong>Using a separate reload unit</strong></span>: if you need perform more complex actions you can implement a separate reload unit but need to ensure that it lists the <code class="literal">acme-renew-&lt;name&gt;.service</code> unit both as <code class="literal">wantedBy</code> AND <code class="literal">after</code>. See the nginx module implementation with its <code class="literal">nginx-config-reload</code> service.</p></li></ol></div>
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-programs-zsh-ohmyzsh" class="title" >Oh my ZSH   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-programs-oh-my-zsh-usage">Basic usage</a> </span></dt><dt> <span class="section">  <a href="index.html#module-programs-oh-my-zsh-additions">Custom additions</a> </span></dt><dt> <span class="section">  <a href="index.html#module-programs-oh-my-zsh-environments">Custom environments</a> </span></dt><dt> <span class="section">  <a href="index.html#module-programs-oh-my-zsh-packaging-customizations">Package your own customizations</a> </span></dt> </dl></div><p><a class="link" href="https://ohmyz.sh/"  target="_top"><code class="literal">oh-my-zsh</code></a> is a framework to manage your <a class="link" href="https://www.zsh.org/"  target="_top">ZSH</a>
@@ -8996,7 +9022,13 @@ the line <code class="literal">The option &lt;option path&gt; is defined multipl
 a list of definition locations.</p></dd><dt><span class="term"><code class="literal">types.coercedTo</code> <span class="emphasis"><em><code class="literal">from f to</code></em></span></span></dt><dd><p>Type <span class="emphasis"><em><code class="literal">to</code></em></span> or type <span class="emphasis"><em><code class="literal">from</code></em></span> which will be coerced to type <span class="emphasis"><em><code class="literal">to</code></em></span> using
 function <span class="emphasis"><em><code class="literal">f</code></em></span> which takes an argument of type <span class="emphasis"><em><code class="literal">from</code></em></span> and return a
 value of type <span class="emphasis"><em><code class="literal">to</code></em></span>. Can be used to preserve backwards compatibility
-of an option if its type was changed.</p></dd></dl></div>
+of an option if its type was changed.</p></dd><dt><span class="term"><code class="literal">types.json</code></span></dt><dd><p>A type representing JSON-compatible values. This includes <code class="literal">null</code>, booleans,
+integers, floats, strings, paths, attribute sets, and lists.
+Attribute sets and lists can be arbitrarily nested and contain any JSON-compatible
+values.</p></dd><dt><span class="term"><code class="literal">types.toml</code></span></dt><dd><p>A type representing TOML-compatible values. This includes booleans,
+integers, floats, strings, paths, attribute sets, and lists.
+Attribute sets and lists can be arbitrarily nested and contain any TOML-compatible
+values.</p></dd></dl></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="section-option-types-submodule" class="title" >Submodule   </h3>  </div> </div></div><p><code class="literal">submodule</code> is a very powerful type that defines a set of sub-options
 that are handled like a separate module.</p><p>It takes a parameter <span class="emphasis"><em><code class="literal">o</code></em></span>, that should be a set, or a function returning
 a set with an <code class="literal">options</code> key defining the sub-options. Submodule option
