@@ -1669,16 +1669,16 @@ testing):</p><pre><code class="programlisting">xkb_symbols &quot;us-greek&quot;
 </code></pre><div class="note"><h3 class="title">Note</h3><p>The name (after <code class="literal">extraLayouts.</code>) should match the one given to the
 <code class="literal">xkb_symbols</code> block.</p></div><p>Applying this customization requires rebuilding several packages, and a
 broken XKB file can lead to the X session crashing at login. Therefore,
-you’re strongly advised to <span class="strong"><strong>test your layout before applying it</strong></span>:</p><pre><code class="programlisting ShellSession">$ nix-shell -p xorg.xkbcomp
+you’re strongly advised to <span class="strong"><strong>test your layout before applying it</strong></span>:</p><pre><code class="programlisting ShellSession">$ nix-shell -p xkbcomp
 $ setxkbmap -I/yourpath us-greek -print | xkbcomp -I/yourpath - $DISPLAY
-</code></pre><p>You can inspect the predefined XKB files for examples:</p><pre><code class="programlisting ShellSession">$ echo &quot;$(nix-build --no-out-link &#x27;&lt;nixpkgs&gt;&#x27; -A xorg.xkeyboardconfig)/etc/X11/xkb/&quot;
+</code></pre><p>You can inspect the predefined XKB files for examples:</p><pre><code class="programlisting ShellSession">$ echo &quot;$(nix-build --no-out-link &#x27;&lt;nixpkgs&gt;&#x27; -A xkeyboard-config)/etc/X11/xkb/&quot;
 </code></pre><p>Once the configuration is applied, and you did a logout/login cycle, the
 layout should be ready to use. You can try it by e.g. running
 <code class="literal">setxkbmap us-greek</code> and then type <code class="literal">&lt;alt&gt;+a</code> (it may not get applied in
 your terminal straight away). To change the default, the usual
 <code class="literal">services.xserver.xkb.layout</code> option can still be used.</p><p>A layout can have several other components besides <code class="literal">xkb_symbols</code>, for
 example we will define new keycodes for some multimedia key and bind
-these to some symbol.</p><p>Use the <span class="emphasis"><em>xev</em></span> utility from <code class="literal">pkgs.xorg.xev</code> to find the codes of the keys
+these to some symbol.</p><p>Use the <span class="emphasis"><em>xev</em></span> utility from <code class="literal">pkgs.xev</code> to find the codes of the keys
 of interest, then create a <code class="literal">media-key</code> file to hold the keycodes
 definitions</p><pre><code class="programlisting">xkb_keycodes &quot;media&quot;
 {
@@ -3640,7 +3640,7 @@ derivation.</p><pre><code class="programlisting nix">{
         };
         nativeBuildInputs = with pkgs; [
           jq
-          xorg.lndir
+          lndir
         ];
         passAsFile = [ &quot;config&quot; ];
       }
