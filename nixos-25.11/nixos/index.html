@@ -2928,7 +2928,7 @@ Postgres will be initialized on that same instance automatically.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-missing" class="title" style="clear: both">Missing   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Exposing with nginx is not implemented yet.</p></li><li class="listitem"><p>This has been tested using a local database with a unix socket connection. Using different database settings will likely require modifications</p></li></ul></div>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak" class="title" >Keycloak   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-keycloak-admin">Administration</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-database">Database access</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-hostname">Hostname</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-tls">Setting up TLS/SSL</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-themes">Themes</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-settings">Configuration file settings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-example-config">Example configuration</a> </span></dt> </dl></div><p><a class="link" href="https://www.keycloak.org/"  target="_top">Keycloak</a> is an
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak" class="title" >Keycloak   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-keycloak-admin">Administration</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-database">Database access</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-unix-socket">Unix socket authentication</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-hostname">Hostname</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-tls">Setting up TLS/SSL</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-themes">Themes</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-settings">Configuration file settings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-example-config">Example configuration</a> </span></dt> </dl></div><p><a class="link" href="https://www.keycloak.org/"  target="_top">Keycloak</a> is an
 open source identity and access management server with support for
 <a class="link" href="https://openid.net/connect/"  target="_top">OpenID Connect</a>,
 <a class="link" href="https://oauth.net/2/"  target="_top">OAUTH 2.0</a> and
@@ -2962,6 +2962,19 @@ are kept at their defaults, the database role
 <code class="literal">keycloak</code> with that password is provisioned
 on the local database instance.</p><div class="warning"><h3 class="title">Warning</h3><p>The path should be provided as a string, not a Nix path, since Nix
 paths are copied into the world readable Nix store.</p></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak-unix-socket" class="title" style="clear: both">Unix socket authentication   </h2>  </div> </div></div><p>For PostgreSQL, Keycloak can connect via Unix socket using peer
+authentication, avoiding the need for a database password.</p><p>To use Unix sockets, set <a class="xref" href="options.html#opt-services.keycloak.database.host"  ><code class="option">services.keycloak.database.host</code></a>
+to the PostgreSQL socket directory (e.g., <code class="literal">/run/postgresql</code>) and
+add the required junixsocket plugins:</p><pre><code class="programlisting nix">{
+  services.keycloak = {
+    database.host = &quot;/run/postgresql&quot;;
+    plugins = with pkgs.keycloak.plugins; [
+      junixsocket-common
+      junixsocket-native-common
+    ];
+  };
+}
+</code></pre><div class="note"><h3 class="title">Note</h3><p>Unix socket authentication is only supported for PostgreSQL.</p></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak-hostname" class="title" style="clear: both">Hostname   </h2>  </div> </div></div><p>The hostname is used to build the public URL used as base for
 all frontend requests and must be configured through
 <a class="xref" href="options.html#opt-services.keycloak.settings.hostname"  ><code class="option">services.keycloak.settings.hostname</code></a>.</p><div class="note"><h3 class="title">Note</h3><p>If you’re migrating an old Wildfly based Keycloak instance
