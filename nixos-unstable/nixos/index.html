@@ -1981,10 +1981,22 @@ enabled (<code class="literal">services.openssh.enable = true</code>). UDP ports
 }
 </code></pre><p>Similarly, UDP port ranges can be opened through
 <a class="xref" href="options.html#opt-networking.firewall.allowedUDPPortRanges"  ><code class="option">networking.firewall.allowedUDPPortRanges</code></a>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-wireless" class="title" style="clear: both">Wireless Networks   </h2>  </div> </div></div><p>For a desktop installation using NetworkManager (e.g., GNOME), you just
-have to make sure the user is in the <code class="literal">networkmanager</code> group and you can
-skip the rest of this section on wireless networks.</p><p>NixOS will start wpa_supplicant for you if you enable this setting:</p><pre><code class="programlisting nix">{ networking.wireless.enable = true; }
-</code></pre><p>NixOS lets you specify networks for wpa_supplicant declaratively:</p><pre><code class="programlisting nix">{
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-wireless" class="title" style="clear: both">Wireless Networks   </h2>  </div> </div></div><p>For a desktop installation using NetworkManager (e.g., GNOME or KDE), you should
+make sure the user is in the <code class="literal">networkmanager</code> group and you can just configure
+wireless networks from the Settings app.
+It is also possible to declare (some) wireless networks from the NixOS
+configuration with <a class="xref" href="options.html#opt-networking.networkmanager.ensureProfiles.profiles"  ><code class="option">networking.networkmanager.ensureProfiles.profiles</code></a>.</p><p>Alternatively, without NetworkManager, you can configure wireless networks
+using wpa_supplicant by setting</p><pre><code class="programlisting nix">{ networking.wireless.enable = true; }
+</code></pre><p>By default, wpa_supplicant will manage the first wireless interface that becomes
+available. It is however recommended to set the desired interface name with
+<a class="xref" href="options.html#opt-networking.wireless.interfaces"  ><code class="option">networking.wireless.interfaces</code></a>, as it is more reliable.</p><p>If multiple interfaces are set, NixOS will create a separate systemd service
+for each one of them, for example:</p><pre><code class="programlisting nix">{
+  networking.wireless.interfaces = [
+    &quot;wlan0&quot;
+    &quot;wlan1&quot;
+  ];
+}
+</code></pre><p>results in <code class="literal">wpa_supplicant-wlan0.service</code> and <code class="literal">wpa_supplicant-wlan1.service</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-wireless-declarative" class="title" >Declarative configuration   </h3>  </div> </div></div><p>NixOS lets you specify networks declaratively:</p><pre><code class="programlisting nix">{
   networking.wireless.networks = {
     # SSID with no spaces or special characters
     echelon = {
@@ -2002,27 +2014,103 @@ skip the rest of this section on wireless networks.</p><p>NixOS will start wpa_s
     free.wifi = { }; # Public wireless network
   };
 }
-</code></pre><p>Be aware that keys will be written to the nix store in plaintext! When
-no networks are set, it will default to using a configuration file at
-<code class="literal">/etc/wpa_supplicant.conf</code>. You should edit this file yourself to define
-wireless networks, WPA keys and so on (see wpa_supplicant.conf(5)).</p><p>If you are using WPA2 you can generate pskRaw key using
-<code class="literal">wpa_passphrase</code>:</p><pre><code class="programlisting ShellSession">$ wpa_passphrase ESSID PSK
+</code></pre><p>If the network is using WPA2, the pre-shared key (PSK) can be also specified
+with the <code class="literal">pskRaw</code> option as 64 hexadecimal digits.
+This is useful to both obfuscate passwords and make the connection slightly
+faster, as the key doesn’t need to be derived every time.</p><p>The <code class="literal">pskRaw</code> values can be calculated using the <code class="literal">wpa_passphrase</code> tool:</p><pre><code class="programlisting console">$ wpa_passphrase ESSID PSK
 network={
         ssid=&quot;echelon&quot;
         #psk=&quot;abcdefgh&quot;
         psk=dca6d6ed41f4ab5a984c9f55f6f66d4efdc720ebf66959810f4329bb391c5435
 }
 </code></pre><pre><code class="programlisting nix">{
-  networking.wireless.networks = {
-    echelon = {
-      pskRaw = &quot;dca6d6ed41f4ab5a984c9f55f6f66d4efdc720ebf66959810f4329bb391c5435&quot;;
-    };
+  networking.wireless.networks.echelon = {
+    pskRaw = &quot;dca6d6ed41f4ab5a984c9f55f6f66d4efdc720ebf66959810f4329bb391c5435&quot;;
   };
 }
-</code></pre><p>or you can use it to directly generate the <code class="literal">wpa_supplicant.conf</code>:</p><pre><code class="programlisting ShellSession"># wpa_passphrase ESSID PSK &gt; /etc/wpa_supplicant.conf
-</code></pre><p>After you have edited the <code class="literal">wpa_supplicant.conf</code>, you need to restart the
-wpa_supplicant service.</p><pre><code class="programlisting ShellSession"># systemctl restart wpa_supplicant.service
-</code></pre>
+</code></pre><p>Other wpa_supplicant configuration can be set using the <code class="option">extraConfig</code>
+option, either globally or per-network. For example:</p><pre><code class="programlisting">{
+  networking.wireless.extraConfig = &#x27;&#x27;
+    # Enable MAC address randomization by default
+    mac_addr=1
+  &#x27;&#x27;;
+  networking.wireless.networks.home = {
+    psk = &quot;abcdefgh&quot;;
+    extraConfig = &#x27;&#x27;
+      # Use the real MAC address at home
+      mac_addr=0
+    &#x27;&#x27;;
+  };
+}
+</code></pre><div class="note"><h3 class="title">Note</h3><p>The generated wpa_supplicant configuration file is linked to
+<code class="literal">/etc/wpa_supplicant/nixos.conf</code> for easier inspection.</p></div><p>Be aware that in the previous examples the keys would be written to the Nix
+store in plain text and readable to every local user.
+It is recommended to specify secrets (PSKs, passwords, etc.) in a safe way using
+<a class="xref" href="options.html#opt-networking.wireless.secretsFile"  ><code class="option">networking.wireless.secretsFile</code></a> and the <code class="literal">ext:</code> syntax. For example:</p><pre><code class="programlisting nix">{
+  networking.wireless.secretsFile = &quot;/run/secrets/wireless.conf&quot;;
+  networking.wireless.networks = {
+    home = {
+      pskRaw = &quot;ext:psk_home&quot;;
+    };
+    work.auth = &#x27;&#x27;
+      eap=PEAP
+      identity=&quot;my-user@example.com&quot;
+      password=ext:pass_work
+    &#x27;&#x27;;
+  };
+}
+</code></pre><p>where <code class="literal">/run/secrets/wireless.conf</code> contains</p><pre><code class="programlisting">psk_home=mypassword
+pass_work=myworkpassword
+</code></pre><div class="note"><h3 class="title">Note</h3><p>The secrets file should be owned and placed in a location accessible (only) by
+the <code class="literal">wpa_supplicant</code> user. Only certain fields support the <code class="literal">ext:</code> syntax,
+for example <code class="literal">psk</code>, <code class="literal">sae_password</code> and <code class="literal">password</code>, but not <code class="literal">ssid</code>.</p></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-wireless-imperative" class="title" >Imperative configuration   </h3>  </div> </div></div><p>It can be useful to add a new network without rebuilding the NixOS
+configuration, particularly if you don’t yet have Internet access.
+Setting <a class="xref" href="options.html#opt-networking.wireless.userControlled"  ><code class="option">networking.wireless.userControlled</code></a> to <code class="literal">true</code> will allow users
+of the <code class="literal">wpa_supplicant</code> group to configure wpa_supplicant imperatively.</p><p>For example, using <code class="literal">wpa_cli</code> you can add a new network and connect to it as:</p><pre><code class="programlisting console"># wpa_cli
+Selected interface &#x27;wlan0&#x27;
+
+Interactive mode
+
+&gt; add_network
+10
+&gt; set_network 10 ssid &quot;echelon&quot;
+OK
+&gt; set_network 10 psk &quot;abcdefgh&quot;
+OK
+&gt; select_network 10
+OK
+</code></pre><p>Note that these changes will be lost when wpa_supplicant is restarted.
+To make them persistent, the option
+<a class="xref" href="options.html#opt-networking.wireless.allowAuxiliaryImperativeNetworks"  ><code class="option">networking.wireless.allowAuxiliaryImperativeNetworks</code></a> can be set, which
+allows to use the <code class="literal">save</code> command in <code class="literal">wpa_cli</code>, or even directly editing the
+file <code class="literal">/etc/wpa_supplicant/imperative.conf</code>.</p><div class="note"><h3 class="title">Note</h3><p>Remember that after manually editing <code class="literal">imperative.conf</code> the wpa_supplicant daemon
+needs to be restarted:</p><pre><code class="programlisting console"># systemctl restart wpa_supplicant.service
+</code></pre><p>or</p><pre><code class="programlisting console"># systemctl restart wpa_supplicant-&lt;interface&gt;.service
+</code></pre><p>if <a class="xref" href="options.html#opt-networking.wireless.interfaces"  ><code class="option">networking.wireless.interfaces</code></a> has been set.</p></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-wireless-enterprise" class="title" >Enterprise networks   </h3>  </div> </div></div><p>Networks with more sophisticated authentication protocols can be configured
+using the free-form <code class="literal">auth</code> option, for example:</p><pre><code class="programlisting">{
+  networking.wireless.networks = {
+    eduroam.auth = &#x27;&#x27;
+      key_mgmt=WPA-EAP
+      eap=PEAP
+      identity=&quot;alice.smith@example.com&quot;
+      password=&quot;veryLongPassword$!3&quot;
+      ca_cert=&quot;/etc/wpa_supplicant/eduroam.pem&quot;
+    &#x27;&#x27;;
+  };
+}
+</code></pre><p>For examples and a list of available options, see the
+<a class="link" href="man:wpa_supplicant.conf(5)"  target="_top">wpa_supplicant.conf(5)</a> man page.</p><div class="warning"><h3 class="title">Warning</h3><p>By default, security hardening measures that limit access to files, devices and
+network capabilities are applied to the wpa_supplicant daemon.</p><p>Certificates and other files supplied here need to be readable by the
+<code class="literal">wpa_supplicant</code> user; it is therefore recommended to store them in the
+<code class="literal">/etc/wpa_supplicant</code> directory.</p><p>If your network authentication protocol requires write access to files, smart
+cards or TPM devices, you may have to disable security hardening with</p><pre><code class="programlisting nix">{ networking.wireless.enableHardening = false; }
+</code></pre><p>This setting also applies to networks configured from NetworkManager, unless
+the WiFi <a class="link" href="options.html#opt-networking.networkmanager.wifi.backend"  >backend</a> in use is not
+wpa_supplicant.</p></div>
+</div>
+
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ad-hoc-network-config" class="title" style="clear: both">Ad-Hoc Configuration   </h2>  </div> </div></div><p>You can use <a class="xref" href="options.html#opt-networking.localCommands"  ><code class="option">networking.localCommands</code></a> to
 specify shell commands to be run at the end of <code class="literal">network-setup.service</code>. This
 is useful for doing network configuration not covered by the existing NixOS
