@@ -11445,13 +11445,41 @@ null or strings concatenated with “\n”</p>
 This option should be defined at most once per module.</p><p>The option value is not a list of maintainers, but an attribute set that maps module file names to lists of maintainers.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
-list of (maintainer)</p>
+list of lib.maintainers</p>
 
 <p><span class="emphasis"><em>Default:</em></span>
 <code class="literal">[ ]</code></p>
 
 <p><span class="emphasis"><em>Example:</em></span>
 <code class="literal">[ lib.maintainers.alice lib.maintainers.bob ]</code></p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/release-25.11/modules/generic/meta-maintainers.nix" target="_top">
+&lt;nixpkgs/modules/generic/meta-maintainers.nix&gt;
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="service-opt-meta.teams"></a><a class="term" href="index.html#service-opt-meta.teams"><code class="option">meta.teams</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>List of team maintainers of each module.
+This option should be defined at most once per module.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+list of lib.teams</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">[ ]</code></p>
+
+<p><span class="emphasis"><em>Example:</em></span>
+<code class="literal">[ lib.teams.acme lib.teams.haskell ]</code></p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
