@@ -10127,15 +10127,14 @@ symlink at <code class="literal">./result/share/doc/nixos/index.html</code>.</p>
 NixOS tests are kept in the directory <code class="literal">nixos/tests</code>, and are executed
 (using Nix) by a testing framework that automatically starts one or more
 virtual machines containing the NixOS system(s) required for the test.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-writing-nixos-tests" class="title" style="clear: both">Writing Tests   </h2>  </div> </div></div><p>A NixOS test is a module that has the following structure:</p><pre><code class="programlisting nix">{
-
-  # One or more machines:
+  # QEMU virtual machines:
   nodes = {
-    machine =
+    vm1 =
       { config, pkgs, ... }:
       {
         # ...
       };
-    machine2 =
+    vm2 =
       { config, pkgs, ... }:
       {
         # ...
@@ -10143,21 +10142,40 @@ virtual machines containing the NixOS system(s) required for the test.</p><div c
     # …
   };
 
+  # systemd-nspawn containers:
+  containers = {
+    container1 =
+      { config, pkgs, ... }:
+      {
+        # ...
+      };
+    container2 =
+      { config, pkgs, ... }:
+      {
+        # ...
+      };
+  };
+
   testScript = &#x27;&#x27;
     Python code…
   &#x27;&#x27;;
 }
 </code></pre><p>We refer to the whole test above as a test module, whereas the values
-in <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes.&lt;name&gt;</code></a> are NixOS modules themselves.</p><p>The option <a class="link" href="index.html#test-opt-testScript"  ><code class="literal">testScript</code></a> is a piece of Python code that executes the
-test (described below). During the test, it will start one or more
-virtual machines, the configuration of which is described by
-the option <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a>.</p><p>An example of a single-node test is
+in <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes.&lt;name&gt;</code></a> and <a class="link" href="index.html#test-opt-containers"  ><code class="literal">containers.&lt;name&gt;</code></a>
+are NixOS modules themselves.</p><p>The option <a class="link" href="index.html#test-opt-testScript"  ><code class="literal">testScript</code></a> is a piece of Python code that executes the
+test (described <a class="link" href="index.html#ssec-test-script" title="Writing the test script" >below</a>). During the test, it will start one or more
+virtual machines and/or <code class="literal">systemd-nspawn</code> containers, the configuration of which is described by
+the options <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a> and <a class="link" href="index.html#test-opt-containers"  ><code class="literal">containers</code></a>, respectively.</p><p>An example of a single-node test is
 <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/login.nix"  target="_top"><code class="literal">login.nix</code></a>.
 It only needs a single machine to test whether users can log in
 on the virtual console, whether device ownership is correctly maintained
 when switching between consoles, and so on. An interesting multi-node test is
 <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/nfs/simple.nix"  target="_top"><code class="literal">nfs/simple.nix</code></a>.
-It uses two client nodes to test correct locking across server crashes.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-calling-nixos-tests" class="title" >Calling a test   </h3>  </div> </div></div><p>Tests are invoked differently depending on whether the test is part of NixOS or lives in a different project.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-call-nixos-test-in-nixos" class="title" >Testing within NixOS   </h4>  </div> </div></div><p>Tests that are part of NixOS are added to <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/all-tests.nix"  target="_top"><code class="literal">nixos/tests/all-tests.nix</code></a>.</p><pre><code class="programlisting nix">{ hostname = runTest ./hostname.nix; }
+It uses two client nodes to test correct locking across server crashes.</p><p>A test can contain both virtual machines and containers.
+If configured to share a common VLAN,
+they can reach each other over the network.
+See <a class="link" href="https://github.com/applicative-systems/nixpkgs/blob/78100f9077ab50604ab9c9514e442bbc7ac7ca5b/nixos/tests/nixos-test-driver/containers.nix"  target="_top"></a>
+for an example of this and <a class="xref" href="index.html#sec-running-nixos-tests-requirements" title="System Requirements" >the section called “System Requirements”</a> for the system requirements for this scenario.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-calling-nixos-tests" class="title" >Calling a test   </h3>  </div> </div></div><p>Tests are invoked differently depending on whether the test is part of NixOS or lives in a different project.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-call-nixos-test-in-nixos" class="title" >Testing within NixOS   </h4>  </div> </div></div><p>Tests that are part of NixOS are added to <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/all-tests.nix"  target="_top"><code class="literal">nixos/tests/all-tests.nix</code></a>.</p><pre><code class="programlisting nix">{ hostname = runTest ./hostname.nix; }
 </code></pre><p>Overrides can be added by defining an anonymous module in <code class="literal">all-tests.nix</code>.</p><pre><code class="programlisting nix">{
   hostname = runTest {
     imports = [ ./hostname.nix ];
@@ -10179,51 +10197,72 @@ pkgs.testers.runNixOSTest {
 </code></pre><p><code class="literal">runNixOSTest</code> returns a derivation that runs the test.</p>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-nodes" class="title" >Configuring the nodes   </h3>  </div> </div></div><p>There are a few special NixOS options for test VMs:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">virtualisation.memorySize</code></span></dt><dd><p>The memory of the VM in MiB (1024×1024 bytes).</p></dd><dt><span class="term"><code class="literal">virtualisation.vlans</code></span></dt><dd><p>The virtual networks to which the VM is connected. See
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-nixos-test-machines" class="title" >Test machines   </h3>  </div> </div></div><p>A NixOS test usually consists of one or more test machines. Each machine is either a
+QEMU virtual machine or a <code class="literal">systemd-nspawn</code> container.</p><p>QEMU virtual machines are defined in the
+<a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a> attribute set, whereas <code class="literal">systemd-nspawn</code> containers are defined in the
+<a class="link" href="index.html#test-opt-containers"  ><code class="literal">containers</code></a> attribute set.</p><p>To set NixOS options for all machines in the test, use the attribute
+<a class="link" href="index.html#test-opt-defaults"  ><code class="literal">defaults</code></a>. These options are applied to both virtual machines
+and containers. You can set separate defaults for virtual machines and containers
+using the attributes <a class="link" href="index.html#test-opt-nodeDefaults"  ><code class="literal">nodeDefaults</code></a> and
+<a class="link" href="index.html#test-opt-containerDefaults"  ><code class="literal">containerDefaults</code></a>, respectively.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-nixos-test-vms-vs-containers" class="title" >Virtual machines vs. containers   </h4>  </div> </div></div><p>QEMU virtual machines and <code class="literal">systemd-nspawn</code> containers offer different
+trade-offs which make them suitable for different use cases.</p><p>Some advantages of containers over virtual machines are:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Containers share the kernel of the host system; they are
+significantly faster to start up than virtual machines.</p></li><li class="listitem"><p>Containers are more lightweight in terms of resource usage, which
+allows running more of them in parallel on a single host.</p></li><li class="listitem"><p>Containers can easily be run in virtualised environments, e.g., CI systems.</p></li><li class="listitem"><p>Containers allow direct bind-mounting of host device nodes, which enables
+testing of GPU code (CUDA), for example.</p></li></ul></div><p>Some advantages of virtual machines over containers are:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Virtual machines run a separate kernel, which allows testing kernel features
+(kernel modules, etc.).</p></li><li class="listitem"><p>Virtual machines support testing graphical applications on X11.</p></li><li class="listitem"><p>Virtual machines allow testing NixOS modules that use systemd’s namespacing options (such as <code class="literal">ProtectSystem=</code> or <code class="literal">MountAPIVFS=</code>).</p></li><li class="listitem"><p>Virtual machines allow testing <a class="link" href="options.html#opt-specialisation"  target="_top"><code class="literal">spcialisation</code></a>.
+(Switching to a specialisation requires the creation of SUID/SGID wrappers, which is disallowed in <code class="literal">systemd-nspawn</code> within the Nix sandbox.)</p></li><li class="listitem"><p>Virtual machines allow the execution of <code class="literal">setuid</code> binaries.</p></li></ul></div><p>Refer to the sections on <a class="link" href="index.html#ssec-nixos-test-qemu-vms" title="Configuring QEMU virtual machines" >QEMU virtual machines</a>
+and <a class="link" href="index.html#ssec-nixos-test-nspawn-containers" title="Configuring systemd-nspawn containers" >systemd-nspawn containers</a> below
+for more details on configuring each type of machine.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-nixos-test-machines-config" class="title" >Configuring test machines   </h4>  </div> </div></div><p>The following special NixOS option can be used to configure
+machines in a NixOS test, whether they are virtual machines or containers:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">virtualisation.vlans</code></span></dt><dd><p>The virtual networks to which the VM is connected. See
 <a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/tests/nat.nix"  target="_top"><code class="literal">nat.nix</code></a>
-for an example.</p></dd><dt><span class="term"><code class="literal">virtualisation.writableStore</code></span></dt><dd><p>By default, the Nix store in the VM is not writable. If you enable
+for an example.</p></dd></dl></div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-nixos-test-nspawn-containers" class="title" >Configuring <code class="literal">systemd-nspawn</code> containers   </h5>  </div> </div></div><p>Some options are specific to <code class="literal">systemd-nspawn</code> containers:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">virtualisation.systemd-nspawn.options</code></span></dt><dd><p>A list of additional command-line options to pass to
+<code class="literal">systemd-nspawn</code> when starting the container. For example, to
+bind mount a directory from the host into the container, you could
+use: <code class="literal">[ &quot;--bind=/host/dir:/container/dir&quot; ]</code>.</p></dd></dl></div><p>For more options, see the module
+<a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/nspawn-container/default.nix"  target="_top"><code class="literal">nspawn-container</code></a>.</p><p>Note that the paths used in <code class="literal">--bind</code> or <code class="literal">--bind-ro</code> options have to be accessible from within the Nix sandbox.
+Use the Nix option
+<a class="link" href="https://nix.dev/manual/nix/stable/command-ref/conf-file#conf-sandbox-paths"  target="_top"><code class="literal">sandbox-paths</code></a>
+and/or the module <a class="link" href="options.html#opt-programs.nix-required-mounts.enable"  ><code class="literal">programs.nix-required-mounts</code></a> on the host
+to add additional paths to the sandbox.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-nixos-test-qemu-vms" class="title" >Configuring QEMU virtual machines   </h5>  </div> </div></div><p>Some options are specific to QEMU virtual machines:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">virtualisation.memorySize</code></span></dt><dd><p>The memory of the VM in MiB (1024×1024 bytes).</p></dd><dt><span class="term"><code class="literal">virtualisation.writableStore</code></span></dt><dd><p>By default, the Nix store in the VM is not writable. If you enable
 this option, a writable union file system is mounted on top of the
 Nix store to make it appear writable. This is necessary for tests
 that run Nix operations that modify the store.</p></dd></dl></div><p>For more options, see the module
-<a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/qemu-vm.nix"  target="_top"><code class="literal">qemu-vm.nix</code></a>.</p><p>The test script is a sequence of Python statements that perform various
-actions, such as starting VMs, executing commands in the VMs, and so on.
-Each virtual machine is represented as an object stored in the variable
-<code class="literal">name</code> if this is also the identifier of the machine in the declarative
-config. If you specified a node <code class="literal">nodes.machine</code>, the following example starts the
-machine, waits until it has finished booting, then executes a command
-and checks that the output is more-or-less correct:</p><pre><code class="programlisting py">machine.start()
+<a class="link" href="https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/qemu-vm.nix"  target="_top"><code class="literal">qemu-vm.nix</code></a>.</p>
+</div>
+
+</div>
+
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-test-script" class="title" >Writing the test script   </h3>  </div> </div></div><p>The test script is a sequence of Python statements that perform various
+actions, such as starting machines, executing commands in them, and so on. For
+example, if you specified a virtual machine in <code class="literal">nodes.machine</code>, there will be
+a Python variable <code class="literal">machine</code> available in the test script that represents that
+virtual machine. The following example would start the machine, wait until it
+has finished booting, and then execute a command and check that the output is
+more-or-less correct:</p><pre><code class="programlisting py">machine.start()
 machine.wait_for_unit(&quot;default.target&quot;)
 t.assertIn(&quot;Linux&quot;, machine.succeed(&quot;uname&quot;), &quot;Wrong OS&quot;)
 </code></pre><p>The first line is technically unnecessary; machines are implicitly started
 when you first execute an action on them (such as <code class="literal">wait_for_unit</code> or
 <code class="literal">succeed</code>). If you have multiple machines, you can speed up the test by
 starting them in parallel:</p><pre><code class="programlisting py">start_all()
-</code></pre><p>Under the variable <code class="literal">t</code>, all assertions from <a class="link" href="https://docs.python.org/3/library/unittest.html"  target="_top"><code class="literal">unittest.TestCase</code></a> are available.</p><p>If the hostname of a node contains characters that can’t be used in a
+</code></pre><p>Under the variable <code class="literal">t</code>, all assertions from <a class="link" href="https://docs.python.org/3/library/unittest.html"  target="_top"><code class="literal">unittest.TestCase</code></a> are available.</p><p>If the hostname of a machine contains characters that can’t be used in a
 Python variable name, those characters will be replaced with
 underscores in the variable name, so <code class="literal">nodes.machine-a</code> will be exposed
-to Python as <code class="literal">machine_a</code>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-machine-objects" class="title" >Machine objects   </h3>  </div> </div></div><p>The following methods are available on machine objects:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term">_managed_screenshot()</span></dt><dd><p>Take a screenshot and yield the screenshot filepath.
-The file will be deleted when leaving the generator.</p></dd><dt><span class="term">block()</span></dt><dd><p>Simulate unplugging the Ethernet cable that connects the machine to
-the other machines.
-This happens by shutting down eth1 (the multicast interface used to talk
-to the other VMs). eth0 is kept online to still enable the test driver
-to communicate with the machine.</p></dd><dt><span class="term">connect()</span></dt><dd><p>Wait for a connection to the guest root shell</p></dd><dt><span class="term">console_interact()</span></dt><dd><p>Allows you to directly interact with QEMU’s stdin, by forwarding
-terminal input to the QEMU process.
-This is for use with the interactive test driver, not for production
-tests, which run unattended.
-Output from QEMU is only read line-wise. <code class="literal">Ctrl-c</code> kills QEMU and
-<code class="literal">Ctrl-d</code> closes console and returns to the test runner.</p></dd><dt><span class="term">copy_from_host(source, target)</span></dt><dd><p>Copies a file from host to machine, e.g.,
+to Python as <code class="literal">machine_a</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="ssec-machine-objects" class="title" >Methods available on machine objects   </h4>  </div> </div></div><p>The following methods are available on machine objects (like <code class="literal">machine</code> in
+the examples above):</p><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-all-machine-objects" class="title" >Generic machine objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">copy_from_host(source, target)</span></dt><dd><p>Copies a file from host to machine, e.g.,
 <code class="literal">copy_from_host(&quot;myfile&quot;, &quot;/etc/my/important/file&quot;)</code>.</p><p>The first argument is the file on the host. Note that the “host” refers
 to the environment in which the test driver runs, which is typically the
 Nix build sandbox.</p><p>The second argument is the location of the file on the machine that will
 be written to.</p><p>The file is copied via the <code class="literal">shared_dir</code> directory which is shared among
-all the VMs (using a temporary directory).
+all the machines (using a temporary directory).
 The access rights bits will mimic the ones from the host file and
 user:group will be root:root.</p></dd><dt><span class="term">copy_from_host_via_shell(source, target)</span></dt><dd><p>Copy a file from the host into the guest by piping it over the
 shell into the destination file. Works without host-guest shared folder.
-Prefer copy_from_host for whenever possible.</p></dd><dt><span class="term">copy_from_vm(source, target_dir)</span></dt><dd><p>Copy a file from the VM (specified by an in-VM source path) to a path
+Prefer copy_from_host for whenever possible.</p></dd><dt><span class="term">copy_from_machine(source, target_dir)</span></dt><dd><p>Copy a file from the machine (specified by an in-machine source path) to a path
 relative to <code class="literal">$out</code>. The file is copied via the <code class="literal">shared_dir</code> shared among
-all the VMs (using a temporary directory).</p></dd><dt><span class="term">crash()</span></dt><dd><p>Simulate a sudden power failure, by telling the VM to exit immediately.</p></dd><dt><span class="term">dump_tty_contents(tty)</span></dt><dd><p>Debugging: Dump the contents of the TTY&lt;n&gt;</p></dd><dt><span class="term">execute(command, check_return, check_output, timeout)</span></dt><dd><p>Execute a shell command, returning a list <code class="literal">(status, stdout)</code>.</p><p>Commands are run with <code class="literal">set -euo pipefail</code> set:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>If several commands are separated by <code class="literal">;</code> and one fails, the
+all the machines (using a temporary directory).</p></dd><dt><span class="term">execute(command, check_return, check_output, timeout)</span></dt><dd><p>Execute a shell command, returning a list <code class="literal">(status, stdout)</code>.</p><p>Commands are run with <code class="literal">set -euo pipefail</code> set:</p><div class="itemizedlist"><ul class="itemizedlist " style="list-style-type: disc;"><li class="listitem"><p>If several commands are separated by <code class="literal">;</code> and one fails, the
 command as a whole will fail.</p></li><li class="listitem"><p>For pipelines, the last non-zero exit status will be returned
 (if there is one; otherwise zero will be returned).</p></li><li class="listitem"><p>Dereferencing unset variables fails the command.</p></li><li class="listitem"><p>It will wait for stdout to be closed.</p></li></ul></div><p>If the command detaches, it must close stdout, as <code class="literal">execute</code> will wait
 for this to consume all output reliably. This can be achieved by
@@ -10233,19 +10272,51 @@ shell forks a new process that can write to stdout and <code class="literal">xcl
 the <code class="literal">xclip</code> command itself forks without closing stdout.</p><p>Takes an optional parameter <code class="literal">check_return</code> that defaults to <code class="literal">True</code>.
 Setting this parameter to <code class="literal">False</code> will not check for the return code
 and return -1 instead. This can be used for commands that shut down
-the VM and would therefore break the pipe that would be used for
+the machine and would therefore break the pipe that would be used for
 retrieving the return code.</p><p>A timeout for the command can be specified (in seconds) using the optional
 <code class="literal">timeout</code> parameter, e.g., <code class="literal">execute(cmd, timeout=10)</code> or
 <code class="literal">execute(cmd, timeout=None)</code>. The default is 900 seconds.</p></dd><dt><span class="term">fail()</span></dt><dd><p>Like <code class="literal">succeed</code>, but raising an exception if the command returns a zero
-status.</p></dd><dt><span class="term">forward_port(host_port, guest_port)</span></dt><dd><p>Forward a TCP port on the host to a TCP port on the guest.
+status.</p></dd><dt><span class="term">get_unit_info(unit, user)</span></dt><dd><p>Get a dictionary of systemd unit properties, as obtained via <code class="literal">systemctl show</code>.</p></dd><dt><span class="term">get_unit_property(unit, property, user)</span></dt><dd><p>Get the string value of a single systemd unit property</p></dd><dt><span class="term">log(msg)</span></dt><dd><p>Log a message to console.</p></dd><dt><span class="term">nested(msg, attrs)</span></dt><dd><p>Get nested logger, optionally with extra attributes.</p></dd><dt><span class="term">require_unit_state(unit, require_state)</span></dt><dd><p>Assert that the current state of a unit has a specific value. The default state is “active”.</p></dd><dt><span class="term">shutdown()</span></dt><dd><p>Shutdown the machine gracefully, waiting for it to exit.</p></dd><dt><span class="term">start()</span></dt><dd><p>Start the machine. This method is asynchronous — it does
+not wait for the machine to finish booting.</p></dd><dt><span class="term">start_job(jobname, user)</span></dt><dd><p>Start systemd service.</p></dd><dt><span class="term">stop_job(jobname, user)</span></dt><dd><p>Stop systemd service.</p></dd><dt><span class="term">succeed()</span></dt><dd><p>Execute a shell command, raising an exception if the exit status is
+not zero, otherwise returning the standard output. Similar to <code class="literal">execute</code>,
+except that the timeout is <code class="literal">None</code> by default. See <code class="literal">execute</code> for details on
+command execution.</p></dd><dt><span class="term">systemctl(q, user)</span></dt><dd><p>Runs <code class="literal">systemctl</code> commands with optional support for
+<code class="literal">systemctl --user</code></p><pre><code class="programlisting py"># run `systemctl list-jobs --no-pager`
+machine.systemctl(&quot;list-jobs --no-pager&quot;)
+
+# spawn a shell for `any-user` and run
+# `systemctl --user list-jobs --no-pager`
+machine.systemctl(&quot;list-jobs --no-pager&quot;, &quot;any-user&quot;)
+</code></pre></dd><dt><span class="term">wait_for_closed_port(port, addr, timeout)</span></dt><dd><p>Wait until nobody is listening on the given TCP port and IP address
+(default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_file(filename, timeout)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr, timeout)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
+(default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_open_unix_socket(addr, is_datagram, timeout)</span></dt><dd><p>Wait until a process is listening on the given UNIX-domain socket
+(default to a UNIX-domain stream socket).</p></dd><dt><span class="term">wait_for_shutdown()</span></dt><dd><p>Wait for the machine to power off. This does <span class="emphasis"><em>not</em></span> initiate a shutdown;
+that’s usually done via <code class="literal">shutdown()</code>.</p></dd><dt><span class="term">wait_for_unit(unit, user, timeout)</span></dt><dd><p>Wait for a systemd unit to get into “active” state.
+Throws exceptions on “failed” and “inactive” states as well as after
+timing out.</p></dd><dt><span class="term">wait_until_fails(command, timeout)</span></dt><dd><p>Like <code class="literal">wait_until_succeeds</code>, but repeating the command until it fails.</p></dd><dt><span class="term">wait_until_succeeds(command, timeout)</span></dt><dd><p>Repeat a shell command with 1-second intervals until it succeeds.
+Has a default timeout of 900 seconds which can be modified, e.g.
+<code class="literal">wait_until_succeeds(cmd, timeout=10)</code>. See <code class="literal">execute</code> for details on
+command execution.
+Throws an exception on timeout.</p></dd></dl></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-qemu-machine-objects" class="title" >QEMU VM objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">_managed_screenshot()</span></dt><dd><p>Take a screenshot and yield the screenshot filepath.
+The file will be deleted when leaving the generator.</p></dd><dt><span class="term">block()</span></dt><dd><p>Simulate unplugging the Ethernet cable that connects the machine to
+the other machines.
+This happens by shutting down eth1 (the multicast interface used to talk
+to the other VMs). eth0 is kept online to still enable the test driver
+to communicate with the machine.</p></dd><dt><span class="term">connect()</span></dt><dd><p>Wait for a connection to the guest root shell</p></dd><dt><span class="term">console_interact()</span></dt><dd><p>Allows you to directly interact with QEMU’s stdin, by forwarding
+terminal input to the QEMU process.
+This is for use with the interactive test driver, not for production
+tests, which run unattended.
+Output from QEMU is only read line-wise. <code class="literal">Ctrl-c</code> kills QEMU and
+<code class="literal">Ctrl-d</code> closes console and returns to the test runner.</p></dd><dt><span class="term">crash()</span></dt><dd><p>Simulate a sudden power failure, by telling the VM to exit immediately.</p></dd><dt><span class="term">dump_tty_contents(tty)</span></dt><dd><p>Debugging: Dump the contents of the TTY&lt;n&gt;</p></dd><dt><span class="term">forward_port(host_port, guest_port)</span></dt><dd><p>Forward a TCP port on the host to a TCP port on the guest.
 Useful during interactive testing.</p></dd><dt><span class="term">get_console_log()</span></dt><dd><p>Get the full console output from the machine since boot.
 Returns all serial console output as a single string.</p></dd><dt><span class="term">get_screen_text()</span></dt><dd><p>Return a textual representation of what is currently visible on the
 machine’s screen using optical character recognition.</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">get_screen_text_variants()</span></dt><dd><p>Return a list of different interpretations of what is currently
 visible on the machine’s screen using optical character
 recognition. The number and order of the interpretations is not
 specified and is subject to change, but if no exception is raised at
-least one will be returned.</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">get_tty_text(tty)</span></dt><dd><p>Get the output printed to a given TTY.</p></dd><dt><span class="term">get_unit_info(unit, user)</span></dt><dd><p>Get a dictionary of systemd unit properties, as obtained via <code class="literal">systemctl show</code>.</p></dd><dt><span class="term">get_unit_property(unit, property, user)</span></dt><dd><p>Get the string value of a single systemd unit property</p></dd><dt><span class="term">log(msg)</span></dt><dd><p>Log a message to console.</p></dd><dt><span class="term">nested(msg, attrs)</span></dt><dd><p>Get nested logger, optionally with extra attributes.</p></dd><dt><span class="term">reboot()</span></dt><dd><p>Press Ctrl+Alt+Delete in the guest.</p><p>Prepares the machine to be reconnected which is useful if the
-machine was started with <code class="literal">allow_reboot = True</code></p></dd><dt><span class="term">require_unit_state(unit, require_state)</span></dt><dd><p>Assert that the current state of a unit has a specific value. The default state is “active”.</p></dd><dt><span class="term">screenshot(filename)</span></dt><dd><p>Take a picture of the display of the virtual machine, in PNG format.
+least one will be returned.</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">get_tty_text(tty)</span></dt><dd><p>Get the output printed to a given TTY.</p></dd><dt><span class="term">reboot()</span></dt><dd><p>Press Ctrl+Alt+Delete in the guest.</p><p>Prepares the machine to be reconnected which is useful if the
+machine was started with <code class="literal">allow_reboot = True</code></p></dd><dt><span class="term">screenshot(filename)</span></dt><dd><p>Take a picture of the display of the virtual machine, in PNG format.
 The screenshot will be available in the derivation output.</p></dd><dt><span class="term">send_chars(chars, delay)</span></dt><dd><p>Simulate typing a sequence of characters on the virtual keyboard,
 e.g., <code class="literal">send_chars(&quot;foobar\n&quot;)</code> will type the string <code class="literal">foobar</code>
 followed by the Enter key.</p></dd><dt><span class="term">send_console(chars)</span></dt><dd><p>Send keys to the kernel console. This allows interaction with the systemd
@@ -10256,44 +10327,70 @@ input syntax: https://en.wikibooks.org/wiki/QEMU/Monitor#sendkey_keys</p></dd><d
 virtual USB disks to a running machine, among other things.</p></dd><dt><span class="term">shell_interact(address)</span></dt><dd><p>Allows you to directly interact with the guest shell. This should
 only be used during test development, not in production tests.
 Killing the interactive session with <code class="literal">Ctrl-d</code> or <code class="literal">Ctrl-c</code> also ends
-the guest session.</p></dd><dt><span class="term">shutdown()</span></dt><dd><p>Shut down the machine, waiting for the VM to exit.</p></dd><dt><span class="term">start(allow_reboot)</span></dt><dd><p>Start the virtual machine. This method is asynchronous — it does
-not wait for the machine to finish booting.</p></dd><dt><span class="term">start_job(jobname, user)</span></dt><dd><p>Start systemd service.</p></dd><dt><span class="term">stop_job(jobname, user)</span></dt><dd><p>Stop systemd service.</p></dd><dt><span class="term">succeed()</span></dt><dd><p>Execute a shell command, raising an exception if the exit status is
-not zero, otherwise returning the standard output. Similar to <code class="literal">execute</code>,
-except that the timeout is <code class="literal">None</code> by default. See <code class="literal">execute</code> for details on
-command execution.</p></dd><dt><span class="term">switch_root()</span></dt><dd><p>Transition from stage 1 to stage 2. This requires the
+the guest session.</p></dd><dt><span class="term">switch_root()</span></dt><dd><p>Transition from stage 1 to stage 2. This requires the
 machine to be configured with <code class="literal">testing.initrdBackdoor = true</code>
-and <code class="literal">boot.initrd.systemd.enable = true</code>.</p></dd><dt><span class="term">systemctl(q, user)</span></dt><dd><p>Runs <code class="literal">systemctl</code> commands with optional support for
-<code class="literal">systemctl --user</code></p><pre><code class="programlisting py"># run `systemctl list-jobs --no-pager`
-machine.systemctl(&quot;list-jobs --no-pager&quot;)
-
-# spawn a shell for `any-user` and run
-# `systemctl --user list-jobs --no-pager`
-machine.systemctl(&quot;list-jobs --no-pager&quot;, &quot;any-user&quot;)
-</code></pre></dd><dt><span class="term">unblock()</span></dt><dd><p>Undo the effect of <code class="literal">block</code>.</p></dd><dt><span class="term">wait_for_closed_port(port, addr, timeout)</span></dt><dd><p>Wait until nobody is listening on the given TCP port and IP address
-(default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_console_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions match a line of the
+and <code class="literal">boot.initrd.systemd.enable = true</code>.</p></dd><dt><span class="term">unblock()</span></dt><dd><p>Undo the effect of <code class="literal">block</code>.</p></dd><dt><span class="term">wait_for_console_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions match a line of the
 serial console output.
-This method is useful when OCR is not possible or inaccurate.</p><p>When this method returns, the console output that includes the match has already become part of get_console_log().</p></dd><dt><span class="term">wait_for_file(filename, timeout)</span></dt><dd><p>Waits until the file exists in the machine’s file system.</p></dd><dt><span class="term">wait_for_open_port(port, addr, timeout)</span></dt><dd><p>Wait until a process is listening on the given TCP port and IP address
-(default <code class="literal">localhost</code>).</p></dd><dt><span class="term">wait_for_open_unix_socket(addr, is_datagram, timeout)</span></dt><dd><p>Wait until a process is listening on the given UNIX-domain socket
-(default to a UNIX-domain stream socket).</p></dd><dt><span class="term">wait_for_qmp_event(event_filter, timeout)</span></dt><dd><p>Wait for a QMP event which you can filter with the <code class="literal">event_filter</code> function.
+This method is useful when OCR is not possible or inaccurate.</p><p>When this method returns, the console output that includes the match has already become part of get_console_log().</p></dd><dt><span class="term">wait_for_qmp_event(event_filter, timeout)</span></dt><dd><p>Wait for a QMP event which you can filter with the <code class="literal">event_filter</code> function.
 The function takes as an input a dictionary of the event and if it returns True, we return that event,
 if it does not, we wait for the next event and retry.</p><p>It will skip all events received in the meantime, if you want to keep them,
-you have to do the bookkeeping yourself and store them somewhere.</p><p>By default, it will wait up to 10 minutes, <code class="literal">timeout</code> is in seconds.</p></dd><dt><span class="term">wait_for_shutdown()</span></dt><dd><p>Wait for the VM to power off. This does <span class="emphasis"><em>not</em></span> initiate a shutdown;
-that’s usually done via <code class="literal">shutdown()</code>.</p></dd><dt><span class="term">wait_for_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions matches the textual
+you have to do the bookkeeping yourself and store them somewhere.</p><p>By default, it will wait up to 10 minutes, <code class="literal">timeout</code> is in seconds.</p></dd><dt><span class="term">wait_for_text(regex, timeout)</span></dt><dd><p>Wait until the supplied regular expressions matches the textual
 contents of the screen by using optical character recognition (see
-<code class="literal">get_screen_text</code> and <code class="literal">get_screen_text_variants</code>).</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">wait_for_unit(unit, user, timeout)</span></dt><dd><p>Wait for a systemd unit to get into “active” state.
-Throws exceptions on “failed” and “inactive” states as well as after
-timing out.</p></dd><dt><span class="term">wait_for_window(regexp, timeout)</span></dt><dd><p>Wait until an X11 window has appeared whose name matches the given
-regular expression, e.g., <code class="literal">wait_for_window(&quot;Terminal&quot;)</code>.</p></dd><dt><span class="term">wait_for_x(timeout)</span></dt><dd><p>Wait until it is possible to connect to the X server.</p></dd><dt><span class="term">wait_until_fails(command, timeout)</span></dt><dd><p>Like <code class="literal">wait_until_succeeds</code>, but repeating the command until it fails.</p></dd><dt><span class="term">wait_until_succeeds(command, timeout)</span></dt><dd><p>Repeat a shell command with 1-second intervals until it succeeds.
-Has a default timeout of 900 seconds which can be modified, e.g.
-<code class="literal">wait_until_succeeds(cmd, timeout=10)</code>. See <code class="literal">execute</code> for details on
-command execution.
-Throws an exception on timeout.</p></dd><dt><span class="term">wait_until_tty_matches(tty, regexp, timeout)</span></dt><dd><p>Wait until the visible output on the chosen TTY matches regular
-expression. Throws an exception on timeout.</p></dd></dl></div><p>To test user units declared by <code class="literal">systemd.user.services</code> the optional
+<code class="literal">get_screen_text</code> and <code class="literal">get_screen_text_variants</code>).</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">wait_for_window(regexp, timeout)</span></dt><dd><p>Wait until an X11 window has appeared whose name matches the given
+regular expression, e.g., <code class="literal">wait_for_window(&quot;Terminal&quot;)</code>.</p></dd><dt><span class="term">wait_for_x(timeout)</span></dt><dd><p>Wait until it is possible to connect to the X server.</p></dd><dt><span class="term">wait_until_tty_matches(tty, regexp, timeout)</span></dt><dd><p>Wait until the visible output on the chosen TTY matches regular
+expression. Throws an exception on timeout.</p></dd></dl></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-nspawn-machine-objects" class="title" ><code class="literal">systemd-nspawn</code> container objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">_poll_socket()</span></dt><dd><p>Non-blocking check of container status via socket.
+Returns (is_ready, leader_pid).</p></dd><dt><span class="term">get_systemd_process()</span></dt><dd><p>Block until startup is complete and return the PID of the container’s systemd process.</p></dd></dl></div>
+</div>
+
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="ssec-testing-user-units" class="title" >Testing user units   </h4>  </div> </div></div><p>To test user units declared by <code class="literal">systemd.user.services</code> the optional
 <code class="literal">user</code> argument can be used:</p><pre><code class="programlisting py">machine.start()
 machine.wait_for_x()
 machine.wait_for_unit(&quot;xautolock.service&quot;, &quot;x-session-user&quot;)
 </code></pre><p>This applies to <code class="literal">systemctl</code>, <code class="literal">get_unit_info</code>, <code class="literal">wait_for_unit</code>,
-<code class="literal">start_job</code> and <code class="literal">stop_job</code>.</p><p>For faster dev cycles it’s also possible to disable the code-linters
+<code class="literal">start_job</code> and <code class="literal">stop_job</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="ssec-failing-tests-early" class="title" >Failing tests early   </h4>  </div> </div></div><p>To fail tests early when certain invariants are no longer met (instead of waiting for the build to time out), the decorator <code class="literal">polling_condition</code> is provided. For example, if we are testing a program <code class="literal">foo</code> that should not quit after being started, we might write the following:</p><pre><code class="programlisting py">@polling_condition
+def foo_running():
+    machine.succeed(&quot;pgrep -x foo&quot;)
+
+
+machine.succeed(&quot;foo --start&quot;)
+machine.wait_until_succeeds(&quot;pgrep -x foo&quot;)
+
+with foo_running:
+    ...  # Put `foo` through its paces
+</code></pre><p><code class="literal">polling_condition</code> takes the following (optional) arguments:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">seconds_interval</code></span></dt><dd><p>specifies how often the condition should be polled:</p></dd></dl></div><pre><code class="programlisting py">@polling_condition(seconds_interval=10)
+def foo_running():
+    machine.succeed(&quot;pgrep -x foo&quot;)
+</code></pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">description</code></span></dt><dd><p>is used in the log when the condition is checked. If this is not provided, the description is pulled from the docstring of the function. These two are therefore equivalent:</p></dd></dl></div><pre><code class="programlisting py">@polling_condition
+def foo_running():
+    &quot;check that foo is running&quot;
+    machine.succeed(&quot;pgrep -x foo&quot;)
+</code></pre><pre><code class="programlisting py">@polling_condition(description=&quot;check that foo is running&quot;)
+def foo_running():
+    machine.succeed(&quot;pgrep -x foo&quot;)
+</code></pre>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="ssec-python-packages-in-test-script" class="title" >Adding Python packages to the test script   </h4>  </div> </div></div><p>When additional Python libraries are required in the test script, they can be
+added using the parameter <code class="literal">extraPythonPackages</code>. For example, you could add
+<code class="literal">numpy</code> like this:</p><pre><code class="programlisting nix">{
+  extraPythonPackages = p: [ p.numpy ];
+
+  nodes = { };
+
+  # Type checking on extra packages doesn&#x27;t work yet
+  skipTypeCheck = true;
+
+  testScript = &#x27;&#x27;
+    import numpy as np
+    assert str(np.zeros(4)) == &quot;[0. 0. 0. 0.]&quot;
+  &#x27;&#x27;;
+}
+</code></pre><p>In that case, <code class="literal">numpy</code> is chosen from the generic <code class="literal">python3Packages</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="ssec-test-script-checks" class="title" >Linting and type checking test scripts   </h4>  </div> </div></div><p>Test scripts are automatically linted with
+<a class="link" href="https://pypi.org/project/pyflakes/"  target="_top">Pyflakes</a> and type-checked with
+<a class="link" href="https://mypy.readthedocs.io/en/stable/"  target="_top">Mypy</a>.
+If there are any linting or type checking errors, the test will
+fail to evaluate.</p><p>For faster dev cycles it’s also possible to disable the code-linters
 (this shouldn’t be committed though):</p><pre><code class="programlisting nix">{
   skipLint = true;
   nodes.machine =
@@ -10326,46 +10423,11 @@ way:</p><pre><code class="programlisting nix">{
     };
 }
 </code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-failing-tests-early" class="title" >Failing tests early   </h3>  </div> </div></div><p>To fail tests early when certain invariants are no longer met (instead of waiting for the build to time out), the decorator <code class="literal">polling_condition</code> is provided. For example, if we are testing a program <code class="literal">foo</code> that should not quit after being started, we might write the following:</p><pre><code class="programlisting py">@polling_condition
-def foo_running():
-    machine.succeed(&quot;pgrep -x foo&quot;)
+</div>
 
-
-machine.succeed(&quot;foo --start&quot;)
-machine.wait_until_succeeds(&quot;pgrep -x foo&quot;)
-
-with foo_running:
-    ...  # Put `foo` through its paces
-</code></pre><p><code class="literal">polling_condition</code> takes the following (optional) arguments:</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">seconds_interval</code></span></dt><dd><p>specifies how often the condition should be polled:</p></dd></dl></div><pre><code class="programlisting py">@polling_condition(seconds_interval=10)
-def foo_running():
-    machine.succeed(&quot;pgrep -x foo&quot;)
-</code></pre><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">description</code></span></dt><dd><p>is used in the log when the condition is checked. If this is not provided, the description is pulled from the docstring of the function. These two are therefore equivalent:</p></dd></dl></div><pre><code class="programlisting py">@polling_condition
-def foo_running():
-    &quot;check that foo is running&quot;
-    machine.succeed(&quot;pgrep -x foo&quot;)
-</code></pre><pre><code class="programlisting py">@polling_condition(description=&quot;check that foo is running&quot;)
-def foo_running():
-    machine.succeed(&quot;pgrep -x foo&quot;)
-</code></pre>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="ssec-python-packages-in-test-script" class="title" >Adding Python packages to the test script   </h3>  </div> </div></div><p>When additional Python libraries are required in the test script, they can be
-added using the parameter <code class="literal">extraPythonPackages</code>. For example, you could add
-<code class="literal">numpy</code> like this:</p><pre><code class="programlisting nix">{
-  extraPythonPackages = p: [ p.numpy ];
-
-  nodes = { };
-
-  # Type checking on extra packages doesn&#x27;t work yet
-  skipTypeCheck = true;
-
-  testScript = &#x27;&#x27;
-    import numpy as np
-    assert str(np.zeros(4)) == &quot;[0. 0. 0. 0.]&quot;
-  &#x27;&#x27;;
-}
-</code></pre><p>In that case, <code class="literal">numpy</code> is chosen from the generic <code class="literal">python3Packages</code>.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-override-nixos-test" class="title" >Overriding a test   </h3>  </div> </div></div><p>The NixOS test framework returns tests with multiple overriding methods.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">overrideTestDerivation</code> <span class="emphasis"><em>function</em></span></span></dt><dd><p>Like applying <code class="literal">overrideAttrs</code> on the <a class="link" href="index.html#test-opt-test"  >test</a> derivation.</p><p>This is a convenience for <code class="literal">extend</code> with an override on the <a class="link" href="index.html#test-opt-rawTestDerivationArg"  ><code class="literal">rawTestDerivationArg</code></a> option.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><span class="emphasis"><em>function</em></span></span></dt><dd><p>An extension function, e.g. <code class="literal">finalAttrs: prevAttrs: { /* … */ }</code>, the result of which is passed to <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#sec-using-stdenv"  target="_top"><code class="literal">mkDerivation</code></a>.
 Just as with <code class="literal">overrideAttrs</code>, an abbreviated form can be used, e.g. <code class="literal">prevAttrs: { /* … */ }</code> or even <code class="literal">{ /* … */ }</code>.
-See <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#function-library-lib.fixedPoints.extends"  target="_top"><code class="literal">lib.extends</code></a>.</p></dd></dl></div></dd><dt><span class="term"><code class="literal">extendNixOS { module = </code> <span class="emphasis"><em>module</em></span> <code class="literal">; specialArgs = </code> <span class="emphasis"><em>specialArgs</em></span> <code class="literal">; }</code></span></dt><dd><p>Evaluates the test with additional NixOS modules and/or arguments.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">module</code></span></dt><dd><p>A NixOS module to add to all the nodes in the test. Sets test option <a class="link" href="index.html#test-opt-extraBaseModules"  ><code class="literal">extraBaseModules</code></a>.</p></dd><dt><span class="term"><code class="literal">specialArgs</code></span></dt><dd><p>An attribute set of arguments to pass to all NixOS modules. These override the existing arguments, as well as any <code class="literal">_module.args.&lt;name&gt;</code> that the modules may define. Sets test option <a class="link" href="index.html#test-opt-node.specialArgs"  ><code class="literal">node.specialArgs</code></a>.</p></dd></dl></div><p>This is a convenience function for <code class="literal">extend</code> that overrides the aforementioned test options.</p><div class="example"><span id="ex-nixos-test-extendNixOS" ></span><details><summary><span class="title"><strong>Example 36. Using extendNixOS in <code class="literal">passthru.tests</code> to make <code class="literal">(openssh.tests.overrideAttrs f).tests.nixos</code> coherent</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">mkDerivation (finalAttrs: {
+See <a class="link" href="https://nixos.org/manual/nixpkgs/stable/#function-library-lib.fixedPoints.extends"  target="_top"><code class="literal">lib.extends</code></a>.</p></dd></dl></div></dd><dt><span class="term"><code class="literal">extendNixOS { module = </code> <span class="emphasis"><em>module</em></span> <code class="literal">; specialArgs = </code> <span class="emphasis"><em>specialArgs</em></span> <code class="literal">; }</code></span></dt><dd><p>Evaluates the test with additional NixOS modules and/or arguments.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><code class="literal">module</code></span></dt><dd><p>A NixOS module to add to all the machines in the test. Sets test option <a class="link" href="index.html#test-opt-extraBaseModules"  ><code class="literal">extraBaseModules</code></a>.</p></dd><dt><span class="term"><code class="literal">specialArgs</code></span></dt><dd><p>An attribute set of arguments to pass to all NixOS modules. These override the existing arguments, as well as any <code class="literal">_module.args.&lt;name&gt;</code> that the modules may define. Sets test option <a class="link" href="index.html#test-opt-node.specialArgs"  ><code class="literal">node.specialArgs</code></a>.</p></dd></dl></div><p>This is a convenience function for <code class="literal">extend</code> that overrides the aforementioned test options.</p><div class="example"><span id="ex-nixos-test-extendNixOS" ></span><details><summary><span class="title"><strong>Example 36. Using extendNixOS in <code class="literal">passthru.tests</code> to make <code class="literal">(openssh.tests.overrideAttrs f).tests.nixos</code> coherent</strong></span></summary><div class="example-contents"><pre><code class="programlisting nix">mkDerivation (finalAttrs: {
   # …
   passthru = {
     tests = {
@@ -10419,7 +10481,7 @@ nixos/lib/testing/run.nix
 </dt>
 <dd>
 <p>Whether to enable Optical Character Recognition functionality for
-testing graphical programs. See <a class="link" href="index.html#ssec-machine-objects" title="Machine objects" ><code class="literal">Machine objects</code></a>.</p>
+testing graphical programs. See <a class="link" href="index.html#ssec-machine-objects" title="Methods available on machine objects" ><code class="literal">Machine objects</code></a>.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -10438,12 +10500,60 @@ nixos/lib/testing/driver.nix
 </dd>
 <dt>
  <span class="term">
+ <a id="test-opt-containerDefaults"></a><a class="term" href="index.html#test-opt-containerDefaults"><code class="option">containerDefaults</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>NixOS configuration that is applied to all <a class="link" href="index.html#test-opt-containers"  ><code class="option">containers</code></a>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+module</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">{ }
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">
+nixos/lib/testing/nodes.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-containers"></a><a class="term" href="index.html#test-opt-containers"><code class="option">containers</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>An attribute set of NixOS configuration modules representing systemd-nspawn containers that can be started during a test.</p><p>The configurations are augmented by the <a class="link" href="index.html#test-opt-defaults"  ><code class="literal">defaults</code></a> option.</p><p>They are assigned network addresses according to the <code class="literal">nixos/lib/testing/network.nix</code> module.</p><p>A few special options are available, that aren’t in a plain NixOS configuration. See <a class="link" href="index.html#ssec-nixos-test-nspawn-containers" title="Configuring systemd-nspawn containers" >Configuring containers</a></p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+lazy attribute set of (submodule)</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">{ }
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">
+nixos/lib/testing/nodes.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="test-opt-defaults"></a><a class="term" href="index.html#test-opt-defaults"><code class="option">defaults</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>NixOS configuration that is applied to all <a class="link" href="index.html#test-opt-nodes"  ><code class="option">nodes</code></a>.</p>
+<p>NixOS configuration that is applied to all <a class="link" href="index.html#test-opt-nodes"  ><code class="option">nodes</code></a> and <a class="link" href="index.html#test-opt-containers"  ><code class="option">containers</code></a>.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 module</p>
@@ -10487,6 +10597,30 @@ nixos/lib/testing/driver.nix
 <dt>
  <span class="term">
  <a id="test-opt-extraBaseModules"></a><a class="term" href="index.html#test-opt-extraBaseModules"><code class="option">extraBaseModules</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>NixOS configuration that, like <a class="link" href="index.html#test-opt-defaults"  ><code class="option">defaults</code></a>, is applied to all <a class="link" href="index.html#test-opt-nodes"  ><code class="option">nodes</code></a> and <a class="link" href="index.html#test-opt-containers"  ><code class="option">containers</code></a> and can not be undone with <a class="link" href="https://search.nixos.org/options?show=specialisation.%3Cname%3E.inheritParentConfig&amp;from=0&amp;size=50&amp;sort=relevance&amp;type=packages&amp;query=specialisation"  target="_top"><code class="literal">specialisation.&lt;name&gt;.inheritParentConfig</code></a>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+module</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">{ }
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">
+nixos/lib/testing/nodes.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-extraBaseNodeModules"></a><a class="term" href="index.html#test-opt-extraBaseNodeModules"><code class="option">extraBaseNodeModules</code>
   </a>
  </span>
 </dt>
@@ -10844,7 +10978,7 @@ nixos/lib/testing/name.nix
  </span>
 </dt>
 <dd>
-<p>The Nixpkgs to use for the nodes.</p><p>Setting this will make the <code class="literal">nixpkgs.*</code> options read-only, to avoid mistakenly testing with a Nixpkgs configuration that diverges from regular use.</p>
+<p>The Nixpkgs to use for the nodes and containers.</p><p>Setting this will make the <code class="literal">nixpkgs.*</code> options read-only, to avoid mistakenly testing with a Nixpkgs configuration that diverges from regular use.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 null or Nixpkgs package set</p>
@@ -10868,7 +11002,7 @@ nixos/lib/testing/nodes.nix
  </span>
 </dt>
 <dd>
-<p>Whether to make the <code class="literal">nixpkgs.*</code> options read-only. This is only relevant when <a class="link" href="index.html#test-opt-node.pkgs"  ><code class="literal">node.pkgs</code></a> is set.</p><p>Set this to <code class="literal">false</code> when any of the <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a> needs to configure any of the <code class="literal">nixpkgs.*</code> options. This will slow down evaluation of your test a bit.</p>
+<p>Whether to make the <code class="literal">nixpkgs.*</code> options read-only. This is only relevant when <a class="link" href="index.html#test-opt-node.pkgs"  ><code class="literal">node.pkgs</code></a> is set.</p><p>Set this to <code class="literal">false</code> when any of the <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a> or <a class="link" href="index.html#test-opt-containers"  ><code class="option">containers</code></a> need to configure any of the <code class="literal">nixpkgs.*</code> options. This will slow down evaluation of your test a bit.</p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 boolean</p>
@@ -10911,15 +11045,42 @@ nixos/lib/testing/nodes.nix
 </dd>
 <dt>
  <span class="term">
+ <a id="test-opt-nodeDefaults"></a><a class="term" href="index.html#test-opt-nodeDefaults"><code class="option">nodeDefaults</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>NixOS configuration that is applied to all <a class="link" href="index.html#test-opt-nodes"  ><code class="option">nodes</code></a>.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+module</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">{ }
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">
+nixos/lib/testing/nodes.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="test-opt-nodes"></a><a class="term" href="index.html#test-opt-nodes"><code class="option">nodes</code>
   </a>
  </span>
 </dt>
 <dd>
-<p>An attribute set of NixOS configuration modules.</p><p>The configurations are augmented by the <a class="link" href="index.html#test-opt-defaults"  ><code class="literal">defaults</code></a> option.</p><p>They are assigned network addresses according to the <code class="literal">nixos/lib/testing/network.nix</code> module.</p><p>A few special options are available, that aren’t in a plain NixOS configuration. See <a class="link" href="index.html#sec-nixos-test-nodes" title="Configuring the nodes" >Configuring the nodes</a></p>
+<p>An attribute set of NixOS configuration modules representing QEMU vms that can be started during a test.</p><p>The configurations are augmented by the <a class="link" href="index.html#test-opt-defaults"  ><code class="literal">defaults</code></a> option.</p><p>They are assigned network addresses according to the <code class="literal">nixos/lib/testing/network.nix</code> module.</p><p>A few special options are available, that aren’t in a plain NixOS configuration. See <a class="link" href="index.html#ssec-nixos-test-qemu-vms" title="Configuring QEMU virtual machines" >Configuring virtual machines</a></p>
 
 <p><span class="emphasis"><em>Type:</em></span>
 lazy attribute set of module</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">{ }
+</code></pre>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
@@ -11146,35 +11307,54 @@ nixos/lib/testing/testScript.nix
 </dd>
  </dl>
 </div>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-test-sandbox-breakpoint" class="title" >Accessing VMs in the sandbox with SSH   </h3>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>For debugging with SSH access into the machines, it’s recommended to try using
-<a class="link" href="index.html#sec-running-nixos-tests-interactively" title="Running Tests interactively" >the interactive driver</a> with its
-<a class="link" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test machines" >SSH backdoor</a> first.</p><p>This feature is mostly intended to debug flaky test failures that aren’t
-reproducible elsewhere.</p></div><p>As explained in <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test machines" >the section called “SSH Access for test machines”</a>, it’s possible to configure an
-SSH backdoor based on AF_VSOCK. This can be used to SSH into a VM of a running
-build in a sandbox.</p><p>This can be done when something in the test fails, e.g.</p><pre><code class="programlisting nix">{
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-test-sandbox-breakpoint" class="title" >Debugging test machines   </h3>  </div> </div></div><p>You can set the <a class="link" href="index.html#test-opt-enableDebugHook"  ><code class="literal">enableDebugHook</code></a> option to pause
+a test on the first failure and have it print instructions on how to enter the
+sandbox shell of the test. Suppose you have the following test module:</p><pre><code class="programlisting nix">{
+  name = &quot;foo&quot;;
+
   nodes.machine = { };
 
-  sshBackdoor.enable = true;
   enableDebugHook = true;
+  sshBackdoor.enable = true;
 
   testScript = &#x27;&#x27;
     start_all()
     machine.succeed(&quot;false&quot;) # this will fail
   &#x27;&#x27;;
 }
+</code></pre><p>The test will fail with an output like this:</p><pre><code class="programlisting">vm-test-run-foo&gt; !!! Breakpoint reached, run &#x27;sudo /nix/store/eeeee-attach/bin/attach &lt;PID&gt;&#x27;
+</code></pre><p>You can then enter the sandbox shell:</p><pre><code class="programlisting">$ sudo /nix/store/eeeee-attach/bin/attach &lt;PID&gt;
+bash#
+</code></pre><p>There, you can attach to a <a class="link" href="https://docs.python.org/3/library/pdb.html"  target="_top"><code class="literal">pdb</code></a> session
+to step through the Python test script:</p><pre><code class="programlisting">bash# telnet 127.0.0.1 4444
+pdb$
+</code></pre><p>Note that it is also possible to set breakpoints in the test script using <code class="literal">debug.breakpoint()</code>.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-test-vm-ssh-access" class="title" >SSH access to test VMs   </h4>  </div> </div></div><div class="note"><h3 class="title">Note</h3><p>For debugging with SSH access into the machines, it’s recommended to try using
+<a class="link" href="index.html#sec-running-nixos-tests-interactively" title="Running Tests interactively" >the interactive driver</a> with its
+<a class="link" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test VMs" >SSH backdoor</a> first.</p><p>This feature is mostly intended to debug flaky test failures that aren’t
+reproducible elsewhere.</p></div><p>If you set the <a class="link" href="index.html#test-opt-sshBackdoor.enable"  ><code class="literal">sshBackdoor.enable</code></a> option,
+QEMU virtual machines will open an SSH backdoor based on AF_VSOCK
+(see <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test VMs" >the section called “SSH Access for test VMs”</a>).
+Once you are in the sandbox shell, you can access the VMs (for example, <code class="literal">machine</code>)
+with SSH over vsock:</p><pre><code class="programlisting">bash# ssh -F ./ssh_config vsock/3
 </code></pre><p>For the AF_VSOCK feature to work, <code class="literal">/dev/vhost-vsock</code> is needed in the sandbox
 which can be done with e.g.</p><pre><code class="programlisting">nix-build -A nixosTests.foo --option sandbox-paths /dev/vhost-vsock
-</code></pre><p>This will halt the test execution on a test-failure and print instructions
-on how to enter the sandbox shell of the VM test. Inside, one can log into
-e.g. <code class="literal">machine</code> with</p><pre><code class="programlisting">ssh -F ./ssh_config vsock/3
-</code></pre><p>As described in <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test machines" >the section called “SSH Access for test machines”</a>, the numbers for vsock start at
+</code></pre><p>As described in <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test VMs" >the section called “SSH Access for test VMs”</a>, the numbers for vsock start at
 <code class="literal">3</code> instead of <code class="literal">1</code>. So the first VM in the network (sorted alphabetically) can
-be accessed with <code class="literal">vsock/3</code>.</p><p>Alternatively, it’s possible to explicitly set a breakpoint with
-<code class="literal">debug.breakpoint()</code>. This also has the benefit, that one can step through
-<code class="literal">testScript</code> with <code class="literal">pdb</code> like this:</p><pre><code class="programlisting">$ sudo /nix/store/eeeee-attach &lt;id&gt;
-bash# telnet 127.0.0.1 4444
-pdb$ …
+be accessed with <code class="literal">vsock/3</code>.</p>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-test-container-ssh-access" class="title" >SSH access to test containers   </h4>  </div> </div></div><p>If you set the <a class="link" href="index.html#test-opt-sshBackdoor.enable"  ><code class="literal">sshBackdoor.enable</code></a> option,
+each <code class="literal">systemd-nspawn</code> container will open an SSH backdoor.
+Once the container starts,
+it will print instructions on how to log into the container via SSH.
+If the test fails,
+attach to the sandbox as described above,
+and then use the provided SSH command to log into the container.
+For example:</p><pre><code class="programlisting">$ sudo /nix/store/eeeee-attach &lt;PID&gt;
+bash# ssh -o User=root -o ProxyCommand=&quot;socat - UNIX-CLIENT:/run/systemd/nspawn/unix-export/machine/ssh&quot; bash
+[root@machine:~]# hostname
+machine
 </code></pre>
+</div>
+
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-running-nixos-tests" class="title" style="clear: both">Running Tests   </h2>  </div> </div></div><p>You can run tests using <code class="literal">nix-build</code>. For example, to run the test
@@ -11186,9 +11366,31 @@ a build that starts a QEMU/KVM virtual machine containing a NixOS
 system. The virtual machine mounts the Nix store of the host; this makes
 VM creation very fast, as no disk image needs to be created. Afterwards,
 you can view a log of the test:</p><pre><code class="programlisting ShellSession">$ nix-store --read-log result
-</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-running-nixos-tests-requirements" class="title" >System Requirements   </h3>  </div> </div></div><p>NixOS tests require virtualization support.
+</code></pre><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-running-nixos-tests-requirements" class="title" >System Requirements   </h3>  </div> </div></div><p>NixOS tests using QEMU virtual machine <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a> require virtualization support.
 This means that the machine must have <code class="literal">kvm</code> in its <a class="link" href="https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=system-features#conf-system-features"  target="_top">system features</a> list, or <code class="literal">apple-virt</code> in case of macOS.
-These features are autodetected locally, but <code class="literal">apple-virt</code> is only autodetected since Nix 2.19.0.</p><p>Features of <span class="strong"><strong>remote builders</strong></span> must additionally be configured manually on the client, e.g. on NixOS with <a class="link" href="https://search.nixos.org/options?show=nix.buildMachines.*.supportedFeatures&amp;sort=alpha_asc&amp;query=nix.buildMachines"  target="_top"><code class="literal">nix.buildMachines.*.supportedFeatures</code></a> or through general <a class="link" href="https://nixos.org/manual/nix/stable/advanced-topics/distributed-builds"  target="_top">Nix configuration</a>.</p><p>If you run the tests on a <span class="strong"><strong>macOS</strong></span> machine, you also need a “remote” builder for Linux; possibly a VM. <a class="link" href="https://daiderd.com/nix-darwin/"  target="_top">nix-darwin</a> users may enable <a class="link" href="https://daiderd.com/nix-darwin/manual/index.html#opt-nix.linux-builder.enable"  target="_top"><code class="literal">nix.linux-builder.enable</code></a> to launch such a VM.</p>
+These features are autodetected locally, but <code class="literal">apple-virt</code> is only autodetected since Nix 2.19.0.</p><p>Features of <span class="strong"><strong>remote builders</strong></span> must additionally be configured manually on the client, e.g. on NixOS with <a class="link" href="https://search.nixos.org/options?show=nix.buildMachines.*.supportedFeatures&amp;sort=alpha_asc&amp;query=nix.buildMachines"  target="_top"><code class="literal">nix.buildMachines.*.supportedFeatures</code></a> or through general <a class="link" href="https://nixos.org/manual/nix/stable/advanced-topics/distributed-builds"  target="_top">Nix configuration</a>.</p><p>If you run the tests on a <span class="strong"><strong>macOS</strong></span> machine, you also need a “remote” builder for Linux; possibly a VM. <a class="link" href="https://daiderd.com/nix-darwin/"  target="_top">nix-darwin</a> users may enable <a class="link" href="https://daiderd.com/nix-darwin/manual/index.html#opt-nix.linux-builder.enable"  target="_top"><code class="literal">nix.linux-builder.enable</code></a> to launch such a VM.</p><p>NixOS tests using <code class="literal">systemd-nspawn</code> <a class="link" href="index.html#test-opt-containers"  ><code class="literal">containers</code></a> require the Nix daemon to be
+configured with the following settings:</p><pre><code class="programlisting nix">{
+  nix.settings = {
+    auto-allocate-uids = true;
+    extra-system-features = [ &quot;uid-range&quot; ];
+    experimental-features = [
+      &quot;auto-allocate-uids&quot;
+      &quot;cgroups&quot;
+    ];
+  };
+}
+</code></pre><p>See the documentation of the settings
+<a class="link" href="https://nix.dev/manual/nix/stable/command-ref/conf-file#conf-auto-allocate-uids"  target="_top"><code class="literal">auto-allocate-uids</code></a>,
+<a class="link" href="https://nix.dev/manual/nix/stable/command-ref/conf-file.html?highlight=uid-range#conf-system-features"  target="_top"><code class="literal">uid-range</code></a>, and
+<a class="link" href="https://nix.dev/manual/nix/stable/development/experimental-features#xp-feature-cgroups"  target="_top"><code class="literal">cgroups</code></a>
+for more information.</p><p>If the test uses both <code class="literal">systemd-nspawn</code> <a class="link" href="index.html#test-opt-containers"  ><code class="literal">containers</code></a> and QEMU virtual machine <a class="link" href="index.html#test-opt-nodes"  ><code class="literal">nodes</code></a>
+and requires them share a common VLAN,
+<code class="literal">/dev/net</code> must be present in the sandbox.
+This allows them to be bridged over a TAP interface.
+To make this path available, set the following option:</p><pre><code class="programlisting nix">{
+  nix.settings.sandbox-paths = [ &quot;/dev/net&quot; ];
+}
+</code></pre>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-running-nixos-tests-interactively" class="title" style="clear: both">Running Tests interactively   </h2>  </div> </div></div><p>The test itself can be run interactively. This is particularly useful
@@ -11196,7 +11398,11 @@ when developing or debugging a test:</p><pre><code class="programlisting ShellSe
 $ ./result/bin/nixos-test-driver
 [...]
 &gt;&gt;&gt;
-</code></pre><div class="note"><h3 class="title">Note</h3><p>By executing the test driver in this way,
+</code></pre><div class="note"><h3 class="title">Note</h3><p>Tests using <code class="literal">systemd-nspawn</code> container machines require root privileges to run interactively,
+since the driver calls <code class="literal">systemd-nspawn</code> directly to start the containers:</p><pre><code class="programlisting">$ sudo ./result/bin/nixos-test-driver
+[...]
+&gt;&gt;&gt;
+</code></pre></div><div class="note"><h3 class="title">Note</h3><p>By executing the test driver in this way,
 the VMs executed may gain network &amp; Internet access via their backdoor control interface,
 typically recognized as <code class="literal">eth0</code>.</p></div><p>You can then take any Python statement, e.g.</p><pre><code class="programlisting py">&gt;&gt;&gt; start_all()
 &gt;&gt;&gt; test_script()
@@ -11205,7 +11411,7 @@ typically recognized as <code class="literal">eth0</code>.</p></div><p>You can t
 </code></pre><p>The function <code class="literal">test_script</code> executes the entire test script and drops you
 back into the test driver command line upon its completion. This allows
 you to inspect the state of the VMs after the test (e.g. to debug the
-test script).</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-shell-access" class="title" >Shell access in interactive mode   </h3>  </div> </div></div><p>The function <code class="literal">&lt;yourmachine&gt;.shell_interact()</code> grants access to a shell running
+test script).</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-shell-access" class="title" >Shell access to VMs in interactive mode   </h3>  </div> </div></div><p>The function <code class="literal">&lt;yourmachine&gt;.shell_interact()</code> grants access to a shell running
 inside a virtual machine. To use it, replace <code class="literal">&lt;yourmachine&gt;</code> with the name of a
 virtual machine defined in the test, for example: <code class="literal">machine.shell_interact()</code>.
 Keep in mind that this shell may not display everything correctly as it is
@@ -11220,7 +11426,7 @@ starting a TCP server in a terminal using the command:</p><pre><code class="prog
 using:</p><pre><code class="programlisting py">&gt;&gt;&gt; machine.shell_interact(&quot;tcp:127.0.0.1:4444&quot;)
 </code></pre><p>Once the connection is established, you can enter commands in the socat terminal
 where socat is running.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-ssh-access" class="title" >SSH Access for test machines   </h3>  </div> </div></div><p>An SSH-based backdoor to log into machines can be enabled with</p><pre><code class="programlisting nix">{
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-ssh-access" class="title" >SSH Access for test VMs   </h3>  </div> </div></div><p>An SSH-based backdoor to log into machines can be enabled with</p><pre><code class="programlisting nix">{
   name = &quot;…&quot;;
   nodes.machines = {
     # …
@@ -11255,7 +11461,7 @@ Thus they cannot connect to ports that are only bound to the VM’s
 loopback interface (<code class="literal">127.0.0.1</code>), and the VM’s NixOS firewall
 must be configured to allow these connections.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-reuse-vm-state" class="title" >Reuse VM state   </h3>  </div> </div></div><p>You can re-use the VM states coming from a previous run by setting the
-<code class="literal">--keep-vm-state</code> flag.</p><pre><code class="programlisting ShellSession">$ ./result/bin/nixos-test-driver --keep-vm-state
+<code class="literal">--keep-machine-state</code> flag.</p><pre><code class="programlisting ShellSession">$ ./result/bin/nixos-test-driver --keep-machine-state
 </code></pre><p>The machine state is stored in the <code class="literal">$TMPDIR/vm-state-machinename</code>
 directory.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-interactive-configuration" class="title" >Interactive-only test configuration   </h3>  </div> </div></div><p>The <code class="literal">.driverInteractive</code> attribute combines the regular test configuration with
