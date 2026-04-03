@@ -1924,9 +1924,12 @@ servers:</p><pre><code class="programlisting nix">{
   networking.defaultGateway = &quot;192.168.1.1&quot;;
   networking.nameservers = [ &quot;8.8.8.8&quot; ];
 }
-</code></pre><div class="note"><h3 class="title">Note</h3><p>Statically configured interfaces are set up by the systemd service
-<code class="literal">interface-name-cfg.service</code>. The default gateway and name server
-configuration is performed by <code class="literal">network-setup.service</code>.</p></div><p>The host name is set using <a class="xref" href="options.html#opt-networking.hostName"  ><code class="option">networking.hostName</code></a>:</p><pre><code class="programlisting nix">{ networking.hostName = &quot;cartman&quot;; }
+</code></pre><div class="note"><h3 class="title">Note</h3><p>Addresses and routes for statically configured interfaces and the default
+gateway are set up by systemd services named
+<code class="literal">network-addresses-&lt;interface&gt;.service</code>. The name servers configuration,
+instead, is performed by <code class="literal">network-local-commands.service</code> using resolvconf.</p></div><div class="note"><h3 class="title">Note</h3><p>If needed, for example if addresses/routes were added/removed,
+you can reset the network configuration by running
+<code class="literal">systemctl restart networking-scripted.target</code></p></div><p>The host name is set using <a class="xref" href="options.html#opt-networking.hostName"  ><code class="option">networking.hostName</code></a>:</p><pre><code class="programlisting nix">{ networking.hostName = &quot;cartman&quot;; }
 </code></pre><p>The default host name is <code class="literal">nixos</code>. Set it to the empty string (<code class="literal">&quot;&quot;</code>) to
 allow the DHCP server to provide the host name.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-ipv6" class="title" style="clear: both">IPv6 Configuration   </h2>  </div> </div></div><p>IPv6 is enabled by default. Stateless address autoconfiguration is used
@@ -2111,15 +2114,21 @@ the WiFi <a class="link" href="options.html#opt-networking.networkmanager.wifi.b
 wpa_supplicant.</p></div>
 </div>
 
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ad-hoc-network-config" class="title" style="clear: both">Ad-Hoc Configuration   </h2>  </div> </div></div><p>You can use <a class="xref" href="options.html#opt-networking.localCommands"  ><code class="option">networking.localCommands</code></a> to
-specify shell commands to be run at the end of <code class="literal">network-setup.service</code>. This
-is useful for doing network configuration not covered by the existing NixOS
-modules. For instance, to statically configure an IPv6 address:</p><pre><code class="programlisting nix">{
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="ad-hoc-network-config" class="title" style="clear: both">Ad-Hoc Configuration   </h2>  </div> </div></div><p>You can use <a class="xref" href="options.html#opt-networking.localCommands"  ><code class="option">networking.localCommands</code></a> to specify shell commands to be
+run after the network interfaces have been created, but not necessarily fully
+configured.
+This is useful for doing network configuration not covered by the existing
+NixOS modules. For example, you can create a network namespace and a pair
+of virtual ethernet devices like this:</p><pre><code class="programlisting nix">{
   networking.localCommands = &#x27;&#x27;
-    ip -6 addr add 2001:610:685:1::1/64 dev eth0
+    ip netns add mynet
+    ip link add name veth-in type veth peer name veth-out
+    ip link set dev veth-out netns mynet
   &#x27;&#x27;;
 }
-</code></pre>
+</code></pre><div class="note"><h3 class="title">Note</h3><p>The commands should ideally be idempotent, so it’s recommended to perform
+cleanups of the state you create (e.g. virtual interfaces), or at least make
+sure possible failures are handled.</p></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="sec-rename-ifs" class="title" style="clear: both">Renaming network interfaces   </h2>  </div> </div></div><p>NixOS uses the udev <a class="link" href="https://systemd.io/PREDICTABLE_INTERFACE_NAMES/"  target="_top">predictable naming
 scheme</a> to assign names
 to network interfaces. This means that by default cards are not given
