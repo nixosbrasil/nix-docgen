@@ -1053,7 +1053,7 @@ true
 
 $ nixos-option boot.kernelModules
 [ &quot;tun&quot; &quot;ipv6&quot; &quot;loop&quot; ... ]
-</code></pre><p>Interactive exploration of the configuration is possible using <code class="literal">nix   repl</code>, a read-eval-print loop for Nix expressions. A typical use:</p><pre><code class="programlisting ShellSession">$ nix repl &#x27;&lt;nixpkgs/nixos&gt;&#x27;
+</code></pre><p>Interactive exploration of the configuration is possible using <code class="literal">nix   repl</code>, a read-eval-print loop for Nix expressions. A typical use:</p><pre><code class="programlisting ShellSession">$ nix repl -f &#x27;&lt;nixpkgs/nixos&gt;&#x27;
 
 nix-repl&gt; config.networking.hostName
 &quot;mandark&quot;
@@ -7093,7 +7093,7 @@ Any attempts to move <code class="literal">pg_config</code> into <code class="li
 (see commits <a class="link" href="https://github.com/NixOS/nixpkgs/commit/0c477676412564bd2d5dadc37cf245fe4259f4d9"  target="_top"><code class="literal">0c47767</code></a>, <a class="link" href="https://github.com/NixOS/nixpkgs/commit/435f51c37faf74375134dfbd7c5a4560da2a9ea7"  target="_top"><code class="literal">435f51c</code></a>).</p></li><li class="listitem"><p><code class="literal">pg_config</code> is only needed to build extensions or in some exceptions for building client libraries linking to <code class="literal">libpq.so</code>.
 If such a build works without <code class="literal">pg_config</code>, this is strictly preferable over adding <code class="literal">pg_config</code> to the build environment.</p><p>With the current approach it’s now explicit that this is needed.</p></li></ul></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-postgres-options" class="title" style="clear: both">Options   </h2>  </div> </div></div><p>A complete list of options for the PostgreSQL module may be found <a class="link" href="options.html#opt-services.postgresql.enable"  >here</a>.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-postgres-plugins" class="title" style="clear: both">Plugins   </h2>  </div> </div></div><p>The collection of plugins for each PostgreSQL version can be accessed with <code class="literal">.pkgs</code>. For example, for the <code class="literal">pkgs.postgresql_15</code> package, its plugin collection is accessed by <code class="literal">pkgs.postgresql_15.pkgs</code>:</p><pre><code class="programlisting ShellSession">$ nix repl &#x27;&lt;nixpkgs&gt;&#x27;
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-postgres-plugins" class="title" style="clear: both">Plugins   </h2>  </div> </div></div><p>The collection of plugins for each PostgreSQL version can be accessed with <code class="literal">.pkgs</code>. For example, for the <code class="literal">pkgs.postgresql_15</code> package, its plugin collection is accessed by <code class="literal">pkgs.postgresql_15.pkgs</code>:</p><pre><code class="programlisting ShellSession">$ nix repl -f &#x27;&lt;nixpkgs&gt;&#x27;
 
 Loading &#x27;&lt;nixpkgs&gt;&#x27;...
 Added 10574 variables.
