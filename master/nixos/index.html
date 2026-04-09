@@ -9183,7 +9183,15 @@ should only be used when checking, merging and nested evaluation are not
 desirable.</p></dd><dt><span class="term"><code class="literal">types.optionType</code></span></dt><dd><p>The type of an option’s type. Its merging operation ensures that nested
 options have the correct file location annotated, and that if possible,
 multiple option definitions are correctly merged together. The main use
-case is as the type of the <code class="literal">_module.freeformType</code> option.</p></dd><dt><span class="term"><code class="literal">types.attrs</code></span></dt><dd><p>A free-form attribute set.</p><div class="warning"><h3 class="title">Warning</h3><p>This type will be deprecated in the future because it doesn’t
+case is as the type of the <code class="literal">_module.freeformType</code> option.</p></dd><dt><span class="term"><code class="literal">types.optionDeclaration</code></span></dt><dd><p>The type of a module system option declaration, as created by <code class="literal">lib.mkOption</code>.
+This allows an option to hold another option declaration as its value, which
+can then be spliced into a module’s <code class="literal">options</code> attrset. Note that this only
+accepts option declarations, not evaluated options (i.e. options that have
+been processed by <code class="literal">evalModules</code> and have a <code class="literal">value</code> field).</p><div class="warning"><h3 class="title">Warning</h3><p>Use of this type is a form of metaprogramming that makes modules harder
+to reason about, since options and their types become dynamic values
+rather than statically declared structure. Prefer conventional module
+patterns where possible, and only reach for <code class="literal">types.optionDeclaration</code> when the
+added complexity is justified.</p></div></dd><dt><span class="term"><code class="literal">types.attrs</code></span></dt><dd><p>A free-form attribute set.</p><div class="warning"><h3 class="title">Warning</h3><p>This type will be deprecated in the future because it doesn’t
 recurse into attribute sets, silently drops earlier attribute
 definitions, and doesn’t discharge <code class="literal">lib.mkDefault</code>, <code class="literal">lib.mkIf</code>
 and co. For allowing arbitrary attribute sets, prefer
