@@ -10570,8 +10570,7 @@ Has a default timeout of 900 seconds which can be modified, e.g.
 <code class="literal">wait_until_succeeds(cmd, timeout=10)</code>. See <code class="literal">execute</code> for details on
 command execution.
 Throws an exception on timeout.</p></dd></dl></div>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-qemu-machine-objects" class="title" >QEMU VM objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">_managed_screenshot()</span></dt><dd><p>Take a screenshot and yield the screenshot filepath.
-The file will be deleted when leaving the generator.</p></dd><dt><span class="term">block()</span></dt><dd><p>Simulate unplugging the Ethernet cable that connects the machine to
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-qemu-machine-objects" class="title" >QEMU VM objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">block()</span></dt><dd><p>Simulate unplugging the Ethernet cable that connects the machine to
 the other machines.
 This happens by shutting down eth1 (the multicast interface used to talk
 to the other VMs). eth0 is kept online to still enable the test driver
@@ -10611,8 +10610,7 @@ contents of the screen by using optical character recognition (see
 <code class="literal">get_screen_text</code> and <code class="literal">get_screen_text_variants</code>).</p><div class="note"><h3 class="title">Note</h3><p>This requires <a class="link" href="index.html#test-opt-enableOCR"  ><code class="literal">enableOCR</code></a> to be set to <code class="literal">true</code>.</p></div></dd><dt><span class="term">wait_for_window(regexp, timeout)</span></dt><dd><p>Wait until an X11 window has appeared whose name matches the given
 regular expression, e.g., <code class="literal">wait_for_window(&quot;Terminal&quot;)</code>.</p></dd><dt><span class="term">wait_for_x(timeout)</span></dt><dd><p>Wait until it is possible to connect to the X server.</p></dd><dt><span class="term">wait_until_tty_matches(tty, regexp, timeout)</span></dt><dd><p>Wait until the visible output on the chosen TTY matches regular
 expression. Throws an exception on timeout.</p></dd></dl></div>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-nspawn-machine-objects" class="title" ><code class="literal">systemd-nspawn</code> container objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">_poll_socket()</span></dt><dd><p>Non-blocking check of container status via socket.
-Returns (is_ready, leader_pid).</p></dd><dt><span class="term">get_systemd_process()</span></dt><dd><p>Block until startup is complete and return the PID of the container’s systemd process.</p></dd></dl></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h5 id="ssec-nspawn-machine-objects" class="title" ><code class="literal">systemd-nspawn</code> container objects   </h5>  </div> </div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term">get_systemd_process()</span></dt><dd><p>Block until startup is complete and return the PID of the container’s systemd process.</p></dd></dl></div>
 </div>
 
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="ssec-testing-user-units" class="title" >Testing user units   </h4>  </div> </div></div><p>To test user units declared by <code class="literal">systemd.user.services</code> the optional
@@ -11058,6 +11056,33 @@ nixos/lib/testing/interactive.nix
 </dd>
 <dt>
  <span class="term">
+ <a id="test-opt-logLevel"></a><a class="term" href="index.html#test-opt-logLevel"><code class="option">logLevel</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Log level for the test driver.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+one of “debug”, “info”, “warning”, “error”</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">&quot;info&quot;
+</code></pre>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">&quot;warning&quot;
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/driver.nix" target="_top">
+nixos/lib/testing/driver.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="test-opt-meta"></a><a class="term" href="index.html#test-opt-meta"><code class="option">meta</code>
   </a>
  </span>
@@ -11444,6 +11469,32 @@ nixos/lib/testing/driver.nix
 </dd>
 <dt>
  <span class="term">
+ <a id="test-opt-qemu.forceAccel"></a><a class="term" href="index.html#test-opt-qemu.forceAccel"><code class="option">qemu.forceAccel</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether to force the use of hardware-accelerated virtualisation.
+When enabled, QEMU will not fall back to the slower software emulation
+(TCG) and will instead error out if the accelerator is not available.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">false
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/driver.nix" target="_top">
+nixos/lib/testing/driver.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
  <a id="test-opt-rawTestDerivationArg"></a><a class="term" href="index.html#test-opt-rawTestDerivationArg"><code class="option">rawTestDerivationArg</code>
   </a>
  </span>
@@ -11537,35 +11588,6 @@ nixos/lib/testing/nodes.nix
 </dd>
 <dt>
  <span class="term">
- <a id="test-opt-sshBackdoor.vsockOffset"></a><a class="term" href="index.html#test-opt-sshBackdoor.vsockOffset"><code class="option">sshBackdoor.vsockOffset</code>
-  </a>
- </span>
-</dt>
-<dd>
-<p>This field is only relevant when multiple users run the (interactive)
-driver outside the sandbox and with the SSH backdoor activated.
-The typical symptom for this being a problem are error messages like this:
-<code class="literal">vhost-vsock: unable to set guest cid: Address already in use</code></p><p>This option allows to assign an offset to each vsock number to
-resolve this.</p><p>This is a 32bit number. The lowest possible vsock number is <code class="literal">3</code>
-(i.e. with the lowest node number being <code class="literal">1</code>, this is 2+1).</p>
-
-<p><span class="emphasis"><em>Type:</em></span>
-integer between 2 and 4294967296 (both inclusive)</p>
-
-<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">2
-</code></pre>
-
-<p><span class="emphasis"><em>Declared by:</em></span></p>
-<table border="0" summary="Simple list" class="simplelist">
-<tr><td>
-<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/nodes.nix" target="_top">
-nixos/lib/testing/nodes.nix
-</a></code>
-</td></tr>
-</table>
-</dd>
-<dt>
- <span class="term">
  <a id="test-opt-test"></a><a class="term" href="index.html#test-opt-test"><code class="option">test</code>
   </a>
  </span>
@@ -11638,12 +11660,9 @@ reproducible elsewhere.</p></div><p>If you set the <a class="link" href="index.h
 QEMU virtual machines will open an SSH backdoor based on AF_VSOCK
 (see <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test VMs" >the section called “SSH Access for test VMs”</a>).
 Once you are in the sandbox shell, you can access the VMs (for example, <code class="literal">machine</code>)
-with SSH over vsock:</p><pre><code class="programlisting">bash# ssh -F ./ssh_config vsock/3
-</code></pre><p>For the AF_VSOCK feature to work, <code class="literal">/dev/vhost-vsock</code> is needed in the sandbox
-which can be done with e.g.</p><pre><code class="programlisting">nix-build -A nixosTests.foo --option sandbox-paths /dev/vhost-vsock
-</code></pre><p>As described in <a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test VMs" >the section called “SSH Access for test VMs”</a>, the numbers for vsock start at
-<code class="literal">3</code> instead of <code class="literal">1</code>. So the first VM in the network (sorted alphabetically) can
-be accessed with <code class="literal">vsock/3</code>.</p>
+with SSH over vsock:</p><pre><code class="programlisting">bash# ssh -F ./ssh_config -o User=root vsock-mux//tmp/.../machine_host.socket
+</code></pre><p>The socket paths are printed at the beginning of the test. See
+<a class="xref" href="index.html#sec-nixos-test-ssh-access" title="SSH Access for test VMs" >the section called “SSH Access for test VMs”</a> for more context.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-test-container-ssh-access" class="title" >SSH access to test containers   </h4>  </div> </div></div><p>If you set the <a class="link" href="index.html#test-opt-sshBackdoor.enable"  ><code class="literal">sshBackdoor.enable</code></a> option,
 each <code class="literal">systemd-nspawn</code> container will open an SSH backdoor.
 Once the container starts,
@@ -11736,25 +11755,17 @@ where socat is running.</p>
   };
   interactive.sshBackdoor.enable = true;
 }
-</code></pre><div class="warning"><h3 class="title">Warning</h3><p>Make sure to only enable the backdoor for interactive tests
-(i.e. by using <code class="literal">interactive.sshBackdoor.enable</code>)! This is the only
-supported configuration.</p><p>Running a test in a sandbox with this will fail because <code class="literal">/dev/vhost-vsock</code> isn’t available
-in the sandbox.</p></div><p>This creates a <a class="link" href="https://man7.org/linux/man-pages/man7/vsock.7.html"  target="_top">vsock socket</a>
-for each VM to log in with SSH. This configures root login with an empty password.</p><p>When the VMs get started interactively with the test-driver, it’s possible to
-connect to <code class="literal">machine</code> with</p><pre><code class="programlisting">$ ssh vsock/3 -o User=root
-</code></pre><p>The socket numbers correspond to the node number of the test VM, but start
-at three instead of one because that’s the lowest possible
-vsock number. The exact SSH commands are also printed out when starting
-<code class="literal">nixos-test-driver</code>.</p><p>On non-NixOS systems you’ll probably need to enable
-the SSH config from <a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd-ssh-proxy.html" target="_top"><span class="citerefentry"><span class="refentrytitle">systemd-ssh-proxy</span>(1)</span></a> yourself.</p><p>If starting VM fails with an error like</p><pre><code class="programlisting">qemu-system-x86_64: -device vhost-vsock-pci,guest-cid=3: vhost-vsock: unable to set guest cid: Address already in use
-</code></pre><p>it means that the vsock numbers for the VMs are already in use. This can happen
-if another interactive test with SSH backdoor enabled is running on the machine.</p><p>In that case, you need to assign another range of vsock numbers. You can pick another
-offset with</p><pre><code class="programlisting nix">{
-  sshBackdoor = {
-    enable = true;
-    vsockOffset = 23542;
-  };
-}
+</code></pre><p>This creates a <a class="link" href="https://man7.org/linux/man-pages/man7/vsock.7.html"  target="_top">vsock socket</a>
+for each VM to log in with SSH. This configures root login with an empty password.</p><p>On the host-side a UNIX domain-socket is used with
+<a class="link" href="https://github.com/rust-vmm/vhost-device/blob/main/vhost-device-vsock/README.md"  target="_top">vhost-device-vsock</a>.
+That way, it’s not necessary to assign system-wide unique vsock numbers.</p><pre><code class="programlisting">$ ssh vsock-mux//tmp/path/to/host -o User=root
+</code></pre><p>The socket paths are printed when starting the test driver:</p><pre><code class="programlisting">Note: this requires systemd-ssh-proxy(1) to be enabled (default on NixOS 25.05 and newer).
+    machine:  ssh -o User=root vsock-mux//tmp/tmpg1rp9nti/machine_host.socket
+</code></pre><p>On non-NixOS systems you’ll probably need to enable
+the SSH config from <a class="link" href="https://www.freedesktop.org/software/systemd/man/systemd-ssh-proxy.html" target="_top"><span class="citerefentry"><span class="refentrytitle">systemd-ssh-proxy</span>(1)</span></a> yourself.</p><p>During a test-run, it’s possible to print the SSH commands again by running</p><pre><code class="programlisting">In [2]: dump_machine_ssh()
+SSH backdoor enabled, the machines can be accessed like this:
+Note: this requires systemd-ssh-proxy(1) to be enabled (default on NixOS 25.05 and newer).
+    machine:  ssh -o User=root vsock-mux//tmp/tmpg1rp9nti/machine_host.socket
 </code></pre>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixos-test-port-forwarding" class="title" >Port forwarding to NixOS test VMs   </h3>  </div> </div></div><p>If your test has only a single VM, you may use e.g.</p><pre><code class="programlisting ShellSession">$ QEMU_NET_OPTS=&quot;hostfwd=tcp:127.0.0.1:2222-:22&quot; ./result/bin/nixos-test-driver
 </code></pre><p>to port-forward a port in the VM (here <code class="literal">22</code>) to the host machine (here port <code class="literal">2222</code>).</p><p>This naturally does not work when multiple machines are involved,
