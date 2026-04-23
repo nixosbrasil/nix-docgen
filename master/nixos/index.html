@@ -5314,22 +5314,11 @@ in
       DynamicUser = false;
       ExecStart = &#x27;&#x27;
         ${pkgs.prometheus-postfix-exporter}/bin/postfix_exporter \
-          --web.systemd-socket \
+          --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
           --web.telemetry-path ${cfg.telemetryPath} \
           ${lib.concatStringsSep &quot; \\\n  &quot; cfg.extraFlags}
       &#x27;&#x27;;
     };
-  };
-
-  # `socketOpts` is an optional attribute set describing a
-  # `systemd.sockets.prometheus-${name}-exporter` unit that
-  # accompanies the exporter&#x27;s service. When set, it is merged
-  # with a default definition that includes
-  # `wantedBy = [ &quot;sockets.target&quot; ]`, enabling socket activation
-  # for exporters that support it.
-  # Note that this attribute is optional.
-  socketOpts = {
-    socketConfig.ListenStream = &quot;${cfg.listenAddress}:${toString cfg.port}&quot;;
   };
 }
 </code></pre></li><li class="listitem"><p>This should already be enough for the postfix exporter. Additionally one
@@ -8338,7 +8327,7 @@ plugins that use the “standard” Mattermost plugin build template at
 assumptions about the build environment, the <code class="literal">buildPlugin</code> helper tries to fit
 these assumptions the best it can.</p><p>Here is how to build the above Todo plugin. Note that we rely on
 package-lock.json being assembled correctly, so must use a version where it is!
-If there is no lockfile or the lockfile is incorrect, Nix cannot fetch NPM build
+If there is no lockfile or the lockfile is incorrect, Nix cannot fetch npm build
 and runtime dependencies for a sandbox build.</p><pre><code class="programlisting nix">{
   services.mattermost = {
     plugins = with pkgs; [
@@ -11502,6 +11491,158 @@ nixos/lib/testing/driver.nix
 
 <p><span class="emphasis"><em>Type:</em></span>
 function that evaluates to a(n) raw value</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-requiredFeatures"></a><a class="term" href="index.html#test-opt-requiredFeatures"><code class="option">requiredFeatures</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Builder features that are required for running this test.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+open submodule of attribute set of boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">{ }
+</code></pre>
+
+<p><span class="emphasis"><em>Example:</em></span></p><pre><code class="programlisting nix">{
+  cuda = true;
+  devnet = mkForce false;
+}
+
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-requiredFeatures.apple-virt"></a><a class="term" href="index.html#test-opt-requiredFeatures.apple-virt"><code class="option">requiredFeatures.apple-virt</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether Apple virtualization functionality is required for running this test.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code> if built to run on Darwin.</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-requiredFeatures.devnet"></a><a class="term" href="index.html#test-opt-requiredFeatures.devnet"><code class="option">requiredFeatures.devnet</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>This heuristic setting that assumes that the majority of tests requires VMs and containers
+to communicate over network. To support such tests, adding “/dev/net” to <code class="literal">nix.settings.extra-sandbox-paths</code> is necessary.</p><p>Override this to <code class="literal">false</code> if the heuristic is wrong in some cases.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code> if both VMs and containers are present.</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-requiredFeatures.kvm"></a><a class="term" href="index.html#test-opt-requiredFeatures.kvm"><code class="option">requiredFeatures.kvm</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Whether Linux KVM virtualization is required when running this test. Can be disabled to allow emulated execution.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code> if built to run on Linux.</p>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-requiredFeatures.nixos-test"></a><a class="term" href="index.html#test-opt-requiredFeatures.nixos-test"><code class="option">requiredFeatures.nixos-test</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Standard requirement for NixOS integration tests</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span></p><pre><code class="programlisting nix">true
+</code></pre>
+
+<p><span class="emphasis"><em>Declared by:</em></span></p>
+<table border="0" summary="Simple list" class="simplelist">
+<tr><td>
+<code class="filename"><a class="filename"  href="https://github.com/NixOS/nixpkgs/blob/master/nixos/lib/testing/run.nix" target="_top">
+nixos/lib/testing/run.nix
+</a></code>
+</td></tr>
+</table>
+</dd>
+<dt>
+ <span class="term">
+ <a id="test-opt-requiredFeatures.uid-range"></a><a class="term" href="index.html#test-opt-requiredFeatures.uid-range"><code class="option">requiredFeatures.uid-range</code>
+  </a>
+ </span>
+</dt>
+<dd>
+<p>Containers use systemd-nspawn, which requires pid 0 inside of the sandbox. <code class="literal">uid-range</code> enables that.</p>
+
+<p><span class="emphasis"><em>Type:</em></span>
+boolean</p>
+
+<p><span class="emphasis"><em>Default:</em></span>
+<code class="literal">true</code> if containers are present.</p>
 
 <p><span class="emphasis"><em>Declared by:</em></span></p>
 <table border="0" summary="Simple list" class="simplelist">
