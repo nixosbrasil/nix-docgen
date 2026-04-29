@@ -4659,17 +4659,18 @@ configurations in which a given user is only allowed to log in to the broker usi
 listeners (eg to configure an admin user with full access to all topics, but restricted to
 localhost).</p><p>Almost all options of Mosquitto are available for configuration at their appropriate levels, some
 as NixOS options written in camel case, the remainders under <code class="literal">settings</code> with their exact names in
-the Mosquitto config file. The exceptions are <code class="literal">acl_file</code> (which is always set according to the
-<code class="literal">acl</code> attributes of a listener and its users) and <code class="literal">per_listener_settings</code> (which is always set to
-<code class="literal">true</code>).</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="module-services-mosquitto-config-passwords" class="title" >Password authentication   </h3>  </div> </div></div><p>Mosquitto can be run in two modes, with a password file or without. Each listener has its own
+the Mosquitto config file. The exceptions are <code class="literal">per_listener_settings</code> (which is always set to
+<code class="literal">true</code>) and the per-listener access control, which is always configured via instances of the
+<code class="literal">acl-file</code> and <code class="literal">password-file</code> plugins generated from the <code class="literal">acl</code> and <code class="literal">users</code> attributes of each
+listener.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="module-services-mosquitto-config-passwords" class="title" >Password authentication   </h3>  </div> </div></div><p>Mosquitto can be run in two modes, with a password file or without. Each listener has its own
 password file, and different listeners may use different password files. Password file generation
 can be disabled by setting <code class="literal">omitPasswordAuth = true</code> for a listener; in this case it is necessary
 to either set <code class="literal">settings.allow_anonymous = true</code> to allow all logins, or to configure other
 authentication methods like TLS client certificates with <code class="literal">settings.use_identity_as_username = true</code>.</p><p>The default is to generate a password file for each listener from the users configured to that
 listener. Users with no configured password will not be added to the password file and thus
 will not be able to use the broker.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="module-services-mosquitto-config-acl" class="title" >ACL format   </h3>  </div> </div></div><p>Every listener has a Mosquitto <code class="literal">acl_file</code> attached to it. This ACL is configured via two
-attributes of the config:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>the <code class="literal">acl</code> attribute of the listener configures pattern ACL entries and topic ACL entries
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="module-services-mosquitto-config-acl" class="title" >ACL format   </h3>  </div> </div></div><p>Every listener has an instance of the Mosquitto <code class="literal">acl-file</code> plugin attached to it. This ACL is
+configured via two attributes of the config:</p><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>the <code class="literal">acl</code> attribute of the listener configures pattern ACL entries and topic ACL entries
 for anonymous users. Each entry must be prefixed with <code class="literal">pattern</code> or <code class="literal">topic</code> to distinguish
 between these two cases.</p></li><li class="listitem"><p>the <code class="literal">acl</code> attribute of every user configures in the listener configured the ACL for that
 given user. Only topic ACLs are supported by Mosquitto in this setting, so no prefix is
