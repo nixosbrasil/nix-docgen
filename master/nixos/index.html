@@ -7231,7 +7231,7 @@ can be obtained like this:</p><pre><code class="programlisting">$ nix-instantiat
         # XXX specify the postgresql package you&#x27;d like to upgrade to.
         # Do not forget to list the extensions you need.
         newPostgres = pkgs.postgresql_15.withPackages (pp: [
-          # pp.plv8
+          # pp.pl_cron
         ]);
         cfg = config.services.postgresql;
       in
