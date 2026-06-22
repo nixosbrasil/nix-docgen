@@ -38,11 +38,11 @@ let
   # Pinned Nixpkgs archive
   #
   # Use `curl -I https://channels.nixos.org/nixos-26.05` to get the
-  # latest commit of the stable channel and `nix --extra-experimental-features nix-command store prefetch-file --unpack`
-  # to compute its hash.
+  # latest commit of the stable channel and `nix-prefetch-url --unpack`
+  # to compute its sha256 hash.
   nixpkgs = builtins.fetchTarball {
     url = &quot;https://github.com/NixOS/nixpkgs/archive/c217913993d6.tar.gz&quot;;
-    hash = &quot;sha256-D1PA3xQv/s4W3lnR9yJFSld8UOLr0a/cBWMQMXS+1Qg=&quot;;
+    sha256 = &quot;026mprs324330pfazlgbw987qmsa8ligglarvqbcxzig2kgw0lqg&quot;;
   };
 in
 import &quot;${nixpkgs}/nixos&quot; {
