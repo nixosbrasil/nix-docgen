@@ -2720,6 +2720,19 @@ Google analytics.</p><div class="section"> <div class="titlepage">  <div>   <div
       # secretKeybaseFile is a path to the file which contains the secret generated
       # with openssl as described above.
       secretKeybaseFile = &quot;/run/secrets/plausible-secret-key-base&quot;;
+      # With an admin user seeded (below), registration can be locked down
+      # so only invited users (or nobody) can create further accounts.
+      disableRegistration = &quot;invite_only&quot;;
+    };
+    # If you do not declare `adminUser`, Plausible shows an unauthenticated
+    # &quot;first launch&quot; setup wizard where anybody reaching the instance can create
+    # the first admin account. That may be convenient, but is also a security
+    # risk if somebody else uses it before you do.
+    adminUser = {
+      email = &quot;admin@analytics.example.org&quot;;
+      # passwordHashFile is a path to a file containing the bcrypt hash of the
+      # admin user&#x27;s password, e.g. generated with `mkpasswd -m bcrypt`.
+      passwordHashFile = &quot;/run/secrets/plausible-admin-password-hash&quot;;
     };
   };
 }
