@@ -3038,21 +3038,19 @@ the nginx configuration in the module code as a reference to what else
 should be configured.</p>
 </div>
 
-</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy" class="title" >Lemmy   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-lemmy-quickstart">Quickstart</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-lemmy-usage">Usage</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-lemmy-missing">Missing</a> </span></dt> </dl></div><p>Lemmy is a federated alternative to reddit in rust.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-quickstart" class="title" style="clear: both">Quickstart   </h2>  </div> </div></div><p>The minimum to start lemmy is</p><pre><code class="programlisting nix">{
+</div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy" class="title" >Lemmy   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-lemmy-quickstart">Quickstart</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-lemmy-usage">Usage</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-lemmy-missing">Missing</a> </span></dt> </dl></div><p>Lemmy is a federated alternative to Reddit in Rust.</p><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-quickstart" class="title" style="clear: both">Quickstart   </h2>  </div> </div></div><p>The minimum to start Lemmy is</p><pre><code class="programlisting nix">{
   services.lemmy = {
     enable = true;
-    settings = {
-      hostname = &quot;lemmy.union.rocks&quot;;
-      database.createLocally = true;
-    };
+    settings.hostname = &quot;lemmy.union.rocks&quot;;
+    database.createLocally = true;
     caddy.enable = true;
   };
 }
 </code></pre><p>This will start the backend on port 8536 and the frontend on port 1234.
-It will expose your instance with a caddy reverse proxy to the hostname you’ve provided.
+It will expose your instance with a Caddy reverse proxy to the hostname you’ve provided.
 Postgres will be initialized on that same instance automatically.</p>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-usage" class="title" style="clear: both">Usage   </h2>  </div> </div></div><p>On first connection you will be asked to define an admin user.</p>
-</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-missing" class="title" style="clear: both">Missing   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Exposing with nginx is not implemented yet.</p></li><li class="listitem"><p>This has been tested using a local database with a unix socket connection. Using different database settings will likely require modifications</p></li></ul></div>
+</div><div class="section"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-lemmy-missing" class="title" style="clear: both">Missing   </h2>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>This has been tested using a local database with a Unix socket connection. Using different database settings will likely require modifications.</p></li></ul></div>
 </div>
 
 </div><div class="chapter"> <div class="titlepage">  <div>   <div>    <h2 id="module-services-keycloak" class="title" >Keycloak   </h2>  </div> </div></div><div class="toc"> <p><strong>Table of Contents</strong></p> <dl class="toc">  <dt> <span class="section">  <a href="index.html#module-services-keycloak-admin">Administration</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-database">Database access</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-unix-socket">Unix socket authentication</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-hostname">Hostname</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-tls">Setting up TLS/SSL</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-themes">Themes</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-settings">Configuration file settings</a> </span></dt><dt> <span class="section">  <a href="index.html#module-services-keycloak-example-config">Example configuration</a> </span></dt> </dl></div><p><a class="link" href="https://www.keycloak.org/"  target="_top">Keycloak</a> is an
