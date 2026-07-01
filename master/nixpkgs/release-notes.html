@@ -45,7 +45,11 @@ for details.</p></li><li class="listitem"><p><code class="literal">rebuilderd</c
 <code class="literal">mkDerivation</code> has been adjusted to reuse this information.
 Package-URLs allow reliably identifying and locating software packages.
 Maintainers of derivations using the adapted fetchers should rely on the <code class="literal">drv.src.meta.identifiers.v1.purl</code> default identifier and can enhance their <code class="literal">drv.meta.identifiers.v1.purls</code> list once they would like to have additional identifiers.
-Maintainers using <code class="literal">fetchurl</code> for <code class="literal">drv.src</code> are urged to adapt their <code class="literal">drv.meta.identifiers.purlParts</code> for proper identification.</p></li><li class="listitem"><p><code class="literal">services.ceph</code> enabled the generation of Ceph log files at <code class="literal">/var/log/ceph/</code>.
+Maintainers using <code class="literal">fetchurl</code> for <code class="literal">drv.src</code> are urged to adapt their <code class="literal">drv.meta.identifiers.purlParts</code> for proper identification.</p></li><li class="listitem"><p>Emacs loads the <code class="literal">early-default</code> library after <code class="literal">early-init.el</code>.
+Users can add <code class="literal">early-init.el</code> via <code class="literal">emacs.pkgs.withPackages</code>
+by packaging <code class="literal">early-init.el</code> into a library named <code class="literal">early-default</code>.
+To prevent loading the <code class="literal">early-default</code> library,
+set <code class="literal">inhibit-early-default-init</code> in <code class="literal">early-init.el</code>.</p></li><li class="listitem"><p><code class="literal">services.ceph</code> enabled the generation of Ceph log files at <code class="literal">/var/log/ceph/</code>.
 They were missing before because Ceph omitted logs when this directory was missing.
 Ceph logs can grow large, so you may want to configure rotation of these logs.</p></li></ul></div>
 </div><div class="section"> <div class="titlepage">  <div>   <div>    <h3 id="sec-nixpkgs-release-26.11-lib" class="title" >Nixpkgs Library   </h3>  </div> </div></div><div class="section"> <div class="titlepage">  <div>   <div>    <h4 id="sec-nixpkgs-release-26.11-lib-breaking" class="title" >Breaking changes   </h4>  </div> </div></div><div class="itemizedlist"><ul class="itemizedlist compact" style="list-style-type: disc;"><li class="listitem"><p>Create the first release note entry in this section!</p></li></ul></div>
